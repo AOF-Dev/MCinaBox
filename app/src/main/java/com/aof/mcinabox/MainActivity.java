@@ -2,24 +2,46 @@ package com.aof.mcinabox;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
-
-
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
-
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+import com.aof.mcinabox.DownloadMinecraft;
 
 public class MainActivity extends AppCompatActivity {
+Button[] LauncherBts;
+Button testButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //请求软件所需的权限
+        requestPermission();
+
         //使用Toolbar作为Actionbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
+
+        //给界面的按键设置按键监听
+        testButton = (Button) findViewById(R.id.main_linear1_button1);
+        LauncherBts = new Button[]{testButton};
+        for(Button button : LauncherBts ){
+            button.setOnClickListener(listener);
+        }
+
+        DownloadMinecraft downloadTest = new DownloadMinecraft();
+        downloadTest.setInformation("https://launchermeta.mojang.com", Environment.getExternalStorageDirectory().getPath()+"/download");
+        downloadTest.UpdateVersionJson();
+
     }
 
     //重写boolean onCreatOptionsMenu(Menu menu)方法实现Toolbar的菜单
@@ -40,19 +62,40 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-/*
-    //检查悬浮窗口权限
-    public void startFloatingService(View view) {
-        if (Build.VERSION.SDK_INT >= 23){
-            if (!Settings.canDrawOverlays(this)) {
-              Toast.makeText(this, "请授权悬浮窗口权限", Toast.LENGTH_SHORT);
-              startActivityForResult(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName())), 0);
+    /*public void startFloatingService(View view) {
+        if (Build.VERSION.SDK_INT >= 23 && !Settings.canDrawOverlays(this)) {
+            Toast.makeText(this, "请授权本地存储权限", Toast.LENGTH_SHORT).show();
+            startActivityForResult(new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS, Uri.parse("package:" + getPackageName())), 0);
+        }
+    }*/
+    public void requestPermission(){
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             } else {
-                startService(new Intent(MainActivity.this, FloatingService.class));
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
             }
         }
     }
 
- */
+    private View.OnClickListener listener = new View.OnClickListener(){
+        @Override
+        public void onClick(View arg0) {
+            // TODO Auto-generated method stub
+            switch(arg0.getId()){
+                case R.id.main_linear1_button1:
+                    //具体点击操作的逻辑
+                    Toast toast = Toast.makeText(getApplicationContext(),"Button1", Toast.LENGTH_SHORT);
+                    toast.show();
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
+
 }

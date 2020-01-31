@@ -7,13 +7,13 @@ public class DownloadMinecraft {
     private String MINECRAFT_DIR; //Minecraft本地路径
     private String MINECRAFT_TEMP; //Minecraft临时目录
 
-    private void setInformation(String a,String b,String c){
+    public void setInformation(String a,String b){
         //设置下载器参数
         MINECRAFT_URL = a;
         MINECRAFT_DIR = b;
         MINECRAFT_TEMP = MINECRAFT_DIR + "/Temp";
     }
-    private void UpdateVersionJson(){
+    public void UpdateVersionJson(){
         String fileUrl = MINECRAFT_URL + "/mc/game/version_manifest.json";
         String fileName = "version_manifest.json";
         Downloader downloader = new Downloader();
