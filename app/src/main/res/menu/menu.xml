@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/toolbar_action1"
+        android:title="@string/toolbar_menu_action1"
+        android:orderInCategory="1"
+        app:showAsAction="never"/>
+
+</menu>

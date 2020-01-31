@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MCinaBox</string>
+    <string name="toolbar_menu_action1">Action1</string>
+    <string name="main_linear1_button1">Button1</string>
+    <string name="main_linear1_button2">Button2</string>
+    <string name="main_linear1_button3">Button3</string>
+    <string name="main_linear1_button4">Button4</string>
+    <string name="main_linear1_button5">Button5</string>
+    <string name="main_linear1_button6">Button6</string>
+</resources>
