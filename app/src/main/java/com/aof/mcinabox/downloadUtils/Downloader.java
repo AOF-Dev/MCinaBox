@@ -29,11 +29,6 @@ public class Downloader {
         DownloadManager downloadManager= (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
         //尝试将任务加入下载队列并返回任务Id
         //如果失败则将对象状态设置为失败
-        try{
-            this.setTaskId(downloadManager.enqueue(request));
-        }catch (NullPointerException err){
-            isSucceed = false;
-            err.printStackTrace();
-        }
+        setTaskId(downloadManager.enqueue(request));
     }
 }

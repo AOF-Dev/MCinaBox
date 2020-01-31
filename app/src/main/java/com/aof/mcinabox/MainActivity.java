@@ -7,13 +7,11 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-import com.aof.mcinabox.DownloadMinecraft;
 
 public class MainActivity extends AppCompatActivity {
 Button[] LauncherBts;
@@ -28,18 +26,19 @@ Button testButton;
         requestPermission();
 
         //使用Toolbar作为Actionbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
+        Toolbar toolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
 
         //给界面的按键设置按键监听
-        testButton = (Button) findViewById(R.id.main_linear1_button1);
+
+        testButton = findViewById(R.id.main_linear1_button1);
         LauncherBts = new Button[]{testButton};
         for(Button button : LauncherBts ){
             button.setOnClickListener(listener);
         }
 
         DownloadMinecraft downloadTest = new DownloadMinecraft();
-        downloadTest.setInformation("https://launchermeta.mojang.com", Environment.getExternalStorageDirectory().getPath()+"/download");
+        downloadTest.setInformation("https://launchermeta.mojang.com", "/download/");
         downloadTest.UpdateVersionJson();
 
     }
@@ -72,9 +71,8 @@ Button testButton;
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            } else {
+            if ( !ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE) ) {
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
                                 Manifest.permission.READ_EXTERNAL_STORAGE}, 1);

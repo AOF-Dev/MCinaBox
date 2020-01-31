@@ -11,7 +11,7 @@ public class DownloadMinecraft {
         //设置下载器参数
         MINECRAFT_URL = a;
         MINECRAFT_DIR = b;
-        MINECRAFT_TEMP = MINECRAFT_DIR + "/Temp";
+        MINECRAFT_TEMP = MINECRAFT_DIR + "Temp/";
     }
     public void UpdateVersionJson(){
         String fileUrl = MINECRAFT_URL + "/mc/game/version_manifest.json";
