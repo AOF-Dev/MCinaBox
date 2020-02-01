@@ -77,6 +77,7 @@ DownloadMinecraft downloadTask = new DownloadMinecraft();
         }
     }
 
+    //Button数组launchbts中的按键监听
     private View.OnClickListener listener = new View.OnClickListener(){
         @Override
         public void onClick(View arg0) {
@@ -93,7 +94,7 @@ DownloadMinecraft downloadTask = new DownloadMinecraft();
             }
         }
     };
-
+    //测试下载功能
     private void testDownload(){
         downloadTask.setInformation("https://launchermeta.mojang.com", "/download/");
         downloadTask.UpdateVersionJson(this);
