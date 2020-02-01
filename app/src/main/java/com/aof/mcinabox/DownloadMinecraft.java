@@ -1,5 +1,7 @@
 package com.aof.mcinabox;
 
+import android.content.Context;
+
 import com.aof.mcinabox.downloadUtils.Downloader;
 
 public class DownloadMinecraft {
@@ -13,10 +15,12 @@ public class DownloadMinecraft {
         MINECRAFT_DIR = b;
         MINECRAFT_TEMP = MINECRAFT_DIR + "Temp/";
     }
-    public void UpdateVersionJson(){
+
+    //下载或更新Minecraft所有的版本信息
+    public void UpdateVersionJson(Context context){
         String fileUrl = MINECRAFT_URL + "/mc/game/version_manifest.json";
         String fileName = "version_manifest.json";
         Downloader downloader = new Downloader();
-        downloader.FileDownloader(MINECRAFT_TEMP,fileName,fileUrl);
+        downloader.FileDownloader(context,MINECRAFT_TEMP,fileName,fileUrl);
     }
 }

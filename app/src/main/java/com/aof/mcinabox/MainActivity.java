@@ -14,8 +14,9 @@ import android.widget.Button;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-Button[] LauncherBts;
+Button[] launcherBts;
 Button testButton;
+DownloadMinecraft downloadTask = new DownloadMinecraft();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,14 +33,10 @@ Button testButton;
         //给界面的按键设置按键监听
 
         testButton = findViewById(R.id.main_linear1_button1);
-        LauncherBts = new Button[]{testButton};
-        for(Button button : LauncherBts ){
+        launcherBts = new Button[]{testButton};
+        for(Button button : launcherBts ){
             button.setOnClickListener(listener);
         }
-
-        DownloadMinecraft downloadTest = new DownloadMinecraft();
-        downloadTest.setInformation("https://launchermeta.mojang.com", "/download/");
-        downloadTest.UpdateVersionJson();
 
     }
 
@@ -87,13 +84,19 @@ Button testButton;
             switch(arg0.getId()){
                 case R.id.main_linear1_button1:
                     //具体点击操作的逻辑
-                    Toast toast = Toast.makeText(getApplicationContext(),"Button1", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getApplicationContext(),"测试下载功能",Toast.LENGTH_SHORT);
                     toast.show();
+                    testDownload();
                     break;
                 default:
                     break;
             }
         }
     };
+
+    private void testDownload(){
+        downloadTask.setInformation("https://launchermeta.mojang.com", "/download/");
+        downloadTask.UpdateVersionJson(this);
+    }
 
 }
