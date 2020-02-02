@@ -14,6 +14,16 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.aof.mcinabox.jsonUtils.AttributeVersionManifestJson;
+import com.google.gson.Gson;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+
 public class MainActivity extends AppCompatActivity {
 Button[] launcherBts;
 Button button1,button2,button3,button4,button5,button6;
@@ -132,6 +142,19 @@ DownloadMinecraft downloadTask = new DownloadMinecraft();
     private void testDownload(){
         downloadTask.setInformation("https://launchermeta.mojang.com", "/MCinaBox/.minecraft/");
         downloadTask.UpdateVersionManifestJson(this);
+    }
+    //测试json解析功能
+    private void testJson(){
+
+        try {
+            InputStream inputStream = new FileInputStream(new File(downloadTask.getMINECRAFT_TEMP()+"version_manifest.json"));
+            Reader reader = new InputStreamReader(inputStream);
+            Gson gson = new Gson();
+            AttributeVersionManifestJson versionManifestJson = gson.fromJson(reader,AttributeVersionManifestJson.class);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
 
     //主界面逻辑，显示分界面

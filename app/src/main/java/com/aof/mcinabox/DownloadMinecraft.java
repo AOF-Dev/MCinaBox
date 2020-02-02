@@ -17,6 +17,10 @@ public class DownloadMinecraft {
     private String DOWNLOAD_DIR; //Minecraft下载保存路径
     private String DOWNLOAD_TEMP; //Minecraft下载临时保存路径
 
+    public String getMINECRAFT_TEMP(){
+        return MINECRAFT_TEMP;
+    }
+
     public void setInformation(String a,String b){
         //设置下载器参数
         MINECRAFT_URL = a;
