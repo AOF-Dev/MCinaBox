@@ -7,7 +7,6 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -105,8 +104,7 @@ DownloadMinecraft downloadTask = new DownloadMinecraft();
             switch(arg0.getId()){
                 case R.id.main_linear1_button1:
                     //具体点击操作的逻辑
-                    Toast toast = Toast.makeText(getApplicationContext(),"测试下载功能",Toast.LENGTH_SHORT);
-                    toast.show();
+                    Toast.makeText(getApplicationContext(),"测试下载功能",Toast.LENGTH_SHORT).show();
                     testDownload();
                     setVisibleLinearLyout(layout1);
                     break;
