@@ -108,22 +108,22 @@ DownloadMinecraft downloadTask = new DownloadMinecraft();
                     Toast toast = Toast.makeText(getApplicationContext(),"测试下载功能",Toast.LENGTH_SHORT);
                     toast.show();
                     testDownload();
-                    setVisibleLinearLyout(arg0.getId());
+                    setVisibleLinearLyout(layout1);
                     break;
                 case R.id.main_linear1_button2:
-                    setVisibleLinearLyout(arg0.getId());
+                    setVisibleLinearLyout(layout2);
                     break;
                 case R.id.main_linear1_button3:
-                    setVisibleLinearLyout(arg0.getId());
+                    setVisibleLinearLyout(layout3);
                     break;
                 case R.id.main_linear1_button4:
-                    setVisibleLinearLyout(arg0.getId());
+                    setVisibleLinearLyout(layout4);
                     break;
                 case R.id.main_linear1_button5:
-                    setVisibleLinearLyout(arg0.getId());
+                    setVisibleLinearLyout(layout5);
                     break;
                 case R.id.main_linear1_button6:
-                    setVisibleLinearLyout(arg0.getId());
+                    setVisibleLinearLyout(layout6);
                     break;
                 default:
                     break;
@@ -137,13 +137,12 @@ DownloadMinecraft downloadTask = new DownloadMinecraft();
     }
 
     //主界面逻辑，显示分界面
-    private void setVisibleLinearLyout(int targetId){
-        LinearLayout targetLayout = findViewById(targetId);
+    private void setVisibleLinearLyout(LinearLayout layout){
 
         for(LinearLayout tempLayout : launcherLins){
             tempLayout.setVisibility(View.INVISIBLE);
         }
-        targetLayout.setVisibility(View.VISIBLE);
+        layout.setVisibility(View.VISIBLE);
     }
 
 }
