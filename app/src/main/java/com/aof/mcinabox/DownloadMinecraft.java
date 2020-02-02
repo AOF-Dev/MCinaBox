@@ -27,7 +27,7 @@ public class DownloadMinecraft {
     }
 
     //下载或更新Minecraft所有的版本信息
-    public void UpdateVersionJson(Context context){
+    public void UpdateVersionManifestJson(Context context){
         String fileUrl = MINECRAFT_URL + "/mc/game/version_manifest.json";
         String fileName = "version_manifest.json";
         String filePath = MINECRAFT_TEMP + fileName;

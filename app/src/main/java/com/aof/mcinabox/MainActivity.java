@@ -130,8 +130,8 @@ DownloadMinecraft downloadTask = new DownloadMinecraft();
     };
     //测试下载功能
     private void testDownload(){
-        downloadTask.setInformation("https://launchermeta.mojang.com", "/MCinaBox/.Minecraft/");
-        downloadTask.UpdateVersionJson(this);
+        downloadTask.setInformation("https://launchermeta.mojang.com", "/MCinaBox/.minecraft/");
+        downloadTask.UpdateVersionManifestJson(this);
     }
 
     //主界面逻辑，显示分界面
