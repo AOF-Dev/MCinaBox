@@ -76,8 +76,145 @@
             android:background="@android:color/transparent"
             android:text="@string/main_linear1_button6" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/main_text_programlog"
+            android:textSize="20sp"
+            android:layout_marginStart="10dp"
+            />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="#ffffff"
+            android:text="" />
+
     </LinearLayout>
 
+    <!-- Button引发信息 -->
+    <LinearLayout
+        android:id="@+id/main_linear2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:visibility="invisible"
+        app:layout_constraintStart_toEndOf="@id/main_linear1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_toolbar">
+
+        <!-- 可以添加其他的view -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="information2"/>
+    </LinearLayout>
+
+    <!-- Button2引发信息 -->
+    <LinearLayout
+        android:id="@+id/main_linear3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:visibility="invisible"
+        app:layout_constraintStart_toEndOf="@id/main_linear1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_toolbar">
+
+        <!-- 可以添加其他的view -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="information3"/>
+    </LinearLayout>
+
+    <!-- Button3引发信息 -->
+    <LinearLayout
+        android:id="@+id/main_linear4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:visibility="invisible"
+        app:layout_constraintStart_toEndOf="@id/main_linear1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_toolbar">
+
+        <!-- 可以添加其他的view -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="information4"/>
+    </LinearLayout>
+
+    <!-- Button4引发信息 -->
+    <LinearLayout
+        android:id="@+id/main_linear5"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:visibility="invisible"
+        app:layout_constraintStart_toEndOf="@id/main_linear1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_toolbar">
+
+        <!-- 可以添加其他的view -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="information5"/>
+    </LinearLayout>
+
+    <!-- Button5引发信息 -->
+    <LinearLayout
+        android:id="@+id/main_linear6"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:visibility="invisible"
+        app:layout_constraintStart_toEndOf="@id/main_linear1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_toolbar">
+
+        <!-- 可以添加其他的view -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="information6"/>
+    </LinearLayout>
+
+    <!-- Button6引发信息 -->
+    <LinearLayout
+        android:id="@+id/main_linear7"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:visibility="invisible"
+        app:layout_constraintStart_toEndOf="@id/main_linear1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_toolbar">
+
+        <!-- 可以添加其他的view -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="information7"/>
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,36 +7,56 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 Button[] launcherBts;
-Button testButton;
+Button button1,button2,button3,button4,button5,button6;
+LinearLayout[] launcherLins;
+LinearLayout layout1,layout2,layout3,layout4,layout5,layout6;
 DownloadMinecraft downloadTask = new DownloadMinecraft();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-        //请求软件所需的权限
-        requestPermission();
+        //Activity生命周期开始，执行初始化
+        super.onCreate(savedInstanceState);
+        //显示activity_main为当前Activity布局
+        setContentView(R.layout.activity_main);
 
         //使用Toolbar作为Actionbar
         Toolbar toolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
 
-        //给界面的按键设置按键监听
+        //请求软件所需的权限
+        requestPermission();
 
-        testButton = findViewById(R.id.main_linear1_button1);
-        launcherBts = new Button[]{testButton};
+        //给界面的按键设置按键监听
+        button1 = findViewById(R.id.main_linear1_button1);
+        button2 = findViewById(R.id.main_linear1_button2);
+        button3 = findViewById(R.id.main_linear1_button3);
+        button4 = findViewById(R.id.main_linear1_button4);
+        button5 = findViewById(R.id.main_linear1_button5);
+        button6 = findViewById(R.id.main_linear1_button6);
+        launcherBts = new Button[]{button1,button2,button3,button4,button5,button6};
         for(Button button : launcherBts ){
             button.setOnClickListener(listener);
         }
+
+        //给linearlayout设置对象数组
+        layout1 = findViewById(R.id.main_linear2);
+        layout2 = findViewById(R.id.main_linear3);
+        layout3 = findViewById(R.id.main_linear4);
+        layout4 = findViewById(R.id.main_linear5);
+        layout5 = findViewById(R.id.main_linear6);
+        layout6 = findViewById(R.id.main_linear7);
+        launcherLins = new LinearLayout[] {layout1,layout2,layout3,layout4,layout5,layout6};
 
     }
 
@@ -88,6 +108,22 @@ DownloadMinecraft downloadTask = new DownloadMinecraft();
                     Toast toast = Toast.makeText(getApplicationContext(),"测试下载功能",Toast.LENGTH_SHORT);
                     toast.show();
                     testDownload();
+                    setVisibleLinearLyout(arg0.getId());
+                    break;
+                case R.id.main_linear1_button2:
+                    setVisibleLinearLyout(arg0.getId());
+                    break;
+                case R.id.main_linear1_button3:
+                    setVisibleLinearLyout(arg0.getId());
+                    break;
+                case R.id.main_linear1_button4:
+                    setVisibleLinearLyout(arg0.getId());
+                    break;
+                case R.id.main_linear1_button5:
+                    setVisibleLinearLyout(arg0.getId());
+                    break;
+                case R.id.main_linear1_button6:
+                    setVisibleLinearLyout(arg0.getId());
                     break;
                 default:
                     break;
@@ -98,6 +134,16 @@ DownloadMinecraft downloadTask = new DownloadMinecraft();
     private void testDownload(){
         downloadTask.setInformation("https://launchermeta.mojang.com", "/download/");
         downloadTask.UpdateVersionJson(this);
+    }
+
+    //主界面逻辑，显示分界面
+    private void setVisibleLinearLyout(int targetId){
+        LinearLayout targetLayout = findViewById(targetId);
+
+        for(LinearLayout tempLayout : launcherLins){
+            tempLayout.setVisibility(View.INVISIBLE);
+        }
+        targetLayout.setVisibility(View.VISIBLE);
     }
 
 }
