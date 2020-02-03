@@ -3,7 +3,7 @@ package com.aof.mcinabox.jsonUtils;
 import java.util.Map;
 
 //解析version_manifest.json文件的模板对象
-public class AttributeVersionManifestJson {
+public class ListVersionManifestJson {
 
     public static final String TYPE_SNAPSHOT = "snapshot"; //快照
     public static final String TYPE_RELEASE = "release"; //正式版

@@ -14,7 +14,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.aof.mcinabox.jsonUtils.AttributeVersionManifestJson;
+import com.aof.mcinabox.jsonUtils.ListVersionManifestJson;
 import com.google.gson.Gson;
 
 import java.io.File;
@@ -150,7 +150,7 @@ DownloadMinecraft downloadTask = new DownloadMinecraft();
             InputStream inputStream = new FileInputStream(new File(downloadTask.getMINECRAFT_TEMP()+"version_manifest.json"));
             Reader reader = new InputStreamReader(inputStream);
             Gson gson = new Gson();
-            AttributeVersionManifestJson versionManifestJson = gson.fromJson(reader,AttributeVersionManifestJson.class);
+            ListVersionManifestJson versionManifestJson = gson.fromJson(reader, ListVersionManifestJson.class);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
