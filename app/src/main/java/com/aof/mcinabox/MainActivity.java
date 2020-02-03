@@ -120,6 +120,7 @@ DownloadMinecraft downloadTask = new DownloadMinecraft();
                     break;
                 case R.id.main_linear1_button2:
                     setVisibleLinearLyout(layout2);
+                    testJson();
                     break;
                 case R.id.main_linear1_button3:
                     setVisibleLinearLyout(layout3);
@@ -150,7 +151,12 @@ DownloadMinecraft downloadTask = new DownloadMinecraft();
             InputStream inputStream = new FileInputStream(new File(downloadTask.getMINECRAFT_TEMP()+"version_manifest.json"));
             Reader reader = new InputStreamReader(inputStream);
             Gson gson = new Gson();
-            ListVersionManifestJson versionManifestJson = gson.fromJson(reader, ListVersionManifestJson.class);
+            ListVersionManifestJson listVersionManifestJson = gson.fromJson(reader, ListVersionManifestJson.class);
+
+            ListVersionManifestJson.Version[] result = listVersionManifestJson.versions;
+            String testid = result[0].getId();
+            Toast.makeText(getApplicationContext(),testid,Toast.LENGTH_SHORT).show();
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
