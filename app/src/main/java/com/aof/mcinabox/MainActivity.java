@@ -148,13 +148,16 @@ DownloadMinecraft downloadTask = new DownloadMinecraft();
     private void testJson(){
 
         try {
+            //将version_manifest.json文件加入输入流
             InputStream inputStream = new FileInputStream(new File(downloadTask.getMINECRAFT_TEMP()+"version_manifest.json"));
             Reader reader = new InputStreamReader(inputStream);
             Gson gson = new Gson();
+            //使用Gson将ListVersionManifestJson实例化
             ListVersionManifestJson listVersionManifestJson = gson.fromJson(reader, ListVersionManifestJson.class);
 
             ListVersionManifestJson.Version[] result = listVersionManifestJson.versions;
             String testid = result[0].getId();
+
             Toast.makeText(getApplicationContext(),testid,Toast.LENGTH_SHORT).show();
 
         } catch (FileNotFoundException e) {

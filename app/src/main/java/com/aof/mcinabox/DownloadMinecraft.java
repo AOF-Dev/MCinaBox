@@ -8,6 +8,17 @@ import com.aof.mcinabox.downloadUtils.Downloader;
 import java.io.File;
 
 public class DownloadMinecraft {
+
+    //初始化时的构造函数
+    public void DonwloadMinecraft(){
+        MINECRAFT_URL = "https://launchermeta.mojang.com";
+        DOWNLOAD_DIR = "/MCinaBox/.minecraft/";
+        DOWNLOAD_TEMP = DOWNLOAD_DIR + "Temp/";
+        MINECRAFT_DIR = "/sdcard" + DOWNLOAD_DIR;
+        MINECRAFT_TEMP = MINECRAFT_DIR + "Temp/";
+        VERSION_MANIFEST_URL = MINECRAFT_URL + "/mc/game/version_manifest.json";
+    }
+
     //下列路径定义为绝对路径
     private String MINECRAFT_URL; //Minecraft源地址
     private String MINECRAFT_DIR; //Minecraft本地路径
@@ -16,6 +27,9 @@ public class DownloadMinecraft {
     //下列路径定义为缺省/sdcard的路径
     private String DOWNLOAD_DIR; //Minecraft下载保存路径
     private String DOWNLOAD_TEMP; //Minecraft下载临时保存路径
+
+    //部分文件
+    private String VERSION_MANIFEST_URL; //version_manifest.json文件下载地址
 
     public String getMINECRAFT_TEMP(){
         return MINECRAFT_TEMP;

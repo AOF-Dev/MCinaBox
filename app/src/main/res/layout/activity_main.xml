@@ -84,15 +84,20 @@
             android:layout_marginStart="10dp"
             />
 
-        <TextView
-            android:id="@+id/textView"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:layout_marginBottom="20dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:background="#ffffff"
-            android:text="" />
+            android:background="#ffffff">
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Log Here." />
+        </ScrollView>
+
 
     </LinearLayout>
 
