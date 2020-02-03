@@ -1,27 +1,19 @@
 package com.aof.mcinabox.jsonUtils;
 
+import java.util.Map;
+
+//解析version_manifest.json文件的模板对象
 public class AttributeVersionManifestJson {
 
-    //解析version_manifest.json文件的模板对象
+    public static final String TYPE_SNAPSHOT = "snapshot"; //快照
+    public static final String TYPE_RELEASE = "release"; //正式版
+    public static final String TYPE_OLD_BETA = "old_beta"; //Beta版
+    public static final String TYPE_OLD_ALPHA = "old_alpha"; //Alpha版
+    public Version[] versions;
 
-    public Version[] version;
-    public class latest {
-        String release;
-        String snapshot;
+    //其中“release”为最新的稳定版 “snapshot”为最新的快照版
+    public Map<String, String> latest;
 
-        public void setRelease(String i){
-            release = i;
-        }
-        public String getRelease(){
-            return release;
-        }
-        public void setSnapshot(String i){
-            snapshot = i;
-        }
-        public String getSnapshot(){
-            return snapshot;
-        }
-    }
     public class Version {
         private String id;
         private String type;
