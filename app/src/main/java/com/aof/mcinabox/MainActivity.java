@@ -7,6 +7,9 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,6 +38,7 @@ DownloadMinecraft downloadTask = new DownloadMinecraft();
 ListVersionManifestJson.Version[] versionList;
 Spinner spinnerVersionList;
 int targetPos;
+private static final int COMPLETED = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,15 +146,37 @@ int targetPos;
                     setVisibleLinearLyout(layout6);
                     break;
                 case R.id.main_linear3_flash1:
-                    if(DownloadVersionList()){
-                        loadSpinnerVersionList();
-                    }
+                    //这里使用了多线程
+                    Thread syncTask = new Thread() {
+                        @Override
+                        public void run() {
+                            // 执行操作
+                            Looper.prepare();
+                            DownloadVersionList();
+                            //处理完成后给handler发送消息
+                            Message msg = new Message();
+                            msg.what = COMPLETED;
+                            handler.sendMessage(msg);
+                            Looper.loop();
+                        }
+                    };
+                    syncTask.start();
                     break;
                 case R.id.main_linear3_download1:
                     DownloadVersion();
                     break;
                 default:
                     break;
+            }
+        }
+    };
+
+    //用于接收子线程传来的ui变化
+    private Handler handler =new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == COMPLETED) {
+                loadSpinnerVersionList();
             }
         }
     };
