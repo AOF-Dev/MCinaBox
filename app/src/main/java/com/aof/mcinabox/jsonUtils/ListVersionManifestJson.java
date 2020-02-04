@@ -9,10 +9,15 @@ public class ListVersionManifestJson {
     public static final String TYPE_RELEASE = "release"; //正式版
     public static final String TYPE_OLD_BETA = "old_beta"; //Beta版
     public static final String TYPE_OLD_ALPHA = "old_alpha"; //Alpha版
-    public Version[] versions;
+    private Version[] versions;
 
     //其中“release”为最新的稳定版 “snapshot”为最新的快照版
-    public Map<String, String> latest;
+    private Map<String, String> latest;
+
+    public Map<String, String> getLatest() { return latest; }
+    public void setLatest(Map<String, String> latest) { this.latest = latest; }
+    public Version[] getVersions() { return versions; }
+    public void setVersions(Version[] versions) { this.versions = versions; }
 
     public class Version {
         private String id;

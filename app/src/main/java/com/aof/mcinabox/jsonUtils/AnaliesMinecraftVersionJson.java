@@ -8,18 +8,18 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 
-public class AnaliesVersionManifestJson {
-    //解析version_manifest.json
-    public ListVersionManifestJson.Version[] getVersionList(String filePath) {
+public class AnaliesMinecraftVersionJson {
+    //解析version.json
+    public ModelMinecraftVersionJson.Libraries[] getDependLibraries(String filePath) {
         try {
-            //将version_manifest.json文件加入输入流
+            //将version.json文件加入输入流
             File file = new File(filePath);
             InputStream inputStream = new FileInputStream(file);
             Reader reader = new InputStreamReader(inputStream);
             Gson gson = new Gson();
-            //使用Gson将ListVersionManifestJson实例化
-            ListVersionManifestJson listVersionManifestJson = gson.fromJson(reader, ListVersionManifestJson.class);
-            ListVersionManifestJson.Version[] result = listVersionManifestJson.getVersions();
+            //使用Gson将ModelMinecraftVersionJson实例化
+            ModelMinecraftVersionJson modelMinecraftVersionJson = gson.fromJson(reader, ModelMinecraftVersionJson.class);
+            ModelMinecraftVersionJson.Libraries[] result = modelMinecraftVersionJson.getLibraries();
             return result;
 
         } catch (FileNotFoundException e) {
