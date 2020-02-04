@@ -124,7 +124,7 @@ DownloadMinecraft downloadTask = new DownloadMinecraft();
                     break;
                 case R.id.main_linear1_button2:
                     setVisibleLinearLyout(layout2);
-                    testJson();
+                    testSpinner();
                     break;
                 case R.id.main_linear1_button3:
                     setVisibleLinearLyout(layout3);
@@ -174,7 +174,7 @@ DownloadMinecraft downloadTask = new DownloadMinecraft();
     private void testSpinner(){
         //获取实例化后的versionList
         ListVersionManifestJson.Version[] versionList = new AnaliesVersionManifestJson().getVersionList(downloadTask);
-        final String[] versions = new String[]{};
+        final String[] versions = new String[versionList.length];
         //将versionList中的id值拷贝到一个String数组中作为数据源
         for(int i = 0;i < versionList.length;i++){
             versions[i] = versionList[i].getId();
