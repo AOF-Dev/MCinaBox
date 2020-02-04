@@ -200,7 +200,7 @@ private static final int COMPLETED = 0;
             //使用Gson将ListVersionManifestJson实例化
             ListVersionManifestJson listVersionManifestJson = gson.fromJson(reader, ListVersionManifestJson.class);
 
-            ListVersionManifestJson.Version[] result = listVersionManifestJson.versions;
+            ListVersionManifestJson.Version[] result = listVersionManifestJson.getVersions();
             String testid = result[0].getId();
 
             Toast.makeText(getApplicationContext(),testid,Toast.LENGTH_SHORT).show();
