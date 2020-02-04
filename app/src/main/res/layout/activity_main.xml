@@ -94,8 +94,9 @@
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Log Here." />
+                android:layout_height="wrap_content"
+                android:textIsSelectable="true"
+                android:text="@string/main_text_nolog" />
         </ScrollView>
 
 
@@ -127,25 +128,60 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintStart_toEndOf="@id/main_linear1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/main_toolbar">
 
         <!-- 可以添加其他的view -->
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="information3"/>
-        <Spinner
-            android:id="@+id/main_linear3_spinner"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:text="Minecraft服务器"/>
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:textSize="15sp"
+            android:text="版本信息"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#EEECEA">
+
+            <Spinner
+                android:id="@+id/main_linear3_spinner"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:popupBackground="#BAB8B6">
                 <!-- Add other views  -->
-        </Spinner>
+            </Spinner>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <Button
+                    android:id="@+id/main_linear3_flash1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="刷新" />
+                <Button
+                    android:id="@+id/main_linear3_download1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="下载"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
 
     </LinearLayout>
 

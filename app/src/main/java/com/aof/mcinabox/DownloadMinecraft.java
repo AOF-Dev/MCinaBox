@@ -15,8 +15,10 @@ public class DownloadMinecraft {
         MINECRAFT_URL = "https://launchermeta.mojang.com";
         DOWNLOAD_DIR = "/MCinaBox/.minecraft/";
         DOWNLOAD_TEMP = DOWNLOAD_DIR + "Temp/";
+        DOWNLOAD_VERSION_DIR = DOWNLOAD_DIR + "versions/";
         MINECRAFT_DIR = "/sdcard" + DOWNLOAD_DIR;
         MINECRAFT_TEMP = MINECRAFT_DIR + "Temp/";
+        MINECRAFT_VERSION_DIR = MINECRAFT_DIR + "versions/";
         VERSION_MANIFEST_URL = MINECRAFT_URL + "/mc/game/version_manifest.json";
     }
 
@@ -24,10 +26,12 @@ public class DownloadMinecraft {
     private String MINECRAFT_URL; //Minecraft源地址
     private String MINECRAFT_DIR; //Minecraft本地路径
     private String MINECRAFT_TEMP; //Minecraft临时目录-用于保存其他文件
+    private String MINECRAFT_VERSION_DIR; //Minecraft的version文件夹路径
 
     //下列路径定义为缺省/sdcard的路径
     private String DOWNLOAD_DIR; //Minecraft下载保存路径
     private String DOWNLOAD_TEMP; //Minecraft下载临时保存路径
+    private String DOWNLOAD_VERSION_DIR; //Minecraft版本保存路径
 
     //部分文件
     private String VERSION_MANIFEST_URL; //version_manifest.json文件下载地址
@@ -45,33 +49,64 @@ public class DownloadMinecraft {
     public void setDOWNLOAD_DIR(String DOWNLOAD_DIR) { this.DOWNLOAD_DIR = DOWNLOAD_DIR; }
     public String getMINECRAFT_DIR() { return MINECRAFT_DIR; }
     public void setMINECRAFT_DIR(String MINECRAFT_DIR) { this.MINECRAFT_DIR = MINECRAFT_DIR; }
+    public String getDOWNLOAD_VERSION_DIR() { return DOWNLOAD_VERSION_DIR; }
+    public void setDOWNLOAD_VERSION_DIR(String DOWNLOAD_VERSION_DIR) { this.DOWNLOAD_VERSION_DIR = DOWNLOAD_VERSION_DIR; }
+    public String getMINECRAFT_VERSION_DIR() { return MINECRAFT_VERSION_DIR; }
+    public void setMINECRAFT_VERSION_DIR(String MINECRAFT_VERSION_DIR) { this.MINECRAFT_VERSION_DIR = MINECRAFT_VERSION_DIR; }
 
-
+    //!!!传入缺省/sdcard的相对路径!!!
     public void setInformation(String a, String b){
         //设置下载器参数
-        MINECRAFT_URL = a;
-        DOWNLOAD_DIR = b;
-        DOWNLOAD_TEMP = DOWNLOAD_DIR + "Temp/";
-        MINECRAFT_DIR = "/sdcard" + DOWNLOAD_DIR;
-        MINECRAFT_TEMP = MINECRAFT_DIR + "Temp/";
+        this.setMINECRAFT_URL(a);
+        this.setDOWNLOAD_DIR(b);
+        this.setDOWNLOAD_VERSION_DIR(getDOWNLOAD_DIR()+"versions/");
+        this.setDOWNLOAD_TEMP(getDOWNLOAD_DIR()+"Temp/");
+        this.setMINECRAFT_DIR("/sdcard"+getDOWNLOAD_DIR());
+        this.setMINECRAFT_TEMP(getMINECRAFT_DIR()+"Temp/");
+        this.setMINECRAFT_VERSION_DIR(getMINECRAFT_DIR()+"versions/");
     }
 
     //下载或更新Minecraft的版本信息文件version_manifest.json
-    public void UpdateVersionManifestJson(Context context){
-        String fileUrl = MINECRAFT_URL + "/mc/game/version_manifest.json";
+    public boolean UpdateVersionManifestJson(Context context){
+        String fileUrl = getMINECRAFT_URL() + "/mc/game/version_manifest.json";
         String fileName = "version_manifest.json";
-        String filePath = MINECRAFT_TEMP + fileName;
+        String savePath = getDOWNLOAD_TEMP();
+        String filePath = getMINECRAFT_TEMP()+fileName;
 
         //先判断文件是否存在
         //若存在则删掉再下载
         File file=new File(filePath);
-        if(file.exists())
-        {
+        if(file.exists()){
             file.delete();
         }
         //执行下载操作
         Downloader downloader = new Downloader();
-        downloader.FileDownloader(context,DOWNLOAD_TEMP,fileName,fileUrl);
+        downloader.FileDownloader(context,savePath,fileName,fileUrl);
+        try {
+            Thread.sleep(1500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         Toast.makeText(context,"版本信息更新完成",Toast.LENGTH_SHORT).show();
+        if(file.exists()){
+            return true;
+        }else{
+            return false;
+
+        }
+    }
+
+    public void DownloadMinecraftVersionJson(String id,String url,Context context){
+        String fileUrl = url;
+        String fileName = id + ".json";
+        String savePath = getDOWNLOAD_VERSION_DIR()+id+"/";
+        String filePath = getMINECRAFT_VERSION_DIR()+fileName;
+
+        File file = new File(filePath);
+        if(file.exists()){
+            file.delete();
+        }
+        Downloader downloader = new Downloader();
+        downloader.FileDownloader(context,savePath,fileName,fileUrl);
     }
 }

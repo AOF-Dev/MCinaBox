@@ -16,11 +16,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import com.aof.mcinabox.jsonUtils.AnaliesVersionManifestJson;
 import com.aof.mcinabox.jsonUtils.ListVersionManifestJson;
 import com.google.gson.Gson;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -30,10 +28,13 @@ import java.io.Reader;
 
 public class MainActivity extends AppCompatActivity {
 Button[] launcherBts;
-Button button1,button2,button3,button4,button5,button6;
+Button button1,button2,button3,button4,button5,button6,button7,button8;
 LinearLayout[] launcherLins;
 LinearLayout layout1,layout2,layout3,layout4,layout5,layout6;
 DownloadMinecraft downloadTask = new DownloadMinecraft();
+ListVersionManifestJson.Version[] versionList;
+Spinner spinnerVersionList;
+int targetPos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +58,9 @@ DownloadMinecraft downloadTask = new DownloadMinecraft();
         button4 = findViewById(R.id.main_linear1_button4);
         button5 = findViewById(R.id.main_linear1_button5);
         button6 = findViewById(R.id.main_linear1_button6);
-        launcherBts = new Button[]{button1,button2,button3,button4,button5,button6};
+        button7 = findViewById(R.id.main_linear3_flash1);
+        button8 = findViewById(R.id.main_linear3_download1);
+        launcherBts = new Button[]{button1,button2,button3,button4,button5,button6,button7,button8};
         for(Button button : launcherBts ){
             button.setOnClickListener(listener);
         }
@@ -70,6 +73,9 @@ DownloadMinecraft downloadTask = new DownloadMinecraft();
         layout5 = findViewById(R.id.main_linear6);
         layout6 = findViewById(R.id.main_linear7);
         launcherLins = new LinearLayout[] {layout1,layout2,layout3,layout4,layout5,layout6};
+
+        //初始化Spinner控件
+        spinnerVersionList = findViewById(R.id.main_linear3_spinner);
 
     }
 
@@ -118,13 +124,10 @@ DownloadMinecraft downloadTask = new DownloadMinecraft();
             switch(arg0.getId()){
                 case R.id.main_linear1_button1:
                     //具体点击操作的逻辑
-                    Toast.makeText(getApplicationContext(),"测试下载功能",Toast.LENGTH_SHORT).show();
-                    testDownload();
                     setVisibleLinearLyout(layout1);
                     break;
                 case R.id.main_linear1_button2:
                     setVisibleLinearLyout(layout2);
-                    testSpinner();
                     break;
                 case R.id.main_linear1_button3:
                     setVisibleLinearLyout(layout3);
@@ -138,16 +141,28 @@ DownloadMinecraft downloadTask = new DownloadMinecraft();
                 case R.id.main_linear1_button6:
                     setVisibleLinearLyout(layout6);
                     break;
+                case R.id.main_linear3_flash1:
+                    if(DownloadVersionList()){
+                        loadSpinnerVersionList();
+                    }
+                    break;
+                case R.id.main_linear3_download1:
+                    DownloadVersion();
+                    break;
                 default:
                     break;
             }
         }
     };
     //测试下载功能
-    private void testDownload(){
+    private boolean DownloadVersionList(){
         downloadTask.setInformation("https://launchermeta.mojang.com", "/MCinaBox/.minecraft/");
-        downloadTask.UpdateVersionManifestJson(this);
+        return (downloadTask.UpdateVersionManifestJson(this));
     }
+    private void DownloadVersion(){
+        downloadTask.DownloadMinecraftVersionJson(versionList[targetPos].getId(),versionList[targetPos].getUrl(),this);
+    }
+
     //测试json解析功能
     private void testJson(){
 
@@ -170,33 +185,30 @@ DownloadMinecraft downloadTask = new DownloadMinecraft();
 
     }
 
-    //测试Spinner
-    private void testSpinner(){
+    //Spinner
+    private void loadSpinnerVersionList(){
         //获取实例化后的versionList
-        ListVersionManifestJson.Version[] versionList = new AnaliesVersionManifestJson().getVersionList(downloadTask);
+        versionList = new AnaliesVersionManifestJson().getVersionList(downloadTask.getMINECRAFT_TEMP()+"version_manifest.json");
         final String[] versions = new String[versionList.length];
         //将versionList中的id值拷贝到一个String数组中作为数据源
         for(int i = 0;i < versionList.length;i++){
             versions[i] = versionList[i].getId();
         }
-        //初始化Spinner控件;
-        Spinner spinner = findViewById(R.id.main_linear3_spinner);
         // 建立Adapter并且绑定数据源
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, versions);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //绑定 Adapter到控件
-        spinner .setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinnerVersionList .setAdapter(adapter);
+        spinnerVersionList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                Toast.makeText(MainActivity.this, "你点击的是:"+versions[pos], Toast.LENGTH_SHORT).show();
+                targetPos = pos;
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 // Another interface callback
             }
         });
-
     }
 
     //主界面逻辑，显示分界面
