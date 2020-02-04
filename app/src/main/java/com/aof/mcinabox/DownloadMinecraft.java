@@ -9,8 +9,9 @@ import java.io.File;
 
 public class DownloadMinecraft {
 
-    //初始化时的构造函数
-    public void DonwloadMinecraft(){
+    //无参数的的构造函数
+    public DownloadMinecraft() {
+        super();
         MINECRAFT_URL = "https://launchermeta.mojang.com";
         DOWNLOAD_DIR = "/MCinaBox/.minecraft/";
         DOWNLOAD_TEMP = DOWNLOAD_DIR + "Temp/";
@@ -31,11 +32,22 @@ public class DownloadMinecraft {
     //部分文件
     private String VERSION_MANIFEST_URL; //version_manifest.json文件下载地址
 
-    public String getMINECRAFT_TEMP(){
-        return MINECRAFT_TEMP;
-    }
+    //Getter and Setter
+    public String getMINECRAFT_TEMP(){ return MINECRAFT_TEMP; }
+    public void setMINECRAFT_TEMP(String MINECRAFT_TEMP){this.MINECRAFT_TEMP = MINECRAFT_TEMP;}
+    public String getMINECRAFT_URL() { return MINECRAFT_URL; }
+    public void setMINECRAFT_URL(String MINECRAFT_URL) { this.MINECRAFT_URL = MINECRAFT_URL; }
+    public String getVERSION_MANIFEST_URL() { return VERSION_MANIFEST_URL; }
+    public void setVERSION_MANIFEST_URL(String VERSION_MANIFEST_URL) { this.VERSION_MANIFEST_URL = VERSION_MANIFEST_URL; }
+    public String getDOWNLOAD_TEMP() { return DOWNLOAD_TEMP; }
+    public void setDOWNLOAD_TEMP(String DOWNLOAD_TEMP) { this.DOWNLOAD_TEMP = DOWNLOAD_TEMP; }
+    public String getDOWNLOAD_DIR() { return DOWNLOAD_DIR; }
+    public void setDOWNLOAD_DIR(String DOWNLOAD_DIR) { this.DOWNLOAD_DIR = DOWNLOAD_DIR; }
+    public String getMINECRAFT_DIR() { return MINECRAFT_DIR; }
+    public void setMINECRAFT_DIR(String MINECRAFT_DIR) { this.MINECRAFT_DIR = MINECRAFT_DIR; }
 
-    public void setInformation(String a,String b){
+
+    public void setInformation(String a, String b){
         //设置下载器参数
         MINECRAFT_URL = a;
         DOWNLOAD_DIR = b;
@@ -44,7 +56,7 @@ public class DownloadMinecraft {
         MINECRAFT_TEMP = MINECRAFT_DIR + "Temp/";
     }
 
-    //下载或更新Minecraft所有的版本信息
+    //下载或更新Minecraft的版本信息文件version_manifest.json
     public void UpdateVersionManifestJson(Context context){
         String fileUrl = MINECRAFT_URL + "/mc/game/version_manifest.json";
         String fileName = "version_manifest.json";

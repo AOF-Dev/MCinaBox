@@ -10,10 +10,14 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.aof.mcinabox.jsonUtils.AnaliesVersionManifestJson;
 import com.aof.mcinabox.jsonUtils.ListVersionManifestJson;
 import com.google.gson.Gson;
 
@@ -163,6 +167,35 @@ DownloadMinecraft downloadTask = new DownloadMinecraft();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
+    }
+
+    //测试Spinner
+    private void testSpinner(){
+        //获取实例化后的versionList
+        ListVersionManifestJson.Version[] versionList = new AnaliesVersionManifestJson().getVersionList(downloadTask);
+        final String[] versions = new String[]{};
+        //将versionList中的id值拷贝到一个String数组中作为数据源
+        for(int i = 0;i < versionList.length;i++){
+            versions[i] = versionList[i].getId();
+        }
+        //初始化Spinner控件;
+        Spinner spinner = findViewById(R.id.main_linear3_spinner);
+        // 建立Adapter并且绑定数据源
+        ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, versions);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //绑定 Adapter到控件
+        spinner .setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                Toast.makeText(MainActivity.this, "你点击的是:"+versions[pos], Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Another interface callback
+            }
+        });
 
     }
 
