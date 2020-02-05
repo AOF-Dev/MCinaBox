@@ -10,7 +10,7 @@ import java.io.Reader;
 
 public class AnaliesMinecraftVersionJson {
     //解析version.json
-    public ModelMinecraftVersionJson.Libraries[] getDependLibraries(String filePath) {
+    public ModelMinecraftVersionJson getModelMinecraftVersionJson(String filePath) {
         try {
             //将version.json文件加入输入流
             File file = new File(filePath);
@@ -19,8 +19,7 @@ public class AnaliesMinecraftVersionJson {
             Gson gson = new Gson();
             //使用Gson将ModelMinecraftVersionJson实例化
             ModelMinecraftVersionJson modelMinecraftVersionJson = gson.fromJson(reader, ModelMinecraftVersionJson.class);
-            ModelMinecraftVersionJson.Libraries[] result = modelMinecraftVersionJson.getLibraries();
-            return result;
+            return modelMinecraftVersionJson;
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();

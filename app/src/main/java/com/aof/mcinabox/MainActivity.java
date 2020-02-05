@@ -22,20 +22,25 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.aof.mcinabox.jsonUtils.AnaliesMinecraftVersionJson;
 import com.aof.mcinabox.jsonUtils.AnaliesVersionManifestJson;
 import com.aof.mcinabox.jsonUtils.ListVersionManifestJson;
+import com.aof.mcinabox.jsonUtils.ModelMinecraftVersionJson;
 
 public class MainActivity extends AppCompatActivity {
 Button[] launcherBts;
 Button button1,button2,button3,button4,button5,button6,button7,button8;
+Button testButton;
 LinearLayout[] launcherLins;
 LinearLayout layout1,layout2,layout3,layout4,layout5,layout6;
 DownloadMinecraft downloadTask = new DownloadMinecraft();
 ListVersionManifestJson.Version[] versionList;
+ModelMinecraftVersionJson minecraftVersionJson;
 Spinner spinnerVersionList;
 int targetPos;
-private static final int COMPLETED = 0;
-private BroadcastReceiver broadcastReceiver;
+private BroadcastReceiver broadcastReceiver1;
+private BroadcastReceiver broadcastReceiver2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +66,8 @@ private BroadcastReceiver broadcastReceiver;
         button6 = findViewById(R.id.main_linear1_button6);
         button7 = findViewById(R.id.main_linear3_flash1);
         button8 = findViewById(R.id.main_linear3_download1);
-        launcherBts = new Button[]{button1,button2,button3,button4,button5,button6,button7,button8};
+        testButton = findViewById(R.id.test);
+        launcherBts = new Button[]{button1,button2,button3,button4,button5,button6,button7,button8,testButton};
         for(Button button : launcherBts ){
             button.setOnClickListener(listener);
         }
@@ -151,7 +157,7 @@ private BroadcastReceiver broadcastReceiver;
                             // 执行操作
                             Looper.prepare();
                             long Id = DownloadVersionList();
-                            listener(Id);
+                            listener1(Id);
                             /*
                             //处理完成后给handler发送消息
                             Message msg = new Message();
@@ -162,9 +168,12 @@ private BroadcastReceiver broadcastReceiver;
                         }
                     };
                     syncTask.start();
+                    button8.setClickable(true);
                     break;
                 case R.id.main_linear3_download1:
-                    DownloadVersion();
+                    DownloadVersionFirst();
+                    break;
+                case R.id.test:
                     break;
                 default:
                     break;
@@ -188,8 +197,15 @@ private BroadcastReceiver broadcastReceiver;
         downloadTask.setInformation("https://launchermeta.mojang.com", "/MCinaBox/.minecraft/");
         return (downloadTask.UpdateVersionManifestJson(this));
     }
-    private void DownloadVersion(){
-        downloadTask.DownloadMinecraftVersionJson(versionList[targetPos].getId(),versionList[targetPos].getUrl(),this);
+    private void DownloadVersionFirst(){
+        long taskId;
+        taskId = downloadTask.DownloadMinecraftVersionJson(versionList[targetPos].getId(),versionList[targetPos].getUrl(),this);
+        listener2(taskId);
+    }
+    private void DownloadVersionSecond(){
+        //获取实例化后的versionList
+        minecraftVersionJson = new AnaliesMinecraftVersionJson().getModelMinecraftVersionJson(downloadTask.getMINECRAFT_VERSION_DIR()+versionList[targetPos].getId()+"/"+versionList[targetPos].getId()+".json");
+        Toast.makeText(getApplicationContext(),minecraftVersionJson.getLibraries().length,Toast.LENGTH_SHORT).show();
     }
 
     //测试json解析功能
@@ -251,26 +267,42 @@ private BroadcastReceiver broadcastReceiver;
     }
 
     //DownloadManager下载完成事件的广播监听
-    private void listener(final long Id) {
+    private void listener1(final long Id) {
         // 注册广播监听系统的下载完成事件。
         IntentFilter intentFilter = new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
-        broadcastReceiver = new BroadcastReceiver() {
+        broadcastReceiver1 = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 long ID = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
                 if (ID == Id) {
                     loadSpinnerVersionList();
-                    Toast.makeText(getApplicationContext(), "任务:" + Id + " 下载完成!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "版本清单更新完成", Toast.LENGTH_LONG).show();
                 }
             }
         };
-        registerReceiver(broadcastReceiver, intentFilter);
+        registerReceiver(broadcastReceiver1, intentFilter);
+    }
+
+    private void listener2(final long Id) {
+        // 注册广播监听系统的下载完成事件。
+        IntentFilter intentFilter = new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
+        broadcastReceiver2 = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                long ID = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
+                if (ID == Id) {
+                    DownloadVersionSecond();
+                }
+            }
+        };
+        registerReceiver(broadcastReceiver2, intentFilter);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(broadcastReceiver);
+        unregisterReceiver(broadcastReceiver1);
+        unregisterReceiver(broadcastReceiver2);
     }
 
 }

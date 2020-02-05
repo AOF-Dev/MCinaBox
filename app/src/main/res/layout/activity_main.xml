@@ -128,7 +128,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintStart_toEndOf="@id/main_linear1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -140,12 +140,12 @@
             android:layout_height="wrap_content"
             android:textColor="#000000"
             android:textSize="20sp"
-            android:text="Minecraft服务器"/>
+            android:text="Minecraft下载器"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:text="版本信息"/>
+            android:text="游戏文件"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -176,12 +176,17 @@
                     android:id="@+id/main_linear3_download1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:clickable="false"
                     android:text="下载"/>
             </LinearLayout>
 
-
         </LinearLayout>
-
+        <Button
+            android:id="@+id/test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="测试解析"
+            />
 
     </LinearLayout>
 

@@ -97,17 +97,19 @@ public class DownloadMinecraft {
         return taskId;
     }
 
-    public void DownloadMinecraftVersionJson(String id,String url,Context context){
+    public long DownloadMinecraftVersionJson(String id,String url,Context context){
         String fileUrl = url;
         String fileName = id + ".json";
         String savePath = getDOWNLOAD_VERSION_DIR()+id+"/";
         String filePath = getMINECRAFT_VERSION_DIR()+fileName;
+        long taskId;
 
         File file = new File(filePath);
         if(file.exists()){
             file.delete();
         }
         Downloader downloader = new Downloader();
-        downloader.FileDownloader(context,savePath,fileName,fileUrl);
+        taskId = downloader.FileDownloader(context,savePath,fileName,fileUrl);
+        return taskId;
     }
 }
