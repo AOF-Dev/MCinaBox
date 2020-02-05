@@ -5,11 +5,14 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import android.Manifest;
+import android.app.DownloadManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Looper;
-import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,13 +24,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import com.aof.mcinabox.jsonUtils.AnaliesVersionManifestJson;
 import com.aof.mcinabox.jsonUtils.ListVersionManifestJson;
-import com.google.gson.Gson;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
 
 public class MainActivity extends AppCompatActivity {
 Button[] launcherBts;
@@ -39,6 +35,7 @@ ListVersionManifestJson.Version[] versionList;
 Spinner spinnerVersionList;
 int targetPos;
 private static final int COMPLETED = 0;
+private BroadcastReceiver broadcastReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +104,7 @@ private static final int COMPLETED = 0;
             startActivityForResult(new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS, Uri.parse("package:" + getPackageName())), 0);
         }
     }*/
+
     public void requestPermission(){
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -152,11 +150,14 @@ private static final int COMPLETED = 0;
                         public void run() {
                             // 执行操作
                             Looper.prepare();
-                            DownloadVersionList();
+                            long Id = DownloadVersionList();
+                            listener(Id);
+                            /*
                             //处理完成后给handler发送消息
                             Message msg = new Message();
                             msg.what = COMPLETED;
                             handler.sendMessage(msg);
+                            */
                             Looper.loop();
                         }
                     };
@@ -172,6 +173,7 @@ private static final int COMPLETED = 0;
     };
 
     //用于接收子线程传来的ui变化
+    /*
     private Handler handler =new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -179,9 +181,10 @@ private static final int COMPLETED = 0;
                 loadSpinnerVersionList();
             }
         }
-    };
-    //测试下载功能
-    private boolean DownloadVersionList(){
+    };*/
+
+    //下载Minecraft清单列表
+    private long DownloadVersionList(){
         downloadTask.setInformation("https://launchermeta.mojang.com", "/MCinaBox/.minecraft/");
         return (downloadTask.UpdateVersionManifestJson(this));
     }
@@ -190,6 +193,7 @@ private static final int COMPLETED = 0;
     }
 
     //测试json解析功能
+    /*
     private void testJson(){
 
         try {
@@ -209,9 +213,9 @@ private static final int COMPLETED = 0;
             e.printStackTrace();
         }
 
-    }
+    }*/
 
-    //Spinner
+    //更新Spinner
     private void loadSpinnerVersionList(){
         //获取实例化后的versionList
         versionList = new AnaliesVersionManifestJson().getVersionList(downloadTask.getMINECRAFT_TEMP()+"version_manifest.json");
@@ -244,6 +248,29 @@ private static final int COMPLETED = 0;
             tempLayout.setVisibility(View.INVISIBLE);
         }
         layout.setVisibility(View.VISIBLE);
+    }
+
+    //DownloadManager下载完成事件的广播监听
+    private void listener(final long Id) {
+        // 注册广播监听系统的下载完成事件。
+        IntentFilter intentFilter = new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
+        broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                long ID = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
+                if (ID == Id) {
+                    loadSpinnerVersionList();
+                    Toast.makeText(getApplicationContext(), "任务:" + Id + " 下载完成!", Toast.LENGTH_LONG).show();
+                }
+            }
+        };
+        registerReceiver(broadcastReceiver, intentFilter);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(broadcastReceiver);
     }
 
 }

@@ -67,11 +67,12 @@ public class DownloadMinecraft {
     }
 
     //下载或更新Minecraft的版本信息文件version_manifest.json
-    public boolean UpdateVersionManifestJson(Context context){
+    public long UpdateVersionManifestJson(Context context){
         String fileUrl = getMINECRAFT_URL() + "/mc/game/version_manifest.json";
         String fileName = "version_manifest.json";
         String savePath = getDOWNLOAD_TEMP();
         String filePath = getMINECRAFT_TEMP()+fileName;
+        long taskId;
 
         //先判断文件是否存在
         //若存在则删掉再下载
@@ -81,19 +82,19 @@ public class DownloadMinecraft {
         }
         //执行下载操作
         Downloader downloader = new Downloader();
-        downloader.FileDownloader(context,savePath,fileName,fileUrl);
+        taskId = downloader.FileDownloader(context,savePath,fileName,fileUrl);
+
+        /*
+        //线程暂停等待下载任务完成
         try {
             Thread.sleep(1500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Toast.makeText(context,"版本信息更新完成",Toast.LENGTH_SHORT).show();
-        if(file.exists()){
-            return true;
-        }else{
-            return false;
+        */
 
-        }
+        Toast.makeText(context,"执行版本信息更新",Toast.LENGTH_SHORT).show();
+        return taskId;
     }
 
     public void DownloadMinecraftVersionJson(String id,String url,Context context){
