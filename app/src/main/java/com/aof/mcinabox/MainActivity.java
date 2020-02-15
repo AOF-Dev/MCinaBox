@@ -203,6 +203,7 @@ private BroadcastReceiver broadcastReceiver2;
         listener2(taskId);
     }
     private void DownloadVersionSecond(){
+        //TODO:这里到底发生了什么？为什么无法实例化？我草泥马
         //获取实例化后的versionList
         minecraftVersionJson = new AnaliesMinecraftVersionJson().getModelMinecraftVersionJson(downloadTask.getMINECRAFT_VERSION_DIR()+versionList[targetPos].getId()+"/"+versionList[targetPos].getId()+".json");
         Toast.makeText(getApplicationContext(),minecraftVersionJson.getLibraries().length,Toast.LENGTH_SHORT).show();
