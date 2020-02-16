@@ -16,9 +16,11 @@ public class DownloadMinecraft {
         DOWNLOAD_DIR = "/MCinaBox/.minecraft/";
         DOWNLOAD_TEMP = DOWNLOAD_DIR + "Temp/";
         DOWNLOAD_VERSION_DIR = DOWNLOAD_DIR + "versions/";
+        DOWNLOAD_LIBRARIES_DIR = DOWNLOAD_DIR + "libraries/";
         MINECRAFT_DIR = "/sdcard" + DOWNLOAD_DIR;
         MINECRAFT_TEMP = MINECRAFT_DIR + "Temp/";
         MINECRAFT_VERSION_DIR = MINECRAFT_DIR + "versions/";
+        MINECRAFT_LIBRARIES_DIR = MINECRAFT_DIR + "libraries/";
         VERSION_MANIFEST_URL = MINECRAFT_URL + "/mc/game/version_manifest.json";
     }
 
@@ -27,11 +29,13 @@ public class DownloadMinecraft {
     private String MINECRAFT_DIR; //Minecraft本地路径
     private String MINECRAFT_TEMP; //Minecraft临时目录-用于保存其他文件
     private String MINECRAFT_VERSION_DIR; //Minecraft的version文件夹路径
+    private String MINECRAFT_LIBRARIES_DIR; //Minecraft的libraries文件夹路径
 
     //下列路径定义为缺省/sdcard的路径
     private String DOWNLOAD_DIR; //Minecraft下载保存路径
     private String DOWNLOAD_TEMP; //Minecraft下载临时保存路径
     private String DOWNLOAD_VERSION_DIR; //Minecraft版本保存路径
+    private String DOWNLOAD_LIBRARIES_DIR;
 
     //部分文件
     private String VERSION_MANIFEST_URL; //version_manifest.json文件下载地址
@@ -53,6 +57,9 @@ public class DownloadMinecraft {
     public void setDOWNLOAD_VERSION_DIR(String DOWNLOAD_VERSION_DIR) { this.DOWNLOAD_VERSION_DIR = DOWNLOAD_VERSION_DIR; }
     public String getMINECRAFT_VERSION_DIR() { return MINECRAFT_VERSION_DIR; }
     public void setMINECRAFT_VERSION_DIR(String MINECRAFT_VERSION_DIR) { this.MINECRAFT_VERSION_DIR = MINECRAFT_VERSION_DIR; }
+    public String getMINECRAFT_LIBRARIES_DIR() {return MINECRAFT_LIBRARIES_DIR;}
+    public void setDOWNLOAD_LIBRARIES_DIR(String DOWNLOAD_LIBRARIES_DIR){this.DOWNLOAD_LIBRARIES_DIR = DOWNLOAD_LIBRARIES_DIR;}
+    public String getDOWNLOAD_LIBRARIES_DIR() {return DOWNLOAD_LIBRARIES_DIR;}
 
     //!!!传入缺省/sdcard的相对路径!!!
     public void setInformation(String a, String b){
@@ -110,6 +117,46 @@ public class DownloadMinecraft {
         }
         Downloader downloader = new Downloader();
         taskId = downloader.FileDownloader(context,savePath,fileName,fileUrl);
+        return taskId;
+    }
+    public long DownloadMinecraftDependentLibraries(String path,String url,Context context){
+        String fileUrl = url;
+        String filePath;
+        String savePath = getDOWNLOAD_LIBRARIES_DIR();
+        long taskId;
+
+        //TODO:格式化传递的字符串，使其符合下载器的接受标准
+        //TODO:功能测试
+
+        String editSavePath = "";
+        String editFileName = "";
+
+        int targetChar = 0;
+        int a = 0;
+        for(int i = 0;i<=path.length()-1;i++){
+            if(path.charAt(i) == '/'){
+                targetChar = i;
+            }
+        }
+        for(a = 0;a <= targetChar -1;a++){
+            editSavePath += path.charAt(a);
+        }
+        for(;a<=path.length()-1;a++){
+            editFileName += path.charAt(a);
+        }
+
+        editSavePath = getDOWNLOAD_LIBRARIES_DIR() + editSavePath;
+        filePath = getMINECRAFT_LIBRARIES_DIR() + editSavePath +"/"+ editFileName;
+
+        File file = new File(filePath);
+        if(file.exists()){
+            file.delete();
+        }
+
+
+        Downloader downloader = new Downloader();
+        taskId = downloader.FileDownloader(context,editSavePath,editFileName,fileUrl);
+
         return taskId;
     }
 }

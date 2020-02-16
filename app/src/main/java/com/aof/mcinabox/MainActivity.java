@@ -15,12 +15,14 @@ import android.os.Bundle;
 import android.os.Looper;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.TextureView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aof.mcinabox.jsonUtils.AnaliesMinecraftVersionJson;
@@ -39,6 +41,7 @@ ListVersionManifestJson.Version[] versionList;
 ModelMinecraftVersionJson minecraftVersionJson;
 Spinner spinnerVersionList;
 int targetPos;
+TextView logText;
 private BroadcastReceiver broadcastReceiver1;
 private BroadcastReceiver broadcastReceiver2;
 
@@ -83,6 +86,9 @@ private BroadcastReceiver broadcastReceiver2;
 
         //初始化Spinner控件
         spinnerVersionList = findViewById(R.id.main_linear3_spinner);
+
+        //初始化LogTextView控件
+        logText = findViewById(R.id.logTextView);
 
     }
 
@@ -203,10 +209,23 @@ private BroadcastReceiver broadcastReceiver2;
         listener2(taskId);
     }
     private void DownloadVersionSecond(){
-        //TODO:这里到底发生了什么？为什么无法实例化？我草泥马
         //获取实例化后的versionList
         minecraftVersionJson = new AnaliesMinecraftVersionJson().getModelMinecraftVersionJson(downloadTask.getMINECRAFT_VERSION_DIR()+versionList[targetPos].getId()+"/"+versionList[targetPos].getId()+".json");
-        Toast.makeText(getApplicationContext(),minecraftVersionJson.getLibraries().length,Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(),minecraftVersionJson.getLibraries().length+"",Toast.LENGTH_SHORT).show();
+        //先做一个输出测试一下解析结果是否正确
+
+        StringBuffer s2 = new StringBuffer("");
+        for(int i = 0;i<=minecraftVersionJson.getLibraries().length-1;i++){
+            StringBuffer s1 = new StringBuffer(minecraftVersionJson.getLibraries()[i].getName());
+            s2.append(s1);
+        }
+        logText.setText(s2);
+
+
+        //TODO:未正确获取path参数
+        //测试一下url参数
+        //downloadTask.DownloadMinecraftDependentLibraries(minecraftVersionJson.getLibraries()[0].getPath(), minecraftVersionJson.getLibraries()[0].getUrl(), this);
+
     }
 
     //测试json解析功能
@@ -292,6 +311,7 @@ private BroadcastReceiver broadcastReceiver2;
             public void onReceive(Context context, Intent intent) {
                 long ID = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
                 if (ID == Id) {
+                    Toast.makeText(getApplicationContext(), "中断1", Toast.LENGTH_LONG).show();
                     DownloadVersionSecond();
                 }
             }

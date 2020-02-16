@@ -17,13 +17,13 @@ public class ModelMinecraftVersionJson {
     //private Map<String,String> logging;
     public class DependentLibrary{
         private String name;
-        //private String path;
+        private String path;
         private String url;
 
         //Setter and Getter
 
-        //public String getPath() { return path; }
-        //public void setPath(String path) { this.path = path; }
+        public String getPath() { return path; }
+        public void setPath(String path) { this.path = path; }
         public String getUrl() { return url; }
         public void setUrl(String url) { this.url = url; }
         public String getName() { return name; }
@@ -50,8 +50,8 @@ public class ModelMinecraftVersionJson {
     //public void setDownloads(Map<String, String> downloads) { this.downloads = downloads; }
     //public Map<String, String> getAssetIndex() { return assetIndex; }
     //public void setAssetIndex(Map<String, String> assetIndex) { this.assetIndex = assetIndex; }
-    //public Libraries[] getLibraries() { return libraries; }
-    //public void setLibraries(Libraries[] libraries) { this.libraries = libraries; }
+    public DependentLibrary[] getLibraries() { return libraries; }
+    public void setLibraries(DependentLibrary[] libraries) { this.libraries = libraries; }
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
     public String getAssets() { return assets; }
