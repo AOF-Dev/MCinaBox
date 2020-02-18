@@ -77,6 +77,7 @@ private BroadcastReceiver broadcastReceiver2;
 
         //给linearlayout设置对象数组
         layout_user = findViewById(R.id.layout_user);
+        layout_gameselected = findViewById(R.id.layout_gameselected);
         layout_gamelist = findViewById(R.id.layout_gamelist);
         layout_gamedir = findViewById(R.id.layout_gamedir);
         layout_launchersetting = findViewById(R.id.layout_launchersetting);

@@ -47,13 +47,15 @@
 <ScrollView
     android:id="@+id/layout_fictionlist"
     android:layout_width="180dp"
-    android:layout_height="0dp"
+    android:layout_height="match_parent"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintLeft_toLeftOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/main_toolbar">
+    app:layout_constraintTop_toBottomOf="@id/main_toolbar"
+    android:layout_marginTop="30dp"
+    >
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@drawable/background_layout_fictionlist"
         android:gravity="clip_vertical"
         android:orientation="vertical">
@@ -243,16 +245,17 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="120dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="30dp"
             android:background="#ffffff">
 
             <TextView
                 android:id="@+id/logTextView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="@string/main_text_nolog"
                 android:textIsSelectable="true"
                 android:textSize="8sp"

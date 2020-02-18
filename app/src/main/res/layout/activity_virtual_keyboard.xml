@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".VirtualKeyBoardActivity">
+    tools:context=".VirtualKeyBoardActivity"
+    android:id="@+id/layout_keyboard"
+    >
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -35,6 +37,40 @@
             android:layout_height="20dp"
             android:background="@drawable/backtohome"
             android:layout_marginStart="5dp"
+            />
+        <View
+            android:layout_width="1px"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="50dp"
+            android:background="@android:color/background_dark" />
+        <Button
+            android:id="@+id/keyboard_button_addKey"
+            android:layout_marginStart="2dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="添加"
+            android:textSize="10sp"
+            />
+        <Button
+            android:id="@+id/keyboard_button_saveModel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="保存"
+            android:textSize="10sp"
+            />
+        <Button
+            android:id="@+id/keyboard_button_loadModel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="导入"
+            android:textSize="10sp"
+            />
+        <Button
+            android:id="@+id/keyboard_button_newModel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="新建"
+            android:textSize="10sp"
             />
     </androidx.appcompat.widget.Toolbar>
 </androidx.constraintlayout.widget.ConstraintLayout>
