@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".VirtualKeyBoardActivity" android:screenOrientation="landscape"></activity>
+        <activity android:name=".VirtualKeyBoardActivity" android:screenOrientation="landscape"/>
         <activity android:name=".MainActivity"
             android:screenOrientation="landscape">
             <intent-filter>

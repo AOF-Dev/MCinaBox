@@ -32,10 +32,10 @@ import com.aof.mcinabox.jsonUtils.ModelMinecraftVersionJson;
 
 public class MainActivity extends AppCompatActivity {
 Button[] launcherBts;
-Button button_user,button_gamelist,button_gamedir,button_launchersetting,button_launchercontrol,button7,button8;
+Button button_user,button_gameselected,button_gamelist,button_gamedir,button_launchersetting,button_launchercontrol,button7,button8;
 Button testButton;
 LinearLayout[] launcherLins;
-LinearLayout layout_user,layout_gamelist,layout_gamedir,layout_launchersetting,layout_launchercontrol;
+LinearLayout layout_user,layout_gameselected,layout_gamelist,layout_gamedir,layout_launchersetting,layout_launchercontrol;
 DownloadMinecraft downloadTask = new DownloadMinecraft();
 ListVersionManifestJson.Version[] versionList;
 ModelMinecraftVersionJson minecraftVersionJson;
@@ -62,6 +62,7 @@ private BroadcastReceiver broadcastReceiver2;
 
         //给界面的按键设置按键监听
         button_user = findViewById(R.id.main_button_user);
+        button_gameselected = findViewById(R.id.main_button_gameselected);
         button_gamelist = findViewById(R.id.main_button_gamelist);
         button_gamedir = findViewById(R.id.main_button_gamedir);
         button_launchersetting = findViewById(R.id.main_button_launchersetting);
@@ -69,7 +70,7 @@ private BroadcastReceiver broadcastReceiver2;
         button7 = findViewById(R.id.main_linear3_flash1);
         button8 = findViewById(R.id.main_linear3_download1);
         testButton = findViewById(R.id.test);
-        launcherBts = new Button[]{button_user,button_gamelist,button_gamedir,button_launchersetting,button_launchercontrol,button7,button8,testButton};
+        launcherBts = new Button[]{button_user,button_gameselected,button_gamelist,button_gamedir,button_launchersetting,button_launchercontrol,button7,button8,testButton,};
         for(Button button : launcherBts ){
             button.setOnClickListener(listener);
         }
@@ -80,8 +81,7 @@ private BroadcastReceiver broadcastReceiver2;
         layout_gamedir = findViewById(R.id.layout_gamedir);
         layout_launchersetting = findViewById(R.id.layout_launchersetting);
         layout_launchercontrol = findViewById(R.id.layout_launchercontrol);
-        launcherLins = new LinearLayout[] {layout_user,layout_gamelist,layout_gamedir,layout_launchersetting,layout_launchercontrol};
-
+        launcherLins = new LinearLayout[] {layout_user,layout_gamelist,layout_gamedir,layout_launchersetting,layout_launchercontrol,layout_gameselected};
         //初始化Spinner控件
         spinnerVersionList = findViewById(R.id.main_linear3_spinner);
 
@@ -137,6 +137,9 @@ private BroadcastReceiver broadcastReceiver2;
                 case R.id.main_button_user:
                     //具体点击操作的逻辑
                     setVisibleLinearLyout(layout_user);
+                    break;
+                case R.id.main_button_gameselected:
+                    setVisibleLinearLyout(layout_gameselected);
                     break;
                 case R.id.main_button_gamelist:
                     setVisibleLinearLyout(layout_gamelist);

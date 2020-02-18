@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@drawable/background"
     tools:context=".MainActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -24,164 +25,241 @@
             android:layout_height="wrap_content"
             android:text="@string/app_version"
             android:textSize="15sp"
-            />
+            android:textColor="@color/puredark"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
-            android:text="主页"
+            android:text="@string/main_text_defaultlayout"
+            android:textColor="@color/puredark"
+            />
+
+        <Button
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/backtohome"
+            android:layout_marginStart="5dp"
             />
 
     </androidx.appcompat.widget.Toolbar>
 
+<ScrollView
+    android:id="@+id/layout_fictionlist"
+    android:layout_width="180dp"
+    android:layout_height="0dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/main_toolbar">
     <LinearLayout
-        android:id="@+id/layout_fictionlist"
-        android:layout_width="180dp"
-        android:layout_height="0dp"
-        android:background="#BC6BAAA6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_layout_fictionlist"
         android:gravity="clip_vertical"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/main_toolbar">
+        android:orientation="vertical">
         <!-- 可以添加其他的view -->
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="账户"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="5dp"
+            android:text="账户"
+            android:textColor="@color/puredark"
+            android:textSize="10sp"
             />
+
         <View
             android:layout_width="fill_parent"
             android:layout_height="1px"
-            android:background="@android:color/background_dark"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            />
+            android:background="@android:color/background_dark" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <Button
                 android:id="@+id/main_button_user"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:text="@string/main_text_user">
-            </Button>
+                android:text="@string/main_text_user"
+                android:drawableStart="@drawable/chicken"
+                android:gravity="center_vertical"
+                android:drawablePadding="5dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="0dp"
+                />
         </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="游戏"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="5dp"
+            android:text="游戏"
+            android:textColor="@color/puredark"
+            android:textSize="10sp"
             />
+
         <View
             android:layout_width="fill_parent"
             android:layout_height="1px"
-            android:background="@android:color/background_dark"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            />
+            android:background="@android:color/background_dark" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/main_button_gameselected"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:drawableStart="@drawable/grass"
+                android:text="@string/main_text_gameselected"
+                android:gravity="center_vertical"
+                android:drawablePadding="5dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="0dp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
             <Button
                 android:id="@+id/main_button_gamelist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:text="@string/main_text_gamelist" />
+                android:drawableStart="@drawable/bookshelf"
+                android:text="@string/main_text_gamelist"
+                android:gravity="center_vertical"
+                android:drawablePadding="5dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="0dp"
+                />
         </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="游戏目录"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="5dp"
+            android:text="游戏目录"
+            android:textColor="@color/puredark"
+            android:textSize="10sp"
             />
+
         <View
             android:layout_width="fill_parent"
             android:layout_height="1px"
-            android:background="@android:color/background_dark"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            />
+            android:background="@android:color/background_dark" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <Button
                 android:id="@+id/main_button_gamedir"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:text="@string/main_text_gamedir" />
+                android:text="@string/main_text_gamedir"
+                android:drawableStart="@drawable/craft_table"
+                android:gravity="center_vertical"
+                android:drawablePadding="5dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="0dp"
+                />
 
         </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="启动器"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="5dp"
+            android:text="启动器"
+            android:textColor="@color/puredark"
+            android:textSize="10sp"
             />
+
         <View
             android:layout_width="fill_parent"
             android:layout_height="1px"
-            android:background="@android:color/background_dark"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            />
+            android:background="@android:color/background_dark" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <Button
                 android:id="@+id/main_button_launchersetting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:text="@string/main_text_launchersetting" />
+                android:text="@string/main_text_launchersetting"
+                android:drawableStart="@drawable/command"
+                android:gravity="center_vertical"
+                android:drawablePadding="5dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="0dp"
+                />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <Button
                 android:id="@+id/main_button_launchercontrol"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:text="@string/main_text_launchercontrol" />
+                android:text="@string/main_text_launchercontrol"
+                android:drawableStart="@drawable/furnace"
+                android:gravity="center_vertical"
+                android:drawablePadding="5dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="0dp"
+                />
         </LinearLayout>
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:layout_marginBottom="20dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
             android:background="#ffffff">
+
             <TextView
                 android:id="@+id/logTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@string/main_text_nolog"
                 android:textIsSelectable="true"
-                android:text="@string/main_text_nolog" />
+                android:textSize="8sp"
+                />
         </ScrollView>
     </LinearLayout>
+</ScrollView>
 
     <!-- 用户界面 -->
     <LinearLayout
@@ -190,9 +268,9 @@
         android:layout_height="0dp"
         android:orientation="vertical"
         android:visibility="invisible"
-        app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
         app:layout_constraintTop_toBottomOf="@id/main_toolbar">
 
         <!-- 可以添加其他的view -->
@@ -200,7 +278,27 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="用户界面"/>
+            android:text="用户界面" />
+    </LinearLayout>
+
+    <!--当前版本界面-->
+    <LinearLayout
+        android:id="@+id/layout_gameselected"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
+        app:layout_constraintTop_toBottomOf="@id/main_toolbar">
+
+        <!-- 可以添加其他的view -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="当前版本" />
     </LinearLayout>
 
     <!-- 游戏列表界面 -->
@@ -210,29 +308,30 @@
         android:layout_height="0dp"
         android:orientation="vertical"
         android:visibility="invisible"
-        app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
         app:layout_constraintTop_toBottomOf="@id/main_toolbar">
 
         <!-- 可以添加其他的view -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="Minecraft下载器"
             android:textColor="#000000"
-            android:textSize="20sp"
-            android:text="Minecraft下载器"/>
+            android:textSize="20sp" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:text="游戏文件"/>
+            android:text="游戏文件"
+            android:textSize="15sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="#EEECEA">
+            android:background="#EEECEA"
+            android:orientation="horizontal">
 
             <Spinner
                 android:id="@+id/main_linear3_spinner"
@@ -249,26 +348,28 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
                 android:orientation="vertical">
+
                 <Button
                     android:id="@+id/main_linear3_flash1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="刷新" />
+
                 <Button
                     android:id="@+id/main_linear3_download1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:clickable="false"
-                    android:text="下载"/>
+                    android:text="下载" />
             </LinearLayout>
 
         </LinearLayout>
+
         <Button
             android:id="@+id/test"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="测试解析"
-            />
+            android:text="测试解析" />
 
     </LinearLayout>
 
@@ -279,9 +380,9 @@
         android:layout_height="0dp"
         android:orientation="vertical"
         android:visibility="invisible"
-        app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
         app:layout_constraintTop_toBottomOf="@id/main_toolbar">
 
         <!-- 可以添加其他的view -->
@@ -289,7 +390,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="目录界面"/>
+            android:text="目录界面" />
     </LinearLayout>
 
     <!-- 启动器设置界面 -->
@@ -299,9 +400,9 @@
         android:layout_height="0dp"
         android:orientation="vertical"
         android:visibility="invisible"
-        app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
         app:layout_constraintTop_toBottomOf="@id/main_toolbar">
 
         <!-- 可以添加其他的view -->
@@ -309,7 +410,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="启动器设置界面"/>
+            android:text="启动器设置界面" />
     </LinearLayout>
 
     <!-- 虚拟键盘设置界面 -->
@@ -319,9 +420,9 @@
         android:layout_height="0dp"
         android:orientation="vertical"
         android:visibility="invisible"
-        app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
         app:layout_constraintTop_toBottomOf="@id/main_toolbar">
 
         <!-- 可以添加其他的view -->
@@ -329,7 +430,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="虚拟键盘设置界面"/>
+            android:text="虚拟键盘设置界面" />
     </LinearLayout>
 
 
