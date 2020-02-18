@@ -32,7 +32,7 @@ import com.aof.mcinabox.jsonUtils.ModelMinecraftVersionJson;
 
 public class MainActivity extends AppCompatActivity {
 Button[] launcherBts;
-Button button1,button2,button3,button4,button5,button6,button7,button8;
+Button button_user,button_gamelist,button_gamedir,button_launchersetting,button_launchercontrol,button7,button8;
 Button testButton;
 LinearLayout[] launcherLins;
 LinearLayout layout1,layout2,layout3,layout4,layout5,layout6;
@@ -61,16 +61,15 @@ private BroadcastReceiver broadcastReceiver2;
         requestPermission();
 
         //给界面的按键设置按键监听
-        button1 = findViewById(R.id.main_linear1_button1);
-        button2 = findViewById(R.id.main_linear1_button2);
-        button3 = findViewById(R.id.main_linear1_button3);
-        button4 = findViewById(R.id.main_linear1_button4);
-        button5 = findViewById(R.id.main_linear1_button5);
-        button6 = findViewById(R.id.main_linear1_button6);
+        button_user = findViewById(R.id.main_button_user);
+        button_gamelist = findViewById(R.id.main_button_gamelist);
+        button_gamedir = findViewById(R.id.main_button_gamedir);
+        button_launchersetting = findViewById(R.id.main_button_launchersetting);
+        button_launchercontrol = findViewById(R.id.main_button_launchercontrol);
         button7 = findViewById(R.id.main_linear3_flash1);
         button8 = findViewById(R.id.main_linear3_download1);
         testButton = findViewById(R.id.test);
-        launcherBts = new Button[]{button1,button2,button3,button4,button5,button6,button7,button8,testButton};
+        launcherBts = new Button[]{button_user,button_gamelist,button_gamedir,button_launchersetting,button_launchercontrol,button7,button8,testButton};
         for(Button button : launcherBts ){
             button.setOnClickListener(listener);
         }
@@ -136,24 +135,24 @@ private BroadcastReceiver broadcastReceiver2;
         public void onClick(View arg0) {
             // TODO Auto-generated method stub
             switch(arg0.getId()){
-                case R.id.main_linear1_button1:
+                case R.id.main_button_user:
                     //具体点击操作的逻辑
                     setVisibleLinearLyout(layout1);
                     break;
-                case R.id.main_linear1_button2:
+                case R.id.main_button_gamelist:
                     setVisibleLinearLyout(layout2);
                     break;
-                case R.id.main_linear1_button3:
+                case R.id.main_button_gamedir:
                     setVisibleLinearLyout(layout3);
+                    //页面跳转
+                    Intent intent = new Intent(getApplicationContext(),VirtualKeyBoardActivity.class);
+                    startActivity(intent);
                     break;
-                case R.id.main_linear1_button4:
+                case R.id.main_button_launchersetting:
                     setVisibleLinearLyout(layout4);
                     break;
-                case R.id.main_linear1_button5:
+                case R.id.main_button_launchercontrol:
                     setVisibleLinearLyout(layout5);
-                    break;
-                case R.id.main_linear1_button6:
-                    setVisibleLinearLyout(layout6);
                     break;
                 case R.id.main_linear3_flash1:
                     //这里使用了多线程
@@ -214,12 +213,14 @@ private BroadcastReceiver broadcastReceiver2;
         //Toast.makeText(getApplicationContext(),minecraftVersionJson.getLibraries().length+"",Toast.LENGTH_SHORT).show();
         //先做一个输出测试一下解析结果是否正确
 
-        StringBuffer s2 = new StringBuffer("");
+        /*StringBuffer s2 = new StringBuffer("");
         for(int i = 0;i<=minecraftVersionJson.getLibraries().length-1;i++){
-            StringBuffer s1 = new StringBuffer(minecraftVersionJson.getLibraries()[i].getName());
+            StringBuffer s1 = new StringBuffer(minecraftVersionJson.getLibraries()[i].getDownloads().containsKey("path"));
             s2.append(s1);
         }
         logText.setText(s2);
+         */
+        logText.setText(""+minecraftVersionJson.getLibraries()[1].getDownloads().size());
 
 
         //TODO:未正确获取path参数

@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">MCinaBox</string>
     <string name="toolbar_menu_action1">设置</string>
-    <string name="main_linear1_button1">用户</string>
     <string name="main_linear1_button2">管理</string>
     <string name="main_linear1_button3">日志</string>
     <string name="main_linear1_button4">模块</string>
@@ -9,4 +8,12 @@
     <string name="main_linear1_button6">关于</string>
     <string name="main_text_programlog">程序日志</string>
     <string name="main_text_nolog">Log.Hear</string>
+
+
+    <string name="app_version">v0.1.0</string>
+    <string name="main_text_gamelist">游戏列表</string>
+    <string name="main_text_user">用户</string>
+    <string name="main_text_gamedir">当前目录</string>
+    <string name="main_text_launchersetting">启动器设置</string>
+    <string name="main_text_launchercontrol">虚拟键盘设置</string>
 </resources>

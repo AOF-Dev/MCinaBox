@@ -1,5 +1,6 @@
 package com.aof.mcinabox.jsonUtils;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class ModelMinecraftVersionJson {
@@ -12,22 +13,35 @@ public class ModelMinecraftVersionJson {
     private String assets;
     private String id;
     private DependentLibrary[] libraries;
+    public HashMap<String, Download> downloads;
     //private Map<String,String> assetIndex;
     //private Map<String,String> downloads;
     //private Map<String,String> logging;
     public class DependentLibrary{
         private String name;
-        private String path;
-        private String url;
+        private HashMap<String,Download> downloads;
+        //Setter and Gettet
+        public String getName() { return name; }
+        public void setName(String name) { this.name = name; }
+        public HashMap<String,Download> getDownloads(){return downloads;}
+        public void setDownloads(HashMap<String,Download> downloads){this.downloads = downloads;}
 
-        //Setter and Getter
+    }
+    public class Download{
+        private String url;
+        private String path;
+        private String sha1;
+        private int size;
+
 
         public String getPath() { return path; }
         public void setPath(String path) { this.path = path; }
         public String getUrl() { return url; }
         public void setUrl(String url) { this.url = url; }
-        public String getName() { return name; }
-        public void setName(String name) { this.name = name; }
+        public String getSha1() {return sha1;}
+        public void setSha1(String sha1) {this.sha1 = sha1;}
+        public int getSize() {return size;}
+        public void setSize(int size){this.size = size;}
 
     }
     //1.13.0之前的参数

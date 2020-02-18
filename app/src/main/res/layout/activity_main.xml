@@ -9,7 +9,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/main_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
         android:minHeight="?attr/actionBarSize"
@@ -19,12 +19,24 @@
         app:navigationIcon="?attr/actionModeCloseDrawable"
         app:title="@string/app_name">
         <!-- 可以添加其他的view -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_version"
+            android:textSize="15sp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:text="主页"
+            />
 
     </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
         android:id="@+id/main_linear1"
-        android:layout_width="100dp"
+        android:layout_width="180dp"
         android:layout_height="0dp"
         android:background="#BC6BAAA6"
         android:gravity="clip_vertical"
@@ -34,47 +46,126 @@
         app:layout_constraintTop_toBottomOf="@id/main_toolbar">
         <!-- 可以添加其他的view -->
 
-        <Button
-            android:id="@+id/main_linear1_button1"
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:text="@string/main_linear1_button1" />
+            android:text="账户"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            />
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:background="@android:color/background_dark"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            />
 
-        <Button
-            android:id="@+id/main_linear1_button2"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:text="@string/main_linear1_button2" />
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/main_button_user"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:text="@string/main_text_user">
+            </Button>
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/main_linear1_button3"
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:text="@string/main_linear1_button3" />
+            android:text="游戏"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            />
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:background="@android:color/background_dark"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            />
 
-        <Button
-            android:id="@+id/main_linear1_button4"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:text="@string/main_linear1_button4" />
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/main_button_gamelist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:text="@string/main_text_gamelist" />
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/main_linear1_button5"
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:text="@string/main_linear1_button5" />
+            android:text="游戏目录"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            />
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:background="@android:color/background_dark"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            />
 
-        <Button
-            android:id="@+id/main_linear1_button6"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:text="@string/main_linear1_button6" />
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/main_button_gamedir"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:text="@string/main_text_gamedir" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="启动器"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            />
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:background="@android:color/background_dark"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/main_button_launchersetting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:text="@string/main_text_launchersetting" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/main_button_launchercontrol"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:text="@string/main_text_launchercontrol" />
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -128,7 +219,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@id/main_linear1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
