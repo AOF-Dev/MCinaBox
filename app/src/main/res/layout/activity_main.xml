@@ -35,7 +35,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
-        android:id="@+id/main_linear1"
+        android:id="@+id/layout_fictionlist"
         android:layout_width="180dp"
         android:layout_height="0dp"
         android:background="#BC6BAAA6"
@@ -167,14 +167,6 @@
                 android:text="@string/main_text_launchercontrol" />
         </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/main_text_programlog"
-            android:textSize="20sp"
-            android:layout_marginStart="10dp"
-            />
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
@@ -189,18 +181,16 @@
                 android:textIsSelectable="true"
                 android:text="@string/main_text_nolog" />
         </ScrollView>
-
-
     </LinearLayout>
 
-    <!-- Button引发信息 -->
+    <!-- 用户界面 -->
     <LinearLayout
-        android:id="@+id/main_linear2"
+        android:id="@+id/layout_user"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
         android:visibility="invisible"
-        app:layout_constraintStart_toEndOf="@id/main_linear1"
+        app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/main_toolbar">
@@ -210,17 +200,17 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="information2"/>
+            android:text="用户界面"/>
     </LinearLayout>
 
-    <!-- Button2引发信息 -->
+    <!-- 游戏列表界面 -->
     <LinearLayout
-        android:id="@+id/main_linear3"
+        android:id="@+id/layout_gamelist"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
         android:visibility="invisible"
-        app:layout_constraintStart_toEndOf="@id/main_linear1"
+        app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/main_toolbar">
@@ -282,14 +272,14 @@
 
     </LinearLayout>
 
-    <!-- Button3引发信息 -->
+    <!-- 游戏目录界面 -->
     <LinearLayout
-        android:id="@+id/main_linear4"
+        android:id="@+id/layout_gamedir"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
         android:visibility="invisible"
-        app:layout_constraintStart_toEndOf="@id/main_linear1"
+        app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/main_toolbar">
@@ -299,17 +289,17 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="information4"/>
+            android:text="目录界面"/>
     </LinearLayout>
 
-    <!-- Button4引发信息 -->
+    <!-- 启动器设置界面 -->
     <LinearLayout
-        android:id="@+id/main_linear5"
+        android:id="@+id/layout_launchersetting"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
         android:visibility="invisible"
-        app:layout_constraintStart_toEndOf="@id/main_linear1"
+        app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/main_toolbar">
@@ -319,17 +309,17 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="information5"/>
+            android:text="启动器设置界面"/>
     </LinearLayout>
 
-    <!-- Button5引发信息 -->
+    <!-- 虚拟键盘设置界面 -->
     <LinearLayout
-        android:id="@+id/main_linear6"
+        android:id="@+id/layout_launchercontrol"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
         android:visibility="invisible"
-        app:layout_constraintStart_toEndOf="@id/main_linear1"
+        app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/main_toolbar">
@@ -339,27 +329,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="information6"/>
-    </LinearLayout>
-
-    <!-- Button6引发信息 -->
-    <LinearLayout
-        android:id="@+id/main_linear7"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        android:visibility="invisible"
-        app:layout_constraintStart_toEndOf="@id/main_linear1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/main_toolbar">
-
-        <!-- 可以添加其他的view -->
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="information7"/>
+            android:text="虚拟键盘设置界面"/>
     </LinearLayout>
 
 

@@ -35,7 +35,7 @@ Button[] launcherBts;
 Button button_user,button_gamelist,button_gamedir,button_launchersetting,button_launchercontrol,button7,button8;
 Button testButton;
 LinearLayout[] launcherLins;
-LinearLayout layout1,layout2,layout3,layout4,layout5,layout6;
+LinearLayout layout_user,layout_gamelist,layout_gamedir,layout_launchersetting,layout_launchercontrol;
 DownloadMinecraft downloadTask = new DownloadMinecraft();
 ListVersionManifestJson.Version[] versionList;
 ModelMinecraftVersionJson minecraftVersionJson;
@@ -75,13 +75,12 @@ private BroadcastReceiver broadcastReceiver2;
         }
 
         //给linearlayout设置对象数组
-        layout1 = findViewById(R.id.main_linear2);
-        layout2 = findViewById(R.id.main_linear3);
-        layout3 = findViewById(R.id.main_linear4);
-        layout4 = findViewById(R.id.main_linear5);
-        layout5 = findViewById(R.id.main_linear6);
-        layout6 = findViewById(R.id.main_linear7);
-        launcherLins = new LinearLayout[] {layout1,layout2,layout3,layout4,layout5,layout6};
+        layout_user = findViewById(R.id.layout_user);
+        layout_gamelist = findViewById(R.id.layout_gamelist);
+        layout_gamedir = findViewById(R.id.layout_gamedir);
+        layout_launchersetting = findViewById(R.id.layout_launchersetting);
+        layout_launchercontrol = findViewById(R.id.layout_launchercontrol);
+        launcherLins = new LinearLayout[] {layout_user,layout_gamelist,layout_gamedir,layout_launchersetting,layout_launchercontrol};
 
         //初始化Spinner控件
         spinnerVersionList = findViewById(R.id.main_linear3_spinner);
@@ -137,22 +136,22 @@ private BroadcastReceiver broadcastReceiver2;
             switch(arg0.getId()){
                 case R.id.main_button_user:
                     //具体点击操作的逻辑
-                    setVisibleLinearLyout(layout1);
+                    setVisibleLinearLyout(layout_user);
                     break;
                 case R.id.main_button_gamelist:
-                    setVisibleLinearLyout(layout2);
+                    setVisibleLinearLyout(layout_gamelist);
                     break;
                 case R.id.main_button_gamedir:
-                    setVisibleLinearLyout(layout3);
+                    setVisibleLinearLyout(layout_gamedir);
+                    break;
+                case R.id.main_button_launchersetting:
+                    setVisibleLinearLyout(layout_launchersetting);
+                    break;
+                case R.id.main_button_launchercontrol:
+                    setVisibleLinearLyout(layout_launchercontrol);
                     //页面跳转
                     Intent intent = new Intent(getApplicationContext(),VirtualKeyBoardActivity.class);
                     startActivity(intent);
-                    break;
-                case R.id.main_button_launchersetting:
-                    setVisibleLinearLyout(layout4);
-                    break;
-                case R.id.main_button_launchercontrol:
-                    setVisibleLinearLyout(layout5);
                     break;
                 case R.id.main_linear3_flash1:
                     //这里使用了多线程
