@@ -46,28 +46,28 @@
         <Button
             android:id="@+id/keyboard_button_addKey"
             android:layout_marginStart="2dp"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:text="添加"
             android:textSize="10sp"
             />
         <Button
             android:id="@+id/keyboard_button_saveModel"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:text="保存"
             android:textSize="10sp"
             />
         <Button
             android:id="@+id/keyboard_button_loadModel"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:text="导入"
             android:textSize="10sp"
             />
         <Button
             android:id="@+id/keyboard_button_newModel"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:text="新建"
             android:textSize="10sp"
