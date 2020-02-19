@@ -27,7 +27,7 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
 
     ConstraintLayout layout_keyboard;
     ArrayList<GameButton> keyboardList,tempKeyboardList;
-    Button button_addKey,dialog_button_finish,dialog_button_cancel;
+    Button button_addKey,button_newModel,dialog_button_finish,dialog_button_cancel;
     Button[] launcherBts;
     EditText editText_key_name,editText_key_lx,editText_key_ly,editText_key_size;
     RadioGroup radioGroup;
@@ -69,7 +69,8 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
         dialog_button_cancel = configDialog.findViewById(R.id.dialog_button_cancel);
         dialog_button_finish = configDialog.findViewById(R.id.dialog_button_finish);
         button_addKey = findViewById(R.id.keyboard_button_addKey);
-        launcherBts = new Button[]{button_addKey,dialog_button_finish,dialog_button_cancel};
+        button_newModel = findViewById(R.id.keyboard_button_newModel);
+        launcherBts = new Button[]{button_addKey,button_newModel,dialog_button_finish,dialog_button_cancel};
         for (Button button : launcherBts) {
             button.setOnClickListener(listener);
         }
@@ -101,7 +102,7 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
         GameButton KeyButton = new GameButton(getApplicationContext());
         KeyButton.setText(KeyName);
         KeyButton.setLayoutParams(new ViewGroup.LayoutParams(KeySize, KeySize));
-        KeyButton.setAlpha(KeyAlpha);
+        KeyButton.getBackground().setAlpha(KeyAlpha);
         KeyButton.setX(KeyLX);
         KeyButton.setY(KeyLY);
         KeyButton.setKeep(isAutoKeep);
@@ -134,7 +135,7 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
     private void reloadStantKey(GameButton targetButton){
         //给各个控件重载按键的属性
         editText_key_name.setText(targetButton.getText().toString());
-        editText_key_size.setText(""+targetButton.getLayoutParams().width);
+        editText_key_size.setText(""+getDpFromPx(this,targetButton.getLayoutParams().width));
         editText_key_lx.setText(""+(int)targetButton.getX());
         editText_key_ly.setText(""+(int)targetButton.getY());
         checkBox_isKeep.setChecked(targetButton.isKeep());
@@ -147,7 +148,7 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
             radioButton_round.setChecked(true);
             radioButton_square.setChecked(false);
         }
-        seekBar_alpha.setProgress((int)targetButton.getAlpha());
+        seekBar_alpha.setProgress(targetButton.getBackground().getAlpha());
         key_main_selected.setSelection(targetButton.getMainPos());
         key_special_oneselected.setSelection(targetButton.getSpecialOnePos());
         key_special_twoselected.setSelection(targetButton.getSpecialTwoPos());
@@ -176,10 +177,10 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
         int SpecialOnePos = key_special_oneselected.getSelectedItemPosition();
         int SpecialTwoPos = key_special_twoselected.getSelectedItemPosition();
 
-        if(KeyName != null && KeySize != 0){
+        if(!KeyName.equals("") && KeySize >= 20){
             Toast.makeText(this, "添加成功", Toast.LENGTH_SHORT).show();
         }else{
-            Toast.makeText(this, "请完成基本设置", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "请正确地设置", Toast.LENGTH_SHORT).show();
             return;
         }
         addStandKey(KeyName,getPxFromDp(this,KeySize),KeyAlpha,KeyLX,KeyLY,KeyMain,SpecialOne,SpecialTwo,isAutoKeep,isHide,isMult,shape,MainPos,SpecialOnePos,SpecialTwoPos);
@@ -195,12 +196,17 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
                     break;
                 case R.id.dialog_button_finish:
                     configStandKey();
+                    configDialog.dismiss();
                     break;
                 case R.id.dialog_button_cancel:
                     configDialog.dismiss();
                     break;
                 case R.id.keyboard_button_addKey:
                     configDialog.show();
+                    break;
+                case R.id.keyboard_button_newModel:
+                    clearKeyboard();
+                    reflashKeyboard();
                     break;
             }
         }
@@ -235,6 +241,12 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
+
+    public static int getDpFromPx(Context context, float pxValue){
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return ((int) ((pxValue - 0.5f)/scale))+1;
+    }
+
     public void reflashKeyboard(){
         for (GameButton targetButton : keyboardList) {
             layout_keyboard.addView(targetButton);
@@ -242,6 +254,7 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
             targetButton.setOnLongClickListener(keyboardListenerLong);
         }
     }
+    
     public void removeKeyboard(){
         for(GameButton targetButton : keyboardList){
             if(targetButton != null){
@@ -259,6 +272,11 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
                 tempList.add(targetButton);
             }
         }
+        keyboardList = tempList;
+    }
+    //彻底清空虚拟按键
+    public void clearKeyboard(){
+        ArrayList<GameButton> tempList = new ArrayList<GameButton>(){};
         keyboardList = tempList;
     }
 }
