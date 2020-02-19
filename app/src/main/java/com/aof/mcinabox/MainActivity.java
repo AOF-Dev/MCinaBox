@@ -41,7 +41,7 @@ ListVersionManifestJson.Version[] versionList;
 ModelMinecraftVersionJson minecraftVersionJson;
 Spinner spinnerVersionList;
 int targetPos;
-TextView logText;
+TextView logText,main_text_showstate;
 private BroadcastReceiver broadcastReceiver1;
 private BroadcastReceiver broadcastReceiver2;
 
@@ -88,6 +88,8 @@ private BroadcastReceiver broadcastReceiver2;
 
         //初始化LogTextView控件
         logText = findViewById(R.id.logTextView);
+
+        main_text_showstate = findViewById(R.id.main_text_showstate);
 
     }
 
@@ -138,21 +140,27 @@ private BroadcastReceiver broadcastReceiver2;
                 case R.id.main_button_user:
                     //具体点击操作的逻辑
                     setVisibleLinearLyout(layout_user);
+                    main_text_showstate.setText(getString(R.string.main_text_user));
                     break;
                 case R.id.main_button_gameselected:
                     setVisibleLinearLyout(layout_gameselected);
+                    main_text_showstate.setText(getString(R.string.main_text_gameselected));
                     break;
                 case R.id.main_button_gamelist:
                     setVisibleLinearLyout(layout_gamelist);
+                    main_text_showstate.setText(getString(R.string.main_text_gamelist));
                     break;
                 case R.id.main_button_gamedir:
                     setVisibleLinearLyout(layout_gamedir);
+                    main_text_showstate.setText(getString(R.string.main_text_gamedir));
                     break;
                 case R.id.main_button_launchersetting:
                     setVisibleLinearLyout(layout_launchersetting);
+                    main_text_showstate.setText(getString(R.string.main_text_launchersetting));
                     break;
                 case R.id.main_button_launchercontrol:
                     setVisibleLinearLyout(layout_launchercontrol);
+                    main_text_showstate.setText(getString(R.string.main_text_launchercontrol));
                     //页面跳转
                     Intent intent = new Intent(getApplicationContext(),VirtualKeyBoardActivity.class);
                     startActivity(intent);

@@ -18,16 +18,37 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aof.mcinabox.keyboardUtils.KeyboardLoadModel;
+import com.google.gson.Gson;
+
 import com.aof.mcinabox.keyboardUtils.ConfigDialog;
 import com.aof.mcinabox.keyboardUtils.GameButton;
+import com.aof.mcinabox.keyboardUtils.KeyboardJsonModel;
+import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class VirtualKeyBoardActivity extends AppCompatActivity {
 
     ConstraintLayout layout_keyboard;
     ArrayList<GameButton> keyboardList,tempKeyboardList;
-    Button button_addKey,button_newModel,dialog_button_finish,dialog_button_cancel;
+    Button button_addKey,button_newModel,button_saveModel,button_loadModel,dialog_button_finish,dialog_button_cancel;
     Button[] launcherBts;
     EditText editText_key_name,editText_key_lx,editText_key_ly,editText_key_size;
     RadioGroup radioGroup;
@@ -70,7 +91,9 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
         dialog_button_finish = configDialog.findViewById(R.id.dialog_button_finish);
         button_addKey = findViewById(R.id.keyboard_button_addKey);
         button_newModel = findViewById(R.id.keyboard_button_newModel);
-        launcherBts = new Button[]{button_addKey,button_newModel,dialog_button_finish,dialog_button_cancel};
+        button_saveModel = findViewById(R.id.keyboard_button_saveModel);
+        button_loadModel = findViewById(R.id.keyboard_button_loadModel);
+        launcherBts = new Button[]{button_addKey,button_newModel,button_saveModel,button_loadModel,dialog_button_finish,dialog_button_cancel};
         for (Button button : launcherBts) {
             button.setOnClickListener(listener);
         }
@@ -97,8 +120,8 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
 
     }
 
-    //键名称 键大小 透明度 X轴位置 Y轴位置 键值 特殊键1 特殊键2 是否保持 是否隐藏 是否是组合键 形状
-    public void addStandKey(String KeyName, int KeySize, int KeyAlpha, float KeyLX, float KeyLY, String KeyMain, String SpecialOne, String SpecialTwo, boolean isAutoKeep, boolean isHide, boolean isMult,int shape,int MainPos,int SpecialOnePos,int SpecialTwoPos) {
+    //键名称 键大小 透明度 X轴位置 Y轴位置 键值 特殊键1 特殊键2 是否保持 是否隐藏 是否是组合键 形状 主按键位置 组合键一位置 组合键二位置
+    public void addStandKey(String KeyName, int KeySize, int KeyAlpha, float KeyLX, float KeyLY, String KeyMain, String SpecialOne, String SpecialTwo, boolean isAutoKeep, boolean isHide, boolean isMult,String shape,int MainPos,int SpecialOnePos,int SpecialTwoPos) {
         GameButton KeyButton = new GameButton(getApplicationContext());
         KeyButton.setText(KeyName);
         KeyButton.setLayoutParams(new ViewGroup.LayoutParams(KeySize, KeySize));
@@ -120,9 +143,9 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
         KeyButton.setSpecialTwoPos(SpecialTwoPos);
 
         //KeyButton.setBackgroundColor(Color.parseColor("#A6A4A2"));
-        if(shape == R.id.shape_square){
+        if(shape.equals("square")){
             KeyButton.setBackground(this.getDrawable(R.drawable.control_button_square));
-        }else if(shape == R.id.shape_round){
+        }else if(shape.equals("round")){
             KeyButton.setBackground(this.getDrawable(R.drawable.control_button_round));
         }
 
@@ -141,14 +164,14 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
         checkBox_isKeep.setChecked(targetButton.isKeep());
         checkBox_isHide.setChecked(targetButton.isHide());
         checkBox_isMult.setChecked(targetButton.isMult());
-        if(targetButton.getShape() == R.id.shape_square){
+        if(targetButton.getShape().equals("square")){
             radioButton_square.setChecked(true);
             radioButton_round.setChecked(false);
-        }else if(targetButton.getShape() == R.id.shape_round){
+        }else if(targetButton.getShape().equals("round")){
             radioButton_round.setChecked(true);
             radioButton_square.setChecked(false);
         }
-        seekBar_alpha.setProgress(targetButton.getBackground().getAlpha());
+        seekBar_alpha.setProgress((int)targetButton.getAlpha());
         key_main_selected.setSelection(targetButton.getMainPos());
         key_special_oneselected.setSelection(targetButton.getSpecialOnePos());
         key_special_twoselected.setSelection(targetButton.getSpecialTwoPos());
@@ -168,7 +191,14 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
         boolean isAutoKeep = checkBox_isKeep.isChecked();
         boolean isHide = checkBox_isHide.isChecked();
         boolean isMult = checkBox_isMult.isChecked();
-        int shape = radioGroup.getCheckedRadioButtonId();
+
+        String shape = "square";
+        if(radioGroup.getCheckedRadioButtonId() == R.id.shape_square){
+            shape = "square";
+        }else if(radioGroup.getCheckedRadioButtonId() == R.id.shape_round){
+            shape = "round";
+        }
+
         int KeyAlpha = seekBar_alpha.getProgress();
         String KeyMain = (String)key_main_selected.getSelectedItem();
         String SpecialOne = (String)key_special_oneselected.getSelectedItem();
@@ -205,9 +235,18 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
                     configDialog.show();
                     break;
                 case R.id.keyboard_button_newModel:
+                    removeKeyboard();
                     clearKeyboard();
                     reflashKeyboard();
                     break;
+                case R.id.keyboard_button_saveModel:
+                    getJsonFromKeyboardModel();
+                    break;
+                case R.id.keyboard_button_loadModel:
+                    removeKeyboard();
+                    clearKeyboard();
+                    reflashKeyboard();
+                    getKeyboardModelFromJson();
             }
         }
     };
@@ -279,4 +318,73 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
         ArrayList<GameButton> tempList = new ArrayList<GameButton>(){};
         keyboardList = tempList;
     }
+
+    public void getJsonFromKeyboardModel(){
+        Gson gson = new Gson();
+        File jsonFile = new File("/sdcard/MCinaBox/model.json");
+        if(!jsonFile.exists()){
+            try {
+                jsonFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        ArrayList<KeyboardJsonModel> modelList = new ArrayList<KeyboardJsonModel>(){};
+        for(GameButton button : keyboardList){
+            modelList.add(new KeyboardJsonModel(button.getText().toString(),getDpFromPx(this,button.getLayoutParams().width),(int)button.getAlpha(),(int)button.getX(),(int)button.getY(),button.getKeyMain(),button.getSpecialOne(),button.getSpecialTwo(),button.isKeep(),button.isHide(),button.isMult(),button.getShape(),button.getMainPos(),button.getSpecialOnePos(),button.getSpecialTwoPos()));
+        }
+
+        JSONArray jsonArray = new JSONArray();
+        for (int i = 0; i < modelList.size(); i++) {
+            String accountStr = gson.toJson(modelList.get(i));
+            JSONObject keyboardModelObject;
+            try {
+                keyboardModelObject = new JSONObject(accountStr);
+                jsonArray.put(i, keyboardModelObject);
+                try {
+                    FileWriter jsonWriter = new FileWriter(jsonFile);
+                    BufferedWriter out = new BufferedWriter(jsonWriter);
+                    out.write(jsonArray.toString());
+                    out.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        Toast.makeText(this, "导出成功", Toast.LENGTH_SHORT).show();
+    }
+
+    public void getKeyboardModelFromJson(){
+        InputStream inputStream;
+        Gson gson = new Gson();
+        File jsonFile = new File("/sdcard/MCinaBox/model.json");
+        if(!jsonFile.exists()){
+            Toast.makeText(this, "无键盘模板", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        try {
+            inputStream = new FileInputStream(jsonFile);
+            Reader reader = new InputStreamReader(inputStream);
+            KeyboardJsonModel[] jsonArray = new Gson().fromJson(reader, KeyboardJsonModel[].class);
+            List<KeyboardJsonModel> tempList1 = Arrays.asList(jsonArray);
+            ArrayList<KeyboardJsonModel> tempList2 = new ArrayList<KeyboardJsonModel>(tempList1);
+            if(tempList2.size() != 0){
+                Toast.makeText(this, "导入成功", Toast.LENGTH_SHORT).show();
+                for(KeyboardJsonModel targetModel : tempList2){
+                    //这里采用了逐个添加，对性能有一定影响，但是编程更简单。 性能影响！
+                    addStandKey(targetModel.getKeyName(),getPxFromDp(this,targetModel.getKeySize()),targetModel.getKeyAlpha(),targetModel.getKeyLX(),targetModel.getKeyLY(),targetModel.getKeyMain(),targetModel.getSpecialOne(),targetModel.getSpecialTwo(),targetModel.isAutoKeep(),targetModel.isHide(),targetModel.isMult(),targetModel.getShape(),targetModel.getMainPos(),targetModel.getSpecialOnePos(),targetModel.getSpecialTwoPos());
+                }
+            }else{
+                Toast.makeText(this, "导入失败", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

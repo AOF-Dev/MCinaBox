@@ -12,7 +12,7 @@ public class GameButton extends androidx.appcompat.widget.AppCompatButton {
     private boolean isHide;
     private boolean isMult;
     private String KeyMain;
-    private int shape;
+    private String shape;
     private int MainPos;
     private int SpecialOnePos;
     private int SpecialTwoPos;
@@ -29,8 +29,8 @@ public class GameButton extends androidx.appcompat.widget.AppCompatButton {
     public void setSpecialOne(String specialOne) { this.specialOne = specialOne; }
     public boolean isMult() { return isMult; }
     public void setMult(boolean mult) { isMult = mult; }
-    public int getShape(){return shape;}
-    public void setShape(int shape){this.shape = shape;}
+    public String getShape(){return shape;}
+    public void setShape(String shape){this.shape = shape;}
     public int getMainPos(){return MainPos;}
     public void setMainPos(int MainPos){this.MainPos = MainPos;}
     public int getSpecialTwoPos() { return SpecialTwoPos; }
