@@ -326,8 +326,12 @@ private BroadcastReceiver broadcastReceiver2;
     @Override
     public void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(broadcastReceiver1);
-        unregisterReceiver(broadcastReceiver2);
+        if(broadcastReceiver1 != null){
+            unregisterReceiver(broadcastReceiver1);
+        }
+        if(broadcastReceiver2 != null){
+            unregisterReceiver(broadcastReceiver2);
+        }
     }
 
 }
