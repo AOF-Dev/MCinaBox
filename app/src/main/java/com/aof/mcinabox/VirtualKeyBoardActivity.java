@@ -102,7 +102,7 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
         GameButton KeyButton = new GameButton(getApplicationContext());
         KeyButton.setText(KeyName);
         KeyButton.setLayoutParams(new ViewGroup.LayoutParams(KeySize, KeySize));
-        KeyButton.getBackground().setAlpha(KeyAlpha);
+        KeyButton.setAlpha(KeyAlpha);
         KeyButton.setX(KeyLX);
         KeyButton.setY(KeyLY);
         KeyButton.setKeep(isAutoKeep);
@@ -254,7 +254,7 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
             targetButton.setOnLongClickListener(keyboardListenerLong);
         }
     }
-    
+
     public void removeKeyboard(){
         for(GameButton targetButton : keyboardList){
             if(targetButton != null){
