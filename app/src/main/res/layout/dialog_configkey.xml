@@ -86,7 +86,8 @@
             <Spinner
                 android:id="@+id/dialog_key_main"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:entries="@array/keymap_main_array" />
         </LinearLayout>
 
         <TextView
@@ -125,14 +126,18 @@
                 android:id="@+id/dialog_keyalpha"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:text="透明度"/>
+                android:text="透明度" />
             <TextView
+                android:id="@+id/dialog_text_alphaprogress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="xx%"/>
+                android:text="225"/>
             <SeekBar
+                android:id="@+id/dialog_alpha"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:max="225"
+                android:progress="225"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -252,17 +257,19 @@
             <Spinner
                 android:id="@+id/dialog_key_specialone"
                 android:layout_width="60dp"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:entries="@array/keymap_special_arry"/>
 
             <TextView
-                android:id="@+id/dialog_key_specialtwo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="组合键二" />
 
             <Spinner
+                android:id="@+id/dialog_key_specialtwo"
                 android:layout_width="60dp"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:entries="@array/keymap_special_arry"/>
         </LinearLayout>
 
         <TextView
