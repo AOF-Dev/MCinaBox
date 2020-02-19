@@ -1,7 +1,6 @@
 package com.aof.mcinabox.keyboardUtils;
 
 import android.content.Context;
-import android.widget.Button;
 
 public class GameButton extends androidx.appcompat.widget.AppCompatButton {
     public GameButton(Context context){
@@ -12,10 +11,13 @@ public class GameButton extends androidx.appcompat.widget.AppCompatButton {
     private boolean isKeep;
     private boolean isHide;
     private boolean isMult;
-    private int keyboardIndex;
+    private int KeyMain;
+    private int KeyIndex;
 
-    public int getKeyboardIndex() { return keyboardIndex; }
-    public void setKeyboardIndex(int keyboardIndex) { this.keyboardIndex = keyboardIndex; }
+    public int getKeyIndex(){return KeyIndex;}
+    public void setKeyIndex(int keyIndex){this.KeyIndex = keyIndex;}
+    public int getKeyMain() { return KeyMain; }
+    public void setKeyMain(int keyMain) { this.KeyMain = keyMain; }
     public boolean isHide() { return isHide; }
     public void setHide(boolean hide) { isHide = hide; }
     public boolean isKeep() { return isKeep; }

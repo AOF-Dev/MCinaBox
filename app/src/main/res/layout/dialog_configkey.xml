@@ -34,7 +34,8 @@
             <EditText
                 android:id="@+id/dialog_key_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"/>
         </LinearLayout>
 
         <LinearLayout
@@ -55,7 +56,8 @@
             <EditText
                 android:id="@+id/dialog_key_lx"
                 android:layout_width="50dp"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="number"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -66,7 +68,8 @@
             <EditText
                 android:id="@+id/dialog_key_ly"
                 android:layout_width="50dp"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="number"/>
 
         </LinearLayout>
 
@@ -110,7 +113,8 @@
             <EditText
                 android:id="@+id/dialog_key_size"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:inputType="number"/>
         </LinearLayout>
 
         <LinearLayout
