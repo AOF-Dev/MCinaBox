@@ -13,14 +13,21 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Looper;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.TextureView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -31,13 +38,24 @@ import com.aof.mcinabox.jsonUtils.AnaliesVersionManifestJson;
 import com.aof.mcinabox.jsonUtils.ListVersionManifestJson;
 import com.aof.mcinabox.jsonUtils.ModelMinecraftVersionJson;
 
-public class MainActivity extends AppCompatActivity {
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
+public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
 Button[] launcherBts;
-Button button_user,button_gameselected,button_gamelist,button_gamedir,button_launchersetting,button_launchercontrol,button7,button8,toolbar_button_backhome;
+Button button_user,button_gameselected,button_gamelist,button_gamedir,button_launchersetting,button_launchercontrol,button8,toolbar_button_backhome;
 Button testButton;
 
-ScrollView[] launcherLins;
-ScrollView layout_user,layout_gamelist,layout_gameselected,layout_gamedir,layout_launchersetting;
+RadioGroup radioGroup_version_type;
+RadioButton radioButton_type_release,radioButton_type_snapshot,radioButton_type_old;
+
+LinearLayout[] launcherBts2;
+LinearLayout gamelist_button_reflash,gamelist_button_installnewgame,gamelist_button_backfrom_installnewversion;
+
+LinearLayout[] launcherLins;
+LinearLayout layout_user,layout_gamelist,layout_gameselected,layout_gamedir,layout_launchersetting,layout_gamelist_installversion;
+
+ListView listview_minecraft_manifest;
 
 DownloadMinecraft downloadTask = new DownloadMinecraft();
 ListVersionManifestJson.Version[] versionList;
@@ -70,14 +88,28 @@ private BroadcastReceiver broadcastReceiver2;
         button_gamedir = findViewById(R.id.main_button_gamedir);
         button_launchersetting = findViewById(R.id.main_button_launchersetting);
         button_launchercontrol = findViewById(R.id.main_button_launchercontrol);
-        button7 = findViewById(R.id.main_linear3_flash1);
         button8 = findViewById(R.id.main_linear3_download1);
         toolbar_button_backhome = findViewById(R.id.toolbar_button_backhome);
         testButton = findViewById(R.id.test);
-        launcherBts = new Button[]{button_user,button_gameselected,button_gamelist,button_gamedir,button_launchersetting,button_launchercontrol,button7,button8,toolbar_button_backhome,testButton,};
+        launcherBts = new Button[]{button_user,button_gameselected,button_gamelist,button_gamedir,button_launchersetting,button_launchercontrol,button8,toolbar_button_backhome,testButton,};
         for(Button button : launcherBts ){
             button.setOnClickListener(listener);
         }
+
+        gamelist_button_reflash = findViewById(R.id.gamelist_button_reflash);
+        gamelist_button_installnewgame = findViewById(R.id.gamelist_button_installnewgame);
+        gamelist_button_backfrom_installnewversion = findViewById(R.id.gamelist_button_backfrom_installnewversion);
+        launcherBts2 = new LinearLayout[]{gamelist_button_reflash,gamelist_button_installnewgame,gamelist_button_backfrom_installnewversion};
+        for(LinearLayout button : launcherBts2){
+            button.setOnClickListener(listener);
+        }
+
+        radioGroup_version_type = findViewById(R.id.radiogroup_version_type);
+        radioButton_type_release = findViewById(R.id.radiobutton_type_release);
+        radioButton_type_snapshot = findViewById(R.id.radiobutton_type_snapshot);
+        radioButton_type_old = findViewById(R.id.radiobutton_type_old);
+        radioGroup_version_type.setOnCheckedChangeListener(this);
+
 
         //给linearlayout设置对象数组
         layout_user = findViewById(R.id.layout_user);
@@ -85,9 +117,10 @@ private BroadcastReceiver broadcastReceiver2;
         layout_gamelist = findViewById(R.id.layout_gamelist);
         layout_gamedir = findViewById(R.id.layout_gamedir);
         layout_launchersetting = findViewById(R.id.layout_launchersetting);
-        launcherLins = new ScrollView[] {layout_user,layout_gameselected,layout_gamelist,layout_gamedir,layout_launchersetting};
-        //初始化Spinner控件
-        spinnerVersionList = findViewById(R.id.main_linear3_spinner);
+        layout_gamelist_installversion = findViewById(R.id.layout_gamelist_installversion);
+        launcherLins = new LinearLayout[] {layout_user,layout_gameselected,layout_gamelist,layout_gamedir,layout_launchersetting,layout_gamelist_installversion};
+        //初始化ListView控件
+        listview_minecraft_manifest = findViewById(R.id.list_minecraft_manifest);
 
         //初始化LogTextView控件
         logText = findViewById(R.id.logTextView);
@@ -142,23 +175,23 @@ private BroadcastReceiver broadcastReceiver2;
             switch(arg0.getId()){
                 case R.id.main_button_user:
                     //具体点击操作的逻辑
-                    setVisibleScrollView(layout_user);
+                    setVisibleLinearLayout(layout_user);
                     main_text_showstate.setText(getString(R.string.main_text_user));
                     break;
                 case R.id.main_button_gameselected:
-                    setVisibleScrollView(layout_gameselected);
+                    setVisibleLinearLayout(layout_gameselected);
                     main_text_showstate.setText(getString(R.string.main_text_gameselected));
                     break;
                 case R.id.main_button_gamelist:
-                    setVisibleScrollView(layout_gamelist);
+                    setVisibleLinearLayout(layout_gamelist);
                     main_text_showstate.setText(getString(R.string.main_text_gamelist));
                     break;
                 case R.id.main_button_gamedir:
-                    setVisibleScrollView(layout_gamedir);
+                    setVisibleLinearLayout(layout_gamedir);
                     main_text_showstate.setText(getString(R.string.main_text_gamedir));
                     break;
                 case R.id.main_button_launchersetting:
-                    setVisibleScrollView(layout_launchersetting);
+                    setVisibleLinearLayout(layout_launchersetting);
                     main_text_showstate.setText(getString(R.string.main_text_launchersetting));
                     break;
                 case R.id.main_button_launchercontrol:
@@ -167,7 +200,7 @@ private BroadcastReceiver broadcastReceiver2;
                     Intent intent = new Intent(getApplicationContext(),VirtualKeyBoardActivity.class);
                     startActivity(intent);
                     break;
-                case R.id.main_linear3_flash1:
+                case R.id.gamelist_button_reflash:
                     //这里使用了多线程
                     Thread syncTask = new Thread() {
                         @Override
@@ -188,15 +221,22 @@ private BroadcastReceiver broadcastReceiver2;
                     syncTask.start();
                     button8.setClickable(true);
                     break;
+                case R.id.gamelist_button_installnewgame:
+                    setVisibleLinearLayout(layout_gamelist_installversion);
+                    break;
+                case R.id.gamelist_button_backfrom_installnewversion:
+                    setVisibleLinearLayout(layout_gamelist);
+                    break;
                 case R.id.main_linear3_download1:
                     DownloadVersionFirst();
                     break;
                 case R.id.test:
                     break;
                 case R.id.toolbar_button_backhome:
-                    for(ScrollView tempView:launcherLins){
+                    for(LinearLayout tempView:launcherLins){
                         tempView.setVisibility(View.INVISIBLE);
                     }
+                    main_text_showstate.setText(getString(R.string.main_text_defaultlayout));
                     break;
 
                 default:
@@ -271,21 +311,65 @@ private BroadcastReceiver broadcastReceiver2;
 
     }*/
 
-    //更新Spinner
+    //更新List
     private void loadSpinnerVersionList(){
         //获取实例化后的versionList
         versionList = new AnaliesVersionManifestJson().getVersionList(downloadTask.getMINECRAFT_TEMP()+"version_manifest.json");
-        final String[] versions = new String[versionList.length];
-        //将versionList中的id值拷贝到一个String数组中作为数据源
-        for(int i = 0;i < versionList.length;i++){
-            versions[i] = versionList[i].getId();
+        String[] nameList;
+
+        ArrayList<ListVersionManifestJson.Version> version_type_release = new ArrayList<ListVersionManifestJson.Version>(){};
+        ArrayList<ListVersionManifestJson.Version> version_type_snapsht = new ArrayList<ListVersionManifestJson.Version>(){};
+        ArrayList<ListVersionManifestJson.Version> version_type_old = new ArrayList<ListVersionManifestJson.Version>(){};
+
+        for(ListVersionManifestJson.Version version : versionList){
+            switch(version.getType()){
+                default:
+                    break;
+                case "release":
+                    version_type_release.add(version);
+                    break;
+                case "snapshot":
+                    version_type_snapsht.add(version);
+                    break;
+                case "old_beta":
+                    version_type_old.add(version);
+                    break;
+                case  "old_alpha":
+                    version_type_old.add(version);
+                    break;
+            }
         }
+
+        switch (radioGroup_version_type.getCheckedRadioButtonId()){
+            default:
+                nameList = new String[0];
+                break;
+            case R.id.radiobutton_type_release:
+                nameList = new String[version_type_release.size()];
+                for(int i=0;i<version_type_release.size();i++){
+                    nameList[i] = version_type_release.get(i).getId();
+                }
+                break;
+            case R.id.radiobutton_type_snapshot:
+                nameList = new String[version_type_snapsht.size()];
+                for(int i=0;i<version_type_snapsht.size();i++){
+                    nameList[i] = version_type_snapsht.get(i).getId();
+                }
+                break;
+            case R.id.radiobutton_type_old:
+                nameList = new String[version_type_old.size()];
+                for(int i=0;i<version_type_old.size();i++){
+                    nameList[i] = version_type_old.get(i).getId();
+                }
+                break;
+        }
+
         // 建立Adapter并且绑定数据源
-        ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, versions);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, nameList);
         //绑定 Adapter到控件
-        spinnerVersionList .setAdapter(adapter);
-        spinnerVersionList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        listview_minecraft_manifest.setAdapter(adapter);
+
+       /* listview_minecraft_manifest.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 targetPos = pos;
@@ -294,12 +378,12 @@ private BroadcastReceiver broadcastReceiver2;
             public void onNothingSelected(AdapterView<?> parent) {
                 // Another interface callback
             }
-        });
+        });*/
     }
 
     //主界面逻辑，显示分界面
-    private void setVisibleScrollView(ScrollView view){
-        for(ScrollView tempview : launcherLins){
+    private void setVisibleLinearLayout(LinearLayout view){
+        for(LinearLayout tempview : launcherLins){
             tempview.setVisibility(View.INVISIBLE);
         }
         view.setVisibility(View.VISIBLE);
@@ -346,6 +430,26 @@ private BroadcastReceiver broadcastReceiver2;
         }
         if(broadcastReceiver2 != null){
             unregisterReceiver(broadcastReceiver2);
+        }
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup radioGroup_version_type, int checkedId) {
+        if(versionList != null) {
+            loadSpinnerVersionList();
+            switch (checkedId) {
+                case R.id.radiobutton_type_release:
+                    Toast.makeText(this, "稳定版", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.radiobutton_type_snapshot:
+                    Toast.makeText(this, "测试版", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.radiobutton_type_old:
+                    Toast.makeText(this, "远古版版", Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        }else{
+            Toast.makeText(this, "暂无游戏清单数据", Toast.LENGTH_SHORT).show();
         }
     }
 

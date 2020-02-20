@@ -262,90 +262,76 @@
     </ScrollView>
 
     <!-- 用户界面 -->
-    <ScrollView
-        android:id="@+id/layout_user"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/background_layout_fictionlist"
-        android:orientation="vertical"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
-        app:layout_constraintTop_toBottomOf="@id/main_toolbar">
-
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:id="@+id/layout_user"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/background_layout_fictionlist"
+            android:orientation="vertical"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
+            app:layout_constraintTop_toBottomOf="@id/main_toolbar">
 
             <!-- 可以添加其他的view -->
 
         </LinearLayout>
-    </ScrollView>
 
 
     <!--当前版本界面-->
-    <ScrollView
-        android:id="@+id/layout_gameselected"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/background_layout_fictionlist"
-        android:orientation="vertical"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
-        app:layout_constraintTop_toBottomOf="@id/main_toolbar">
-
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:id="@+id/layout_gameselected"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/background_layout_fictionlist"
+            android:orientation="vertical"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
+            app:layout_constraintTop_toBottomOf="@id/main_toolbar">
             <!-- 可以添加其他的view -->
 
         </LinearLayout>
-    </ScrollView>
 
-
+    <!--  ===============================以下是游戏列表界面 and 它的功能区================================= -->
     <!-- 游戏列表界面 -->
-    <ScrollView
-        android:id="@+id/layout_gamelist"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/background_layout_fictionlist"
-        android:orientation="vertical"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
-        app:layout_constraintTop_toBottomOf="@id/main_toolbar">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:id="@+id/layout_gamelist"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/background_layout_fictionlist"
+            android:orientation="vertical"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
+            app:layout_constraintTop_toBottomOf="@id/main_toolbar">
 
             <!-- 可以添加其他的view -->
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#02A899"
+                android:background="@color/colorPrimary"
                 android:orientation="horizontal"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp">
 
                 <LinearLayout
+                    android:id="@+id/gamelist_button_installnewgame"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="10dp"
                     android:orientation="horizontal">
 
-                    <ImageView
+                    <ImageButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:background="#00ffffff"
                         app:srcCompat="@drawable/ic_add_black_24dp" />
 
                     <TextView
@@ -362,9 +348,10 @@
                     android:layout_marginEnd="10dp"
                     android:orientation="horizontal">
 
-                    <ImageView
+                    <ImageButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:background="#00ffffff"
                         app:srcCompat="@drawable/ic_input_black_24dp" />
 
                     <TextView
@@ -381,9 +368,10 @@
                     android:layout_marginEnd="10dp"
                     android:orientation="horizontal">
 
-                    <ImageView
+                    <ImageButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:background="#00ffffff"
                         app:srcCompat="@drawable/ic_refresh_black_24dp" />
 
                     <TextView
@@ -396,13 +384,14 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp">
+                    android:layout_marginEnd="10dp"
+                    android:orientation="horizontal">
 
-                    <ImageView
+                    <ImageButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:background="#00ffffff"
                         app:srcCompat="@drawable/ic_settings_black_24dp" />
 
                     <TextView
@@ -418,24 +407,24 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="invisible"
                 android:text="Minecraft下载器"
                 android:textColor="#000000"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:visibility="invisible" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="invisible"
                 android:text="游戏文件"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:visibility="invisible" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="invisible"
                 android:background="#EEECEA"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="invisible">
 
                 <Spinner
                     android:id="@+id/main_linear3_spinner"
@@ -454,7 +443,6 @@
                     android:orientation="vertical">
 
                     <Button
-                        android:id="@+id/main_linear3_flash1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="刷新" />
@@ -471,57 +459,171 @@
 
             <Button
                 android:id="@+id/test"
-                android:visibility="invisible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="测试解析" />
+                android:text="测试解析"
+                android:visibility="invisible" />
 
         </LinearLayout>
-    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/layout_gamelist_installversion"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#FFFFFF"
+        android:orientation="vertical"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
+        app:layout_constraintTop_toBottomOf="@id/main_toolbar">
+        <!-- 可以添加其他的view -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
+
+            <LinearLayout
+                android:id="@+id/gamelist_button_backfrom_installnewversion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="10dp"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#00ffffff"
+                    app:srcCompat="@drawable/ic_chevron_left_black_24dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="3dp"
+                    android:text="后退" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/gamelist_button_reflash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#00ffffff"
+                    app:srcCompat="@drawable/ic_refresh_black_24dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="3dp"
+                    android:text="刷新" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="此处添加要说的话" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RadioGroup
+                android:id="@+id/radiogroup_version_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radiobutton_type_release"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="5dp"
+                    android:checked="true"
+                    android:text="稳定版" />
+
+                <RadioButton
+                    android:id="@+id/radiobutton_type_snapshot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:text="测试版" />
+
+                <RadioButton
+                    android:id="@+id/radiobutton_type_old"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:text="远古版" />
+
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ListView
+                android:id="@+id/list_minecraft_manifest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </ListView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <!--  ======================================================================================= -->
+
 
     <!-- 游戏目录界面 -->
-    <ScrollView
-        android:id="@+id/layout_gamedir"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/background_layout_fictionlist"
-        android:orientation="vertical"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
-        app:layout_constraintTop_toBottomOf="@id/main_toolbar">
-
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:id="@+id/layout_gamedir"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/background_layout_fictionlist"
+            android:orientation="vertical"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
+            app:layout_constraintTop_toBottomOf="@id/main_toolbar">
             <!-- 可以添加其他的view -->
 
         </LinearLayout>
-    </ScrollView>
 
     <!-- 启动器设置界面 -->
-    <ScrollView
-        android:id="@+id/layout_launchersetting"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/background_layout_fictionlist"
-        android:orientation="vertical"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
-        app:layout_constraintTop_toBottomOf="@id/main_toolbar">
-
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:id="@+id/layout_launchersetting"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/background_layout_fictionlist"
+            android:orientation="vertical"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
+            app:layout_constraintTop_toBottomOf="@id/main_toolbar">
             <!-- 可以添加其他的view -->
 
         </LinearLayout>
-    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
