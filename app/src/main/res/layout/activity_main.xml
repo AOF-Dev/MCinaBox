@@ -262,209 +262,210 @@
     </ScrollView>
 
     <!-- 用户界面 -->
-        <LinearLayout
-            android:id="@+id/layout_user"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@drawable/background_layout_fictionlist"
-            android:orientation="vertical"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
-            app:layout_constraintTop_toBottomOf="@id/main_toolbar">
+    <LinearLayout
+        android:id="@+id/layout_user"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/background_layout_fictionlist"
+        android:orientation="vertical"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
+        app:layout_constraintTop_toBottomOf="@id/main_toolbar">
 
-            <!-- 可以添加其他的view -->
+        <!-- 可以添加其他的view -->
 
-        </LinearLayout>
+    </LinearLayout>
 
 
     <!--当前版本界面-->
-        <LinearLayout
-            android:id="@+id/layout_gameselected"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@drawable/background_layout_fictionlist"
-            android:orientation="vertical"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
-            app:layout_constraintTop_toBottomOf="@id/main_toolbar">
-            <!-- 可以添加其他的view -->
+    <LinearLayout
+        android:id="@+id/layout_gameselected"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/background_layout_fictionlist"
+        android:orientation="vertical"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
+        app:layout_constraintTop_toBottomOf="@id/main_toolbar">
+        <!-- 可以添加其他的view -->
 
-        </LinearLayout>
+    </LinearLayout>
 
     <!--  ===============================以下是游戏列表界面 and 它的功能区================================= -->
     <!-- 游戏列表界面 -->
 
+    <LinearLayout
+        android:id="@+id/layout_gamelist"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/background_layout_fictionlist"
+        android:orientation="vertical"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
+        app:layout_constraintTop_toBottomOf="@id/main_toolbar">
+
+        <!-- 可以添加其他的view -->
+
         <LinearLayout
-            android:id="@+id/layout_gamelist"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@drawable/background_layout_fictionlist"
-            android:orientation="vertical"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
-            app:layout_constraintTop_toBottomOf="@id/main_toolbar">
-
-            <!-- 可以添加其他的view -->
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:id="@+id/gamelist_button_installnewgame"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
-                android:orientation="horizontal"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp">
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="10dp"
+                android:orientation="horizontal">
 
-                <LinearLayout
-                    android:id="@+id/gamelist_button_installnewgame"
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="10dp"
-                    android:orientation="horizontal">
+                    android:background="#00ffffff"
+                    app:srcCompat="@drawable/ic_add_black_24dp" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="#00ffffff"
-                        app:srcCompat="@drawable/ic_add_black_24dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="3dp"
-                        android:text="安装新游戏版本" />
-                </LinearLayout>
-
-                <LinearLayout
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="#00ffffff"
-                        app:srcCompat="@drawable/ic_input_black_24dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="3dp"
-                        android:text="安装整合包" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="#00ffffff"
-                        app:srcCompat="@drawable/ic_refresh_black_24dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="3dp"
-                        android:text="刷新" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="#00ffffff"
-                        app:srcCompat="@drawable/ic_settings_black_24dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="3dp"
-                        android:text="全局游戏设置" />
-                </LinearLayout>
-
-
+                    android:paddingTop="3dp"
+                    android:text="@string/main_text_gamelist_installversion" />
             </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Minecraft下载器"
-                android:textColor="#000000"
-                android:textSize="20sp"
-                android:visibility="invisible" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="游戏文件"
-                android:textSize="15sp"
-                android:visibility="invisible" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#EEECEA"
-                android:orientation="horizontal"
-                android:visibility="invisible">
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:orientation="horizontal">
 
-                <Spinner
-                    android:id="@+id/main_linear3_spinner"
-                    android:layout_width="220dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="vertical"
-                    android:popupBackground="#BAB8B6">
-                    <!-- Add other views  -->
-                </Spinner>
-
-                <LinearLayout
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
-                    android:orientation="vertical">
+                    android:background="#00ffffff"
+                    app:srcCompat="@drawable/ic_input_black_24dp" />
 
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="刷新" />
-
-                    <Button
-                        android:id="@+id/main_linear3_download1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:clickable="false"
-                        android:text="下载" />
-                </LinearLayout>
-
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="3dp"
+                    android:text="安装整合包" />
             </LinearLayout>
 
-            <Button
-                android:id="@+id/test"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="测试解析"
-                android:visibility="invisible" />
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#00ffffff"
+                    app:srcCompat="@drawable/ic_refresh_black_24dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="3dp"
+                    android:text="刷新" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/gamelist_button_setting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#00ffffff"
+                    app:srcCompat="@drawable/ic_settings_black_24dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="3dp"
+                    android:text="@string/main_text_gamelist_setting" />
+            </LinearLayout>
+
 
         </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Minecraft下载器"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:visibility="invisible" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="游戏文件"
+            android:textSize="15sp"
+            android:visibility="invisible" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#EEECEA"
+            android:orientation="horizontal"
+            android:visibility="invisible">
+
+            <Spinner
+                android:id="@+id/main_linear3_spinner"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:popupBackground="#BAB8B6">
+                <!-- Add other views  -->
+            </Spinner>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:orientation="vertical">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="刷新" />
+
+                <Button
+                    android:id="@+id/main_linear3_download1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:text="下载" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="测试解析"
+            android:visibility="invisible" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/layout_gamelist_installversion"
@@ -589,41 +590,259 @@
 
     </LinearLayout>
 
+    <ScrollView
+        android:id="@+id/layout_gamelist_setting"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/background_layout_fictionlist"
+        android:orientation="vertical"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
+        app:layout_constraintTop_toBottomOf="@id/main_toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <!-- 可以添加其他的view -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:text="基本设置"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="#ffffff"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Java 核心"
+                        android:textColor="@color/puredark"
+                        android:textSize="13sp" />
+
+                    <Spinner
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:background="@android:color/background_dark" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="最大内存 (MB)"
+                            android:textColor="@color/puredark"
+                            android:textSize="13sp" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="物理内存大小:"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="xxxxMB"
+                                android:textSize="10sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="8dp"
+                        android:text="512" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:text="高级设置"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="#ffffff"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="OpenGL 版本"
+                        android:textSize="13sp"
+                        android:layout_gravity="center"
+                        android:textColor="@color/puredark"/>
+                    <Spinner
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="运行库 版本"
+                        android:textSize="13sp"
+                        android:layout_gravity="center"
+                        android:textColor="@color/puredark"/>
+                    <Spinner
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="LWJGL 版本"
+                        android:textSize="13sp"
+                        android:layout_gravity="center"
+                        android:textColor="@color/puredark"/>
+                    <Spinner
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:hint="Java 虚拟机参数 (不必填写)"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:hint="Minecraft 附加参数 (不必填写)"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="不检查JVM架构的兼容性"
+                        android:textSize="13sp"
+                        android:layout_gravity="center"
+                        android:textColor="@color/puredark"/>
+                    <Switch
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
 
     <!--  ======================================================================================= -->
 
 
     <!-- 游戏目录界面 -->
-        <LinearLayout
-            android:id="@+id/layout_gamedir"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@drawable/background_layout_fictionlist"
-            android:orientation="vertical"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
-            app:layout_constraintTop_toBottomOf="@id/main_toolbar">
-            <!-- 可以添加其他的view -->
+    <LinearLayout
+        android:id="@+id/layout_gamedir"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/background_layout_fictionlist"
+        android:orientation="vertical"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
+        app:layout_constraintTop_toBottomOf="@id/main_toolbar">
+        <!-- 可以添加其他的view -->
 
-        </LinearLayout>
+    </LinearLayout>
 
     <!-- 启动器设置界面 -->
-        <LinearLayout
-            android:id="@+id/layout_launchersetting"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@drawable/background_layout_fictionlist"
-            android:orientation="vertical"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
-            app:layout_constraintTop_toBottomOf="@id/main_toolbar">
-            <!-- 可以添加其他的view -->
+    <LinearLayout
+        android:id="@+id/layout_launchersetting"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/background_layout_fictionlist"
+        android:orientation="vertical"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
+        app:layout_constraintTop_toBottomOf="@id/main_toolbar">
+        <!-- 可以添加其他的view -->
 
-        </LinearLayout>
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

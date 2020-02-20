@@ -50,10 +50,10 @@ RadioGroup radioGroup_version_type;
 RadioButton radioButton_type_release,radioButton_type_snapshot,radioButton_type_old;
 
 LinearLayout[] launcherBts2;
-LinearLayout gamelist_button_reflash,gamelist_button_installnewgame,gamelist_button_backfrom_installnewversion;
+LinearLayout gamelist_button_reflash,gamelist_button_installnewgame,gamelist_button_backfrom_installnewversion,gamelist_button_setting;
 
-LinearLayout[] launcherLins;
-LinearLayout layout_user,layout_gamelist,layout_gameselected,layout_gamedir,layout_launchersetting,layout_gamelist_installversion;
+View[] launcherLins;
+View layout_user,layout_gamelist,layout_gameselected,layout_gamedir,layout_launchersetting,layout_gamelist_installversion,layout_gamelist_setting;
 
 ListView listview_minecraft_manifest;
 
@@ -99,7 +99,8 @@ private BroadcastReceiver broadcastReceiver2;
         gamelist_button_reflash = findViewById(R.id.gamelist_button_reflash);
         gamelist_button_installnewgame = findViewById(R.id.gamelist_button_installnewgame);
         gamelist_button_backfrom_installnewversion = findViewById(R.id.gamelist_button_backfrom_installnewversion);
-        launcherBts2 = new LinearLayout[]{gamelist_button_reflash,gamelist_button_installnewgame,gamelist_button_backfrom_installnewversion};
+        gamelist_button_setting = findViewById(R.id.gamelist_button_setting);
+        launcherBts2 = new LinearLayout[]{gamelist_button_reflash,gamelist_button_installnewgame,gamelist_button_backfrom_installnewversion,gamelist_button_setting};
         for(LinearLayout button : launcherBts2){
             button.setOnClickListener(listener);
         }
@@ -111,14 +112,16 @@ private BroadcastReceiver broadcastReceiver2;
         radioGroup_version_type.setOnCheckedChangeListener(this);
 
 
-        //给linearlayout设置对象数组
+        //将所有的linearlayout和scrollview布局都作为view处理
         layout_user = findViewById(R.id.layout_user);
         layout_gameselected = findViewById(R.id.layout_gameselected);
         layout_gamelist = findViewById(R.id.layout_gamelist);
         layout_gamedir = findViewById(R.id.layout_gamedir);
         layout_launchersetting = findViewById(R.id.layout_launchersetting);
         layout_gamelist_installversion = findViewById(R.id.layout_gamelist_installversion);
-        launcherLins = new LinearLayout[] {layout_user,layout_gameselected,layout_gamelist,layout_gamedir,layout_launchersetting,layout_gamelist_installversion};
+        layout_gamelist_setting = findViewById(R.id.layout_gamelist_setting);
+        launcherLins = new View[] {layout_user,layout_gameselected,layout_gamelist,layout_gamedir,layout_launchersetting,layout_gamelist_installversion,layout_gamelist_setting};
+
         //初始化ListView控件
         listview_minecraft_manifest = findViewById(R.id.list_minecraft_manifest);
 
@@ -223,9 +226,15 @@ private BroadcastReceiver broadcastReceiver2;
                     break;
                 case R.id.gamelist_button_installnewgame:
                     setVisibleLinearLayout(layout_gamelist_installversion);
+                    main_text_showstate.setText(getString(R.string.main_text_gamelist_installversion)+" - "+getString(R.string.main_text_gamelist));
                     break;
                 case R.id.gamelist_button_backfrom_installnewversion:
                     setVisibleLinearLayout(layout_gamelist);
+                    main_text_showstate.setText(getString(R.string.main_text_gamelist));
+                    break;
+                case R.id.gamelist_button_setting:
+                    setVisibleLinearLayout(layout_gamelist_setting);
+                    main_text_showstate.setText(getString(R.string.main_text_gamelist_setting)+" - "+getString(R.string.main_text_gamelist));
                     break;
                 case R.id.main_linear3_download1:
                     DownloadVersionFirst();
@@ -233,7 +242,7 @@ private BroadcastReceiver broadcastReceiver2;
                 case R.id.test:
                     break;
                 case R.id.toolbar_button_backhome:
-                    for(LinearLayout tempView:launcherLins){
+                    for(View tempView:launcherLins){
                         tempView.setVisibility(View.INVISIBLE);
                     }
                     main_text_showstate.setText(getString(R.string.main_text_defaultlayout));
@@ -382,8 +391,8 @@ private BroadcastReceiver broadcastReceiver2;
     }
 
     //主界面逻辑，显示分界面
-    private void setVisibleLinearLayout(LinearLayout view){
-        for(LinearLayout tempview : launcherLins){
+    private void setVisibleLinearLayout(View view){
+        for(View tempview : launcherLins){
             tempview.setVisibility(View.INVISIBLE);
         }
         view.setVisibility(View.VISIBLE);

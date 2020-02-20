@@ -12,5 +12,9 @@
     <string name="main_text_launchercontrol">虚拟键盘设置</string>
     <string name="main_text_defaultlayout">主页</string>
     <string name="main_text_gameselected">当前版本</string>
+
+    <string name="main_text_gamelist_installversion">安装新游戏版本</string>
+    <string name="main_text_gamelist_setting">全局游戏设置</string>
+
     <string name="app_copyright">此版本非发行版本，仅供 AOF放假后软件开发团队 内部成员使用！</string>
 </resources>
