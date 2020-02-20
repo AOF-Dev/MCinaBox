@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -18,13 +20,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.aof.mcinabox.keyboardUtils.KeyboardLoadModel;
 import com.google.gson.Gson;
 
 import com.aof.mcinabox.keyboardUtils.ConfigDialog;
 import com.aof.mcinabox.keyboardUtils.GameButton;
 import com.aof.mcinabox.keyboardUtils.KeyboardJsonModel;
-import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,7 +39,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -48,22 +47,26 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
 
     ConstraintLayout layout_keyboard;
     ArrayList<GameButton> keyboardList,tempKeyboardList;
-    Button button_addKey,button_newModel,button_saveModel,button_loadModel,dialog_button_finish,dialog_button_cancel;
+    Button toolbar_button_backhome,button_addKey,button_newModel,button_saveModel,button_loadModel,dialog_button_finish,dialog_button_cancel,dialog_button_load,dialog_button_cancelload,dialog_button_save,dialog_button_cancelsave;
     Button[] launcherBts;
-    EditText editText_key_name,editText_key_lx,editText_key_ly,editText_key_size;
+    EditText editText_key_name,editText_key_lx,editText_key_ly,editText_key_size,editText_model_name;
     RadioGroup radioGroup;
     RadioButton radioButton_square,radioButton_round;
     CheckBox checkBox_isKeep,checkBox_isHide,checkBox_isMult;
-    ConfigDialog configDialog;
+    ConfigDialog configDialog,loadDialog,saveDialog;
     SeekBar seekBar_alpha;
     TextView text_aplha_progress;
-    Spinner key_main_selected,key_special_oneselected,key_special_twoselected;
+    Spinner key_main_selected,key_special_oneselected,key_special_twoselected,model_selected;
+    int selectedModelPos;
+    ArrayList<String> modelNameList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_virtual_keyboard);
-        configDialog = new ConfigDialog(VirtualKeyBoardActivity.this);
+        configDialog = new ConfigDialog(VirtualKeyBoardActivity.this,R.layout.dialog_configkey);
+        loadDialog = new ConfigDialog(VirtualKeyBoardActivity.this,R.layout.dialog_loadmodel);
+        saveDialog = new ConfigDialog(VirtualKeyBoardActivity.this,R.layout.dialog_savemodel);
 
         radioGroup = configDialog.findViewById(R.id.dialog_key_shape);
         radioButton_round = configDialog.findViewById(R.id.shape_round);
@@ -77,6 +80,7 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
         editText_key_lx = configDialog.findViewById(R.id.dialog_key_lx);
         editText_key_ly = configDialog.findViewById(R.id.dialog_key_ly);
         editText_key_size = configDialog.findViewById(R.id.dialog_key_size);
+        editText_model_name = saveDialog.findViewById(R.id.dialog_edittext_modelname);
 
         seekBar_alpha = configDialog.findViewById(R.id.dialog_alpha);
         text_aplha_progress = configDialog.findViewById(R.id.dialog_text_alphaprogress);
@@ -84,16 +88,22 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
         key_main_selected = configDialog.findViewById(R.id.dialog_key_main);
         key_special_oneselected = configDialog.findViewById(R.id.dialog_key_specialone);
         key_special_twoselected = configDialog.findViewById(R.id.dialog_key_specialtwo);
+        model_selected = loadDialog.findViewById(R.id.dialog_spinner_modelselected);
 
 
 
         dialog_button_cancel = configDialog.findViewById(R.id.dialog_button_cancel);
         dialog_button_finish = configDialog.findViewById(R.id.dialog_button_finish);
+        dialog_button_load = loadDialog.findViewById(R.id.dialog_button_load);
+        dialog_button_cancelload = loadDialog.findViewById(R.id.dialog_button_cancelload);
+        dialog_button_save = saveDialog.findViewById(R.id.dialog_button_save);
+        dialog_button_cancelsave = saveDialog.findViewById(R.id.dialog_button_cancelsave);
         button_addKey = findViewById(R.id.keyboard_button_addKey);
         button_newModel = findViewById(R.id.keyboard_button_newModel);
         button_saveModel = findViewById(R.id.keyboard_button_saveModel);
         button_loadModel = findViewById(R.id.keyboard_button_loadModel);
-        launcherBts = new Button[]{button_addKey,button_newModel,button_saveModel,button_loadModel,dialog_button_finish,dialog_button_cancel};
+        toolbar_button_backhome = findViewById(R.id.toolbar2_button_backhome);
+        launcherBts = new Button[]{button_addKey,button_newModel,button_saveModel,button_loadModel,dialog_button_finish,dialog_button_cancel,dialog_button_load,dialog_button_cancelload,dialog_button_save,dialog_button_cancelsave,toolbar_button_backhome};
         for (Button button : launcherBts) {
             button.setOnClickListener(listener);
         }
@@ -102,7 +112,6 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
         layout_keyboard = findViewById(R.id.layout_keyboard);
         keyboardList = new ArrayList<GameButton>();
         tempKeyboardList = new ArrayList<GameButton>();
-        //addStandKey("Test", getPxFromDp(this,50), 225, 50, 30, 1, 0, 0, false, false, false);
 
         //SeekBar 透明度
         seekBar_alpha.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -240,13 +249,36 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
                     reflashKeyboard();
                     break;
                 case R.id.keyboard_button_saveModel:
-                    getJsonFromKeyboardModel();
+                    saveDialog.show();
                     break;
                 case R.id.keyboard_button_loadModel:
+                    loadDialog.show();
+                    initLoadModelSpinner();
+                    break;
+                case R.id.dialog_button_load:
                     removeKeyboard();
                     clearKeyboard();
                     reflashKeyboard();
                     getKeyboardModelFromJson();
+                    loadDialog.dismiss();
+                    break;
+                case R.id.dialog_button_cancelload:
+                    loadDialog.dismiss();
+                    break;
+                case R.id.dialog_button_save:
+                    if(editText_model_name.getText().toString() != ""){
+                        getJsonFromKeyboardModel(editText_model_name.getText().toString());
+                        saveDialog.dismiss();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "文件名不正确", Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+                case R.id.dialog_button_cancelsave:
+                    saveDialog.dismiss();
+                    break;
+                case R.id.toolbar2_button_backhome:
+                    finish();
+                    break;
             }
         }
     };
@@ -319,9 +351,10 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
         keyboardList = tempList;
     }
 
-    public void getJsonFromKeyboardModel(){
+    public void getJsonFromKeyboardModel(String name){
+        String jsonName = name;
         Gson gson = new Gson();
-        File jsonFile = new File("/sdcard/MCinaBox/model.json");
+        File jsonFile = new File("/sdcard/MCinaBox/Keyboardmodel/"+jsonName+".json");
         if(!jsonFile.exists()){
             try {
                 jsonFile.createNewFile();
@@ -360,9 +393,9 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
     public void getKeyboardModelFromJson(){
         InputStream inputStream;
         Gson gson = new Gson();
-        File jsonFile = new File("/sdcard/MCinaBox/model.json");
+        File jsonFile = new File("/sdcard/MCinaBox/Keyboardmodel/"+modelNameList.get(selectedModelPos));
         if(!jsonFile.exists()){
-            Toast.makeText(this, "无键盘模板", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "找不到键盘模板", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -385,6 +418,38 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public void initLoadModelSpinner() {
+
+        File file = new File("/sdcard/MCinaBox/Keyboardmodel/");
+        File[] files = file.listFiles();
+        if (files == null) {
+            Toast.makeText(this, "没有发现模板", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        //每次都先清空列表,再修创建列表内容
+        modelNameList = new ArrayList<String>() {
+        };
+        for (File targetFile : files) {
+            modelNameList.add(targetFile.getName());
+        }
+
+        //设置 Adapter源
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, modelNameList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //绑定 Adapter到控件
+        model_selected.setAdapter(adapter);
+        model_selected.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                selectedModelPos = pos;
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Another interface callback
+            }
+        });
     }
 
 }

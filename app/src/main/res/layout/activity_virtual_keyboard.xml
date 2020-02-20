@@ -85,9 +85,10 @@
                 android:text="@string/main_text_launchercontrol"
                 />
             <Button
+                android:id="@+id/toolbar2_button_backhome"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:background="@drawable/backtohome"
+                android:background="@drawable/ic_home_black_24dp"
                 />
 
         </LinearLayout>

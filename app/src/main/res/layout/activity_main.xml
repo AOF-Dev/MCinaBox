@@ -24,14 +24,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/app_version"
-            android:textSize="15sp"
-            android:textColor="@color/puredark"/>
+            android:textColor="@color/puredark"
+            android:textSize="15sp" />
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_gravity="end"
-            android:layout_marginEnd="5dp">
+            android:layout_marginEnd="5dp"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/main_text_showstate"
@@ -39,243 +40,233 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
                 android:text="@string/main_text_defaultlayout"
-                android:textColor="@color/puredark"
-                />
+                android:textColor="@color/puredark" />
+
             <Button
+                android:id="@+id/toolbar_button_backhome"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:background="@drawable/backtohome"
-                />
+                android:background="@drawable/ic_home_black_24dp" />
 
         </LinearLayout>
 
     </androidx.appcompat.widget.Toolbar>
 
-<ScrollView
-    android:id="@+id/layout_fictionlist"
-    android:layout_width="180dp"
-    android:layout_height="match_parent"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintLeft_toLeftOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/main_toolbar"
-    android:layout_marginTop="30dp"
-    >
-    <LinearLayout
-        android:layout_width="match_parent"
+    <ScrollView
+        android:id="@+id/layout_fictionlist"
+        android:layout_width="180dp"
         android:layout_height="match_parent"
-        android:background="@drawable/background_layout_fictionlist"
-        android:gravity="clip_vertical"
-        android:orientation="vertical">
-        <!-- 可以添加其他的view -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="10dp"
-            android:text="账户"
-            android:textColor="@color/puredark"
-            android:textSize="10sp"
-            />
-
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1px"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:background="@android:color/background_dark" />
+        android:layout_marginTop="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_toolbar">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:background="@drawable/background_layout_fictionlist"
+            android:gravity="clip_vertical"
+            android:orientation="vertical">
+            <!-- 可以添加其他的view -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:text="账户"
+                android:textColor="@color/puredark"
+                android:textSize="10sp" />
 
-            <Button
-                android:id="@+id/main_button_user"
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@android:color/background_dark" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:text="@string/main_text_user"
-                android:drawableStart="@drawable/chicken"
-                android:gravity="center_vertical"
-                android:drawablePadding="5dp"
-                android:paddingStart="10dp"
-                android:paddingEnd="0dp"
-                />
-        </LinearLayout>
+                android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="10dp"
-            android:text="游戏"
-            android:textColor="@color/puredark"
-            android:textSize="10sp"
-            />
-
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1px"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:background="@android:color/background_dark" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/main_button_gameselected"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:drawableStart="@drawable/grass"
-                android:text="@string/main_text_gameselected"
-                android:gravity="center_vertical"
-                android:drawablePadding="5dp"
-                android:paddingStart="10dp"
-                android:paddingEnd="0dp"
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/main_button_gamelist"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:drawableStart="@drawable/bookshelf"
-                android:text="@string/main_text_gamelist"
-                android:gravity="center_vertical"
-                android:drawablePadding="5dp"
-                android:paddingStart="10dp"
-                android:paddingEnd="0dp"
-                />
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="10dp"
-            android:text="游戏目录"
-            android:textColor="@color/puredark"
-            android:textSize="10sp"
-            />
-
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1px"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:background="@android:color/background_dark" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/main_button_gamedir"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:text="@string/main_text_gamedir"
-                android:drawableStart="@drawable/craft_table"
-                android:gravity="center_vertical"
-                android:drawablePadding="5dp"
-                android:paddingStart="10dp"
-                android:paddingEnd="0dp"
-                />
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="10dp"
-            android:text="启动器"
-            android:textColor="@color/puredark"
-            android:textSize="10sp"
-            />
-
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1px"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:background="@android:color/background_dark" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/main_button_launchersetting"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:text="@string/main_text_launchersetting"
-                android:drawableStart="@drawable/command"
-                android:gravity="center_vertical"
-                android:drawablePadding="5dp"
-                android:paddingStart="10dp"
-                android:paddingEnd="0dp"
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/main_button_launchercontrol"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:text="@string/main_text_launchercontrol"
-                android:drawableStart="@drawable/furnace"
-                android:gravity="center_vertical"
-                android:drawablePadding="5dp"
-                android:paddingStart="10dp"
-                android:paddingEnd="0dp"
-                />
-        </LinearLayout>
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="30dp"
-            android:background="#ffffff">
+                <Button
+                    android:id="@+id/main_button_user"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:drawableStart="@drawable/chicken"
+                    android:drawablePadding="5dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="0dp"
+                    android:text="@string/main_text_user" />
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/logTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:text="游戏"
+                android:textColor="@color/puredark"
+                android:textSize="10sp" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@android:color/background_dark" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/main_text_nolog"
-                android:textIsSelectable="true"
-                android:textSize="8sp"
-                />
-        </ScrollView>
-    </LinearLayout>
-</ScrollView>
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/main_button_gameselected"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:drawableStart="@drawable/grass"
+                    android:drawablePadding="5dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="0dp"
+                    android:text="@string/main_text_gameselected" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/main_button_gamelist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:drawableStart="@drawable/bookshelf"
+                    android:drawablePadding="5dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="0dp"
+                    android:text="@string/main_text_gamelist" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:text="游戏目录"
+                android:textColor="@color/puredark"
+                android:textSize="10sp" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@android:color/background_dark" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/main_button_gamedir"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:drawableStart="@drawable/craft_table"
+                    android:drawablePadding="5dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="0dp"
+                    android:text="@string/main_text_gamedir" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:text="启动器"
+                android:textColor="@color/puredark"
+                android:textSize="10sp" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@android:color/background_dark" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/main_button_launchersetting"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:drawableStart="@drawable/command"
+                    android:drawablePadding="5dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="0dp"
+                    android:text="@string/main_text_launchersetting" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/main_button_launchercontrol"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:drawableStart="@drawable/furnace"
+                    android:drawablePadding="5dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="0dp"
+                    android:text="@string/main_text_launchercontrol" />
+            </LinearLayout>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="30dp"
+                android:background="#ffffff">
+
+                <TextView
+                    android:id="@+id/logTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/main_text_nolog"
+                    android:textIsSelectable="true"
+                    android:textSize="8sp" />
+            </ScrollView>
+        </LinearLayout>
+    </ScrollView>
 
     <!-- 用户界面 -->
-    <LinearLayout
+    <ScrollView
         android:id="@+id/layout_user"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@drawable/background_layout_fictionlist"
         android:orientation="vertical"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -283,19 +274,23 @@
         app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
         app:layout_constraintTop_toBottomOf="@id/main_toolbar">
 
-        <!-- 可以添加其他的view -->
-
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="用户界面" />
-    </LinearLayout>
+            android:orientation="vertical">
+
+            <!-- 可以添加其他的view -->
+
+        </LinearLayout>
+    </ScrollView>
+
 
     <!--当前版本界面-->
-    <LinearLayout
+    <ScrollView
         android:id="@+id/layout_gameselected"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@drawable/background_layout_fictionlist"
         android:orientation="vertical"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -303,19 +298,22 @@
         app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
         app:layout_constraintTop_toBottomOf="@id/main_toolbar">
 
-        <!-- 可以添加其他的view -->
-
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="当前版本" />
-    </LinearLayout>
+            android:orientation="vertical">
+            <!-- 可以添加其他的view -->
+
+        </LinearLayout>
+    </ScrollView>
+
 
     <!-- 游戏列表界面 -->
-    <LinearLayout
+    <ScrollView
         android:id="@+id/layout_gamelist"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@drawable/background_layout_fictionlist"
         android:orientation="vertical"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -323,71 +321,170 @@
         app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
         app:layout_constraintTop_toBottomOf="@id/main_toolbar">
 
-        <!-- 可以添加其他的view -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Minecraft下载器"
-            android:textColor="#000000"
-            android:textSize="20sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="游戏文件"
-            android:textSize="15sp" />
-
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#EEECEA"
-            android:orientation="horizontal">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <Spinner
-                android:id="@+id/main_linear3_spinner"
-                android:layout_width="220dp"
+            <!-- 可以添加其他的view -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="vertical"
-                android:popupBackground="#BAB8B6">
-                <!-- Add other views  -->
-            </Spinner>
+                android:background="#02A899"
+                android:orientation="horizontal"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/ic_add_black_24dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="3dp"
+                        android:text="安装新游戏版本" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/ic_input_black_24dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="3dp"
+                        android:text="安装整合包" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/ic_refresh_black_24dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="3dp"
+                        android:text="刷新" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/ic_settings_black_24dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="3dp"
+                        android:text="全局游戏设置" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                android:text="Minecraft下载器"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                android:text="游戏文件"
+                android:textSize="15sp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
-                android:orientation="vertical">
+                android:visibility="invisible"
+                android:background="#EEECEA"
+                android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/main_linear3_flash1"
+                <Spinner
+                    android:id="@+id/main_linear3_spinner"
+                    android:layout_width="220dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    android:popupBackground="#BAB8B6">
+                    <!-- Add other views  -->
+                </Spinner>
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="刷新" />
+                    android:layout_marginEnd="5dp"
+                    android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/main_linear3_download1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:clickable="false"
-                    android:text="下载" />
+                    <Button
+                        android:id="@+id/main_linear3_flash1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="刷新" />
+
+                    <Button
+                        android:id="@+id/main_linear3_download1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="false"
+                        android:text="下载" />
+                </LinearLayout>
+
             </LinearLayout>
 
+            <Button
+                android:id="@+id/test"
+                android:visibility="invisible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="测试解析" />
+
         </LinearLayout>
-
-        <Button
-            android:id="@+id/test"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="测试解析" />
-
-    </LinearLayout>
+    </ScrollView>
 
     <!-- 游戏目录界面 -->
-    <LinearLayout
+    <ScrollView
         android:id="@+id/layout_gamedir"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@drawable/background_layout_fictionlist"
         android:orientation="vertical"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -395,19 +492,21 @@
         app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
         app:layout_constraintTop_toBottomOf="@id/main_toolbar">
 
-        <!-- 可以添加其他的view -->
-
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="目录界面" />
-    </LinearLayout>
+            android:orientation="vertical">
+            <!-- 可以添加其他的view -->
+
+        </LinearLayout>
+    </ScrollView>
 
     <!-- 启动器设置界面 -->
-    <LinearLayout
+    <ScrollView
         android:id="@+id/layout_launchersetting"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@drawable/background_layout_fictionlist"
         android:orientation="vertical"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -415,33 +514,14 @@
         app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
         app:layout_constraintTop_toBottomOf="@id/main_toolbar">
 
-        <!-- 可以添加其他的view -->
-
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="启动器设置界面" />
-    </LinearLayout>
+            android:orientation="vertical">
+            <!-- 可以添加其他的view -->
 
-    <!-- 虚拟键盘设置界面 -->
-    <LinearLayout
-        android:id="@+id/layout_launchercontrol"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
-        app:layout_constraintTop_toBottomOf="@id/main_toolbar">
-
-        <!-- 可以添加其他的view -->
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="虚拟键盘设置界面" />
-    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

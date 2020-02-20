@@ -21,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,10 +33,12 @@ import com.aof.mcinabox.jsonUtils.ModelMinecraftVersionJson;
 
 public class MainActivity extends AppCompatActivity {
 Button[] launcherBts;
-Button button_user,button_gameselected,button_gamelist,button_gamedir,button_launchersetting,button_launchercontrol,button7,button8;
+Button button_user,button_gameselected,button_gamelist,button_gamedir,button_launchersetting,button_launchercontrol,button7,button8,toolbar_button_backhome;
 Button testButton;
-LinearLayout[] launcherLins;
-LinearLayout layout_user,layout_gameselected,layout_gamelist,layout_gamedir,layout_launchersetting,layout_launchercontrol;
+
+ScrollView[] launcherLins;
+ScrollView layout_user,layout_gamelist,layout_gameselected,layout_gamedir,layout_launchersetting;
+
 DownloadMinecraft downloadTask = new DownloadMinecraft();
 ListVersionManifestJson.Version[] versionList;
 ModelMinecraftVersionJson minecraftVersionJson;
@@ -69,8 +72,9 @@ private BroadcastReceiver broadcastReceiver2;
         button_launchercontrol = findViewById(R.id.main_button_launchercontrol);
         button7 = findViewById(R.id.main_linear3_flash1);
         button8 = findViewById(R.id.main_linear3_download1);
+        toolbar_button_backhome = findViewById(R.id.toolbar_button_backhome);
         testButton = findViewById(R.id.test);
-        launcherBts = new Button[]{button_user,button_gameselected,button_gamelist,button_gamedir,button_launchersetting,button_launchercontrol,button7,button8,testButton,};
+        launcherBts = new Button[]{button_user,button_gameselected,button_gamelist,button_gamedir,button_launchersetting,button_launchercontrol,button7,button8,toolbar_button_backhome,testButton,};
         for(Button button : launcherBts ){
             button.setOnClickListener(listener);
         }
@@ -81,8 +85,7 @@ private BroadcastReceiver broadcastReceiver2;
         layout_gamelist = findViewById(R.id.layout_gamelist);
         layout_gamedir = findViewById(R.id.layout_gamedir);
         layout_launchersetting = findViewById(R.id.layout_launchersetting);
-        layout_launchercontrol = findViewById(R.id.layout_launchercontrol);
-        launcherLins = new LinearLayout[] {layout_user,layout_gamelist,layout_gamedir,layout_launchersetting,layout_launchercontrol,layout_gameselected};
+        launcherLins = new ScrollView[] {layout_user,layout_gameselected,layout_gamelist,layout_gamedir,layout_launchersetting};
         //初始化Spinner控件
         spinnerVersionList = findViewById(R.id.main_linear3_spinner);
 
@@ -139,28 +142,27 @@ private BroadcastReceiver broadcastReceiver2;
             switch(arg0.getId()){
                 case R.id.main_button_user:
                     //具体点击操作的逻辑
-                    setVisibleLinearLyout(layout_user);
+                    setVisibleScrollView(layout_user);
                     main_text_showstate.setText(getString(R.string.main_text_user));
                     break;
                 case R.id.main_button_gameselected:
-                    setVisibleLinearLyout(layout_gameselected);
+                    setVisibleScrollView(layout_gameselected);
                     main_text_showstate.setText(getString(R.string.main_text_gameselected));
                     break;
                 case R.id.main_button_gamelist:
-                    setVisibleLinearLyout(layout_gamelist);
+                    setVisibleScrollView(layout_gamelist);
                     main_text_showstate.setText(getString(R.string.main_text_gamelist));
                     break;
                 case R.id.main_button_gamedir:
-                    setVisibleLinearLyout(layout_gamedir);
+                    setVisibleScrollView(layout_gamedir);
                     main_text_showstate.setText(getString(R.string.main_text_gamedir));
                     break;
                 case R.id.main_button_launchersetting:
-                    setVisibleLinearLyout(layout_launchersetting);
+                    setVisibleScrollView(layout_launchersetting);
                     main_text_showstate.setText(getString(R.string.main_text_launchersetting));
                     break;
                 case R.id.main_button_launchercontrol:
-                    setVisibleLinearLyout(layout_launchercontrol);
-                    main_text_showstate.setText(getString(R.string.main_text_launchercontrol));
+                    //main_text_showstate.setText(getString(R.string.main_text_launchercontrol));
                     //页面跳转
                     Intent intent = new Intent(getApplicationContext(),VirtualKeyBoardActivity.class);
                     startActivity(intent);
@@ -191,6 +193,12 @@ private BroadcastReceiver broadcastReceiver2;
                     break;
                 case R.id.test:
                     break;
+                case R.id.toolbar_button_backhome:
+                    for(ScrollView tempView:launcherLins){
+                        tempView.setVisibility(View.INVISIBLE);
+                    }
+                    break;
+
                 default:
                     break;
             }
@@ -290,12 +298,11 @@ private BroadcastReceiver broadcastReceiver2;
     }
 
     //主界面逻辑，显示分界面
-    private void setVisibleLinearLyout(LinearLayout layout){
-
-        for(LinearLayout tempLayout : launcherLins){
-            tempLayout.setVisibility(View.INVISIBLE);
+    private void setVisibleScrollView(ScrollView view){
+        for(ScrollView tempview : launcherLins){
+            tempview.setVisibility(View.INVISIBLE);
         }
-        layout.setVisibility(View.VISIBLE);
+        view.setVisibility(View.VISIBLE);
     }
 
     //DownloadManager下载完成事件的广播监听

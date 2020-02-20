@@ -4,13 +4,13 @@
 <solid android:color="#88F1FFFF" />
 
 <stroke
-    android:width="2dp"
+    android:width="1dp"
     android:color="#dd716F6D" />
 
 <padding
     android:bottom="0dp"
     android:left="0dp"
-    android:right="2dp"
+    android:right="1dp"
     android:top="0dp" />
 
 </shape>
