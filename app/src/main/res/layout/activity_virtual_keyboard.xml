@@ -9,7 +9,7 @@
     >
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/keyboard_toolbar"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:background="?attr/colorPrimary"
@@ -18,7 +18,6 @@
         android:theme="?attr/actionBarTheme"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="?attr/actionModeCloseDrawable"
         app:title="@string/app_name">
         <TextView
             android:layout_width="wrap_content"
@@ -37,31 +36,38 @@
                 android:background="@android:color/background_dark" />
             <Button
                 android:id="@+id/keyboard_button_addKey"
-                android:layout_marginStart="2dp"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:text="添加"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/ic_add_circle_outline_black_24dp"
                 android:textSize="10sp"
                 />
             <Button
                 android:id="@+id/keyboard_button_saveModel"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:text="保存"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/ic_save_black_24dp"
                 android:textSize="10sp"
                 />
             <Button
                 android:id="@+id/keyboard_button_loadModel"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:text="导入"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/ic_unarchive_black_24dp"
                 android:textSize="10sp"
                 />
             <Button
                 android:id="@+id/keyboard_button_newModel"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:text="新建"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/ic_insert_drive_file_black_24dp"
                 android:textSize="10sp"
                 />
             <View

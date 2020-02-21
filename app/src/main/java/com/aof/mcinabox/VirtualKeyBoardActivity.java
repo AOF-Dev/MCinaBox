@@ -1,6 +1,7 @@
 package com.aof.mcinabox;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Context;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -59,11 +61,16 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
     Spinner key_main_selected,key_special_oneselected,key_special_twoselected,model_selected;
     int selectedModelPos;
     ArrayList<String> modelNameList;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //再设置布局之前，先设置Activity必须全屏显示
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_virtual_keyboard);
+
+
         configDialog = new ConfigDialog(VirtualKeyBoardActivity.this,R.layout.dialog_configkey);
         loadDialog = new ConfigDialog(VirtualKeyBoardActivity.this,R.layout.dialog_loadmodel);
         saveDialog = new ConfigDialog(VirtualKeyBoardActivity.this,R.layout.dialog_savemodel);
@@ -108,8 +115,11 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
             button.setOnClickListener(listener);
         }
 
+        toolbar = findViewById(R.id.keyboard_toolbar);
+
 
         layout_keyboard = findViewById(R.id.layout_keyboard);
+        layout_keyboard.setOnClickListener(listener);
         keyboardList = new ArrayList<GameButton>();
         tempKeyboardList = new ArrayList<GameButton>();
 
@@ -241,6 +251,7 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
                     configDialog.dismiss();
                     break;
                 case R.id.keyboard_button_addKey:
+                    toolbar.setVisibility(View.INVISIBLE);
                     configDialog.show();
                     break;
                 case R.id.keyboard_button_newModel:
@@ -279,6 +290,13 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
                 case R.id.toolbar2_button_backhome:
                     finish();
                     break;
+                case R.id.layout_keyboard:
+                    if(toolbar.getVisibility() == View.VISIBLE){
+                        toolbar.setVisibility(View.INVISIBLE);
+                    }else if(toolbar.getVisibility() == View.INVISIBLE){
+                        toolbar.setVisibility(View.VISIBLE);
+                    }
+
             }
         }
     };

@@ -13,22 +13,15 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Looper;
-import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.TextureView;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,14 +30,16 @@ import com.aof.mcinabox.jsonUtils.AnaliesMinecraftVersionJson;
 import com.aof.mcinabox.jsonUtils.AnaliesVersionManifestJson;
 import com.aof.mcinabox.jsonUtils.ListVersionManifestJson;
 import com.aof.mcinabox.jsonUtils.ModelMinecraftVersionJson;
+import com.aof.mcinabox.userUtil.UserListAdapter;
+import com.aof.mcinabox.userUtil.UserListBean;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
 Button[] launcherBts;
-Button button_user,button_gameselected,button_gamelist,button_gamedir,button_launchersetting,button_launchercontrol,button8,toolbar_button_backhome;
-Button testButton;
+Button button_user,button_gameselected,button_gamelist,button_gamedir,button_launchersetting,button_launchercontrol,button8,toolbar_button_backhome,toolbar_button_backfromhere;
+
 
 RadioGroup radioGroup_version_type;
 RadioButton radioButton_type_release,radioButton_type_snapshot,radioButton_type_old;
@@ -55,13 +50,15 @@ LinearLayout gamelist_button_reflash,gamelist_button_installnewgame,gamelist_but
 View[] launcherLins;
 View layout_user,layout_gamelist,layout_gameselected,layout_gamedir,layout_launchersetting,layout_gamelist_installversion,layout_gamelist_setting;
 
-ListView listview_minecraft_manifest;
+ListView listview_minecraft_manifest,listview_user;
 
 DownloadMinecraft downloadTask = new DownloadMinecraft();
 ListVersionManifestJson.Version[] versionList;
 ModelMinecraftVersionJson minecraftVersionJson;
 Spinner spinnerVersionList;
 int targetPos;
+int layout_here_Id = R.id.layout_fictionlist;
+
 TextView logText,main_text_showstate;
 private BroadcastReceiver broadcastReceiver1;
 private BroadcastReceiver broadcastReceiver2;
@@ -90,8 +87,8 @@ private BroadcastReceiver broadcastReceiver2;
         button_launchercontrol = findViewById(R.id.main_button_launchercontrol);
         button8 = findViewById(R.id.main_linear3_download1);
         toolbar_button_backhome = findViewById(R.id.toolbar_button_backhome);
-        testButton = findViewById(R.id.test);
-        launcherBts = new Button[]{button_user,button_gameselected,button_gamelist,button_gamedir,button_launchersetting,button_launchercontrol,button8,toolbar_button_backhome,testButton,};
+        toolbar_button_backfromhere = findViewById(R.id.toolbar_button_backfromhere);
+        launcherBts = new Button[]{button_user,button_gameselected,button_gamelist,button_gamedir,button_launchersetting,button_launchercontrol,button8,toolbar_button_backhome,toolbar_button_backfromhere};
         for(Button button : launcherBts ){
             button.setOnClickListener(listener);
         }
@@ -124,6 +121,14 @@ private BroadcastReceiver broadcastReceiver2;
 
         //初始化ListView控件
         listview_minecraft_manifest = findViewById(R.id.list_minecraft_manifest);
+
+        listview_user = findViewById(R.id.list_user);
+        ArrayList<UserListBean> userlist = new ArrayList<UserListBean>();
+        for(int i=0;i<=10;i++){
+            userlist.add(new UserListBean());
+        }
+        UserListAdapter adapter = new UserListAdapter(this,userlist);
+        listview_user.setAdapter(adapter);
 
         //初始化LogTextView控件
         logText = findViewById(R.id.logTextView);
@@ -239,15 +244,13 @@ private BroadcastReceiver broadcastReceiver2;
                 case R.id.main_linear3_download1:
                     DownloadVersionFirst();
                     break;
-                case R.id.test:
-                    break;
                 case R.id.toolbar_button_backhome:
-                    for(View tempView:launcherLins){
-                        tempView.setVisibility(View.INVISIBLE);
-                    }
+                    setVisibleLinearLayout(null);
                     main_text_showstate.setText(getString(R.string.main_text_defaultlayout));
                     break;
-
+                case R.id.toolbar_button_backfromhere:
+                    setBackFromHere(layout_here_Id);
+                    break;
                 default:
                     break;
             }
@@ -395,7 +398,12 @@ private BroadcastReceiver broadcastReceiver2;
         for(View tempview : launcherLins){
             tempview.setVisibility(View.INVISIBLE);
         }
-        view.setVisibility(View.VISIBLE);
+        if(view != null) {
+            view.setVisibility(View.VISIBLE);
+            layout_here_Id = view.getId();
+        }else{
+            return;
+        }
     }
 
     //DownloadManager下载完成事件的广播监听
@@ -460,6 +468,37 @@ private BroadcastReceiver broadcastReceiver2;
         }else{
             Toast.makeText(this, "暂无游戏清单数据", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    //给返回按键设计返回逻辑
+    public void setBackFromHere(int location){
+        switch(location){
+            default:
+                setVisibleLinearLayout(null);
+                main_text_showstate.setText(getString(R.string.main_text_defaultlayout));
+                break;
+            case R.id.layout_user:
+            case R.id.layout_gameselected:
+            case R.id.layout_gamelist:
+            case R.id.layout_gamedir:
+            case R.id.layout_launchersetting:
+                setVisibleLinearLayout(null);
+                main_text_showstate.setText(getString(R.string.main_text_defaultlayout));
+                layout_here_Id = R.id.layout_fictionlist;
+                break;
+            case R.id.layout_gamelist_installversion:
+            case R.id.layout_gamelist_setting:
+                setVisibleLinearLayout(layout_gamelist);
+                main_text_showstate.setText(getString(R.string.main_text_gamelist));
+                layout_here_Id = R.id.layout_gamelist;
+                break;
+            case R.id.layout_fictionlist:
+                finish();
+                break;
+        }
+
+
+
     }
 
 }

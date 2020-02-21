@@ -17,7 +17,6 @@
         android:theme="?attr/actionBarTheme"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="?attr/actionModeCloseDrawable"
         app:title="@string/app_name">
         <!-- 可以添加其他的view -->
         <TextView
@@ -33,6 +32,14 @@
             android:layout_gravity="end"
             android:layout_marginEnd="5dp"
             android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/toolbar_button_backfromhere"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/ic_keyboard_backspace_black_24dp"
+                />
 
             <TextView
                 android:id="@+id/main_text_showstate"
@@ -268,13 +275,26 @@
         android:layout_height="0dp"
         android:background="@drawable/background_layout_fictionlist"
         android:orientation="vertical"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
         app:layout_constraintTop_toBottomOf="@id/main_toolbar">
 
         <!-- 可以添加其他的view -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical"
+            android:background="#00FFFFFF">
+            <ListView
+                android:id="@+id/list_user"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
 
     </LinearLayout>
 
