@@ -7,6 +7,7 @@
     android:background="@drawable/background"
     tools:context=".MainActivity">
 
+    <!--  =====================================以下是顶部工具栏===================================== -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/main_toolbar"
         android:layout_width="match_parent"
@@ -58,7 +59,7 @@
         </LinearLayout>
 
     </androidx.appcompat.widget.Toolbar>
-
+    <!--  ========================================左侧功能栏===================================== -->
     <ScrollView
         android:id="@+id/layout_fictionlist"
         android:layout_width="180dp"
@@ -267,7 +268,7 @@
             </ScrollView>
         </LinearLayout>
     </ScrollView>
-
+    <!--  ===============================以下是用户界面 and 它的功能区===================================== -->
     <!-- 用户界面 -->
     <LinearLayout
         android:id="@+id/layout_user"
@@ -297,8 +298,7 @@
 
 
     </LinearLayout>
-
-
+    <!--  ===============================以下是当前版本界面 and 它的功能区===================================== -->
     <!--当前版本界面-->
     <LinearLayout
         android:id="@+id/layout_gameselected"
@@ -314,10 +314,8 @@
         <!-- 可以添加其他的view -->
 
     </LinearLayout>
-
     <!--  ===============================以下是游戏列表界面 and 它的功能区================================= -->
     <!-- 游戏列表界面 -->
-
     <LinearLayout
         android:id="@+id/layout_gamelist"
         android:layout_width="0dp"
@@ -486,7 +484,7 @@
             android:visibility="invisible" />
 
     </LinearLayout>
-
+    <!-- 游戏列表-安装新游戏版本-->
     <LinearLayout
         android:id="@+id/layout_gamelist_installversion"
         android:layout_width="0dp"
@@ -609,14 +607,14 @@
         </LinearLayout>
 
     </LinearLayout>
-
+    <!-- 游戏列表-全局游戏设置-->
     <ScrollView
         android:id="@+id/layout_gamelist_setting"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/background_layout_fictionlist"
         android:orientation="vertical"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
@@ -660,7 +658,9 @@
                     <Spinner
                         android:id="@+id/setting_spinner_java"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:entries="@array/java_version"
+                        android:textAlignment="viewEnd"/>
                 </LinearLayout>
 
                 <View
@@ -683,8 +683,11 @@
                         android:textSize="13sp" />
 
                     <Spinner
+                        android:id="@+id/setting_spinner_keyboard"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:entries="@array/keyboard_list"
+                        android:textAlignment="viewEnd"/>
                 </LinearLayout>
 
                 <View
@@ -732,11 +735,13 @@
                     </LinearLayout>
 
                     <EditText
+                        android:id="@+id/setting_edit_maxmemory"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_gravity="end"
                         android:layout_marginBottom="8dp"
-                        android:text="512" />
+                        android:textAlignment="textEnd"
+                        android:text="256" />
 
                 </LinearLayout>
 
@@ -774,7 +779,9 @@
                     <Spinner
                         android:id="@+id/setting_spinner_opengl"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:entries="@array/opengl_version"
+                        android:textAlignment="viewEnd"/>
                 </LinearLayout>
 
                 <View
@@ -797,7 +804,9 @@
                     <Spinner
                         android:id="@+id/setting_spinner_openal"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:entries="@array/openal_version"
+                        android:textAlignment="viewEnd"/>
                 </LinearLayout>
 
                 <View
@@ -820,7 +829,9 @@
                     <Spinner
                         android:id="@+id/setting_spinner_runtime"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:entries="@array/runtime_version"
+                        android:textAlignment="viewEnd"/>
                 </LinearLayout>
 
                 <View
@@ -843,7 +854,9 @@
                     <Spinner
                         android:id="@+id/setting_spinner_lwjgl"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:entries="@array/lwjgl_version"
+                        android:textAlignment="viewEnd"/>
                 </LinearLayout>
 
                 <View
@@ -857,6 +870,7 @@
                     android:layout_margin="10dp"
                     android:orientation="horizontal">
                     <EditText
+                        android:id="@+id/setting_edit_javaargs"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="13sp"
@@ -874,6 +888,7 @@
                     android:layout_margin="10dp"
                     android:orientation="horizontal">
                     <EditText
+                        android:id="@+id/setting_edit_minecraftargs"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="13sp"
@@ -898,6 +913,7 @@
                         android:layout_gravity="center"
                         android:textColor="@color/puredark"/>
                     <Switch
+                        android:id="@+id/setting_switch_notcheckjvm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
@@ -920,6 +936,25 @@
                         android:layout_gravity="center"
                         android:textColor="@color/puredark"/>
                     <Switch
+                        android:id="@+id/setting_switch_notcheckminecraft"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="不启用虚拟键盘"
+                        android:textSize="13sp"
+                        android:layout_gravity="center"
+                        android:textColor="@color/puredark"/>
+                    <Switch
+                        android:id="@+id/setting_switch_notenable_keyboard"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
@@ -928,10 +963,7 @@
 
         </LinearLayout>
     </ScrollView>
-
-    <!--  ======================================================================================= -->
-
-
+    <!--  ===============================以下是游戏目录界面 and 它的功能区===================================== -->
     <!-- 游戏目录界面 -->
     <LinearLayout
         android:id="@+id/layout_gamedir"
@@ -946,8 +978,77 @@
         app:layout_constraintTop_toBottomOf="@id/main_toolbar">
         <!-- 可以添加其他的view -->
 
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/gamedir_select_public"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="5dp"
+            android:padding="5dp"
+            android:background="#F5F5F5">
+            <RadioButton
+                android:id="@+id/radiobutton_gamedir_public"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_dns_black_24dp"
+                android:layout_gravity="center"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="公有目录"
+                android:textColor="@color/puredark"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:layout_marginLeft="10dp"
+                android:textIsSelectable="true"
+                android:text="/sdcard/MCinaBox/.minecraft"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id='@+id/gamedir_select_private'
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:padding="5dp"
+            android:background="#F5F5F5">
+            <RadioButton
+                android:id="@+id/radiobutton_gamedir_private"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_lock_outline_black_24dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="私有目录"
+                android:textColor="@color/puredark"/>
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textSize="12sp"
+                android:layout_marginLeft="10dp"
+                android:textIsSelectable="true"
+                android:text="/sdcard/Android/data/com.aof.mcinabox/.minecraft"/>
+        </LinearLayout>
 
+    </LinearLayout>
+    <!--  ===============================以下是启动器设置界面 and 它的功能区===================================== -->
     <!-- 启动器设置界面 -->
     <LinearLayout
         android:id="@+id/layout_launchersetting"
@@ -962,7 +1063,42 @@
         app:layout_constraintTop_toBottomOf="@id/main_toolbar">
         <!-- 可以添加其他的view -->
 
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
+            android:background="#F5F5F5">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:textColor="@color/puredark"
+                    android:layout_gravity="center"
+                    android:text="Minecraft下载源">
+                </TextView>
+
+                <Spinner
+                    android:id="@+id/setting_spinner_downloadtype"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/download_type"
+                    android:textAlignment="viewEnd"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

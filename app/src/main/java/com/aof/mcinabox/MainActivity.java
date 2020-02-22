@@ -13,26 +13,40 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Looper;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aof.mcinabox.initUtils.LauncherSettingModel;
 import com.aof.mcinabox.jsonUtils.AnaliesMinecraftVersionJson;
 import com.aof.mcinabox.jsonUtils.AnaliesVersionManifestJson;
 import com.aof.mcinabox.jsonUtils.ListVersionManifestJson;
 import com.aof.mcinabox.jsonUtils.ModelMinecraftVersionJson;
 import com.aof.mcinabox.userUtil.UserListAdapter;
 import com.aof.mcinabox.userUtil.UserListBean;
+import com.google.gson.Gson;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,6 +57,12 @@ Button button_user,button_gameselected,button_gamelist,button_gamedir,button_lau
 
 RadioGroup radioGroup_version_type;
 RadioButton radioButton_type_release,radioButton_type_snapshot,radioButton_type_old;
+RadioGroup radioGroup_gamedir_type;
+RadioButton radioButton_gamedir_public,radioButton_gamedir_private;
+
+Spinner setting_java,setting_opengl,setting_openal,setting_lwjgl,setting_runtime,setting_downloadtype,setting_keyboard;
+
+Switch setting_notcheckJvm,setting_notcheckMinecraft,setting_notenableKeyboard;
 
 LinearLayout[] launcherBts2;
 LinearLayout gamelist_button_reflash,gamelist_button_installnewgame,gamelist_button_backfrom_installnewversion,gamelist_button_setting;
@@ -56,6 +76,9 @@ DownloadMinecraft downloadTask = new DownloadMinecraft();
 ListVersionManifestJson.Version[] versionList;
 ModelMinecraftVersionJson minecraftVersionJson;
 Spinner spinnerVersionList;
+
+EditText editText_maxMemory,editText_javaArgs,editText_minecraftArgs;
+
 int targetPos;
 int layout_here_Id = R.id.layout_fictionlist;
 
@@ -108,6 +131,28 @@ private BroadcastReceiver broadcastReceiver2;
         radioButton_type_old = findViewById(R.id.radiobutton_type_old);
         radioGroup_version_type.setOnCheckedChangeListener(this);
 
+        //创建一个radioGroup并将radioButton加入其中
+        radioGroup_gamedir_type = new RadioGroup(this);
+        radioButton_gamedir_public = findViewById(R.id.radiobutton_gamedir_public);
+        radioButton_gamedir_private = findViewById(R.id.radiobutton_gamedir_private);
+        radioGroup_gamedir_type.addView(radioButton_gamedir_public);
+        radioGroup_gamedir_type.addView(radioButton_gamedir_private);
+
+        setting_java = findViewById(R.id.setting_spinner_java);
+        setting_opengl = findViewById(R.id.setting_spinner_opengl);
+        setting_openal = findViewById(R.id.setting_spinner_openal);
+        setting_keyboard = findViewById(R.id.setting_spinner_keyboard);
+        setting_lwjgl = findViewById(R.id.setting_spinner_lwjgl);
+        setting_downloadtype = findViewById(R.id.setting_spinner_downloadtype);
+        setting_runtime = findViewById(R.id.setting_spinner_runtime);
+
+        editText_javaArgs = findViewById(R.id.setting_edit_javaargs);
+        editText_minecraftArgs = findViewById(R.id.setting_edit_minecraftargs);
+        editText_maxMemory = findViewById(R.id.setting_edit_maxmemory);
+
+        setting_notcheckJvm = findViewById(R.id.setting_switch_notcheckjvm);
+        setting_notcheckMinecraft = findViewById(R.id.setting_switch_notcheckminecraft);
+        setting_notenableKeyboard = findViewById(R.id.setting_switch_notenable_keyboard);
 
         //将所有的linearlayout和scrollview布局都作为view处理
         layout_user = findViewById(R.id.layout_user);
@@ -134,6 +179,9 @@ private BroadcastReceiver broadcastReceiver2;
         logText = findViewById(R.id.logTextView);
 
         main_text_showstate = findViewById(R.id.main_text_showstate);
+
+        //载入启动器配置文件
+        initLauncher();
 
     }
 
@@ -496,9 +544,110 @@ private BroadcastReceiver broadcastReceiver2;
                 finish();
                 break;
         }
+    }
+
+    public void initLauncher(){
+        File configFile = new File("/sdcard/MCinaBox/mcinabox.json");
+        Gson gson = new Gson();
+        InputStream inputStream;
+        Reader reader;
+        LauncherSettingModel settingModel = null;
+
+        //检测启动器配置文件是否存在
+        if(!configFile.exists()){
+            //如果不存在，就创建一个空文件
+            try {
+                configFile.createNewFile();
+            } catch (IOException e) {
+                //如果创建失败，就退出程序
+                e.printStackTrace();
+                Toast.makeText(this, "启动器配置模板创建失败", Toast.LENGTH_SHORT).show();
+                Log.e("initLauncher ",e.toString());
+                finish();
+            }
+            //初始化模板并写出配置文件
+            LauncherSettingModel newModel = new LauncherSettingModel();
+            String jsonString = gson.toJson(newModel);
+            try {
+                FileWriter jsonWriter = new FileWriter(configFile);
+                BufferedWriter out = new BufferedWriter(jsonWriter);
+                out.write(jsonString);
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(this, "启动器配置模板创建失败", Toast.LENGTH_SHORT).show();
+                Log.e("initLauncher ",e.toString());
+                finish();
+            }
+            Toast.makeText(this, "已为启动器创建配置模板", Toast.LENGTH_SHORT).show();
+        }else{
+            //如果文件存在，就读入配置文件
+            try {
+                inputStream = new FileInputStream(configFile);
+                reader = new InputStreamReader(inputStream);
+                settingModel = new Gson().fromJson(reader, LauncherSettingModel.class);
+                if (settingModel == null){
+                    Toast.makeText(this, "启动器初始化失败", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                Toast.makeText(this, "读入启动器模板失败", Toast.LENGTH_SHORT).show();
+                Log.e("initLauncher ",e.toString());
+                finish();
+            }
+            //根据读入的结果应用启动器配置文件
+
+            setting_java.setSelection(getSpinnerFitString(setting_java,settingModel.getConfigurations().getJava()));
+            setting_opengl.setSelection(getSpinnerFitString(setting_opengl,settingModel.getConfigurations().getOpengl()));
+            setting_openal.setSelection(getSpinnerFitString(setting_openal,settingModel.getConfigurations().getOpengl()));
+            setting_lwjgl.setSelection(getSpinnerFitString(setting_lwjgl,settingModel.getConfigurations().getOpenal()));
+            setting_runtime.setSelection(getSpinnerFitString(setting_lwjgl,settingModel.getConfigurations().getRuntime()));
+            setting_downloadtype.setSelection(getSpinnerFitString(setting_downloadtype,settingModel.getDownloadType()));
+            //setting_keyboard.setSelection(getSpinnerFitString(setting_keyboard,settingModel.getKeyboard()));TODO:keyboard需要单独读取本地数据来处理
+
+            editText_javaArgs.setText(settingModel.getConfigurations().getJavaArgs());
+            editText_minecraftArgs.setText(settingModel.getConfigurations().getMinecraftArgs());
+            editText_maxMemory.setText(settingModel.getConfigurations().getMaxMemory());
+
+            setting_notcheckJvm.setChecked(settingModel.getConfigurations().isNotCheckJvm());
+            setting_notcheckMinecraft.setChecked(settingModel.getConfigurations().isNotCheckGame());
+            setting_notenableKeyboard.setChecked(settingModel.getConfigurations().isNotEnableVirtualKeyboard());
+
+            if(settingModel.getLocalization().equals("public")){
+                radioButton_gamedir_public.setChecked(true);
+                radioButton_gamedir_private.setChecked(false);
+            }else if(settingModel.getLocalization().equals("private")){
+                radioButton_gamedir_private.setChecked(true);
+                radioButton_gamedir_public.setChecked(false);
+            }
 
 
+        }
 
+    }
+
+
+    //将字符串与Spinner中的字符串进行匹配，然后返回匹配的位置上的id
+    public int getSpinnerFitString(Spinner spinner,String tag) {
+        int pos = -1;
+        for (int i = 0; i < spinner.getChildCount(); i++) {
+            if (spinner.getItemAtPosition(i).equals(tag)) {
+                pos = i;
+            }
+        }
+        if(pos == -1){
+            Toast.makeText(this, "启动器初始化失败", Toast.LENGTH_SHORT).show();
+            //TODO:需要自动删除错误的模板，再关闭程序，以免下次启动仍遇到问题。
+        }
+        return pos;
+    }
+
+    public int getKeyboardSpinnerFitString(Spinner spinner,String tag){
+        int pos = -1;
+
+        return pos;
     }
 
 }

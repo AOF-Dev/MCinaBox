@@ -1,6 +1,44 @@
 package com.aof.mcinabox.initUtils;
 
+import android.accounts.Account;
+
+import java.util.UUID;
+
 public class LauncherSettingModel {
+
+
+
+    public LauncherSettingModel(){
+        //默认模板初始化
+        super();
+        localization = "public";
+        downloadType = "official";
+        keyboard = "IceSty";
+
+        configurations = new Configurations();
+        configurations.javaArgs = "";
+        configurations.minecraftArgs = "";
+        configurations.maxMemory = 256;
+        configurations.java = "1.8.0_211_AArch32";
+        configurations.runtime = "AArch32";
+        configurations.openal = "OpenGL_2.0";
+        configurations.openal = "OpenAl_soft";
+        configurations.lwjgl = "Lwjgl_2.9.1";
+        configurations.notCheckGame = false;
+        configurations.notCheckJvm = false;
+        configurations.notEnableVirtualKeyboard = false;
+
+        Accounts account_temp = new Accounts();
+        Accounts[] accounts_temp = {account_temp};
+        accounts_temp[0].setUsername("Steve");
+        accounts_temp[0].uuid = UUID.nameUUIDFromBytes((accounts_temp[0].getUsername()).getBytes()).toString();
+        accounts_temp[0].setType("offline");
+        accounts_temp[0].setSelected(true);
+        accounts = accounts_temp;
+    }
+
+
+
     private String localization; //存储路径："public"共有目录 "private"私有目录
     private  String downloadType; //下载源："office"官方 "bmclapi"国内BMCLAPI "mcbbs"国内MCBBS
     private String keyboard; //虚拟键盘： ""选择的键盘模板
