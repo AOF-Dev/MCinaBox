@@ -57,7 +57,6 @@ Button button_user,button_gameselected,button_gamelist,button_gamedir,button_lau
 
 RadioGroup radioGroup_version_type;
 RadioButton radioButton_type_release,radioButton_type_snapshot,radioButton_type_old;
-RadioGroup radioGroup_gamedir_type;
 RadioButton radioButton_gamedir_public,radioButton_gamedir_private;
 
 Spinner setting_java,setting_opengl,setting_openal,setting_lwjgl,setting_runtime,setting_downloadtype,setting_keyboard;
@@ -111,7 +110,9 @@ private BroadcastReceiver broadcastReceiver2;
         button8 = findViewById(R.id.main_linear3_download1);
         toolbar_button_backhome = findViewById(R.id.toolbar_button_backhome);
         toolbar_button_backfromhere = findViewById(R.id.toolbar_button_backfromhere);
-        launcherBts = new Button[]{button_user,button_gameselected,button_gamelist,button_gamedir,button_launchersetting,button_launchercontrol,button8,toolbar_button_backhome,toolbar_button_backfromhere};
+        radioButton_gamedir_public = findViewById(R.id.radiobutton_gamedir_public);
+        radioButton_gamedir_private = findViewById(R.id.radiobutton_gamedir_private);
+        launcherBts = new Button[]{radioButton_gamedir_public,radioButton_gamedir_private,button_user,button_gameselected,button_gamelist,button_gamedir,button_launchersetting,button_launchercontrol,button8,toolbar_button_backhome,toolbar_button_backfromhere};
         for(Button button : launcherBts ){
             button.setOnClickListener(listener);
         }
@@ -131,12 +132,6 @@ private BroadcastReceiver broadcastReceiver2;
         radioButton_type_old = findViewById(R.id.radiobutton_type_old);
         radioGroup_version_type.setOnCheckedChangeListener(this);
 
-        //创建一个radioGroup并将radioButton加入其中
-        radioGroup_gamedir_type = new RadioGroup(this);
-        radioButton_gamedir_public = findViewById(R.id.radiobutton_gamedir_public);
-        radioButton_gamedir_private = findViewById(R.id.radiobutton_gamedir_private);
-        radioGroup_gamedir_type.addView(radioButton_gamedir_public);
-        radioGroup_gamedir_type.addView(radioButton_gamedir_private);
 
         setting_java = findViewById(R.id.setting_spinner_java);
         setting_opengl = findViewById(R.id.setting_spinner_opengl);
@@ -298,6 +293,14 @@ private BroadcastReceiver broadcastReceiver2;
                     break;
                 case R.id.toolbar_button_backfromhere:
                     setBackFromHere(layout_here_Id);
+                    break;
+                case R.id.radiobutton_gamedir_public:
+                    radioButton_gamedir_public.setChecked(true);
+                    radioButton_gamedir_private.setChecked(false);
+                    break;
+                case R.id.radiobutton_gamedir_private:
+                    radioButton_gamedir_private.setChecked(true);
+                    radioButton_gamedir_public.setChecked(false);
                     break;
                 default:
                     break;
@@ -490,6 +493,7 @@ private BroadcastReceiver broadcastReceiver2;
     @Override
     public void onDestroy() {
         super.onDestroy();
+        saveLauncher();
         if(broadcastReceiver1 != null){
             unregisterReceiver(broadcastReceiver1);
         }
@@ -546,6 +550,8 @@ private BroadcastReceiver broadcastReceiver2;
         }
     }
 
+
+    //用于启动启动器时载入启动器配置
     public void initLauncher(){
         File configFile = new File("/sdcard/MCinaBox/mcinabox.json");
         Gson gson = new Gson();
@@ -601,15 +607,15 @@ private BroadcastReceiver broadcastReceiver2;
 
             setting_java.setSelection(getSpinnerFitString(setting_java,settingModel.getConfigurations().getJava()));
             setting_opengl.setSelection(getSpinnerFitString(setting_opengl,settingModel.getConfigurations().getOpengl()));
-            setting_openal.setSelection(getSpinnerFitString(setting_openal,settingModel.getConfigurations().getOpengl()));
-            setting_lwjgl.setSelection(getSpinnerFitString(setting_lwjgl,settingModel.getConfigurations().getOpenal()));
-            setting_runtime.setSelection(getSpinnerFitString(setting_lwjgl,settingModel.getConfigurations().getRuntime()));
+            setting_openal.setSelection(getSpinnerFitString(setting_openal,settingModel.getConfigurations().getOpenal()));
+            setting_lwjgl.setSelection(getSpinnerFitString(setting_lwjgl,settingModel.getConfigurations().getLwjgl()));
+            setting_runtime.setSelection(getSpinnerFitString(setting_runtime,settingModel.getConfigurations().getRuntime()));
             setting_downloadtype.setSelection(getSpinnerFitString(setting_downloadtype,settingModel.getDownloadType()));
             //setting_keyboard.setSelection(getSpinnerFitString(setting_keyboard,settingModel.getKeyboard()));TODO:keyboard需要单独读取本地数据来处理
 
             editText_javaArgs.setText(settingModel.getConfigurations().getJavaArgs());
             editText_minecraftArgs.setText(settingModel.getConfigurations().getMinecraftArgs());
-            editText_maxMemory.setText(settingModel.getConfigurations().getMaxMemory());
+            editText_maxMemory.setText(settingModel.getConfigurations().getMaxMemory()+"");
 
             setting_notcheckJvm.setChecked(settingModel.getConfigurations().isNotCheckJvm());
             setting_notcheckMinecraft.setChecked(settingModel.getConfigurations().isNotCheckGame());
@@ -632,22 +638,68 @@ private BroadcastReceiver broadcastReceiver2;
     //将字符串与Spinner中的字符串进行匹配，然后返回匹配的位置上的id
     public int getSpinnerFitString(Spinner spinner,String tag) {
         int pos = -1;
-        for (int i = 0; i < spinner.getChildCount(); i++) {
-            if (spinner.getItemAtPosition(i).equals(tag)) {
+        for (int i = 0; i < spinner.getAdapter().getCount(); i++) {
+            if (tag.equals(spinner.getItemAtPosition(i))) {
                 pos = i;
             }
         }
         if(pos == -1){
-            Toast.makeText(this, "启动器初始化失败", Toast.LENGTH_SHORT).show();
             //TODO:需要自动删除错误的模板，再关闭程序，以免下次启动仍遇到问题。
+            Toast.makeText(this, "启动器初始化失败 "+tag,Toast.LENGTH_SHORT).show();
         }
         return pos;
     }
 
     public int getKeyboardSpinnerFitString(Spinner spinner,String tag){
         int pos = -1;
-
         return pos;
     }
+
+
+    //用于在退出或者启动Minecraft时保存启动器配置
+    public void saveLauncher(){
+        File configFile = new File("/sdcard/MCinaBox/mcinabox.json");
+        Gson gson = new Gson();
+
+        //存储全部启动器设置到模板对象中
+        LauncherSettingModel settingModel = new LauncherSettingModel();
+        LauncherSettingModel.Configurations configurations = settingModel.getConfigurations();
+        LauncherSettingModel.Accounts[] accounts = settingModel.getAccounts();
+
+        settingModel.setDownloadType((String)setting_downloadtype.getSelectedItem());
+        settingModel.setKeyboard((String)setting_keyboard.getSelectedItem());
+        if(radioButton_gamedir_public.isChecked()){
+            settingModel.setLocalization("public");
+        }else if(radioButton_gamedir_private.isChecked()){
+            settingModel.setLocalization("private");
+        }
+        configurations.setJava((String)setting_java.getSelectedItem());
+        configurations.setOpengl((String)setting_opengl.getSelectedItem());
+        configurations.setOpenal((String)setting_openal.getSelectedItem());
+        configurations.setLwjgl((String)setting_lwjgl.getSelectedItem());
+        configurations.setRuntime((String)setting_runtime.getSelectedItem());
+        configurations.setMaxMemory(Integer.parseInt((String)editText_maxMemory.getText().toString()));
+        configurations.setJavaArgs(editText_javaArgs.getText().toString());
+        configurations.setMinecraftArgs(editText_minecraftArgs.getText().toString());
+        configurations.setNotCheckGame(setting_notcheckMinecraft.isChecked());
+        configurations.setNotCheckJvm(setting_notcheckJvm.isChecked());
+        configurations.setNotEnableVirtualKeyboard(setting_notenableKeyboard.isChecked());
+
+        //写出模板对象到启动器配置文件
+        String jsonString = gson.toJson(settingModel);
+        try {
+            FileWriter jsonWriter = new FileWriter(configFile);
+            BufferedWriter out = new BufferedWriter(jsonWriter);
+            out.write(jsonString);
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "启动器配置保存失败", Toast.LENGTH_SHORT).show();
+            Log.e("saveLauncher ",e.toString());
+        }
+
+    }
+
+
 
 }

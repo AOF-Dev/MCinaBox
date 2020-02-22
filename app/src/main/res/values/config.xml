@@ -18,7 +18,7 @@
     </string-array>
 
     <string-array name="openal_version">
-        <item>Openal_soft</item>
+        <item>OpenAL_soft</item>
     </string-array>
 
     <string-array name="runtime_version">

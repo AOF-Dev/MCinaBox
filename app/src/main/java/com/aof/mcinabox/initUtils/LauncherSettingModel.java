@@ -22,7 +22,7 @@ public class LauncherSettingModel {
         configurations.java = "1.8.0_211_AArch32";
         configurations.runtime = "AArch32";
         configurations.openal = "OpenGL_2.0";
-        configurations.openal = "OpenAl_soft";
+        configurations.openal = "OpenAL_soft";
         configurations.lwjgl = "Lwjgl_2.9.1";
         configurations.notCheckGame = false;
         configurations.notCheckJvm = false;
