@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:background="#FFFFFF"
+        android:background="#F5F5F5"
         android:orientation="horizontal">
 
         <RadioButton

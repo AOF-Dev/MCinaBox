@@ -462,7 +462,7 @@ private BroadcastReceiver broadcastReceiver2;
                     Toast.makeText(this, "测试版", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.radiobutton_type_old:
-                    Toast.makeText(this, "远古版版", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "远古版", Toast.LENGTH_SHORT).show();
                     break;
             }
         }else{

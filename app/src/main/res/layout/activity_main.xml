@@ -275,7 +275,7 @@
         android:layout_height="0dp"
         android:background="@drawable/background_layout_fictionlist"
         android:orientation="vertical"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
@@ -616,7 +616,7 @@
         android:layout_height="0dp"
         android:background="@drawable/background_layout_fictionlist"
         android:orientation="vertical"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
@@ -640,7 +640,7 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
-                android:background="#ffffff"
+                android:background="#F5F5F5"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -658,6 +658,7 @@
                         android:textSize="13sp" />
 
                     <Spinner
+                        android:id="@+id/setting_spinner_java"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
@@ -666,6 +667,31 @@
                     android:layout_width="fill_parent"
                     android:layout_height="1px"
                     android:background="@android:color/background_dark" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Keyboard 布局"
+                        android:textColor="@color/puredark"
+                        android:textSize="13sp" />
+
+                    <Spinner
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:background="@android:color/background_dark" />
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -697,9 +723,10 @@
                                 android:textSize="10sp" />
 
                             <TextView
+                                android:id="@+id/game_setting_text_memory"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="xxxxMB"
+                                android:text="xxxMB"
                                 android:textSize="10sp" />
                         </LinearLayout>
                     </LinearLayout>
@@ -729,7 +756,7 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
-                android:background="#ffffff"
+                android:background="#F5F5F5"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -745,9 +772,38 @@
                         android:layout_gravity="center"
                         android:textColor="@color/puredark"/>
                     <Spinner
+                        android:id="@+id/setting_spinner_opengl"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:background="@android:color/background_dark" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="OpenAL 版本"
+                        android:textSize="13sp"
+                        android:layout_gravity="center"
+                        android:textColor="@color/puredark"/>
+                    <Spinner
+                        android:id="@+id/setting_spinner_openal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:background="@android:color/background_dark" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -762,9 +818,15 @@
                         android:layout_gravity="center"
                         android:textColor="@color/puredark"/>
                     <Spinner
+                        android:id="@+id/setting_spinner_runtime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:background="@android:color/background_dark" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -779,9 +841,15 @@
                         android:layout_gravity="center"
                         android:textColor="@color/puredark"/>
                     <Spinner
+                        android:id="@+id/setting_spinner_lwjgl"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:background="@android:color/background_dark" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -795,6 +863,11 @@
                         android:hint="Java 虚拟机参数 (不必填写)"/>
                 </LinearLayout>
 
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:background="@android:color/background_dark" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -807,6 +880,11 @@
                         android:hint="Minecraft 附加参数 (不必填写)"/>
                 </LinearLayout>
 
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:background="@android:color/background_dark" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -816,6 +894,28 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="不检查JVM架构的兼容性"
+                        android:textSize="13sp"
+                        android:layout_gravity="center"
+                        android:textColor="@color/puredark"/>
+                    <Switch
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:background="@android:color/background_dark" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="不检查Minecraft的完整性"
                         android:textSize="13sp"
                         android:layout_gravity="center"
                         android:textColor="@color/puredark"/>

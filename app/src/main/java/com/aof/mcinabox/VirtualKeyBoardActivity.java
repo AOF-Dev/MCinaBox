@@ -239,7 +239,7 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
     private android.view.View.OnClickListener listener = new android.view.View.OnClickListener() {
         @Override
         public void onClick(View arg0) {
-            // TODO Auto-generated method stub
+
             switch (arg0.getId()) {
                 default:
                     break;
@@ -304,7 +304,7 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
     private android.view.View.OnClickListener keyboardListenerShort = new android.view.View.OnClickListener() {
         @Override
         public void onClick(View arg0) {
-            // TODO Auto-generated method stub
+
             for (GameButton targetButton : keyboardList) {
                 if(arg0.getId() == targetButton.getId()){
                     Toast.makeText(getApplicationContext(), "你点击的是 "+targetButton.getText().toString()+" "+targetButton.getId()+" "+targetButton.getKeyMain(), Toast.LENGTH_SHORT).show();
@@ -316,7 +316,7 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
     private android.view.View.OnLongClickListener keyboardListenerLong = new android.view.View.OnLongClickListener() {
         @Override
         public boolean onLongClick(View arg0) {
-            // TODO Auto-generated method stub
+
             for (GameButton targetButton : keyboardList) {
                 if(arg0.getId() == targetButton.getId()){
                     reloadStantKey(targetButton);
