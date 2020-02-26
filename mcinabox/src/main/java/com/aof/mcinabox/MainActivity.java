@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
 import android.Manifest;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
@@ -11,14 +12,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Looper;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -30,9 +35,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aof.mcinabox.initUtils.LauncherSettingModel;
+import com.aof.mcinabox.ioUtils.FileTool;
+import com.aof.mcinabox.jsonUtils.AnaliesMinecraftAssetJson;
 import com.aof.mcinabox.jsonUtils.AnaliesMinecraftVersionJson;
 import com.aof.mcinabox.jsonUtils.AnaliesVersionManifestJson;
 import com.aof.mcinabox.jsonUtils.ListVersionManifestJson;
+import com.aof.mcinabox.jsonUtils.ModelMinecraftAssetsJson;
 import com.aof.mcinabox.jsonUtils.ModelMinecraftVersionJson;
 import com.aof.mcinabox.userUtil.UserListAdapter;
 import com.aof.mcinabox.userUtil.UserListBean;
@@ -48,48 +56,61 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Iterator;
+import java.util.Set;
+
+import cosine.boat.LauncherActivity;
 
 public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
-Button[] launcherBts;
-Button button_user,button_gameselected,button_gamelist,button_gamedir,button_launchersetting,button_launchercontrol,button8,toolbar_button_backhome,toolbar_button_backfromhere;
+    public Button[] launcherBts;
+    public Button button_user, button_gameselected, button_gamelist, button_gamedir, button_launchersetting, button_launchercontrol, toolbar_button_backhome, toolbar_button_backfromhere;
 
 
-RadioGroup radioGroup_version_type;
-RadioButton radioButton_type_release,radioButton_type_snapshot,radioButton_type_old;
-RadioButton radioButton_gamedir_public,radioButton_gamedir_private;
+    public RadioGroup radioGroup_version_type;
+    public RadioButton radioButton_type_release, radioButton_type_snapshot, radioButton_type_old;
+    public RadioButton radioButton_gamedir_public, radioButton_gamedir_private;
 
-Spinner setting_java,setting_opengl,setting_openal,setting_lwjgl,setting_runtime,setting_downloadtype,setting_keyboard;
+    public Spinner setting_java, setting_opengl, setting_openal, setting_lwjgl, setting_runtime, setting_downloadtype, setting_keyboard;
 
-Switch setting_notcheckJvm,setting_notcheckMinecraft,setting_notenableKeyboard;
+    public Switch setting_notcheckJvm, setting_notcheckMinecraft, setting_notenableKeyboard, setting_enableOtg;
 
-LinearLayout[] launcherBts2;
-LinearLayout gamelist_button_reflash,gamelist_button_installnewgame,gamelist_button_backfrom_installnewversion,gamelist_button_setting;
+    public LinearLayout[] launcherBts2;
+    public LinearLayout gamelist_button_reflash, gamelist_button_installnewgame, gamelist_button_backfrom_installnewversion, gamelist_button_setting, main_button_startgame, gamelist_button_download;
 
-View[] launcherLins;
-View layout_user,layout_gamelist,layout_gameselected,layout_gamedir,layout_launchersetting,layout_gamelist_installversion,layout_gamelist_setting;
+    public View[] launcherLins;
+    public View layout_user, layout_gamelist, layout_gameselected, layout_gamedir, layout_launchersetting, layout_gamelist_installversion, layout_gamelist_setting, layout_startgame;
 
-ListView listview_minecraft_manifest,listview_user;
+    public ListView listview_minecraft_manifest, listview_user;
 
-DownloadMinecraft downloadTask = new DownloadMinecraft();
-ListVersionManifestJson.Version[] versionList;
-ModelMinecraftVersionJson minecraftVersionJson;
-Spinner spinnerVersionList;
+    public ListVersionManifestJson.Version[] versionList;
 
-EditText editText_maxMemory,editText_javaArgs,editText_minecraftArgs;
+    public EditText editText_maxMemory, editText_javaArgs, editText_minecraftArgs;
 
-int targetPos;
-int layout_here_Id = R.id.layout_fictionlist;
 
-TextView logText,main_text_showstate;
-private BroadcastReceiver broadcastReceiver1;
-private BroadcastReceiver broadcastReceiver2;
+    //用于存储当前显示的layout的id值
+    public int layout_here_Id = R.id.layout_fictionlist;
+
+    public TextView logText, main_text_showstate, gamelist_text_show_slectedversion;
+    private BroadcastReceiver broadcastReceiver1;
+    private BroadcastReceiver broadcastReceiver2;
+    private BroadcastReceiver broadcastReceiver3;
+
+    public ListVersionManifestJson.Version selectedVersion;
+    public ModelMinecraftVersionJson selectedVersionJson;
+    public int selectedVersionPos = -1;
+    public String MCinaBox_HomePath, MCinaBox_PublicPath, MCinaBox_PrivatePath;
+    public File publicConfigFile, privateConfigFile;
+    //加载当前设置，也加载另一份设置
+    public LauncherSettingModel anotherSetting;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         //Activity生命周期开始，执行初始化
         super.onCreate(savedInstanceState);
+
+
         //显示activity_main为当前Activity布局
         setContentView(R.layout.activity_main);
 
@@ -100,6 +121,14 @@ private BroadcastReceiver broadcastReceiver2;
         //请求软件所需的权限
         requestPermission();
 
+        //MCinaBox的全局目录
+        MCinaBox_PublicPath = "/sdcard/MCinaBox";
+        MCinaBox_PrivatePath = getExternalFilesDir(null).getPath() + "/MCinaBox";
+        //MCinaBox_HomePath = MCinaBox_PublicPath;
+        publicConfigFile = new File(MCinaBox_PublicPath + "/mcinabox.json");
+        privateConfigFile = new File(MCinaBox_PrivatePath + "/mcinabox.json");
+
+
         //给界面的按键设置按键监听
         button_user = findViewById(R.id.main_button_user);
         button_gameselected = findViewById(R.id.main_button_gameselected);
@@ -107,22 +136,28 @@ private BroadcastReceiver broadcastReceiver2;
         button_gamedir = findViewById(R.id.main_button_gamedir);
         button_launchersetting = findViewById(R.id.main_button_launchersetting);
         button_launchercontrol = findViewById(R.id.main_button_launchercontrol);
-        button8 = findViewById(R.id.main_linear3_download1);
         toolbar_button_backhome = findViewById(R.id.toolbar_button_backhome);
         toolbar_button_backfromhere = findViewById(R.id.toolbar_button_backfromhere);
         radioButton_gamedir_public = findViewById(R.id.radiobutton_gamedir_public);
         radioButton_gamedir_private = findViewById(R.id.radiobutton_gamedir_private);
-        launcherBts = new Button[]{radioButton_gamedir_public,radioButton_gamedir_private,button_user,button_gameselected,button_gamelist,button_gamedir,button_launchersetting,button_launchercontrol,button8,toolbar_button_backhome,toolbar_button_backfromhere};
-        for(Button button : launcherBts ){
+        launcherBts = new Button[]{radioButton_gamedir_public, radioButton_gamedir_private, button_user, button_gameselected, button_gamelist, button_gamedir, button_launchersetting, button_launchercontrol, toolbar_button_backhome, toolbar_button_backfromhere};
+        for (Button button : launcherBts) {
             button.setOnClickListener(listener);
         }
+
+        if (Build.VERSION.SDK_INT >= 29) {
+            radioButton_gamedir_public.setClickable(false);
+        }
+
 
         gamelist_button_reflash = findViewById(R.id.gamelist_button_reflash);
         gamelist_button_installnewgame = findViewById(R.id.gamelist_button_installnewgame);
         gamelist_button_backfrom_installnewversion = findViewById(R.id.gamelist_button_backfrom_installnewversion);
         gamelist_button_setting = findViewById(R.id.gamelist_button_setting);
-        launcherBts2 = new LinearLayout[]{gamelist_button_reflash,gamelist_button_installnewgame,gamelist_button_backfrom_installnewversion,gamelist_button_setting};
-        for(LinearLayout button : launcherBts2){
+        gamelist_button_download = findViewById(R.id.gamelist_button_download);
+        main_button_startgame = findViewById(R.id.main_button_startgame);
+        launcherBts2 = new LinearLayout[]{main_button_startgame, gamelist_button_download, gamelist_button_reflash, gamelist_button_installnewgame, gamelist_button_backfrom_installnewversion, gamelist_button_setting};
+        for (LinearLayout button : launcherBts2) {
             button.setOnClickListener(listener);
         }
 
@@ -148,6 +183,7 @@ private BroadcastReceiver broadcastReceiver2;
         setting_notcheckJvm = findViewById(R.id.setting_switch_notcheckjvm);
         setting_notcheckMinecraft = findViewById(R.id.setting_switch_notcheckminecraft);
         setting_notenableKeyboard = findViewById(R.id.setting_switch_notenable_keyboard);
+        setting_enableOtg = findViewById(R.id.setting_switch_enable_otg);
 
         //将所有的linearlayout和scrollview布局都作为view处理
         layout_user = findViewById(R.id.layout_user);
@@ -157,33 +193,43 @@ private BroadcastReceiver broadcastReceiver2;
         layout_launchersetting = findViewById(R.id.layout_launchersetting);
         layout_gamelist_installversion = findViewById(R.id.layout_gamelist_installversion);
         layout_gamelist_setting = findViewById(R.id.layout_gamelist_setting);
-        launcherLins = new View[] {layout_user,layout_gameselected,layout_gamelist,layout_gamedir,layout_launchersetting,layout_gamelist_installversion,layout_gamelist_setting};
+        layout_startgame = findViewById(R.id.layout_startgame);
+        launcherLins = new View[]{layout_startgame, layout_user, layout_gameselected, layout_gamelist, layout_gamedir, layout_launchersetting, layout_gamelist_installversion, layout_gamelist_setting};
 
         //初始化ListView控件
         listview_minecraft_manifest = findViewById(R.id.list_minecraft_manifest);
+        listview_minecraft_manifest.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
+                selectedVersionPos = pos;
+                gamelist_text_show_slectedversion.setText(listview_minecraft_manifest.getAdapter().getItem(pos).toString());
+            }
+        });
 
         listview_user = findViewById(R.id.list_user);
         ArrayList<UserListBean> userlist = new ArrayList<UserListBean>();
-        for(int i=0;i<=10;i++){
+        for (int i = 0; i <= 10; i++) {
             userlist.add(new UserListBean());
         }
-        UserListAdapter adapter = new UserListAdapter(this,userlist);
+        UserListAdapter adapter = new UserListAdapter(this, userlist);
         listview_user.setAdapter(adapter);
 
         //初始化LogTextView控件
         logText = findViewById(R.id.logTextView);
+        gamelist_text_show_slectedversion = findViewById(R.id.gamelist_text_show_selectedversion);
 
         main_text_showstate = findViewById(R.id.main_text_showstate);
 
         //载入启动器配置文件
-        initLauncher();
+        initLauncher(null);
+        //以下为载入启动器之后才能完成的设定
 
     }
 
     //重写boolean onCreatOptionsMenu(Menu menu)方法实现Toolbar的菜单
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu,menu);
+        getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 
@@ -198,19 +244,12 @@ private BroadcastReceiver broadcastReceiver2;
         return super.onOptionsItemSelected(item);
     }
 
-    /*public void startFloatingService(View view) {
-        if (Build.VERSION.SDK_INT >= 23 && !Settings.canDrawOverlays(this)) {
-            Toast.makeText(this, "请授权本地存储权限", Toast.LENGTH_SHORT).show();
-            startActivityForResult(new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS, Uri.parse("package:" + getPackageName())), 0);
-        }
-    }*/
-
-    public void requestPermission(){
+    public void requestPermission() {
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
-            if ( !ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE) ) {
+            if (!ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
                                 Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
@@ -219,11 +258,11 @@ private BroadcastReceiver broadcastReceiver2;
     }
 
     //Button数组launchbts中的按键监听
-    private View.OnClickListener listener = new View.OnClickListener(){
+    private View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View arg0) {
             // TODO Auto-generated method stub
-            switch(arg0.getId()){
+            switch (arg0.getId()) {
                 case R.id.main_button_user:
                     //具体点击操作的逻辑
                     setVisibleLinearLayout(layout_user);
@@ -248,7 +287,7 @@ private BroadcastReceiver broadcastReceiver2;
                 case R.id.main_button_launchercontrol:
                     //main_text_showstate.setText(getString(R.string.main_text_launchercontrol));
                     //页面跳转
-                    Intent intent = new Intent(getApplicationContext(),VirtualKeyBoardActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), VirtualKeyBoardActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.gamelist_button_reflash:
@@ -270,11 +309,10 @@ private BroadcastReceiver broadcastReceiver2;
                         }
                     };
                     syncTask.start();
-                    button8.setClickable(true);
                     break;
                 case R.id.gamelist_button_installnewgame:
                     setVisibleLinearLayout(layout_gamelist_installversion);
-                    main_text_showstate.setText(getString(R.string.main_text_gamelist_installversion)+" - "+getString(R.string.main_text_gamelist));
+                    main_text_showstate.setText(getString(R.string.main_text_gamelist_installversion) + " - " + getString(R.string.main_text_gamelist));
                     break;
                 case R.id.gamelist_button_backfrom_installnewversion:
                     setVisibleLinearLayout(layout_gamelist);
@@ -282,13 +320,13 @@ private BroadcastReceiver broadcastReceiver2;
                     break;
                 case R.id.gamelist_button_setting:
                     setVisibleLinearLayout(layout_gamelist_setting);
-                    main_text_showstate.setText(getString(R.string.main_text_gamelist_setting)+" - "+getString(R.string.main_text_gamelist));
+                    main_text_showstate.setText(getString(R.string.main_text_gamelist_setting) + " - " + getString(R.string.main_text_gamelist));
                     break;
-                case R.id.main_linear3_download1:
-                    DownloadVersionFirst();
+                case R.id.gamelist_button_download:
+                    DownloadSelectedVersion();
                     break;
                 case R.id.toolbar_button_backhome:
-                    setVisibleLinearLayout(null);
+                    setVisibleLinearLayout(layout_startgame);
                     main_text_showstate.setText(getString(R.string.main_text_defaultlayout));
                     break;
                 case R.id.toolbar_button_backfromhere:
@@ -297,10 +335,21 @@ private BroadcastReceiver broadcastReceiver2;
                 case R.id.radiobutton_gamedir_public:
                     radioButton_gamedir_public.setChecked(true);
                     radioButton_gamedir_private.setChecked(false);
+                    saveLauncher(false,privateConfigFile);
+                    initLauncher(publicConfigFile);
+                    MCinaBox_HomePath = MCinaBox_PublicPath;
                     break;
                 case R.id.radiobutton_gamedir_private:
                     radioButton_gamedir_private.setChecked(true);
                     radioButton_gamedir_public.setChecked(false);
+                    saveLauncher(false,publicConfigFile);
+                    initLauncher(privateConfigFile);
+                    MCinaBox_HomePath = MCinaBox_PrivatePath;
+                    break;
+
+                case R.id.main_button_startgame:
+                    Intent intent_start = new Intent(getApplicationContext(), LauncherActivity.class);
+                    startActivity(intent_start);
                     break;
                 default:
                     break;
@@ -320,72 +369,90 @@ private BroadcastReceiver broadcastReceiver2;
     };*/
 
     //下载Minecraft清单列表
-    private long DownloadVersionList(){
-        downloadTask.setInformation("https://launchermeta.mojang.com", "/MCinaBox/.minecraft/");
+    private long DownloadVersionList() {
+        //适配SDK29 TODO：适配SDK29的文件操作
+        if(Build.VERSION.SDK_INT >= 29){
+            DownloadMinecraft downloadTask = new DownloadMinecraft(getDownloadServerUrl(setting_downloadtype.getSelectedItem().toString(),0),getDownloadServerUrl(setting_downloadtype.getSelectedItem().toString(),1), "/sdcard/Downloads",MCinaBox_PrivatePath);
+            return (downloadTask.UpdateVersionManifestJson(this));
+        }
+
+        Toast.makeText(this, "当前路径 "+MCinaBox_HomePath, Toast.LENGTH_SHORT).show();
+        DownloadMinecraft downloadTask = new DownloadMinecraft(getDownloadServerUrl(setting_downloadtype.getSelectedItem().toString(),0), getDownloadServerUrl(setting_downloadtype.getSelectedItem().toString(),1),MCinaBox_HomePath,MCinaBox_PrivatePath);
         return (downloadTask.UpdateVersionManifestJson(this));
     }
-    private void DownloadVersionFirst(){
+
+    private void DownloadSelectedVersion() {
+        DownloadMinecraft downloadTask = new DownloadMinecraft(getDownloadServerUrl(setting_downloadtype.getSelectedItem().toString(),0),getDownloadServerUrl(setting_downloadtype.getSelectedItem().toString(),1), MCinaBox_HomePath,MCinaBox_PrivatePath);
         long taskId;
-        taskId = downloadTask.DownloadMinecraftVersionJson(versionList[targetPos].getId(),versionList[targetPos].getUrl(),this);
+        ListVersionManifestJson.Version targetVer = null;
+        for (ListVersionManifestJson.Version version : versionList) {
+            if (version.getId().equals(listview_minecraft_manifest.getItemAtPosition(selectedVersionPos))) {
+                targetVer = version;
+            }
+        }
+        if (targetVer == null) {
+            //TODO:发出警告，未找到对应版本
+            Toast.makeText(this, "下载失败 未找到对应版本", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Toast.makeText(this, "开始下载 " + targetVer.getId(), Toast.LENGTH_SHORT).show();
+        taskId = downloadTask.DownloadMinecraftVersionJson(targetVer.getId(), targetVer.getUrl(), this);
         listener2(taskId);
-    }
-    private void DownloadVersionSecond(){
-        //获取实例化后的versionList
-        minecraftVersionJson = new AnaliesMinecraftVersionJson().getModelMinecraftVersionJson(downloadTask.getMINECRAFT_VERSION_DIR()+versionList[targetPos].getId()+"/"+versionList[targetPos].getId()+".json");
-        //Toast.makeText(getApplicationContext(),minecraftVersionJson.getLibraries().length+"",Toast.LENGTH_SHORT).show();
-        //先做一个输出测试一下解析结果是否正确
-
-        /*StringBuffer s2 = new StringBuffer("");
-        for(int i = 0;i<=minecraftVersionJson.getLibraries().length-1;i++){
-            StringBuffer s1 = new StringBuffer(minecraftVersionJson.getLibraries()[i].getDownloads().containsKey("path"));
-            s2.append(s1);
-        }
-        logText.setText(s2);
-         */
-        logText.setText(""+minecraftVersionJson.getLibraries()[1].getDownloads().size());
-
-
-        //TODO:未正确获取path参数
-        //测试一下url参数
-        //downloadTask.DownloadMinecraftDependentLibraries(minecraftVersionJson.getLibraries()[0].getPath(), minecraftVersionJson.getLibraries()[0].getUrl(), this);
-
+        selectedVersion = targetVer;
     }
 
-    //测试json解析功能
-    /*
-    private void testJson(){
+    private void DownloadVersionLibraries() {
+        DownloadMinecraft downloadTask = new DownloadMinecraft(getDownloadServerUrl(setting_downloadtype.getSelectedItem().toString(),0),getDownloadServerUrl(setting_downloadtype.getSelectedItem().toString(),1), MCinaBox_HomePath,MCinaBox_PrivatePath);
+        ModelMinecraftVersionJson version = new AnaliesMinecraftVersionJson().getModelMinecraftVersionJson(downloadTask.getMINECRAFT_VERSION_DIR() + selectedVersion.getId() + "/" + selectedVersion.getId() + ".json");
+        //执行minecraft jar文件的下载
+        downloadTask.DownloadMinecraftJar(version.getId(), version.getDownloads().getClient().getUrl(), this);
+        //执行minecraft 依赖库的下载
+        for (int i = 0; i < version.getLibraries().length; i++) {
+            if (version.getLibraries()[i].getDownloads().getArtifact() != null) {
+                downloadTask.DownloadMinecraftDependentLibraries(version.getLibraries()[i].getDownloads().getArtifact().getPath(), version.getLibraries()[i].getDownloads().getArtifact().getUrl(), this);
+            }
+        }
+        //TODO:资源文件的下载
+        //执行资源索引文件的下载
+        selectedVersionJson = version;
+        long taskId = downloadTask.DownloadMinecraftAssetJson(version.getAssetIndex().getId(),version.getAssetIndex().getUrl(),this);
+        listener3(taskId);
 
-        try {
-            //将version_manifest.json文件加入输入流
-            InputStream inputStream = new FileInputStream(new File(downloadTask.getMINECRAFT_TEMP()+"version_manifest.json"));
-            Reader reader = new InputStreamReader(inputStream);
-            Gson gson = new Gson();
-            //使用Gson将ListVersionManifestJson实例化
-            ListVersionManifestJson listVersionManifestJson = gson.fromJson(reader, ListVersionManifestJson.class);
+    }
 
-            ListVersionManifestJson.Version[] result = listVersionManifestJson.getVersions();
-            String testid = result[0].getId();
+    private void DownloadVersionAssets(){
+        DownloadMinecraft downloadTask = new DownloadMinecraft(getDownloadServerUrl(setting_downloadtype.getSelectedItem().toString(),0),getDownloadServerUrl(setting_downloadtype.getSelectedItem().toString(),1),MCinaBox_HomePath,MCinaBox_PrivatePath);
 
-            Toast.makeText(getApplicationContext(),testid,Toast.LENGTH_SHORT).show();
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        ModelMinecraftAssetsJson assets = new AnaliesMinecraftAssetJson().getModelMinecraftAssetsJson(downloadTask.getMINECRAFT_ASSETS_DIR()+"objects/indexes/"+selectedVersionJson.getAssetIndex().getId()+".json");
+        Set<String> keySets = assets.getObjects().keySet();
+        Toast.makeText(this, "共有 "+ keySets.size() +" 个资源文件需要下载", Toast.LENGTH_SHORT).show();
+        //利用了Iterator迭代器
+        Iterator<String> it =keySets.iterator();
+        while(it.hasNext()) {
+            //得到每一个key
+            String key = it.next();
+            //通过key获取对应的value
+            downloadTask.DownloadMinecraftAssetFile(assets.getObjects().get(key).getHash(),this);
         }
 
-    }*/
+    }
 
-    //更新List
-    private void loadSpinnerVersionList(){
+    //更新版本列表的list控件
+    private void loadVersionList() {
+        DownloadMinecraft downloadTask = new DownloadMinecraft(getDownloadServerUrl(setting_downloadtype.getSelectedItem().toString(),0),getDownloadServerUrl(setting_downloadtype.getSelectedItem().toString(),1), MCinaBox_HomePath,MCinaBox_PrivatePath);
         //获取实例化后的versionList
-        versionList = new AnaliesVersionManifestJson().getVersionList(downloadTask.getMINECRAFT_TEMP()+"version_manifest.json");
+        versionList = new AnaliesVersionManifestJson().getVersionList(downloadTask.getMINECRAFT_TEMP() + "version_manifest.json");
         String[] nameList;
 
-        ArrayList<ListVersionManifestJson.Version> version_type_release = new ArrayList<ListVersionManifestJson.Version>(){};
-        ArrayList<ListVersionManifestJson.Version> version_type_snapsht = new ArrayList<ListVersionManifestJson.Version>(){};
-        ArrayList<ListVersionManifestJson.Version> version_type_old = new ArrayList<ListVersionManifestJson.Version>(){};
+        ArrayList<ListVersionManifestJson.Version> version_type_release = new ArrayList<ListVersionManifestJson.Version>() {
+        };
+        ArrayList<ListVersionManifestJson.Version> version_type_snapsht = new ArrayList<ListVersionManifestJson.Version>() {
+        };
+        ArrayList<ListVersionManifestJson.Version> version_type_old = new ArrayList<ListVersionManifestJson.Version>() {
+        };
 
-        for(ListVersionManifestJson.Version version : versionList){
-            switch(version.getType()){
+        for (ListVersionManifestJson.Version version : versionList) {
+            switch (version.getType()) {
                 default:
                     break;
                 case "release":
@@ -397,62 +464,52 @@ private BroadcastReceiver broadcastReceiver2;
                 case "old_beta":
                     version_type_old.add(version);
                     break;
-                case  "old_alpha":
+                case "old_alpha":
                     version_type_old.add(version);
                     break;
             }
         }
 
-        switch (radioGroup_version_type.getCheckedRadioButtonId()){
+        switch (radioGroup_version_type.getCheckedRadioButtonId()) {
             default:
                 nameList = new String[0];
                 break;
             case R.id.radiobutton_type_release:
                 nameList = new String[version_type_release.size()];
-                for(int i=0;i<version_type_release.size();i++){
+                for (int i = 0; i < version_type_release.size(); i++) {
                     nameList[i] = version_type_release.get(i).getId();
                 }
                 break;
             case R.id.radiobutton_type_snapshot:
                 nameList = new String[version_type_snapsht.size()];
-                for(int i=0;i<version_type_snapsht.size();i++){
+                for (int i = 0; i < version_type_snapsht.size(); i++) {
                     nameList[i] = version_type_snapsht.get(i).getId();
                 }
                 break;
             case R.id.radiobutton_type_old:
                 nameList = new String[version_type_old.size()];
-                for(int i=0;i<version_type_old.size();i++){
+                for (int i = 0; i < version_type_old.size(); i++) {
                     nameList[i] = version_type_old.get(i).getId();
                 }
                 break;
         }
 
         // 建立Adapter并且绑定数据源
-        ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, nameList);
-        //绑定 Adapter到控件
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, nameList);
         listview_minecraft_manifest.setAdapter(adapter);
 
-       /* listview_minecraft_manifest.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                targetPos = pos;
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // Another interface callback
-            }
-        });*/
+
     }
 
     //主界面逻辑，显示分界面
-    private void setVisibleLinearLayout(View view){
-        for(View tempview : launcherLins){
+    private void setVisibleLinearLayout(View view) {
+        for (View tempview : launcherLins) {
             tempview.setVisibility(View.INVISIBLE);
         }
-        if(view != null) {
+        if (view != null) {
             view.setVisibility(View.VISIBLE);
             layout_here_Id = view.getId();
-        }else{
+        } else {
             return;
         }
     }
@@ -466,7 +523,8 @@ private BroadcastReceiver broadcastReceiver2;
             public void onReceive(Context context, Intent intent) {
                 long ID = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
                 if (ID == Id) {
-                    loadSpinnerVersionList();
+
+                    loadVersionList();
                     Toast.makeText(getApplicationContext(), "版本清单更新完成", Toast.LENGTH_LONG).show();
                 }
             }
@@ -482,8 +540,22 @@ private BroadcastReceiver broadcastReceiver2;
             public void onReceive(Context context, Intent intent) {
                 long ID = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
                 if (ID == Id) {
-                    Toast.makeText(getApplicationContext(), "中断1", Toast.LENGTH_LONG).show();
-                    DownloadVersionSecond();
+                    DownloadVersionLibraries();
+                }
+            }
+        };
+        registerReceiver(broadcastReceiver2, intentFilter);
+    }
+
+    private void listener3(final long Id) {
+        // 注册广播监听系统的下载完成事件。
+        IntentFilter intentFilter = new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
+        broadcastReceiver2 = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                long ID = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
+                if (ID == Id) {
+                    DownloadVersionAssets();
                 }
             }
         };
@@ -493,19 +565,19 @@ private BroadcastReceiver broadcastReceiver2;
     @Override
     public void onDestroy() {
         super.onDestroy();
-        saveLauncher();
-        if(broadcastReceiver1 != null){
+        saveLauncher(true,null);
+        if (broadcastReceiver1 != null) {
             unregisterReceiver(broadcastReceiver1);
         }
-        if(broadcastReceiver2 != null){
+        if (broadcastReceiver2 != null) {
             unregisterReceiver(broadcastReceiver2);
         }
     }
 
     @Override
     public void onCheckedChanged(RadioGroup radioGroup_version_type, int checkedId) {
-        if(versionList != null) {
-            loadSpinnerVersionList();
+        if (versionList != null) {
+            loadVersionList();
             switch (checkedId) {
                 case R.id.radiobutton_type_release:
                     Toast.makeText(this, "稳定版", Toast.LENGTH_SHORT).show();
@@ -517,16 +589,16 @@ private BroadcastReceiver broadcastReceiver2;
                     Toast.makeText(this, "远古版", Toast.LENGTH_SHORT).show();
                     break;
             }
-        }else{
+        } else {
             Toast.makeText(this, "暂无游戏清单数据", Toast.LENGTH_SHORT).show();
         }
     }
 
     //给返回按键设计返回逻辑
-    public void setBackFromHere(int location){
-        switch(location){
+    private void setBackFromHere(int location) {
+        switch (location) {
             default:
-                setVisibleLinearLayout(null);
+                setVisibleLinearLayout(layout_startgame);
                 main_text_showstate.setText(getString(R.string.main_text_defaultlayout));
                 break;
             case R.id.layout_user:
@@ -534,7 +606,7 @@ private BroadcastReceiver broadcastReceiver2;
             case R.id.layout_gamelist:
             case R.id.layout_gamedir:
             case R.id.layout_launchersetting:
-                setVisibleLinearLayout(null);
+                setVisibleLinearLayout(layout_startgame);
                 main_text_showstate.setText(getString(R.string.main_text_defaultlayout));
                 layout_here_Id = R.id.layout_fictionlist;
                 break;
@@ -552,15 +624,37 @@ private BroadcastReceiver broadcastReceiver2;
 
 
     //用于启动启动器时载入启动器配置
-    public void initLauncher(){
-        File configFile = new File("/sdcard/MCinaBox/mcinabox.json");
+    public void initLauncher(File targetFile) {
+        File configFile;
+
+        if (Build.VERSION.SDK_INT >= 29) {
+            configFile = privateConfigFile;
+            MCinaBox_HomePath = MCinaBox_PrivatePath;
+        } else if (publicConfigFile.exists() && checkConfigIsUsing(publicConfigFile)) {
+            configFile = publicConfigFile;
+            MCinaBox_HomePath = MCinaBox_PublicPath;
+        } else if (privateConfigFile.exists() && checkConfigIsUsing(privateConfigFile)) {
+            configFile = privateConfigFile;
+            MCinaBox_HomePath = MCinaBox_PrivatePath;
+        } else {
+            configFile = publicConfigFile;
+            MCinaBox_HomePath = MCinaBox_PublicPath;
+        }
+
+        if (targetFile != null) {
+            configFile = targetFile;
+        }
+
         Gson gson = new Gson();
         InputStream inputStream;
         Reader reader;
         LauncherSettingModel settingModel = null;
 
+        //检查目录结构是否正常
+        CheckMcinaBoxDir();
+
         //检测启动器配置文件是否存在
-        if(!configFile.exists()){
+        if (!configFile.exists()) {
             //如果不存在，就创建一个空文件
             try {
                 configFile.createNewFile();
@@ -568,7 +662,7 @@ private BroadcastReceiver broadcastReceiver2;
                 //如果创建失败，就退出程序
                 e.printStackTrace();
                 Toast.makeText(this, "启动器配置模板创建失败", Toast.LENGTH_SHORT).show();
-                Log.e("initLauncher ",e.toString());
+                Log.e("initLauncher ", e.toString());
                 finish();
             }
             //初始化模板并写出配置文件
@@ -582,17 +676,17 @@ private BroadcastReceiver broadcastReceiver2;
             } catch (IOException e) {
                 e.printStackTrace();
                 Toast.makeText(this, "启动器配置模板创建失败", Toast.LENGTH_SHORT).show();
-                Log.e("initLauncher ",e.toString());
+                Log.e("initLauncher ", e.toString());
                 finish();
             }
-            Toast.makeText(this, "已为启动器创建配置模板", Toast.LENGTH_SHORT).show();
-        }else{
+            Toast.makeText(this, "已为启动器创建配置模板?", Toast.LENGTH_SHORT).show();
+        } else {
             //如果文件存在，就读入配置文件
             try {
                 inputStream = new FileInputStream(configFile);
                 reader = new InputStreamReader(inputStream);
                 settingModel = new Gson().fromJson(reader, LauncherSettingModel.class);
-                if (settingModel == null){
+                if (settingModel == null) {
                     Toast.makeText(this, "启动器初始化失败", Toast.LENGTH_SHORT).show();
                     finish();
                 }
@@ -600,35 +694,43 @@ private BroadcastReceiver broadcastReceiver2;
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 Toast.makeText(this, "读入启动器模板失败", Toast.LENGTH_SHORT).show();
-                Log.e("initLauncher ",e.toString());
+                Log.e("initLauncher ", e.toString());
                 finish();
             }
             //根据读入的结果应用启动器配置文件
+            try {
+                setting_java.setSelection(getSpinnerFitString(setting_java, settingModel.getConfigurations().getJava()));
+//                setting_opengl.setSelection(getSpinnerFitString(setting_opengl, settingModel.getConfigurations().getOpengl()));
+                setting_openal.setSelection(getSpinnerFitString(setting_openal, settingModel.getConfigurations().getOpenal()));
+                setting_lwjgl.setSelection(getSpinnerFitString(setting_lwjgl, settingModel.getConfigurations().getLwjgl()));
+                setting_runtime.setSelection(getSpinnerFitString(setting_runtime, settingModel.getConfigurations().getRuntime()));
+                setting_downloadtype.setSelection(getSpinnerFitString(setting_downloadtype, settingModel.getDownloadType()));
+                //setting_keyboard.setSelection(getSpinnerFitString(setting_keyboard,settingModel.getKeyboard()));TODO:keyboard需要单独读取本地数据来处理
 
-            setting_java.setSelection(getSpinnerFitString(setting_java,settingModel.getConfigurations().getJava()));
-            setting_opengl.setSelection(getSpinnerFitString(setting_opengl,settingModel.getConfigurations().getOpengl()));
-            setting_openal.setSelection(getSpinnerFitString(setting_openal,settingModel.getConfigurations().getOpenal()));
-            setting_lwjgl.setSelection(getSpinnerFitString(setting_lwjgl,settingModel.getConfigurations().getLwjgl()));
-            setting_runtime.setSelection(getSpinnerFitString(setting_runtime,settingModel.getConfigurations().getRuntime()));
-            setting_downloadtype.setSelection(getSpinnerFitString(setting_downloadtype,settingModel.getDownloadType()));
-            //setting_keyboard.setSelection(getSpinnerFitString(setting_keyboard,settingModel.getKeyboard()));TODO:keyboard需要单独读取本地数据来处理
+                editText_javaArgs.setText(settingModel.getConfigurations().getJavaArgs());
+                editText_minecraftArgs.setText(settingModel.getConfigurations().getMinecraftArgs());
+                editText_maxMemory.setText((new Integer(settingModel.getConfigurations().getMaxMemory())).toString());
 
-            editText_javaArgs.setText(settingModel.getConfigurations().getJavaArgs());
-            editText_minecraftArgs.setText(settingModel.getConfigurations().getMinecraftArgs());
-            editText_maxMemory.setText(settingModel.getConfigurations().getMaxMemory()+"");
-
-            setting_notcheckJvm.setChecked(settingModel.getConfigurations().isNotCheckJvm());
-            setting_notcheckMinecraft.setChecked(settingModel.getConfigurations().isNotCheckGame());
-            setting_notenableKeyboard.setChecked(settingModel.getConfigurations().isNotEnableVirtualKeyboard());
-
-            if(settingModel.getLocalization().equals("public")){
-                radioButton_gamedir_public.setChecked(true);
-                radioButton_gamedir_private.setChecked(false);
-            }else if(settingModel.getLocalization().equals("private")){
-                radioButton_gamedir_private.setChecked(true);
-                radioButton_gamedir_public.setChecked(false);
+                setting_notcheckJvm.setChecked(settingModel.getConfigurations().isNotCheckJvm());
+                setting_notcheckMinecraft.setChecked(settingModel.getConfigurations().isNotCheckGame());
+                setting_notenableKeyboard.setChecked(settingModel.getConfigurations().isNotEnableVirtualKeyboard());
+                setting_enableOtg.setChecked(settingModel.getConfigurations().isEnableOtg());
+                if (configFile.getPath().equals(publicConfigFile.getPath())) {
+                    MCinaBox_HomePath = MCinaBox_PublicPath;
+                    radioButton_gamedir_public.setChecked(true);
+                    radioButton_gamedir_private.setChecked(false);
+                } else {
+                    MCinaBox_HomePath = MCinaBox_PrivatePath;
+                    radioButton_gamedir_public.setChecked(false);
+                    radioButton_gamedir_private.setChecked(true);
+                }
+            } catch (NullPointerException e) {
+                //如果读入的数据缺少参数，则删除掉并重新初始化。
+                Toast.makeText(this, "配置文件损坏", Toast.LENGTH_SHORT).show();
+                Log.e("!!!!", e.toString());
+                configFile.delete();
+                initLauncher(null);
             }
-
 
         }
 
@@ -636,29 +738,31 @@ private BroadcastReceiver broadcastReceiver2;
 
 
     //将字符串与Spinner中的字符串进行匹配，然后返回匹配的位置上的id
-    public int getSpinnerFitString(Spinner spinner,String tag) {
+    private int getSpinnerFitString(Spinner spinner, String tag) {
         int pos = -1;
         for (int i = 0; i < spinner.getAdapter().getCount(); i++) {
             if (tag.equals(spinner.getItemAtPosition(i))) {
                 pos = i;
             }
         }
-        if(pos == -1){
+        if (pos == -1) {
             //TODO:需要自动删除错误的模板，再关闭程序，以免下次启动仍遇到问题。
-            Toast.makeText(this, "启动器初始化失败 "+tag,Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "启动器初始化失败 " + tag, Toast.LENGTH_SHORT).show();
         }
         return pos;
     }
 
-    public int getKeyboardSpinnerFitString(Spinner spinner,String tag){
+    private int getKeyboardSpinnerFitString(Spinner spinner, String tag) {
         int pos = -1;
         return pos;
     }
 
 
-    //用于在退出或者启动Minecraft时保存启动器配置
-    public void saveLauncher(){
-        File configFile = new File("/sdcard/MCinaBox/mcinabox.json");
+    //用于在退出或者启动Minecraft时保存启动器配置,并返回一个全局配置的对象
+    private LauncherSettingModel saveLauncher(boolean isContinueUsing,File configFile) {
+        if(configFile == null){
+            configFile = new File(MCinaBox_HomePath + "/mcinabox.json");
+        }
         Gson gson = new Gson();
 
         //存储全部启动器设置到模板对象中
@@ -666,24 +770,22 @@ private BroadcastReceiver broadcastReceiver2;
         LauncherSettingModel.Configurations configurations = settingModel.getConfigurations();
         LauncherSettingModel.Accounts[] accounts = settingModel.getAccounts();
 
-        settingModel.setDownloadType((String)setting_downloadtype.getSelectedItem());
-        settingModel.setKeyboard((String)setting_keyboard.getSelectedItem());
-        if(radioButton_gamedir_public.isChecked()){
-            settingModel.setLocalization("public");
-        }else if(radioButton_gamedir_private.isChecked()){
-            settingModel.setLocalization("private");
-        }
-        configurations.setJava((String)setting_java.getSelectedItem());
-        configurations.setOpengl((String)setting_opengl.getSelectedItem());
-        configurations.setOpenal((String)setting_openal.getSelectedItem());
-        configurations.setLwjgl((String)setting_lwjgl.getSelectedItem());
-        configurations.setRuntime((String)setting_runtime.getSelectedItem());
-        configurations.setMaxMemory(Integer.parseInt((String)editText_maxMemory.getText().toString()));
+        settingModel.setDownloadType((String) setting_downloadtype.getSelectedItem());
+        settingModel.setKeyboard((String) setting_keyboard.getSelectedItem());
+        settingModel.setUsing(isContinueUsing);
+
+        configurations.setJava((String) setting_java.getSelectedItem());
+        configurations.setOpengl((String) setting_opengl.getSelectedItem());
+        configurations.setOpenal((String) setting_openal.getSelectedItem());
+        configurations.setLwjgl((String) setting_lwjgl.getSelectedItem());
+        configurations.setRuntime((String) setting_runtime.getSelectedItem());
+        configurations.setMaxMemory(Integer.parseInt((String) editText_maxMemory.getText().toString()));
         configurations.setJavaArgs(editText_javaArgs.getText().toString());
         configurations.setMinecraftArgs(editText_minecraftArgs.getText().toString());
         configurations.setNotCheckGame(setting_notcheckMinecraft.isChecked());
         configurations.setNotCheckJvm(setting_notcheckJvm.isChecked());
         configurations.setNotEnableVirtualKeyboard(setting_notenableKeyboard.isChecked());
+        configurations.setEnableOtg(setting_enableOtg.isChecked());
 
         //写出模板对象到启动器配置文件
         String jsonString = gson.toJson(settingModel);
@@ -695,11 +797,75 @@ private BroadcastReceiver broadcastReceiver2;
         } catch (IOException e) {
             e.printStackTrace();
             Toast.makeText(this, "启动器配置保存失败", Toast.LENGTH_SHORT).show();
-            Log.e("saveLauncher ",e.toString());
+            Log.e("saveLauncher ", e.toString());
         }
+
+        return settingModel;
 
     }
 
+    //用于根据全局配置，生成一个后端可以读取的配置文件
+    private void outputJsonForBoat(LauncherSettingModel currentSetting) {
 
+
+    }
+
+    public String getDownloadServerUrl(String DownloadType,int FileType) {
+        String url;
+        switch(FileType){
+            case 0:
+                switch (DownloadType) {
+                    case "bmclapi":
+                    case "mcbbs":
+                    case "official":
+                    default:
+                        url = "https://launchermeta.mojang.com";
+                        break;
+                }
+                break;
+            case 1:
+                switch (DownloadType) {
+                    case "bmclapi":
+                    case "mcbbs":
+                    case "official":
+                    default:
+                        url = "http://resources.download.minecraft.net";
+                        break;
+                }
+                break;
+            default:
+                url = null;
+                break;
+        }
+        return url;
+    }
+
+
+    public boolean checkConfigIsUsing(File file) {
+        Gson gson = new Gson();
+        InputStream inputStream;
+        Reader reader;
+        LauncherSettingModel settingModel = null;
+        try {
+            inputStream = new FileInputStream(file);
+            reader = new InputStreamReader(inputStream);
+            settingModel = new Gson().fromJson(reader, LauncherSettingModel.class);
+            if (settingModel == null) {
+                return false;
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return settingModel.isUsing();
+    }
+
+    //检查MCinaBox的目录结构是否正常
+    public void CheckMcinaBoxDir(){
+        FileTool fileTool = new FileTool();
+        fileTool.checkFilePath(new File(MCinaBox_HomePath),true);
+        fileTool.checkFilePath(new File(MCinaBox_HomePath+"/.minecraft/Temp"),true);
+        fileTool.checkFilePath(new File(MCinaBox_HomePath+"/Keyboardmodel"),true);
+    }
 
 }

@@ -6,78 +6,107 @@ import java.util.Map;
 public class ModelMinecraftVersionJson {
 
     //通用参数
+    private String id;
     private String mainClass;
+    private String minecraftArgument;
+    private int minimumLauncherVersion;
     private String releaseTime;
     private String time;
     private String type;
     private String assets;
-    private String id;
     private DependentLibrary[] libraries;
-    public HashMap<String, Download> downloads;
-    //private Map<String,String> assetIndex;
-    //private Map<String,String> downloads;
-    //private Map<String,String> logging;
+    private Download downloads;
+    private AssetIndex assetIndex;
+    //
+
+
     public class DependentLibrary{
         private String name;
-        private HashMap<String,Download> downloads;
-        //Setter and Gettet
+        private Download downloads;
+        public class Download{
+            private Artifact artifact;
+            public class Artifact{
+                private String path;
+                private String url;
+                private String sha1;
+                private int size;
+                public String getPath() { return path; }
+                public void setPath(String path) { this.path = path; }
+                public String getUrl() { return url; }
+                public void setUrl(String url) { this.url = url; }
+                public String getSha1() { return sha1; }
+                public void setSha1(String sha1) { this.sha1 = sha1; }
+                public int getSize() { return size; }
+                public void setSize(int size) { this.size = size; }
+            }
+            public Artifact getArtifact() { return artifact; }
+            public void setArtifact(Artifact artifact) { this.artifact = artifact; }
+        }
         public String getName() { return name; }
         public void setName(String name) { this.name = name; }
-        public HashMap<String,Download> getDownloads(){return downloads;}
-        public void setDownloads(HashMap<String,Download> downloads){this.downloads = downloads;}
-
+        public Download getDownloads() { return downloads; }
+        public void setDownloads(Download downloads) { this.downloads = downloads; }
     }
+
     public class Download{
-        private String url;
-        private String path;
+        private Client client;
+        private Server server;
+        public class Client{
+            private int size;
+            private String sha1;
+            private String url;
+            public int getSize() { return size; }
+            public void setSize(int size) { this.size = size; }
+            public String getSha1() { return sha1; }
+            public void setSha1(String sha1) { this.sha1 = sha1; }
+            public String getUrl() { return url; }
+            public void setUrl(String url) { this.url = url; }
+        }
+        public class Server extends Client{ }
+        public Client getClient() { return client; }
+        public void setClient(Client client) { this.client = client; }
+        public Server getServer() { return server; }
+        public void setServer(Server server) { this.server = server; }
+    }
+
+    public class AssetIndex{
+        private String id;
         private String sha1;
+        private String url;
         private int size;
-
-
-        public String getPath() { return path; }
-        public void setPath(String path) { this.path = path; }
+        private int totalSize;
+        public String getId() { return id; }
+        public void setId(String id) { this.id = id; }
+        public String getSha1() { return sha1; }
+        public void setSha1(String sha1) { this.sha1 = sha1; }
         public String getUrl() { return url; }
         public void setUrl(String url) { this.url = url; }
-        public String getSha1() {return sha1;}
-        public void setSha1(String sha1) {this.sha1 = sha1;}
-        public int getSize() {return size;}
-        public void setSize(int size){this.size = size;}
-
+        public int getSize() { return size; }
+        public void setSize(int size) { this.size = size; }
+        public int getTotalSize() { return totalSize; }
+        public void setTotalSize(int totalSize) { this.totalSize = totalSize; }
     }
-    //1.13.0之前的参数
-    private String minecraftArguments;
-    private String minimumLauncherVersion;
-    //1.13.0之后的参数
-    //private Map<String,String> arguments;
 
-    //Getter and Setter
-
-    //public Map<String, String> getArguments() { return arguments; }
-    //public void setArguments(Map<String, String> arguments) { this.arguments = arguments; }
-    public String getMinimumLauncherVersion() { return minimumLauncherVersion; }
-    public void setMinimumLauncherVersion(String minimumLauncherVersion) { this.minimumLauncherVersion = minimumLauncherVersion; }
-    public String getMinecraftArguments() { return minecraftArguments; }
-    public void setMinecraftArguments(String minecraftArguments) { this.minecraftArguments = minecraftArguments; }
-    //public Map<String, String> getLogging() {return logging; }
-    //public void setLogging(Map<String, String> logging) { this.logging = logging; }
-    //public Map<String, String> getDownloads() { return downloads; }
-    //public void setDownloads(Map<String, String> downloads) { this.downloads = downloads; }
-    //public Map<String, String> getAssetIndex() { return assetIndex; }
-    //public void setAssetIndex(Map<String, String> assetIndex) { this.assetIndex = assetIndex; }
-    public DependentLibrary[] getLibraries() { return libraries; }
-    public void setLibraries(DependentLibrary[] libraries) { this.libraries = libraries; }
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
-    public String getAssets() { return assets; }
-    public void setAssets(String assets) { this.assets = assets; }
-    public String getType() { return type; }
-    public void setType(String type) { this.type = type; }
-    public String getTime() { return time; }
-    public void setTime(String time) { this.time = time; }
-    public String getReleaseTime() { return releaseTime; }
-    public void setReleaseTime(String releaseTime) { this.releaseTime = releaseTime; }
     public String getMainClass() { return mainClass; }
     public void setMainClass(String mainClass) { this.mainClass = mainClass; }
-
-
+    public String getMinecraftArgument() { return minecraftArgument; }
+    public void setMinecraftArgument(String minecraftArgument) { this.minecraftArgument = minecraftArgument; }
+    public int getMinimumLauncherVersion() { return minimumLauncherVersion; }
+    public void setMinimumLauncherVersion(int minimumLauncherVersion) { this.minimumLauncherVersion = minimumLauncherVersion; }
+    public String getReleaseTime() { return releaseTime; }
+    public void setReleaseTime(String releaseTime) { this.releaseTime = releaseTime; }
+    public String getTime() { return time; }
+    public void setTime(String time) { this.time = time; }
+    public String getType() { return type; }
+    public void setType(String type) { this.type = type; }
+    public String getAssets() { return assets; }
+    public void setAssets(String assets) { this.assets = assets; }
+    public DependentLibrary[] getLibraries() { return libraries; }
+    public void setLibraries(DependentLibrary[] libraries) { this.libraries = libraries; }
+    public Download getDownloads() { return downloads; }
+    public void setDownloads(Download downloads) { this.downloads = downloads; }
+    public AssetIndex getAssetIndex() { return assetIndex; }
+    public void setAssetIndex(AssetIndex assetIndex) { this.assetIndex = assetIndex; }
 }

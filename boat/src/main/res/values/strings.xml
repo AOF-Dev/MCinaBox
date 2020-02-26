@@ -1,3 +1,21 @@
-<resources>
-    <string name="app_name">Boat</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ExtraTranslation">
+	<string name="play">Play</string>
+	<string name="excute">Excute</string>
+	<string name="install">Install</string>
+	<string name="mouse_primary">Pri</string>
+    <string name="mouse_secondary">Sec</string>
+    <string name="control_chat">Chat</string>
+	<string name="control_command">Cmd</string>
+    <string name="control_debug">Debug</string>
+    <string name="control_shift">Sft</string>
+    <string name="control_inventory">Inv</string>
+	<string name="control_thirdperson">3rd</string>
+	<string name="control_jump">■</string>
+    <string name="control_up">▲</string>
+    <string name="control_left">◀</string>
+    <string name="control_right">▶</string>
+    <string name="control_down">▼</string>
+	<string name="esc">Esc</string>
+    
 </resources>

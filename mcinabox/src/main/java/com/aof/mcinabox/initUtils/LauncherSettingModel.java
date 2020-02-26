@@ -1,6 +1,7 @@
 package com.aof.mcinabox.initUtils;
 
 import android.accounts.Account;
+import android.os.Build;
 
 import java.util.UUID;
 
@@ -11,9 +12,16 @@ public class LauncherSettingModel {
     public LauncherSettingModel(){
         //默认模板初始化
         super();
-        localization = "public";
+
+        if(Build.VERSION.SDK_INT >= 29){
+            localization = "private";
+        }else{
+            localization = "public";
+        }
+
         downloadType = "official";
         keyboard = "IceSty";
+        isUsing = true;
 
         configurations = new Configurations();
         configurations.javaArgs = "";
@@ -21,12 +29,13 @@ public class LauncherSettingModel {
         configurations.maxMemory = 256;
         configurations.java = "1.8.0_211_AArch32";
         configurations.runtime = "AArch32";
-        configurations.openal = "OpenGL_2.0";
+        configurations.opengl = "OpenGL_2.0";
         configurations.openal = "OpenAL_soft";
         configurations.lwjgl = "Lwjgl_2.9.1";
         configurations.notCheckGame = false;
         configurations.notCheckJvm = false;
         configurations.notEnableVirtualKeyboard = false;
+        configurations.enableOtg = false;
 
         Accounts account_temp = new Accounts();
         Accounts[] accounts_temp = {account_temp};
@@ -42,9 +51,9 @@ public class LauncherSettingModel {
     private String localization; //存储路径："public"共有目录 "private"私有目录
     private  String downloadType; //下载源："office"官方 "bmclapi"国内BMCLAPI "mcbbs"国内MCBBS
     private String keyboard; //虚拟键盘： ""选择的键盘模板
-
-    Configurations configurations;
-    Accounts[] accounts;
+    private boolean isUsing; //该配置是否正在被使用
+    private Configurations configurations; //全局游戏设置
+    private Accounts[] accounts; //用户信息
 
     //全局游戏设置
     public class Configurations{
@@ -59,9 +68,11 @@ public class LauncherSettingModel {
         boolean notCheckGame; //启动时不检查游戏完整性
         boolean notCheckJvm; //启动时不检查JVM架构的兼容性
         boolean notEnableVirtualKeyboard; //不启用虚拟键盘
-
+        boolean enableOtg; //启用物理键鼠支持
 
         //Getter and Setter
+        public boolean isEnableOtg() { return enableOtg; }
+        public void setEnableOtg(boolean enableOtg) { this.enableOtg = enableOtg; }
         public boolean isNotEnableVirtualKeyboard() { return notEnableVirtualKeyboard; }
         public void setNotEnableVirtualKeyboard(boolean notEnableVirtualKeyboard) { this.notEnableVirtualKeyboard = notEnableVirtualKeyboard; }
         public String getJavaArgs() { return javaArgs; }
@@ -107,6 +118,8 @@ public class LauncherSettingModel {
     }
 
     //Getter and Setter
+    public boolean isUsing() { return isUsing; }
+    public void setUsing(boolean using) { isUsing = using; }
     public String getLocalization() { return localization; }
     public void setLocalization(String localization) { this.localization = localization; }
     public String getDownloadType() { return downloadType; }
