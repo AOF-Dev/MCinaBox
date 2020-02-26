@@ -118,7 +118,7 @@ public class DownloadMinecraft {
         long taskId;
 
 
-        Toast.makeText(context,"执行版本信息更新 " +getDOWNLOAD_DIR(),Toast.LENGTH_LONG).show();
+        //Toast.makeText(context,"执行版本信息更新",Toast.LENGTH_LONG).show();
 
         //先判断文件是否存在
         //若存在则删掉再下载

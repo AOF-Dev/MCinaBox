@@ -3,7 +3,6 @@
     <string name="toolbar_menu_action1">设置</string>
     <string name="main_text_nolog">Log.Hear</string>
 
-
     <string name="app_version">v0.1.0</string>
     <string name="main_text_gamelist">游戏列表</string>
     <string name="main_text_user">用户</string>
@@ -12,9 +11,25 @@
     <string name="main_text_launchercontrol">虚拟键盘设置</string>
     <string name="main_text_defaultlayout">主页</string>
     <string name="main_text_gameselected">当前版本</string>
-
     <string name="main_text_gamelist_installversion">安装新游戏版本</string>
     <string name="main_text_gamelist_setting">全局游戏设置</string>
 
     <string name="app_copyright">此版本非发行版本，仅供 AOF放假后软件开发团队 内部成员使用！</string>
+    <string name="app_about_mcinabox">MCinaBox Minecraft Launcher 是一个免费、开源的 Minecraft 启动器，允许玩家在 安卓设备 上方便快捷的安装、管理、运行游戏。启动器更新请查阅项目开源地址的 release 版面</string>
+    <string name="app_about_copyright">版权</string>
+    <string name="app_about_developer">作者</string>
+    <string name="app_about_thanks">鸣谢</string>
+    <string name="app_about_dependent">依赖</string>
+    <string name="app_about_details">免责声明</string>
+    <string name="app_about_opensource">开源</string>
+
+    <string name="app_about_copyright_info">版权所有 (c) 2020 longjunyu.</string>
+    <string name="app_about_developer_info">longjunyu (MCinaBox 877730493@qq.com)\nCosineMath (BoatApp 2430971373@qq.com)</string>
+    <string name="app_about_thanks_info">CosineMath (BoatApp, https://github.com/CosineMath)\nbangbang93(BMCLAPI, https://bmclapi2.bangbang93.com/)\n所有通过 Issues、Pull Requests 等方式参与本项目的贡献者\nAOF软件开发团队的全体成员</string>
+    <string name="app_about_dependent_info">Gson (Google,Apache 2.0)-项目内\n\nJNDCrash (ivanarh,Apache 2.0)-项目内\nGL4ES (Pitseb,MIT)-外部运行库内\nOpenAL Soft (kcat,GPL-2.0)-外部运行库内</string>
+    <string name="app_about_details_info">Minecraft 版权归 Mojang AB 所有，使用本软件产生的版权问题，软件制作方概不负责。请支持正版\n本软件所使用的OpenJDK和Busybox属于可分割的模块部分，其源代码或二进制文件未包含在项目中，所以无需遵守其使用的开源协议。</string>
+    <string name="app_about_opensource_info">https://github.com/longjunyu2/MCinaBox\n(本项目受MIT开源协议保护,请遵守开源协议要求,尊重作者的劳动成果)</string>
+    <string name="China_addOil">谨代表个人向坚守在疫情前线的医务工作者们致敬。武汉加油，中国加油！</string>
+
+
 </resources>

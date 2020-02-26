@@ -64,9 +64,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="40dp"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:background="@drawable/background_layout_startgame"
         android:orientation="horizontal"
-        android:padding="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -74,27 +77,30 @@
             android:id="@+id/main_button_startgame"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_gravity="center">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="开始游戏"
+                android:layout_gravity="center"
+                android:text="启动游戏"
                 android:textColor="#F5F5F5"
                 android:textSize="13sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:text="选择版本"
                 android:textColor="#F5F5F5"
                 android:textSize="12sp" />
 
         </LinearLayout>
-
         <Spinner
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"/>
 
 
     </LinearLayout>
@@ -533,25 +539,25 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:layout_gravity="center"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:textSize="12sp"
-                    android:text="选择的版本是: " />
+                    android:text="选择的版本是: "
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/gamelist_text_show_selectedversion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:textSize="10sp"
-                    android:text="_._._" />
+                    android:text="_._._"
+                    android:textSize="10sp" />
 
                 <LinearLayout
                     android:id="@+id/gamelist_button_download"
@@ -559,6 +565,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:orientation="horizontal">
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -580,8 +587,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
             android:text="选择要下载的版本再点击 工具栏-下载 按钮开始下载。\n由于这一版本调用了系统下载器，可能存在下载不稳定的情况，下一版本会修复。" />
 
@@ -670,7 +677,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="5dp"
-                android:background="#F5F5F5"
+                android:background="@drawable/background_layout_item"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -794,7 +801,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="5dp"
-                android:background="#F5F5F5"
+                android:background="@drawable/background_layout_item"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -1030,6 +1037,7 @@
                         android:layout_gravity="center"
                         android:text="启用物理键鼠支持(实验性)"
                         android:textColor="@color/puredark"
+                        android:clickable="false"
                         android:textSize="13sp" />
 
                     <Switch
@@ -1065,7 +1073,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="5dp"
-            android:background="#F5F5F5"
+            android:background="@drawable/background_layout_item"
             android:orientation="horizontal"
             android:padding="5dp">
 
@@ -1103,7 +1111,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="20dp"
-            android:background="#F5F5F5"
+            android:background="@drawable/background_layout_item"
             android:orientation="horizontal"
             android:padding="5dp">
 
@@ -1137,55 +1145,251 @@
     </LinearLayout>
     <!--  ===============================以下是启动器设置界面 and 它的功能区===================================== -->
     <!-- 启动器设置界面 -->
-    <LinearLayout
+    <ScrollView
         android:id="@+id/layout_launchersetting"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/background_layout_fictionlist"
-        android:orientation="vertical"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
         app:layout_constraintTop_toBottomOf="@id/main_toolbar">
-        <!-- 可以添加其他的view -->
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="10dp"
-            android:background="#F5F5F5"
-            android:orientation="horizontal">
+            android:orientation="vertical">
+            <!-- 可以添加其他的view -->
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/background_layout_item"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Minecraft下载源"
-                    android:textColor="@color/puredark"
-                    android:textSize="13sp"></TextView>
-
-                <Spinner
-                    android:id="@+id/setting_spinner_downloadtype"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:entries="@array/download_type"
-                    android:textAlignment="viewEnd" />
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Minecraft下载源"
+                        android:textColor="@color/puredark"
+                        android:textSize="13sp"></TextView>
+
+                    <Spinner
+                        android:id="@+id/setting_spinner_downloadtype"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/download_type"
+                        android:textAlignment="viewEnd" />
+
+                </LinearLayout>
+
 
             </LinearLayout>
 
 
-        </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:background="#00ffffff"
+                android:text="关于MCinaBox" />
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/background_layout_item"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/app_about_mcinabox"
+                        android:textColor="@color/puredark"
+                        android:textSize="10sp"></TextView>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/app_about_copyright"
+                        android:textColor="@color/puredark"
+                        android:textSize="10sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/app_about_copyright_info"
+                        android:textSize="10sp"
+                        android:textColor="@color/puredark"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/app_about_developer"
+                        android:textColor="@color/puredark"
+                        android:textSize="10sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/app_about_developer_info"
+                        android:textSize="10sp"
+                        android:textColor="@color/puredark"/>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/app_about_thanks"
+                        android:textColor="@color/puredark"
+                        android:textSize="10sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/app_about_thanks_info"
+                        android:textSize="10sp"
+                        android:textColor="@color/puredark"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/app_about_dependent"
+                        android:textColor="@color/puredark"
+                        android:textSize="10sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/app_about_dependent_info"
+                        android:textSize="10sp"
+                        android:textColor="@color/puredark"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/app_about_details"
+                        android:textColor="@color/puredark"
+                        android:textSize="10sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/app_about_details_info"
+                        android:textSize="10sp"
+                        android:textColor="@color/puredark"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/app_about_opensource"
+                        android:textColor="@color/puredark"
+                        android:textSize="10sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/app_about_opensource_info"
+                        android:textIsSelectable="true"
+                        android:textSize="10sp"
+                        android:textColor="@color/puredark"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/China_addOil"
+                        android:textSize="10sp"
+                        android:textColor="@color/puredark"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

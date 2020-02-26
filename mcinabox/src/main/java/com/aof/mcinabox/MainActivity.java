@@ -336,15 +336,16 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                     radioButton_gamedir_public.setChecked(true);
                     radioButton_gamedir_private.setChecked(false);
                     saveLauncher(false,privateConfigFile);
-                    initLauncher(publicConfigFile);
                     MCinaBox_HomePath = MCinaBox_PublicPath;
+                    initLauncher(publicConfigFile);
                     break;
                 case R.id.radiobutton_gamedir_private:
                     radioButton_gamedir_private.setChecked(true);
                     radioButton_gamedir_public.setChecked(false);
                     saveLauncher(false,publicConfigFile);
-                    initLauncher(privateConfigFile);
                     MCinaBox_HomePath = MCinaBox_PrivatePath;
+                    initLauncher(privateConfigFile);
+
                     break;
 
                 case R.id.main_button_startgame:
@@ -434,6 +435,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             //通过key获取对应的value
             downloadTask.DownloadMinecraftAssetFile(assets.getObjects().get(key).getHash(),this);
         }
+
+
 
     }
 
@@ -580,13 +583,13 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             loadVersionList();
             switch (checkedId) {
                 case R.id.radiobutton_type_release:
-                    Toast.makeText(this, "稳定版", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(this, "稳定版", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.radiobutton_type_snapshot:
-                    Toast.makeText(this, "测试版", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(this, "测试版", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.radiobutton_type_old:
-                    Toast.makeText(this, "远古版", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(this, "远古版", Toast.LENGTH_SHORT).show();
                     break;
             }
         } else {
@@ -679,7 +682,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 Log.e("initLauncher ", e.toString());
                 finish();
             }
-            Toast.makeText(this, "已为启动器创建配置模板?", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "已为启动器创建配置模板", Toast.LENGTH_SHORT).show();
         } else {
             //如果文件存在，就读入配置文件
             try {
