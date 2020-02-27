@@ -4,9 +4,15 @@ import android.os.Build;
 
 import com.aof.mcinabox.initUtils.LauncherSettingModel;
 import com.aof.mcinabox.ioUtils.FileTool;
+import com.aof.mcinabox.jsonUtils.AnaliesMinecraftVersionJson;
 import com.aof.mcinabox.jsonUtils.ModelMinecraftVersionJson;
-import com.aof.mcinabox.userUtil.UserListBean;
-
+import com.google.gson.Gson;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -52,30 +58,55 @@ public class ReadyToStart {
         --versionType 含义:"后接版本类型"
     */
 
+    /**【执行启动游戏】**/
+    public void StartGame(){
+        if(isCheckGame){
+            if(!CheckGame()){
+                return;
+            }
+        }
+        if (isCheckFormat){
+            if(!CheckFramework()){
+                return;
+            }
+        }
+        String[] CMD = MakeStartCmd();
+        for (String arg : CMD){
+            System.out.print(arg+" ");
+        }
+
+    }
+
+    public ReadyToStart(String MCinaBox_Version,String MCinaBox_HomePath,String MCinaBox_privatePath,String versionId){
+        this.MCinaBox_Version = MCinaBox_Version;
+        this.MCinaBox_HomePath = MCinaBox_HomePath;
+        this.MCinaBox_privatePath = MCinaBox_privatePath;
+        DownloadMinecraft PathTool = new DownloadMinecraft(MCinaBox_HomePath,MCinaBox_privatePath);
+        minecraft_home_path = PathTool.getMINECRAFT_DIR();
+        minecraft_assets_path = PathTool.getMINECRAFT_ASSETS_DIR();
+        minecraft_version_path = PathTool.getMINECRAFT_VERSION_DIR();
+        minecraft_libraries_path = PathTool.getMINECRAFT_LIBRARIES_DIR();
+        launcherSetting = GetLauncherSettingFromFile();
+        maxMemory = launcherSetting.getConfigurations().getMaxMemory();
+        isCheckGame = !launcherSetting.getConfigurations().isNotCheckGame();
+        isCheckFormat = !launcherSetting.getConfigurations().isNotCheckJvm();
+        versionSetting = (new AnaliesMinecraftVersionJson()).getModelMinecraftVersionJson(minecraft_version_path + versionId + "/" + versionId + ".json");
+    }
 
     //
-    String runtimePath = "/data/user/0/cosine.boat/app_runtime"; //需要传入
-
-    String MCinaBox_Version; //需要传入
-    String MCinaBox_HomePath; //需要传入
-    String MCinaBox_privatePath; //需要传入
-    String minecraft_home_path; //无需传入
-    String minecraft_version_path; //无需传入
-    String minecraft_assets_path; //无需传入
-    String minecraft_libraries_path; //无需传入
-
+    private String runtimePath = "/data/user/0/cosine.boat/app_runtime"; //**
+    private String MCinaBox_Version; //*
+    private String MCinaBox_HomePath; //*
+    private String MCinaBox_privatePath; //*
+    private String minecraft_home_path;
+    private String minecraft_version_path;
+    private String minecraft_assets_path;
+    private String minecraft_libraries_path;
     //初始化该类必须要传入MCinaBox的前端设置
-    LauncherSettingModel launcherSetting; //需要传入
-    int maxMemory;  //无需传入
-    boolean isCheckGame; //无需传入
-    boolean isCheckFormat; //无需传入
-
-    //根据传入的userSetting来配置用户信息
-    UserListBean userSetting; //需要传入
-    String userName; //无需传入
-    String userState; //无需传入
-    String userUUID;  //无需传入
-
+    LauncherSettingModel launcherSetting;
+    int maxMemory;
+    boolean isCheckGame;
+    boolean isCheckFormat;
     //根据传入的versionSetting来配置Minecraft信息
     ModelMinecraftVersionJson versionSetting;
 
@@ -108,6 +139,7 @@ public class ReadyToStart {
         return isOK;
     }
 
+    /**【检查架构兼容性】**/
     public boolean CheckFramework(){
         String abi = null;
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
@@ -119,6 +151,7 @@ public class ReadyToStart {
         return true;
     }
 
+    /**【获得启动参数】**/
     public String[] MakeStartCmd(){
         //java虚拟机的路径
         String Java_Args = runtimePath + "/j2re-image/bin/java";
@@ -234,6 +267,7 @@ public class ReadyToStart {
         return JavaString;
     }
 
+    /**【获取用户信息】**/
     public LauncherSettingModel.Accounts GetUserFromLauncherSetting(){
 
         LauncherSettingModel.Accounts[] accounts = launcherSetting.getAccounts();
@@ -243,6 +277,25 @@ public class ReadyToStart {
             }
         }
         return null;
+    }
+
+    /**【获取启动器设置信息】**/
+    public LauncherSettingModel GetLauncherSettingFromFile(){
+        Gson gson = new Gson();
+        InputStream inputStream;
+        Reader reader = null;
+        LauncherSettingModel launcherSetting;
+        File configFile = new File(MCinaBox_HomePath + "/mcinabox.json");
+
+        try {
+            inputStream = new FileInputStream(configFile);
+            reader = new InputStreamReader(inputStream);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        launcherSetting = new Gson().fromJson(reader, LauncherSettingModel.class);
+        return launcherSetting;
     }
 
 }

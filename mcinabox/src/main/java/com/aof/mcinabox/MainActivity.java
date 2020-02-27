@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     public RadioButton radioButton_type_release, radioButton_type_snapshot, radioButton_type_old;
     public RadioButton radioButton_gamedir_public, radioButton_gamedir_private;
 
-    public Spinner setting_java, setting_opengl, setting_openal, setting_lwjgl, setting_runtime, setting_downloadtype, setting_keyboard;
+    public Spinner setting_java, setting_opengl, setting_openal, setting_lwjgl, setting_runtime, setting_downloadtype, setting_keyboard,spinner_choice_version;
 
     public Switch setting_notcheckJvm, setting_notcheckMinecraft, setting_notenableKeyboard, setting_enableOtg;
 
@@ -102,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     public int selectedVersionPos = -1;
     public String MCinaBox_HomePath, MCinaBox_PublicPath, MCinaBox_PrivatePath;
     public File publicConfigFile, privateConfigFile;
+    public ReadyToStart toStart;
     //加载当前设置，也加载另一份设置
     public LauncherSettingModel anotherSetting;
 
@@ -177,6 +178,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         setting_lwjgl = findViewById(R.id.setting_spinner_lwjgl);
         setting_downloadtype = findViewById(R.id.setting_spinner_downloadtype);
         setting_runtime = findViewById(R.id.setting_spinner_runtime);
+        spinner_choice_version = findViewById(R.id.spinner_choice_version);
+        spinner_choice_version.setOnClickListener(listener);
 
         editText_javaArgs = findViewById(R.id.setting_edit_javaargs);
         editText_minecraftArgs = findViewById(R.id.setting_edit_minecraftargs);
@@ -356,8 +359,17 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                     break;
 
                 case R.id.main_button_startgame:
-                    Intent intent_start = new Intent(getApplicationContext(), LauncherActivity.class);
-                    startActivity(intent_start);
+                    //Intent intent_start = new Intent(getApplicationContext(), LauncherActivity.class);
+                    //startActivity(intent_start);
+                    saveLauncher(true,new File(MCinaBox_HomePath + "/mcinabox.json"));
+                    if (spinner_choice_version.getSelectedItem() != null && !spinner_choice_version.getSelectedItem().equals("")){
+                        toStart = new ReadyToStart("0.1.0",MCinaBox_HomePath,MCinaBox_PrivatePath,spinner_choice_version.getSelectedItem().toString());
+                    }else{
+                        Toast.makeText(getApplicationContext(), "请选择游戏版本", Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+                case R.id.spinner_choice_version:
+                    ReflashLocalVersionList();
                     break;
                 default:
                     break;
@@ -895,6 +907,11 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         }
         LocalVersionListAdapter localversionlistadapter = new LocalVersionListAdapter(this,loaclversionListBeans);
         listView_localversion.setAdapter(localversionlistadapter);
+
+        ArrayAdapter<String> mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, versionIdList);
+        mAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_choice_version.setAdapter(mAdapter);
+
     }
 
 }
