@@ -42,6 +42,8 @@ import com.aof.mcinabox.jsonUtils.AnaliesVersionManifestJson;
 import com.aof.mcinabox.jsonUtils.ListVersionManifestJson;
 import com.aof.mcinabox.jsonUtils.ModelMinecraftAssetsJson;
 import com.aof.mcinabox.jsonUtils.ModelMinecraftVersionJson;
+import com.aof.mcinabox.loaclVersionUtil.LocalVersionListAdapter;
+import com.aof.mcinabox.loaclVersionUtil.LocalVersionListBean;
 import com.aof.mcinabox.userUtil.UserListAdapter;
 import com.aof.mcinabox.userUtil.UserListBean;
 import com.google.gson.Gson;
@@ -80,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     public View[] launcherLins;
     public View layout_user, layout_gamelist, layout_gameselected, layout_gamedir, layout_launchersetting, layout_gamelist_installversion, layout_gamelist_setting, layout_startgame;
 
-    public ListView listview_minecraft_manifest, listview_user;
+    public ListView listview_minecraft_manifest, listview_user,listView_localversion;
 
     public ListVersionManifestJson.Version[] versionList;
 
@@ -206,13 +208,17 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             }
         });
 
+        //测试user_list
         listview_user = findViewById(R.id.list_user);
         ArrayList<UserListBean> userlist = new ArrayList<UserListBean>();
         for (int i = 0; i <= 10; i++) {
             userlist.add(new UserListBean());
         }
-        UserListAdapter adapter = new UserListAdapter(this, userlist);
-        listview_user.setAdapter(adapter);
+        UserListAdapter userlistadapter = new UserListAdapter(this, userlist);
+        listview_user.setAdapter(userlistadapter);
+
+        //测试localversion_list
+        listView_localversion = findViewById(R.id.list_local_version);
 
         //初始化LogTextView控件
         logText = findViewById(R.id.logTextView);
@@ -223,6 +229,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         //载入启动器配置文件
         initLauncher(null);
         //以下为载入启动器之后才能完成的设定
+        ReflashLocalVersionList();;
 
     }
 
@@ -865,10 +872,29 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
     //检查MCinaBox的目录结构是否正常
     public void CheckMcinaBoxDir(){
-        FileTool fileTool = new FileTool();
-        fileTool.checkFilePath(new File(MCinaBox_HomePath),true);
-        fileTool.checkFilePath(new File(MCinaBox_HomePath+"/.minecraft/Temp"),true);
-        fileTool.checkFilePath(new File(MCinaBox_HomePath+"/Keyboardmodel"),true);
+        FileTool.checkFilePath(new File(MCinaBox_HomePath),true);
+        FileTool.checkFilePath(new File(MCinaBox_HomePath+"/.minecraft/Temp"),true);
+        FileTool.checkFilePath(new File(MCinaBox_HomePath+"/Keyboardmodel"),true);
+    }
+
+    //刷新本地游戏列表
+    public void ReflashLocalVersionList(){
+        DownloadMinecraft pathTool = new DownloadMinecraft(MCinaBox_HomePath,MCinaBox_PrivatePath);
+        ArrayList<String> versionIdListTmp = FileTool.listChildDirFromTargetDir(pathTool.getMINECRAFT_VERSION_DIR());
+        ArrayList<String> versionIdList = new ArrayList<String>();
+        ArrayList<LocalVersionListBean> loaclversionListBeans = new ArrayList<LocalVersionListBean>();
+        for(String fileName : versionIdListTmp){
+            if((new File(pathTool.getMINECRAFT_VERSION_DIR() + fileName + "/" + fileName + ".json")).exists()){
+                versionIdList.add(fileName);
+            }
+        }
+        for(String fileName : versionIdList){
+            LocalVersionListBean localVersionListBean = new LocalVersionListBean();
+            localVersionListBean.setVersion_Id(fileName);
+            loaclversionListBeans.add(localVersionListBean);
+        }
+        LocalVersionListAdapter localversionlistadapter = new LocalVersionListAdapter(this,loaclversionListBeans);
+        listView_localversion.setAdapter(localversionlistadapter);
     }
 
 }

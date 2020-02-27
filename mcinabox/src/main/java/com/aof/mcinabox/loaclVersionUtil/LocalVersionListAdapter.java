@@ -1,4 +1,4 @@
-package com.aof.mcinabox.userUtil;
+package com.aof.mcinabox.loaclVersionUtil;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,30 +9,31 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
+
 import com.aof.mcinabox.R;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class UserListAdapter extends BaseAdapter {
+public class LocalVersionListAdapter extends BaseAdapter {
 
-    private ArrayList<UserListBean> userlist;
+    private ArrayList<LocalVersionListBean> versionlist;
     private LayoutInflater mLayoutInflater;
     HashMap<String,Boolean> states=new HashMap<String,Boolean>();//用于记录每个RadioButton的状态，并保证只可选一个
 
 
-    public UserListAdapter(ArrayList<UserListBean> list){
-        userlist = list;
+    public LocalVersionListAdapter(ArrayList<LocalVersionListBean> list){
+        versionlist = list;
     }
 
     @Override
     public int getCount(){
-        return userlist.size();
+        return versionlist.size();
     }
     @Override
     public Object getItem(int position){
-        return userlist.get(position);
+        return versionlist.get(position);
     }
     @Override
     public long getItemId(int position){
@@ -40,28 +41,26 @@ public class UserListAdapter extends BaseAdapter {
     }
 
 
-    public UserListAdapter(Context context, ArrayList<UserListBean> list) {
-        userlist = list;
+    public LocalVersionListAdapter(Context context, ArrayList<LocalVersionListBean> list) {
+        versionlist = list;
         mLayoutInflater = LayoutInflater.from(context);
     }
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder;
+        LocalVersionListAdapter.ViewHolder viewHolder;
         if(convertView == null){
-            convertView = mLayoutInflater.inflate(R.layout.listview_user, null);
-            viewHolder = new ViewHolder();
-            viewHolder.userimage = convertView.findViewById(R.id.user_image);
-            viewHolder.username = convertView.findViewById(R.id.user_text_username);
-            viewHolder.userstate = convertView.findViewById(R.id.user_text_userstate);
-            viewHolder.removeuser = convertView.findViewById(R.id.user_button_removeuser);
-            viewHolder.linearLayout = convertView.findViewById(R.id.small_layout_aboutuser);
+            convertView = mLayoutInflater.inflate(R.layout.listview_version, null);
+            viewHolder = new LocalVersionListAdapter.ViewHolder();
+            viewHolder.versionimage = convertView.findViewById(R.id.version_image);
+            viewHolder.versionId = convertView.findViewById(R.id.versionlist_text_versionId);
+            viewHolder.removeversion = convertView.findViewById(R.id.gamelist_button_removeversion);
             convertView.setTag(viewHolder);
         }else{
-            viewHolder = (ViewHolder)convertView.getTag();
+            viewHolder = (LocalVersionListAdapter.ViewHolder)convertView.getTag();
         }
-        viewHolder.username.setText(userlist.get(position).getUser_name());
-        final RadioButton radioButton = convertView.findViewById(R.id.radiobutton_selecteduser);
+        viewHolder.versionId.setText(versionlist.get(position).getVersion_Id());
+        final RadioButton radioButton = convertView.findViewById(R.id.radiobutton_selectedversion);
         viewHolder.radioButton = radioButton;
 
 
@@ -74,7 +73,7 @@ public class UserListAdapter extends BaseAdapter {
                     states.put(key, false);
                 }
                 states.put(String.valueOf(position), radioButton.isChecked());
-                UserListAdapter.this.notifyDataSetChanged();
+                LocalVersionListAdapter.this.notifyDataSetChanged();
             }
         });
         boolean res=false;
@@ -85,17 +84,14 @@ public class UserListAdapter extends BaseAdapter {
         else
             res = true;
         viewHolder.radioButton.setChecked(res);
-
-
         return convertView;
     }
 
     class ViewHolder{
         public RadioButton radioButton;
-        public ImageView userimage;
-        public TextView username;
-        public TextView userstate;
-        Button removeuser;
+        public ImageView versionimage;
+        public TextView versionId;
+        Button removeversion;
         LinearLayout linearLayout;
     }
 }

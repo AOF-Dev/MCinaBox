@@ -370,7 +370,7 @@
         android:layout_height="0dp"
         android:background="@drawable/background_layout_fictionlist"
         android:orientation="vertical"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
@@ -468,9 +468,21 @@
                     android:text="@string/main_text_gamelist_setting" />
             </LinearLayout>
 
-
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="#00FFFFFF"
+            android:orientation="vertical">
+
+            <ListView
+                android:id="@+id/list_local_version"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
 
     </LinearLayout>
     <!-- 游戏列表-安装新游戏版本-->
@@ -1150,7 +1162,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/background_layout_fictionlist"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
