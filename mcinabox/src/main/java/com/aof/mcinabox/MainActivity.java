@@ -179,7 +179,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         setting_downloadtype = findViewById(R.id.setting_spinner_downloadtype);
         setting_runtime = findViewById(R.id.setting_spinner_runtime);
         spinner_choice_version = findViewById(R.id.spinner_choice_version);
-        spinner_choice_version.setOnClickListener(listener);
 
         editText_javaArgs = findViewById(R.id.setting_edit_javaargs);
         editText_minecraftArgs = findViewById(R.id.setting_edit_minecraftargs);
@@ -363,7 +362,9 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                     //startActivity(intent_start);
                     saveLauncher(true,new File(MCinaBox_HomePath + "/mcinabox.json"));
                     if (spinner_choice_version.getSelectedItem() != null && !spinner_choice_version.getSelectedItem().equals("")){
+                        Toast.makeText(getApplicationContext(), "Start", Toast.LENGTH_SHORT).show();
                         toStart = new ReadyToStart("0.1.0",MCinaBox_HomePath,MCinaBox_PrivatePath,spinner_choice_version.getSelectedItem().toString());
+                        toStart.StartGame();
                     }else{
                         Toast.makeText(getApplicationContext(), "请选择游戏版本", Toast.LENGTH_SHORT).show();
                     }

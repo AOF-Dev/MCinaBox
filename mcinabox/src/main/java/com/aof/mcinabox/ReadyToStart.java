@@ -1,6 +1,7 @@
 package com.aof.mcinabox;
 
 import android.os.Build;
+import android.util.Log;
 
 import com.aof.mcinabox.initUtils.LauncherSettingModel;
 import com.aof.mcinabox.ioUtils.FileTool;
@@ -60,7 +61,7 @@ public class ReadyToStart {
 
     /**【执行启动游戏】**/
     public void StartGame(){
-        if(isCheckGame){
+        /*if(isCheckGame){
             if(!CheckGame()){
                 return;
             }
@@ -69,10 +70,11 @@ public class ReadyToStart {
             if(!CheckFramework()){
                 return;
             }
-        }
+        }*/
         String[] CMD = MakeStartCmd();
         for (String arg : CMD){
             System.out.print(arg+" ");
+            Log.e("StartGame",arg);
         }
 
     }
@@ -187,7 +189,7 @@ public class ReadyToStart {
         ModelMinecraftVersionJson.DependentLibrary[] libraries = versionSetting.getLibraries();
         for(ModelMinecraftVersionJson.DependentLibrary targetLibrary : libraries){
             if(targetLibrary.getDownloads().getArtifact() != null){
-                temp = " " + minecraft_libraries_path + targetLibrary.getDownloads().getArtifact().getPath();
+                temp = temp + " " + minecraft_libraries_path + targetLibrary.getDownloads().getArtifact().getPath();
             }
         }
         JVM_ClassPath = JVM_ClassPath + temp;
@@ -201,13 +203,14 @@ public class ReadyToStart {
         String MinecraftExtraArgs = launcherSetting.getConfigurations().getMinecraftArgs();
         String Minecraft_arguements = "";
             //首先要判断version是1.13.1之前的结构还是1.13.1之后的结构,用于处理两种不同的arguement结构
-        if(versionSetting.getMinecraftArgument() == null){
+        if(versionSetting.getMinecraftArguments() == null){
             //这是1.13.1以及之后的处理方法
             //TODO:有时间就把这里写完
         }else{
             //这是1.13.1之前的处理方法
-            Minecraft_arguements = ConvertJsStringModleToJavaStringModle(versionSetting.getMinecraftArgument());
+
         }
+        Minecraft_arguements = ConvertJsStringModleToJavaStringModle(versionSetting.getMinecraftArguments());
         Minecraft_Args.add(Minecraft_MainClass);
         Minecraft_Args.add(Minecraft_arguements);
         Minecraft_Args.add(MinecraftExtraArgs);
@@ -253,16 +256,21 @@ public class ReadyToStart {
         for(int i = 0;i < JsString.length();i++){
             if(JsString.charAt(i) == '$'){
                 String tempString2 = "";
+                Log.e("Count",i+"");
                 do{
                     i++;
+                    Log.e("Count",i+"");
                     tempString2 = tempString2 + JsString.charAt(i);
-                }while(JsString.charAt(i) == '}');
+                    Log.e("Check",JsString.charAt(i)+"");
+                }while(JsString.charAt(i) != '}');
                 tempString = tempString + ArgsMap.get(tempString2);
+                Log.e("StartGameFuck",tempString2);
             }else{
                 tempString = tempString + JsString.charAt(i);
             }
         }
 
+        Log.e("StartGameFuck",tempString);
         JavaString = tempString;
         return JavaString;
     }

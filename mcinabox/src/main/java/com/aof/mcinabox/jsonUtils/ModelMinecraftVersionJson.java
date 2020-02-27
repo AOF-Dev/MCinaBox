@@ -8,7 +8,7 @@ public class ModelMinecraftVersionJson {
     //通用参数
     private String id;
     private String mainClass;
-    private String minecraftArgument;
+    private String minecraftArguments;
     private int minimumLauncherVersion;
     private String releaseTime;
     private String time;
@@ -91,8 +91,8 @@ public class ModelMinecraftVersionJson {
     public void setId(String id) { this.id = id; }
     public String getMainClass() { return mainClass; }
     public void setMainClass(String mainClass) { this.mainClass = mainClass; }
-    public String getMinecraftArgument() { return minecraftArgument; }
-    public void setMinecraftArgument(String minecraftArgument) { this.minecraftArgument = minecraftArgument; }
+    public String getMinecraftArguments() { return minecraftArguments; }
+    public void setMinecraftArguments(String minecraftArguments) { this.minecraftArguments = minecraftArguments; }
     public int getMinimumLauncherVersion() { return minimumLauncherVersion; }
     public void setMinimumLauncherVersion(int minimumLauncherVersion) { this.minimumLauncherVersion = minimumLauncherVersion; }
     public String getReleaseTime() { return releaseTime; }
