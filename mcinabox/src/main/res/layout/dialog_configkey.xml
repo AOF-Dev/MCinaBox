@@ -46,7 +46,7 @@
             <TextView
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:text="位置(Px)" />
+                android:text="位置(Dp)" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -116,6 +116,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="颜色"/>
+            <EditText
+                android:id="@+id/dialog_color"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="textEmailAddress"/>
+            <ImageButton
+                android:id="@+id/dialog_button_colorpicker"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:layout_margin="2dp"
+                android:layout_gravity="center"
+                android:backgroundTint="#ffffff"
+                android:src="#000000"/>
         </LinearLayout>
 
         <LinearLayout
@@ -295,11 +319,15 @@
                 android:layout_height="40dp"
                 android:layout_marginStart="10dp"
                 android:text="确定"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
             <Button
                 android:id="@+id/dialog_button_cancel"
                 android:layout_width="60dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="110dp"
+                android:layout_marginEnd="10dp"
                 android:text="取消"/>
 
         </LinearLayout>

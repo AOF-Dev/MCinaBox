@@ -1,6 +1,7 @@
 package com.aof.mcinabox.userUtil;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +10,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AlertDialog;
+
+import com.aof.mcinabox.MainActivity;
 import com.aof.mcinabox.R;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,7 +51,7 @@ public class UserListAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder;
+        final ViewHolder viewHolder;
         if(convertView == null){
             convertView = mLayoutInflater.inflate(R.layout.listview_user, null);
             viewHolder = new ViewHolder();
@@ -61,10 +65,56 @@ public class UserListAdapter extends BaseAdapter {
             viewHolder = (ViewHolder)convertView.getTag();
         }
         viewHolder.username.setText(userlist.get(position).getUser_name());
+        if(userlist.get(position).getUser_model().equals("offline")){
+            viewHolder.userstate.setText("离线模式");
+        }else if(userlist.get(position).getUser_model().equals("online")){
+            viewHolder.userstate.setText("在线模式");
+        }else{
+            viewHolder.userstate.setText("无法解析");
+        }
+        viewHolder.context = userlist.get(position).getContext();
         final RadioButton radioButton = convertView.findViewById(R.id.radiobutton_selecteduser);
         viewHolder.radioButton = radioButton;
+        viewHolder.radioButton.setChecked(userlist.get(position).isIsSelected());
+        viewHolder.removeuser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                //    通过AlertDialog.Builder这个类来实例化我们的一个AlertDialog的对象
+                final AlertDialog dialog ;
+                final AlertDialog.Builder builder = new AlertDialog.Builder(viewHolder.context);
+                //    设置Title的图标
+                //builder.setIcon(R.drawable.ic_launcher);
+                //    设置Title的内容
+                builder.setTitle("警告");
+                //    设置Content来显示一个信息
+                builder.setMessage("您确定要删除这个用户吗？");
+                //    设置一个PositiveButton
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        userlist.remove(position);
+                        notifyDataSetChanged();
+                    }
+                });
+                //    设置一个NegativeButton
+                builder.setNegativeButton("取消", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        //如果取消
+                        dialog.dismiss();
+                    }
+                });
+                //    显示出该对话框
+                dialog = builder.create();
+                builder.show();
 
+            }
+        });
 
         //当RadioButton被选中时，将其状态记录进States中，并更新其他RadioButton的状态使它们不被选中
         viewHolder.radioButton.setOnClickListener(new View.OnClickListener() {
@@ -97,5 +147,6 @@ public class UserListAdapter extends BaseAdapter {
         public TextView userstate;
         Button removeuser;
         LinearLayout linearLayout;
+        Context context;
     }
 }

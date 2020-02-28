@@ -8,6 +8,7 @@ import java.util.UUID;
 public class LauncherSettingModel {
 
 
+    public Accounts newAccounts = new Accounts();
 
     public LauncherSettingModel(){
         //默认模板初始化

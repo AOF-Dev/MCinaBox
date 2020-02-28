@@ -16,12 +16,13 @@ public class KeyboardJsonModel {
     private int MainPos;
     private int SpecialOnePos;
     private int SpecialTwoPos;
+    private String colorhex;
 
     public KeyboardJsonModel(){
         super();
     }
 
-    public KeyboardJsonModel(String keyName, int keySize, int keyAlpha, float keyLX, float keyLY, String keyMain, String specialOne, String specialTwo, boolean isAutoKeep, boolean isHide, boolean isMult, String shape, int mainPos, int specialOnePos, int specialTwoPos) {
+    public KeyboardJsonModel(String keyName, int keySize, int keyAlpha, float keyLX, float keyLY, String keyMain, String specialOne, String specialTwo, boolean isAutoKeep, boolean isHide, boolean isMult, String shape, int mainPos, int specialOnePos, int specialTwoPos,String colorhex) {
         super();
         KeyName = keyName;
         KeySize = keySize;
@@ -38,6 +39,7 @@ public class KeyboardJsonModel {
         MainPos = mainPos;
         SpecialOnePos = specialOnePos;
         SpecialTwoPos = specialTwoPos;
+        this.colorhex = colorhex;
     }
 
     public String getKeyName() {
@@ -159,4 +161,8 @@ public class KeyboardJsonModel {
     public void setSpecialTwoPos(int specialTwoPos) {
         SpecialTwoPos = specialTwoPos;
     }
+
+    public String getColorhex() { return colorhex; }
+
+    public void setColorhex(String colorhex) { this.colorhex = colorhex; }
 }

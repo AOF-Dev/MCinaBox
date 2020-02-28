@@ -17,6 +17,8 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import cosine.boat.MinecraftVersion;
+
 public class ReadyToStart {
     //首先初始化所需要的全部实例变量
     //然后执行Minecraft完整性和正确性检查(包括游戏主文件，游戏依赖库，游戏资源文件) *根据用户选择
@@ -160,6 +162,7 @@ public class ReadyToStart {
 
         //设定JVM参数
         ArrayList<String> JVM_Args = new ArrayList<String>();
+        String JVM__minecraft_client_jar = "-Dminecraft.client.jar=" + minecraft_version_path + versionSetting.getId() + "/" + versionSetting.getId() + ".jar";
         String JVM_server = "-server";
         String JVM_Xmx = "-Xmx" + launcherSetting.getConfigurations().getMaxMemory() + "m";
         String JVM_Xms = "-Xms128m";
@@ -173,6 +176,7 @@ public class ReadyToStart {
         String JVM_ClassPath = "-cp";
 
         //注意加入list时的顺序
+        JVM_Args.add(JVM__minecraft_client_jar);
         JVM_Args.add(JVM_server);
         JVM_Args.add(JVM_Xmx);
         JVM_Args.add(JVM_Xms);
@@ -187,13 +191,21 @@ public class ReadyToStart {
         ArrayList<String> DependentLibrariesPaths = new ArrayList<String>();
         String temp ="";
         ModelMinecraftVersionJson.DependentLibrary[] libraries = versionSetting.getLibraries();
+        ArrayList<ModelMinecraftVersionJson.DependentLibrary> libraries_copy = new ArrayList<ModelMinecraftVersionJson.DependentLibrary>();
         for(ModelMinecraftVersionJson.DependentLibrary targetLibrary : libraries){
             if(targetLibrary.getDownloads().getArtifact() != null){
-                temp = temp + " " + minecraft_libraries_path + targetLibrary.getDownloads().getArtifact().getPath();
+                libraries_copy.add(targetLibrary);
+            }
+        }
+        for (int i = 0;i < libraries_copy.size();i++){
+            ModelMinecraftVersionJson.DependentLibrary targetLibrary = libraries_copy.get(i);
+            if(i < libraries_copy.size() -1){
+                temp = temp +  minecraft_libraries_path + targetLibrary.getDownloads().getArtifact().getPath() + ":";
+            }else{
+                temp = temp + minecraft_libraries_path + targetLibrary.getDownloads().getArtifact().getPath();
             }
         }
         JVM_ClassPath = JVM_ClassPath + temp;
-
         JVM_Args.add(JVM_ClassPath);
 
 
@@ -208,9 +220,9 @@ public class ReadyToStart {
             //TODO:有时间就把这里写完
         }else{
             //这是1.13.1之前的处理方法
-
+            Minecraft_arguements = ConvertJsStringModleToJavaStringModle(versionSetting.getMinecraftArguments());
         }
-        Minecraft_arguements = ConvertJsStringModleToJavaStringModle(versionSetting.getMinecraftArguments());
+
         Minecraft_Args.add(Minecraft_MainClass);
         Minecraft_Args.add(Minecraft_arguements);
         Minecraft_Args.add(MinecraftExtraArgs);
@@ -250,27 +262,23 @@ public class ReadyToStart {
         ArgsMap.put("{assets_index_name}",versionSetting.getAssets());
         ArgsMap.put("{assets_root}",minecraft_assets_path);
         ArgsMap.put("{game_directory}",minecraft_home_path);
-        ArgsMap.put("{version_name}","MCinaBox " + MCinaBox_Version);
+        ArgsMap.put("{version_name}","/'" + "MCinaBox " + MCinaBox_Version + "/'");
         ArgsMap.put("{version_type}",versionSetting.getType());
 
         for(int i = 0;i < JsString.length();i++){
             if(JsString.charAt(i) == '$'){
                 String tempString2 = "";
-                Log.e("Count",i+"");
                 do{
                     i++;
-                    Log.e("Count",i+"");
                     tempString2 = tempString2 + JsString.charAt(i);
-                    Log.e("Check",JsString.charAt(i)+"");
                 }while(JsString.charAt(i) != '}');
                 tempString = tempString + ArgsMap.get(tempString2);
-                Log.e("StartGameFuck",tempString2);
+                Log.e("StartGameCheck",tempString2);
             }else{
                 tempString = tempString + JsString.charAt(i);
             }
         }
 
-        Log.e("StartGameFuck",tempString);
         JavaString = tempString;
         return JavaString;
     }
