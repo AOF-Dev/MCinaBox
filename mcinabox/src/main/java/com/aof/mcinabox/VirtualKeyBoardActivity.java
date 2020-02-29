@@ -8,6 +8,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -64,8 +65,8 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
     CheckBox checkBox_isKeep,checkBox_isHide,checkBox_isMult;
     ConfigDialog configDialog,loadDialog,saveDialog,colorPickDialog;
     ColorPickerView colorPicker;
-    SeekBar seekBar_alpha;
-    TextView text_aplha_progress;
+    SeekBar seekBar_corner;
+    TextView text_corner_progress;
     Spinner key_main_selected,key_special_oneselected,key_special_twoselected,model_selected;
     int selectedModelPos;
     ArrayList<String> modelNameList;
@@ -108,8 +109,8 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
         editText_model_name = saveDialog.findViewById(R.id.dialog_edittext_modelname);
         editText_model_color = configDialog.findViewById(R.id.dialog_color);
 
-        seekBar_alpha = configDialog.findViewById(R.id.dialog_alpha);
-        text_aplha_progress = configDialog.findViewById(R.id.dialog_text_alphaprogress);
+        seekBar_corner = configDialog.findViewById(R.id.dialog_corner);
+        text_corner_progress = configDialog.findViewById(R.id.dialog_text_cornerprogress);
 
         key_main_selected = configDialog.findViewById(R.id.dialog_key_main);
         key_special_oneselected = configDialog.findViewById(R.id.dialog_key_specialone);
@@ -146,11 +147,11 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
         colorPicker.setOnColorChangeListener(colorChangedListener);
         dialog_button_colorpicker.setOnClickListener(listener);
 
-        //SeekBar 透明度
-        seekBar_alpha.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        //SeekBar 圆角大小
+        seekBar_corner.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
-                text_aplha_progress.setText(progress+"");
+                text_corner_progress.setText(progress+"");
             }
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -162,14 +163,16 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
 
     }
 
-    //键名称 键大小 透明度 X轴位置 Y轴位置 键值 特殊键1 特殊键2 是否保持 是否隐藏 是否是组合键 形状 主按键位置 组合键一位置 组合键二位置 按键颜色
-    public void addStandKey(String KeyName, int KeySize, int KeyAlpha, float KeyLX, float KeyLY, String KeyMain, String SpecialOne, String SpecialTwo, boolean isAutoKeep, boolean isHide, boolean isMult,String shape,int MainPos,int SpecialOnePos,int SpecialTwoPos,String colorhex) {
+    //键名称 键大小 透明度 X轴位置 Y轴位置 主按键 特殊键1 特殊键2 是否保持 是否隐藏 是否是组合键 形状 主按键位置 组合键一位置 组合键二位置 按键颜色 圆角半径
+    public void addStandKey(String KeyName, int KeySize, int KeyAlpha, int KeyLX, int KeyLY, String KeyMain, String SpecialOne, String SpecialTwo, boolean isAutoKeep, boolean isHide, boolean isMult,String shape,int MainPos,int SpecialOnePos,int SpecialTwoPos,String colorhex,int conerRadius) {
         GameButton KeyButton = new GameButton(getApplicationContext());
         KeyButton.setText(KeyName);
-        KeyButton.setLayoutParams(new ViewGroup.LayoutParams(KeySize, KeySize));
-        //KeyButton.setAlpha((float)KeyAlpha/225);
+        KeyButton.setLayoutParams(new ViewGroup.LayoutParams(getPxFromDp(this,KeySize),getPxFromDp(this,KeySize) ));
         KeyButton.setX(getPxFromDp(this,KeyLX));
-        KeyButton.setY(getPxFromDp(this,KeyLX));
+        KeyButton.setY(getPxFromDp(this,KeyLY));
+        KeyButton.setKeyLX_dp(KeyLX);
+        KeyButton.setKeyLY_dp(KeyLY);
+        KeyButton.setKeySize(KeySize);
         KeyButton.setKeep(isAutoKeep);
         KeyButton.setHide(isHide);
         KeyButton.setSpecialOne(SpecialOne);
@@ -183,15 +186,20 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
         KeyButton.setMainPos(MainPos);
         KeyButton.setSpecialOnePos(SpecialOnePos);
         KeyButton.setSpecialTwoPos(SpecialTwoPos);
+        KeyButton.setCornerRadius(conerRadius);
+        KeyButton.setColorHex(colorhex);
 
         //KeyButton.setBackgroundColor(Color.parseColor("#A6A4A2"));
-        if(shape.equals("square")){
+        /*if(shape.equals("square")){
             KeyButton.setBackground(this.getDrawable(R.drawable.control_button_square));
         }else if(shape.equals("round")){
             KeyButton.setBackground(this.getDrawable(R.drawable.control_button_round));
-        }
-        KeyButton.setBackgroundColor(ColorUtils.hex2Int(colorhex));
-
+        }*/
+        GradientDrawable gradientDrawable = new GradientDrawable();
+        gradientDrawable.setShape(GradientDrawable.RECTANGLE);
+        gradientDrawable.setColor(ColorUtils.hex2Int(colorhex));
+        gradientDrawable.setCornerRadius(conerRadius);
+        KeyButton.setBackground(gradientDrawable);
         //先执行清除操作，再添加按键，再执行显示操作 才算做一次刷新！！
         removeKeyboard();
         keyboardList.add(KeyButton);
@@ -201,10 +209,15 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
     private void reloadStantKey(GameButton targetButton){
         //给各个控件重载按键的属性
         editText_key_name.setText(targetButton.getText().toString());
-        editText_key_size.setText(""+getDpFromPx(this,targetButton.getLayoutParams().width));
-        editText_key_lx.setText(""+getDpFromPx(this,(int)targetButton.getX()));
-        editText_key_ly.setText(""+getDpFromPx(this,(int)targetButton.getY()));
-        editText_model_color.setText(ColorUtils.int2Hex3(((ColorDrawable)targetButton.getBackground()).getColor()));
+        editText_key_size.setText(""+targetButton.getKeySize());
+        editText_key_lx.setText(""+targetButton.getKeyLX_dp());
+        editText_key_ly.setText(""+targetButton.getKeyLY_dp());
+        editText_model_color.setText(targetButton.getColorHex());
+
+        ColorDrawable drawable = new ColorDrawable();
+        drawable.setColor(ColorUtils.hex2Int(targetButton.getColorHex()));
+        dialog_button_colorpicker.setImageDrawable(drawable);
+
         checkBox_isKeep.setChecked(targetButton.isKeep());
         checkBox_isHide.setChecked(targetButton.isHide());
         checkBox_isMult.setChecked(targetButton.isMult());
@@ -215,7 +228,7 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
             radioButton_round.setChecked(true);
             radioButton_square.setChecked(false);
         }
-        seekBar_alpha.setProgress((int)targetButton.getAlpha());
+        seekBar_corner.setProgress((int)targetButton.getCornerRadius());
         key_main_selected.setSelection(targetButton.getMainPos());
         key_special_oneselected.setSelection(targetButton.getSpecialOnePos());
         key_special_twoselected.setSelection(targetButton.getSpecialTwoPos());
@@ -254,7 +267,8 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
             shape = "round";
         }
 
-        int KeyAlpha = seekBar_alpha.getProgress();
+        int KeyAlpha = seekBar_corner.getProgress();
+        int cornerRadius = seekBar_corner.getProgress();
         String KeyMain = (String)key_main_selected.getSelectedItem();
         String SpecialOne = (String)key_special_oneselected.getSelectedItem();
         String SpecialTwo = (String)key_special_twoselected.getSelectedItem();
@@ -273,7 +287,7 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
             Toast.makeText(this, "添加成功", Toast.LENGTH_SHORT).show();
         }
 
-        addStandKey(KeyName,getPxFromDp(this,KeySize),(int)(KeyAlpha*225),getDpFromPx(this,KeyLX),getDpFromPx(this,KeyLY),KeyMain,SpecialOne,SpecialTwo,isAutoKeep,isHide,isMult,shape,MainPos,SpecialOnePos,SpecialTwoPos,colorhex);
+        addStandKey(KeyName,KeySize,(int)(KeyAlpha*225),KeyLX,KeyLY,KeyMain,SpecialOne,SpecialTwo,isAutoKeep,isHide,isMult,shape,MainPos,SpecialOnePos,SpecialTwoPos,colorhex,cornerRadius);
 
     }
 
@@ -351,13 +365,13 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
                     configDialog.hide();
                     break;
                 case R.id.dialog_button_cancle_colorpicker:
-                    colorPickDialog.dismiss();
+                    colorPickDialog.hide();
                     configDialog.show();
                     break;
                 case R.id.dialog_button_confirm_colorpicker:
                     configDialog.show();
                     ApplyColorChangeToGameButton();
-                    colorPickDialog.dismiss();
+                    colorPickDialog.hide();
                     break;
             }
         }
@@ -446,7 +460,7 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
 
         ArrayList<KeyboardJsonModel> modelList = new ArrayList<KeyboardJsonModel>(){};
         for(GameButton button : keyboardList){
-            modelList.add(new KeyboardJsonModel(button.getText().toString(),getDpFromPx(this,button.getLayoutParams().width),(int)button.getAlpha(),getDpFromPx(this,(int)button.getX()),getDpFromPx(this,(int)button.getY()),button.getKeyMain(),button.getSpecialOne(),button.getSpecialTwo(),button.isKeep(),button.isHide(),button.isMult(),button.getShape(),button.getMainPos(),button.getSpecialOnePos(),button.getSpecialTwoPos(),ColorUtils.int2Hex3(((ColorDrawable)button.getBackground()).getColor())));
+            modelList.add(new KeyboardJsonModel(button.getText().toString(),button.getKeySize(),(int)button.getAlpha(),button.getKeyLX_dp(),button.getKeyLY_dp(),button.getKeyMain(),button.getSpecialOne(),button.getSpecialTwo(),button.isKeep(),button.isHide(),button.isMult(),button.getShape(),button.getMainPos(),button.getSpecialOnePos(),button.getSpecialTwoPos(),button.getColorHex(),button.getCornerRadius()));
         }
 
         JSONArray jsonArray = new JSONArray();
@@ -490,7 +504,7 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
                 Toast.makeText(this, "导入成功", Toast.LENGTH_SHORT).show();
                 for(KeyboardJsonModel targetModel : tempList2){
                     //这里采用了逐个添加，对性能有一定影响，但是编程更简单。 性能影响！
-                    addStandKey(targetModel.getKeyName(),getPxFromDp(this,targetModel.getKeySize()),targetModel.getKeyAlpha(),targetModel.getKeyLX(),targetModel.getKeyLY(),targetModel.getKeyMain(),targetModel.getSpecialOne(),targetModel.getSpecialTwo(),targetModel.isAutoKeep(),targetModel.isHide(),targetModel.isMult(),targetModel.getShape(),targetModel.getMainPos(),targetModel.getSpecialOnePos(),targetModel.getSpecialTwoPos(),targetModel.getColorhex());
+                    addStandKey(targetModel.getKeyName(),targetModel.getKeySize(),targetModel.getKeyAlpha(),targetModel.getKeyLX(),targetModel.getKeyLY(),targetModel.getKeyMain(),targetModel.getSpecialOne(),targetModel.getSpecialTwo(),targetModel.isAutoKeep(),targetModel.isHide(),targetModel.isMult(),targetModel.getShape(),targetModel.getMainPos(),targetModel.getSpecialOnePos(),targetModel.getSpecialTwoPos(),targetModel.getColorhex(),targetModel.getCornerRadius());
                 }
             }else{
                 Toast.makeText(this, "导入失败", Toast.LENGTH_SHORT).show();

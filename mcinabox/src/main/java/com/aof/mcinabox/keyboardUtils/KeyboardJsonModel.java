@@ -4,8 +4,8 @@ public class KeyboardJsonModel {
     private String KeyName;
     private int KeySize;
     private int KeyAlpha;
-    private float KeyLX;
-    private float KeyLY;
+    private int KeyLX;
+    private int KeyLY;
     private String KeyMain;
     private String SpecialOne;
     private String SpecialTwo;
@@ -17,12 +17,13 @@ public class KeyboardJsonModel {
     private int SpecialOnePos;
     private int SpecialTwoPos;
     private String colorhex;
+    private int cornerRadius;
 
     public KeyboardJsonModel(){
         super();
     }
 
-    public KeyboardJsonModel(String keyName, int keySize, int keyAlpha, float keyLX, float keyLY, String keyMain, String specialOne, String specialTwo, boolean isAutoKeep, boolean isHide, boolean isMult, String shape, int mainPos, int specialOnePos, int specialTwoPos,String colorhex) {
+    public KeyboardJsonModel(String keyName, int keySize, int keyAlpha, int keyLX, int keyLY, String keyMain, String specialOne, String specialTwo, boolean isAutoKeep, boolean isHide, boolean isMult, String shape, int mainPos, int specialOnePos, int specialTwoPos,String colorhex,int radius) {
         super();
         KeyName = keyName;
         KeySize = keySize;
@@ -40,7 +41,12 @@ public class KeyboardJsonModel {
         SpecialOnePos = specialOnePos;
         SpecialTwoPos = specialTwoPos;
         this.colorhex = colorhex;
+        cornerRadius = radius;
     }
+
+    public int getCornerRadius() { return cornerRadius; }
+
+    public void setCornerRadius(int cornerRadius) { this.cornerRadius = cornerRadius; }
 
     public String getKeyName() {
         return KeyName;
@@ -66,19 +72,19 @@ public class KeyboardJsonModel {
         KeyAlpha = keyAlpha;
     }
 
-    public float getKeyLX() {
+    public int getKeyLX() {
         return KeyLX;
     }
 
-    public void setKeyLX(float keyLX) {
+    public void setKeyLX(int keyLX) {
         KeyLX = keyLX;
     }
 
-    public float getKeyLY() {
+    public int getKeyLY() {
         return KeyLY;
     }
 
-    public void setKeyLY(float keyLY) {
+    public void setKeyLY(int keyLY) {
         KeyLY = keyLY;
     }
 
