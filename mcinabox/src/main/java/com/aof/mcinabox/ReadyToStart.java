@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.aof.mcinabox.initUtils.LauncherSettingModel;
 import com.aof.mcinabox.ioUtils.FileTool;
+import com.aof.mcinabox.ioUtils.PathTool;
 import com.aof.mcinabox.jsonUtils.AnaliesMinecraftVersionJson;
 import com.aof.mcinabox.jsonUtils.ModelMinecraftVersionJson;
 import com.google.gson.Gson;
@@ -81,15 +82,15 @@ public class ReadyToStart {
 
     }
 
-    public ReadyToStart(String MCinaBox_Version,String MCinaBox_HomePath,String MCinaBox_privatePath,String versionId){
+    public ReadyToStart(String MCinaBox_Version,String MCinaBox_HomePath,String versionId){
         this.MCinaBox_Version = MCinaBox_Version;
         this.MCinaBox_HomePath = MCinaBox_HomePath;
         this.MCinaBox_privatePath = MCinaBox_privatePath;
-        DownloadMinecraft PathTool = new DownloadMinecraft(MCinaBox_HomePath,MCinaBox_privatePath);
-        minecraft_home_path = PathTool.getMINECRAFT_DIR();
-        minecraft_assets_path = PathTool.getMINECRAFT_ASSETS_DIR();
-        minecraft_version_path = PathTool.getMINECRAFT_VERSION_DIR();
-        minecraft_libraries_path = PathTool.getMINECRAFT_LIBRARIES_DIR();
+        PathTool pathTool = new PathTool(MCinaBox_HomePath);
+        minecraft_home_path = pathTool.getMINECRAFT_DIR();
+        minecraft_assets_path = pathTool.getMINECRAFT_ASSETS_DIR();
+        minecraft_version_path = pathTool.getMINECRAFT_VERSION_DIR();
+        minecraft_libraries_path = pathTool.getMINECRAFT_LIBRARIES_DIR();
         launcherSetting = GetLauncherSettingFromFile();
         maxMemory = launcherSetting.getConfigurations().getMaxMemory();
         isCheckGame = !launcherSetting.getConfigurations().isNotCheckGame();

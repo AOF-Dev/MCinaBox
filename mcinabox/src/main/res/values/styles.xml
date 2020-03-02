@@ -10,7 +10,7 @@
 
     <style name="ConfigDialog_editor" parent="Theme.AppCompat.Dialog">
         <!-- 背景颜色及透明程度 -->
-        <item name="android:windowBackground">#59A0A0A0</item>
+        <item name="android:windowBackground">@color/dialogBackground</item>
         <!-- 是否半透明 -->
         <item name="android:windowIsTranslucent">true</item>
         <!-- 是否没有标题 -->

@@ -20,8 +20,8 @@
 
         <ImageView
             android:id="@+id/user_image"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_gravity="center"
             android:background="@drawable/ic_account_box_black_24dp" />
 

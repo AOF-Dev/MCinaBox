@@ -14,15 +14,9 @@ public class LauncherSettingModel {
         //默认模板初始化
         super();
 
-        if(Build.VERSION.SDK_INT >= 29){
-            localization = "private";
-        }else{
-            localization = "public";
-        }
-
         downloadType = "official";
         keyboard = "IceSty";
-        isUsing = true;
+        localization = "public";
 
         configurations = new Configurations();
         configurations.javaArgs = "";
@@ -38,13 +32,15 @@ public class LauncherSettingModel {
         configurations.notEnableVirtualKeyboard = false;
         configurations.enableOtg = false;
 
+        /*
         Accounts account_temp = new Accounts();
         Accounts[] accounts_temp = {account_temp};
         accounts_temp[0].setUsername("Steve");
         accounts_temp[0].uuid = UUID.nameUUIDFromBytes((accounts_temp[0].getUsername()).getBytes()).toString();
         accounts_temp[0].setType("offline");
         accounts_temp[0].setSelected(true);
-        accounts = accounts_temp;
+        */
+        accounts = new Accounts[0];
     }
 
 

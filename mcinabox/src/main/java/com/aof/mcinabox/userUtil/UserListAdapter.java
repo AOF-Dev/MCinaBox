@@ -75,7 +75,6 @@ public class UserListAdapter extends BaseAdapter {
         viewHolder.context = userlist.get(position).getContext();
         final RadioButton radioButton = convertView.findViewById(R.id.radiobutton_selecteduser);
         viewHolder.radioButton = radioButton;
-        viewHolder.radioButton.setChecked(userlist.get(position).isIsSelected());
         viewHolder.removeuser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,6 +124,11 @@ public class UserListAdapter extends BaseAdapter {
                 }
                 states.put(String.valueOf(position), radioButton.isChecked());
                 UserListAdapter.this.notifyDataSetChanged();
+                if(viewHolder.radioButton.isChecked()){
+                    userlist.get(position).setIsSelected(true);
+                }else{
+                    userlist.get(position).setIsSelected(false);
+                }
             }
         });
         boolean res=false;
@@ -135,7 +139,8 @@ public class UserListAdapter extends BaseAdapter {
         else
             res = true;
         viewHolder.radioButton.setChecked(res);
-
+        viewHolder.radioButton.setChecked(userlist.get(position).isIsSelected());
+        UserListAdapter.this.notifyDataSetChanged();
 
         return convertView;
     }

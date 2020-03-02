@@ -149,7 +149,7 @@
                     android:id="@+id/main_button_user"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
+                    android:background="@drawable/layout_button_background"
                     android:drawableStart="@drawable/chicken"
                     android:drawablePadding="5dp"
                     android:gravity="center_vertical"
@@ -183,7 +183,7 @@
                     android:id="@+id/main_button_gameselected"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
+                    android:background="@drawable/layout_button_background"
                     android:drawableStart="@drawable/grass"
                     android:drawablePadding="5dp"
                     android:gravity="center_vertical"
@@ -201,7 +201,7 @@
                     android:id="@+id/main_button_gamelist"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
+                    android:background="@drawable/layout_button_background"
                     android:drawableStart="@drawable/bookshelf"
                     android:drawablePadding="5dp"
                     android:gravity="center_vertical"
@@ -324,7 +324,7 @@
         android:layout_height="0dp"
         android:background="@drawable/background_layout_fictionlist"
         android:orientation="vertical"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
@@ -341,6 +341,7 @@
 
 
             <LinearLayout
+                android:id="@+id/layout_user_adduser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
@@ -358,6 +359,27 @@
                     android:layout_height="wrap_content"
                     android:paddingTop="3dp"
                     android:text="添加新用户" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_user_reflash_userlist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#00ffffff"
+                    app:srcCompat="@drawable/ic_refresh_black_24dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="3dp"
+                    android:text="刷新" />
             </LinearLayout>
 
         </LinearLayout>
@@ -460,6 +482,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/gamelist_button_reflash_locallist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"

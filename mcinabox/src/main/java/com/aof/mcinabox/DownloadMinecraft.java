@@ -12,7 +12,7 @@ import java.io.File;
 public class DownloadMinecraft {
 
     //构造函数
-    public DownloadMinecraft(String url,String assetsUrl,String home,String privatePath) {
+    public DownloadMinecraft(String url,String assetsUrl,String home) {
         super();
 
         MCinaBox_Home = home;
@@ -27,39 +27,8 @@ public class DownloadMinecraft {
 
         if(MCinaBox_Home.equals("/sdcard/MCinaBox")){
             DOWNLOAD_DIR = "/MCinaBox/.minecraft/";
-        }else if(MCinaBox_Home.equals(privatePath)){
+        }else{
             DOWNLOAD_DIR = "/Android/data/com.aof.mcinabox/files/MCinaBox/.minecraft/";
-        }else if(MCinaBox_Home.equals("/sdcard/Downloads")){
-            DOWNLOAD_DIR = "/Downloads/MCinaBoxTemp/";
-        }
-
-        Log.e("下载路径 ",DOWNLOAD_DIR);
-        DOWNLOAD_TEMP = DOWNLOAD_DIR + "Temp/";
-        DOWNLOAD_VERSION_DIR = DOWNLOAD_DIR + "versions/";
-        DOWNLOAD_LIBRARIES_DIR = DOWNLOAD_DIR + "libraries/";
-        DOWNLOAD_ASSETS_DIR = DOWNLOAD_DIR + "assets/";
-    }
-
-    //该构造函数不能用于文件下载时下载器的初始化，仅用于得到某些文件夹路径或文件路径
-    public DownloadMinecraft(String home,String privatePath) {
-        super();
-
-        MCinaBox_Home = home;
-        MINECRAFT_URL = "";
-        MINECRAFT_ASSETS_URL ="";
-        MINECRAFT_DIR = MCinaBox_Home + "/.minecraft/";
-        MINECRAFT_TEMP = MINECRAFT_DIR + "Temp/";
-        MINECRAFT_VERSION_DIR = MINECRAFT_DIR + "versions/";
-        MINECRAFT_LIBRARIES_DIR = MINECRAFT_DIR + "libraries/";
-        MINECRAFT_ASSETS_DIR = MINECRAFT_DIR+"assets/";
-        VERSION_MANIFEST_URL = MINECRAFT_URL + "/mc/game/version_manifest.json";
-
-        if(MCinaBox_Home.equals("/sdcard/MCinaBox")){
-            DOWNLOAD_DIR = "/MCinaBox/.minecraft/";
-        }else if(MCinaBox_Home.equals(privatePath)){
-            DOWNLOAD_DIR = "/Android/data/com.aof.mcinabox/files/MCinaBox/.minecraft/";
-        }else if(MCinaBox_Home.equals("/sdcard/Downloads")){
-            DOWNLOAD_DIR = "/Downloads/MCinaBoxTemp/";
         }
 
         Log.e("下载路径 ",DOWNLOAD_DIR);
