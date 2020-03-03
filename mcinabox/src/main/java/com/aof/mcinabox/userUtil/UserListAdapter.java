@@ -139,9 +139,6 @@ public class UserListAdapter extends BaseAdapter {
         else
             res = true;
         viewHolder.radioButton.setChecked(res);
-        viewHolder.radioButton.setChecked(userlist.get(position).isIsSelected());
-        UserListAdapter.this.notifyDataSetChanged();
-
         return convertView;
     }
 

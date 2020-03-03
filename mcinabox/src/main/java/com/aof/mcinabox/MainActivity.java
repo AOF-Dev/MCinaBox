@@ -343,11 +343,13 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                     radioButton_gamedir_public.setChecked(true);
                     radioButton_gamedir_private.setChecked(false);
                     MCinaBox_HomePath = MCinaBox_PublicPath;
+                    initLauncher();
                     break;
                 case R.id.radiobutton_gamedir_private:
                     radioButton_gamedir_private.setChecked(true);
                     radioButton_gamedir_public.setChecked(false);
                     MCinaBox_HomePath = MCinaBox_PrivatePath;
+                    initLauncher();
                     break;
 
                 case R.id.main_button_startgame:
@@ -933,6 +935,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
      * 【添加一个新用户】
      **/
     public void CreateNewUser() {
+        ReflashLocalUserList(true);
         ArrayList<UserListBean> userlist = ReflashLocalUserList(false);
         UserListBean newUser = new UserListBean();
         String username = dialog_editText_username.getText().toString();

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ExtraTranslation">
+<resources>
+    <string name="app_name">Boat</string>
 	<string name="play">Play</string>
 	<string name="excute">Excute</string>
 	<string name="install">Install</string>

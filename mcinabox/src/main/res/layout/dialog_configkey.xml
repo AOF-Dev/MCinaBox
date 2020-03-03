@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="250dp"
     android:layout_height="300dp"
-    android:background="#50565656">
+    android:background="@drawable/background_layout_item_alpha">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -93,6 +93,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:text="外观"
             android:textColor="@color/puredark"
             android:textSize="10sp" />
@@ -106,7 +107,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp">
             <TextView
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
@@ -121,7 +124,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginBottom="2dp"
+            android:layout_marginTop="2dp">
             <TextView
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
@@ -145,7 +150,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginBottom="2dp"
+            android:layout_marginTop="2dp">
             <TextView
                 android:id="@+id/dialog_keycorner"
                 android:layout_width="60dp"
@@ -166,7 +173,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:layout_marginBottom="2dp"
+            android:layout_marginTop="2dp">
             <TextView
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
@@ -196,6 +206,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:text="功能"
             android:textColor="@color/puredark"
             android:textSize="10sp" />
@@ -204,12 +215,15 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
             android:background="@android:color/background_dark" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginBottom="2dp"
+            android:layout_marginTop="2dp">
 
             <TextView
                 android:layout_width="60dp"
@@ -225,7 +239,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginBottom="2dp"
+            android:layout_marginTop="2dp">
 
             <TextView
                 android:layout_width="60dp"
@@ -243,6 +259,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="附加"
+            android:layout_marginTop="5dp"
             android:textColor="@color/puredark"
             android:textSize="10sp" />
 
@@ -250,12 +267,15 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:layout_marginRight="5dp"
-            android:background="@android:color/background_dark" />
+            android:background="@android:color/background_dark"
+            android:layout_marginBottom="5dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginBottom="2dp"
+            android:layout_marginTop="2dp">
 
             <TextView
                 android:layout_width="60dp"
@@ -271,7 +291,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginBottom="2dp"
+            android:layout_marginTop="2dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -299,6 +321,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:text="操作"
             android:textColor="@color/puredark"
             android:textSize="10sp" />
@@ -306,13 +329,16 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
+            android:layout_marginBottom="5dp"
             android:layout_marginRight="5dp"
             android:background="@android:color/background_dark" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginBottom="2dp"
+            android:layout_marginTop="2dp">
             <Button
                 android:id="@+id/dialog_button_finish"
                 android:layout_width="60dp"

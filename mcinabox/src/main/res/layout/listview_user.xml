@@ -22,8 +22,10 @@
             android:id="@+id/user_image"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_margin="10dp"
             android:layout_gravity="center"
-            android:background="@drawable/ic_account_box_black_24dp" />
+            android:src="@drawable/steve_pic"
+            android:padding="5dp"/>
 
         <LinearLayout
             android:id="@+id/small_layout_aboutuser"

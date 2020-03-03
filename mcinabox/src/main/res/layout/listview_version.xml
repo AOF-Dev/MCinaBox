@@ -22,8 +22,10 @@
             android:id="@+id/version_image"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_margin="10dp"
             android:layout_gravity="center"
-            android:background="@drawable/ic_extension_black_24dp" />
+            android:src="@drawable/grass_2d"
+            android:padding="5dp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -49,6 +51,7 @@
             android:layout_height="25dp"
             android:layout_gravity="center"
             android:layout_marginEnd="10dp"
+            android:visibility="gone"
             android:background="@drawable/ic_delete_black_24dp" />
     </LinearLayout>
 </LinearLayout>

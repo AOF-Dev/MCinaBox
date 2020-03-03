@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="250dp"
     android:layout_height="wrap_content"
-    android:background="#ECECEC">
+    android:background="@drawable/background_layout_item">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -25,6 +25,7 @@
             <TextView
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
+                android:textColor="@color/puredark"
                 android:text="用户名"/>
             <EditText
                 android:id="@+id/dialog_edittext_input_username"
@@ -41,6 +42,7 @@
             <TextView
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
+                android:textColor="@color/puredark"
                 android:text="密码"/>
             <EditText
                 android:id="@+id/dialog_edittext_input_access"
@@ -57,6 +59,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:textColor="@color/puredark"
                 android:text="正版登录"/>
             <CheckBox
                 android:id="@+id/dialog_checkbox_online_model"

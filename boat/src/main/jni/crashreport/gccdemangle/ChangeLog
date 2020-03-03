@@ -1,0 +1,18 @@
+2014-11-24
+  * cp-demangle.c: Update from FSF branches/google/gcc-4_9/libiberty
+  * demangle.h: Likewise
+  * cp-demangle.h: Likewise
+  * demangle_test.cpp: move test.c to gtest test units.
+
+2011-11-08  Jing Yu  <jingyu@google.com>
+
+	* cp-demangle.c: Remove #include of ansidecl.h and libiberty.h
+	* demangle.h: Remove #include of libiberty.h
+	* test.c: Add unit test for __cxa_demangle
+
+2011-11-08  Jing Yu  <jingyu@google.com>
+	* cp-demangle.c: Copy from FSF branches/google/gcc-4_6/libiberty
+	* demangle.h: Likewise
+	* cp-demangle.h: Likewise
+	* COPYING.LIB: Likewise
+	* COPYING: Likewise

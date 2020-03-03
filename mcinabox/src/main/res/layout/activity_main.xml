@@ -64,8 +64,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="40dp"
-        android:paddingLeft="25dp"
-        android:paddingRight="25dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
         android:background="@drawable/background_layout_startgame"
@@ -74,6 +74,7 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
+            android:layout_marginLeft="30dp"
             android:id="@+id/main_button_startgame"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -97,11 +98,15 @@
                 android:textSize="12sp" />
 
         </LinearLayout>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
         <Spinner
             android:id="@+id/spinner_choice_version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"/>
+            android:layout_gravity="center"/>
 
 
     </LinearLayout>
@@ -111,8 +116,7 @@
     <ScrollView
         android:id="@+id/layout_fictionlist"
         android:layout_width="180dp"
-        android:layout_height="match_parent"
-        android:layout_marginTop="30dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/main_toolbar">
@@ -235,7 +239,7 @@
                     android:id="@+id/main_button_gamedir"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
+                    android:background="@drawable/layout_button_background"
                     android:drawableStart="@drawable/craft_table"
                     android:drawablePadding="5dp"
                     android:gravity="center_vertical"
@@ -270,7 +274,7 @@
                     android:id="@+id/main_button_launchersetting"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
+                    android:background="@drawable/layout_button_background"
                     android:drawableStart="@drawable/command"
                     android:drawablePadding="5dp"
                     android:gravity="center_vertical"
@@ -288,7 +292,7 @@
                     android:id="@+id/main_button_launchercontrol"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
+                    android:background="@drawable/layout_button_background"
                     android:drawableStart="@drawable/furnace"
                     android:drawablePadding="5dp"
                     android:gravity="center_vertical"
@@ -1217,7 +1221,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/background_layout_fictionlist"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
@@ -1237,7 +1241,7 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="5dp"
                 android:background="@drawable/background_layout_item"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -1251,7 +1255,7 @@
                         android:layout_gravity="center"
                         android:text="Minecraft下载源"
                         android:textColor="@color/puredark"
-                        android:textSize="13sp"></TextView>
+                        android:textSize="13sp"/>
 
                     <Spinner
                         android:id="@+id/setting_spinner_downloadtype"
@@ -1262,6 +1266,34 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="导入运行库"
+                        android:textColor="@color/puredark"
+                        android:textSize="13sp"/>
+
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="gravity"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="2dp"
+                        android:layout_weight="1" />
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="导入"/>
+
+
+                </LinearLayout>
 
             </LinearLayout>
 
