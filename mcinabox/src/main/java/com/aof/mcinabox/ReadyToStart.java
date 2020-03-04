@@ -1,8 +1,11 @@
 package com.aof.mcinabox;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
 
+import com.aof.mcinabox.AdaptBoatApp.ArgsModel;
 import com.aof.mcinabox.initUtils.LauncherSettingModel;
 import com.aof.mcinabox.ioUtils.FileTool;
 import com.aof.mcinabox.ioUtils.PathTool;
@@ -18,9 +21,11 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import cosine.boat.LauncherActivity;
 import cosine.boat.MinecraftVersion;
 
 public class ReadyToStart {
+
     //首先初始化所需要的全部实例变量
     //然后执行Minecraft完整性和正确性检查(包括游戏主文件，游戏依赖库，游戏资源文件) *根据用户选择
     //然后执行运行库完整性和架构正确性检查 *根据用户选择
@@ -62,6 +67,12 @@ public class ReadyToStart {
         --versionType 含义:"后接版本类型"
     */
 
+    boolean doEnableOTG =false;
+    boolean notEnableVirtualKeyboard = false;
+    boolean forceRootRuntime =false;
+    String[] CMD;
+    Context context;
+
     /**【执行启动游戏】**/
     public void StartGame(){
         /*if(isCheckGame){
@@ -74,15 +85,19 @@ public class ReadyToStart {
                 return;
             }
         }*/
-        String[] CMD = MakeStartCmd();
+        CMD = MakeStartCmd();
+        //输出测试
         for (String arg : CMD){
             System.out.print(arg+" ");
             Log.e("StartGame",arg);
         }
+        Intent intent = MakePushIntent();
+        context.startActivity(intent);
 
     }
 
-    public ReadyToStart(String MCinaBox_Version,String MCinaBox_HomePath,String versionId){
+    public ReadyToStart(Context context,String MCinaBox_Version,String MCinaBox_HomePath,String versionId){
+        this.context = context;
         this.MCinaBox_Version = MCinaBox_Version;
         this.MCinaBox_HomePath = MCinaBox_HomePath;
         this.MCinaBox_privatePath = MCinaBox_privatePath;
@@ -263,7 +278,7 @@ public class ReadyToStart {
         ArgsMap.put("{assets_index_name}",versionSetting.getAssets());
         ArgsMap.put("{assets_root}",minecraft_assets_path);
         ArgsMap.put("{game_directory}",minecraft_home_path);
-        ArgsMap.put("{version_name}","/'" + "MCinaBox " + MCinaBox_Version + "/'");
+        ArgsMap.put("{version_name}","%'" + "MCinaBox " + MCinaBox_Version + "%'");
         ArgsMap.put("{version_type}",versionSetting.getType());
 
         for(int i = 0;i < JsString.length();i++){
@@ -313,6 +328,28 @@ public class ReadyToStart {
 
         launcherSetting = new Gson().fromJson(reader, LauncherSettingModel.class);
         return launcherSetting;
+    }
+
+    /**【根据启动器设置初始化必要的变量】**/
+    public void InitSomeSettngs(){
+        LauncherSettingModel Setting = GetLauncherSettingFromFile();
+        doEnableOTG = Setting.getConfigurations().isEnableOtg();
+        notEnableVirtualKeyboard = Setting.getConfigurations().isNotEnableVirtualKeyboard();
+        forceRootRuntime = true;
+    }
+
+    /**【将ArgsModel对象序列化得到Intent】**/
+    public Intent MakePushIntent(){
+        InitSomeSettngs();
+        ArgsModel argsModel = new ArgsModel();
+        argsModel.setArgs(CMD);
+        argsModel.setNotEnableVirtualKeyboard(notEnableVirtualKeyboard);
+        argsModel.setDoEnableOTG(doEnableOTG);
+        argsModel.setForceRootRuntime(forceRootRuntime);
+        Intent intent = new Intent(context,LauncherActivity.class);
+        intent.putExtra("LauncherConfig",argsModel);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        return intent;
     }
 
 }

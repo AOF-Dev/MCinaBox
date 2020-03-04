@@ -48,7 +48,6 @@ public class LauncherSettingModel {
     private String localization; //存储路径："public"共有目录 "private"私有目录
     private  String downloadType; //下载源："office"官方 "bmclapi"国内BMCLAPI "mcbbs"国内MCBBS
     private String keyboard; //虚拟键盘： ""选择的键盘模板
-    private boolean isUsing; //该配置是否正在被使用
     private Configurations configurations; //全局游戏设置
     private Accounts[] accounts; //用户信息
 
@@ -115,8 +114,6 @@ public class LauncherSettingModel {
     }
 
     //Getter and Setter
-    public boolean isUsing() { return isUsing; }
-    public void setUsing(boolean using) { isUsing = using; }
     public String getLocalization() { return localization; }
     public void setLocalization(String localization) { this.localization = localization; }
     public String getDownloadType() { return downloadType; }

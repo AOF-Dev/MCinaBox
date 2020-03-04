@@ -723,7 +723,7 @@
         android:layout_height="0dp"
         android:background="@drawable/background_layout_fictionlist"
         android:orientation="vertical"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
@@ -755,6 +755,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
+                    android:visibility="gone"
                     android:orientation="horizontal">
 
                     <TextView
@@ -776,6 +777,7 @@
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="1px"
+                    android:visibility="gone"
                     android:background="@android:color/background_dark" />
 
                 <LinearLayout
@@ -879,6 +881,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
+                    android:visibility="gone"
                     android:orientation="horizontal">
 
                     <TextView
@@ -900,12 +903,14 @@
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="1px"
+                    android:visibility="gone"
                     android:background="@android:color/background_dark" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
+                    android:visibility="gone"
                     android:orientation="horizontal">
 
                     <TextView
@@ -927,6 +932,7 @@
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="1px"
+                    android:visibility="gone"
                     android:background="@android:color/background_dark" />
 
                 <LinearLayout
@@ -960,6 +966,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
+                    android:visibility="gone"
                     android:orientation="horizontal">
 
                     <TextView
@@ -980,6 +987,7 @@
 
                 <View
                     android:layout_width="fill_parent"
+                    android:visibility="gone"
                     android:layout_height="1px"
                     android:background="@android:color/background_dark" />
 
@@ -1221,7 +1229,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/background_layout_fictionlist"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/layout_fictionlist"

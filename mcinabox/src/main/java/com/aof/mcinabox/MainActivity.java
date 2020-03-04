@@ -343,20 +343,22 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                     radioButton_gamedir_public.setChecked(true);
                     radioButton_gamedir_private.setChecked(false);
                     MCinaBox_HomePath = MCinaBox_PublicPath;
+                    SaveLauncherSettingToFile(LauncherConfigFile);
                     initLauncher();
                     break;
                 case R.id.radiobutton_gamedir_private:
                     radioButton_gamedir_private.setChecked(true);
                     radioButton_gamedir_public.setChecked(false);
                     MCinaBox_HomePath = MCinaBox_PrivatePath;
+                    SaveLauncherSettingToFile(LauncherConfigFile);
                     initLauncher();
                     break;
 
                 case R.id.main_button_startgame:
-                    SaveLauncherSettingToFile(true, new File(MCinaBox_HomePath + "/mcinabox.json"));
+                    SaveLauncherSettingToFile(LauncherConfigFile);
                     if (spinner_choice_version.getSelectedItem() != null && !spinner_choice_version.getSelectedItem().equals("")) {
                         Toast.makeText(getApplicationContext(), "Start", Toast.LENGTH_SHORT).show();
-                        toStart = new ReadyToStart("0.1.0", MCinaBox_HomePath, spinner_choice_version.getSelectedItem().toString());
+                        toStart = new ReadyToStart(getApplicationContext(),"0.1.0", MCinaBox_HomePath, spinner_choice_version.getSelectedItem().toString());
                         toStart.StartGame();
                     } else {
                         Toast.makeText(getApplicationContext(), "请选择游戏版本", Toast.LENGTH_SHORT).show();
@@ -609,7 +611,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     @Override
     public void onDestroy() {
         super.onDestroy();
-        SaveLauncherSettingToFile(true, null);
+        SaveLauncherSettingToFile(LauncherConfigFile);
         if (broadcastReceiver1 != null) {
             unregisterReceiver(broadcastReceiver1);
         }
@@ -703,7 +705,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     //可以根据情况传入isContinueUsing参数，来设定配置文件的isUsing参数
     //但是你必须保证，如果你已经同时启用了共有目录和私有目录，不要将两个模板的isUsing设定为相同的值
     //你还可以传入configFile参数，来将配置存储到特定的配置文件中
-    private LauncherSettingModel SaveLauncherSettingToFile(boolean isContinueUsing, File configFile) {
+    private LauncherSettingModel SaveLauncherSettingToFile(File configFile) {
         if (configFile == null) {
             configFile = new File(MCinaBox_HomePath + "/mcinabox.json");
         }
@@ -734,7 +736,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         //给模板对象设定参数
         settingModel.setDownloadType((String) setting_downloadtype.getSelectedItem());
         settingModel.setKeyboard((String) setting_keyboard.getSelectedItem());
-        settingModel.setUsing(isContinueUsing);
         configurations.setJava((String) setting_java.getSelectedItem());
         configurations.setOpengl((String) setting_opengl.getSelectedItem());
         configurations.setOpenal((String) setting_openal.getSelectedItem());
@@ -810,6 +811,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
     /**
      * 【检查目标配置文件是否正在被使用】
+     * 【已弃用】
      **/
     //可以检查目标配置文件是否是上一次保存时使用的
     //必须在启动时使用一次，来确定上一次使用的配置文件是哪一个目录类型中的
@@ -829,7 +831,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        return settingModel.isUsing();
+        //return settingModel.isUsing();
+        return false;
     }
 
     /**
@@ -890,7 +893,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     //也可再根据情况使用，使用前请保证启动器设置模板为最新状态
     public ArrayList<UserListBean> ReflashLocalUserList(boolean isSaveBeforeReflash) {
         if (isSaveBeforeReflash) {
-            SaveLauncherSettingToFile(true, LauncherConfigFile);
+            SaveLauncherSettingToFile(LauncherConfigFile);
         }
         LauncherSettingModel.Accounts[] accounts = CheckLauncherSettingFile().getAccounts();
         ArrayList<UserListBean> userlist = new ArrayList<UserListBean>();
