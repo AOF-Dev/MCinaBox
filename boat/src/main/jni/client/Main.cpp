@@ -11,7 +11,7 @@ void onResume(ANativeActivity* activity){
 }
 
 void* onSaveInstanceState(ANativeActivity* activity, size_t* outSize){
-	
+	return 0;
 }
 
 void onPause(ANativeActivity* activity){

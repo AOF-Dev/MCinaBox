@@ -358,7 +358,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                     SaveLauncherSettingToFile(LauncherConfigFile);
                     if (spinner_choice_version.getSelectedItem() != null && !spinner_choice_version.getSelectedItem().equals("")) {
                         Toast.makeText(getApplicationContext(), "Start", Toast.LENGTH_SHORT).show();
-                        toStart = new ReadyToStart(getApplicationContext(),"0.1.0", MCinaBox_HomePath, spinner_choice_version.getSelectedItem().toString());
+                        toStart = new ReadyToStart(getApplicationContext(),"0.1.0", MCinaBox_HomePath, spinner_choice_version.getSelectedItem().toString(),setting_keyboard.getSelectedItem().toString());
                         toStart.StartGame();
                     } else {
                         Toast.makeText(getApplicationContext(), "请选择游戏版本", Toast.LENGTH_SHORT).show();

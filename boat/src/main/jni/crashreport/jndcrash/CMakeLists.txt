@@ -15,7 +15,7 @@ set(ENABLE_STACKSCAN ON)
 include(${CMAKE_SOURCE_DIR}/../jndcrash.cmake OPTIONAL)
 
 # Adding NDCrash submodule subdirectory
-add_subdirectory(libndcrash)
+#add_subdirectory(libndcrash)
 
 # Setting up definitions. The same as used for NDCrash.
 if (${ENABLE_INPROCESS})

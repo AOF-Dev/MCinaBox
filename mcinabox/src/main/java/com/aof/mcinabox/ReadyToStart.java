@@ -21,6 +21,7 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import cosine.boat.BoatClientActivity;
 import cosine.boat.LauncherActivity;
 import cosine.boat.MinecraftVersion;
 
@@ -30,7 +31,10 @@ public class ReadyToStart {
     //然后执行Minecraft完整性和正确性检查(包括游戏主文件，游戏依赖库，游戏资源文件) *根据用户选择
     //然后执行运行库完整性和架构正确性检查 *根据用户选择
     //然后执行java虚拟机位置获取，jvm参数的获取，Minecraft参数的获取
-    //最后执行java虚拟机位置+jvm参数+Minecraft参数的拼接，并传递到Boat后端，实现启动。
+    //然后执行java虚拟机位置+jvm参数+Minecraft参数的拼接，实现参数拼接。
+    //然后初始化一个ArgsModel对象，设定notEnableVirtualKeyboard,doEnableOTG,forceRootRuntime,和Args数组。
+    //然后序列化ArgsModel对象为字符串，放入intent中传入cosine.boat.LauncherActivity
+    //最后在cosine.boat.LauncherActivity中解序列化得到ArgsModel对象，完成启动器设定
     /*
 
      JVM参数以及含义:
@@ -96,7 +100,7 @@ public class ReadyToStart {
 
     }
 
-    public ReadyToStart(Context context,String MCinaBox_Version,String MCinaBox_HomePath,String versionId){
+    public ReadyToStart(Context context,String MCinaBox_Version,String MCinaBox_HomePath,String versionId,String KeyboardName){
         this.context = context;
         this.MCinaBox_Version = MCinaBox_Version;
         this.MCinaBox_HomePath = MCinaBox_HomePath;
@@ -110,6 +114,7 @@ public class ReadyToStart {
         maxMemory = launcherSetting.getConfigurations().getMaxMemory();
         isCheckGame = !launcherSetting.getConfigurations().isNotCheckGame();
         isCheckFormat = !launcherSetting.getConfigurations().isNotCheckJvm();
+        KeyboardFileName = KeyboardName;
         versionSetting = (new AnaliesMinecraftVersionJson()).getModelMinecraftVersionJson(minecraft_version_path + versionId + "/" + versionId + ".json");
     }
 
@@ -122,6 +127,7 @@ public class ReadyToStart {
     private String minecraft_version_path;
     private String minecraft_assets_path;
     private String minecraft_libraries_path;
+    private String KeyboardFileName;
     //初始化该类必须要传入MCinaBox的前端设置
     LauncherSettingModel launcherSetting;
     int maxMemory;
@@ -278,7 +284,7 @@ public class ReadyToStart {
         ArgsMap.put("{assets_index_name}",versionSetting.getAssets());
         ArgsMap.put("{assets_root}",minecraft_assets_path);
         ArgsMap.put("{game_directory}",minecraft_home_path);
-        ArgsMap.put("{version_name}","%'" + "MCinaBox " + MCinaBox_Version + "%'");
+        ArgsMap.put("{version_name}","\"" + "MCinaBox " + MCinaBox_Version + "\"");
         ArgsMap.put("{version_type}",versionSetting.getType());
 
         for(int i = 0;i < JsString.length();i++){
@@ -346,7 +352,9 @@ public class ReadyToStart {
         argsModel.setNotEnableVirtualKeyboard(notEnableVirtualKeyboard);
         argsModel.setDoEnableOTG(doEnableOTG);
         argsModel.setForceRootRuntime(forceRootRuntime);
-        Intent intent = new Intent(context,LauncherActivity.class);
+        argsModel.setKeyboardName(KeyboardFileName);
+        //Intent intent = new Intent(context,LauncherActivity.class);
+        Intent intent = new Intent(context, BoatClientActivity.class);
         intent.putExtra("LauncherConfig",argsModel);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         return intent;

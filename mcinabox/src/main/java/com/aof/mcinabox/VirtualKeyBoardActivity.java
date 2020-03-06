@@ -195,6 +195,7 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
         }else if(shape.equals("round")){
             KeyButton.setBackground(this.getDrawable(R.drawable.control_button_round));
         }*/
+
         GradientDrawable gradientDrawable = new GradientDrawable();
         gradientDrawable.setShape(GradientDrawable.RECTANGLE);
         gradientDrawable.setColor(ColorUtils.hex2Int(colorhex));
