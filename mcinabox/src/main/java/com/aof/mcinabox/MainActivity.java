@@ -50,6 +50,7 @@ import com.aof.mcinabox.loaclVersionUtil.LocalVersionListBean;
 import com.aof.mcinabox.userUtil.UserListAdapter;
 import com.aof.mcinabox.userUtil.UserListBean;
 import com.google.gson.Gson;
+import com.google.gson.internal.bind.DateTypeAdapter;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -67,7 +68,10 @@ import java.util.UUID;
 
 import cosine.boat.LauncherActivity;
 
+import static com.aof.mcinabox.DataPathManifest.*;
+
 public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
+
     public Button[] launcherBts;
     public Button button_user, button_gameselected, button_gamelist, button_gamedir, button_launchersetting, button_launchercontrol, toolbar_button_backhome, toolbar_button_backfromhere;
 
@@ -103,7 +107,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     public ListVersionManifestJson.Version selectedVersion;
     public ModelMinecraftVersionJson selectedVersionJson;
     public int selectedVersionPos = -1;
-    public String MCinaBox_HomePath, MCinaBox_PublicPath, MCinaBox_PrivatePath;
     public File LauncherConfigFile;
     public ReadyToStart toStart;
 
@@ -111,6 +114,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     public EditText dialog_editText_username, dialog_editText_access;
     public CheckBox dialog_checkBox_usermodel;
     public ConfigDialog userCreateDialog;
+    public String DATA_PATH;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -229,10 +233,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
          */
 
         //配置MCinaBox的全局目录
-        MCinaBox_PublicPath = "/sdcard/MCinaBox";
-        MCinaBox_PrivatePath = getExternalFilesDir(null).getPath() + "/MCinaBox";
-        MCinaBox_HomePath = MCinaBox_PublicPath;
-        LauncherConfigFile = new File(MCinaBox_PrivatePath + "/mcinabox.json");
+        LauncherConfigFile = new File(MCINABOX_HOME + "/mcinabox.json");
+        DATA_PATH = "";
         //载入启动器配置文件
         initLauncher();
 
@@ -342,14 +344,14 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 case R.id.radiobutton_gamedir_public:
                     radioButton_gamedir_public.setChecked(true);
                     radioButton_gamedir_private.setChecked(false);
-                    MCinaBox_HomePath = MCinaBox_PublicPath;
+                    DATA_PATH = MCINABOX_DATA_PUBLIC;
                     SaveLauncherSettingToFile(LauncherConfigFile);
                     initLauncher();
                     break;
                 case R.id.radiobutton_gamedir_private:
                     radioButton_gamedir_private.setChecked(true);
                     radioButton_gamedir_public.setChecked(false);
-                    MCinaBox_HomePath = MCinaBox_PrivatePath;
+                    DATA_PATH = MCINABOX_DATA_PRIVATE;
                     SaveLauncherSettingToFile(LauncherConfigFile);
                     initLauncher();
                     break;
@@ -358,7 +360,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                     SaveLauncherSettingToFile(LauncherConfigFile);
                     if (spinner_choice_version.getSelectedItem() != null && !spinner_choice_version.getSelectedItem().equals("")) {
                         Toast.makeText(getApplicationContext(), "Start", Toast.LENGTH_SHORT).show();
-                        toStart = new ReadyToStart(getApplicationContext(),"0.1.0", MCinaBox_HomePath, spinner_choice_version.getSelectedItem().toString(),setting_keyboard.getSelectedItem().toString());
+                        toStart = new ReadyToStart(getApplicationContext(),"0.1.0", DATA_PATH, spinner_choice_version.getSelectedItem().toString(),setting_keyboard.getSelectedItem().toString());
                         toStart.StartGame();
                     } else {
                         Toast.makeText(getApplicationContext(), "请选择游戏版本", Toast.LENGTH_SHORT).show();
@@ -394,8 +396,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
      * 【下载清单列表文件】
      **/
     private long DownloadVersionList() {
-        Toast.makeText(this, "当前路径 " + MCinaBox_HomePath, Toast.LENGTH_SHORT).show();
-        DownloadMinecraft downloadTask = new DownloadMinecraft(GetDownloadServerUrl(setting_downloadtype.getSelectedItem().toString(), 0), GetDownloadServerUrl(setting_downloadtype.getSelectedItem().toString(), 1), MCinaBox_HomePath);
+        DownloadMinecraft downloadTask = new DownloadMinecraft(GetDownloadServerUrl(setting_downloadtype.getSelectedItem().toString(), 0), GetDownloadServerUrl(setting_downloadtype.getSelectedItem().toString(), 1), DATA_PATH);
         return (downloadTask.UpdateVersionManifestJson(this));
     }
 
@@ -403,7 +404,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
      * 【下载从网络版本列表中选择的版本】
      **/
     private void DownloadSelectedVersion() {
-        DownloadMinecraft downloadTask = new DownloadMinecraft(GetDownloadServerUrl(setting_downloadtype.getSelectedItem().toString(), 0), GetDownloadServerUrl(setting_downloadtype.getSelectedItem().toString(), 1), MCinaBox_HomePath);
+        DownloadMinecraft downloadTask = new DownloadMinecraft(GetDownloadServerUrl(setting_downloadtype.getSelectedItem().toString(), 0), GetDownloadServerUrl(setting_downloadtype.getSelectedItem().toString(), 1), DATA_PATH);
         long taskId;
         ListVersionManifestJson.Version targetVer = null;
         for (ListVersionManifestJson.Version version : versionList) {
@@ -425,7 +426,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
      * 【下载依赖库文件】
      **/
     private void DownloadVersionLibraries() {
-        DownloadMinecraft downloadTask = new DownloadMinecraft(GetDownloadServerUrl(setting_downloadtype.getSelectedItem().toString(), 0), GetDownloadServerUrl(setting_downloadtype.getSelectedItem().toString(), 1), MCinaBox_HomePath);
+        DownloadMinecraft downloadTask = new DownloadMinecraft(GetDownloadServerUrl(setting_downloadtype.getSelectedItem().toString(), 0), GetDownloadServerUrl(setting_downloadtype.getSelectedItem().toString(), 1), DATA_PATH);
         ModelMinecraftVersionJson version = new AnaliesMinecraftVersionJson().getModelMinecraftVersionJson(downloadTask.getMINECRAFT_VERSION_DIR() + selectedVersion.getId() + "/" + selectedVersion.getId() + ".json");
         //执行minecraft jar文件的下载
         downloadTask.DownloadMinecraftJar(version.getId(), version.getDownloads().getClient().getUrl(), this);
@@ -448,7 +449,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     //可以获取minecraft游戏资源文件
     //请保证使用前村咋对应的资源索引文件
     private void DownloadVersionAssets() {
-        DownloadMinecraft downloadTask = new DownloadMinecraft(GetDownloadServerUrl(setting_downloadtype.getSelectedItem().toString(), 0), GetDownloadServerUrl(setting_downloadtype.getSelectedItem().toString(), 1), MCinaBox_HomePath);
+        DownloadMinecraft downloadTask = new DownloadMinecraft(GetDownloadServerUrl(setting_downloadtype.getSelectedItem().toString(), 0), GetDownloadServerUrl(setting_downloadtype.getSelectedItem().toString(), 1), DATA_PATH);
 
         ModelMinecraftAssetsJson assets = new AnaliesMinecraftAssetJson().getModelMinecraftAssetsJson(downloadTask.getMINECRAFT_ASSETS_DIR() + "objects/indexes/" + selectedVersionJson.getAssetIndex().getId() + ".json");
         Set<String> keySets = assets.getObjects().keySet();
@@ -469,7 +470,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     //可以通过版本类型将版本分类并更新列表
     //使用前必须保证更新一次版本清单文件
     private void ReflashOnlineVersionList() {
-        DownloadMinecraft downloadTask = new DownloadMinecraft(GetDownloadServerUrl(setting_downloadtype.getSelectedItem().toString(), 0), GetDownloadServerUrl(setting_downloadtype.getSelectedItem().toString(), 1), MCinaBox_HomePath);
+        DownloadMinecraft downloadTask = new DownloadMinecraft(GetDownloadServerUrl(setting_downloadtype.getSelectedItem().toString(), 0), GetDownloadServerUrl(setting_downloadtype.getSelectedItem().toString(), 1), DATA_PATH);
         //获取实例化后的versionList
         versionList = new AnaliesVersionManifestJson().getVersionList(downloadTask.getMINECRAFT_TEMP() + "version_manifest.json");
         String[] nameList;
@@ -707,7 +708,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     //你还可以传入configFile参数，来将配置存储到特定的配置文件中
     private LauncherSettingModel SaveLauncherSettingToFile(File configFile) {
         if (configFile == null) {
-            configFile = new File(MCinaBox_HomePath + "/mcinabox.json");
+            configFile = new File(MCINABOX_FILE_JSON);
         }
         Gson gson = new Gson();
 
@@ -841,11 +842,9 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     //可以检查MCinaBox必要的目录结构，如果目录结构不完整将自动创建目录
     //必须在启动时执行一次，如果目录结构不完整将会导致启动器崩溃
     public void CheckMcinaBoxDir() {
-        FileTool.checkFilePath(new File(MCinaBox_PrivatePath), true);
-        FileTool.checkFilePath(new File(MCinaBox_PrivatePath + "/.minecraft/Temp"), true);
-        FileTool.checkFilePath(new File(MCinaBox_PrivatePath + "/Keyboardmodel"), true);
-        FileTool.checkFilePath(new File(MCinaBox_PublicPath), true);
-        FileTool.checkFilePath(new File(MCinaBox_PublicPath + "/.minecraft"), true);
+        for(String path : MCINABOX_ALLPATH){
+            FileTool.checkFilePath(new File(path), true);
+        }
     }
 
     /**
@@ -856,7 +855,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     //必须在启动器配置时使用一次，以显示本地游戏列表
     //也可再根据情况使用。
     public void ReflashLocalVersionList() {
-        PathTool pathTool = new PathTool(MCinaBox_HomePath);
+        PathTool pathTool = new PathTool(DATA_PATH);
         ArrayList<String> versionIdListTmp;
         try {
             versionIdListTmp = FileTool.listChildDirFromTargetDir(pathTool.getMINECRAFT_VERSION_DIR());
@@ -920,7 +919,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
      **/
     public void ReflashLocalKeyboardList() {
         ArrayList<String> KeyboardList = new ArrayList<String>();
-        File file = new File(MCinaBox_PrivatePath + "/Keyboardmodel/");
+        File file = new File(MCINABOX_KEYBOARD);
         File[] files = file.listFiles();
         if (files == null) {
             return;
@@ -1061,11 +1060,11 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             setting_enableOtg.setChecked(Setting.getConfigurations().isEnableOtg());
 
             if (Setting.getLocalization().equals("public")) {
-                MCinaBox_HomePath = MCinaBox_PublicPath;
+                DATA_PATH = MCINABOX_DATA_PUBLIC;
                 radioButton_gamedir_public.setChecked(true);
                 radioButton_gamedir_private.setChecked(false);
             } else {
-                MCinaBox_HomePath = MCinaBox_PrivatePath;
+                DATA_PATH = MCINABOX_DATA_PRIVATE;
                 radioButton_gamedir_public.setChecked(false);
                 radioButton_gamedir_private.setChecked(true);
             }

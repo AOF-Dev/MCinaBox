@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
 
-import com.aof.mcinabox.AdaptBoatApp.ArgsModel;
+import cosine.boat.AdaptMCinaBoxApp.ArgsModel;
 import com.aof.mcinabox.initUtils.LauncherSettingModel;
 import com.aof.mcinabox.ioUtils.FileTool;
 import com.aof.mcinabox.ioUtils.PathTool;
@@ -23,7 +23,9 @@ import java.util.HashMap;
 
 import cosine.boat.BoatClientActivity;
 import cosine.boat.LauncherActivity;
-import cosine.boat.MinecraftVersion;
+import com.aof.mcinabox.DataPathManifest;
+
+import static com.aof.mcinabox.DataPathManifest.*;
 
 public class ReadyToStart {
 
@@ -100,12 +102,12 @@ public class ReadyToStart {
 
     }
 
-    public ReadyToStart(Context context,String MCinaBox_Version,String MCinaBox_HomePath,String versionId,String KeyboardName){
+    public ReadyToStart(Context context,String MCinaBox_Version,String DATA_PATH,String versionId,String KeyboardName){
         this.context = context;
         this.MCinaBox_Version = MCinaBox_Version;
-        this.MCinaBox_HomePath = MCinaBox_HomePath;
-        this.MCinaBox_privatePath = MCinaBox_privatePath;
-        PathTool pathTool = new PathTool(MCinaBox_HomePath);
+        this.DATA_PATH = DATA_PATH;
+        //this.MCinaBox_privatePath = MCinaBox_privatePath;
+        PathTool pathTool = new PathTool(DATA_PATH);
         minecraft_home_path = pathTool.getMINECRAFT_DIR();
         minecraft_assets_path = pathTool.getMINECRAFT_ASSETS_DIR();
         minecraft_version_path = pathTool.getMINECRAFT_VERSION_DIR();
@@ -121,13 +123,12 @@ public class ReadyToStart {
     //
     private String runtimePath = "/data/user/0/cosine.boat/app_runtime"; //**
     private String MCinaBox_Version; //*
-    private String MCinaBox_HomePath; //*
-    private String MCinaBox_privatePath; //*
-    private String minecraft_home_path;
-    private String minecraft_version_path;
-    private String minecraft_assets_path;
-    private String minecraft_libraries_path;
+    private String DATA_PATH; //*
     private String KeyboardFileName;
+    private String minecraft_home_path;
+    private String minecraft_assets_path;
+    private String minecraft_version_path;
+    private String minecraft_libraries_path;
     //初始化该类必须要传入MCinaBox的前端设置
     LauncherSettingModel launcherSetting;
     int maxMemory;
@@ -195,7 +196,7 @@ public class ReadyToStart {
         String JVM_minecraft_launcher_version = "-Dminecraft.launcher.version=" + MCinaBox_Version;
         String JVM_java_library_path = "-Djava.library.path=" + runtimePath + "/j2re-image/lib/aarch32/jli:" + runtimePath + "/j2re-image/lib/aarch32:" + runtimePath;
         String JVM_ExtraArgs = launcherSetting.getConfigurations().getJavaArgs();
-        String JVM_ClassPath = "-cp";
+        String JVM_ClassPath = "-cp ";
 
         //注意加入list时的顺序
         JVM_Args.add(JVM__minecraft_client_jar);
@@ -323,13 +324,14 @@ public class ReadyToStart {
         InputStream inputStream;
         Reader reader = null;
         LauncherSettingModel launcherSetting;
-        File configFile = new File(MCinaBox_HomePath + "/mcinabox.json");
+        File configFile = new File(MCINABOX_FILE_JSON);
 
         try {
             inputStream = new FileInputStream(configFile);
             reader = new InputStreamReader(inputStream);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            Log.e("LoadSetting",e.toString());
         }
 
         launcherSetting = new Gson().fromJson(reader, LauncherSettingModel.class);

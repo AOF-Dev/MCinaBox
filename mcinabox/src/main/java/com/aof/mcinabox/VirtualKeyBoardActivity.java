@@ -3,11 +3,8 @@ package com.aof.mcinabox;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -26,19 +23,13 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.aof.mcinabox.colorUtils.ColorUtils;
 import com.google.gson.Gson;
-
-import com.aof.mcinabox.keyboardUtils.ConfigDialog;
-import com.aof.mcinabox.keyboardUtils.GameButton;
-import com.aof.mcinabox.keyboardUtils.KeyboardJsonModel;
+import com.aof.mcinabox.keyboardUtils.*;
 import com.shixia.colorpickerview.ColorPickerView;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -51,6 +42,7 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import static com.aof.mcinabox.DataPathManifest.*;
 
 public class VirtualKeyBoardActivity extends AppCompatActivity {
 
@@ -81,7 +73,7 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_virtual_keyboard);
 
-        KeyboardDirPath = getExternalFilesDir(null).getPath()+"/MCinaBox/Keyboardmodel/";
+        KeyboardDirPath = MCINABOX_KEYBOARD;
 
         configDialog = new ConfigDialog(VirtualKeyBoardActivity.this,R.layout.dialog_configkey,true);
         loadDialog = new ConfigDialog(VirtualKeyBoardActivity.this,R.layout.dialog_loadmodel,true);
@@ -188,13 +180,6 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
         KeyButton.setSpecialTwoPos(SpecialTwoPos);
         KeyButton.setCornerRadius(conerRadius);
         KeyButton.setColorHex(colorhex);
-
-        //KeyButton.setBackgroundColor(Color.parseColor("#A6A4A2"));
-        /*if(shape.equals("square")){
-            KeyButton.setBackground(this.getDrawable(R.drawable.control_button_square));
-        }else if(shape.equals("round")){
-            KeyButton.setBackground(this.getDrawable(R.drawable.control_button_round));
-        }*/
 
         GradientDrawable gradientDrawable = new GradientDrawable();
         gradientDrawable.setShape(GradientDrawable.RECTANGLE);

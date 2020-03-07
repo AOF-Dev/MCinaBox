@@ -39,6 +39,8 @@ import java.util.List;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.gson.Gson;
 
 import cosine.boat.AdaptMCinaBoxApp.ArgsModel;
@@ -49,7 +51,7 @@ import cosine.boat.AdaptMCinaBoxApp.KeyboardJsonModel;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-public class BoatClientActivity extends NativeActivity implements View.OnClickListener, View.OnTouchListener, TextWatcher, TextView.OnEditorActionListener {
+public class BoatClientActivity extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener, TextWatcher, TextView.OnEditorActionListener {
 
     public ArgsModel argsModel;
     public ArrayList<GameButton> KeyboardList;
@@ -137,7 +139,7 @@ public class BoatClientActivity extends NativeActivity implements View.OnClickLi
         popupWindow.dismiss();
     }
 
-
+/*
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
 
@@ -159,7 +161,8 @@ public class BoatClientActivity extends NativeActivity implements View.OnClickLi
         }.start();
 
 
-    }
+
+    }*/
 
 
     //private boolean overlayCreated = false;
