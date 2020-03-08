@@ -18,17 +18,37 @@ public class GameButton extends androidx.appcompat.widget.AppCompatButton {
     private int SpecialTwoPos;
     private int cornerRadius;
     private String colorHex;
-    private int KeyLX_dp;
-    private int KeyLY_dp;
-    private int KeySize;
 
-
-    public int getKeySize() {
-        return KeySize;
+    public String getTextColorHex() {
+        return TextColorHex;
     }
 
-    public void setKeySize(int keySize) {
-        KeySize = keySize;
+    public void setTextColorHex(String textColorHex) {
+        TextColorHex = textColorHex;
+    }
+
+    public int getKeySizeH() {
+        return KeySizeH;
+    }
+
+    public void setKeySizeH(int keySizeH) {
+        KeySizeH = keySizeH;
+    }
+
+    private String TextColorHex;
+    private int KeyLX_dp;
+    private int KeyLY_dp;
+    private int KeySizeW;
+    private int KeySizeH;
+
+
+
+    public int getKeySizeW() {
+        return KeySizeW;
+    }
+
+    public void setKeySizeW(int keySizeW) {
+        KeySizeW = keySizeW;
     }
 
     public int getKeyLX_dp() { return KeyLX_dp; }

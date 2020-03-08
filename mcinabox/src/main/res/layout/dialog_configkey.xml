@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="250dp"
-    android:layout_height="300dp"
+    android:layout_width="300dp"
+    android:layout_height="350dp"
     android:background="@drawable/background_layout_item_alpha">
 
     <LinearLayout
@@ -114,11 +114,29 @@
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:text="大小(Dp)"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="宽"/>
+
             <EditText
-                android:id="@+id/dialog_key_size"
-                android:layout_width="match_parent"
+                android:id="@+id/dialog_key_sizeW"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:inputType="number"/>
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="高"/>
+            <EditText
+                android:id="@+id/dialog_key_sizeH"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:inputType="number"/>
+
         </LinearLayout>
 
         <LinearLayout
@@ -298,22 +316,27 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
                 android:text="组合键一" />
 
             <Spinner
                 android:id="@+id/dialog_key_specialone"
-                android:layout_width="60dp"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
+                android:textSize="10sp"
                 android:entries="@array/keymap_special_arry"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:text="组合键二" />
 
             <Spinner
                 android:id="@+id/dialog_key_specialtwo"
-                android:layout_width="60dp"
+                android:layout_width="80dp"
+                android:textSize="10sp"
                 android:layout_height="wrap_content"
                 android:entries="@array/keymap_special_arry"/>
         </LinearLayout>

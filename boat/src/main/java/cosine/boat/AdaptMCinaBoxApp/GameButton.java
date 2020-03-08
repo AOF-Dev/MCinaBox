@@ -8,24 +8,26 @@ public class GameButton extends androidx.appcompat.widget.AppCompatButton {
     public GameButton(Context context){
         super(context);
     }
+    private String specialOne;
+    private String specialTwo;
     private boolean isKeep;
     private boolean isHide;
     private boolean isMult;
     private String KeyMain;
-    private String specialOne;
-    private String specialTwo;
     private String shape;
     private int MainPos;
     private int SpecialOnePos;
     private int SpecialTwoPos;
     private int cornerRadius;
     private String colorHex;
-    private int KeyLX_dp;
-    private int KeyLY_dp;
-    private int KeySize;
     private int MainIndex;
     private int SpecialOneIndex;
     private int SpecialTwoIndex;
+    private String TextColorHex;
+    private int KeyLX_dp;
+    private int KeyLY_dp;
+    private int KeySizeW;
+    private int KeySizeH;
 
     public int getMainIndex() { return MainIndex; }
     public void setMainIndex(int mainIndex) { MainIndex = mainIndex; }
@@ -33,8 +35,17 @@ public class GameButton extends androidx.appcompat.widget.AppCompatButton {
     public void setSpecialOneIndex(int specialOneIndex) { SpecialOneIndex = specialOneIndex;}
     public int getSpecialTwoIndex() { return SpecialTwoIndex; }
     public void setSpecialTwoIndex(int specialTwoIndex) { SpecialTwoIndex = specialTwoIndex; }
-    public int getKeySize() { return KeySize; }
-    public void setKeySize(int keySize) { KeySize = keySize; }
+    public String getTextColorHex() { return TextColorHex; }
+    public void setTextColorHex(String textColorHex) { TextColorHex = textColorHex; }
+    public int getKeySizeH() { return KeySizeH; }
+    public void setKeySizeH(int keySizeH) { KeySizeH = keySizeH; }
+
+    public int getKeySizeW() {
+        return KeySizeW;
+    }
+    public void setKeySizeW(int keySizeW) {
+        KeySizeW = keySizeW;
+    }
     public int getKeyLX_dp() { return KeyLX_dp; }
     public void setKeyLX_dp(int keyLX_dp) { KeyLX_dp = keyLX_dp; }
     public int getKeyLY_dp() { return KeyLY_dp; }

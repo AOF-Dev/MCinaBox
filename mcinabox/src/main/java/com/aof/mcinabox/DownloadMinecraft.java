@@ -8,6 +8,7 @@ import com.aof.mcinabox.downloadUtils.Downloader;
 import com.aof.mcinabox.jsonUtils.ModelMinecraftVersionJson;
 
 import java.io.File;
+import static com.aof.mcinabox.DataPathManifest.*;
 
 public class DownloadMinecraft {
 
@@ -19,20 +20,20 @@ public class DownloadMinecraft {
         MINECRAFT_URL = url;
         MINECRAFT_ASSETS_URL =assetsUrl;
         MINECRAFT_DIR = MCinaBox_Home + "/.minecraft/";
-        MINECRAFT_TEMP = MINECRAFT_DIR + "Temp/";
+        MINECRAFT_TEMP = MCinaBox_Home + "temp/";
         MINECRAFT_VERSION_DIR = MINECRAFT_DIR + "versions/";
         MINECRAFT_LIBRARIES_DIR = MINECRAFT_DIR + "libraries/";
         MINECRAFT_ASSETS_DIR = MINECRAFT_DIR+"assets/";
         VERSION_MANIFEST_URL = MINECRAFT_URL + "/mc/game/version_manifest.json";
 
-        if(MCinaBox_Home.equals("/sdcard/MCinaBox")){
+        if(MCinaBox_Home.equals(MCINABOX_DATA_PUBLIC)){
             DOWNLOAD_DIR = "/MCinaBox/.minecraft/";
         }else{
             DOWNLOAD_DIR = "/Android/data/com.aof.mcinabox/files/MCinaBox/.minecraft/";
         }
 
         Log.e("下载路径 ",DOWNLOAD_DIR);
-        DOWNLOAD_TEMP = DOWNLOAD_DIR + "Temp/";
+        DOWNLOAD_TEMP = "/MCinaBox/temp/";
         DOWNLOAD_VERSION_DIR = DOWNLOAD_DIR + "versions/";
         DOWNLOAD_LIBRARIES_DIR = DOWNLOAD_DIR + "libraries/";
         DOWNLOAD_ASSETS_DIR = DOWNLOAD_DIR + "assets/";
@@ -91,7 +92,8 @@ public class DownloadMinecraft {
     public void setDOWNLOAD_LIBRARIES_DIR(String DOWNLOAD_LIBRARIES_DIR){this.DOWNLOAD_LIBRARIES_DIR = DOWNLOAD_LIBRARIES_DIR;}
     public String getDOWNLOAD_LIBRARIES_DIR() {return DOWNLOAD_LIBRARIES_DIR;}
 
-    //!!!传入缺省/sdcard的相对路径!!!
+    //!!!传入缺省/sdcard的相对路径
+    /*
     public void setInformation(String downloadType, String b,String home){
         //设置下载器参数
         this.setMINECRAFT_URL(downloadType);
@@ -102,7 +104,7 @@ public class DownloadMinecraft {
         this.setMINECRAFT_TEMP(getMINECRAFT_DIR()+"Temp/");
         this.setMINECRAFT_VERSION_DIR(getMINECRAFT_DIR()+"versions/");
         this.setMCinaBox_Home(home);
-    }
+    }*/
 
 
     //下载或更新Minecraft的版本信息文件version_manifest.json

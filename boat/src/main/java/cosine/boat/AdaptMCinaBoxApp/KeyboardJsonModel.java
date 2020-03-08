@@ -5,7 +5,8 @@ package cosine.boat.AdaptMCinaBoxApp;
 
 public class KeyboardJsonModel {
     private String KeyName;
-    private int KeySize;
+    private int KeySizeH;
+    private int KeySizeW;
     private int KeyAlpha;
     private int KeyLX;
     private int KeyLY;
@@ -20,16 +21,18 @@ public class KeyboardJsonModel {
     private int SpecialOnePos;
     private int SpecialTwoPos;
     private String colorhex;
+    private String TextColorHex;
     private int cornerRadius;
 
     public KeyboardJsonModel(){
         super();
     }
 
-    public KeyboardJsonModel(String keyName, int keySize, int keyAlpha, int keyLX, int keyLY, String keyMain, String specialOne, String specialTwo, boolean isAutoKeep, boolean isHide, boolean isMult, String shape, int mainPos, int specialOnePos, int specialTwoPos, String colorhex, int radius) {
+    public KeyboardJsonModel(String keyName, int keySizeW,int keySizeH, int keyAlpha, int keyLX, int keyLY, String keyMain, String specialOne, String specialTwo, boolean isAutoKeep, boolean isHide, boolean isMult, String shape, int mainPos, int specialOnePos, int specialTwoPos,String colorhex,int radius) {
         super();
         KeyName = keyName;
-        KeySize = keySize;
+        KeySizeH = keySizeH;
+        KeySizeW = keySizeW;
         KeyAlpha = keyAlpha;
         KeyLX = keyLX;
         KeyLY = keyLY;
@@ -45,7 +48,16 @@ public class KeyboardJsonModel {
         SpecialTwoPos = specialTwoPos;
         this.colorhex = colorhex;
         cornerRadius = radius;
+        //TextColorHex = textColorHex;
     }
+
+    public int getKeySizeH() { return KeySizeH; }
+
+    public void setKeySizeH(int keySizeH) { KeySizeH = keySizeH; }
+
+    public String getTextColorHex() { return TextColorHex; }
+
+    public void setTextColorHex(String textColorHex) { TextColorHex = textColorHex; }
 
     public int getCornerRadius() { return cornerRadius; }
 
@@ -59,12 +71,12 @@ public class KeyboardJsonModel {
         KeyName = keyName;
     }
 
-    public int getKeySize() {
-        return KeySize;
+    public int getKeySizeW() {
+        return KeySizeW;
     }
 
-    public void setKeySize(int keySize) {
-        KeySize = keySize;
+    public void setKeySizeW(int keySizeW) {
+        KeySizeW = keySizeW;
     }
 
     public int getKeyAlpha() {

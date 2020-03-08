@@ -593,7 +593,7 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
             if(tempList2.size() != 0){
                 Toast.makeText(this, "导入成功", Toast.LENGTH_SHORT).show();
                 for(KeyboardJsonModel targetModel : tempList2){
-                    GameButton gameButton = GetButtonFromModel(targetModel.getKeyName(),targetModel.getKeySize(),targetModel.getKeyAlpha(),targetModel.getKeyLX(),targetModel.getKeyLY(),targetModel.getKeyMain(),targetModel.getSpecialOne(),targetModel.getSpecialTwo(),targetModel.isAutoKeep(),targetModel.isHide(),targetModel.isMult(),targetModel.getShape(),targetModel.getMainPos(),targetModel.getSpecialOnePos(),targetModel.getSpecialTwoPos(),targetModel.getColorhex(),targetModel.getCornerRadius());
+                    GameButton gameButton = GetButtonFromModel(targetModel.getKeyName(),targetModel.getKeySizeW(),targetModel.getKeySizeH(),targetModel.getKeyAlpha(),targetModel.getKeyLX(),targetModel.getKeyLY(),targetModel.getKeyMain(),targetModel.getSpecialOne(),targetModel.getSpecialTwo(),targetModel.isAutoKeep(),targetModel.isHide(),targetModel.isMult(),targetModel.getShape(),targetModel.getMainPos(),targetModel.getSpecialOnePos(),targetModel.getSpecialTwoPos(),targetModel.getColorhex(),targetModel.getCornerRadius());
                     keyboardList.add(gameButton);
                 }
             }else{
@@ -606,16 +606,17 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
         return keyboardList;
     }
 
-    public GameButton GetButtonFromModel(String KeyName, int KeySize, int KeyAlpha, int KeyLX, int KeyLY, String KeyMain, String SpecialOne, String SpecialTwo, boolean isAutoKeep, boolean isHide, boolean isMult,String shape,int MainPos,int SpecialOnePos,int SpecialTwoPos,String colorhex,int conerRadius){
+    public GameButton GetButtonFromModel(String KeyName, int KeySizeW,int KeySizeH, int KeyAlpha, int KeyLX, int KeyLY, String KeyMain, String SpecialOne, String SpecialTwo, boolean isAutoKeep, boolean isHide, boolean isMult,String shape,int MainPos,int SpecialOnePos,int SpecialTwoPos,String colorhex,int conerRadius){
         GameButton KeyButton = new GameButton(getApplicationContext());
         //设置外观以及基本属性
         KeyButton.setText(KeyName);
-        KeyButton.setLayoutParams(new ViewGroup.LayoutParams(getPxFromDp(this,KeySize),getPxFromDp(this,KeySize) ));
+        KeyButton.setLayoutParams(new ViewGroup.LayoutParams(getPxFromDp(this,KeySizeW),getPxFromDp(this,KeySizeH) ));
         KeyButton.setX(getPxFromDp(this,KeyLX));
         KeyButton.setY(getPxFromDp(this,KeyLY));
         KeyButton.setKeyLX_dp(KeyLX);
         KeyButton.setKeyLY_dp(KeyLY);
-        KeyButton.setKeySize(KeySize);
+        KeyButton.setKeySizeW(KeySizeW);
+        KeyButton.setKeySizeH(KeySizeH);
         KeyButton.setKeep(isAutoKeep);
         KeyButton.setHide(isHide);
         KeyButton.setSpecialOne(SpecialOne);

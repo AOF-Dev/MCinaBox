@@ -584,7 +584,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 }
             }
         };
-        registerReceiver(broadcastReceiver2, intentFilter);
+        registerReceiver(broadcastReceiver1, intentFilter);
     }
 
     /**
@@ -603,7 +603,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 }
             }
         };
-        registerReceiver(broadcastReceiver2, intentFilter);
+        registerReceiver(broadcastReceiver1, intentFilter);
     }
 
     /**
@@ -919,7 +919,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
      **/
     public void ReflashLocalKeyboardList() {
         ArrayList<String> KeyboardList = new ArrayList<String>();
-        File file = new File(MCINABOX_KEYBOARD);
+        File file = new File(MCINABOX_KEYBOARD+"/");
         File[] files = file.listFiles();
         if (files == null) {
             return;

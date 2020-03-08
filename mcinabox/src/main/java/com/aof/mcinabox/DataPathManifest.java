@@ -5,11 +5,11 @@ public class DataPathManifest {
     /**【全局目录清单】**/
     public static final String
             //MCinaBox
-        MCINABOX_HOME = "/sdcard/Android/com.aof.mcinabox/files/MCinaBox",
+        MCINABOX_HOME = "/sdcard/Android/data/com.aof.mcinabox/files/MCinaBox",
         MCINABOX_TEMP = MCINABOX_HOME + "/temp",
         MCINABOX_KEYBOARD = MCINABOX_HOME + "/keyboard",
         MCINABOX_DATA_PUBLIC = "/sdcard/MCinaBox",
-        MCINABOX_DATA_PRIVATE = "/sdcard/Android/com.aof.mcinabox/files/MCinaBox",
+        MCINABOX_DATA_PRIVATE = "/sdcard/Android/data/com.aof.mcinabox/files/MCinaBox",
         MCINABOX_FILE_JSON = MCINABOX_HOME + "/mcinabox.json",
             //Minecraft
         MINECRAFT_DATA_PUBLIC = MCINABOX_DATA_PUBLIC + "/.minecraft",
@@ -21,7 +21,7 @@ public class DataPathManifest {
         MINECRAFT_DATA_PUBLIC_LOGS = MINECRAFT_DATA_PUBLIC + "/crash-reports",
         MINECRAFT_DATA_PUBLIC_RESOURCEPACKS = MINECRAFT_DATA_PUBLIC + "/resourcepacks",
 
-        MINECRAFT_DATA_PRIVATE = MCINABOX_DATA_PRIVATE + "/。minecraftf",
+        MINECRAFT_DATA_PRIVATE = MCINABOX_DATA_PRIVATE + "/.minecraft",
         MINECRAFT_DATA_PRIVATE_VERSION = MINECRAFT_DATA_PRIVATE + "/versions",
         MINECRAFT_DATA_PRIVATE_ASSETS = MINECRAFT_DATA_PRIVATE + "/assets",
         MINECRAFT_DATA_PRIVATE_MODS = MINECRAFT_DATA_PRIVATE + "/mods",
