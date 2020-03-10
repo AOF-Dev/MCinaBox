@@ -280,13 +280,17 @@ public class ReadyToStart {
         ArgsMap.put("{auth_player_name}",account.getUsername());
         ArgsMap.put("{auth_uuid}",account.getUuid());
         ArgsMap.put("{auth_access_token}","0");
+        ArgsMap.put("{auth_session}","mojang");
         ArgsMap.put("{user_properties}","{}");
         ArgsMap.put("{user_type}","mojang");
         ArgsMap.put("{assets_index_name}",versionSetting.getAssets());
         ArgsMap.put("{assets_root}",minecraft_assets_path);
         ArgsMap.put("{game_directory}",minecraft_home_path);
+        ArgsMap.put("{game_assets}",versionSetting.getAssets());
         ArgsMap.put("{version_name}","\"" + "MCinaBox " + MCinaBox_Version + "\"");
         ArgsMap.put("{version_type}",versionSetting.getType());
+
+
 
         for(int i = 0;i < JsString.length();i++){
             if(JsString.charAt(i) == '$'){

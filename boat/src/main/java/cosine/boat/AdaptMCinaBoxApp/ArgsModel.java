@@ -5,8 +5,10 @@ package cosine.boat.AdaptMCinaBoxApp;
 
 import java.io.Serializable;
 
+import static cosine.boat.AdaptMCinaBoxApp.DataPathManifest.*;
+
 public class ArgsModel implements Serializable {
-    String KeyboardPath = "/sdcard/Android/data/com.aof.mcinabox/files/MCinaBox/Keyboardmodel/";
+    String KeyboardPath = MCINABOX_KEYBOARD;
     String KeyboardName; //键盘模板名称
     String[] args; //全部启动参数
     Boolean forceRootRuntime; //强制运行库提权
@@ -15,7 +17,7 @@ public class ArgsModel implements Serializable {
 
     public String getKeyboardFilePath(){
         if(KeyboardName != null){
-            return (KeyboardPath + KeyboardName);
+            return (KeyboardPath + "/" + KeyboardName);
         }else{
             return null;
         }

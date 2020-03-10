@@ -472,7 +472,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     private void ReflashOnlineVersionList() {
         DownloadMinecraft downloadTask = new DownloadMinecraft(GetDownloadServerUrl(setting_downloadtype.getSelectedItem().toString(), 0), GetDownloadServerUrl(setting_downloadtype.getSelectedItem().toString(), 1), DATA_PATH);
         //获取实例化后的versionList
-        versionList = new AnaliesVersionManifestJson().getVersionList(downloadTask.getMINECRAFT_TEMP() + "version_manifest.json");
+        versionList = new AnaliesVersionManifestJson().getVersionList(MCINABOX_TEMP + "/version_manifest.json");
         String[] nameList;
 
         ArrayList<ListVersionManifestJson.Version> version_type_release = new ArrayList<ListVersionManifestJson.Version>() {
@@ -575,7 +575,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     private void listener2(final long Id) {
         // 注册广播监听系统的下载完成事件。
         IntentFilter intentFilter = new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
-        broadcastReceiver2 = new BroadcastReceiver() {
+        broadcastReceiver1 = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 long ID = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
@@ -594,7 +594,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     private void listener3(final long Id) {
         // 注册广播监听系统的下载完成事件。
         IntentFilter intentFilter = new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
-        broadcastReceiver2 = new BroadcastReceiver() {
+        broadcastReceiver1 = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 long ID = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);

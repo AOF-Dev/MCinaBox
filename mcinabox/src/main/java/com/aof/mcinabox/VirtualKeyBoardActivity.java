@@ -482,7 +482,7 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
     public void getKeyboardModelFromJson(){
         InputStream inputStream;
         Gson gson = new Gson();
-        File jsonFile = new File(KeyboardDirPath+modelNameList.get(selectedModelPos));
+        File jsonFile = new File(KeyboardDirPath + "/" + modelNameList.get(selectedModelPos));
         if(!jsonFile.exists()){
             Toast.makeText(this, "找不到键盘模板", Toast.LENGTH_SHORT).show();
             return;

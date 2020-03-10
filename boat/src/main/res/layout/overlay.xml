@@ -6,6 +6,7 @@
 
 	<Button
 		android:id="@+id/touch_pad"
+		android:visibility="gone"
 		android:layout_width="fill_parent"
 		android:layout_height="fill_parent"
 		android:layout_marginLeft="0dp"

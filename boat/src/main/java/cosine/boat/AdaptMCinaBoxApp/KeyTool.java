@@ -1,5 +1,7 @@
 package cosine.boat.AdaptMCinaBoxApp;
 
+import android.util.Log;
+
 import java.security.Key;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -19,6 +21,7 @@ public class KeyTool {
         int KEY_UNKNOW = GLFW_KEY_UNKNOWN;
         //特殊按键完全匹配索引
 
+        Log.e("KeyTool","长度 "+ KeyName.length() + " 首项" + KeyName.charAt(0));
         if (KeyName.length() == 1 & (KeyName.charAt(0) >= '0' && KeyName.charAt(0) <= '9')) {
             return (KeyName.toCharArray()[0] - '0' + NUM_ZERO);
         } else if (KeyName.length() == 1 & (KeyName.charAt(0) >= 'A' && KeyName.charAt(0) <= 'Z')) {

@@ -111,7 +111,7 @@ public class DownloadMinecraft {
     public long UpdateVersionManifestJson(Context context){
         String fileUrl = getMINECRAFT_URL() + "/mc/game/version_manifest.json";
         String fileName = "version_manifest.json";
-        String savePath = getDOWNLOAD_TEMP();
+        String savePath = DataPathManifest.DOWNLOAD_TEMP;
         String filePath = getMINECRAFT_TEMP()+fileName;
         long taskId;
 

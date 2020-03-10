@@ -4,6 +4,7 @@ package cosine.boat;
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
 import android.telephony.mbms.MbmsErrors;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.os.Bundle;
 import android.app.NativeActivity;
@@ -32,6 +33,7 @@ import android.view.SurfaceHolder;
 import org.lwjgl.input.Keyboard;
 
 import java.io.*;
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -123,6 +125,7 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
         //添加虚拟键盘到布局
         for(GameButton gameButton : KeyboardList){
             base.addView(gameButton);
+            gameButton.setOnTouchListener(this);
         }
 
         //添加布局到悬浮窗
@@ -531,8 +534,23 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
             }
             return false;
         }
+
+        Log.e("Kyeboard","ID: "+p1.getId());
+        for(GameButton gameButton : KeyboardList){
+            //Log.e("Keyboard-Virtual","ID: "+gameButton.getId());
+            if(p1 == gameButton){
+                if(p2.getActionMasked() == MotionEvent.ACTION_DOWN){
+                    Toast.makeText(this, "键名 " + gameButton.getKeyMain() + " 键值 " + gameButton.getMainIndex(), Toast.LENGTH_SHORT).show();
+                    Log.e("VirtualKey","KeyName: " + gameButton.getKeyMain() + " KeyIndex: " + gameButton.getMainIndex() + " Status: " + "pressed");
+                }else if (p2.getActionMasked() == MotionEvent.ACTION_UP){
+                    Toast.makeText(this, "键名 " + gameButton.getKeyMain() + " 键值 " + gameButton.getMainIndex(), Toast.LENGTH_SHORT).show();
+                    Log.e("VirtualKey","KeyName: " + gameButton.getKeyMain() + " KeyIndex: " + gameButton.getMainIndex() + " Status: " + "uped");
+                }
+                return false;
+            }
+        }
         // TODO: Implement this method
-        if (p1 == touchPad) {
+        /*if (p1 == touchPad) {
             if (mode) {
                 switch (p2.getActionMasked()) {
                     case MotionEvent.ACTION_DOWN:
@@ -561,7 +579,7 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
             mouseCursor.setX(p2.getX());
             mouseCursor.setY(p2.getY());
             return true;
-        }
+        }*/
         return false;
 
     }

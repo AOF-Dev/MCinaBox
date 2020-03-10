@@ -12,7 +12,7 @@ public class ArgsModel implements Serializable {
 
     public String getKeyboardFilePath(){
         if(KeyboardName != null){
-            return (KeyboardPath + KeyboardName);
+            return (KeyboardPath + "/" + KeyboardName);
         }else{
             return null;
         }
