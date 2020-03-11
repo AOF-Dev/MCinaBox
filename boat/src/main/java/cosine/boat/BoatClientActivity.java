@@ -151,7 +151,7 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
         new Thread() {
             @Override
             public void run() {
-
+                ArgsModel argsModel = (ArgsModel) getIntent().getSerializableExtra("LauncherConfig");
                 LauncherConfig config = LauncherConfig.fromFile(getIntent().getExtras().getString("config"));
                 LoadMe.exec(config, BoatClientActivity.this);
                 Message msg = new Message();

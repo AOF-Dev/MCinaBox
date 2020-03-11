@@ -623,6 +623,15 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         }
     }
 
+    /**【当Activity停止时】**/
+    @Override
+    public void onStop(){
+        super.onStop();
+        SaveLauncherSettingToFile(LauncherConfigFile);
+    }
+
+    /**【当Activity】**/
+
     /**
      * 【当版本类型发生变化时】
      **/
