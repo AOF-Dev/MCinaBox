@@ -58,9 +58,6 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
     public ArgsModel argsModel;
     public ArrayList<GameButton> KeyboardList;
 
-    //今天是3月6号了
-    //不想咕咕咕
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -126,6 +123,7 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
         for(GameButton gameButton : KeyboardList){
             base.addView(gameButton);
             gameButton.setOnTouchListener(this);
+            gameButton.bringToFront();
         }
 
         //添加布局到悬浮窗
@@ -540,17 +538,31 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
             //Log.e("Keyboard-Virtual","ID: "+gameButton.getId());
             if(p1 == gameButton){
                 if(p2.getActionMasked() == MotionEvent.ACTION_DOWN){
-                    Toast.makeText(this, "键名 " + gameButton.getKeyMain() + " 键值 " + gameButton.getMainIndex(), Toast.LENGTH_SHORT).show();
-                    Log.e("VirtualKey","KeyName: " + gameButton.getKeyMain() + " KeyIndex: " + gameButton.getMainIndex() + " Status: " + "pressed");
+                    if(gameButton.isMult()){
+                        Log.e("VirtualKey-Mult","KeyName: " + gameButton.getKeyMain() + " " + gameButton.getSpecialOne() + " " + gameButton.getSpecialTwo() +" KeyIndex: " + gameButton.getMainIndex() + " " + gameButton.getSpecialOneIndex() + " " + gameButton.getSpecialTwoIndex()  + " Status: " + "pressed");
+                        BoatInputEventSender.setKey(gameButton.getMainIndex(), true, 0);
+                        BoatInputEventSender.setKey(gameButton.getSpecialOneIndex(), true, 0);
+                        BoatInputEventSender.setKey(gameButton.getSpecialTwoIndex(), true, 0);
+                    }else{
+                        Log.e("VirtualKey-Single","KeyName: " + gameButton.getKeyMain() + " KeyIndex: " + gameButton.getMainIndex() + " Status: " + "pressed");
+                        BoatInputEventSender.setKey(gameButton.getMainIndex(), true, 0);
+                    }
                 }else if (p2.getActionMasked() == MotionEvent.ACTION_UP){
-                    Toast.makeText(this, "键名 " + gameButton.getKeyMain() + " 键值 " + gameButton.getMainIndex(), Toast.LENGTH_SHORT).show();
-                    Log.e("VirtualKey","KeyName: " + gameButton.getKeyMain() + " KeyIndex: " + gameButton.getMainIndex() + " Status: " + "uped");
+                    if(gameButton.isMult()){
+                        Log.e("VirtualKey-Mult","KeyName: " + gameButton.getKeyMain() + " " + gameButton.getSpecialOne() + " " + gameButton.getSpecialTwo() +" KeyIndex: " + gameButton.getMainIndex() + " " + gameButton.getSpecialOneIndex() + " " + gameButton.getSpecialTwoIndex()  + " Status: " + "uped");
+                        BoatInputEventSender.setKey(gameButton.getMainIndex(), false, 0);
+                        BoatInputEventSender.setKey(gameButton.getSpecialOneIndex(), false, 0);
+                        BoatInputEventSender.setKey(gameButton.getSpecialTwoIndex(), false, 0);
+                    }else{
+                        Log.e("VirtualKey-Single","KeyName: " + gameButton.getKeyMain() + " KeyIndex: " + gameButton.getMainIndex() + " Status: " + "uped");
+                        BoatInputEventSender.setKey(gameButton.getMainIndex(), false, 0);
+                    }
                 }
                 return false;
             }
         }
-        // TODO: Implement this method
-        /*if (p1 == touchPad) {
+
+        if (p1 == touchPad) {
             if (mode) {
                 switch (p2.getActionMasked()) {
                     case MotionEvent.ACTION_DOWN:
@@ -572,14 +584,11 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
                 baseX = (int) p2.getX();
                 baseY = (int) p2.getY();
                 BoatInputEventSender.setPointer(baseX, baseY);
-
-
             }
-
             mouseCursor.setX(p2.getX());
             mouseCursor.setY(p2.getY());
             return true;
-        }*/
+        }
         return false;
 
     }

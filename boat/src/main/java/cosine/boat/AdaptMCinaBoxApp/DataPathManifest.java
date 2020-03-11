@@ -3,6 +3,8 @@ package cosine.boat.AdaptMCinaBoxApp;
 //为避免循环依赖,且顾及到前后端适配的可扩展性
 //需要copy一份adapt包保持对象的一致性
 
+import android.content.Context;
+
 public class DataPathManifest {
 
     /**【全局目录清单】**/
@@ -33,7 +35,11 @@ public class DataPathManifest {
         MINECRAFT_DATA_PRIVATE_LOGS = MINECRAFT_DATA_PRIVATE + "/crash-reports",
         MINECRAFT_DATA_PRIVATE_RESOURCEPACKS = MINECRAFT_DATA_PRIVATE + "/resourcepacks",
                 //Downloader
-        DOWNLOAD_TEMP = "/Android/data/com.aof.mcinabox/files/MCinaBox/temp/";
+        DOWNLOAD_TEMP = "/Android/data/com.aof.mcinabox/files/MCinaBox/temp/",
+                //BoatApp
+        BOAT_HOME = "/sdcard/MCinaBox/BoatApp",
+                //Runtime
+        RUNTIME_HOME = "/data/data/com.aof.mcinabox/app_runtime";
 
     /**【一个全局目录的数组】**/
     public static final String[] MCINABOX_ALLPATH = {

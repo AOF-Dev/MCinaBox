@@ -77,6 +77,7 @@ public class ReadyToStart {
     boolean notEnableVirtualKeyboard = false;
     boolean forceRootRuntime =false;
     String[] CMD;
+    String MCHome;
     Context context;
 
     /**【执行启动游戏】**/
@@ -121,7 +122,7 @@ public class ReadyToStart {
     }
 
     //
-    private String runtimePath = "/data/user/0/cosine.boat/app_runtime"; //**
+    private String runtimePath = RUNTIME_HOME; //**
     private String MCinaBox_Version; //*
     private String DATA_PATH; //*
     private String KeyboardFileName;
@@ -195,8 +196,11 @@ public class ReadyToStart {
         String JVM_minecraft_launcher_band = "-Dminecraft.launcher.brand=MCinaBox";
         String JVM_minecraft_launcher_version = "-Dminecraft.launcher.version=" + MCinaBox_Version;
         String JVM_java_library_path = "-Djava.library.path=" + runtimePath + "/j2re-image/lib/aarch32/jli:" + runtimePath + "/j2re-image/lib/aarch32:" + runtimePath;
+        String JVM_lwjgl_debug_true = "-Dorg.lwjgl.util.Debug=true";
+        String JVM_lwjgl_debugloader_true = "-Dorg.lwjgl.util.DebugLoader=true";
         String JVM_ExtraArgs = launcherSetting.getConfigurations().getJavaArgs();
         String JVM_ClassPath = "-cp ";
+        String JVM_ClassPath_Runtime = runtimePath + "/lwjgl-jemalloc.jar:" + runtimePath + "/lwjgl-tinyfd.jar:" + runtimePath + "/lwjgl-opengl.jar:" + runtimePath + "/lwjgl-openal.jar:" + runtimePath + "/lwjgl-glfw.jar:" + runtimePath + "/lwjgl-stb.jar:" + runtimePath + "/lwjgl.jar:";
 
         //注意加入list时的顺序
         JVM_Args.add(JVM__minecraft_client_jar);
@@ -209,6 +213,8 @@ public class ReadyToStart {
         JVM_Args.add(JVM_minecraft_launcher_band);
         JVM_Args.add(JVM_minecraft_launcher_version);
         JVM_Args.add(JVM_java_library_path);
+        JVM_Args.add(JVM_lwjgl_debug_true);
+        JVM_Args.add(JVM_lwjgl_debugloader_true);
         JVM_Args.add(JVM_ExtraArgs);
 
         ArrayList<String> DependentLibrariesPaths = new ArrayList<String>();
@@ -228,7 +234,7 @@ public class ReadyToStart {
                 temp = temp + minecraft_libraries_path + targetLibrary.getDownloads().getArtifact().getPath();
             }
         }
-        JVM_ClassPath = JVM_ClassPath + temp;
+        JVM_ClassPath = JVM_ClassPath + JVM_ClassPath_Runtime + temp;
         JVM_Args.add(JVM_ClassPath);
 
 
@@ -238,9 +244,9 @@ public class ReadyToStart {
         String MinecraftExtraArgs = launcherSetting.getConfigurations().getMinecraftArgs();
         String Minecraft_arguements = "";
             //首先要判断version是1.13.1之前的结构还是1.13.1之后的结构,用于处理两种不同的arguement结构
-        if(versionSetting.getMinecraftArguments() == null){
+        if(versionSetting.getMinimumLauncherVersion() >= 21){
             //这是1.13.1以及之后的处理方法
-            //TODO:有时间就把这里写完
+            Minecraft_arguements = ConvertJsStringModleToJavaStringModle(ConvertArgumentsToMinecraftArguments());
         }else{
             //这是1.13.1之前的处理方法
             Minecraft_arguements = ConvertJsStringModleToJavaStringModle(versionSetting.getMinecraftArguments());
@@ -348,6 +354,12 @@ public class ReadyToStart {
         doEnableOTG = Setting.getConfigurations().isEnableOtg();
         notEnableVirtualKeyboard = Setting.getConfigurations().isNotEnableVirtualKeyboard();
         forceRootRuntime = true;
+
+        if (Setting.getLocalization().equals("public")){
+            MCHome = MCINABOX_DATA_PUBLIC;
+        }else if(Setting.getLocalization().equals("private")){
+            MCHome = MCINABOX_DATA_PRIVATE;
+        }
     }
 
     /**【将ArgsModel对象序列化得到Intent】**/
@@ -359,11 +371,25 @@ public class ReadyToStart {
         argsModel.setDoEnableOTG(doEnableOTG);
         argsModel.setForceRootRuntime(forceRootRuntime);
         argsModel.setKeyboardName(KeyboardFileName);
+        argsModel.setHome(MCHome);
         //Intent intent = new Intent(context,LauncherActivity.class);
         Intent intent = new Intent(context, BoatClientActivity.class);
         intent.putExtra("LauncherConfig",argsModel);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         return intent;
+    }
+
+    /**【将MC1.13的Arguments对象转化为MinecraftArguments字符串】**/
+    public String ConvertArgumentsToMinecraftArguments(){
+        String minecraftarguments = "";
+        for(int i = 0;i < versionSetting.getArguments().getGame().length ; i++ ){
+            if(i == versionSetting.getArguments().getGame().length - 1){
+                minecraftarguments = minecraftarguments + versionSetting.getArguments().getGame()[i];
+            }else{
+                minecraftarguments = minecraftarguments + versionSetting.getArguments().getGame()[i] + " ";
+            }
+        }
+        return minecraftarguments;
     }
 
 }

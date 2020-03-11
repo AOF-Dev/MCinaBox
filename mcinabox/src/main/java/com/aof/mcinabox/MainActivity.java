@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -121,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
         //Activity生命周期开始，执行初始化
         super.onCreate(savedInstanceState);
+        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         //显示activity_main为当前Activity布局
         setContentView(R.layout.activity_main);

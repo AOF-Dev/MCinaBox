@@ -9,6 +9,7 @@ public class ArgsModel implements Serializable {
     Boolean forceRootRuntime; //强制运行库提权
     Boolean notEnableVirtualKeyboard; //不启用虚拟键盘
     Boolean doEnableOTG; //启用OTG
+    String Home;
 
     public String getKeyboardFilePath(){
         if(KeyboardName != null){
@@ -17,6 +18,10 @@ public class ArgsModel implements Serializable {
             return null;
         }
     }
+
+    public String getHome() { return Home; }
+
+    public void setHome(String home) { Home = home; }
 
     public String getKeyboardName() { return KeyboardName; }
 

@@ -21,6 +21,7 @@ import java.io.*;
 
 import android.os.Handler;
 import android.os.Message;
+import static cosine.boat.AdaptMCinaBoxApp.DataPathManifest.*;
 
 public class LauncherActivity extends Activity implements View.OnClickListener, View.OnLongClickListener {
 
@@ -78,10 +79,10 @@ public class LauncherActivity extends Activity implements View.OnClickListener, 
         argsModel = (ArgsModel) getIntent().getSerializableExtra("LauncherConfig");
 
         //初始化日志
-        final String logPath = "/mnt/sdcard/boat/log.txt";
+        final String logPath = BOAT_HOME + "/log.txt";
         Logcat.initializeOutOfProcess(this, logPath, LogcatService.class);
 
-        final String reportPath = "/mnt/sdcard/boat/crash.txt";
+        final String reportPath = BOAT_HOME + "/crash.txt";
         System.out.println("Crash report: " + reportPath);
         final NDCrashError error = NDCrash.initializeOutOfProcess(this, reportPath, NDCrashUnwinder.libcorkscrew, NDCrashService.class);
         if (error == NDCrashError.ok) {
@@ -118,7 +119,7 @@ public class LauncherActivity extends Activity implements View.OnClickListener, 
         this.outputText = (TextView) findViewById(R.id.launcher_output_text);
 
         outputText.append("Runtime directory: " + this.getDir("runtime", 0) + "\n");
-        outputText.append("StartCMD: " + argsModel.getArgs() + "\n");
+        //outputText.append("StartCMD: " + argsModel.getArgs().toString() + "\n");
 
 
     }

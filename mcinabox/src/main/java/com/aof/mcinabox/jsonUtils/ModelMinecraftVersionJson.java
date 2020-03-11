@@ -5,10 +5,9 @@ import java.util.Map;
 
 public class ModelMinecraftVersionJson {
 
-    //通用参数
+        //通用参数
     private String id;
     private String mainClass;
-    private String minecraftArguments;
     private int minimumLauncherVersion;
     private String releaseTime;
     private String time;
@@ -17,7 +16,15 @@ public class ModelMinecraftVersionJson {
     private DependentLibrary[] libraries;
     private Download downloads;
     private AssetIndex assetIndex;
-    //
+
+        //minimumLauncherVersion < 21
+    private String minecraftArguments;
+
+        //minimumLauncherVersion >= 21
+    private Arguments arguments;
+
+        //forge
+    private String inheritsFrom;
 
 
     public class DependentLibrary{
@@ -87,6 +94,16 @@ public class ModelMinecraftVersionJson {
         public void setTotalSize(int totalSize) { this.totalSize = totalSize; }
     }
 
+    public class Arguments{
+        private String[] game;
+        public String[] getGame() { return game; }
+        public void setGame(String[] game) { this.game = game; }
+    }
+
+    public Arguments getArguments() { return arguments; }
+    public void setArguments(Arguments arguments) { this.arguments = arguments; }
+    public String getInheritsFrom() { return inheritsFrom; }
+    public void setInheritsFrom(String inheritsFrom) { this.inheritsFrom = inheritsFrom; }
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
     public String getMainClass() { return mainClass; }
