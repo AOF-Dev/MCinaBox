@@ -1,6 +1,884 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:layout_width="450dp"
+    android:layout_height="200dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:layout_weight="10">
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:textSize="@string/qwert_text_size"
+            android:text="ESC"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:textSize="@string/qwert_text_size"
+            android:text="F1"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:textSize="@string/qwert_text_size"
+            android:text="F2"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:textSize="@string/qwert_text_size"
+            android:text="F3"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="F4"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="F5"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="F6"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="F7"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="F8"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="F9"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="F10"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="F11"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="F12"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:layout_weight="10">
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="■"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="1"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="2"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="3"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="4"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="5"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="6"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="7"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="8"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="9"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="0"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="Back"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="Prt"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:layout_weight="10">
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="Tab"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="Q"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="W"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="E"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="R"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="T"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="Y"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="U"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="I"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="O"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="P"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="Delet"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="Pause"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:layout_weight="10">
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="CLock"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="A"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="S"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="D"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="F"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="G"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="H"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="J"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="K"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="L"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="Enter"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="Inset"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="Home"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:layout_weight="10">
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="Shift"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="Z"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="X"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="C"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="V"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="B"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="N"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="M"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="SHIFT"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="Pageup"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="Pagedn"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="▲"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+        <com.aof.sharedmodule.Button.QwertButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/control_button_square"
+            android:layout_margin="1dp"
+            android:layout_weight="10"
+            android:text="End"
+            android:textSize="@string/qwert_text_size"
+            android:ButtonIndex="1"
+            android:ButtonName="A" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:layout_weight="10">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="2">
+
+            <com.aof.sharedmodule.Button.QwertButton
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/control_button_square"
+                android:layout_margin="1dp"
+                android:layout_weight="10"
+                android:text="Ctrl"
+                android:textSize="@string/qwert_text_size"
+                android:ButtonIndex="1"
+                android:ButtonName="A" />
+
+            <com.aof.sharedmodule.Button.QwertButton
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/control_button_square"
+                android:layout_margin="1dp"
+                android:layout_weight="10"
+                android:text="Alt"
+                android:textSize="@string/qwert_text_size"
+                android:ButtonIndex="1"
+                android:ButtonName="A" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="6">
+
+            <com.aof.sharedmodule.Button.QwertButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/control_button_square"
+                android:layout_margin="1dp"
+                android:layout_weight="0"
+                android:text="Space"
+                android:textSize="@string/qwert_text_size"
+                android:ButtonIndex="1"
+                android:ButtonName="A" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="5">
+
+            <com.aof.sharedmodule.Button.QwertButton
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/control_button_square"
+                android:layout_margin="1dp"
+                android:layout_weight="10"
+                android:text="Alt"
+                android:textSize="@string/qwert_text_size"
+                android:ButtonIndex="1"
+                android:ButtonName="A" />
+
+            <com.aof.sharedmodule.Button.QwertButton
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/control_button_square"
+                android:layout_margin="1dp"
+                android:layout_weight="10"
+                android:text="Ctrl"
+                android:textSize="@string/qwert_text_size"
+                android:ButtonIndex="1"
+                android:ButtonName="A" />
+
+            <com.aof.sharedmodule.Button.QwertButton
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/control_button_square"
+                android:layout_margin="1dp"
+                android:layout_weight="10"
+                android:text="◀"
+                android:textSize="@string/qwert_text_size"
+                android:ButtonIndex="1"
+                android:ButtonName="A" />
+
+            <com.aof.sharedmodule.Button.QwertButton
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/control_button_square"
+                android:layout_margin="1dp"
+                android:layout_weight="10"
+                android:text="▼"
+                android:textSize="@string/qwert_text_size"
+                android:ButtonIndex="1"
+                android:ButtonName="A" />
+
+            <com.aof.sharedmodule.Button.QwertButton
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/control_button_square"
+                android:layout_margin="1dp"
+                android:layout_weight="10"
+                android:text="▶"
+                android:textSize="@string/qwert_text_size"
+                android:ButtonIndex="1"
+                android:ButtonName="A" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
 
 </LinearLayout>
