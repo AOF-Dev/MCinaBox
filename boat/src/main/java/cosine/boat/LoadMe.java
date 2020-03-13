@@ -1,12 +1,8 @@
 package cosine.boat;
 
-import java.io.IOException;
-import java.util.*;
-import java.io.*;
+import com.aof.sharedmodule.Model.ArgsModel;
 
-import cosine.boat.AdaptMCinaBoxApp.ArgsModel;
-
-import static cosine.boat.AdaptMCinaBoxApp.DataPathManifest.*;
+import static com.aof.sharedmodule.Data.DataPathManifest.*;
 
 public class LoadMe {
     

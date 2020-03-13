@@ -1,14 +1,9 @@
-package cosine.boat.AdaptMCinaBoxApp;
-
-//为避免循环依赖,且顾及到前后端适配的可扩展性
-//需要copy一份adapt包保持对象的一致性
+package com.aof.sharedmodule.Model;
 
 import java.io.Serializable;
 
-import static cosine.boat.AdaptMCinaBoxApp.DataPathManifest.*;
-
 public class ArgsModel implements Serializable {
-    String KeyboardPath = MCINABOX_KEYBOARD;
+    String KeyboardPath = "/sdcard/Android/data/com.aof.mcinabox/files/MCinaBox/Keyboardmodel/";
     String KeyboardName; //键盘模板名称
     String[] args; //全部启动参数
     Boolean forceRootRuntime; //强制运行库提权

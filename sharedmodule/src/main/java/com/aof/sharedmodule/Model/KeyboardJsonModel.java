@@ -1,7 +1,4 @@
-package cosine.boat.AdaptMCinaBoxApp;
-
-//为避免循环依赖,且顾及到前后端适配的可扩展性
-//需要copy一份adapt包保持对象的一致性
+package com.aof.sharedmodule.Model;
 
 public class KeyboardJsonModel {
     private String KeyName;
@@ -28,7 +25,7 @@ public class KeyboardJsonModel {
         super();
     }
 
-    public KeyboardJsonModel(String keyName, int keySizeW,int keySizeH, int keyAlpha, int keyLX, int keyLY, String keyMain, String specialOne, String specialTwo, boolean isAutoKeep, boolean isHide, boolean isMult, String shape, int mainPos, int specialOnePos, int specialTwoPos,String colorhex,int radius) {
+    public KeyboardJsonModel(String keyName, int keySizeW, int keySizeH, int keyAlpha, int keyLX, int keyLY, String keyMain, String specialOne, String specialTwo, boolean isAutoKeep, boolean isHide, boolean isMult, String shape, int mainPos, int specialOnePos, int specialTwoPos, String colorhex, int radius) {
         super();
         KeyName = keyName;
         KeySizeH = keySizeH;

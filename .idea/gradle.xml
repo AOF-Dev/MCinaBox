@@ -10,6 +10,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/boat" />
             <option value="$PROJECT_DIR$/mcinabox" />
+            <option value="$PROJECT_DIR$/sharedmodule" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

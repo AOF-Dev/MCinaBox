@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
 
-import cosine.boat.AdaptMCinaBoxApp.ArgsModel;
+import com.aof.mcinabox.AdaptBoatApp.ArgsModel;
 import com.aof.mcinabox.initUtils.LauncherSettingModel;
 import com.aof.mcinabox.ioUtils.FileTool;
 import com.aof.mcinabox.ioUtils.PathTool;

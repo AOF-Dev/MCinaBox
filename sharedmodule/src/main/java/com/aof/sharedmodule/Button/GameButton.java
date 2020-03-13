@@ -1,4 +1,4 @@
-package cosine.boat.AdaptMCinaBoxApp;
+package com.aof.sharedmodule.Button;
 import android.content.Context;
 
 //为避免循环依赖,且顾及到前后端适配的可扩展性

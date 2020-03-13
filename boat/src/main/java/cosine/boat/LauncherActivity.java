@@ -6,7 +6,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.os.Bundle;
 
-import cosine.boat.AdaptMCinaBoxApp.ArgsModel;
+import com.aof.sharedmodule.Model.ArgsModel;
 import cosine.boat.logcat.Logcat;
 import cosine.boat.logcat.LogcatService;
 import ru.ivanarh.jndcrash.NDCrashError;
@@ -21,7 +21,7 @@ import java.io.*;
 
 import android.os.Handler;
 import android.os.Message;
-import static cosine.boat.AdaptMCinaBoxApp.DataPathManifest.*;
+import static com.aof.sharedmodule.Data.DataPathManifest.*;
 
 public class LauncherActivity extends Activity implements View.OnClickListener, View.OnLongClickListener {
 
