@@ -14,8 +14,6 @@
     <string name="main_text_gamelist_installversion">安装新游戏版本</string>
     <string name="main_text_gamelist_setting">全局游戏设置</string>
 
-    <string name="qwert_text_size">8sp</string>
-
     <string name="app_copyright">此版本非发行版本，仅供 AOF放假后软件开发团队 内部成员使用！</string>
     <string name="app_about_mcinabox">MCinaBox Minecraft Launcher 是一个免费、开源的 Minecraft 启动器，允许玩家在 安卓设备 上方便快捷的安装、管理、运行游戏。启动器更新请查阅项目开源地址的 release 版面.\n当您使用本软件时，就表示您已阅读并同意本软件的版权信息，表示您愿意尊重软件开发者们的劳动成果，表示您愿意遵守本软件的开源协议。</string>
     <string name="app_about_copyright">版权</string>

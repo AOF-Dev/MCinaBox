@@ -3,24 +3,23 @@ package com.aof.sharedmodule.Button;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-
 import androidx.annotation.Nullable;
-
 import com.aof.sharedmodule.R;
 
 public class QwertButton extends androidx.appcompat.widget.AppCompatButton {
 
     public QwertButton(Context context, @Nullable AttributeSet attrs){
         super(context,attrs);
-        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.QwertButton);
-        setButtonIndex(array.getInt(R.styleable.QwertButton_ButtonIndex,-1));
-        setButtonName(array.getString(R.styleable.QwertButton_ButtonName));
+        TypedArray array = context.obtainStyledAttributes(attrs,R.styleable.qwertbutton);
+        setButtonIndex(array.getInt(R.styleable.qwertbutton_button_index,-1));
+        setButtonName(array.getString(R.styleable.qwertbutton_button_name));
+        array.recycle();
     }
-    private int ButtonIndex;
-    private String ButtonName;
+    private int button_index;
+    private String button_name;
 
-    public int getButtonIndex() { return ButtonIndex; }
-    public void setButtonIndex(int buttonIndex) { ButtonIndex = buttonIndex; }
-    public String getButtonName() { return ButtonName; }
-    public void setButtonName(String buttonName) { ButtonName = buttonName; }
+    public int getButtonIndex() { return button_index; }
+    public void setButtonIndex(int buttonIndex) { button_index = buttonIndex; }
+    public String getButtonName() { return button_name; }
+    public void setButtonName(String buttonName) { button_name = buttonName; }
 }

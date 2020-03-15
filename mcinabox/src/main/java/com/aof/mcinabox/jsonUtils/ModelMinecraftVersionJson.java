@@ -95,9 +95,9 @@ public class ModelMinecraftVersionJson {
     }
 
     public class Arguments{
-        private String[] game;
-        public String[] getGame() { return game; }
-        public void setGame(String[] game) { this.game = game; }
+        private Object[] game;
+        public Object[] getGame() { return game; }
+        public void setGame(Object[] game) { this.game = game; }
     }
 
     public Arguments getArguments() { return arguments; }

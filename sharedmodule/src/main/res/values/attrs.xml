@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="QwertButton">
-        <attr name="ButtonIndex" format="integer"/>
-        <attr name="ButtonName" format="string"/>
+    <declare-styleable name="qwertbutton">
+        <attr name="button_index" format="integer"/>
+        <attr name="button_name" format="string"/>
     </declare-styleable>
-
 </resources>

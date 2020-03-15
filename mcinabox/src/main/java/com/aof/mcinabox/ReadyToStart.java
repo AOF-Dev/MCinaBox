@@ -383,10 +383,12 @@ public class ReadyToStart {
     public String ConvertArgumentsToMinecraftArguments(){
         String minecraftarguments = "";
         for(int i = 0;i < versionSetting.getArguments().getGame().length ; i++ ){
-            if(i == versionSetting.getArguments().getGame().length - 1){
-                minecraftarguments = minecraftarguments + versionSetting.getArguments().getGame()[i];
-            }else{
-                minecraftarguments = minecraftarguments + versionSetting.getArguments().getGame()[i] + " ";
+            if(versionSetting.getArguments().getGame()[i] instanceof String) {
+                if (i == versionSetting.getArguments().getGame().length - 1) {
+                    minecraftarguments = minecraftarguments + versionSetting.getArguments().getGame()[i];
+                } else {
+                    minecraftarguments = minecraftarguments + versionSetting.getArguments().getGame()[i] + " ";
+                }
             }
         }
         return minecraftarguments;

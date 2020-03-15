@@ -103,7 +103,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
     public TextView logText, main_text_showstate, gamelist_text_show_slectedversion;
     private BroadcastReceiver broadcastReceiver1;
-    private BroadcastReceiver broadcastReceiver2;
 
     public ListVersionManifestJson.Version selectedVersion;
     public ModelMinecraftVersionJson selectedVersionJson;
@@ -617,9 +616,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         SaveLauncherSettingToFile(LauncherConfigFile);
         if (broadcastReceiver1 != null) {
             unregisterReceiver(broadcastReceiver1);
-        }
-        if (broadcastReceiver2 != null) {
-            unregisterReceiver(broadcastReceiver2);
         }
     }
 

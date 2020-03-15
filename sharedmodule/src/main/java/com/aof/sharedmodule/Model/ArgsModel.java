@@ -1,9 +1,10 @@
 package com.aof.sharedmodule.Model;
 
 import java.io.Serializable;
+import static com.aof.sharedmodule.Data.DataPathManifest.*;
 
 public class ArgsModel implements Serializable {
-    String KeyboardPath = "/sdcard/Android/data/com.aof.mcinabox/files/MCinaBox/Keyboardmodel/";
+    String KeyboardPath = MCINABOX_KEYBOARD;
     String KeyboardName; //键盘模板名称
     String[] args; //全部启动参数
     Boolean forceRootRuntime; //强制运行库提权

@@ -39,6 +39,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.aof.sharedmodule.Button.QwertButton;
 import com.google.gson.Gson;
 
 import com.aof.sharedmodule.Model.ArgsModel;
@@ -53,78 +54,43 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
 
     public ArgsModel argsModel;
     public ArrayList<GameButton> KeyboardList;
+    public LinearLayout QwertKeyboard;
+    int lastX,lastY;
+    int screenWidth,screenHeight;
+    private PopupWindow popupWindow;
+    private RelativeLayout base;
+    private Button control1;
+    private Button control2;
+    private Button control3;
+    private Button control4;
+    private Button control5;
+    private Button control6;
+    private Button control7;
+    private Button control8;
+    private Button control9;
+    private LinearLayout itemBar;
+    private Button mousePrimary;
+    private Button mouseSecondary;
+    private ImageView mouseCursor;
+    private EditText inputScanner;
+    public boolean mode = false;
+    private MyHandler mHandler;
+    private int initialX;
+    private int initialY;
+    private int baseX;
+    private int baseY;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         //获取参数对象
         argsModel = (ArgsModel) getIntent().getSerializableExtra("LauncherConfig");
-
-        //初始化一个悬浮窗口
-        popupWindow = new PopupWindow();
-        popupWindow.setWidth(LayoutParams.MATCH_PARENT);
-        popupWindow.setHeight(LayoutParams.MATCH_PARENT);
-        popupWindow.setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);
-        //悬浮窗获取焦点
-        popupWindow.setFocusable(true);
-
-        //初始化界面布局
-        KeyboardList = InitFromFile(); //--虚拟键盘
-        base = (RelativeLayout) LayoutInflater.from(BoatClientActivity.this).inflate(R.layout.overlay, null);
-        mouseCursor = base.findViewById(R.id.mouse_cursor);
-        touchPad = this.findButton(R.id.touch_pad);
-        controlUp = this.findButton(R.id.control_up);
-        controlDown = this.findButton(R.id.control_down);
-        controlLeft = this.findButton(R.id.control_left);
-        controlRight = this.findButton(R.id.control_right);
-        controlJump = this.findButton(R.id.control_jump);
-        controlInv = this.findButton(R.id.control_inventory);
-        controlLshift = this.findButton(R.id.control_lshift);
-        control1 = this.findButton(R.id.control_1);
-        control2 = this.findButton(R.id.control_2);
-        control3 = this.findButton(R.id.control_3);
-        control4 = this.findButton(R.id.control_4);
-        control5 = this.findButton(R.id.control_5);
-        control6 = this.findButton(R.id.control_6);
-        control7 = this.findButton(R.id.control_7);
-        control8 = this.findButton(R.id.control_8);
-        control9 = this.findButton(R.id.control_9);
-        itemBar = base.findViewById(R.id.item_bar);
-        mousePrimary = this.findButton(R.id.mouse_primary);
-        mouseSecondary = this.findButton(R.id.mouse_secondary);
-        esc = this.findButton(R.id.esc);
-        controlChat = this.findButton(R.id.control_chat);
-        controlCommand = this.findButton(R.id.control_command);
-        control3rd = this.findButton(R.id.control_3rd);
-        inputScanner = base.findViewById(R.id.input_scanner);
-        inputScanner.setFocusable(true);
-        inputScanner.addTextChangedListener(this);
-        inputScanner.setOnEditorActionListener(this);
-        inputScanner.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI | EditorInfo.IME_FLAG_NO_FULLSCREEN | EditorInfo.IME_ACTION_DONE);
-        inputScanner.setSelection(1);
-
-        //计算并设定物品栏大小
-        int height = getWindowManager().getDefaultDisplay().getHeight();
-        int width = getWindowManager().getDefaultDisplay().getWidth();
-        int scale = 1;
-        while (width / (scale + 1) >= 320 && height / (scale + 1) >= 240) {
-            scale++;
-        }
-        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) itemBar.getLayoutParams();
-        lp.height = 20 * scale;
-        lp.width = 20 * scale * 9;
-        itemBar.setLayoutParams(lp);
-
-        //添加虚拟键盘到布局
-        for(GameButton gameButton : KeyboardList){
-            base.addView(gameButton);
-            gameButton.setOnTouchListener(this);
-            gameButton.bringToFront();
-        }
-
-        //添加布局到悬浮窗
-        popupWindow.setContentView(base);
-
+        //获取屏幕的长宽像素
+        screenWidth = getResources().getDisplayMetrics().widthPixels;
+        screenHeight = getResources().getDisplayMetrics().heightPixels;
+        //初始化界面
+        InitWindowsAndScreenKeyboard();
         //初始化hanlder
         mHandler = new MyHandler();
 
@@ -156,43 +122,7 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
 
             }
         }.start();
-
-
-
     }*/
-
-
-    //private boolean overlayCreated = false;
-    private PopupWindow popupWindow;
-    private RelativeLayout base;
-    private Button touchPad;
-    private Button controlUp;
-    private Button controlDown;
-    private Button controlLeft;
-    private Button controlRight;
-    private Button controlJump;
-    private Button controlInv;
-    private Button controlLshift;
-    private Button control1;
-    private Button control2;
-    private Button control3;
-    private Button control4;
-    private Button control5;
-    private Button control6;
-    private Button control7;
-    private Button control8;
-    private Button control9;
-    private LinearLayout itemBar;
-    private Button mousePrimary;
-    private Button mouseSecondary;
-    private Button controlChat;
-    private Button controlCommand;
-    private Button control3rd;
-    private ImageView mouseCursor;
-    private Button esc;
-
-    private EditText inputScanner;
-    public boolean mode = false;
 
     private class MyHandler extends Handler {
         @Override
@@ -224,13 +154,11 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onClick(View p1) {
-        // TODO: Implement this method
+
         if (p1 == inputScanner) {
             inputScanner.setSelection(1);
         }
     }
-
-    private MyHandler mHandler;
 
     public void setCursorMode(int mode) {
         Message msg = new Message();
@@ -238,24 +166,19 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
         mHandler.sendMessage(msg);
     }
 
-    private int initialX;
-    private int initialY;
-    private int baseX;
-    private int baseY;
-
     @Override
     public void beforeTextChanged(CharSequence p1, int p2, int p3, int p4) {
-        // TODO: Implement this method
+
     }
 
     @Override
     public void onTextChanged(CharSequence p1, int p2, int p3, int p4) {
-        // TODO: Implement this method
+
     }
 
     @Override
     public void afterTextChanged(Editable p1) {
-        // TODO: Implement this method
+
         String newText = p1.toString();
         if (newText.length() < 1) {
 
@@ -277,7 +200,6 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public boolean onEditorAction(TextView p1, int p2, KeyEvent p3) {
-        // TODO: Implement this method
 
         BoatInputEventSender.setKey(GLFW_KEY_ENTER, true, '\n');
         BoatInputEventSender.setKey(GLFW_KEY_ENTER, false, '\n');
@@ -286,6 +208,9 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public boolean onTouch(View p1, MotionEvent p2) {
+
+        Log.e("TouchedView","ID: "+p1.getId());
+        Log.e("MotionEvent",p2.getAction()+"");
 
         if (p1 == inputScanner) {
             inputScanner.setSelection(1);
@@ -314,47 +239,7 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
             }
             return false;
         }
-        if (p1 == controlChat) {
 
-            if (p2.getActionMasked() == MotionEvent.ACTION_DOWN) {
-                BoatInputEventSender.setKey(GLFW_KEY_T, true, 0);
-
-            }
-            if (p2.getActionMasked() == MotionEvent.ACTION_UP) {
-                BoatInputEventSender.setKey(GLFW_KEY_T, false, 0);
-
-            }
-
-            return false;
-        }
-        if (p1 == controlCommand) {
-
-            if (p2.getActionMasked() == MotionEvent.ACTION_DOWN) {
-                BoatInputEventSender.setKey(GLFW_KEY_SLASH, true, 0);
-
-            }
-            if (p2.getActionMasked() == MotionEvent.ACTION_UP) {
-                BoatInputEventSender.setKey(GLFW_KEY_SLASH, false, 0);
-
-            }
-
-            return false;
-        }
-        if (p1 == control3rd) {
-
-            if (p2.getActionMasked() == MotionEvent.ACTION_DOWN) {
-                BoatInputEventSender.setKey(GLFW_KEY_F5, true, 0);
-
-            }
-
-            if (p2.getActionMasked() == MotionEvent.ACTION_UP) {
-                BoatInputEventSender.setKey(GLFW_KEY_F5, false, 0);
-
-            }
-
-
-            return false;
-        }
         if (p1 == control1) {
             if (p2.getActionMasked() == MotionEvent.ACTION_DOWN) {
                 BoatInputEventSender.setKey(GLFW_KEY_1, true, 0);
@@ -445,91 +330,64 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
             }
             return false;
         }
-        if (p1 == controlUp) {
-            if (p2.getActionMasked() == MotionEvent.ACTION_DOWN) {
-                BoatInputEventSender.setKey(GLFW_KEY_W, true, 0);
 
-            } else if (p2.getActionMasked() == MotionEvent.ACTION_UP) {
-                BoatInputEventSender.setKey(GLFW_KEY_W, false, 0);
 
+
+        if((p1 instanceof QwertButton) && ((QwertButton)p1).getButtonName().equals("Move")){
+            //TODO:写拖动全键盘的代码
+
+            switch(p2.getAction()){
+                case MotionEvent.ACTION_DOWN:
+                    lastX = (int) p2.getRawX();
+                    lastY = (int) p2.getRawY();
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    int dx = (int) p2.getRawX() - lastX;
+                    int dy = (int) p2.getRawY() - lastY;
+                    int l = QwertKeyboard.getLeft() + dx;
+                    int b = QwertKeyboard.getBottom() + dy;
+                    int r = QwertKeyboard.getRight() + dx;
+                    int t = QwertKeyboard.getTop() + dy;
+                    //下面判断移动是否超出屏幕
+                    if(l < 0){
+                        l = 0;
+                        r = l + QwertKeyboard.getWidth();
+                    }
+                    if(t < 0){
+                        t = 0;
+                        b = t+ QwertKeyboard.getHeight();
+                    }
+                    if(r > screenWidth){
+                        r = screenWidth;
+                        l = r - QwertKeyboard.getWidth();
+                    }
+                    if(b > screenHeight){
+                        b = screenHeight;
+                        t = b - QwertKeyboard.getHeight();
+                    }
+                    QwertKeyboard.layout(l,t,r,b);
+                    lastX = (int) p2.getRawX();
+                    lastY = (int) p2.getRawY();
+                    QwertKeyboard.postInvalidate();
+                    break;
+                case MotionEvent.ACTION_UP:
+                    break;
+                default:
+                    break;
             }
-            return false;
-        }
-        if (p1 == controlInv) {
-            if (p2.getActionMasked() == MotionEvent.ACTION_DOWN) {
-                BoatInputEventSender.setKey(GLFW_KEY_E, true, 0);
-
-            } else if (p2.getActionMasked() == MotionEvent.ACTION_UP) {
-                BoatInputEventSender.setKey(GLFW_KEY_E, false, 0);
-
-            }
-            return false;
-        }
-        if (p1 == controlLshift) {
-            if (p2.getActionMasked() == MotionEvent.ACTION_DOWN) {
-                BoatInputEventSender.setKey(GLFW_KEY_LEFT_SHIFT, true, 0);
-
-            } else if (p2.getActionMasked() == MotionEvent.ACTION_UP) {
-                BoatInputEventSender.setKey(GLFW_KEY_LEFT_SHIFT, false, 0);
-
-            }
-            return false;
-        }
-        if (p1 == controlDown) {
-            if (p2.getActionMasked() == MotionEvent.ACTION_DOWN) {
-                BoatInputEventSender.setKey(GLFW_KEY_S, true, 0);
-
-            } else if (p2.getActionMasked() == MotionEvent.ACTION_UP) {
-                BoatInputEventSender.setKey(GLFW_KEY_S, false, 0);
-
-            }
-            return false;
-        }
-        if (p1 == controlLeft) {
-            if (p2.getActionMasked() == MotionEvent.ACTION_DOWN) {
-                BoatInputEventSender.setKey(GLFW_KEY_A, true, 0);
-
-            } else if (p2.getActionMasked() == MotionEvent.ACTION_UP) {
-                BoatInputEventSender.setKey(GLFW_KEY_A, false, 0);
-
-            }
-            return false;
-        }
-        if (p1 == controlRight) {
-
-            if (p2.getActionMasked() == MotionEvent.ACTION_DOWN) {
-                BoatInputEventSender.setKey(GLFW_KEY_D, true, 0);
-
-            } else if (p2.getActionMasked() == MotionEvent.ACTION_UP) {
-                BoatInputEventSender.setKey(GLFW_KEY_D, false, 0);
-
-            }
-            return false;
-        }
-        if (p1 == controlJump) {
-
-            if (p2.getActionMasked() == MotionEvent.ACTION_DOWN) {
-                BoatInputEventSender.setKey(GLFW_KEY_SPACE, true, 0);
-
-            } else if (p2.getActionMasked() == MotionEvent.ACTION_UP) {
-                BoatInputEventSender.setKey(GLFW_KEY_SPACE, false, 0);
-
-            }
-            return false;
-        }
-        if (p1 == esc) {
-
-            if (p2.getActionMasked() == MotionEvent.ACTION_DOWN) {
-                BoatInputEventSender.setKey(GLFW_KEY_ESCAPE, true, 0);
-
-            } else if (p2.getActionMasked() == MotionEvent.ACTION_UP) {
-                BoatInputEventSender.setKey(GLFW_KEY_ESCAPE, false, 0);
-
-            }
-            return false;
+            return true;
         }
 
-        Log.e("Kyeboard","ID: "+p1.getId());
+        if((p1 instanceof QwertButton) && !((QwertButton) p1).getButtonName().equals("Move")){
+            if(p2.getActionMasked() == MotionEvent.ACTION_DOWN){
+                Log.e("QwertKeyboard","KeyName: " + ((QwertButton)p1).getButtonName() + " KeyIndex: " + ((QwertButton)p1).getButtonIndex() + " pressed");
+            }else if(p2.getActionMasked() == MotionEvent.ACTION_UP){
+                Log.e("QwertKeyboard","KeyName: " + ((QwertButton)p1).getButtonName() + " KeyIndex: " + ((QwertButton)p1).getButtonIndex() + " uped");
+            }
+        }
+
+
+
         for(GameButton gameButton : KeyboardList){
             //Log.e("Keyboard-Virtual","ID: "+gameButton.getId());
             if(p1 == gameButton){
@@ -541,7 +399,7 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
                         BoatInputEventSender.setKey(gameButton.getSpecialTwoIndex(), true, 0);
                     }else{
                         Log.e("VirtualKey-Single","KeyName: " + gameButton.getKeyMain() + " KeyIndex: " + gameButton.getMainIndex() + " Status: " + "pressed");
-                        BoatInputEventSender.setKey(gameButton.getMainIndex(), true, 0);
+                        //BoatInputEventSender.setKey(gameButton.getMainIndex(), true, 0);
                     }
                 }else if (p2.getActionMasked() == MotionEvent.ACTION_UP){
                     if(gameButton.isMult()){
@@ -551,14 +409,14 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
                         BoatInputEventSender.setKey(gameButton.getSpecialTwoIndex(), false, 0);
                     }else{
                         Log.e("VirtualKey-Single","KeyName: " + gameButton.getKeyMain() + " KeyIndex: " + gameButton.getMainIndex() + " Status: " + "uped");
-                        BoatInputEventSender.setKey(gameButton.getMainIndex(), false, 0);
+                        //BoatInputEventSender.setKey(gameButton.getMainIndex(), false, 0);
                     }
                 }
                 return false;
             }
         }
 
-        if (p1 == touchPad) {
+        if (p1 == base) {
             if (mode) {
                 switch (p2.getActionMasked()) {
                     case MotionEvent.ACTION_DOWN:
@@ -585,6 +443,7 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
             mouseCursor.setY(p2.getY());
             return true;
         }
+
         return false;
 
     }
@@ -598,10 +457,90 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+
+    /**【初始化界面和布局】**/
+    public void InitWindowsAndScreenKeyboard(){
+        //初始化一个悬浮窗口
+        popupWindow = new PopupWindow();
+        popupWindow.setWidth(LayoutParams.MATCH_PARENT);
+        popupWindow.setHeight(LayoutParams.MATCH_PARENT);
+        popupWindow.setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);
+        popupWindow.setFocusable(true);
+
+        //设定界面
+        base = (RelativeLayout) LayoutInflater.from(BoatClientActivity.this).inflate(R.layout.overlay, null);
+        base.setOnTouchListener(this);
+        mouseCursor = base.findViewById(R.id.mouse_cursor);
+        control1 = this.findButton(R.id.control_1);
+        control2 = this.findButton(R.id.control_2);
+        control3 = this.findButton(R.id.control_3);
+        control4 = this.findButton(R.id.control_4);
+        control5 = this.findButton(R.id.control_5);
+        control6 = this.findButton(R.id.control_6);
+        control7 = this.findButton(R.id.control_7);
+        control8 = this.findButton(R.id.control_8);
+        control9 = this.findButton(R.id.control_9);
+        itemBar = base.findViewById(R.id.item_bar);
+        mousePrimary = this.findButton(R.id.mouse_primary);
+        mouseSecondary = this.findButton(R.id.mouse_secondary);
+        inputScanner = base.findViewById(R.id.input_scanner);
+        inputScanner.setFocusable(true);
+        inputScanner.addTextChangedListener(this);
+        inputScanner.setOnEditorActionListener(this);
+        inputScanner.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI | EditorInfo.IME_FLAG_NO_FULLSCREEN | EditorInfo.IME_ACTION_DONE);
+        inputScanner.setSelection(1);
+        QwertKeyboard = base.findViewById(R.id.QwertKeyboard);
+
+        //计算并设定物品栏大小
+        int height = getWindowManager().getDefaultDisplay().getHeight();
+        int width = getWindowManager().getDefaultDisplay().getWidth();
+        int scale = 1;
+        while (width / (scale + 1) >= 320 && height / (scale + 1) >= 240) {
+            scale++;
+        }
+        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) itemBar.getLayoutParams();
+        lp.height = 20 * scale;
+        lp.width = 20 * scale * 9;
+        itemBar.setLayoutParams(lp);
+
+        //添加虚拟键盘
+        KeyboardList = InitFromFile();
+        for(GameButton gameButton : KeyboardList){
+            gameButton.bringToFront();
+            base.addView(gameButton);
+            gameButton.setOnTouchListener(this);
+        }
+
+        //设定QwertKeyboard全键盘
+        Log.e("ChildCount",""+((LinearLayout)base.findViewById(R.id.QwertKeyboard)).getChildCount());
+        for(int i = 0;i < ((LinearLayout)base.findViewById(R.id.QwertKeyboard)).getChildCount();i++){
+            for(int a = 0;a < ((LinearLayout)((LinearLayout)base.findViewById(R.id.QwertKeyboard)).getChildAt(i)).getChildCount();a++){
+                if(((LinearLayout)((LinearLayout)base.findViewById(R.id.QwertKeyboard)).getChildAt(i)).getChildAt(a) instanceof LinearLayout){
+                    for(int b = 0;b <((LinearLayout)((LinearLayout)((LinearLayout)base.findViewById(R.id.QwertKeyboard)).getChildAt(i)).getChildAt(a)).getChildCount() ;b++){
+                        ((QwertButton)((LinearLayout)((LinearLayout)((LinearLayout)base.findViewById(R.id.QwertKeyboard)).getChildAt(i)).getChildAt(a)).getChildAt(b)).setOnTouchListener(this);
+                    }
+                }else {
+                    ((QwertButton) ((LinearLayout) ((LinearLayout) base.findViewById(R.id.QwertKeyboard)).getChildAt(i)).getChildAt(a)).setOnTouchListener(this);
+                }
+            }
+        }
+
+        //显示布局到悬浮窗
+        popupWindow.setContentView(base);
+
+        //代码动态添加Qwert全键盘
+        //QwertKeyboard = (LinearLayout) getLayoutInflater().inflate(R.layout.virtual_keyboard,null);
+        //base.addView(QwertKeyboard);
+
+    }
+
+
+    /**【从文件获取虚拟键盘】**/
     public ArrayList<GameButton> InitFromFile(){
         InputStream inputStream;
         Gson gson = new Gson();
         File jsonFile = new File(argsModel.getKeyboardFilePath());
+        Log.e("InitFromFile",argsModel.getKeyboardFilePath());
         ArrayList<GameButton> keyboardList = new ArrayList<GameButton>();
         if(!jsonFile.exists()){
             Toast.makeText(this, "找不到键盘模板", Toast.LENGTH_SHORT).show();
@@ -679,6 +618,7 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
         final float scale = context.getResources().getDisplayMetrics().density;
         return ((int) ((pxValue - 0.5f)/scale))+1;
     }
+
 
 }
 

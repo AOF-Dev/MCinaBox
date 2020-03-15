@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/QwertKeyboard"
     android:orientation="vertical"
-    android:layout_width="450dp"
+    android:layout_width="550dp"
     android:layout_height="200dp">
 
     <LinearLayout
@@ -11,147 +13,147 @@
         android:layout_weight="10">
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
-            android:textSize="@string/qwert_text_size"
-            android:text="ESC"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            android:text="■"
+            custom:button_index="-1"
+            custom:button_name="Move" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
-            android:textSize="@string/qwert_text_size"
+            android:textSize="@dimen/qwert_text_size"
             android:text="F1"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            custom:button_index="290"
+            custom:button_name="F1" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
-            android:textSize="@string/qwert_text_size"
+            android:textSize="@dimen/qwert_text_size"
             android:text="F2"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            custom:button_index="291"
+            custom:button_name="F2" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
-            android:textSize="@string/qwert_text_size"
+            android:textSize="@dimen/qwert_text_size"
             android:text="F3"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            custom:button_index="292"
+            custom:button_name="F3" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="F4"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="293"
+            custom:button_name="F4" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="F5"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="294"
+            custom:button_name="F5" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="F6"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="295"
+            custom:button_name="F6" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="F7"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="296"
+            custom:button_name="F7" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="F8"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="297"
+            custom:button_name="F8" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="F9"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="298"
+            custom:button_name="F9" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="F10"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="299"
+            custom:button_name="F10" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="F11"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="300"
+            custom:button_name="F11" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="F12"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="301"
+            custom:button_name="F12" />
 
     </LinearLayout>
 
@@ -162,147 +164,147 @@
         android:layout_weight="10">
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
-            android:text="■"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:text="ESC"
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="256"
+            custom:button_name="Esc" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="1"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="49"
+            custom:button_name="1" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="2"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="50"
+            custom:button_name="2" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="3"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="51"
+            custom:button_name="3" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="4"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="52"
+            custom:button_name="4" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="5"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="53"
+            custom:button_name="5" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="6"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="54"
+            custom:button_name="6" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="7"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="55"
+            custom:button_name="7" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="8"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="56"
+            custom:button_name="8" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="9"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="57"
+            custom:button_name="9" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="0"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="48"
+            custom:button_name="0" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="Back"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="259"
+            custom:button_name="BackSpace" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="Prt"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="283"
+            custom:button_name="PrintScreen" />
 
     </LinearLayout>
 
@@ -313,147 +315,147 @@
         android:layout_weight="10">
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="Tab"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="258"
+            custom:button_name="Tab" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="Q"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="81"
+            custom:button_name="Q" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="W"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="87"
+            custom:button_name="W" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="E"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="69"
+            custom:button_name="E" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="R"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="82"
+            custom:button_name="R" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="T"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="84"
+            custom:button_name="T" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="Y"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="89"
+            custom:button_name="Y" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="U"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="85"
+            custom:button_name="U" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="I"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="73"
+            custom:button_name="I" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="O"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="79"
+            custom:button_name="O" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="P"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="80"
+            custom:button_name="P" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
-            android:text="Delet"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:text="Delete"
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="261"
+            custom:button_name="Delete" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="Pause"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="284"
+            custom:button_name="Pause" />
 
     </LinearLayout>
 
@@ -464,147 +466,147 @@
         android:layout_weight="10">
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="CLock"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="280"
+            custom:button_name="Caps Lock" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="A"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="65"
+            custom:button_name="A" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="S"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="83"
+            custom:button_name="S" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="D"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="68"
+            custom:button_name="D" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="F"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="70"
+            custom:button_name="F" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="G"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="71"
+            custom:button_name="G" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="H"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="72"
+            custom:button_name="H" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="J"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="74"
+            custom:button_name="J" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="K"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="75"
+            custom:button_name="K" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="L"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="76"
+            custom:button_name="L" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="Enter"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="257"
+            custom:button_name="Enter" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="Inset"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="260"
+            custom:button_name="Insert" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="Home"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="268"
+            custom:button_name="Home" />
 
     </LinearLayout>
 
@@ -615,147 +617,147 @@
         android:layout_weight="10">
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="Shift"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="340"
+            custom:button_name="Left Shift" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="Z"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="90"
+            custom:button_name="Z" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="X"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="88"
+            custom:button_name="X" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="C"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="67"
+            custom:button_name="C" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="V"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="86"
+            custom:button_name="V" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="B"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="66"
+            custom:button_name="B" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="N"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="78"
+            custom:button_name="N" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="M"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="77"
+            custom:button_name="M" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
-            android:text="SHIFT"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:text="Shift"
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="344"
+            custom:button_name="Right Shift" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="Pageup"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="266"
+            custom:button_name="Page Up" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="Pagedn"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="267"
+            custom:button_name="Page Down" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="▲"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="265"
+            custom:button_name="Up" />
 
         <com.aof.sharedmodule.Button.QwertButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_square"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="End"
-            android:textSize="@string/qwert_text_size"
-            android:ButtonIndex="1"
-            android:ButtonName="A" />
+            android:textSize="@dimen/qwert_text_size"
+            custom:button_index="269"
+            custom:button_name="End" />
 
     </LinearLayout>
 
@@ -767,37 +769,37 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="horizontal"
             android:layout_weight="2">
 
             <com.aof.sharedmodule.Button.QwertButton
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/control_button_square"
                 android:layout_margin="1dp"
                 android:layout_weight="10"
                 android:text="Ctrl"
-                android:textSize="@string/qwert_text_size"
-                android:ButtonIndex="1"
-                android:ButtonName="A" />
+                android:textSize="@dimen/qwert_text_size"
+                custom:button_index="341"
+                custom:button_name="Left Ctrl" />
 
             <com.aof.sharedmodule.Button.QwertButton
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/control_button_square"
                 android:layout_margin="1dp"
                 android:layout_weight="10"
                 android:text="Alt"
-                android:textSize="@string/qwert_text_size"
-                android:ButtonIndex="1"
-                android:ButtonName="A" />
+                android:textSize="@dimen/qwert_text_size"
+                custom:button_index="342"
+                custom:button_name="Left Alt" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="horizontal"
             android:layout_weight="6">
 
@@ -808,72 +810,72 @@
                 android:layout_margin="1dp"
                 android:layout_weight="0"
                 android:text="Space"
-                android:textSize="@string/qwert_text_size"
-                android:ButtonIndex="1"
-                android:ButtonName="A" />
+                android:textSize="@dimen/qwert_text_size"
+                custom:button_index="32"
+                custom:button_name="Space" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="horizontal"
             android:layout_weight="5">
 
             <com.aof.sharedmodule.Button.QwertButton
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/control_button_square"
                 android:layout_margin="1dp"
                 android:layout_weight="10"
                 android:text="Alt"
-                android:textSize="@string/qwert_text_size"
-                android:ButtonIndex="1"
-                android:ButtonName="A" />
+                android:textSize="@dimen/qwert_text_size"
+                custom:button_index="346"
+                custom:button_name="Right Alt" />
 
             <com.aof.sharedmodule.Button.QwertButton
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/control_button_square"
                 android:layout_margin="1dp"
                 android:layout_weight="10"
                 android:text="Ctrl"
-                android:textSize="@string/qwert_text_size"
-                android:ButtonIndex="1"
-                android:ButtonName="A" />
+                android:textSize="@dimen/qwert_text_size"
+                custom:button_index="345"
+                custom:button_name="Right Ctrl" />
 
             <com.aof.sharedmodule.Button.QwertButton
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/control_button_square"
                 android:layout_margin="1dp"
                 android:layout_weight="10"
                 android:text="◀"
-                android:textSize="@string/qwert_text_size"
-                android:ButtonIndex="1"
-                android:ButtonName="A" />
+                android:textSize="@dimen/qwert_text_size"
+                custom:button_index="263"
+                custom:button_name="Left" />
 
             <com.aof.sharedmodule.Button.QwertButton
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/control_button_square"
                 android:layout_margin="1dp"
                 android:layout_weight="10"
                 android:text="▼"
-                android:textSize="@string/qwert_text_size"
-                android:ButtonIndex="1"
-                android:ButtonName="A" />
+                android:textSize="@dimen/qwert_text_size"
+                custom:button_index="264"
+                custom:button_name="Down" />
 
             <com.aof.sharedmodule.Button.QwertButton
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/control_button_square"
                 android:layout_margin="1dp"
                 android:layout_weight="10"
                 android:text="▶"
-                android:textSize="@string/qwert_text_size"
-                android:ButtonIndex="1"
-                android:ButtonName="A" />
+                android:textSize="@dimen/qwert_text_size"
+                custom:button_index="262"
+                custom:button_name="Right" />
 
         </LinearLayout>
 

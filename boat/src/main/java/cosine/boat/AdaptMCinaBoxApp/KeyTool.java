@@ -22,11 +22,11 @@ public class KeyTool {
         //特殊按键完全匹配索引
 
         Log.e("KeyTool","长度 "+ KeyName.length() + " 首项" + KeyName.charAt(0));
-        if (KeyName.length() == 1 & (KeyName.charAt(0) >= '0' && KeyName.charAt(0) <= '9')) {
+        if (KeyName.length() == 1 && (KeyName.charAt(0) >= '0' && KeyName.charAt(0) <= '9')) {
             return (KeyName.toCharArray()[0] - '0' + NUM_ZERO);
-        } else if (KeyName.length() == 1 & (KeyName.charAt(0) >= 'A' && KeyName.charAt(0) <= 'Z')) {
+        } else if (KeyName.length() == 1 && (KeyName.charAt(0) >= 'A' && KeyName.charAt(0) <= 'Z')) {
             return (KeyName.toCharArray()[0] - 'A' + KEY_A);
-        } else if ((KeyName.length() >= 2 && KeyName.charAt(0) == 'F') & (KeyName.charAt(1) >= '1' && KeyName.charAt(1) <= '9')) {
+        } else if ((KeyName.length() >= 2 && KeyName.charAt(0) == 'F') && (KeyName.charAt(1) >= '1' && KeyName.charAt(1) <= '9')) {
             return (KeyName.charAt(1) - '1' + KEY_F1);
         } else {
             switch (KeyName) {
