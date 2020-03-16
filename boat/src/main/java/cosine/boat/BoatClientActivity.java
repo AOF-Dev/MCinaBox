@@ -1,6 +1,5 @@
 package cosine.boat;
 
-
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
 import android.telephony.mbms.MbmsErrors;
@@ -32,42 +31,33 @@ import java.io.*;
 import java.security.Key;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.aof.sharedmodule.Button.CrossButton;
+import com.aof.sharedmodule.Button.ItemButton;
 import com.aof.sharedmodule.Button.QwertButton;
 import com.google.gson.Gson;
-
 import com.aof.sharedmodule.Model.ArgsModel;
 import com.aof.sharedmodule.Tools.ColorUtils;
 import com.aof.sharedmodule.Button.GameButton;
 import cosine.boat.AdaptMCinaBoxApp.KeyTool;
 import com.aof.sharedmodule.Model.KeyboardJsonModel;
-
 import static org.lwjgl.glfw.GLFW.*;
 
 public class BoatClientActivity extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener, TextWatcher, TextView.OnEditorActionListener {
 
-    public ArgsModel argsModel;
-    public ArrayList<GameButton> KeyboardList;
-    public LinearLayout QwertKeyboard;
-    int lastX,lastY;
-    int screenWidth,screenHeight;
+    private ArgsModel argsModel;
+    private ArrayList<GameButton> KeyboardList;
+    private LinearLayout QwertKeyboard;
+    private LinearLayout CrossKey;
+    private int lastX_Qwert,lastY_Qwert,lastX_CrossKey,lastY_CrossKey;
+    private int screenWidth,screenHeight;
     private PopupWindow popupWindow;
     private RelativeLayout base;
-    private Button control1;
-    private Button control2;
-    private Button control3;
-    private Button control4;
-    private Button control5;
-    private Button control6;
-    private Button control7;
-    private Button control8;
-    private Button control9;
     private LinearLayout itemBar;
     private Button mousePrimary;
     private Button mouseSecondary;
@@ -79,6 +69,7 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
     private int initialY;
     private int baseX;
     private int baseY;
+    private HashMap<Object,int[]> layoutsPos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +84,8 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
         InitWindowsAndScreenKeyboard();
         //初始化hanlder
         mHandler = new MyHandler();
+        //初始化Map
+        layoutsPos = new HashMap<Object,int[]>();
 
     }
 
@@ -240,207 +233,47 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
             return false;
         }
 
-        if (p1 == control1) {
-            if (p2.getActionMasked() == MotionEvent.ACTION_DOWN) {
-                BoatInputEventSender.setKey(GLFW_KEY_1, true, 0);
-
-            } else if (p2.getActionMasked() == MotionEvent.ACTION_UP) {
-                BoatInputEventSender.setKey(GLFW_KEY_1, false, 0);
-
-            }
-            return false;
-        }
-        if (p1 == control2) {
-            if (p2.getActionMasked() == MotionEvent.ACTION_DOWN) {
-                BoatInputEventSender.setKey(GLFW_KEY_2, true, 0);
-
-            } else if (p2.getActionMasked() == MotionEvent.ACTION_UP) {
-                BoatInputEventSender.setKey(GLFW_KEY_2, false, 0);
-
-            }
-            return false;
-        }
-        if (p1 == control3) {
-            if (p2.getActionMasked() == MotionEvent.ACTION_DOWN) {
-                BoatInputEventSender.setKey(GLFW_KEY_3, true, 0);
-
-            } else if (p2.getActionMasked() == MotionEvent.ACTION_UP) {
-                BoatInputEventSender.setKey(GLFW_KEY_3, false, 0);
-
-            }
-            return false;
-        }
-        if (p1 == control4) {
-            if (p2.getActionMasked() == MotionEvent.ACTION_DOWN) {
-                BoatInputEventSender.setKey(GLFW_KEY_4, true, 0);
-
-            } else if (p2.getActionMasked() == MotionEvent.ACTION_UP) {
-                BoatInputEventSender.setKey(GLFW_KEY_4, false, 0);
-
-            }
-            return false;
-        }
-        if (p1 == control5) {
-            if (p2.getActionMasked() == MotionEvent.ACTION_DOWN) {
-                BoatInputEventSender.setKey(GLFW_KEY_5, true, 0);
-
-            } else if (p2.getActionMasked() == MotionEvent.ACTION_UP) {
-                BoatInputEventSender.setKey(GLFW_KEY_5, false, 0);
-
-            }
-            return false;
-        }
-        if (p1 == control6) {
-            if (p2.getActionMasked() == MotionEvent.ACTION_DOWN) {
-                BoatInputEventSender.setKey(GLFW_KEY_6, true, 0);
-
-            } else if (p2.getActionMasked() == MotionEvent.ACTION_UP) {
-                BoatInputEventSender.setKey(GLFW_KEY_6, false, 0);
-
-            }
-            return false;
-        }
-        if (p1 == control7) {
-            if (p2.getActionMasked() == MotionEvent.ACTION_DOWN) {
-                BoatInputEventSender.setKey(GLFW_KEY_7, true, 0);
-
-            } else if (p2.getActionMasked() == MotionEvent.ACTION_UP) {
-                BoatInputEventSender.setKey(GLFW_KEY_7, false, 0);
-
-            }
-            return false;
-        }
-        if (p1 == control8) {
-            if (p2.getActionMasked() == MotionEvent.ACTION_DOWN) {
-                BoatInputEventSender.setKey(GLFW_KEY_8, true, 0);
-
-            } else if (p2.getActionMasked() == MotionEvent.ACTION_UP) {
-                BoatInputEventSender.setKey(GLFW_KEY_8, false, 0);
-
-            }
-            return false;
-        }
-        if (p1 == control9) {
-            if (p2.getActionMasked() == MotionEvent.ACTION_DOWN) {
-                BoatInputEventSender.setKey(GLFW_KEY_9, true, 0);
-
-            } else if (p2.getActionMasked() == MotionEvent.ACTION_UP) {
-                BoatInputEventSender.setKey(GLFW_KEY_9, false, 0);
-
-            }
+        //物品栏手势
+        if(p1 instanceof ItemButton){
+            OnTouchItemButton((ItemButton) p1,p2);
             return false;
         }
 
+        //全键盘手势
+        if((p1 instanceof QwertButton) && !((QwertButton) p1).getButtonName().equals("Move")){
+            OnTouchQwertKeyboard((QwertButton)p1,p2);
+            return false;
+        }
 
-
+        //移动全键盘
         if((p1 instanceof QwertButton) && ((QwertButton)p1).getButtonName().equals("Move")){
-            //TODO:写拖动全键盘的代码
-
-            switch(p2.getAction()){
-                case MotionEvent.ACTION_DOWN:
-                    lastX = (int) p2.getRawX();
-                    lastY = (int) p2.getRawY();
-                    break;
-                case MotionEvent.ACTION_MOVE:
-                    int dx = (int) p2.getRawX() - lastX;
-                    int dy = (int) p2.getRawY() - lastY;
-                    int l = QwertKeyboard.getLeft() + dx;
-                    int b = QwertKeyboard.getBottom() + dy;
-                    int r = QwertKeyboard.getRight() + dx;
-                    int t = QwertKeyboard.getTop() + dy;
-                    //下面判断移动是否超出屏幕
-                    if(l < 0){
-                        l = 0;
-                        r = l + QwertKeyboard.getWidth();
-                    }
-                    if(t < 0){
-                        t = 0;
-                        b = t+ QwertKeyboard.getHeight();
-                    }
-                    if(r > screenWidth){
-                        r = screenWidth;
-                        l = r - QwertKeyboard.getWidth();
-                    }
-                    if(b > screenHeight){
-                        b = screenHeight;
-                        t = b - QwertKeyboard.getHeight();
-                    }
-                    QwertKeyboard.layout(l,t,r,b);
-                    lastX = (int) p2.getRawX();
-                    lastY = (int) p2.getRawY();
-                    QwertKeyboard.postInvalidate();
-                    break;
-                case MotionEvent.ACTION_UP:
-                    break;
-                default:
-                    break;
-            }
+            OnMoveQwertKeyboard(p1,p2);
             return true;
         }
 
-        if((p1 instanceof QwertButton) && !((QwertButton) p1).getButtonName().equals("Move")){
-            if(p2.getActionMasked() == MotionEvent.ACTION_DOWN){
-                Log.e("QwertKeyboard","KeyName: " + ((QwertButton)p1).getButtonName() + " KeyIndex: " + ((QwertButton)p1).getButtonIndex() + " pressed");
-            }else if(p2.getActionMasked() == MotionEvent.ACTION_UP){
-                Log.e("QwertKeyboard","KeyName: " + ((QwertButton)p1).getButtonName() + " KeyIndex: " + ((QwertButton)p1).getButtonIndex() + " uped");
-            }
+        //十字键手势
+        if(p1 instanceof CrossButton){
+            OnTouchCrossKey((CrossButton)p1,p2);
+            return false;
         }
 
+        //移动十字键
+        if(p1.getId() == R.id.corsskey_move){
+            OnMoveCrossKey((Button)p1,p2);
+            return true;
+        }
 
-
+        //自定义虚拟按键手势
         for(GameButton gameButton : KeyboardList){
-            //Log.e("Keyboard-Virtual","ID: "+gameButton.getId());
             if(p1 == gameButton){
-                if(p2.getActionMasked() == MotionEvent.ACTION_DOWN){
-                    if(gameButton.isMult()){
-                        Log.e("VirtualKey-Mult","KeyName: " + gameButton.getKeyMain() + " " + gameButton.getSpecialOne() + " " + gameButton.getSpecialTwo() +" KeyIndex: " + gameButton.getMainIndex() + " " + gameButton.getSpecialOneIndex() + " " + gameButton.getSpecialTwoIndex()  + " Status: " + "pressed");
-                        BoatInputEventSender.setKey(gameButton.getMainIndex(), true, 0);
-                        BoatInputEventSender.setKey(gameButton.getSpecialOneIndex(), true, 0);
-                        BoatInputEventSender.setKey(gameButton.getSpecialTwoIndex(), true, 0);
-                    }else{
-                        Log.e("VirtualKey-Single","KeyName: " + gameButton.getKeyMain() + " KeyIndex: " + gameButton.getMainIndex() + " Status: " + "pressed");
-                        //BoatInputEventSender.setKey(gameButton.getMainIndex(), true, 0);
-                    }
-                }else if (p2.getActionMasked() == MotionEvent.ACTION_UP){
-                    if(gameButton.isMult()){
-                        Log.e("VirtualKey-Mult","KeyName: " + gameButton.getKeyMain() + " " + gameButton.getSpecialOne() + " " + gameButton.getSpecialTwo() +" KeyIndex: " + gameButton.getMainIndex() + " " + gameButton.getSpecialOneIndex() + " " + gameButton.getSpecialTwoIndex()  + " Status: " + "uped");
-                        BoatInputEventSender.setKey(gameButton.getMainIndex(), false, 0);
-                        BoatInputEventSender.setKey(gameButton.getSpecialOneIndex(), false, 0);
-                        BoatInputEventSender.setKey(gameButton.getSpecialTwoIndex(), false, 0);
-                    }else{
-                        Log.e("VirtualKey-Single","KeyName: " + gameButton.getKeyMain() + " KeyIndex: " + gameButton.getMainIndex() + " Status: " + "uped");
-                        //BoatInputEventSender.setKey(gameButton.getMainIndex(), false, 0);
-                    }
-                }
-                return false;
+                OnTouchVirtualKeyboard(gameButton,p2);
+                return  false;
             }
         }
 
+        //屏幕虚拟鼠标手势
         if (p1 == base) {
-            if (mode) {
-                switch (p2.getActionMasked()) {
-                    case MotionEvent.ACTION_DOWN:
-                        initialX = (int) p2.getX();
-                        initialY = (int) p2.getY();
-                    case MotionEvent.ACTION_MOVE:
-                        BoatInputEventSender.setPointer(baseX + (int) p2.getX() - initialX, baseY + (int) p2.getY() - initialY);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        baseX += ((int) p2.getX() - initialX);
-                        baseY += ((int) p2.getY() - initialY);
-
-                        BoatInputEventSender.setPointer(baseX, baseY);
-                        break;
-                    default:
-                        break;
-                }
-            } else {
-                baseX = (int) p2.getX();
-                baseY = (int) p2.getY();
-                BoatInputEventSender.setPointer(baseX, baseY);
-            }
-            mouseCursor.setX(p2.getX());
-            mouseCursor.setY(p2.getY());
+            OnTouchVirtualMouse(p2);
             return true;
         }
 
@@ -471,15 +304,6 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
         base = (RelativeLayout) LayoutInflater.from(BoatClientActivity.this).inflate(R.layout.overlay, null);
         base.setOnTouchListener(this);
         mouseCursor = base.findViewById(R.id.mouse_cursor);
-        control1 = this.findButton(R.id.control_1);
-        control2 = this.findButton(R.id.control_2);
-        control3 = this.findButton(R.id.control_3);
-        control4 = this.findButton(R.id.control_4);
-        control5 = this.findButton(R.id.control_5);
-        control6 = this.findButton(R.id.control_6);
-        control7 = this.findButton(R.id.control_7);
-        control8 = this.findButton(R.id.control_8);
-        control9 = this.findButton(R.id.control_9);
         itemBar = base.findViewById(R.id.item_bar);
         mousePrimary = this.findButton(R.id.mouse_primary);
         mouseSecondary = this.findButton(R.id.mouse_secondary);
@@ -490,6 +314,12 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
         inputScanner.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI | EditorInfo.IME_FLAG_NO_FULLSCREEN | EditorInfo.IME_ACTION_DONE);
         inputScanner.setSelection(1);
         QwertKeyboard = base.findViewById(R.id.QwertKeyboard);
+        CrossKey = base.findViewById(R.id.CrossKey);
+
+        //设定物品栏
+        for(int i = 0;i < itemBar.getChildCount();i++){
+            itemBar.getChildAt(i).setOnTouchListener(this);
+        }
 
         //计算并设定物品栏大小
         int height = getWindowManager().getDefaultDisplay().getHeight();
@@ -511,16 +341,28 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
             gameButton.setOnTouchListener(this);
         }
 
-        //设定QwertKeyboard全键盘
-        Log.e("ChildCount",""+((LinearLayout)base.findViewById(R.id.QwertKeyboard)).getChildCount());
+        //设定QwertKeyboard全键盘的监听
         for(int i = 0;i < ((LinearLayout)base.findViewById(R.id.QwertKeyboard)).getChildCount();i++){
             for(int a = 0;a < ((LinearLayout)((LinearLayout)base.findViewById(R.id.QwertKeyboard)).getChildAt(i)).getChildCount();a++){
                 if(((LinearLayout)((LinearLayout)base.findViewById(R.id.QwertKeyboard)).getChildAt(i)).getChildAt(a) instanceof LinearLayout){
                     for(int b = 0;b <((LinearLayout)((LinearLayout)((LinearLayout)base.findViewById(R.id.QwertKeyboard)).getChildAt(i)).getChildAt(a)).getChildCount() ;b++){
-                        ((QwertButton)((LinearLayout)((LinearLayout)((LinearLayout)base.findViewById(R.id.QwertKeyboard)).getChildAt(i)).getChildAt(a)).getChildAt(b)).setOnTouchListener(this);
+                        ((LinearLayout)((LinearLayout)((LinearLayout)base.findViewById(R.id.QwertKeyboard)).getChildAt(i)).getChildAt(a)).getChildAt(b).setOnTouchListener(this);
                     }
                 }else {
-                    ((QwertButton) ((LinearLayout) ((LinearLayout) base.findViewById(R.id.QwertKeyboard)).getChildAt(i)).getChildAt(a)).setOnTouchListener(this);
+                    ((LinearLayout) ((LinearLayout) base.findViewById(R.id.QwertKeyboard)).getChildAt(i)).getChildAt(a).setOnTouchListener(this);
+                }
+            }
+        }
+
+        //设定CrossKey十字键的监听
+        for(int i = 0;i < ((LinearLayout)base.findViewById(R.id.CrossKey)).getChildCount();i++){
+            if(((LinearLayout)base.findViewById(R.id.CrossKey)).getChildAt(i) instanceof Button){
+                ((LinearLayout)base.findViewById(R.id.CrossKey)).getChildAt(i).setOnTouchListener(this);
+            }else{
+                for(int a = 0;a < ((LinearLayout)((LinearLayout)base.findViewById(R.id.CrossKey)).getChildAt(i)).getChildCount();a++){
+                    for(int b = 0;b< ((LinearLayout)(((LinearLayout)((LinearLayout)base.findViewById(R.id.CrossKey)).getChildAt(i)).getChildAt(a))).getChildCount();b++){
+                        ((LinearLayout)(((LinearLayout)((LinearLayout)base.findViewById(R.id.CrossKey)).getChildAt(i)).getChildAt(a))).getChildAt(b).setOnTouchListener(this);
+                    }
                 }
             }
         }
@@ -555,7 +397,7 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
             if(tempList2.size() != 0){
                 Toast.makeText(this, "导入成功", Toast.LENGTH_SHORT).show();
                 for(KeyboardJsonModel targetModel : tempList2){
-                    GameButton gameButton = GetButtonFromModel(targetModel.getKeyName(),targetModel.getKeySizeW(),targetModel.getKeySizeH(),targetModel.getKeyAlpha(),targetModel.getKeyLX(),targetModel.getKeyLY(),targetModel.getKeyMain(),targetModel.getSpecialOne(),targetModel.getSpecialTwo(),targetModel.isAutoKeep(),targetModel.isHide(),targetModel.isMult(),targetModel.getShape(),targetModel.getMainPos(),targetModel.getSpecialOnePos(),targetModel.getSpecialTwoPos(),targetModel.getColorhex(),targetModel.getCornerRadius());
+                    GameButton gameButton = GetButtonFromModel(targetModel.getKeyName(),targetModel.getKeySizeW(),targetModel.getKeySizeH(),targetModel.getKeyLX(),targetModel.getKeyLY(),targetModel.getKeyMain(),targetModel.getSpecialOne(),targetModel.getSpecialTwo(),targetModel.isAutoKeep(),targetModel.isHide(),targetModel.isMult(),targetModel.getMainPos(),targetModel.getSpecialOnePos(),targetModel.getSpecialTwoPos(),targetModel.getColorhex(),targetModel.getCornerRadius());
                     keyboardList.add(gameButton);
                 }
             }else{
@@ -568,7 +410,7 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
         return keyboardList;
     }
 
-    public GameButton GetButtonFromModel(String KeyName, int KeySizeW,int KeySizeH, int KeyAlpha, int KeyLX, int KeyLY, String KeyMain, String SpecialOne, String SpecialTwo, boolean isAutoKeep, boolean isHide, boolean isMult,String shape,int MainPos,int SpecialOnePos,int SpecialTwoPos,String colorhex,int conerRadius){
+    public GameButton GetButtonFromModel(String KeyName, int KeySizeW,int KeySizeH, int KeyLX, int KeyLY, String KeyMain, String SpecialOne, String SpecialTwo, boolean isAutoKeep, boolean isHide, boolean isMult,int MainPos,int SpecialOnePos,int SpecialTwoPos,String colorhex,int conerRadius){
         GameButton KeyButton = new GameButton(getApplicationContext());
         //设置外观以及基本属性
         KeyButton.setText(KeyName);
@@ -588,7 +430,6 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
         KeyButton.setClickable(true);
         KeyButton.setId(KeyButton.hashCode());
         KeyButton.setGravity(Gravity.CENTER);
-        KeyButton.setShape(shape);
         KeyButton.setMainPos(MainPos);
         KeyButton.setSpecialOnePos(SpecialOnePos);
         KeyButton.setSpecialTwoPos(SpecialTwoPos);
@@ -619,6 +460,142 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
         return ((int) ((pxValue - 0.5f)/scale))+1;
     }
 
+    private void OnTouchVirtualKeyboard(GameButton gameButton,MotionEvent p2){
+        if(p2.getActionMasked() == MotionEvent.ACTION_DOWN){
+            if(gameButton.isMult()){
+                Log.e("VirtualKey-Mult","KeyName: " + gameButton.getKeyMain() + " " + gameButton.getSpecialOne() + " " + gameButton.getSpecialTwo() +" KeyIndex: " + gameButton.getMainIndex() + " " + gameButton.getSpecialOneIndex() + " " + gameButton.getSpecialTwoIndex()  + " Status: " + "pressed");
+                BoatInputEventSender.setKey(gameButton.getMainIndex(), true, 0);
+                BoatInputEventSender.setKey(gameButton.getSpecialOneIndex(), true, 0);
+                BoatInputEventSender.setKey(gameButton.getSpecialTwoIndex(), true, 0);
+            }else{
+                Log.e("VirtualKey-Single","KeyName: " + gameButton.getKeyMain() + " KeyIndex: " + gameButton.getMainIndex() + " Status: " + "pressed");
+                BoatInputEventSender.setKey(gameButton.getMainIndex(), true, 0);
+            }
+        }else if (p2.getActionMasked() == MotionEvent.ACTION_UP){
+            if(gameButton.isMult()){
+                Log.e("VirtualKey-Mult","KeyName: " + gameButton.getKeyMain() + " " + gameButton.getSpecialOne() + " " + gameButton.getSpecialTwo() +" KeyIndex: " + gameButton.getMainIndex() + " " + gameButton.getSpecialOneIndex() + " " + gameButton.getSpecialTwoIndex()  + " Status: " + "uped");
+                BoatInputEventSender.setKey(gameButton.getMainIndex(), false, 0);
+                BoatInputEventSender.setKey(gameButton.getSpecialOneIndex(), false, 0);
+                BoatInputEventSender.setKey(gameButton.getSpecialTwoIndex(), false, 0);
+            }else{
+                Log.e("VirtualKey-Single","KeyName: " + gameButton.getKeyMain() + " KeyIndex: " + gameButton.getMainIndex() + " Status: " + "uped");
+                BoatInputEventSender.setKey(gameButton.getMainIndex(), false, 0);
+            }
+        }
+    }
+
+    private void OnTouchVirtualMouse(MotionEvent p2){
+        if (mode) {
+            switch (p2.getActionMasked()) {
+                case MotionEvent.ACTION_DOWN:
+                    initialX = (int) p2.getX();
+                    initialY = (int) p2.getY();
+                case MotionEvent.ACTION_MOVE:
+                    BoatInputEventSender.setPointer(baseX + (int) p2.getX() - initialX, baseY + (int) p2.getY() - initialY);
+                    break;
+                case MotionEvent.ACTION_UP:
+                    baseX += ((int) p2.getX() - initialX);
+                    baseY += ((int) p2.getY() - initialY);
+
+                    BoatInputEventSender.setPointer(baseX, baseY);
+                    break;
+                default:
+                    break;
+            }
+        } else {
+            baseX = (int) p2.getX();
+            baseY = (int) p2.getY();
+            BoatInputEventSender.setPointer(baseX, baseY);
+        }
+        mouseCursor.setX(p2.getX());
+        mouseCursor.setY(p2.getY());
+    }
+
+    private void OnTouchItemButton(ItemButton p1,MotionEvent p2){
+        if(p2.getActionMasked() == MotionEvent.ACTION_DOWN){
+            Log.e("ItemButton","KeyName: " + p1.getButtonName() + " KeyIndex: " + p1.getButtonIndex() + " pressed");
+            BoatInputEventSender.setKey(p1.getButtonIndex(),true,0);
+        }else if(p2.getActionMasked() == MotionEvent.ACTION_UP){
+            Log.e("ItemButton","KeyName: " + p1.getButtonName() + " KeyIndex: " + p1.getButtonIndex() + " uped");
+            BoatInputEventSender.setKey(p1.getButtonIndex(),false,0);
+        }
+    }
+
+    private void OnTouchQwertKeyboard(QwertButton p1,MotionEvent p2){
+        if(p2.getActionMasked() == MotionEvent.ACTION_DOWN){
+            Log.e("QwertKeyboard","KeyName: " + p1.getButtonName() + " KeyIndex: " + p1.getButtonIndex() + " pressed");
+            BoatInputEventSender.setKey(p1.getButtonIndex(),true,0);
+        }else if(p2.getActionMasked() == MotionEvent.ACTION_UP){
+            Log.e("QwertKeyboard","KeyName: " + p1.getButtonName() + " KeyIndex: " + p1.getButtonIndex() + " uped");
+            BoatInputEventSender.setKey(p1.getButtonIndex(),false,0);
+        }
+    }
+
+    private void OnTouchCrossKey(CrossButton p1,MotionEvent p2){
+        if(p2.getActionMasked() == MotionEvent.ACTION_DOWN){
+            Log.e("CrossKey","KeyName: " + p1.getButtonName() + " KeyIndex: " + p1.getButtonIndex() + " " + p1.getButtonIndexSec() + " pressed");
+            BoatInputEventSender.setKey(p1.getButtonIndex(),true,0);
+            BoatInputEventSender.setKey(p1.getButtonIndexSec(),true,0);
+        }else if(p2.getActionMasked() == MotionEvent.ACTION_UP){
+            Log.e("CrossKey","KeyName: " + p1.getButtonName() + " KeyIndex: " + p1.getButtonIndex() + " " + p1.getButtonIndexSec() + " uped");
+            BoatInputEventSender.setKey(p1.getButtonIndex(),false,0);
+            BoatInputEventSender.setKey(p1.getButtonIndexSec(),false,0);
+        }
+    }
+
+    private void OnMoveCrossKey(Button p1,MotionEvent p2){
+        MoveViewByTouch(p1,CrossKey,p2);
+    }
+
+    private void OnMoveQwertKeyboard(View p1,MotionEvent p2){
+        MoveViewByTouch(p1,QwertKeyboard,p2);
+    }
+
+    private void MoveViewByTouch(View p1,View p2,MotionEvent p3){
+        switch(p3.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                if(!layoutsPos.containsKey(p2)){
+                    layoutsPos.put(p2,(new int[]{(int)p3.getRawX(),(int)p3.getRawY()}));
+                }else{
+                    layoutsPos.remove(p2);
+                    layoutsPos.put(p2,(new int[]{(int)p3.getRawX(),(int)p3.getRawY()}));
+                }
+                break;
+            case MotionEvent.ACTION_MOVE:
+                int dx = (int) p3.getRawX() - layoutsPos.get(p2)[0];
+                int dy = (int) p3.getRawY() - layoutsPos.get(p2)[1];
+                int l = p2.getLeft() + dx;
+                int b = p2.getBottom() + dy;
+                int r = p2.getRight() + dx;
+                int t = p2.getTop() + dy;
+                //下面判断移动是否超出屏幕
+                if(l < 0){
+                    l = 0;
+                    r = l + p2.getWidth();
+                }
+                if(t < 0){
+                    t = 0;
+                    b = t+ p2.getHeight();
+                }
+                if(r > screenWidth){
+                    r = screenWidth;
+                    l = r - p2.getWidth();
+                }
+                if(b > screenHeight){
+                    b = screenHeight;
+                    t = b - p2.getHeight();
+                }
+                p2.layout(l,t,r,b);
+                layoutsPos.remove(p2);
+                layoutsPos.put(p2,(new int[]{(int)p3.getRawX(),(int)p3.getRawY()}));
+                p2.postInvalidate();
+                break;
+            case MotionEvent.ACTION_UP:
+                break;
+            default:
+                break;
+        }
+    }
 
 }
 

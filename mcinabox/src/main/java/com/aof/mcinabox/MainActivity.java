@@ -21,6 +21,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -115,6 +117,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     public CheckBox dialog_checkBox_usermodel;
     public ConfigDialog userCreateDialog;
     public String DATA_PATH;
+    public Animation ShowAnim,HideAnim;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -221,6 +224,10 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
         //测试localversion_list
         listView_localversion = findViewById(R.id.list_local_version);
+
+        //动画
+        ShowAnim = AnimationUtils.loadAnimation(this,R.anim.layout_show);
+        HideAnim = AnimationUtils.loadAnimation(this,R.anim.layout_hide);
 
         //初始化LogTextView控件
         logText = findViewById(R.id.logTextView);
@@ -538,9 +545,13 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     //实现界面切换的目的
     private void SetOnlyVisibleTargetView(View view) {
         for (View tempview : launcherLins) {
+            if(view.getVisibility() == View.VISIBLE){
+                view.setAnimation(HideAnim);
+            }
             tempview.setVisibility(View.INVISIBLE);
         }
         if (view != null) {
+            view.startAnimation(ShowAnim);
             view.setVisibility(View.VISIBLE);
             layout_here_Id = view.getId();
         } else {

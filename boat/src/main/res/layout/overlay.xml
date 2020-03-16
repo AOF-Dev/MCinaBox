@@ -6,103 +6,34 @@
 	android:layout_height="fill_parent">
 
 	<include
-		android:layout_width="550dp"
-		android:layout_height="200dp"
+		android:layout_width="450dp"
+		android:layout_height="150dp"
 		android:layout_centerInParent="true"
 		layout="@layout/virtual_keyboard"/>
+	<include
+		android:layout_width="150dp"
+		android:layout_height="160dp"
+		android:layout_marginLeft="20dp"
+		android:layout_marginBottom="20dp"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentBottom="true"
+		layout="@layout/virtual_crosskey"/>
+
+	<include
+		android:layout_width="270dp"
+		android:layout_height="30dp"
+		android:layout_marginBottom="0dp"
+		android:layout_alignParentBottom="true"
+		android:layout_centerInParent="true"
+		android:layout_centerHorizontal="true"
+		android:visibility="visible"
+		layout="@layout/virtual_itembar"/>
 
 	<ImageView
 		android:layout_height="16dp"
 		android:layout_width="16dp"
 		android:src="@drawable/cursor"
 		android:id="@+id/mouse_cursor"/>
-
-	<LinearLayout
-		android:layout_width="270dp"
-		android:layout_height="30dp"
-		android:layout_marginBottom="0dp"
-		android:layout_alignParentBottom="true"
-		android:orientation="horizontal"
-		android:layout_centerInParent="true"
-		android:layout_centerHorizontal="true"
-		android:alpha="0.5"
-		android:id="@+id/item_bar"
-		android:visibility="invisible"
-		android:weightSum="9.0">
-
-		<Button
-			android:textSize="20sp"
-			android:id="@+id/control_1"
-			android:background="@drawable/control_button"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:layout_weight="1.0"/>
-
-		<Button
-			android:textSize="20sp"
-			android:id="@+id/control_2"
-			android:background="@drawable/control_button"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:layout_weight="1.0"/>
-
-		<Button
-			android:textSize="20sp"
-			android:id="@+id/control_3"
-			android:background="@drawable/control_button"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:layout_weight="1.0"/>
-
-		<Button
-			android:textSize="20sp"
-			android:id="@+id/control_4"
-			android:background="@drawable/control_button"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:layout_weight="1.0"/>
-
-		<Button
-			android:textSize="20sp"
-			android:id="@+id/control_5"
-			android:background="@drawable/control_button"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:layout_weight="1.0"/>
-
-		<Button
-			android:textSize="20sp"
-			android:id="@+id/control_6"
-			android:background="@drawable/control_button"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:layout_weight="1.0"/>
-
-		<Button
-			android:textSize="20sp"
-			android:id="@+id/control_7"
-			android:background="@drawable/control_button"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:layout_weight="1.0"/>
-
-		<Button
-			android:textSize="20sp"
-			android:id="@+id/control_8"
-			android:background="@drawable/control_button"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:layout_weight="1.0"/>
-
-		<Button
-			android:textSize="20sp"
-			android:id="@+id/control_9"
-			android:background="@drawable/control_button"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:layout_weight="1.0"/>
-
-	</LinearLayout>
 
 	<Button
 		android:textSize="20sp"
@@ -111,6 +42,7 @@
 		android:layout_width="54dp"
 		android:layout_height="54dp"
 		android:text="@string/mouse_primary"
+		android:visibility="invisible"
 		android:layout_marginLeft="0dp"
 		android:layout_marginBottom="122dp"
 		android:layout_alignParentLeft="true"
@@ -123,6 +55,7 @@
 		android:layout_width="54dp"
 		android:layout_height="54dp"
 		android:text="@string/mouse_secondary"
+		android:visibility="invisible"
 		android:layout_marginLeft="0dp"
 		android:layout_marginBottom="61dp"
 		android:layout_alignParentLeft="true"

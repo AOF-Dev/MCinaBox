@@ -15,7 +15,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:textSize="@dimen/qwert_text_size"
@@ -26,7 +26,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:textSize="@dimen/qwert_text_size"
@@ -37,7 +37,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:textSize="@dimen/qwert_text_size"
@@ -48,7 +48,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:textSize="@dimen/qwert_text_size"
@@ -59,7 +59,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="F4"
@@ -70,7 +70,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="F5"
@@ -81,7 +81,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="F6"
@@ -92,7 +92,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="F7"
@@ -103,7 +103,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="F8"
@@ -114,7 +114,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="F9"
@@ -125,7 +125,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="F10"
@@ -136,7 +136,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="F11"
@@ -147,7 +147,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="F12"
@@ -166,7 +166,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="ESC"
@@ -177,7 +177,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="1"
@@ -188,7 +188,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="2"
@@ -199,7 +199,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="3"
@@ -210,7 +210,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="4"
@@ -221,7 +221,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="5"
@@ -232,7 +232,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="6"
@@ -243,7 +243,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="7"
@@ -254,7 +254,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="8"
@@ -265,7 +265,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="9"
@@ -276,7 +276,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="0"
@@ -287,7 +287,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="Back"
@@ -298,7 +298,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="Prt"
@@ -317,7 +317,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="Tab"
@@ -328,7 +328,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="Q"
@@ -339,7 +339,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="W"
@@ -350,7 +350,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="E"
@@ -361,7 +361,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="R"
@@ -372,7 +372,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="T"
@@ -383,7 +383,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="Y"
@@ -394,7 +394,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="U"
@@ -405,7 +405,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="I"
@@ -416,7 +416,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="O"
@@ -427,7 +427,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="P"
@@ -438,7 +438,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="Delete"
@@ -449,7 +449,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="Pause"
@@ -468,7 +468,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="CLock"
@@ -479,7 +479,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="A"
@@ -490,7 +490,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="S"
@@ -501,7 +501,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="D"
@@ -512,7 +512,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="F"
@@ -523,7 +523,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="G"
@@ -534,7 +534,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="H"
@@ -545,7 +545,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="J"
@@ -556,7 +556,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="K"
@@ -567,7 +567,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="L"
@@ -578,7 +578,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="Enter"
@@ -589,7 +589,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="Inset"
@@ -600,7 +600,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="Home"
@@ -619,7 +619,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="Shift"
@@ -630,7 +630,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="Z"
@@ -641,7 +641,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="X"
@@ -652,7 +652,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="C"
@@ -663,7 +663,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="V"
@@ -674,7 +674,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="B"
@@ -685,7 +685,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="N"
@@ -696,7 +696,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="M"
@@ -707,7 +707,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="Shift"
@@ -718,7 +718,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="Pageup"
@@ -729,7 +729,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="Pagedn"
@@ -740,7 +740,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="▲"
@@ -751,7 +751,7 @@
         <com.aof.sharedmodule.Button.QwertButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/control_button_square"
+            android:background="@drawable/control_button_normal"
             android:layout_margin="1dp"
             android:layout_weight="10"
             android:text="End"
@@ -776,7 +776,7 @@
             <com.aof.sharedmodule.Button.QwertButton
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:background="@drawable/control_button_square"
+                android:background="@drawable/control_button_normal"
                 android:layout_margin="1dp"
                 android:layout_weight="10"
                 android:text="Ctrl"
@@ -787,7 +787,7 @@
             <com.aof.sharedmodule.Button.QwertButton
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:background="@drawable/control_button_square"
+                android:background="@drawable/control_button_normal"
                 android:layout_margin="1dp"
                 android:layout_weight="10"
                 android:text="Alt"
@@ -806,7 +806,7 @@
             <com.aof.sharedmodule.Button.QwertButton
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/control_button_square"
+                android:background="@drawable/control_button_normal"
                 android:layout_margin="1dp"
                 android:layout_weight="0"
                 android:text="Space"
@@ -825,7 +825,7 @@
             <com.aof.sharedmodule.Button.QwertButton
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:background="@drawable/control_button_square"
+                android:background="@drawable/control_button_normal"
                 android:layout_margin="1dp"
                 android:layout_weight="10"
                 android:text="Alt"
@@ -836,7 +836,7 @@
             <com.aof.sharedmodule.Button.QwertButton
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:background="@drawable/control_button_square"
+                android:background="@drawable/control_button_normal"
                 android:layout_margin="1dp"
                 android:layout_weight="10"
                 android:text="Ctrl"
@@ -847,7 +847,7 @@
             <com.aof.sharedmodule.Button.QwertButton
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:background="@drawable/control_button_square"
+                android:background="@drawable/control_button_normal"
                 android:layout_margin="1dp"
                 android:layout_weight="10"
                 android:text="◀"
@@ -858,7 +858,7 @@
             <com.aof.sharedmodule.Button.QwertButton
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:background="@drawable/control_button_square"
+                android:background="@drawable/control_button_normal"
                 android:layout_margin="1dp"
                 android:layout_weight="10"
                 android:text="▼"
@@ -869,7 +869,7 @@
             <com.aof.sharedmodule.Button.QwertButton
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:background="@drawable/control_button_square"
+                android:background="@drawable/control_button_normal"
                 android:layout_margin="1dp"
                 android:layout_weight="10"
                 android:text="▶"

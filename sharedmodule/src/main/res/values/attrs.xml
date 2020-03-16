@@ -3,5 +3,6 @@
     <declare-styleable name="qwertbutton">
         <attr name="button_index" format="integer"/>
         <attr name="button_name" format="string"/>
+        <attr name="button_index_sec" format="integer" />
     </declare-styleable>
 </resources>

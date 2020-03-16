@@ -12,6 +12,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/puredark"
             android:text="创建新用户"/>
         <View
             android:layout_width="match_parent"
@@ -31,6 +32,7 @@
                 android:id="@+id/dialog_edittext_input_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/puredark"
                 android:hint="用户名或账号"/>
         </LinearLayout>
 
@@ -70,6 +72,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:textColor="@color/puredark"
                 android:text="(开发中)"/>
         </LinearLayout>
 
@@ -82,6 +85,7 @@
                 android:id="@+id/dialog_button_confirm_createuser"
                 android:layout_width="60dp"
                 android:layout_height="50dp"
+                android:textColor="@color/puredark"
                 android:text="确定"/>
             <TextView
                 android:layout_width="0dp"
@@ -91,6 +95,7 @@
                 android:id="@+id/dialog_button_cancle_createuser"
                 android:layout_width="60dp"
                 android:layout_height="50dp"
+                android:textColor="@color/puredark"
                 android:text="取消"/>
         </LinearLayout>
 

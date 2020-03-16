@@ -52,8 +52,6 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
     Button[] launcherBts;
     ImageButton dialog_button_colorpicker;
     EditText editText_key_name,editText_key_lx,editText_key_ly,editText_key_sizeW,editText_key_sizeH,editText_model_name,editText_model_color;
-    RadioGroup radioGroup;
-    RadioButton radioButton_square,radioButton_round;
     CheckBox checkBox_isKeep,checkBox_isHide,checkBox_isMult;
     ConfigDialog configDialog,loadDialog,saveDialog,colorPickDialog;
     ColorPickerView colorPicker;
@@ -85,10 +83,6 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
         dialog_button_cancel_colorpicker = colorPickDialog.findViewById(R.id.dialog_button_cancle_colorpicker);
         dialog_button_confirm_colorpicker = colorPickDialog.findViewById(R.id.dialog_button_confirm_colorpicker);
         dialog_button_colorpicker = configDialog.findViewById(R.id.dialog_button_colorpicker);
-
-        radioGroup = configDialog.findViewById(R.id.dialog_key_shape);
-        radioButton_round = configDialog.findViewById(R.id.shape_round);
-        radioButton_square = configDialog.findViewById(R.id.shape_square);
 
         checkBox_isHide = configDialog.findViewById(R.id.dialog_key_hide);
         checkBox_isKeep = configDialog.findViewById(R.id.dialog_key_keep);
@@ -157,7 +151,7 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
     }
 
     //键名称 键宽 键长 透明度 X轴位置 Y轴位置 主按键 特殊键1 特殊键2 是否保持 是否隐藏 是否是组合键 形状 主按键位置 组合键一位置 组合键二位置 按键颜色 圆角半径
-    public void addStandKey(String KeyName, int KeySizeW, int KeySizeH ,int KeyAlpha, int KeyLX, int KeyLY, String KeyMain, String SpecialOne, String SpecialTwo, boolean isAutoKeep, boolean isHide, boolean isMult,String shape,int MainPos,int SpecialOnePos,int SpecialTwoPos,String colorhex,int conerRadius) {
+    public void addStandKey(String KeyName, int KeySizeW, int KeySizeH , int KeyLX, int KeyLY, String KeyMain, String SpecialOne, String SpecialTwo, boolean isAutoKeep, boolean isHide, boolean isMult,int MainPos,int SpecialOnePos,int SpecialTwoPos,String colorhex,int conerRadius) {
         GameButton KeyButton = new GameButton(getApplicationContext());
         KeyButton.setText(KeyName);
         KeyButton.setLayoutParams(new ViewGroup.LayoutParams(getPxFromDp(this,KeySizeW),getPxFromDp(this,KeySizeH) ));
@@ -176,7 +170,6 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
         KeyButton.setClickable(true);
         KeyButton.setId(KeyButton.hashCode());
         KeyButton.setGravity(Gravity.CENTER);
-        KeyButton.setShape(shape);
         KeyButton.setMainPos(MainPos);
         KeyButton.setSpecialOnePos(SpecialOnePos);
         KeyButton.setSpecialTwoPos(SpecialTwoPos);
@@ -210,13 +203,7 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
         checkBox_isKeep.setChecked(targetButton.isKeep());
         checkBox_isHide.setChecked(targetButton.isHide());
         checkBox_isMult.setChecked(targetButton.isMult());
-        if(targetButton.getShape().equals("square")){
-            radioButton_square.setChecked(true);
-            radioButton_round.setChecked(false);
-        }else if(targetButton.getShape().equals("round")){
-            radioButton_round.setChecked(true);
-            radioButton_square.setChecked(false);
-        }
+
         seekBar_corner.setProgress((int)targetButton.getCornerRadius());
         key_main_selected.setSelection(targetButton.getMainPos());
         key_special_oneselected.setSelection(targetButton.getSpecialOnePos());
@@ -252,14 +239,6 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
         boolean isHide = checkBox_isHide.isChecked();
         boolean isMult = checkBox_isMult.isChecked();
 
-        String shape = "square";
-        if(radioGroup.getCheckedRadioButtonId() == R.id.shape_square){
-            shape = "square";
-        }else if(radioGroup.getCheckedRadioButtonId() == R.id.shape_round){
-            shape = "round";
-        }
-
-        int KeyAlpha = seekBar_corner.getProgress();
         int cornerRadius = seekBar_corner.getProgress();
         String KeyMain = (String)key_main_selected.getSelectedItem();
         String SpecialOne = (String)key_special_oneselected.getSelectedItem();
@@ -281,7 +260,7 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
             Toast.makeText(this, "添加成功", Toast.LENGTH_SHORT).show();
         }
 
-        addStandKey(KeyName,KeySizeW,KeySizeH,(int)(KeyAlpha*225),KeyLX,KeyLY,KeyMain,SpecialOne,SpecialTwo,isAutoKeep,isHide,isMult,shape,MainPos,SpecialOnePos,SpecialTwoPos,colorhex,cornerRadius);
+        addStandKey(KeyName,KeySizeW,KeySizeH,KeyLX,KeyLY,KeyMain,SpecialOne,SpecialTwo,isAutoKeep,isHide,isMult,MainPos,SpecialOnePos,SpecialTwoPos,colorhex,cornerRadius);
 
     }
 
@@ -454,7 +433,7 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
 
         ArrayList<KeyboardJsonModel> modelList = new ArrayList<KeyboardJsonModel>(){};
         for(GameButton button : keyboardList){
-            modelList.add(new KeyboardJsonModel(button.getText().toString(),button.getKeySizeW(),button.getKeySizeH(),(int)button.getAlpha(),button.getKeyLX_dp(),button.getKeyLY_dp(),button.getKeyMain(),button.getSpecialOne(),button.getSpecialTwo(),button.isKeep(),button.isHide(),button.isMult(),button.getShape(),button.getMainPos(),button.getSpecialOnePos(),button.getSpecialTwoPos(),button.getColorHex(),button.getCornerRadius()));
+            modelList.add(new KeyboardJsonModel(button.getText().toString(),button.getKeySizeW(),button.getKeySizeH(),button.getKeyLX_dp(),button.getKeyLY_dp(),button.getKeyMain(),button.getSpecialOne(),button.getSpecialTwo(),button.isKeep(),button.isHide(),button.isMult(),button.getMainPos(),button.getSpecialOnePos(),button.getSpecialTwoPos(),button.getColorHex(),button.getCornerRadius()));
         }
 
         JSONArray jsonArray = new JSONArray();
@@ -498,7 +477,7 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
                 Toast.makeText(this, "导入成功", Toast.LENGTH_SHORT).show();
                 for(KeyboardJsonModel targetModel : tempList2){
                     //这里采用了逐个添加，对性能有一定影响，但是编程更简单。 性能影响！
-                    addStandKey(targetModel.getKeyName(),targetModel.getKeySizeW(),targetModel.getKeySizeH(),targetModel.getKeyAlpha(),targetModel.getKeyLX(),targetModel.getKeyLY(),targetModel.getKeyMain(),targetModel.getSpecialOne(),targetModel.getSpecialTwo(),targetModel.isAutoKeep(),targetModel.isHide(),targetModel.isMult(),targetModel.getShape(),targetModel.getMainPos(),targetModel.getSpecialOnePos(),targetModel.getSpecialTwoPos(),targetModel.getColorhex(),targetModel.getCornerRadius());
+                    addStandKey(targetModel.getKeyName(),targetModel.getKeySizeW(),targetModel.getKeySizeH(),targetModel.getKeyLX(),targetModel.getKeyLY(),targetModel.getKeyMain(),targetModel.getSpecialOne(),targetModel.getSpecialTwo(),targetModel.isAutoKeep(),targetModel.isHide(),targetModel.isMult(),targetModel.getMainPos(),targetModel.getSpecialOnePos(),targetModel.getSpecialTwoPos(),targetModel.getColorhex(),targetModel.getCornerRadius());
                 }
             }else{
                 Toast.makeText(this, "导入失败", Toast.LENGTH_SHORT).show();

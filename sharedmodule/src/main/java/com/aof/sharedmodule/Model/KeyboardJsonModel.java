@@ -4,7 +4,6 @@ public class KeyboardJsonModel {
     private String KeyName;
     private int KeySizeH;
     private int KeySizeW;
-    private int KeyAlpha;
     private int KeyLX;
     private int KeyLY;
     private String KeyMain;
@@ -13,7 +12,6 @@ public class KeyboardJsonModel {
     private boolean isAutoKeep;
     private boolean isHide;
     private boolean isMult;
-    private String shape;
     private int MainPos;
     private int SpecialOnePos;
     private int SpecialTwoPos;
@@ -25,12 +23,11 @@ public class KeyboardJsonModel {
         super();
     }
 
-    public KeyboardJsonModel(String keyName, int keySizeW, int keySizeH, int keyAlpha, int keyLX, int keyLY, String keyMain, String specialOne, String specialTwo, boolean isAutoKeep, boolean isHide, boolean isMult, String shape, int mainPos, int specialOnePos, int specialTwoPos, String colorhex, int radius) {
+    public KeyboardJsonModel(String keyName, int keySizeW, int keySizeH, int keyLX, int keyLY, String keyMain, String specialOne, String specialTwo, boolean isAutoKeep, boolean isHide, boolean isMult, int mainPos, int specialOnePos, int specialTwoPos, String colorhex, int radius) {
         super();
         KeyName = keyName;
         KeySizeH = keySizeH;
         KeySizeW = keySizeW;
-        KeyAlpha = keyAlpha;
         KeyLX = keyLX;
         KeyLY = keyLY;
         KeyMain = keyMain;
@@ -39,7 +36,6 @@ public class KeyboardJsonModel {
         this.isAutoKeep = isAutoKeep;
         this.isHide = isHide;
         this.isMult = isMult;
-        this.shape = shape;
         MainPos = mainPos;
         SpecialOnePos = specialOnePos;
         SpecialTwoPos = specialTwoPos;
@@ -74,14 +70,6 @@ public class KeyboardJsonModel {
 
     public void setKeySizeW(int keySizeW) {
         KeySizeW = keySizeW;
-    }
-
-    public int getKeyAlpha() {
-        return KeyAlpha;
-    }
-
-    public void setKeyAlpha(int keyAlpha) {
-        KeyAlpha = keyAlpha;
     }
 
     public int getKeyLX() {
@@ -146,14 +134,6 @@ public class KeyboardJsonModel {
 
     public void setMult(boolean mult) {
         isMult = mult;
-    }
-
-    public String getShape() {
-        return shape;
-    }
-
-    public void setShape(String shape) {
-        this.shape = shape;
     }
 
     public int getMainPos() {
