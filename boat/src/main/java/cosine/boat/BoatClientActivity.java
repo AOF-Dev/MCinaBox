@@ -39,6 +39,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.aof.sharedmodule.Button.CrossButton;
 import com.aof.sharedmodule.Button.ItemButton;
+import com.aof.sharedmodule.Button.MouseButton;
 import com.aof.sharedmodule.Button.QwertButton;
 import com.google.gson.Gson;
 import com.aof.sharedmodule.Model.ArgsModel;
@@ -54,6 +55,7 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
     private ArrayList<GameButton> KeyboardList;
     private LinearLayout QwertKeyboard;
     private LinearLayout CrossKey;
+    private LinearLayout MouseKey;
     private int lastX_Qwert,lastY_Qwert,lastX_CrossKey,lastY_CrossKey;
     private int screenWidth,screenHeight;
     private PopupWindow popupWindow;
@@ -271,7 +273,20 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
             }
         }
 
-        //屏幕虚拟鼠标手势
+        //屏幕鼠标手势
+        if(p1 instanceof MouseButton){
+            OnTouchMouseKey((MouseButton) p1,p2);
+            return false;
+        }
+
+        //移动屏幕鼠标
+        if(p1.getId() == R.id.mousekey_move){
+            OnMoveMouseKey(p1,p2);
+            return true;
+        }
+
+
+        //鼠标指针
         if (p1 == base) {
             OnTouchVirtualMouse(p2);
             return true;
@@ -315,6 +330,18 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
         inputScanner.setSelection(1);
         QwertKeyboard = base.findViewById(R.id.QwertKeyboard);
         CrossKey = base.findViewById(R.id.CrossKey);
+        MouseKey = base.findViewById(R.id.MouseKey);
+
+        //设定虚拟鼠标
+        for(int i =0; i < MouseKey.getChildCount();i++){
+            if(MouseKey.getChildAt(i) instanceof Button){
+                MouseKey.getChildAt(i).setOnTouchListener(this);
+            }else {
+                for (int a = 0; a < ((LinearLayout) MouseKey.getChildAt(i)).getChildCount(); a++) {
+                    (((LinearLayout) MouseKey.getChildAt(i)).getChildAt(a)).setOnTouchListener(this);
+                }
+            }
+        }
 
         //设定物品栏
         for(int i = 0;i < itemBar.getChildCount();i++){
@@ -511,6 +538,16 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
         mouseCursor.setY(p2.getY());
     }
 
+    private void OnTouchMouseKey(MouseButton p1,MotionEvent p2){
+        if(p2.getActionMasked() == MotionEvent.ACTION_DOWN){
+            Log.e("ItemButton","MouseName: " + p1.getMouseName() + " MouseIndex: " + p1.getMouseIndex() + " pressed");
+            BoatInputEventSender.setMouseButton(p1.getMouseIndex(), true);
+        }else if(p2.getActionMasked() == MotionEvent.ACTION_UP){
+            Log.e("ItemButton","MouseName: " + p1.getMouseName() + " MouseIndex: " + p1.getMouseIndex() + " uped");
+            BoatInputEventSender.setMouseButton(p1.getMouseIndex(), false);
+        }
+    }
+
     private void OnTouchItemButton(ItemButton p1,MotionEvent p2){
         if(p2.getActionMasked() == MotionEvent.ACTION_DOWN){
             Log.e("ItemButton","KeyName: " + p1.getButtonName() + " KeyIndex: " + p1.getButtonIndex() + " pressed");
@@ -541,6 +578,10 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
             BoatInputEventSender.setKey(p1.getButtonIndex(),false,0);
             BoatInputEventSender.setKey(p1.getButtonIndexSec(),false,0);
         }
+    }
+
+    private void OnMoveMouseKey(View p1,MotionEvent p2){
+        MoveViewByTouch(p1,MouseKey,p2);
     }
 
     private void OnMoveCrossKey(Button p1,MotionEvent p2){
@@ -596,6 +637,7 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
                 break;
         }
     }
+
 
 }
 

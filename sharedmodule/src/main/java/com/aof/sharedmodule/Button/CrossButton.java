@@ -8,12 +8,12 @@ import androidx.annotation.Nullable;
 
 import com.aof.sharedmodule.R;
 
-public class CrossButton extends QwertButton {
+public class CrossButton extends PublicButton {
 
     public CrossButton(Context context, @Nullable AttributeSet attrs){
         super(context,attrs);
-        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.qwertbutton);
-        setButtonIndexSec(array.getInt(R.styleable.qwertbutton_button_index_sec,-1));
+        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.CrossButton);
+        setButtonIndexSec(array.getInt(R.styleable.CrossButton_button_index_sec,-1));
         array.recycle();
     }
 

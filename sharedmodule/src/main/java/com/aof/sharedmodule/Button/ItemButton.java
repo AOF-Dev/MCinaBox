@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 
 import com.aof.sharedmodule.R;
 
-public class ItemButton extends QwertButton {
+public class ItemButton extends PublicButton {
 
     public ItemButton(Context context, @Nullable AttributeSet attrs){
         super(context,attrs);

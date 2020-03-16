@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="qwertbutton">
+    <declare-styleable name="QwertButton">
         <attr name="button_index" format="integer"/>
         <attr name="button_name" format="string"/>
+    </declare-styleable>
+
+    <declare-styleable name="CrossButton">
         <attr name="button_index_sec" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="ItemButton" parent="QwertButton">
+        <!-- noting-->
+    </declare-styleable>
+
+    <declare-styleable name="MouseButton" parent="qwerbutton">
+        <attr name="mouse_index" format="integer"/>
+        <attr name="mouse_name" format="string"/>
     </declare-styleable>
 </resources>

@@ -29,6 +29,15 @@
 		android:visibility="visible"
 		layout="@layout/virtual_itembar"/>
 
+	<include
+		android:layout_width="100dp"
+		android:layout_height="110dp"
+		android:layout_alignParentBottom="true"
+		android:layout_alignParentRight="true"
+		android:layout_marginBottom="30dp"
+		android:layout_marginRight="30dp"
+		layout="@layout/virtual_mousekey"/>
+
 	<ImageView
 		android:layout_height="16dp"
 		android:layout_width="16dp"
