@@ -5,12 +5,21 @@
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent">
 
+
+	<include
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentTop="true"
+		layout="@layout/menu_switch_virtualitem"/>
+
 	<include
 		android:layout_width="450dp"
 		android:layout_height="150dp"
 		android:layout_centerInParent="true"
 		layout="@layout/virtual_keyboard"/>
 	<include
+		android:id="@+id/CrossKey"
 		android:layout_width="150dp"
 		android:layout_height="160dp"
 		android:layout_marginLeft="20dp"

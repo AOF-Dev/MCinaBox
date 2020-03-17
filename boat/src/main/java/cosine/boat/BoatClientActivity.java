@@ -56,7 +56,6 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
     private LinearLayout QwertKeyboard;
     private LinearLayout CrossKey;
     private LinearLayout MouseKey;
-    private int lastX_Qwert,lastY_Qwert,lastX_CrossKey,lastY_CrossKey;
     private int screenWidth,screenHeight;
     private PopupWindow popupWindow;
     private RelativeLayout base;
@@ -255,12 +254,13 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
 
         //十字键手势
         if(p1 instanceof CrossButton){
-            OnTouchCrossKey((CrossButton)p1,p2);
+            Log.e("StartTouchCross","true");
+            OnTouchCrossKey(p1,p2,true);
             return false;
         }
 
         //移动十字键
-        if(p1.getId() == R.id.corsskey_move){
+        if(p1.getId() == R.id.crosskey_move){
             OnMoveCrossKey((Button)p1,p2);
             return true;
         }
@@ -393,6 +393,7 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
                 }
             }
         }
+
 
         //显示布局到悬浮窗
         popupWindow.setContentView(base);
@@ -580,6 +581,21 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+    private void OnTouchCrossKey(View p1,MotionEvent p2,boolean a){
+        switch (p2.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                Log.e("Action","Down");
+                ApplyCrossKeyByTouchPosition(CrossKey.findViewById(R.id.crosskey_shift),CrossKey.findViewById(R.id.crosskey_parent),p2);
+                break;
+            case MotionEvent.ACTION_MOVE:
+                Log.e("Action","Move");
+                ApplyCrossKeyByTouchPosition(CrossKey.findViewById(R.id.crosskey_shift),CrossKey.findViewById(R.id.crosskey_parent),p2);
+                break;
+            default:
+                break;
+        }
+    }
+
     private void OnMoveMouseKey(View p1,MotionEvent p2){
         MoveViewByTouch(p1,MouseKey,p2);
     }
@@ -592,7 +608,7 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
         MoveViewByTouch(p1,QwertKeyboard,p2);
     }
 
-    private void MoveViewByTouch(View p1,View p2,MotionEvent p3){
+    private void MoveViewByTouch(View p1,View p2, MotionEvent p3){
         switch(p3.getAction()){
             case MotionEvent.ACTION_DOWN:
                 if(!layoutsPos.containsKey(p2)){
@@ -638,6 +654,55 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+    //p1传入中间位置按键 p2传入corsskey p3传入触摸事件
+    public static int ApplyCrossKeyByTouchPosition(View p1,View p2,MotionEvent p3){
+        int MouseIndex;
+        int[] initPos = new int[2];
+        p2.getLocationOnScreen(initPos);
+        int[] changPos = {(int) p3.getRawX() - initPos[0],(int) p3.getRawY() - initPos[1]};
+        int[] targetPos = new int[2];
+        p1.getLocationOnScreen(targetPos);
+        Log.e("CrossKeyTouchDebug","TouchX: " + p3.getRawX() + " TouchY: " + p3.getRawY());
+        Log.e("CrossKeyTochDebug","ChangeX " + changPos[0] + " ChangeY: " + changPos[1]);
+        //自左向右，第一列
+        if(changPos[0] < targetPos[0] - initPos[0] && changPos[0] >= 0){
+            if(changPos[1] < targetPos[1] - initPos[1] && changPos[1] >= 0){
+                //左上
+                Log.e("CrossKey","Up-Left");
+            }else if(changPos[1] <= targetPos[1] + p1.getHeight() - initPos[1] && changPos[1] >= targetPos[1] -initPos[1]){
+                //左中
+                Log.e("CrossKey","Center-Left");
+            }else if(changPos[1] > changPos[1] + p1.getHeight() - initPos[1] && changPos[1] <= p2.getHeight()){
+                //左下
+                Log.e("CrossKey","Down-Left");
+            }
+            //第二列
+        }else if(changPos[0] <= targetPos[0] + p1.getWidth() - initPos[0] && changPos[0] >= targetPos[0] - initPos[0]){
+            if(changPos[1] < targetPos[1] - initPos[1] && changPos[1] >= 0){
+                //上
+                Log.e("CrossKey","Up");
+            }else if(changPos[1] <= targetPos[1] + p1.getHeight() - initPos[1] && changPos[1] >= targetPos[1] -initPos[1]){
+                //中
+                Log.e("CrossKey","Center");
+            }else if(changPos[1] > changPos[1] + p1.getHeight() - initPos[1] && changPos[1] <= p2.getHeight()){
+                //下
+                Log.e("CrossKey","Down");
+            }
+            //第三列
+        }else if(changPos[0] > targetPos[0] + p1.getWidth() - initPos[0] && changPos[0] <= p2.getWidth()){
+            if(changPos[1] < targetPos[1] - initPos[1] && changPos[1] >= 0){
+                //右上
+                Log.e("CrossKey","Up-Right");
+            }else if(changPos[1] <= targetPos[1] + p1.getHeight() - initPos[1] && changPos[1] >= targetPos[1] -initPos[1]){
+                //右中
+                Log.e("CrossKey","Right");
+            }else if(changPos[1] > changPos[1] + p1.getHeight() - initPos[1] && changPos[1] <= p2.getHeight()){
+                //右下
+                Log.e("CrossKey","Down-Right");
+            }
+        }
+        return 0;
+    }
 
 }
 

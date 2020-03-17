@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/CrossKey"
     android:layout_width="150dp"
     android:layout_height="160dp"
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/corsskey_move"
+        android:id="@+id/crosskey_move"
         android:layout_width="match_parent"
         android:layout_height="10dp"
         android:background="#66B2B2B2" />
 
     <LinearLayout
+        android:id="@+id/crosskey_parent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -75,6 +75,7 @@
                 custom:button_name="Left" />
 
             <com.aof.sharedmodule.Button.CrossButton
+                android:id="@+id/crosskey_shift"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="2dp"
