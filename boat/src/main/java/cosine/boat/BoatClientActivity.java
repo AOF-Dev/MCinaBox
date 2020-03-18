@@ -565,6 +565,7 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
                 for(int temp:Indexs){
                     Log.e("OnTouchCrossKey","ACTION_DOWN " + temp);
                 }
+                tempCrossKey = Indexs;
                 break;
             case MotionEvent.ACTION_MOVE:
                 Log.e("Action","Move");
@@ -698,9 +699,8 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
                 return (new int[]{GLFW_KEY_S});
             }else{
                 SendDownOrUpToCrossKey(new int[]{});
-                MotionEvent p4 = p3;
-                p4.setAction(MotionEvent.ACTION_UP);
-                ReflectCrossKeyToScreen(new View[]{},p4);
+                p3.setAction(MotionEvent.ACTION_UP);
+                ReflectCrossKeyToScreen(new View[]{},p3);
             }
             //第三列
         }else if(changPos[0] > targetPos[0] + p1.getWidth() - initPos[0] && changPos[0] <= p2.getWidth()){
@@ -764,6 +764,8 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
     private void SendDownOrUpToCrossKey(int[] downKeys){
         if(tempCrossKey == null){
             tempCrossKey = downKeys;
+        }else if(tempCrossKey == downKeys){
+            Log.e("CrossKeyDebug","KeepPressed.");
         }else{
             for(int temp:tempCrossKey){
                 Log.e("CrossKeyDebug","Release Index: " + temp);
