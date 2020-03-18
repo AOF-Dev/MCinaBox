@@ -24,11 +24,13 @@
             android:orientation="horizontal">
 
             <com.aof.sharedmodule.Button.CrossButton
+                android:id="@+id/crosskey_up_left"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="2dp"
                 android:layout_weight="1"
                 android:background="@drawable/control_button_normal"
+                android:visibility="invisible"
                 android:text=""
                 custom:button_index="265"
                 custom:button_index_sec="263"
@@ -45,11 +47,13 @@
                 custom:button_name="Up" />
 
             <com.aof.sharedmodule.Button.CrossButton
+                android:id="@+id/crosskey_up_right"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="2dp"
                 android:layout_weight="1"
                 android:background="@drawable/control_button_normal"
+                android:visibility="invisible"
                 android:text=""
                 custom:button_index="265"
                 custom:button_index_sec="262"
@@ -104,11 +108,13 @@
             android:orientation="horizontal">
 
             <com.aof.sharedmodule.Button.CrossButton
+                android:id="@+id/crosskey_down_left"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="2dp"
                 android:layout_weight="1"
                 android:background="@drawable/control_button_normal"
+                android:visibility="invisible"
                 android:text=""
                 custom:button_index="264"
                 custom:button_index_sec="263"
@@ -125,11 +131,13 @@
                 custom:button_name="Down" />
 
             <com.aof.sharedmodule.Button.CrossButton
+                android:id="@+id/crosskey_down_right"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="2dp"
                 android:layout_weight="1"
                 android:background="@drawable/control_button_normal"
+                android:visibility="invisible"
                 android:text=""
                 custom:button_index="264"
                 custom:button_index_sec="262"

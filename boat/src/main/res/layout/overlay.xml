@@ -7,6 +7,7 @@
 
 
 	<include
+		android:id="@+id/SwitcherBar"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_alignParentLeft="true"
@@ -14,10 +15,12 @@
 		layout="@layout/menu_switch_virtualitem"/>
 
 	<include
+		android:id="@+id/QwertKeyboard"
 		android:layout_width="450dp"
 		android:layout_height="150dp"
 		android:layout_centerInParent="true"
 		layout="@layout/virtual_keyboard"/>
+
 	<include
 		android:id="@+id/CrossKey"
 		android:layout_width="150dp"
@@ -29,6 +32,7 @@
 		layout="@layout/virtual_crosskey"/>
 
 	<include
+		android:id="@+id/item_bar"
 		android:layout_width="270dp"
 		android:layout_height="30dp"
 		android:layout_marginBottom="0dp"
@@ -39,6 +43,7 @@
 		layout="@layout/virtual_itembar"/>
 
 	<include
+		android:id="@+id/MouseKey"
 		android:layout_width="100dp"
 		android:layout_height="110dp"
 		android:layout_alignParentBottom="true"
@@ -52,32 +57,6 @@
 		android:layout_width="16dp"
 		android:src="@drawable/cursor"
 		android:id="@+id/mouse_cursor"/>
-
-	<Button
-		android:textSize="20sp"
-		android:id="@+id/mouse_primary"
-		android:background="@drawable/control_button"
-		android:layout_width="54dp"
-		android:layout_height="54dp"
-		android:text="@string/mouse_primary"
-		android:visibility="invisible"
-		android:layout_marginLeft="0dp"
-		android:layout_marginBottom="122dp"
-		android:layout_alignParentLeft="true"
-		android:layout_alignParentBottom="true"/>
-
-	<Button
-		android:textSize="20sp"
-		android:id="@+id/mouse_secondary"
-		android:background="@drawable/control_button"
-		android:layout_width="54dp"
-		android:layout_height="54dp"
-		android:text="@string/mouse_secondary"
-		android:visibility="invisible"
-		android:layout_marginLeft="0dp"
-		android:layout_marginBottom="61dp"
-		android:layout_alignParentLeft="true"
-		android:layout_alignParentBottom="true"/>
 
 	<EditText
 		android:textSize="20sp"

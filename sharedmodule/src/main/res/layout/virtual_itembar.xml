@@ -5,7 +5,6 @@
     android:layout_height="30dp"
     android:orientation="horizontal"
     android:alpha="0.5"
-    android:id="@+id/item_bar"
     android:weightSum="9.0">
 
     <com.aof.sharedmodule.Button.ItemButton

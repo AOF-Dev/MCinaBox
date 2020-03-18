@@ -60,8 +60,6 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
     private PopupWindow popupWindow;
     private RelativeLayout base;
     private LinearLayout itemBar;
-    private Button mousePrimary;
-    private Button mouseSecondary;
     private ImageView mouseCursor;
     private EditText inputScanner;
     public boolean mode = false;
@@ -71,6 +69,8 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
     private int baseX;
     private int baseY;
     private HashMap<Object,int[]> layoutsPos;
+    private CrossButton[] crosskeychildren;
+    private int[] tempCrossKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -211,29 +211,6 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
             return false;
         }
 
-        if (p1 == mousePrimary) {
-            if (p2.getActionMasked() == MotionEvent.ACTION_DOWN) {
-                BoatInputEventSender.setMouseButton((byte) 1, true);
-            }
-            if (p2.getActionMasked() == MotionEvent.ACTION_UP) {
-                BoatInputEventSender.setMouseButton((byte) 1, false);
-
-            }
-            return false;
-
-        }
-        if (p1 == mouseSecondary) {
-            if (p2.getActionMasked() == MotionEvent.ACTION_DOWN) {
-                BoatInputEventSender.setMouseButton((byte) 3, true);
-
-            }
-            if (p2.getActionMasked() == MotionEvent.ACTION_UP) {
-                BoatInputEventSender.setMouseButton((byte) 3, false);
-
-            }
-            return false;
-        }
-
         //物品栏手势
         if(p1 instanceof ItemButton){
             OnTouchItemButton((ItemButton) p1,p2);
@@ -320,8 +297,6 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
         base.setOnTouchListener(this);
         mouseCursor = base.findViewById(R.id.mouse_cursor);
         itemBar = base.findViewById(R.id.item_bar);
-        mousePrimary = this.findButton(R.id.mouse_primary);
-        mouseSecondary = this.findButton(R.id.mouse_secondary);
         inputScanner = base.findViewById(R.id.input_scanner);
         inputScanner.setFocusable(true);
         inputScanner.addTextChangedListener(this);
@@ -331,6 +306,7 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
         QwertKeyboard = base.findViewById(R.id.QwertKeyboard);
         CrossKey = base.findViewById(R.id.CrossKey);
         MouseKey = base.findViewById(R.id.MouseKey);
+        crosskeychildren = new CrossButton[]{CrossKey.findViewById(R.id.crosskey_up_left), CrossKey.findViewById(R.id.crosskey_up_right), CrossKey.findViewById(R.id.crosskey_down_left), CrossKey.findViewById(R.id.crosskey_down_right)};
 
         //设定虚拟鼠标
         for(int i =0; i < MouseKey.getChildCount();i++){
@@ -582,15 +558,24 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void OnTouchCrossKey(View p1,MotionEvent p2,boolean a){
+        int[] Indexs = ApplyCrossKeyByTouchPosition(CrossKey.findViewById(R.id.crosskey_shift),CrossKey.findViewById(R.id.crosskey_parent),p2);
         switch (p2.getAction()){
             case MotionEvent.ACTION_DOWN:
                 Log.e("Action","Down");
-                ApplyCrossKeyByTouchPosition(CrossKey.findViewById(R.id.crosskey_shift),CrossKey.findViewById(R.id.crosskey_parent),p2);
+                for(int temp:Indexs){
+                    Log.e("OnTouchCrossKey","ACTION_DOWN " + temp);
+                }
                 break;
             case MotionEvent.ACTION_MOVE:
                 Log.e("Action","Move");
-                ApplyCrossKeyByTouchPosition(CrossKey.findViewById(R.id.crosskey_shift),CrossKey.findViewById(R.id.crosskey_parent),p2);
+                SendDownOrUpToCrossKey(Indexs);
                 break;
+            case MotionEvent.ACTION_UP:
+                Log.e("Action","Up");
+                for(int temp:Indexs){
+                    Log.e("OnTouchCrossKey","ACTION_UP " + temp);
+                }
+                tempCrossKey = null;
             default:
                 break;
         }
@@ -655,8 +640,7 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
     }
 
     //p1传入中间位置按键 p2传入corsskey p3传入触摸事件
-    public static int ApplyCrossKeyByTouchPosition(View p1,View p2,MotionEvent p3){
-        int MouseIndex;
+    public int[] ApplyCrossKeyByTouchPosition(View p1,View p2,MotionEvent p3){
         int[] initPos = new int[2];
         p2.getLocationOnScreen(initPos);
         int[] changPos = {(int) p3.getRawX() - initPos[0],(int) p3.getRawY() - initPos[1]};
@@ -669,39 +653,126 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
             if(changPos[1] < targetPos[1] - initPos[1] && changPos[1] >= 0){
                 //左上
                 Log.e("CrossKey","Up-Left");
+                if(p3.getAction() != MotionEvent.ACTION_MOVE) {
+                    ReflectCrossKeyToScreen(new View[]{}, p3);
+                }
+                return (new int[]{GLFW_KEY_W,GLFW_KEY_A});
             }else if(changPos[1] <= targetPos[1] + p1.getHeight() - initPos[1] && changPos[1] >= targetPos[1] -initPos[1]){
                 //左中
                 Log.e("CrossKey","Center-Left");
-            }else if(changPos[1] > changPos[1] + p1.getHeight() - initPos[1] && changPos[1] <= p2.getHeight()){
+                ReflectCrossKeyToScreen(new View[]{crosskeychildren[0],crosskeychildren[2]},p3);
+                return (new int[]{GLFW_KEY_A});
+            }else if(changPos[1] > 0 && changPos[1] > changPos[1] + p1.getHeight() - initPos[1] && changPos[1] <= p2.getHeight()){
                 //左下
                 Log.e("CrossKey","Down-Left");
+                if(p3.getAction() != MotionEvent.ACTION_MOVE) {
+                    ReflectCrossKeyToScreen(new View[]{}, p3);
+                }
+                return (new int[]{GLFW_KEY_S,GLFW_KEY_A});
+            }else{
+                SendDownOrUpToCrossKey(new int[]{});
+                MotionEvent p4 = p3;
+                p4.setAction(MotionEvent.ACTION_UP);
+                ReflectCrossKeyToScreen(new View[]{},p4);
             }
             //第二列
         }else if(changPos[0] <= targetPos[0] + p1.getWidth() - initPos[0] && changPos[0] >= targetPos[0] - initPos[0]){
             if(changPos[1] < targetPos[1] - initPos[1] && changPos[1] >= 0){
                 //上
                 Log.e("CrossKey","Up");
+                ReflectCrossKeyToScreen(new View[]{crosskeychildren[0],crosskeychildren[1]},p3);
+                return (new int[]{GLFW_KEY_W});
             }else if(changPos[1] <= targetPos[1] + p1.getHeight() - initPos[1] && changPos[1] >= targetPos[1] -initPos[1]){
                 //中
                 Log.e("CrossKey","Center");
-            }else if(changPos[1] > changPos[1] + p1.getHeight() - initPos[1] && changPos[1] <= p2.getHeight()){
+                ReflectCrossKeyToScreen(new View[]{},p3);
+                if(p3.getAction() == MotionEvent.ACTION_MOVE){
+                    return(new int[]{});
+                }else{
+                    return (new int[]{GLFW_KEY_LEFT_SHIFT});
+                }
+            }else if(changPos[1] > 0 && changPos[1] > changPos[1] + p1.getHeight() - initPos[1] && changPos[1] <= p2.getHeight()){
                 //下
                 Log.e("CrossKey","Down");
+                ReflectCrossKeyToScreen(new View[]{crosskeychildren[2],crosskeychildren[3]},p3);
+                return (new int[]{GLFW_KEY_S});
+            }else{
+                SendDownOrUpToCrossKey(new int[]{});
+                MotionEvent p4 = p3;
+                p4.setAction(MotionEvent.ACTION_UP);
+                ReflectCrossKeyToScreen(new View[]{},p4);
             }
             //第三列
         }else if(changPos[0] > targetPos[0] + p1.getWidth() - initPos[0] && changPos[0] <= p2.getWidth()){
             if(changPos[1] < targetPos[1] - initPos[1] && changPos[1] >= 0){
                 //右上
                 Log.e("CrossKey","Up-Right");
+                if(p3.getAction() != MotionEvent.ACTION_MOVE) {
+                    ReflectCrossKeyToScreen(new View[]{}, p3);
+                }
+                return (new int[]{GLFW_KEY_W,GLFW_KEY_D});
             }else if(changPos[1] <= targetPos[1] + p1.getHeight() - initPos[1] && changPos[1] >= targetPos[1] -initPos[1]){
                 //右中
                 Log.e("CrossKey","Right");
-            }else if(changPos[1] > changPos[1] + p1.getHeight() - initPos[1] && changPos[1] <= p2.getHeight()){
+                ReflectCrossKeyToScreen(new View[]{crosskeychildren[1],crosskeychildren[3]},p3);
+                return (new int[]{GLFW_KEY_D});
+            }else if(changPos[1] > 0 && changPos[1] > changPos[1] + p1.getHeight() - initPos[1] && changPos[1] <= p2.getHeight()){
                 //右下
                 Log.e("CrossKey","Down-Right");
+                if(p3.getAction() != MotionEvent.ACTION_MOVE) {
+                    ReflectCrossKeyToScreen(new View[]{}, p3);
+                }
+                return (new int[]{GLFW_KEY_S,GLFW_KEY_D});
+            }else{
+                SendDownOrUpToCrossKey(new int[]{});
+                MotionEvent p4 = p3;
+                p4.setAction(MotionEvent.ACTION_UP);
+                ReflectCrossKeyToScreen(new View[]{},p4);
             }
+        }else{
+            SendDownOrUpToCrossKey(new int[]{});
+            MotionEvent p4 = p3;
+            p4.setAction(MotionEvent.ACTION_UP);
+            ReflectCrossKeyToScreen(new View[]{},p4);
         }
-        return 0;
+        return (new int[]{});
+    }
+
+    private void ReflectCrossKeyToScreen(View[] views,MotionEvent p1){
+        switch(p1.getAction()){
+            case MotionEvent.ACTION_DOWN:
+            case MotionEvent.ACTION_MOVE:
+                for(View v1:crosskeychildren){
+                    v1.setVisibility(View.INVISIBLE);
+                    for(View v2:views){
+                        if(v1 == v2){
+                            v1.setVisibility(View.VISIBLE);
+                        }
+                    }
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+                for(View v1:crosskeychildren){
+                    v1.setVisibility(View.INVISIBLE);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void SendDownOrUpToCrossKey(int[] downKeys){
+        if(tempCrossKey == null){
+            tempCrossKey = downKeys;
+        }else{
+            for(int temp:tempCrossKey){
+                Log.e("CrossKeyDebug","Release Index: " + temp);
+            }
+            tempCrossKey = downKeys;
+        }
+        for(int temp: downKeys){
+            Log.e("CrossKeyDebug","Catch Index: "+temp);
+        }
     }
 
 }
