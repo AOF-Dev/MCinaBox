@@ -16,6 +16,7 @@
 
 	<include
 		android:id="@+id/QwertKeyboard"
+		android:visibility="invisible"
 		android:layout_width="450dp"
 		android:layout_height="150dp"
 		android:layout_centerInParent="true"
@@ -23,6 +24,7 @@
 
 	<include
 		android:id="@+id/CrossKey"
+		android:visibility="invisible"
 		android:layout_width="150dp"
 		android:layout_height="160dp"
 		android:layout_marginLeft="20dp"
@@ -39,11 +41,12 @@
 		android:layout_alignParentBottom="true"
 		android:layout_centerInParent="true"
 		android:layout_centerHorizontal="true"
-		android:visibility="visible"
+		android:visibility="invisible"
 		layout="@layout/virtual_itembar"/>
 
 	<include
 		android:id="@+id/MouseKey"
+		android:visibility="invisible"
 		android:layout_width="100dp"
 		android:layout_height="110dp"
 		android:layout_alignParentBottom="true"

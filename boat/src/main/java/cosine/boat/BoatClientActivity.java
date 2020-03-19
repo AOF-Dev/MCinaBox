@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.os.Bundle;
 import android.app.NativeActivity;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.view.LayoutInflater;
@@ -56,6 +58,7 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
     private LinearLayout QwertKeyboard;
     private LinearLayout CrossKey;
     private LinearLayout MouseKey;
+    private LinearLayout SwitcherBar;
     private int screenWidth,screenHeight;
     private PopupWindow popupWindow;
     private RelativeLayout base;
@@ -71,6 +74,8 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
     private HashMap<Object,int[]> layoutsPos;
     private CrossButton[] crosskeychildren;
     private int[] tempCrossKey;
+    private CheckBox checkbox_qwertkeyboard,checkbox_crosskey,checkbox_mousekey,checkbox_virtualkeyboard,checkbox_otg,checkbox_joystick;
+    private CheckBox[] toolerBarChildren;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -307,6 +312,18 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
         CrossKey = base.findViewById(R.id.CrossKey);
         MouseKey = base.findViewById(R.id.MouseKey);
         crosskeychildren = new CrossButton[]{CrossKey.findViewById(R.id.crosskey_up_left), CrossKey.findViewById(R.id.crosskey_up_right), CrossKey.findViewById(R.id.crosskey_down_left), CrossKey.findViewById(R.id.crosskey_down_right)};
+        SwitcherBar = base.findViewById(R.id.SwitcherBar);
+        checkbox_qwertkeyboard = SwitcherBar.findViewById(R.id.checkbox_QwertKeyboard);
+        checkbox_crosskey = SwitcherBar.findViewById(R.id.checkbox_CrossKey);
+        checkbox_virtualkeyboard = SwitcherBar.findViewById(R.id.checkbox_VirtualKeyboard);
+        checkbox_mousekey = SwitcherBar.findViewById(R.id.checkbox_MouseKey);
+        checkbox_joystick = SwitcherBar.findViewById(R.id.checkbox_Joystick);
+        checkbox_otg = SwitcherBar.findViewById(R.id.checkbox_Otg);
+        toolerBarChildren = new CheckBox[]{checkbox_qwertkeyboard,checkbox_crosskey,checkbox_mousekey,checkbox_virtualkeyboard,checkbox_otg,checkbox_joystick};
+        //设定checkbox监听
+        for(CheckBox checkBox:toolerBarChildren){
+            checkBox.setOnCheckedChangeListener(checkedlistener);
+        }
 
         //设定虚拟鼠标
         for(int i =0; i < MouseKey.getChildCount();i++){
@@ -764,8 +781,9 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
     private void SendDownOrUpToCrossKey(int[] downKeys){
         if(tempCrossKey == null){
             tempCrossKey = downKeys;
-        }else if(tempCrossKey == downKeys){
+        }else if(Arrays.equals(tempCrossKey,downKeys)){
             Log.e("CrossKeyDebug","KeepPressed.");
+            return;
         }else{
             for(int temp:tempCrossKey){
                 Log.e("CrossKeyDebug","Release Index: " + temp);
@@ -777,7 +795,45 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+
+
+    private CompoundButton.OnCheckedChangeListener checkedlistener = new CompoundButton.OnCheckedChangeListener(){
+
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean ischecked){
+            if (buttonView.getId() == R.id.checkbox_QwertKeyboard) {
+                if(ischecked){
+                    QwertKeyboard.setVisibility(View.VISIBLE);
+                }else{
+                    QwertKeyboard.setVisibility(View.GONE);
+                }
+            }else if(buttonView.getId() == R.id.checkbox_CrossKey){
+                if(ischecked){
+                    CrossKey.setVisibility(View.VISIBLE);
+                }else{
+                    CrossKey.setVisibility(View.GONE);
+                }
+            }else if(buttonView.getId() == R.id.checkbox_VirtualKeyboard){
+                if(ischecked){
+                    for(GameButton button:KeyboardList){
+                        button.setVisibility(View.VISIBLE);
+                    }
+                }else{
+                    for(GameButton button:KeyboardList){
+                        button.setVisibility(View.GONE);
+                    }
+                }
+            }else if(buttonView.getId() == R.id.checkbox_MouseKey){
+                if(ischecked){
+                    MouseKey.setVisibility(View.VISIBLE);
+                }else{
+                    MouseKey.setVisibility(View.GONE);
+                }
+            }else if(buttonView.getId() == R.id.checkbox_Otg){
+
+            }
+        }
+    };
+
 }
-
-
 

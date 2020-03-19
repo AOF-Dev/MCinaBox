@@ -49,7 +49,16 @@
                 android:background="@drawable/checkbox_virtualkeyboard"
                 android:checked="false" />
             <CheckBox
-                android:id="@+id/checkbox_tog"
+                android:id="@+id/checkbox_Joystick"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_margin="3dp"
+                android:layout_gravity="center"
+                android:button="@null"
+                android:background="@drawable/checkbox_joystick"
+                android:checked="false" />
+            <CheckBox
+                android:id="@+id/checkbox_Otg"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_margin="3dp"
@@ -61,15 +70,12 @@
         </LinearLayout>
 
     </HorizontalScrollView>
-    <View
-        android:layout_width="2px"
-        android:layout_height="fill_parent"
-        android:background="@android:color/background_dark" />
+
     <ImageButton
-        android:layout_width="10dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:paddingRight="1dp"
-        android:layout_gravity="center"
-        android:src="@drawable/ic_chevron_left_black_24dp"/>
+        android:layout_gravity="center_vertical"
+        android:background="#00574B"
+        android:src="@drawable/ic_settings_applications_black_18dp"/>
 
 </LinearLayout>
