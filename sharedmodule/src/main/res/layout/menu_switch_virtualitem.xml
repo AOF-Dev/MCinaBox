@@ -2,13 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="@drawable/control_button_normal">
+    android:layout_height="wrap_content">
+
+    <ImageButton
+        android:id="@+id/switchbar_switcher"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:background="#55636363"
+        android:src="@drawable/ic_settings_applications_black_18dp"/>
 
     <HorizontalScrollView
+        android:id="@+id/switchbar_container"
+        android:visibility="invisible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <LinearLayout
+            android:background="#77B2B2B2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -70,12 +80,5 @@
         </LinearLayout>
 
     </HorizontalScrollView>
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_vertical"
-        android:background="#00574B"
-        android:src="@drawable/ic_settings_applications_black_18dp"/>
 
 </LinearLayout>

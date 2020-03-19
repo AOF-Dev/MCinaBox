@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.app.NativeActivity;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.HorizontalScrollView;
+import android.widget.ImageButton;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.view.LayoutInflater;
@@ -76,6 +78,9 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
     private int[] tempCrossKey;
     private CheckBox checkbox_qwertkeyboard,checkbox_crosskey,checkbox_mousekey,checkbox_virtualkeyboard,checkbox_otg,checkbox_joystick;
     private CheckBox[] toolerBarChildren;
+    private HorizontalScrollView SwitcherBar_container;
+    private ImageButton SwitcherBar_switcher;
+    private boolean switcher_isClickOnly = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -216,6 +221,24 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
             return false;
         }
 
+        //开关栏手势
+        if(p1 == SwitcherBar_switcher){
+            switch(p2.getAction()){
+                case MotionEvent.ACTION_DOWN:
+                    switcher_isClickOnly = true;
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    switcher_isClickOnly = false;
+                case MotionEvent.ACTION_UP:
+                    if(switcher_isClickOnly){
+                        OnClickSwitcherBar();
+                    }else{
+                        //nothing.
+                    }
+            }
+            OnMoveSwitcherBar(p1,p2);
+        }
+
         //物品栏手势
         if(p1 instanceof ItemButton){
             OnTouchItemButton((ItemButton) p1,p2);
@@ -320,6 +343,10 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
         checkbox_joystick = SwitcherBar.findViewById(R.id.checkbox_Joystick);
         checkbox_otg = SwitcherBar.findViewById(R.id.checkbox_Otg);
         toolerBarChildren = new CheckBox[]{checkbox_qwertkeyboard,checkbox_crosskey,checkbox_mousekey,checkbox_virtualkeyboard,checkbox_otg,checkbox_joystick};
+        SwitcherBar_container = SwitcherBar.findViewById(R.id.switchbar_container);
+        SwitcherBar_switcher = SwitcherBar.findViewById(R.id.switchbar_switcher);
+        SwitcherBar_switcher.setOnTouchListener(this);
+
         //设定checkbox监听
         for(CheckBox checkBox:toolerBarChildren){
             checkBox.setOnCheckedChangeListener(checkedlistener);
@@ -599,6 +626,13 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+    private void OnMoveSwitcherBar(View p1,MotionEvent p2){
+        MoveViewByTouch(p1,p1,p2);
+    }
+    private void OnClickSwitcherBar(){
+        ShowOrHideViewByClick(SwitcherBar_container,View.INVISIBLE);
+    }
+
     private void OnMoveMouseKey(View p1,MotionEvent p2){
         MoveViewByTouch(p1,MouseKey,p2);
     }
@@ -609,6 +643,23 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
 
     private void OnMoveQwertKeyboard(View p1,MotionEvent p2){
         MoveViewByTouch(p1,QwertKeyboard,p2);
+    }
+
+    private void ShowOrHideViewByClick(View p1,int mode){
+        if(p1.getVisibility() == View.VISIBLE){
+            switch(mode){
+                case View.GONE:
+                    p1.setVisibility(View.GONE);
+                    break;
+                case View.INVISIBLE:
+                    p1.setVisibility(View.INVISIBLE);
+                    break;
+                default:
+                    break;
+            }
+        }else{
+            p1.setVisibility(View.VISIBLE);
+        }
     }
 
     private void MoveViewByTouch(View p1,View p2, MotionEvent p3){
@@ -655,6 +706,7 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
             default:
                 break;
         }
+
     }
 
     //p1传入中间位置按键 p2传入corsskey p3传入触摸事件
@@ -805,35 +857,45 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
                 if(ischecked){
                     QwertKeyboard.setVisibility(View.VISIBLE);
                 }else{
-                    QwertKeyboard.setVisibility(View.GONE);
+                    QwertKeyboard.setVisibility(View.INVISIBLE);
                 }
             }else if(buttonView.getId() == R.id.checkbox_CrossKey){
                 if(ischecked){
                     CrossKey.setVisibility(View.VISIBLE);
                 }else{
-                    CrossKey.setVisibility(View.GONE);
+                    CrossKey.setVisibility(View.INVISIBLE);
                 }
             }else if(buttonView.getId() == R.id.checkbox_VirtualKeyboard){
                 if(ischecked){
                     for(GameButton button:KeyboardList){
-                        button.setVisibility(View.VISIBLE);
+                        button.setVisibility(View.INVISIBLE);
                     }
                 }else{
                     for(GameButton button:KeyboardList){
-                        button.setVisibility(View.GONE);
+                        button.setVisibility(View.VISIBLE);
                     }
                 }
             }else if(buttonView.getId() == R.id.checkbox_MouseKey){
                 if(ischecked){
                     MouseKey.setVisibility(View.VISIBLE);
                 }else{
-                    MouseKey.setVisibility(View.GONE);
+                    MouseKey.setVisibility(View.INVISIBLE);
                 }
             }else if(buttonView.getId() == R.id.checkbox_Otg){
 
             }
         }
     };
+
+    private void ChangeLayoutParam(View p1){
+        RelativeLayout.LayoutParams lpFeedback = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
+        lpFeedback.leftMargin = p1.getLeft();
+        lpFeedback.topMargin = p1.getTop();
+        lpFeedback.setMargins(p1.getLeft(),p1.getTop(),0,0);
+        p1.setLayoutParams(lpFeedback);
+
+    }
 
 }
 
