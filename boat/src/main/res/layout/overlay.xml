@@ -1,48 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:custom="http://schemas.android.com/apk/res-auto"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent">
 
-
-	<include
-		android:id="@+id/SwitcherBar"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_alignParentLeft="true"
-		android:layout_alignParentTop="true"
-		layout="@layout/menu_switch_virtualitem"/>
-
-	<include
-		android:id="@+id/QwertKeyboard"
-		android:visibility="invisible"
-		android:layout_width="450dp"
-		android:layout_height="150dp"
-		android:layout_centerInParent="true"
-		layout="@layout/virtual_keyboard"/>
-
-	<include
-		android:id="@+id/CrossKey"
-		android:visibility="invisible"
-		android:layout_width="150dp"
-		android:layout_height="160dp"
-		android:layout_marginLeft="20dp"
-		android:layout_marginBottom="20dp"
-		android:layout_alignParentLeft="true"
-		android:layout_alignParentBottom="true"
-		layout="@layout/virtual_crosskey"/>
-
-	<include
-		android:id="@+id/item_bar"
-		android:layout_width="270dp"
-		android:layout_height="30dp"
-		android:layout_marginBottom="0dp"
-		android:layout_alignParentBottom="true"
-		android:layout_centerInParent="true"
-		android:layout_centerHorizontal="true"
-		android:visibility="invisible"
-		layout="@layout/virtual_itembar"/>
 
 	<include
 		android:id="@+id/MouseKey"
@@ -54,6 +15,27 @@
 		android:layout_marginBottom="30dp"
 		android:layout_marginRight="30dp"
 		layout="@layout/virtual_mousekey"/>
+
+	<include
+		android:id="@+id/JoyStick"
+		android:layout_width="150dp"
+		android:layout_height="170dp"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentBottom="true"
+		android:layout_marginLeft="20dp"
+		android:layout_marginBottom="20dp"
+		layout="@layout/virtual_joystick"/>
+
+	<include
+		android:id="@+id/CrossKey"
+		android:visibility="invisible"
+		android:layout_width="150dp"
+		android:layout_height="160dp"
+		android:layout_marginLeft="20dp"
+		android:layout_marginBottom="20dp"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentBottom="true"
+		layout="@layout/virtual_crosskey"/>
 
 	<ImageView
 		android:layout_height="16dp"
@@ -76,6 +58,33 @@
 		android:inputType="text"
 		android:alpha="0.3"
 		android:text="&gt;"/>
+
+	<include
+		android:id="@+id/item_bar"
+		android:layout_width="270dp"
+		android:layout_height="30dp"
+		android:layout_marginBottom="0dp"
+		android:layout_alignParentBottom="true"
+		android:layout_centerInParent="true"
+		android:layout_centerHorizontal="true"
+		android:visibility="invisible"
+		layout="@layout/virtual_itembar"/>
+
+	<include
+		android:id="@+id/QwertKeyboard"
+		android:visibility="invisible"
+		android:layout_width="450dp"
+		android:layout_height="150dp"
+		android:layout_centerInParent="true"
+		layout="@layout/virtual_keyboard"/>
+
+	<include
+		android:id="@+id/SwitcherBar"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentTop="true"
+		layout="@layout/menu_switch_virtualitem"/>
 
 </RelativeLayout>
 

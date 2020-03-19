@@ -51,6 +51,8 @@ import com.aof.sharedmodule.Tools.ColorUtils;
 import com.aof.sharedmodule.Button.GameButton;
 import cosine.boat.AdaptMCinaBoxApp.KeyTool;
 import com.aof.sharedmodule.Model.KeyboardJsonModel;
+import com.kongqw.rockerlibrary.view.RockerView;
+
 import static org.lwjgl.glfw.GLFW.*;
 
 public class BoatClientActivity extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener, TextWatcher, TextView.OnEditorActionListener {
@@ -61,6 +63,7 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
     private LinearLayout CrossKey;
     private LinearLayout MouseKey;
     private LinearLayout SwitcherBar;
+    private LinearLayout JoyStick;
     private int screenWidth,screenHeight;
     private PopupWindow popupWindow;
     private RelativeLayout base;
@@ -81,6 +84,9 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
     private HorizontalScrollView SwitcherBar_container;
     private ImageButton SwitcherBar_switcher;
     private boolean switcher_isClickOnly = true;
+    private RockerView JoyStick_Rocker;
+    private Button joystick_move;
+    private int[] recordJoyStick;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -237,6 +243,7 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
                     }
             }
             OnMoveSwitcherBar(p1,p2);
+            return true;
         }
 
         //物品栏手势
@@ -249,6 +256,12 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
         if((p1 instanceof QwertButton) && !((QwertButton) p1).getButtonName().equals("Move")){
             OnTouchQwertKeyboard((QwertButton)p1,p2);
             return false;
+        }
+
+        //摇杆拖动手势
+        if(p1 == joystick_move){
+            OnMoveJoyStick(p1,p2);
+            return true;
         }
 
         //移动全键盘
@@ -346,7 +359,12 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
         SwitcherBar_container = SwitcherBar.findViewById(R.id.switchbar_container);
         SwitcherBar_switcher = SwitcherBar.findViewById(R.id.switchbar_switcher);
         SwitcherBar_switcher.setOnTouchListener(this);
-
+        JoyStick = base.findViewById(R.id.JoyStick);
+        JoyStick_Rocker = JoyStick.findViewById(R.id.joystick_rocker);
+        JoyStick_Rocker.setCallBackMode(RockerView.CallBackMode.CALL_BACK_MODE_STATE_CHANGE);
+        JoyStick_Rocker.setOnShakeListener(RockerView.DirectionMode.DIRECTION_8,shakelistener);
+        joystick_move = JoyStick.findViewById(R.id.joystick_move);
+        joystick_move.setOnTouchListener(this);
         //设定checkbox监听
         for(CheckBox checkBox:toolerBarChildren){
             checkBox.setOnCheckedChangeListener(checkedlistener);
@@ -409,6 +427,7 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
                 for(int a = 0;a < ((LinearLayout)((LinearLayout)base.findViewById(R.id.CrossKey)).getChildAt(i)).getChildCount();a++){
                     for(int b = 0;b< ((LinearLayout)(((LinearLayout)((LinearLayout)base.findViewById(R.id.CrossKey)).getChildAt(i)).getChildAt(a))).getChildCount();b++){
                         ((LinearLayout)(((LinearLayout)((LinearLayout)base.findViewById(R.id.CrossKey)).getChildAt(i)).getChildAt(a))).getChildAt(b).setOnTouchListener(this);
+                        ((LinearLayout)(((LinearLayout)((LinearLayout)base.findViewById(R.id.CrossKey)).getChildAt(i)).getChildAt(a))).getChildAt(b).getBackground().setAlpha(100);
                     }
                 }
             }
@@ -613,7 +632,7 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
                 break;
             case MotionEvent.ACTION_MOVE:
                 Log.e("Action","Move");
-                SendDownOrUpToCrossKey(Indexs);
+                SendDownOrUpToInput(tempCrossKey,Indexs);
                 break;
             case MotionEvent.ACTION_UP:
                 Log.e("Action","Up");
@@ -626,11 +645,58 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
-    private void OnMoveSwitcherBar(View p1,MotionEvent p2){
-        MoveViewByTouch(p1,p1,p2);
+    private void OnMoveSwitcherBar(View p1,MotionEvent p3){
+        switch(p3.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                if(!layoutsPos.containsKey(p1)){
+                    layoutsPos.put(p1,(new int[]{(int)p3.getRawX(),(int)p3.getRawY()}));
+                }else{
+                    layoutsPos.remove(p1);
+                    layoutsPos.put(p1,(new int[]{(int)p3.getRawX(),(int)p3.getRawY()}));
+                }
+                break;
+            case MotionEvent.ACTION_MOVE:
+                int dx = (int) p3.getRawX() - layoutsPos.get(p1)[0];
+                int dy = (int) p3.getRawY() - layoutsPos.get(p1)[1];
+                int l = p1.getLeft() + dx;
+                int b = p1.getBottom() + dy;
+                int r = p1.getRight() + dx;
+                int t = p1.getTop() + dy;
+                //下面判断移动是否超出屏幕
+                if(l < 0){
+                    l = 0;
+                    r = l + p1.getWidth();
+                }
+                if(t < 0){
+                    t = 0;
+                    b = t+ p1.getHeight();
+                }
+                if(r > screenWidth){
+                    r = screenWidth;
+                    l = r - p1.getWidth();
+                }
+                if(b > screenHeight){
+                    b = screenHeight;
+                    t = b - p1.getHeight();
+                }
+                SwitcherBar.layout(l,t,r,b);
+                layoutsPos.remove(p1);
+                layoutsPos.put(p1,(new int[]{(int)p3.getRawX(),(int)p3.getRawY()}));
+                SwitcherBar.postInvalidate();
+                break;
+            case MotionEvent.ACTION_UP:
+                break;
+            default:
+                break;
+        }
+
+
     }
     private void OnClickSwitcherBar(){
         ShowOrHideViewByClick(SwitcherBar_container,View.INVISIBLE);
+    }
+    private void OnMoveJoyStick(View p1,MotionEvent p2){
+        MoveViewByTouch(p1,JoyStick,p2);
     }
 
     private void OnMoveMouseKey(View p1,MotionEvent p2){
@@ -740,7 +806,7 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
                 }
                 return (new int[]{GLFW_KEY_S,GLFW_KEY_A});
             }else{
-                SendDownOrUpToCrossKey(new int[]{});
+                SendDownOrUpToInput(tempCrossKey,new int[]{});
                 MotionEvent p4 = p3;
                 p4.setAction(MotionEvent.ACTION_UP);
                 ReflectCrossKeyToScreen(new View[]{},p4);
@@ -767,7 +833,7 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
                 ReflectCrossKeyToScreen(new View[]{crosskeychildren[2],crosskeychildren[3]},p3);
                 return (new int[]{GLFW_KEY_S});
             }else{
-                SendDownOrUpToCrossKey(new int[]{});
+                SendDownOrUpToInput(tempCrossKey,new int[]{});
                 p3.setAction(MotionEvent.ACTION_UP);
                 ReflectCrossKeyToScreen(new View[]{},p3);
             }
@@ -793,13 +859,13 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
                 }
                 return (new int[]{GLFW_KEY_S,GLFW_KEY_D});
             }else{
-                SendDownOrUpToCrossKey(new int[]{});
+                SendDownOrUpToInput(tempCrossKey,new int[]{});
                 MotionEvent p4 = p3;
                 p4.setAction(MotionEvent.ACTION_UP);
                 ReflectCrossKeyToScreen(new View[]{},p4);
             }
         }else{
-            SendDownOrUpToCrossKey(new int[]{});
+            SendDownOrUpToInput(tempCrossKey,new int[]{});
             MotionEvent p4 = p3;
             p4.setAction(MotionEvent.ACTION_UP);
             ReflectCrossKeyToScreen(new View[]{},p4);
@@ -830,20 +896,20 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
-    private void SendDownOrUpToCrossKey(int[] downKeys){
-        if(tempCrossKey == null){
-            tempCrossKey = downKeys;
-        }else if(Arrays.equals(tempCrossKey,downKeys)){
-            Log.e("CrossKeyDebug","KeepPressed.");
+    private void SendDownOrUpToInput(int[] recordKeys,int[] downKeys){
+        if(recordKeys == null){
+            recordKeys = downKeys;
+        }else if(Arrays.equals(recordKeys,downKeys)){
+            Log.e("DnOrUpInput","KeepPressed.");
             return;
         }else{
-            for(int temp:tempCrossKey){
-                Log.e("CrossKeyDebug","Release Index: " + temp);
+            for(int temp:recordKeys){
+                Log.e("DnOrUpInput","Release Index: " + temp);
             }
-            tempCrossKey = downKeys;
+            recordKeys = downKeys;
         }
         for(int temp: downKeys){
-            Log.e("CrossKeyDebug","Catch Index: "+temp);
+            Log.e("DnOrUpInput","Catch Index: "+temp);
         }
     }
 
@@ -883,6 +949,12 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
                 }
             }else if(buttonView.getId() == R.id.checkbox_Otg){
 
+            }else if(buttonView.getId() == R.id.checkbox_Joystick){
+                if(ischecked){
+                    JoyStick.setVisibility(View.VISIBLE);
+                }else{
+                    JoyStick.setVisibility(View.INVISIBLE);
+                }
             }
         }
     };
@@ -895,6 +967,68 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
         lpFeedback.setMargins(p1.getLeft(),p1.getTop(),0,0);
         p1.setLayoutParams(lpFeedback);
 
+    }
+
+    private RockerView.OnShakeListener shakelistener = new RockerView.OnShakeListener() {
+        @Override
+        public void onStart() {
+        }
+
+        @Override
+        public void direction(RockerView.Direction direction) {
+            OnJoyStickShake(direction);
+        }
+
+        @Override
+        public void onFinish() {
+            for(int p1:recordJoyStick){
+                Log.e("JoyStickFinish","Release Index: " + p1);
+            }
+            recordJoyStick = null;
+        }
+    };
+
+    private void OnJoyStickShake(RockerView.Direction direction) {
+        String message = null;
+        int[] temp = new int[]{};
+        switch (direction) {
+            case DIRECTION_LEFT:
+                message = "左";
+                temp = new int[]{GLFW_KEY_A};
+                break;
+            case DIRECTION_RIGHT:
+                message = "右";
+                temp = new int[]{GLFW_KEY_D};
+                break;
+            case DIRECTION_UP:
+                message = "上";
+                temp = new int[]{GLFW_KEY_W};
+                break;
+            case DIRECTION_DOWN:
+                message = "下";
+                temp = new int[]{GLFW_KEY_S};
+                break;
+            case DIRECTION_UP_LEFT:
+                message = "左上";
+                temp = new int[]{GLFW_KEY_W,GLFW_KEY_A};
+                break;
+            case DIRECTION_UP_RIGHT:
+                message = "右上";
+                temp = new int[]{GLFW_KEY_W,GLFW_KEY_D};
+                break;
+            case DIRECTION_DOWN_LEFT:
+                message = "左下";
+                temp = new int[]{GLFW_KEY_S,GLFW_KEY_A};
+                break;
+            case DIRECTION_DOWN_RIGHT:
+                message = "右下";
+                temp = new int[]{GLFW_KEY_S,GLFW_KEY_D};
+                break;
+            default:
+                break;
+        }
+        Log.e("JoyStick",message);
+        SendDownOrUpToInput(recordJoyStick,temp);
     }
 
 }
