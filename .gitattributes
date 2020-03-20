@@ -1,0 +1,5 @@
+*.js linguist-language=Java
+*.cpp linguist-language=Java
+*.c linguist-language=Java
+*.png linguist-language=Java
+*.xml linguist-language=Java
