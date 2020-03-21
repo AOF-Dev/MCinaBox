@@ -1,0 +1,5 @@
+add_library(boat SHARED boat.c)
+find_library(log-lib log)
+find_library(dl-lib dl)
+target_link_libraries(boat ${log-lib} ${dl-lib})
+SET(CMAKE_CXX_FLAGS "-mthumb -O2 -std=gnu99")

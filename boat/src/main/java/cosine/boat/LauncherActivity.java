@@ -121,6 +121,9 @@ public class LauncherActivity extends Activity implements View.OnClickListener, 
         outputText.append("Runtime directory: " + this.getDir("runtime", 0) + "\n");
         //outputText.append("StartCMD: " + argsModel.getArgs().toString() + "\n");
 
+        Intent intent = new Intent(this, BoatClientActivity.class);
+        intent.putExtra("LauncherConfig", argsModel);
+        this.startActivity(intent);
 
     }
 
@@ -204,10 +207,6 @@ public class LauncherActivity extends Activity implements View.OnClickListener, 
                 endMsg.what = -6;
                 mHandler.sendMessage(endMsg);
 
-                LauncherConfig config = LauncherConfig.fromFile(configText.getText().toString());
-                config.remove("runtimePath");
-                config.put("runtimePath", getDir("runtime", 0).getAbsolutePath());
-                LauncherConfig.toFile(configText.getText().toString(), config);
                 endMsg = new Message();
                 endMsg.what = -7;
                 mHandler.sendMessage(endMsg);

@@ -55,7 +55,7 @@ import com.kongqw.rockerlibrary.view.RockerView;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-public class BoatClientActivity extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener, TextWatcher, TextView.OnEditorActionListener {
+public class BoatClientActivity extends NativeActivity  implements View.OnClickListener, View.OnTouchListener, TextWatcher, TextView.OnEditorActionListener {
 
     private ArgsModel argsModel;
     private ArrayList<GameButton> KeyboardList;
@@ -112,7 +112,7 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
         popupWindow.dismiss();
     }
 
-/*
+
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
 
@@ -124,15 +124,14 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void run() {
                 ArgsModel argsModel = (ArgsModel) getIntent().getSerializableExtra("LauncherConfig");
-                LauncherConfig config = LauncherConfig.fromFile(getIntent().getExtras().getString("config"));
-                LoadMe.exec(config, BoatClientActivity.this);
+                LoadMe.exec(argsModel, BoatClientActivity.this);
                 Message msg = new Message();
                 msg.what = -1;
                 mHandler.sendMessage(msg);
 
             }
         }.start();
-    }*/
+    }
 
     private class MyHandler extends Handler {
         @Override
@@ -632,7 +631,7 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
                 break;
             case MotionEvent.ACTION_MOVE:
                 Log.e("Action","Move");
-                SendDownOrUpToInput(tempCrossKey,Indexs);
+                SendDownOrUpToInput(tempCrossKey,Indexs,1);
                 break;
             case MotionEvent.ACTION_UP:
                 Log.e("Action","Up");
@@ -646,51 +645,7 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void OnMoveSwitcherBar(View p1,MotionEvent p3){
-        switch(p3.getAction()){
-            case MotionEvent.ACTION_DOWN:
-                if(!layoutsPos.containsKey(p1)){
-                    layoutsPos.put(p1,(new int[]{(int)p3.getRawX(),(int)p3.getRawY()}));
-                }else{
-                    layoutsPos.remove(p1);
-                    layoutsPos.put(p1,(new int[]{(int)p3.getRawX(),(int)p3.getRawY()}));
-                }
-                break;
-            case MotionEvent.ACTION_MOVE:
-                int dx = (int) p3.getRawX() - layoutsPos.get(p1)[0];
-                int dy = (int) p3.getRawY() - layoutsPos.get(p1)[1];
-                int l = p1.getLeft() + dx;
-                int b = p1.getBottom() + dy;
-                int r = p1.getRight() + dx;
-                int t = p1.getTop() + dy;
-                //下面判断移动是否超出屏幕
-                if(l < 0){
-                    l = 0;
-                    r = l + p1.getWidth();
-                }
-                if(t < 0){
-                    t = 0;
-                    b = t+ p1.getHeight();
-                }
-                if(r > screenWidth){
-                    r = screenWidth;
-                    l = r - p1.getWidth();
-                }
-                if(b > screenHeight){
-                    b = screenHeight;
-                    t = b - p1.getHeight();
-                }
-                SwitcherBar.layout(l,t,r,b);
-                layoutsPos.remove(p1);
-                layoutsPos.put(p1,(new int[]{(int)p3.getRawX(),(int)p3.getRawY()}));
-                SwitcherBar.postInvalidate();
-                break;
-            case MotionEvent.ACTION_UP:
-                break;
-            default:
-                break;
-        }
-
-
+        MoveViewByTouch(p1,SwitcherBar,p3);
     }
     private void OnClickSwitcherBar(){
         ShowOrHideViewByClick(SwitcherBar_container,View.INVISIBLE);
@@ -806,10 +761,9 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
                 }
                 return (new int[]{GLFW_KEY_S,GLFW_KEY_A});
             }else{
-                SendDownOrUpToInput(tempCrossKey,new int[]{});
-                MotionEvent p4 = p3;
-                p4.setAction(MotionEvent.ACTION_UP);
-                ReflectCrossKeyToScreen(new View[]{},p4);
+                SendDownOrUpToInput(tempCrossKey,new int[]{},1);
+                p3.setAction(MotionEvent.ACTION_UP);
+                ReflectCrossKeyToScreen(new View[]{},p3);
             }
             //第二列
         }else if(changPos[0] <= targetPos[0] + p1.getWidth() - initPos[0] && changPos[0] >= targetPos[0] - initPos[0]){
@@ -833,7 +787,7 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
                 ReflectCrossKeyToScreen(new View[]{crosskeychildren[2],crosskeychildren[3]},p3);
                 return (new int[]{GLFW_KEY_S});
             }else{
-                SendDownOrUpToInput(tempCrossKey,new int[]{});
+                SendDownOrUpToInput(tempCrossKey,new int[]{},1);
                 p3.setAction(MotionEvent.ACTION_UP);
                 ReflectCrossKeyToScreen(new View[]{},p3);
             }
@@ -859,16 +813,14 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
                 }
                 return (new int[]{GLFW_KEY_S,GLFW_KEY_D});
             }else{
-                SendDownOrUpToInput(tempCrossKey,new int[]{});
-                MotionEvent p4 = p3;
-                p4.setAction(MotionEvent.ACTION_UP);
-                ReflectCrossKeyToScreen(new View[]{},p4);
+                SendDownOrUpToInput(tempCrossKey,new int[]{},1);
+                p3.setAction(MotionEvent.ACTION_UP);
+                ReflectCrossKeyToScreen(new View[]{},p3);
             }
         }else{
-            SendDownOrUpToInput(tempCrossKey,new int[]{});
-            MotionEvent p4 = p3;
-            p4.setAction(MotionEvent.ACTION_UP);
-            ReflectCrossKeyToScreen(new View[]{},p4);
+            SendDownOrUpToInput(tempCrossKey,new int[]{},1);
+            p3.setAction(MotionEvent.ACTION_UP);
+            ReflectCrossKeyToScreen(new View[]{},p3);
         }
         return (new int[]{});
     }
@@ -896,17 +848,25 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
-    private void SendDownOrUpToInput(int[] recordKeys,int[] downKeys){
+    private void SendDownOrUpToInput(int[] recordKeys,int[] downKeys,int mode){
         if(recordKeys == null){
-            recordKeys = downKeys;
+            if(mode == 1){
+                tempCrossKey = downKeys;
+            }else if(mode ==2){
+                recordJoyStick = downKeys;
+            }
         }else if(Arrays.equals(recordKeys,downKeys)){
             Log.e("DnOrUpInput","KeepPressed.");
             return;
         }else{
-            for(int temp:recordKeys){
-                Log.e("DnOrUpInput","Release Index: " + temp);
+            if(mode == 1){
+                tempCrossKey = downKeys;
+            }else if(mode ==2){
+                recordJoyStick = downKeys;
             }
-            recordKeys = downKeys;
+            for(int temp:recordKeys){
+                Log.e("DnOrUpInput","Release Index: "+temp);
+            }
         }
         for(int temp: downKeys){
             Log.e("DnOrUpInput","Catch Index: "+temp);
@@ -981,8 +941,8 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
 
         @Override
         public void onFinish() {
-            for(int p1:recordJoyStick){
-                Log.e("JoyStickFinish","Release Index: " + p1);
+            for(int temp:recordJoyStick){
+                Log.e("JoyStick","Release Index " + temp);
             }
             recordJoyStick = null;
         }
@@ -1028,7 +988,7 @@ public class BoatClientActivity extends AppCompatActivity implements View.OnClic
                 break;
         }
         Log.e("JoyStick",message);
-        SendDownOrUpToInput(recordJoyStick,temp);
+        SendDownOrUpToInput(recordJoyStick,temp,2);
     }
 
 }

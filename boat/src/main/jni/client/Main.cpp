@@ -11,7 +11,7 @@ void onResume(ANativeActivity* activity){
 }
 
 void* onSaveInstanceState(ANativeActivity* activity, size_t* outSize){
-	return 0;
+	
 }
 
 void onPause(ANativeActivity* activity){
@@ -178,11 +178,11 @@ extern "C" JNIEXPORT jint JNI_OnLoad(JavaVM* vm,void*)
 	}
 	
 	jclass class_BoatInputEventSender = env->FindClass("cosine/boat/BoatInputEventSender");
-	if (cls == 0){
+	/*if (cls == 0){
 		__android_log_print(ANDROID_LOG_ERROR, "BoatClient", "Failed to find class: cosine/boat/BoatInputEventSender.");
 		abort();
-	}
-	Client::mClient->class_BoatInputEventSender = (jclass)env->NewGlobalRef(class_BoatInputEventSender);
+	}*/
+	Client::mClient->g_BoatInputEventSender = (jclass)env->NewGlobalRef(class_BoatInputEventSender);
 	
 	return JNI_VERSION_1_6;
 }

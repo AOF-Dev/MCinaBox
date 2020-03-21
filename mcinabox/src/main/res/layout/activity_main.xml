@@ -723,7 +723,7 @@
         android:layout_height="0dp"
         android:background="@drawable/background_layout_fictionlist"
         android:orientation="vertical"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
@@ -1289,6 +1289,7 @@
                         android:textSize="13sp"/>
 
                     <Spinner
+                        android:id="@+id/launchersetting_spinner_runtimepack"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:textAlignment="gravity"
@@ -1296,6 +1297,7 @@
                         android:layout_marginRight="2dp"
                         android:layout_weight="1" />
                     <Button
+                        android:id="@+id/launchersetting_button_import"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="导入"/>

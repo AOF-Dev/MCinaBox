@@ -14,6 +14,7 @@ public class DataPathManifest {
         MCINABOX_DATA_PUBLIC = "/sdcard/MCinaBox",
         MCINABOX_DATA_PRIVATE = "/sdcard/Android/data/com.aof.mcinabox/files/MCinaBox",
         MCINABOX_FILE_JSON = MCINABOX_HOME + "/mcinabox.json",
+        MCINABOX_DATA_RUNTIME = MCINABOX_HOME + "/runtimepack",
             //Minecraft
         MINECRAFT_DATA_PUBLIC = MCINABOX_DATA_PUBLIC + "/.minecraft",
         MINECRAFT_DATA_PUBLIC_VERSION = MINECRAFT_DATA_PUBLIC + "/versions",
@@ -61,7 +62,9 @@ public class DataPathManifest {
             MINECRAFT_DATA_PRIVATE_SAVES,
             MINECRAFT_DATA_PRIVATE_LIBRARIES,
             MINECRAFT_DATA_PRIVATE_LOGS,
-            MINECRAFT_DATA_PRIVATE_RESOURCEPACKS
+            MINECRAFT_DATA_PRIVATE_RESOURCEPACKS,
+            MCINABOX_DATA_RUNTIME,
+            BOAT_HOME
     };
 
 }

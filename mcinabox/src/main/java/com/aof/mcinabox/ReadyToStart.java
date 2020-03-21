@@ -199,23 +199,24 @@ public class ReadyToStart {
         String JVM_lwjgl_debug_true = "-Dorg.lwjgl.util.Debug=true";
         String JVM_lwjgl_debugloader_true = "-Dorg.lwjgl.util.DebugLoader=true";
         String JVM_ExtraArgs = launcherSetting.getConfigurations().getJavaArgs();
-        String JVM_ClassPath = "-cp ";
+        String JVM_ClassPath = "-cp";
+        String JVM_ClassPath_Info;
         String JVM_ClassPath_Runtime = runtimePath + "/lwjgl-jemalloc.jar:" + runtimePath + "/lwjgl-tinyfd.jar:" + runtimePath + "/lwjgl-opengl.jar:" + runtimePath + "/lwjgl-openal.jar:" + runtimePath + "/lwjgl-glfw.jar:" + runtimePath + "/lwjgl-stb.jar:" + runtimePath + "/lwjgl.jar:";
 
         //注意加入list时的顺序
-        JVM_Args.add(JVM__minecraft_client_jar);
-        JVM_Args.add(JVM_server);
+        //JVM_Args.add(JVM__minecraft_client_jar);
+        //JVM_Args.add(JVM_server);
         JVM_Args.add(JVM_Xmx);
         JVM_Args.add(JVM_Xms);
-        JVM_Args.add(JVM_UseG1GC);
-        JVM_Args.add(JVM_UseAdaptiveSizePolicy);
-        JVM_Args.add(JVM_OmitStackTraceInFastThrow);
-        JVM_Args.add(JVM_minecraft_launcher_band);
-        JVM_Args.add(JVM_minecraft_launcher_version);
+        //JVM_Args.add(JVM_UseG1GC);
+        //JVM_Args.add(JVM_UseAdaptiveSizePolicy);
+        //JVM_Args.add(JVM_OmitStackTraceInFastThrow);
+        //JVM_Args.add(JVM_minecraft_launcher_band);
+        //JVM_Args.add(JVM_minecraft_launcher_version);
         JVM_Args.add(JVM_java_library_path);
         JVM_Args.add(JVM_lwjgl_debug_true);
         JVM_Args.add(JVM_lwjgl_debugloader_true);
-        JVM_Args.add(JVM_ExtraArgs);
+        //JVM_Args.add(JVM_ExtraArgs);
 
         ArrayList<String> DependentLibrariesPaths = new ArrayList<String>();
         String temp ="";
@@ -234,8 +235,9 @@ public class ReadyToStart {
                 temp = temp + minecraft_libraries_path + targetLibrary.getDownloads().getArtifact().getPath();
             }
         }
-        JVM_ClassPath = JVM_ClassPath + JVM_ClassPath_Runtime + temp;
+        JVM_ClassPath_Info = JVM_ClassPath_Runtime + temp + ":" + minecraft_version_path + versionSetting.getId() + "/" + versionSetting.getId() + ".jar";
         JVM_Args.add(JVM_ClassPath);
+        JVM_Args.add(JVM_ClassPath_Info);
 
 
         //设定Minecraft参数
@@ -253,8 +255,26 @@ public class ReadyToStart {
         }
 
         Minecraft_Args.add(Minecraft_MainClass);
-        Minecraft_Args.add(Minecraft_arguements);
-        Minecraft_Args.add(MinecraftExtraArgs);
+        Minecraft_Args.add("--username");
+        Minecraft_Args.add("123");
+        Minecraft_Args.add("--version");
+        Minecraft_Args.add("MCinaBox 0.1.0");
+        Minecraft_Args.add("--gamedir");
+        Minecraft_Args.add("/sdcard/MCinaBox/.minecraft");
+        Minecraft_Args.add("--assetsDir");
+        Minecraft_Args.add("/sdcard/MCinaBox/.minecraft/assets");
+        Minecraft_Args.add("--assetIndex");
+        Minecraft_Args.add("1.7.10");
+        Minecraft_Args.add("--uuid");
+        Minecraft_Args.add("75f41576c9ae3be19e5af6091a7fa867");
+        Minecraft_Args.add("--accessToken");
+        Minecraft_Args.add("e0ceb0e651fb4a1bb368ad3e78403ffc");
+        Minecraft_Args.add("--userProperties");
+        Minecraft_Args.add("{}");
+        Minecraft_Args.add("--userType");
+        Minecraft_Args.add("mojang");
+        //Minecraft_Args.add(Minecraft_arguements);
+        //Minecraft_Args.add(MinecraftExtraArgs);
 
         //获得总命令
         ArrayList<String> CommandTemp = new ArrayList<String>();
@@ -270,6 +290,7 @@ public class ReadyToStart {
             Command[i] = CommandTemp.get(i);
         }
 
+        String[] versiontest = new String[]{runtimePath + "/j2re-image/bin/java","-version"};
         return Command;
 
     }
@@ -373,7 +394,7 @@ public class ReadyToStart {
         argsModel.setKeyboardName(KeyboardFileName);
         argsModel.setHome(MCHome);
         //Intent intent = new Intent(context,LauncherActivity.class);
-        Intent intent = new Intent(context, BoatClientActivity.class);
+        Intent intent = new Intent(context, LauncherActivity.class);
         intent.putExtra("LauncherConfig",argsModel);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         return intent;

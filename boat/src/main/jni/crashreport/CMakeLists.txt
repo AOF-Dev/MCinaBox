@@ -1,0 +1,4 @@
+ADD_SUBDIRECTORY(ndcrash)
+ADD_SUBDIRECTORY(jndcrash)
+ADD_SUBDIRECTORY(gccdemangle)
+ADD_SUBDIRECTORY(corkscrew)

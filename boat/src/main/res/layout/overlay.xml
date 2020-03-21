@@ -19,6 +19,7 @@
 	<include
 		android:id="@+id/JoyStick"
 		android:layout_width="150dp"
+		android:visibility="invisible"
 		android:layout_height="170dp"
 		android:layout_alignParentLeft="true"
 		android:layout_alignParentBottom="true"

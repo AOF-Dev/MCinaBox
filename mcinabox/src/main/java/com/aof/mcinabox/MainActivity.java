@@ -16,6 +16,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -70,20 +71,21 @@ import java.util.Set;
 import java.util.UUID;
 
 import cosine.boat.LauncherActivity;
+import cosine.boat.Utils;
 
 import static com.aof.mcinabox.DataPathManifest.*;
 
 public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
 
     public Button[] launcherBts;
-    public Button button_user, button_gameselected, button_gamelist, button_gamedir, button_launchersetting, button_launchercontrol, toolbar_button_backhome, toolbar_button_backfromhere;
+    public Button button_user, button_gameselected, button_gamelist, button_gamedir, button_launchersetting, button_launchercontrol, toolbar_button_backhome, toolbar_button_backfromhere,ImportRuntime;
 
 
     public RadioGroup radioGroup_version_type;
     public RadioButton radioButton_type_release, radioButton_type_snapshot, radioButton_type_old;
     public RadioButton radioButton_gamedir_public, radioButton_gamedir_private;
 
-    public Spinner setting_java, setting_opengl, setting_openal, setting_lwjgl, setting_runtime, setting_downloadtype, setting_keyboard, spinner_choice_version;
+    public Spinner setting_java, setting_opengl, setting_openal, setting_lwjgl, setting_runtime, setting_downloadtype, setting_keyboard, spinner_choice_version,spinner_runtimepacks;
 
     public Switch setting_notcheckJvm, setting_notcheckMinecraft, setting_notenableKeyboard, setting_enableOtg;
 
@@ -155,7 +157,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         toolbar_button_backfromhere = findViewById(R.id.toolbar_button_backfromhere);
         radioButton_gamedir_public = findViewById(R.id.radiobutton_gamedir_public);
         radioButton_gamedir_private = findViewById(R.id.radiobutton_gamedir_private);
-        launcherBts = new Button[]{radioButton_gamedir_public, radioButton_gamedir_private, button_user, button_gameselected, button_gamelist, button_gamedir, button_launchersetting, button_launchercontrol, toolbar_button_backhome, toolbar_button_backfromhere, dialog_button_confrom_createuser, dialog_button_cancle_createuser};
+        ImportRuntime = findViewById(R.id.launchersetting_button_import);
+        launcherBts = new Button[]{radioButton_gamedir_public, radioButton_gamedir_private, button_user, button_gameselected, button_gamelist, button_gamedir, button_launchersetting, button_launchercontrol, toolbar_button_backhome, toolbar_button_backfromhere, dialog_button_confrom_createuser, dialog_button_cancle_createuser,ImportRuntime};
         for (Button button : launcherBts) {
             button.setOnClickListener(listener);
         }
@@ -188,6 +191,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         setting_downloadtype = findViewById(R.id.setting_spinner_downloadtype);
         setting_runtime = findViewById(R.id.setting_spinner_runtime);
         spinner_choice_version = findViewById(R.id.spinner_choice_version);
+
+        spinner_runtimepacks = findViewById(R.id.launchersetting_spinner_runtimepack);
 
         editText_javaArgs = findViewById(R.id.setting_edit_javaargs);
         editText_minecraftArgs = findViewById(R.id.setting_edit_minecraftargs);
@@ -308,7 +313,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                     main_text_showstate.setText(getString(R.string.main_text_launchersetting));
                     break;
                 case R.id.main_button_launchercontrol:
-                    //main_text_showstate.setText(getString(R.string.main_text_launchercontrol));
                     //页面跳转
                     Intent intent = new Intent(getApplicationContext(), VirtualKeyBoardActivity.class);
                     startActivity(intent);
@@ -393,6 +397,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 case R.id.gamelist_button_reflash_locallist:
                     ReflashLocalVersionList();
                     break;
+                case R.id.launchersetting_button_import:
+                    InstallRuntime();
                 default:
                     break;
             }
@@ -1112,6 +1118,50 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         ReflashLocalVersionList();
         ReflashLocalUserList(false);
         ReflashLocalKeyboardList();
+        ReflashRuntimePackList();
     }
 
+    public void InstallRuntime() {
+        final String packagePath;
+        packagePath = MCINABOX_DATA_RUNTIME + "/" + spinner_runtimepacks.getSelectedItem().toString();
+        Log.e("PackagePack",packagePath);
+
+        new Thread() {
+            @Override
+            public void run() {
+                File packageFile = new File(packagePath);
+                if (!packageFile.exists()) {
+                    //运行库不存在
+                }
+                //开始安装运行库
+                Utils.extractTarXZ(packagePath, getDir("runtime", 0));
+                //运行库安装完成
+
+                if (Utils.setExecutable(getDir("runtime", 0))) {
+                    //权限设置成功
+                } else {
+                    //权限设置失败
+                }
+
+            }
+        }.start();
+
+
+    }
+
+    public void ReflashRuntimePackList(){
+        ArrayList<String> packlist = new ArrayList<String>();
+        File file = new File(MCINABOX_DATA_RUNTIME+"/");
+        File[] files = file.listFiles();
+        if (files == null) {
+            //nothing.
+        } else {
+            for (File targetFile : files) {
+                packlist.add(targetFile.getName());
+            }
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, packlist);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner_runtimepacks.setAdapter(adapter);
+        }
+    }
 }

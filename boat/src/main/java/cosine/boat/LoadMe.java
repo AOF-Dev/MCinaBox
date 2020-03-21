@@ -42,7 +42,7 @@ public class LoadMe {
 
 			dlopen(runtimePath + "/libopenal.so.1");
 			dlopen(runtimePath + "/libGL.so.1");
-			dlopen("/sdcard/libglfw.so");
+			dlopen(runtimePath + "/libglfw.so");
 
 			//dlopen(runtimePath + "/libjemalloc.so.2");
 			//System.load("/data/data/jackpal.androidterm/0/libjemalloc.so.2");
