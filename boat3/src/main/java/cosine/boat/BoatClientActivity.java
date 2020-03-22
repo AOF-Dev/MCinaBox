@@ -2,7 +2,6 @@ package cosine.boat;
 
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
-import android.telephony.mbms.MbmsErrors;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.os.Bundle;
@@ -19,7 +18,6 @@ import android.view.WindowManager.LayoutParams;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import java.nio.ByteBuffer;
 import android.widget.LinearLayout;
 import android.os.Handler;
 import android.os.Message;
@@ -30,26 +28,24 @@ import android.text.Editable;
 import android.view.inputmethod.EditorInfo;
 import android.view.KeyEvent;
 import android.view.SurfaceHolder;
-import  org.lwjgl.input.Keyboard;
+
 import java.io.*;
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import android.view.ViewGroup;
 import android.widget.Toast;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.aof.sharedmodule.Button.CrossButton;
 import com.aof.sharedmodule.Button.ItemButton;
 import com.aof.sharedmodule.Button.MouseButton;
 import com.aof.sharedmodule.Button.QwertButton;
+import com.aof.sharedmodule.Tools.GLFW_KeyTool;
 import com.google.gson.Gson;
 import com.aof.sharedmodule.Model.ArgsModel;
 import com.aof.sharedmodule.Tools.ColorUtils;
 import com.aof.sharedmodule.Button.GameButton;
-import cosine.boat.AdaptMCinaBoxApp.KeyTool;
 import com.aof.sharedmodule.Model.KeyboardJsonModel;
 import com.kongqw.rockerlibrary.view.RockerView;
 
@@ -508,10 +504,10 @@ public class BoatClientActivity extends NativeActivity  implements View.OnClickL
         KeyButton.setBackground(gradientDrawable);
 
         //设置键索引
-        KeyButton.setMainIndex(KeyTool.IndexKeyMap(KeyMain));
+        KeyButton.setMainIndex(GLFW_KeyTool.IndexKeyMap(KeyMain));
         if(isMult){
-            KeyButton.setSpecialOneIndex(KeyTool.IndexKeyMap(SpecialOne));
-            KeyButton.setSpecialTwoIndex(KeyTool.IndexKeyMap(SpecialTwo));
+            KeyButton.setSpecialOneIndex(GLFW_KeyTool.IndexKeyMap(SpecialOne));
+            KeyButton.setSpecialTwoIndex(GLFW_KeyTool.IndexKeyMap(SpecialTwo));
         }
         return KeyButton;
     }

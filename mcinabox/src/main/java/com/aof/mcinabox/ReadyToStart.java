@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
-
 import com.aof.mcinabox.AdaptBoatApp.ArgsModel;
 import com.aof.mcinabox.initUtils.LauncherSettingModel;
 import com.aof.mcinabox.ioUtils.FileTool;
@@ -19,12 +18,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
-
-import cosine.boat.BoatClientActivity;
-import cosine.boat.LauncherActivity;
-import com.aof.mcinabox.DataPathManifest;
-
 import static com.aof.mcinabox.DataPathManifest.*;
 
 public class ReadyToStart {
@@ -201,7 +196,14 @@ public class ReadyToStart {
         String JVM_ExtraArgs = launcherSetting.getConfigurations().getJavaArgs();
         String JVM_ClassPath = "-cp";
         String JVM_ClassPath_Info;
-        String JVM_ClassPath_Runtime = runtimePath + "/lwjgl-jemalloc.jar:" + runtimePath + "/lwjgl-tinyfd.jar:" + runtimePath + "/lwjgl-opengl.jar:" + runtimePath + "/lwjgl-openal.jar:" + runtimePath + "/lwjgl-glfw.jar:" + runtimePath + "/lwjgl-stb.jar:" + runtimePath + "/lwjgl.jar:";
+        String JVM_ClassPath_Runtime;
+        if(versionSetting.getMinimumLauncherVersion() >= 21){
+            //这是1.13.1以及之后的处理方法
+            JVM_ClassPath_Runtime = runtimePath + "/boat2/lwjgl_util.jar:" + runtimePath + "/boat2/lwjgl.jar:";
+        }else{
+            //这是1.13.1之前的处理方法
+            JVM_ClassPath_Runtime = runtimePath + "/lwjgl-jemalloc.jar:" + runtimePath + "/lwjgl-tinyfd.jar:" + runtimePath + "/lwjgl-opengl.jar:" + runtimePath + "/lwjgl-openal.jar:" + runtimePath + "/lwjgl-glfw.jar:" + runtimePath + "/lwjgl-stb.jar:" + runtimePath + "/lwjgl.jar:";
+        }
 
         //注意加入list时的顺序
         //JVM_Args.add(JVM__minecraft_client_jar);
@@ -255,42 +257,21 @@ public class ReadyToStart {
         }
 
         Minecraft_Args.add(Minecraft_MainClass);
-        Minecraft_Args.add("--username");
-        Minecraft_Args.add("123");
-        Minecraft_Args.add("--version");
-        Minecraft_Args.add("MCinaBox 0.1.0");
-        Minecraft_Args.add("--gamedir");
-        Minecraft_Args.add("/sdcard/MCinaBox/.minecraft");
-        Minecraft_Args.add("--assetsDir");
-        Minecraft_Args.add("/sdcard/MCinaBox/.minecraft/assets");
-        Minecraft_Args.add("--assetIndex");
-        Minecraft_Args.add("1.7.10");
-        Minecraft_Args.add("--uuid");
-        Minecraft_Args.add("75f41576c9ae3be19e5af6091a7fa867");
-        Minecraft_Args.add("--accessToken");
-        Minecraft_Args.add("e0ceb0e651fb4a1bb368ad3e78403ffc");
-        Minecraft_Args.add("--userProperties");
-        Minecraft_Args.add("{}");
-        Minecraft_Args.add("--userType");
-        Minecraft_Args.add("mojang");
-        //Minecraft_Args.add(Minecraft_arguements);
-        //Minecraft_Args.add(MinecraftExtraArgs);
+        Minecraft_Args.addAll(Arrays.asList(SplitMinecraftArgument(Minecraft_arguements)));
+        Minecraft_Args.add(MinecraftExtraArgs);
 
         //获得总命令
         ArrayList<String> CommandTemp = new ArrayList<String>();
         CommandTemp.add(Java_Args);
-        for(String arg : JVM_Args) {
-            CommandTemp.add(arg);
-        }
-        for (String arg : Minecraft_Args){
-            CommandTemp.add(arg);
-        }
+        CommandTemp.addAll(JVM_Args);
+        CommandTemp.addAll(Minecraft_Args);
+
         String[] Command = new String[CommandTemp.size()];
         for(int i = 0; i < Command.length;i++){
             Command[i] = CommandTemp.get(i);
         }
 
-        String[] versiontest = new String[]{runtimePath + "/j2re-image/bin/java","-version"};
+        //String[] versiontest = new String[]{runtimePath + "/j2re-image/bin/java","-version"};
         return Command;
 
     }
@@ -393,10 +374,18 @@ public class ReadyToStart {
         argsModel.setForceRootRuntime(forceRootRuntime);
         argsModel.setKeyboardName(KeyboardFileName);
         argsModel.setHome(MCHome);
-        //Intent intent = new Intent(context,LauncherActivity.class);
-        Intent intent = new Intent(context, LauncherActivity.class);
+
+        Intent intent ;
+        if(versionSetting.getMinimumLauncherVersion() >= 21){
+            //这是1.13.1以及之后的处理方法
+            intent= new Intent(context, cosine.boat.LauncherActivity.class);
+        }else{
+            //这是1.13.1之前的处理方法
+            intent= new Intent(context, cosine.boat2.LauncherActivity.class);
+        }
         intent.putExtra("LauncherConfig",argsModel);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
         return intent;
     }
 
@@ -413,6 +402,11 @@ public class ReadyToStart {
             }
         }
         return minecraftarguments;
+    }
+
+    /**【以空格来分割MinecraftArgument为字符串数组】**/
+    public String[] SplitMinecraftArgument(String Str){
+        return Str.split(" ");
     }
 
 }

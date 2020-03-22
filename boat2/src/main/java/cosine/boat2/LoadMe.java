@@ -1,7 +1,7 @@
 package cosine.boat2;
 
-import java.util.*;
-import java.io.*;
+import com.aof.sharedmodule.Model.ArgsModel;
+import static com.aof.sharedmodule.Data.DataPathManifest.*;
 
 public class LoadMe {
     
@@ -16,15 +16,10 @@ public class LoadMe {
         System.loadLibrary("boat");
     }
 	
-    public static int exec(LauncherConfig config, BoatClientActivity activity) {
+    public static int exec(ArgsModel args, BoatClientActivity activity) {
         try {
-			
-			MinecraftVersion mcVersion = MinecraftVersion.fromDirectory(new File(config.get("currentVersion")));
-			
-			String runtimePath = config.get("runtimePath");
-			String libraryPath = runtimePath + "/j2re-image/lib/aarch32/jli:" + runtimePath + "/j2re-image/lib/aarch32:" + runtimePath;
-			String home = config.get("home");
-			String classPath = config.get("runtimePath") + "/lwjgl.jar:" + config.get("runtimePath") + "/lwjgl_util.jar:" + mcVersion.getClassPath(config);
+			String runtimePath = RUNTIME_HOME;
+			String home = args.getHome();
 			
 			setenv("HOME", home);
 			setenv("JAVA_HOME" ,runtimePath + "/j2re-image");
@@ -38,56 +33,16 @@ public class LoadMe {
 			dlopen(runtimePath + "/j2re-image/lib/aarch32/libnio.so");
 			dlopen(runtimePath + "/j2re-image/lib/aarch32/libawt.so");
 			dlopen(runtimePath + "/j2re-image/lib/aarch32/libawt_headless.so");
-			
-			dlopen("libserver.so");
-			/*
-			setenv("LIBGL_ES", "1");
-			setenv("LIBGL_GL", "15");
-			*/
-
-			
+			dlopen("libserver2.so");
 			dlopen(runtimePath + "/libopenal.so.1");
 			dlopen(runtimePath + "/libGL.so.1");
-			dlopen(runtimePath + "/liblwjgl.so");
-					
-			setupJLI();	
-			
+			dlopen(runtimePath + "/lwjgl2/liblwjgl.so");
+
+			setupJLI();
             redirectStdio(home + "/boat_output.txt");
             chdir(home);
-			
-			Vector<String> args = new Vector<String>();
-			
-			
-			
-			args.add(runtimePath +  "/j2re-image/bin/java");
-			args.add("-cp");
-			args.add(classPath);
-			args.add("-Djava.library.path=" + libraryPath);
-			
-			String extraJavaFlags[] = config.get("extraJavaFlags").split(" ");
-			for (String flag : extraJavaFlags){
-				args.add(flag);
-			}
-			
-			args.add(mcVersion.mainClass);
-			
-			String minecraftArgs[] = mcVersion.getMinecraftArguments(config);	
-			for (String flag : minecraftArgs){
-				args.add(flag);
-			}
-			String extraMinecraftArgs[] = config.get("extraMinecraftArgs").split(" ");
-			for (String flag : extraMinecraftArgs){
-				args.add(flag);
-			}
-			
-			String finalArgs[] = new String[args.size()];
-			for (int i = 0; i < args.size(); i++){
-				finalArgs[i] = args.get(i);
-				System.out.println(finalArgs[i]);
-			}
-            jliLaunch(finalArgs);
-			
-			
+            jliLaunch(args.getArgs());
+
         } catch (Exception e) {
             e.printStackTrace();
 			return 1;

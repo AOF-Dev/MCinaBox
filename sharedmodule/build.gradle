@@ -29,4 +29,5 @@ dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'com.github.kongqw:AndroidRocker:1.0.1'
+    implementation 'com.google.code.gson:gson:2.8.6'
 }

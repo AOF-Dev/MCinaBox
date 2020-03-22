@@ -26,8 +26,6 @@ public class LoadMe {
 			setenv("HOME", home);
 			setenv("JAVA_HOME" ,runtimePath + "/j2re-image");
 
-			//setenv("BOAT_INPUT_PORT", Integer.toString(activity.mInputEventSender.port));
-            
 			dlopen(runtimePath + "/j2re-image/lib/aarch32/libfreetype.so");
 			dlopen(runtimePath + "/j2re-image/lib/aarch32/jli/libjli.so");
 			dlopen(runtimePath + "/j2re-image/lib/aarch32/client/libjvm.so");
@@ -37,57 +35,18 @@ public class LoadMe {
 			dlopen(runtimePath + "/j2re-image/lib/aarch32/libnio.so");
 			dlopen(runtimePath + "/j2re-image/lib/aarch32/libawt.so");
 			dlopen(runtimePath + "/j2re-image/lib/aarch32/libawt_headless.so");
-
 			dlopen("libserver.so");
-
 			dlopen(runtimePath + "/libopenal.so.1");
 			dlopen(runtimePath + "/libGL.so.1");
 			dlopen(runtimePath + "/libglfw.so");
-
-			//dlopen(runtimePath + "/libjemalloc.so.2");
-			//System.load("/data/data/jackpal.androidterm/0/libjemalloc.so.2");
 			dlopen(runtimePath + "/liblwjgl_stb.so");
 			dlopen(runtimePath + "/liblwjgl_tinyfd.so");
 			dlopen(runtimePath + "/liblwjgl_opengl.so");
 			dlopen(runtimePath + "/liblwjgl.so");
-					
-			setupJLI();	
-			
+
+			setupJLI();
             redirectStdio(home + "/boat_output.txt");
             chdir(home);
-			
-			//Vector<String> args = new Vector<String>();
-			//args.add(runtimePath +  "/j2re-image/bin/java");
-			//args.add("-cp");
-			//args.add(classPath);
-			//args.add("-Djava.library.path=" + libraryPath);
-
-			//TODO:Do boat needs to  be debuged in release version?
-			//args.add("-Dorg.lwjgl.util.Debug=true");
-			//args.add("-Dorg.lwjgl.util.DebugLoader=true");
-
-			/*String extraJavaFlags[] = config.get("extraJavaFlags").split(" ");
-			for (String flag : extraJavaFlags){
-				args.add(flag);
-			}
-
-			args.add(mcVersion.mainClass);
-			
-			String minecraftArgs[] = mcVersion.getMinecraftArguments(config);
-			for (String flag : minecraftArgs){
-				args.add(flag);
-			}
-			String extraMinecraftArgs[] = config.get("extraMinecraftFlags").split(" ");
-			for (String flag : extraMinecraftArgs){
-				args.add(flag);
-			}
-			
-			String finalArgs[] = new String[args.size()];
-			for (int i = 0; i < args.size(); i++){
-				finalArgs[i] = args.get(i);
-				System.out.println(finalArgs[i]);
-			}
-			*/
             jliLaunch(args.getArgs());
 
         } catch (Exception e) {
