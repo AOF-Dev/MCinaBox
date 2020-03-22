@@ -1,8 +1,13 @@
+tasks.whenTaskAdded{ task->
+    if(task.name.equals("lint")) {
+        task.enabled=false
+    }
+}
 apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 28
-    buildToolsVersion "28.0.3"
+    buildToolsVersion '28.0.3'
 
 
     defaultConfig {
@@ -28,5 +33,6 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'com.github.kongqw:AndroidRocker:1.0.1'
+    implementation project(path: ':sharedmodule')
+    implementation 'com.google.code.gson:gson:2.8.6'
 }

@@ -1,2 +1,2 @@
-include ':mcinabox', ':boat', ':sharedmodule'
+include ':mcinabox', ':boat3', ':sharedmodule', ':boat2'
 rootProject.name='MCinaBox'

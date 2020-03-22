@@ -10,7 +10,7 @@ android {
     buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId "com.aof.mcinabox"
-        minSdkVersion 20
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -29,7 +29,8 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'com.google.code.gson:gson:2.8.6'
-    implementation project(path: ':boat')
+    implementation project(path: ':boat3')
     implementation 'com.github.shixiuwen:colorpicker:v1.0.3'
     implementation project(path: ':sharedmodule')
+    implementation project(path: ':boat2')
 }
