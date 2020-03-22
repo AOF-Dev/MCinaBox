@@ -19,9 +19,7 @@
 
 ## Change Log
 
-### v0.1.0
-- First debug edition.
-- Did't finished yet.
+### Cannot Started yet！
 
 ## Install
 
