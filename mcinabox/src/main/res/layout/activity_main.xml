@@ -53,11 +53,28 @@
                 android:id="@+id/toolbar_button_backhome"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
+                android:layout_marginEnd="5dp"
                 android:background="@drawable/ic_home_black_24dp" />
+
+            <Button
+                android:id="@+id/toolbar_button_reflash"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/ic_autorenew_black_24dp" />
+
+            <Button
+                android:id="@+id/toolbar_button_taskinfo"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/ic_info_outline_blue_500_24dp" />
+
+
 
         </LinearLayout>
 
     </androidx.appcompat.widget.Toolbar>
+
     <!-- ========================================开始游戏栏======================================== -->
     <LinearLayout
         android:id="@+id/layout_startgame"
@@ -85,7 +102,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="启动游戏"
+                android:text="@string/title_select_version"
                 android:textColor="#F5F5F5"
                 android:textSize="13sp" />
 
@@ -93,7 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="选择版本"
+                android:text="@string/title_game_launch"
                 android:textColor="#F5F5F5"
                 android:textSize="12sp" />
 
@@ -133,7 +150,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
-                android:text="账户"
+                android:text="@string/title_account"
                 android:textColor="@color/puredark"
                 android:textSize="10sp" />
 
@@ -154,12 +171,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/layout_button_background"
-                    android:drawableStart="@drawable/chicken"
-                    android:drawablePadding="5dp"
+                    android:drawableStart="@drawable/steve_pic_2"
+                    android:drawablePadding="6dp"
                     android:gravity="center_vertical"
-                    android:paddingStart="10dp"
+                    android:paddingStart="15dp"
                     android:paddingEnd="0dp"
-                    android:text="@string/main_text_user" />
+                    android:text="@string/title_user" />
             </LinearLayout>
 
             <TextView
@@ -167,7 +184,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
-                android:text="游戏"
+                android:text="@string/title_game"
                 android:textColor="@color/puredark"
                 android:textSize="10sp" />
 
@@ -193,7 +210,7 @@
                     android:gravity="center_vertical"
                     android:paddingStart="10dp"
                     android:paddingEnd="0dp"
-                    android:text="@string/main_text_gameselected" />
+                    android:text="@string/title_manager" />
             </LinearLayout>
 
             <LinearLayout
@@ -219,7 +236,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
-                android:text="游戏目录"
+                android:text="@string/title_gamedir"
                 android:textColor="@color/puredark"
                 android:textSize="10sp" />
 
@@ -254,7 +271,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
-                android:text="启动器"
+                android:text="@string/title_launcher"
                 android:textColor="@color/puredark"
                 android:textSize="10sp" />
 
@@ -303,7 +320,8 @@
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:visibility="invisible"
+                android:layout_height="60dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="5dp"
@@ -362,7 +380,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingTop="3dp"
-                    android:text="添加新用户" />
+                    android:text="@string/title_user_newuser" />
             </LinearLayout>
 
             <LinearLayout
@@ -383,7 +401,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingTop="3dp"
-                    android:text="刷新" />
+                    android:text="@string/title_refresh" />
             </LinearLayout>
 
         </LinearLayout>
@@ -418,6 +436,18 @@
         app:layout_constraintStart_toEndOf="@id/layout_fictionlist"
         app:layout_constraintTop_toBottomOf="@id/main_toolbar">
         <!-- 可以添加其他的view -->
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/runtime_info"
+                android:layout_margin="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"/>
+        </ScrollView>
 
     </LinearLayout>
     <!--  ===============================以下是游戏列表界面 and 它的功能区================================= -->
@@ -462,7 +492,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingTop="3dp"
-                    android:text="@string/main_text_gamelist_installversion" />
+                    android:text="@string/title_install_newversion" />
             </LinearLayout>
 
             <LinearLayout
@@ -482,7 +512,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingTop="3dp"
-                    android:text="安装整合包" />
+                    android:text="@string/title_install_gamepack" />
             </LinearLayout>
 
             <LinearLayout
@@ -503,7 +533,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingTop="3dp"
-                    android:text="刷新" />
+                    android:text="@string/title_refresh" />
             </LinearLayout>
 
             <LinearLayout
@@ -524,7 +554,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingTop="3dp"
-                    android:text="@string/main_text_gamelist_setting" />
+                    android:text="@string/title_setting_minecraft" />
             </LinearLayout>
 
         </LinearLayout>
@@ -583,7 +613,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingTop="3dp"
-                    android:text="后退" />
+                    android:text="@string/title_backspace" />
             </LinearLayout>
 
             <LinearLayout
@@ -604,7 +634,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingTop="3dp"
-                    android:text="刷新" />
+                    android:text="@string/title_refresh" />
             </LinearLayout>
 
             <LinearLayout
@@ -619,7 +649,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="选择的版本是: "
+                    android:text="@string/title_downloader_selected_version"
                     android:textSize="12sp" />
 
                 <TextView
@@ -627,7 +657,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="_._._"
+                    android:text="@string/title_downloader_selected_versionid"
                     android:textSize="10sp" />
 
                 <LinearLayout
@@ -647,7 +677,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingTop="3dp"
-                        android:text="下载" />
+                        android:text="@string/title_download" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -661,7 +691,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
-            android:text="选择要下载的版本再点击 工具栏-下载 按钮开始下载。\n由于这一版本调用了系统下载器，可能存在下载不稳定的情况，下一版本会修复。" />
+            android:text="@string/title_downloader_warn" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -681,7 +711,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="5dp"
                     android:checked="true"
-                    android:text="稳定版" />
+                    android:text="@string/title_minecraft_version_stable" />
 
                 <RadioButton
                     android:id="@+id/radiobutton_type_snapshot"
@@ -689,7 +719,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"
-                    android:text="测试版" />
+                    android:text="@string/title_minecraft_version_snapshot" />
 
                 <RadioButton
                     android:id="@+id/radiobutton_type_old"
@@ -697,7 +727,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"
-                    android:text="远古版" />
+                    android:text="@string/title_minecraft_version_old" />
 
             </RadioGroup>
         </LinearLayout>
@@ -739,7 +769,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
-                android:text="基本设置" />
+                android:text="@string/title_minecraft_setting_basic" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -755,42 +785,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:visibility="gone"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Java 核心"
-                        android:textColor="@color/puredark"
-                        android:textSize="13sp" />
-
-                    <Spinner
-                        android:id="@+id/setting_spinner_java"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:entries="@array/java_version"
-                        android:textAlignment="viewEnd" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="1px"
-                    android:visibility="gone"
-                    android:background="@android:color/background_dark" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="Keyboard 布局"
+                        android:text="@string/title_minecraft_setting_keyboard_layout"
                         android:textColor="@color/puredark"
                         android:textSize="13sp" />
 
@@ -798,7 +799,6 @@
                         android:id="@+id/setting_spinner_keyboard"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:entries="@array/keyboard_list"
                         android:textAlignment="viewEnd" />
                 </LinearLayout>
 
@@ -822,7 +822,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="最大内存 (MB)"
+                            android:text="@string/title_minecraft_setting_memory_max"
                             android:textColor="@color/puredark"
                             android:textSize="13sp" />
 
@@ -834,7 +834,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="物理内存大小:"
+                                android:text="@string/title_minecraft_setting_memory_hardware"
                                 android:textSize="10sp" />
 
                             <TextView
@@ -852,7 +852,6 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
                         android:layout_marginBottom="8dp"
-                        android:text="256"
                         android:textAlignment="textEnd" />
 
                 </LinearLayout>
@@ -865,7 +864,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
-                android:text="高级设置" />
+                android:text="@string/title_minecraft_setting_profession" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -881,127 +880,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:visibility="gone"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="OpenGL 版本"
-                        android:textColor="@color/puredark"
-                        android:textSize="13sp" />
-
-                    <Spinner
-                        android:id="@+id/setting_spinner_opengl"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:entries="@array/opengl_version"
-                        android:textAlignment="viewEnd" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="1px"
-                    android:visibility="gone"
-                    android:background="@android:color/background_dark" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:visibility="gone"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="OpenAL 版本"
-                        android:textColor="@color/puredark"
-                        android:textSize="13sp" />
-
-                    <Spinner
-                        android:id="@+id/setting_spinner_openal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:entries="@array/openal_version"
-                        android:textAlignment="viewEnd" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="1px"
-                    android:visibility="gone"
-                    android:background="@android:color/background_dark" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="运行库 版本"
-                        android:textColor="@color/puredark"
-                        android:textSize="13sp" />
-
-                    <Spinner
-                        android:id="@+id/setting_spinner_runtime"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:entries="@array/runtime_version"
-                        android:textAlignment="viewEnd" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="1px"
-                    android:background="@android:color/background_dark" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:visibility="gone"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="LWJGL 版本"
-                        android:textColor="@color/puredark"
-                        android:textSize="13sp" />
-
-                    <Spinner
-                        android:id="@+id/setting_spinner_lwjgl"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:entries="@array/lwjgl_version"
-                        android:textAlignment="viewEnd" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="fill_parent"
-                    android:visibility="gone"
-                    android:layout_height="1px"
-                    android:background="@android:color/background_dark" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
                     android:orientation="horizontal">
 
                     <EditText
                         android:id="@+id/setting_edit_javaargs"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Java 虚拟机参数 (不必填写)"
+                        android:hint="@string/tips_minecraft_setting_extra_javaargs"
                         android:textSize="13sp" />
                 </LinearLayout>
 
@@ -1020,7 +905,7 @@
                         android:id="@+id/setting_edit_minecraftargs"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Minecraft 附加参数 (不必填写)"
+                        android:hint="@string/tips_minecraft_setting_extra_mcargs"
                         android:textSize="13sp" />
                 </LinearLayout>
 
@@ -1039,7 +924,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="不检查JVM架构的兼容性"
+                        android:text="@string/title_minecraft_setting_notcheck_jvm"
                         android:textColor="@color/puredark"
                         android:textSize="13sp" />
 
@@ -1064,63 +949,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="不检查Minecraft的完整性"
+                        android:text="@string/title_minecraft_setting_notcheck_mc"
                         android:textColor="@color/puredark"
                         android:textSize="13sp" />
 
                     <Switch
                         android:id="@+id/setting_switch_notcheckminecraft"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="1px"
-                    android:background="@android:color/background_dark" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="不启用虚拟键盘"
-                        android:textColor="@color/puredark"
-                        android:textSize="13sp" />
-
-                    <Switch
-                        android:id="@+id/setting_switch_notenable_keyboard"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="1px"
-                    android:background="@android:color/background_dark" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="启用物理键鼠支持(实验性)"
-                        android:textColor="@color/puredark"
-                        android:clickable="false"
-                        android:textSize="13sp" />
-
-                    <Switch
-                        android:id="@+id/setting_switch_enable_otg"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
@@ -1147,7 +981,7 @@
         <LinearLayout
             android:id="@+id/gamedir_select_public"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
@@ -1158,6 +992,7 @@
 
             <RadioButton
                 android:id="@+id/radiobutton_gamedir_public"
+                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -1170,15 +1005,17 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginLeft="5dp"
-                android:text="公有目录"
+                android:text="@string/title_launcher_public_path"
                 android:textColor="@color/puredark" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-                android:text="/sdcard/MCinaBox"
+                android:text="@string/tips_launcher_public_path"
                 android:textIsSelectable="true"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -1186,7 +1023,7 @@
         <LinearLayout
             android:id='@+id/gamedir_select_private'
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="20dp"
@@ -1196,6 +1033,7 @@
 
             <RadioButton
                 android:id="@+id/radiobutton_gamedir_private"
+                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -1208,17 +1046,36 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginLeft="5dp"
-                android:text="私有目录"
+                android:text="@string/title_launcher_private_path"
                 android:textColor="@color/puredark" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-                android:text="/sdcard/Android/data/com.aof.mcinabox/MCinaBox"
+                android:text="@string/tips_launcher_private_path"
                 android:textIsSelectable="true"
                 android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="#FF0000"
+                android:text="@string/tips_launcher_path"/>
+
+
         </LinearLayout>
 
     </LinearLayout>
@@ -1261,7 +1118,7 @@
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Minecraft下载源"
+                        android:text="@string/title_downloader_source"
                         android:textColor="@color/puredark"
                         android:textSize="13sp"/>
 
@@ -1284,7 +1141,7 @@
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="导入运行库"
+                        android:text="@string/title_launcher_setting_runtimepack"
                         android:textColor="@color/puredark"
                         android:textSize="13sp"/>
 
@@ -1300,13 +1157,11 @@
                         android:id="@+id/launchersetting_button_import"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="导入"/>
-
+                        android:text="@string/title_import"/>
 
                 </LinearLayout>
 
             </LinearLayout>
-
 
             <TextView
                 android:layout_width="wrap_content"
@@ -1314,7 +1169,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:background="#00ffffff"
-                android:text="关于MCinaBox" />
+                android:text="@string/title_about_auncher" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -1386,6 +1241,28 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/app_about_developer_info"
+                        android:textSize="10sp"
+                        android:textColor="@color/puredark"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/app_about_contributor"
+                        android:textColor="@color/puredark"
+                        android:textSize="10sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/app_about_contributor_info"
                         android:textSize="10sp"
                         android:textColor="@color/puredark"/>
 
@@ -1490,7 +1367,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/China_addOil"
+                        android:text="@string/tips_China"
                         android:textSize="10sp"
                         android:textColor="@color/puredark"/>
 

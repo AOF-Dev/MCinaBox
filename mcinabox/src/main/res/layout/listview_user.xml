@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:layout_marginBottom="5dp"
-                android:text="用户名"
+                android:text="@string/title_user_name"
                 android:textColor="@color/puredark" />
 
             <TextView

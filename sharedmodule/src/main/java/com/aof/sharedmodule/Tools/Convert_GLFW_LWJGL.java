@@ -89,9 +89,10 @@ public class Convert_GLFW_LWJGL {
                 {284,197}, //Pause
                 {257,28}, //Enter
                 {280,58}, //CAPLock
-                {344,42}, //Rshift
                 {345,157}, //Rctrl
                 {342,56}, //Lalt
+                {1001,1001}, //MOUSE_Pri
+                {1002,1002}, //MOUSE_Sec
 
         });
     }
@@ -112,7 +113,7 @@ public class Convert_GLFW_LWJGL {
         switch(glfw_input){
             case 1:
                 return 1;
-            case 2:
+            case 3:
                 return 2;
             default:
                 Log.e("Convert_GLFW_LWJGL","Can't convert MOUSE_INPUT :" + glfw_input);

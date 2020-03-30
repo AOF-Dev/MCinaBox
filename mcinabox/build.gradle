@@ -11,9 +11,9 @@ android {
     defaultConfig {
         applicationId "com.aof.mcinabox"
         minSdkVersion 21
-        targetSdkVersion 28
+        targetSdkVersion 21
         versionCode 1
-        versionName "1.0"
+        versionName '0.1.0'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -22,6 +22,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    lintOptions{
+        checkReleaseBuilds false
+        abortOnError false
+    }
 }
 
 dependencies {
@@ -29,8 +33,8 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'com.google.code.gson:gson:2.8.6'
-    implementation project(path: ':boat3')
     implementation 'com.github.shixiuwen:colorpicker:v1.0.3'
+    implementation 'com.github.MasayukiSuda:BubbleLayout:v1.2.1'
     implementation project(path: ':sharedmodule')
-    implementation project(path: ':boat2')
+    implementation project(path: ':boat')
 }

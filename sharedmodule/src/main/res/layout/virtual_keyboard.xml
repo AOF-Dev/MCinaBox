@@ -12,6 +12,7 @@
         android:layout_weight="10">
 
         <com.aof.sharedmodule.Button.QwertButton
+            android:id="@+id/QwertKeyboard_move"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/control_button_normal"

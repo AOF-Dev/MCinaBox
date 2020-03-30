@@ -15,6 +15,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:largeHeap="true"
         android:theme="@style/AppTheme">
 
         <activity android:name=".VirtualKeyBoardActivity" android:screenOrientation="landscape"/>
@@ -44,7 +45,21 @@
 
         </activity>
 
+        <activity android:name="cosine.boat.version3.BoatClientActivity"
+            android:theme="@style/AppTheme"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="sensorLandscape">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="client3" />
+        </activity>
 
+        <activity
+            android:label="@string/app_name"
+            android:name="cosine.boat.version3.LauncherActivity"
+            android:configChanges="keyboardHidden|orientation">
+
+        </activity>
 
         <service
             android:name="ru.ivanarh.jndcrash.NDCrashService"

@@ -10,7 +10,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="载入"
+            android:text="@string/title_load"
             android:textColor="@color/puredark"
             android:textSize="10sp" />
 
@@ -27,7 +27,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="请选择模板文件："/>
+                android:text="@string/tips_keybard_choose"/>
             <Spinner
                 android:id="@+id/dialog_spinner_modelselected"
                 android:layout_width="match_parent"
@@ -36,7 +36,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="配置"
+            android:text="@string/title_model"
             android:textColor="@color/puredark"
             android:textSize="10sp" />
 
@@ -52,18 +52,18 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="模板文件路径:"/>
+                android:text="@string/tips_keyboard_path"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="/sdcard/MCinaBox/Keyboardmodel/"
+                android:text="私有目录+/keyboard"
                 android:textIsSelectable="true"/>
         </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="操作"
+            android:text="@string/tips_step"
             android:textColor="@color/puredark"
             android:textSize="10sp" />
 
@@ -81,13 +81,13 @@
                 android:layout_width="60dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="10dp"
-                android:text="导入"/>
+                android:text="@string/tips_ok"/>
             <Button
                 android:id="@+id/dialog_button_cancelload"
                 android:layout_width="60dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="110dp"
-                android:text="取消"/>
+                android:text="@string/tips_no"/>
         </LinearLayout>
 
 

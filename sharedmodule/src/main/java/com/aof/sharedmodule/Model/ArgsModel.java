@@ -8,8 +8,6 @@ public class ArgsModel implements Serializable {
     String KeyboardName; //键盘模板名称
     String[] args; //全部启动参数
     Boolean forceRootRuntime; //强制运行库提权
-    Boolean notEnableVirtualKeyboard; //不启用虚拟键盘
-    Boolean doEnableOTG; //启用OTG
     String Home;
 
     public String getKeyboardFilePath(){
@@ -44,19 +42,4 @@ public class ArgsModel implements Serializable {
         this.forceRootRuntime = forceRootRuntime;
     }
 
-    public Boolean getNotEnableVirtualKeyboard() {
-        return notEnableVirtualKeyboard;
-    }
-
-    public void setNotEnableVirtualKeyboard(Boolean notEnableVirtualKeyboard) {
-        this.notEnableVirtualKeyboard = notEnableVirtualKeyboard;
-    }
-
-    public Boolean getDoEnableOTG() {
-        return doEnableOTG;
-    }
-
-    public void setDoEnableOTG(Boolean doEnableOTG) {
-        this.doEnableOTG = doEnableOTG;
-    }
 }

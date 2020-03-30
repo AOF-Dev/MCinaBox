@@ -13,7 +13,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/puredark"
-            android:text="创建新用户"/>
+            android:text="@string/title_user_newuser"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
@@ -27,13 +27,13 @@
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:textColor="@color/puredark"
-                android:text="用户名"/>
+                android:text="@string/title_user_name"/>
             <EditText
                 android:id="@+id/dialog_edittext_input_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/puredark"
-                android:hint="用户名或账号"/>
+                android:textColorHint="#8C8C8C"
+                android:hint="@string/tips_user_namehint"/>
         </LinearLayout>
 
         <LinearLayout
@@ -45,12 +45,12 @@
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:textColor="@color/puredark"
-                android:text="密码"/>
+                android:text="@string/title_password"/>
             <EditText
                 android:id="@+id/dialog_edittext_input_access"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="请输入密码"/>
+                android:hint="@string/tips_user_passwordhint"/>
         </LinearLayout>
 
         <LinearLayout
@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textColor="@color/puredark"
-                android:text="正版登录"/>
+                android:text="@string/title_online"/>
             <CheckBox
                 android:id="@+id/dialog_checkbox_online_model"
                 android:layout_width="wrap_content"
@@ -86,7 +86,8 @@
                 android:layout_width="60dp"
                 android:layout_height="50dp"
                 android:textColor="@color/puredark"
-                android:text="确定"/>
+                android:background="@drawable/background_layout_item"
+                android:text="@string/tips_ok"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -96,7 +97,8 @@
                 android:layout_width="60dp"
                 android:layout_height="50dp"
                 android:textColor="@color/puredark"
-                android:text="取消"/>
+                android:background="@drawable/background_layout_item"
+                android:text="@string/tips_no"/>
         </LinearLayout>
 
 

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.daasuu.bl.BubbleLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="230dp"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    app:bl_arrowDirection="top"
+    app:bl_arrowHeight="12dp"
+    app:bl_arrowPosition="170dp"
+    app:bl_arrowWidth="8dp"
+    app:bl_bubbleColor="@color/colorAccent"
+    app:bl_cornersRadius="20dp">
+
+    <ListView
+        android:id="@+id/tipper_list"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_gravity="center" />
+
+
+</com.daasuu.bl.BubbleLayout>

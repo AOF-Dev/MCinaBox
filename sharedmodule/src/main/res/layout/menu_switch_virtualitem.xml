@@ -14,7 +14,7 @@
 
     <HorizontalScrollView
         android:id="@+id/switchbar_container"
-        android:visibility="invisible"
+        android:visibility="visible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <LinearLayout
@@ -69,6 +69,7 @@
                 android:checked="false" />
             <CheckBox
                 android:id="@+id/checkbox_Otg"
+                android:visibility="gone"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_margin="3dp"
@@ -76,6 +77,24 @@
                 android:button="@null"
                 android:background="@drawable/checkbox_otg"
                 android:checked="false" />
+            <CheckBox
+                android:id="@+id/checkbox_Edittext"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_margin="3dp"
+                android:layout_gravity="center"
+                android:button="@null"
+                android:background="@drawable/checkbox_edittext"
+                android:checked="false" />
+            <CheckBox
+                android:id="@+id/checkbox_Lock"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_margin="3dp"
+                android:layout_gravity="center"
+                android:button="@null"
+                android:background="@drawable/checkbox_lock"
+                android:checked="false"/>
 
         </LinearLayout>
 

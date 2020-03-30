@@ -17,15 +17,13 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.aof.mcinabox.colorUtils.ColorUtils;
+import com.aof.mcinabox.Utils.ColorUtils;
 import com.google.gson.Gson;
-import com.aof.mcinabox.keyboardUtils.*;
+import com.aof.mcinabox.Keyboard.*;
 import com.shixia.colorpickerview.ColorPickerView;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -231,7 +229,7 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
             KeyLY = Integer.parseInt(editText_key_ly.getText().toString());
         }catch (NullPointerException e){
             e.printStackTrace();
-            Toast.makeText(this, "坐标或按键值不能为空", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.tips_keboard_config_location_notfound), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -249,15 +247,15 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
         String colorhex = editText_model_color.getText().toString();
 
         if(KeyName.equals("")){
-            Toast.makeText(this, "按键名不能为空", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.tips_keyboard_config_name_notfound), Toast.LENGTH_SHORT).show();
             return;
         }else if(KeySizeW < 20 || KeySizeH < 20){
-            Toast.makeText(this, "按键尺寸不能小于20", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.tips_keyboard_config_size_toosmall), Toast.LENGTH_SHORT).show();
             return;
         }else if(KeyColor.equals("")){
-            Toast.makeText(this, "颜色不能为空", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.tips_keyboard_config_color_notfound), Toast.LENGTH_SHORT).show();
         }else{
-            Toast.makeText(this, "添加成功", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.tips_add_success), Toast.LENGTH_SHORT).show();
         }
 
         addStandKey(KeyName,KeySizeW,KeySizeH,KeyLX,KeyLY,KeyMain,SpecialOne,SpecialTwo,isAutoKeep,isHide,isMult,MainPos,SpecialOnePos,SpecialTwoPos,colorhex,cornerRadius);
@@ -317,7 +315,7 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
                         getJsonFromKeyboardModel(editText_model_name.getText().toString());
                         saveDialog.dismiss();
                     }else{
-                        Toast.makeText(getApplicationContext(), "文件名不能为空", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), getString(R.string.tips_keyboard_config_filename_notfound), Toast.LENGTH_SHORT).show();
                     }
                     break;
                 case R.id.dialog_button_cancelsave:
@@ -430,6 +428,10 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+        if(keyboardList.size() == 0){
+            Toast.makeText(this, getString(R.string.tips_keyboard_button_notfound), Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         ArrayList<KeyboardJsonModel> modelList = new ArrayList<KeyboardJsonModel>(){};
         for(GameButton button : keyboardList){
@@ -455,7 +457,7 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-        Toast.makeText(this, "导出成功", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.tips_put_success), Toast.LENGTH_SHORT).show();
     }
 
     public void getKeyboardModelFromJson(){
@@ -463,7 +465,7 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
         Gson gson = new Gson();
         File jsonFile = new File(KeyboardDirPath + "/" + modelNameList.get(selectedModelPos));
         if(!jsonFile.exists()){
-            Toast.makeText(this, "找不到键盘模板", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.tips_keyboard_model_notfound), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -474,13 +476,13 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
             List<KeyboardJsonModel> tempList1 = Arrays.asList(jsonArray);
             ArrayList<KeyboardJsonModel> tempList2 = new ArrayList<KeyboardJsonModel>(tempList1);
             if(tempList2.size() != 0){
-                Toast.makeText(this, "导入成功", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.tips_load_success), Toast.LENGTH_SHORT).show();
                 for(KeyboardJsonModel targetModel : tempList2){
-                    //这里采用了逐个添加，对性能有一定影响，但是编程更简单。 性能影响！
+                    //这里采用了逐个添加
                     addStandKey(targetModel.getKeyName(),targetModel.getKeySizeW(),targetModel.getKeySizeH(),targetModel.getKeyLX(),targetModel.getKeyLY(),targetModel.getKeyMain(),targetModel.getSpecialOne(),targetModel.getSpecialTwo(),targetModel.isAutoKeep(),targetModel.isHide(),targetModel.isMult(),targetModel.getMainPos(),targetModel.getSpecialOnePos(),targetModel.getSpecialTwoPos(),targetModel.getColorhex(),targetModel.getCornerRadius());
                 }
             }else{
-                Toast.makeText(this, "导入失败", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.tips_load_fail), Toast.LENGTH_SHORT).show();
                 return;
             }
         } catch (FileNotFoundException e) {
@@ -493,7 +495,7 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
         File file = new File(KeyboardDirPath+"/");
         File[] files = file.listFiles();
         if (files == null) {
-            Toast.makeText(this, "没有发现模板", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.tips_keyboard_model_notfound), Toast.LENGTH_SHORT).show();
             return;
         }
         //每次都先清空列表,再修创建列表内容

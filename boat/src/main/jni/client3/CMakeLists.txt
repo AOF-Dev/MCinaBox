@@ -1,0 +1,8 @@
+add_library(client3 SHARED Client.cpp Main.cpp)
+find_library(log-lib log)
+find_library(dl-lib dl)
+find_library(android-lib android)
+find_library(EGL-lib EGL)
+find_library(GLESv2-lib GLESv2)
+target_link_libraries(client3 ${log-lib} ${dl-lib} ${android-lib} ${EGL-lib} ${GLESv2-lib})
+SET(CMAKE_CXX_FLAGS "-isystem D:\\Android-others\\Sdk\\ndk\\16.1.4479499\\sysroot\\usr\\include\\arm-linux-androideabi -std=c++11")

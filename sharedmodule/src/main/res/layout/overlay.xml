@@ -4,6 +4,15 @@
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent">
 
+	<include
+		android:id="@+id/touchpad"
+		android:layout_height="match_parent"
+		android:layout_width="match_parent"
+		android:layout_alignParentBottom="true"
+		android:layout_alignParentLeft="true"
+		android:layout_marginLeft="0dp"
+		android:layout_marginBottom="0dp"
+		layout="@layout/virtual_touchpad"/>
 
 	<include
 		android:id="@+id/MouseKey"
@@ -38,28 +47,6 @@
 		android:layout_alignParentBottom="true"
 		layout="@layout/virtual_crosskey"/>
 
-	<ImageView
-		android:layout_height="16dp"
-		android:layout_width="16dp"
-		android:src="@drawable/cursor"
-		android:id="@+id/mouse_cursor"/>
-
-	<EditText
-		android:textSize="20sp"
-		android:id="@+id/input_scanner"
-		android:layout_width="54dp"
-		android:layout_height="54dp"
-		android:layout_marginRight="0dp"
-		android:layout_marginTop="0dp"
-		android:layout_alignParentRight="true"
-		android:layout_alignParentTop="true"
-		android:ems="10"
-		android:background="#DD7F7F7F"
-		android:singleLine="true"
-		android:inputType="text"
-		android:alpha="0.3"
-		android:text="&gt;"/>
-
 	<include
 		android:id="@+id/item_bar"
 		android:layout_width="270dp"
@@ -86,6 +73,29 @@
 		android:layout_alignParentLeft="true"
 		android:layout_alignParentTop="true"
 		layout="@layout/menu_switch_virtualitem"/>
+
+	<ImageView
+		android:layout_height="16dp"
+		android:layout_width="16dp"
+		android:src="@drawable/cursor"
+		android:id="@+id/mouse_cursor"/>
+
+	<EditText
+		android:textSize="20sp"
+		android:id="@+id/input_scanner"
+		android:visibility="invisible"
+		android:layout_width="60dp"
+		android:layout_height="30dp"
+		android:layout_marginRight="0dp"
+		android:layout_marginTop="0dp"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentTop="true"
+		android:ems="10"
+		android:background="@drawable/background_virtual_edittext"
+		android:singleLine="true"
+		android:inputType="text"
+		android:alpha="0.3"
+		android:text="&gt;"/>
 
 </RelativeLayout>
 

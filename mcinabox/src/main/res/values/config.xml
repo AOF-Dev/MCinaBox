@@ -1,39 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="java_version">
-        <item>1.8.0_211_AArch32</item>
-        <item>1.8.0_211_AArch64</item>
-    </string-array>
-
-    <string-array name="opengl_version">
-        <item>OpenGL_2.0</item>
-        <item>OpenGL_1.5</item>
-        <item>OpenGL_1.4</item>
-    </string-array>
-
-    <string-array name="lwjgl_version">
-        <item>Lwjgl_2.9.1</item>
-        <item>Lwjgl_3.1.0</item>
-    </string-array>
-
-    <string-array name="openal_version">
-        <item>OpenAL_soft</item>
-    </string-array>
-
-    <string-array name="runtime_version">
-        <item>AArch64</item>
-        <item>AArch32</item>
-    </string-array>
-
     <string-array name="keyboard_list">
-        <item>IceSty</item>
+        <item>请创建键盘模板</item>
     </string-array>
 
     <string-array name="download_type">
         <item>official</item>
-        <item>bmclapi</item>
-        <item>mcbbs</item>
+        <!--<item>bmclapi</item>
+        <item>mcbbs</item>-->
     </string-array>
 
 </resources>

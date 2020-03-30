@@ -38,7 +38,17 @@ public class DataPathManifest {
                 //BoatApp
         BOAT_HOME = "/sdcard/MCinaBox/BoatApp",
                 //Runtime
-        RUNTIME_HOME = "/data/data/com.aof.mcinabox/app_runtime";
+        RUNTIME_HOME = "/data/data/com.aof.mcinabox/app_runtime",
+                //版本信息
+        MCINABOX_VERSION = "0.1.0",
+                //下载源
+        DOWNLOAD_SOURCE_OFFICIAL_MINECRAFT = "https://launchermeta.mojang.com",
+        DOWNLOAD_SOURCE_OFFICIAL_RESOURCES = "http://resources.download.minecraft.net",
+        DOWNLOAD_SOURCE_OFFICIAL_LIBRARIES = "https://launchermeta.mojang.com",
+        DOWNLOAD_SOURCE_BMCLAPI_MINECRAFT = "https://bmclapi2.bangbang93.com",
+        DOWNLOAD_SOURCE_BMCLAPI_RESOURCES = "https://bmclapi2.bangbang93.com/assets",
+        DOWNLOAD_SOURCE_BMCLAPI_LIBRARIES = "https://bmclapi2.bangbang93.com/maven",
+        DOWNLOAD_SOURCE_MCBBS = "";
 
     /**【一个全局目录的数组】**/
     public static final String[] MCINABOX_ALLPATH = {
@@ -67,4 +77,12 @@ public class DataPathManifest {
             BOAT_HOME
     };
 
+    /**【运行库列表索引】**/
+    public static final String[] MCINABOX_RUNTIME_FILES = {
+            RUNTIME_HOME + "/j2re-image/bin/java",
+            RUNTIME_HOME + "/libopenal.so.1",
+            RUNTIME_HOME + "/libGL.so.1",
+            RUNTIME_HOME + "/lwjgl2/liblwjgl.so",
+            RUNTIME_HOME + "/lwjgl3/liblwjgl.so"
+    };
 }

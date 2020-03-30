@@ -4,12 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
-import com.aof.mcinabox.AdaptBoatApp.ArgsModel;
-import com.aof.mcinabox.initUtils.LauncherSettingModel;
-import com.aof.mcinabox.ioUtils.FileTool;
-import com.aof.mcinabox.ioUtils.PathTool;
-import com.aof.mcinabox.jsonUtils.AnaliesMinecraftVersionJson;
-import com.aof.mcinabox.jsonUtils.ModelMinecraftVersionJson;
+import android.widget.Toast;
+
+import com.aof.mcinabox.Launcher.ArgsModel;
+import com.aof.mcinabox.Launcher.LauncherSettingModel;
+import com.aof.mcinabox.Utils.FileTool;
+import com.aof.mcinabox.Utils.PathTool;
+import com.aof.mcinabox.Version.AnaliesMinecraftVersionJson;
+import com.aof.mcinabox.Version.ModelMinecraftVersionJson;
 import com.google.gson.Gson;
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,6 +19,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -68,8 +71,6 @@ public class ReadyToStart {
         --versionType 含义:"后接版本类型"
     */
 
-    boolean doEnableOTG =false;
-    boolean notEnableVirtualKeyboard = false;
     boolean forceRootRuntime =false;
     String[] CMD;
     String MCHome;
@@ -77,16 +78,14 @@ public class ReadyToStart {
 
     /**【执行启动游戏】**/
     public void StartGame(){
-        /*if(isCheckGame){
-            if(!CheckGame()){
-                return;
-            }
+        if(isCheckGame && !CheckGame()){
+            Toast.makeText(context, context.getString(R.string.tips_gamecheck_file_notfull), Toast.LENGTH_SHORT).show();
+            return;
         }
-        if (isCheckFormat){
-            if(!CheckFramework()){
-                return;
-            }
-        }*/
+        if (isCheckFormat && !CheckFramework()){
+            Toast.makeText(context, context.getString(R.string.tips_gamecheck_platform_uncorrect), Toast.LENGTH_SHORT).show();
+            return;
+        }
         CMD = MakeStartCmd();
         //输出测试
         for (String arg : CMD){
@@ -142,7 +141,7 @@ public class ReadyToStart {
         //检查依赖库
         ModelMinecraftVersionJson.DependentLibrary[] libraries = versionSetting.getLibraries();
         for(ModelMinecraftVersionJson.DependentLibrary targetLibrary : libraries){
-            if(targetLibrary.getDownloads().getArtifact() != null && FileTool.isFileExists(minecraft_libraries_path + targetLibrary.getDownloads().getArtifact().getPath())){
+            if(targetLibrary.getDownloads().getArtifact() == null || FileTool.isFileExists(minecraft_libraries_path + targetLibrary.getDownloads().getArtifact().getPath())){
                 // file check pass.
             }else{
                 isOK = false;
@@ -190,7 +189,7 @@ public class ReadyToStart {
         String JVM_OmitStackTraceInFastThrow = "-XX:-OmitStackTraceInFastThrow";
         String JVM_minecraft_launcher_band = "-Dminecraft.launcher.brand=MCinaBox";
         String JVM_minecraft_launcher_version = "-Dminecraft.launcher.version=" + MCinaBox_Version;
-        String JVM_java_library_path = "-Djava.library.path=" + runtimePath + "/j2re-image/lib/aarch32/jli:" + runtimePath + "/j2re-image/lib/aarch32:" + runtimePath;
+        String JVM_java_library_path;
         String JVM_lwjgl_debug_true = "-Dorg.lwjgl.util.Debug=true";
         String JVM_lwjgl_debugloader_true = "-Dorg.lwjgl.util.DebugLoader=true";
         String JVM_ExtraArgs = launcherSetting.getConfigurations().getJavaArgs();
@@ -199,15 +198,18 @@ public class ReadyToStart {
         String JVM_ClassPath_Runtime;
         if(versionSetting.getMinimumLauncherVersion() >= 21){
             //这是1.13.1以及之后的处理方法
-            JVM_ClassPath_Runtime = runtimePath + "/boat2/lwjgl_util.jar:" + runtimePath + "/boat2/lwjgl.jar:";
+            JVM_ClassPath_Runtime = runtimePath + "/lwjgl3/lwjgl-jemalloc.jar:" + runtimePath + "/lwjgl3/lwjgl-tinyfd.jar:" + runtimePath + "/lwjgl3/lwjgl-opengl.jar:" + runtimePath + "/lwjgl3/lwjgl-openal.jar:" + runtimePath + "/lwjgl3/lwjgl-glfw.jar:" + runtimePath + "/lwjgl3/lwjgl-stb.jar:" + runtimePath + "/lwjgl3/lwjgl.jar:";
+            JVM_java_library_path = "-Djava.library.path=" + runtimePath + "/j2re-image/lib/aarch32/jli:" + runtimePath + "/j2re-image/lib/aarch32:" + runtimePath + "/lwjgl3:" + runtimePath;
         }else{
             //这是1.13.1之前的处理方法
-            JVM_ClassPath_Runtime = runtimePath + "/lwjgl-jemalloc.jar:" + runtimePath + "/lwjgl-tinyfd.jar:" + runtimePath + "/lwjgl-opengl.jar:" + runtimePath + "/lwjgl-openal.jar:" + runtimePath + "/lwjgl-glfw.jar:" + runtimePath + "/lwjgl-stb.jar:" + runtimePath + "/lwjgl.jar:";
+            JVM_ClassPath_Runtime = runtimePath + "/lwjgl2/lwjgl_util.jar:" + runtimePath + "/lwjgl2/lwjgl.jar:";
+            JVM_java_library_path = "-Djava.library.path=" + runtimePath + "/j2re-image/lib/aarch32/jli:" + runtimePath + "/j2re-image/lib/aarch32:" + runtimePath + "/lwjgl2:" + runtimePath;
         }
 
         //注意加入list时的顺序
         //JVM_Args.add(JVM__minecraft_client_jar);
         //JVM_Args.add(JVM_server);
+        //JVM_Args.addAll(Arrays.asList(SplitMinecraftArgument(JVM_ExtraArgs)));
         JVM_Args.add(JVM_Xmx);
         JVM_Args.add(JVM_Xms);
         //JVM_Args.add(JVM_UseG1GC);
@@ -218,14 +220,13 @@ public class ReadyToStart {
         JVM_Args.add(JVM_java_library_path);
         JVM_Args.add(JVM_lwjgl_debug_true);
         JVM_Args.add(JVM_lwjgl_debugloader_true);
-        //JVM_Args.add(JVM_ExtraArgs);
 
         ArrayList<String> DependentLibrariesPaths = new ArrayList<String>();
         String temp ="";
         ModelMinecraftVersionJson.DependentLibrary[] libraries = versionSetting.getLibraries();
         ArrayList<ModelMinecraftVersionJson.DependentLibrary> libraries_copy = new ArrayList<ModelMinecraftVersionJson.DependentLibrary>();
         for(ModelMinecraftVersionJson.DependentLibrary targetLibrary : libraries){
-            if(targetLibrary.getDownloads().getArtifact() != null){
+            if(targetLibrary.getDownloads().getArtifact() != null && !IsLwjglOrGLFW(targetLibrary.getName())){
                 libraries_copy.add(targetLibrary);
             }
         }
@@ -246,6 +247,7 @@ public class ReadyToStart {
         ArrayList<String> Minecraft_Args = new ArrayList<String>();
         String Minecraft_MainClass = versionSetting.getMainClass();
         String MinecraftExtraArgs = launcherSetting.getConfigurations().getMinecraftArgs();
+        String MinecraftWindowArgs = "--width ${window_width} --height ${window_height}";
         String Minecraft_arguements = "";
             //首先要判断version是1.13.1之前的结构还是1.13.1之后的结构,用于处理两种不同的arguement结构
         if(versionSetting.getMinimumLauncherVersion() >= 21){
@@ -258,7 +260,8 @@ public class ReadyToStart {
 
         Minecraft_Args.add(Minecraft_MainClass);
         Minecraft_Args.addAll(Arrays.asList(SplitMinecraftArgument(Minecraft_arguements)));
-        Minecraft_Args.add(MinecraftExtraArgs);
+        Minecraft_Args.addAll(Arrays.asList(SplitMinecraftArgument(ConvertJsStringModleToJavaStringModle(MinecraftWindowArgs))));
+        Minecraft_Args.addAll(Arrays.asList(SplitMinecraftArgument(MinecraftExtraArgs)));
 
         //获得总命令
         ArrayList<String> CommandTemp = new ArrayList<String>();
@@ -287,7 +290,7 @@ public class ReadyToStart {
         //需要转义的键名-键值
         ArgsMap.put("{auth_player_name}",account.getUsername());
         ArgsMap.put("{auth_uuid}",account.getUuid());
-        ArgsMap.put("{auth_access_token}","0");
+        ArgsMap.put("{auth_access_token}",account.getAccessToken());
         ArgsMap.put("{auth_session}","mojang");
         ArgsMap.put("{user_properties}","{}");
         ArgsMap.put("{user_type}","mojang");
@@ -295,9 +298,10 @@ public class ReadyToStart {
         ArgsMap.put("{assets_root}",minecraft_assets_path);
         ArgsMap.put("{game_directory}",minecraft_home_path);
         ArgsMap.put("{game_assets}",versionSetting.getAssets());
-        ArgsMap.put("{version_name}","\"" + "MCinaBox " + MCinaBox_Version + "\"");
+        ArgsMap.put("{version_name}","\"" + "MCinaBox-" + MCinaBox_Version + "\"");
         ArgsMap.put("{version_type}",versionSetting.getType());
-
+        ArgsMap.put("{window_width}",Integer.toString(context.getResources().getDisplayMetrics().widthPixels));
+        ArgsMap.put("{window_height}",Integer.toString(context.getResources().getDisplayMetrics().heightPixels));
 
 
         for(int i = 0;i < JsString.length();i++){
@@ -353,8 +357,6 @@ public class ReadyToStart {
     /**【根据启动器设置初始化必要的变量】**/
     public void InitSomeSettngs(){
         LauncherSettingModel Setting = GetLauncherSettingFromFile();
-        doEnableOTG = Setting.getConfigurations().isEnableOtg();
-        notEnableVirtualKeyboard = Setting.getConfigurations().isNotEnableVirtualKeyboard();
         forceRootRuntime = true;
 
         if (Setting.getLocalization().equals("public")){
@@ -369,8 +371,6 @@ public class ReadyToStart {
         InitSomeSettngs();
         ArgsModel argsModel = new ArgsModel();
         argsModel.setArgs(CMD);
-        argsModel.setNotEnableVirtualKeyboard(notEnableVirtualKeyboard);
-        argsModel.setDoEnableOTG(doEnableOTG);
         argsModel.setForceRootRuntime(forceRootRuntime);
         argsModel.setKeyboardName(KeyboardFileName);
         argsModel.setHome(MCHome);
@@ -378,10 +378,10 @@ public class ReadyToStart {
         Intent intent ;
         if(versionSetting.getMinimumLauncherVersion() >= 21){
             //这是1.13.1以及之后的处理方法
-            intent= new Intent(context, cosine.boat.LauncherActivity.class);
+            intent= new Intent(context, cosine.boat.version3.LauncherActivity.class);
         }else{
             //这是1.13.1之前的处理方法
-            intent= new Intent(context, cosine.boat2.LauncherActivity.class);
+            intent= new Intent(context, cosine.boat.LauncherActivity.class);
         }
         intent.putExtra("LauncherConfig",argsModel);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -409,4 +409,33 @@ public class ReadyToStart {
         return Str.split(" ");
     }
 
+    /**【不加载lwjgl和glfw】**/
+    private boolean IsLwjglOrGLFW(String name){
+        String packname = "";
+        String[] lwjgl = {"lwjgl","lwjgl_util","lwjgl-platform",
+                "lwjgl-egl","lwjgl-glfw","lwjgl-jemalloc",
+                "lwjgl-openal","lwjgl-opengl","lwjgl-opengles",
+                "lwjgl-stb","lwjgl-tinyfd"};
+        boolean result = false;
+        int a =0;
+        for(int i = 0; i < name.length() ;i++){
+            if(name.charAt(i) == ':'){
+                a = i + 1;
+                break;
+            }
+        }
+        for(;a < name.length() ;a++){
+            if (name.charAt(a) != ':'){
+                packname = packname + name.charAt(a);
+            }else{
+                break;
+            }
+        }
+        for(String str : lwjgl){
+            if(str.equals(packname)){
+                return true;
+            }
+        }
+        return false;
+    }
 }

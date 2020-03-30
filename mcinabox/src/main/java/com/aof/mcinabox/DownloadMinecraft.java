@@ -2,10 +2,8 @@ package com.aof.mcinabox;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.aof.mcinabox.downloadUtils.Downloader;
-import com.aof.mcinabox.jsonUtils.ModelMinecraftVersionJson;
+import com.aof.mcinabox.Utils.Download.Downloader;
 
 import java.io.File;
 import static com.aof.mcinabox.DataPathManifest.*;
@@ -211,8 +209,8 @@ public class DownloadMinecraft {
     public long DownloadMinecraftAssetJson(String Id,String url,Context context){
         String fileUrl = url;
         String fileName = Id+".json";
-        String filePath = getMINECRAFT_ASSETS_DIR() + "objects/indexes/" + fileName;
-        String savePath = getDOWNLOAD_ASSETS_DIR() + "objects/indexes/";
+        String filePath = getMINECRAFT_ASSETS_DIR() + "indexes/" + fileName;
+        String savePath = getDOWNLOAD_ASSETS_DIR() + "indexes/";
         long taskId;
 
         Downloader downloader = new Downloader();

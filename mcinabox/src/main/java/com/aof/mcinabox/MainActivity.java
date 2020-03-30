@@ -12,26 +12,27 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
+import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -39,22 +40,28 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.aof.mcinabox.initUtils.LauncherSettingModel;
-import com.aof.mcinabox.ioUtils.FileTool;
-import com.aof.mcinabox.ioUtils.PathTool;
-import com.aof.mcinabox.jsonUtils.AnaliesMinecraftAssetJson;
-import com.aof.mcinabox.jsonUtils.AnaliesMinecraftVersionJson;
-import com.aof.mcinabox.jsonUtils.AnaliesVersionManifestJson;
-import com.aof.mcinabox.jsonUtils.ListVersionManifestJson;
-import com.aof.mcinabox.jsonUtils.ModelMinecraftAssetsJson;
-import com.aof.mcinabox.jsonUtils.ModelMinecraftVersionJson;
-import com.aof.mcinabox.keyboardUtils.ConfigDialog;
-import com.aof.mcinabox.loaclVersionUtil.LocalVersionListAdapter;
-import com.aof.mcinabox.loaclVersionUtil.LocalVersionListBean;
-import com.aof.mcinabox.userUtil.UserListAdapter;
-import com.aof.mcinabox.userUtil.UserListBean;
+import com.aof.mcinabox.Launcher.LauncherSettingModel;
+import com.aof.mcinabox.RuntimePack.AnaliesRuntimeJson;
+import com.aof.mcinabox.Tipper.TipperListAdapter;
+import com.aof.mcinabox.Tipper.TipperListBean;
+import com.aof.mcinabox.Utils.FileTool;
+import com.aof.mcinabox.Utils.MemoryUtils;
+import com.aof.mcinabox.Utils.PathTool;
+import com.aof.mcinabox.Version.AnaliesMinecraftAssetJson;
+import com.aof.mcinabox.Version.AnaliesMinecraftVersionJson;
+import com.aof.mcinabox.Version.AnaliesVersionManifestJson;
+import com.aof.mcinabox.Version.ListVersionManifestJson;
+import com.aof.mcinabox.Version.ModelMinecraftAssetsJson;
+import com.aof.mcinabox.Version.ModelMinecraftVersionJson;
+import com.aof.mcinabox.Keyboard.ConfigDialog;
+import com.aof.mcinabox.Version.LocalVersionListAdapter;
+import com.aof.mcinabox.Version.LocalVersionListBean;
+import com.aof.mcinabox.User.UserListAdapter;
+import com.aof.mcinabox.User.UserListBean;
+import com.daasuu.bl.ArrowDirection;
+import com.daasuu.bl.BubbleLayout;
+import com.daasuu.bl.BubblePopupHelper;
 import com.google.gson.Gson;
-import com.google.gson.internal.bind.DateTypeAdapter;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -67,10 +74,12 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Random;
 import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.UUID;
 
-import cosine.boat.LauncherActivity;
 import cosine.boat.Utils;
 
 import static com.aof.mcinabox.DataPathManifest.*;
@@ -79,54 +88,45 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
     public Button[] launcherBts;
     public Button button_user, button_gameselected, button_gamelist, button_gamedir, button_launchersetting, button_launchercontrol, toolbar_button_backhome, toolbar_button_backfromhere,ImportRuntime;
-
-
     public RadioGroup radioGroup_version_type;
     public RadioButton radioButton_type_release, radioButton_type_snapshot, radioButton_type_old;
     public RadioButton radioButton_gamedir_public, radioButton_gamedir_private;
-
-    public Spinner setting_java, setting_opengl, setting_openal, setting_lwjgl, setting_runtime, setting_downloadtype, setting_keyboard, spinner_choice_version,spinner_runtimepacks;
-
-    public Switch setting_notcheckJvm, setting_notcheckMinecraft, setting_notenableKeyboard, setting_enableOtg;
-
+    public Spinner setting_downloadtype, setting_keyboard, spinner_choice_version,spinner_runtimepacks;
+    public Switch setting_notcheckJvm, setting_notcheckMinecraft;
     public LinearLayout[] launcherBts2;
     public LinearLayout gamelist_button_reflash, gamelist_button_installnewgame, gamelist_button_backfrom_installnewversion, gamelist_button_setting, main_button_startgame, gamelist_button_download, user_button_adduser, gamelist_button_reflash_locallist, user_button_reflash_userlist;
-
     public View[] launcherLins;
     public View layout_user, layout_gamelist, layout_gameselected, layout_gamedir, layout_launchersetting, layout_gamelist_installversion, layout_gamelist_setting, layout_startgame;
-
-    public ListView listview_minecraft_manifest, listview_user, listView_localversion;
-
+    public ListView listview_minecraft_manifest, listview_user, listView_localversion, listView_tipper;
     public ListVersionManifestJson.Version[] versionList;
-
     public EditText editText_maxMemory, editText_javaArgs, editText_minecraftArgs;
-
-
     //用于存储当前显示的layout的id值
     public int layout_here_Id = R.id.layout_fictionlist;
-
     public TextView logText, main_text_showstate, gamelist_text_show_slectedversion;
     private BroadcastReceiver broadcastReceiver1;
-
     public ListVersionManifestJson.Version selectedVersion;
     public ModelMinecraftVersionJson selectedVersionJson;
     public int selectedVersionPos = -1;
     public File LauncherConfigFile;
     public ReadyToStart toStart;
-
     public Button dialog_button_confrom_createuser, dialog_button_cancle_createuser;
     public EditText dialog_editText_username, dialog_editText_access;
     public CheckBox dialog_checkBox_usermodel;
     public ConfigDialog userCreateDialog;
     public String DATA_PATH;
     public Animation ShowAnim,HideAnim;
+    public Button launcher_refresh,launcher_info;
+    public BubbleLayout bubbleLayout_tipper;
+    public PopupWindow popupWindow;
+    public Timer timer_tipper = new Timer();
+    public ArrayList<TipperListBean> tipslist;
+    public TextView runtime_info;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         //Activity生命周期开始，执行初始化
         super.onCreate(savedInstanceState);
-        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         //显示activity_main为当前Activity布局
         setContentView(R.layout.activity_main);
@@ -135,9 +135,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         Toolbar toolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
 
-        //请求软件所需的权限
-        requestPermission();
-
         //初始化用户创建界面
         userCreateDialog = new ConfigDialog(MainActivity.this, R.layout.dialog_createuser, true);
         dialog_button_confrom_createuser = userCreateDialog.findViewById(R.id.dialog_button_confirm_createuser);
@@ -145,6 +142,9 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         dialog_editText_username = userCreateDialog.findViewById(R.id.dialog_edittext_input_username);
         dialog_editText_access = userCreateDialog.findViewById(R.id.dialog_edittext_input_access);
         dialog_checkBox_usermodel = userCreateDialog.findViewById(R.id.dialog_checkbox_online_model);
+
+        bubbleLayout_tipper = (BubbleLayout) LayoutInflater.from(this).inflate(R.layout.layout_popup_tipper, null);
+        popupWindow = BubblePopupHelper.create(this, bubbleLayout_tipper);
 
         //给界面的按键设置按键监听
         button_user = findViewById(R.id.main_button_user);
@@ -158,10 +158,13 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         radioButton_gamedir_public = findViewById(R.id.radiobutton_gamedir_public);
         radioButton_gamedir_private = findViewById(R.id.radiobutton_gamedir_private);
         ImportRuntime = findViewById(R.id.launchersetting_button_import);
-        launcherBts = new Button[]{radioButton_gamedir_public, radioButton_gamedir_private, button_user, button_gameselected, button_gamelist, button_gamedir, button_launchersetting, button_launchercontrol, toolbar_button_backhome, toolbar_button_backfromhere, dialog_button_confrom_createuser, dialog_button_cancle_createuser,ImportRuntime};
+        launcher_info = findViewById(R.id.toolbar_button_taskinfo);
+        launcher_refresh = findViewById(R.id.toolbar_button_reflash);
+        launcherBts = new Button[]{launcher_refresh,launcher_info,radioButton_gamedir_public, radioButton_gamedir_private, button_user, button_gameselected, button_gamelist, button_gamedir, button_launchersetting, button_launchercontrol, toolbar_button_backhome, toolbar_button_backfromhere, dialog_button_confrom_createuser, dialog_button_cancle_createuser,ImportRuntime};
         for (Button button : launcherBts) {
             button.setOnClickListener(listener);
         }
+
 
         gamelist_button_reflash = findViewById(R.id.gamelist_button_reflash);
         gamelist_button_installnewgame = findViewById(R.id.gamelist_button_installnewgame);
@@ -183,13 +186,9 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         radioButton_type_old = findViewById(R.id.radiobutton_type_old);
         radioGroup_version_type.setOnCheckedChangeListener(this);
 
-        setting_java = findViewById(R.id.setting_spinner_java);
-        setting_opengl = findViewById(R.id.setting_spinner_opengl);
-        setting_openal = findViewById(R.id.setting_spinner_openal);
+
         setting_keyboard = findViewById(R.id.setting_spinner_keyboard);
-        setting_lwjgl = findViewById(R.id.setting_spinner_lwjgl);
         setting_downloadtype = findViewById(R.id.setting_spinner_downloadtype);
-        setting_runtime = findViewById(R.id.setting_spinner_runtime);
         spinner_choice_version = findViewById(R.id.spinner_choice_version);
 
         spinner_runtimepacks = findViewById(R.id.launchersetting_spinner_runtimepack);
@@ -200,8 +199,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
         setting_notcheckJvm = findViewById(R.id.setting_switch_notcheckjvm);
         setting_notcheckMinecraft = findViewById(R.id.setting_switch_notcheckminecraft);
-        setting_notenableKeyboard = findViewById(R.id.setting_switch_notenable_keyboard);
-        setting_enableOtg = findViewById(R.id.setting_switch_enable_otg);
 
         //将所有的linearlayout和scrollview布局都作为view处理
         layout_user = findViewById(R.id.layout_user);
@@ -223,6 +220,12 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 gamelist_text_show_slectedversion.setText(listview_minecraft_manifest.getAdapter().getItem(pos).toString());
             }
         });
+
+        //runtime_info
+        runtime_info = findViewById(R.id.runtime_info);
+
+        //tipper
+        listView_tipper = bubbleLayout_tipper.findViewById(R.id.tipper_list);
 
         //测试user_list
         listview_user = findViewById(R.id.list_user);
@@ -248,9 +251,15 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         //配置MCinaBox的全局目录
         LauncherConfigFile = new File(MCINABOX_HOME + "/mcinabox.json");
         DATA_PATH = "";
+
+        //请求软件所需的权限
+        requestPermission();
+
         //载入启动器配置文件
         initLauncher();
 
+        //执行自动刷新
+        timer_tipper.schedule(TipperTask,1000,3000);
 
     }
 
@@ -294,11 +303,11 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 case R.id.main_button_user:
                     //具体点击操作的逻辑
                     SetOnlyVisibleTargetView(layout_user);
-                    main_text_showstate.setText(getString(R.string.main_text_user));
+                    main_text_showstate.setText(getString(R.string.title_user));
                     break;
                 case R.id.main_button_gameselected:
                     SetOnlyVisibleTargetView(layout_gameselected);
-                    main_text_showstate.setText(getString(R.string.main_text_gameselected));
+                    main_text_showstate.setText(getString(R.string.title_manager));
                     break;
                 case R.id.main_button_gamelist:
                     SetOnlyVisibleTargetView(layout_gamelist);
@@ -333,7 +342,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                     break;
                 case R.id.gamelist_button_installnewgame:
                     SetOnlyVisibleTargetView(layout_gamelist_installversion);
-                    main_text_showstate.setText(getString(R.string.main_text_gamelist_installversion) + " - " + getString(R.string.main_text_gamelist));
+                    main_text_showstate.setText(getString(R.string.title_install_newversion) + " - " + getString(R.string.main_text_gamelist));
                     break;
                 case R.id.gamelist_button_backfrom_installnewversion:
                     SetOnlyVisibleTargetView(layout_gamelist);
@@ -341,7 +350,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                     break;
                 case R.id.gamelist_button_setting:
                     SetOnlyVisibleTargetView(layout_gamelist_setting);
-                    main_text_showstate.setText(getString(R.string.main_text_gamelist_setting) + " - " + getString(R.string.main_text_gamelist));
+                    main_text_showstate.setText(getString(R.string.title_setting_minecraft) + " - " + getString(R.string.main_text_gamelist));
                     break;
                 case R.id.gamelist_button_download:
                     DownloadSelectedVersion();
@@ -369,13 +378,11 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                     break;
 
                 case R.id.main_button_startgame:
-                    SaveLauncherSettingToFile(LauncherConfigFile);
-                    if (spinner_choice_version.getSelectedItem() != null && !spinner_choice_version.getSelectedItem().equals("")) {
-                        Toast.makeText(getApplicationContext(), "Start", Toast.LENGTH_SHORT).show();
-                        toStart = new ReadyToStart(getApplicationContext(),"0.1.0", DATA_PATH, spinner_choice_version.getSelectedItem().toString(),setting_keyboard.getSelectedItem().toString());
+                    if(CheckUsersData(SaveLauncherSettingToFile(LauncherConfigFile))) {
+                        toStart = new ReadyToStart(getApplicationContext(), MCINABOX_VERSION, DATA_PATH, spinner_choice_version.getSelectedItem().toString(), setting_keyboard.getSelectedItem().toString());
                         toStart.StartGame();
-                    } else {
-                        Toast.makeText(getApplicationContext(), "请选择游戏版本", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(getApplicationContext(), getString(R.string.tips_check_setting), Toast.LENGTH_SHORT).show();
                     }
                     break;
                 case R.id.spinner_choice_version:
@@ -399,6 +406,15 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                     break;
                 case R.id.launchersetting_button_import:
                     InstallRuntime();
+                    break;
+                case R.id.toolbar_button_reflash:
+                    SaveLauncherSettingToFile(LauncherConfigFile);
+                    initLauncher();
+                    Toast.makeText(getApplication(), getString(R.string.tips_reflash_finish), Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.toolbar_button_taskinfo:
+                    ShowPopupTipperUnderView(arg0);
+                    break;
                 default:
                     break;
             }
@@ -418,6 +434,14 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
      * 【下载从网络版本列表中选择的版本】
      **/
     private void DownloadSelectedVersion() {
+        if(versionList == null){
+            Toast.makeText(this, getString(R.string.tips_online_version_reflash), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(selectedVersionPos == -1){
+            Toast.makeText(this, getString(R.string.tips_online_version_select), Toast.LENGTH_SHORT).show();
+            return;
+        }
         DownloadMinecraft downloadTask = new DownloadMinecraft(GetDownloadServerUrl(setting_downloadtype.getSelectedItem().toString(), 0), GetDownloadServerUrl(setting_downloadtype.getSelectedItem().toString(), 1), DATA_PATH);
         long taskId;
         ListVersionManifestJson.Version targetVer = null;
@@ -427,10 +451,10 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             }
         }
         if (targetVer == null) {
-            Toast.makeText(this, "下载失败 未找到对应版本", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.tips_online_version_notfound), Toast.LENGTH_SHORT).show();
             return;
         }
-        Toast.makeText(this, "开始下载 " + targetVer.getId(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.tips_online_version_downloadstart) + " " + targetVer.getId(), Toast.LENGTH_SHORT).show();
         taskId = downloadTask.DownloadMinecraftVersionJson(targetVer.getId(), targetVer.getUrl(), this);
         listener2(taskId);
         selectedVersion = targetVer;
@@ -461,13 +485,12 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
      * 【下载资源文件】
      **/
     //可以获取minecraft游戏资源文件
-    //请保证使用前村咋对应的资源索引文件
+    //请保证使用前存在对应的资源索引文件
     private void DownloadVersionAssets() {
         DownloadMinecraft downloadTask = new DownloadMinecraft(GetDownloadServerUrl(setting_downloadtype.getSelectedItem().toString(), 0), GetDownloadServerUrl(setting_downloadtype.getSelectedItem().toString(), 1), DATA_PATH);
-
-        ModelMinecraftAssetsJson assets = new AnaliesMinecraftAssetJson().getModelMinecraftAssetsJson(downloadTask.getMINECRAFT_ASSETS_DIR() + "objects/indexes/" + selectedVersionJson.getAssetIndex().getId() + ".json");
+        ModelMinecraftAssetsJson assets = new AnaliesMinecraftAssetJson().getModelMinecraftAssetsJson(downloadTask.getMINECRAFT_ASSETS_DIR() + "indexes/" + selectedVersionJson.getAssetIndex().getId() + ".json");
         Set<String> keySets = assets.getObjects().keySet();
-        Toast.makeText(this, "共有 " + keySets.size() + " 个资源文件需要下载", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "共有 " + keySets.size() + " 个资源文件需要下载", Toast.LENGTH_SHORT).show();
         //利用了Iterator迭代器
         Iterator<String> it = keySets.iterator();
         while (it.hasNext()) {
@@ -579,7 +602,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 if (ID == Id) {
 
                     ReflashOnlineVersionList();
-                    Toast.makeText(getApplicationContext(), "版本清单更新完成", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.tips_online_version_refresh_finish), Toast.LENGTH_LONG).show();
                 }
             }
         };
@@ -617,7 +640,16 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             public void onReceive(Context context, Intent intent) {
                 long ID = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
                 if (ID == Id) {
-                    DownloadVersionAssets();
+                    Thread syncTask = new Thread() {
+                        @Override
+                        public void run() {
+                            // 执行操作
+                            Looper.prepare();
+                            DownloadVersionAssets();
+                            Looper.loop();
+                        }
+                    };
+                    syncTask.start();
                 }
             }
         };
@@ -664,7 +696,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                     break;
             }
         } else {
-            Toast.makeText(this, "暂无游戏清单数据", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.tips_online_version_nodata), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -710,7 +742,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         }
         if (pos == -1) {
             //TODO:需要自动删除错误的模板，再关闭程序，以免下次启动仍遇到问题。
-            Toast.makeText(this, "启动器初始化失败 " + tag, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.tips_launcher_init_fail) + " " + tag, Toast.LENGTH_SHORT).show();
         }
         return pos;
     }
@@ -753,6 +785,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 account.setUsername(user.getUser_name());
                 account.setType(user.getUser_model());
                 account.setUuid(UUID.nameUUIDFromBytes((user.getUser_name()).getBytes()).toString());
+                account.setAccessToken("0");
                 accounts[i] = account;
             }
         }
@@ -761,18 +794,11 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         //给模板对象设定参数
         settingModel.setDownloadType((String) setting_downloadtype.getSelectedItem());
         settingModel.setKeyboard((String) setting_keyboard.getSelectedItem());
-        configurations.setJava((String) setting_java.getSelectedItem());
-        configurations.setOpengl((String) setting_opengl.getSelectedItem());
-        configurations.setOpenal((String) setting_openal.getSelectedItem());
-        configurations.setLwjgl((String) setting_lwjgl.getSelectedItem());
-        configurations.setRuntime((String) setting_runtime.getSelectedItem());
         configurations.setMaxMemory(Integer.parseInt((String) editText_maxMemory.getText().toString()));
         configurations.setJavaArgs(editText_javaArgs.getText().toString());
         configurations.setMinecraftArgs(editText_minecraftArgs.getText().toString());
         configurations.setNotCheckGame(setting_notcheckMinecraft.isChecked());
         configurations.setNotCheckJvm(setting_notcheckJvm.isChecked());
-        configurations.setNotEnableVirtualKeyboard(setting_notenableKeyboard.isChecked());
-        configurations.setEnableOtg(setting_enableOtg.isChecked());
 
         if (radioButton_gamedir_public.isChecked()) {
             settingModel.setLocalization("public");
@@ -789,7 +815,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             out.close();
         } catch (IOException e) {
             e.printStackTrace();
-            Toast.makeText(this, "启动器配置保存失败", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.tips_launcher_save_fail), Toast.LENGTH_SHORT).show();
             Log.e("saveLauncher ", e.toString());
         }
         //返回一个模板对象
@@ -812,7 +838,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                     case "mcbbs":
                     case "official":
                     default:
-                        url = "https://launchermeta.mojang.com";
+                        url = DOWNLOAD_SOURCE_OFFICIAL_MINECRAFT;
                         break;
                 }
                 break;
@@ -822,7 +848,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                     case "mcbbs":
                     case "official":
                     default:
-                        url = "http://resources.download.minecraft.net";
+                        url = DOWNLOAD_SOURCE_OFFICIAL_RESOURCES;
                         break;
                 }
                 break;
@@ -878,6 +904,9 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     //然后将这些版本存入列表中并执行刷新
     //必须在启动器配置时使用一次，以显示本地游戏列表
     //也可再根据情况使用。
+    public ArrayList<LocalVersionListBean> localversionList;
+    public ArrayList<String> versionIdList;
+
     public void ReflashLocalVersionList() {
         PathTool pathTool = new PathTool(DATA_PATH);
         ArrayList<String> versionIdListTmp;
@@ -888,7 +917,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             versionIdListTmp = new ArrayList<String>(){};
         }
         ArrayList<String> versionIdList = new ArrayList<String>();
-        ArrayList<LocalVersionListBean> loaclversionListBeans = new ArrayList<LocalVersionListBean>();
+        ArrayList<LocalVersionListBean> mlocalversionList = new ArrayList<LocalVersionListBean>();
         for (String fileName : versionIdListTmp) {
             if ((new File(pathTool.getMINECRAFT_VERSION_DIR() + fileName + "/" + fileName + ".jar")).exists() && (new File(pathTool.getMINECRAFT_VERSION_DIR() + fileName + "/" + fileName + ".json")).exists()) {
                 versionIdList.add(fileName);
@@ -897,14 +926,29 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         for (String fileName : versionIdList) {
             LocalVersionListBean localVersionListBean = new LocalVersionListBean();
             localVersionListBean.setVersion_Id(fileName);
-            loaclversionListBeans.add(localVersionListBean);
+            mlocalversionList.add(localVersionListBean);
         }
-        LocalVersionListAdapter localversionlistadapter = new LocalVersionListAdapter(this, loaclversionListBeans);
-        listView_localversion.setAdapter(localversionlistadapter);
 
-        ArrayAdapter<String> mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, versionIdList);
-        mAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner_choice_version.setAdapter(mAdapter);
+        if(listView_localversion.getAdapter() == null){
+            this.localversionList = mlocalversionList;
+            LocalVersionListAdapter localversionlistadapter = new LocalVersionListAdapter(this, this.localversionList);
+            listView_localversion.setAdapter(localversionlistadapter);
+        }else{
+            this.localversionList.clear();
+            this.localversionList.addAll(mlocalversionList);
+            ((BaseAdapter)listView_localversion.getAdapter()).notifyDataSetChanged();
+        }
+
+        if(spinner_choice_version.getAdapter() == null){
+            this.versionIdList = versionIdList;
+            ArrayAdapter<String> mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, this.versionIdList);
+            mAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner_choice_version.setAdapter(mAdapter);
+        }else{
+            this.versionIdList.clear();
+            this.versionIdList.addAll(versionIdList);
+            ((BaseAdapter)spinner_choice_version.getAdapter()).notifyDataSetChanged();
+        }
     }
 
 
@@ -914,14 +958,15 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     //可以根据启动器设置，配置用户列表并刷新
     //必须在启动器配置时使用一次，以显示用户列表
     //也可再根据情况使用，使用前请保证启动器设置模板为最新状态
+    ArrayList<UserListBean> userlist = new ArrayList<UserListBean>(){};
     public ArrayList<UserListBean> ReflashLocalUserList(boolean isSaveBeforeReflash) {
         if (isSaveBeforeReflash) {
             SaveLauncherSettingToFile(LauncherConfigFile);
         }
         LauncherSettingModel.Accounts[] accounts = CheckLauncherSettingFile().getAccounts();
-        ArrayList<UserListBean> userlist = new ArrayList<UserListBean>();
+        ArrayList<UserListBean> tmp = new ArrayList<UserListBean>(){};
         if (accounts == null) {
-
+            userlist = new ArrayList<UserListBean>(){};
         } else {
             for (LauncherSettingModel.Accounts account : accounts) {
                 UserListBean user = new UserListBean();
@@ -929,11 +974,17 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 user.setUser_model(account.getType());
                 user.setIsSelected(account.isSelected());
                 user.setContext(this);
-                userlist.add(user);
+                tmp.add(user);
             }
         }
-        UserListAdapter userlistadapter = new UserListAdapter(this, userlist);
-        listview_user.setAdapter(userlistadapter);
+        userlist = tmp;
+        if(listview_user.getAdapter() == null){
+            UserListAdapter userlistadapter = new UserListAdapter(this, userlist);
+            listview_user.setAdapter(userlistadapter);
+        }else{
+            listview_user.deferNotifyDataSetChanged();
+        }
+
         return userlist;
     }
 
@@ -941,19 +992,28 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     /**
      * 【刷新键盘模板列表】
      **/
+    ArrayList<String> KeyboardList = new ArrayList<String>();
     public void ReflashLocalKeyboardList() {
         ArrayList<String> KeyboardList = new ArrayList<String>();
         File file = new File(MCINABOX_KEYBOARD+"/");
         File[] files = file.listFiles();
         if (files == null) {
-            return;
+            this.KeyboardList.clear();
+
         } else {
             for (File targetFile : files) {
                 KeyboardList.add(targetFile.getName());
             }
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, KeyboardList);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            setting_keyboard.setAdapter(adapter);
+            if(setting_keyboard.getAdapter() == null){
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, this.KeyboardList);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                setting_keyboard.setAdapter(adapter);
+            }else{
+                this.KeyboardList.clear();
+                this.KeyboardList.addAll(KeyboardList);
+                ((BaseAdapter)setting_keyboard.getAdapter()).notifyDataSetChanged();
+            }
+
         }
     }
 
@@ -974,14 +1034,13 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         }
 
         if (username.equals("")) {
-            Toast.makeText(this, "请输入用户名", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.tips_user_nousername), Toast.LENGTH_SHORT).show();
             return;
         }
         if (userlist != null) {
             for (UserListBean user : userlist) {
-                Toast.makeText(this, "当前用户 "+user.getUser_name(), Toast.LENGTH_SHORT).show();
                 if (user.getUser_name().equals(username)) {
-                    Toast.makeText(this, "已存在当前用户", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.tips_user_sameusername), Toast.LENGTH_SHORT).show();
                     return;
                 }
             }
@@ -992,7 +1051,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         userlist.add(newUser);
         UserListAdapter userlistadapter = new UserListAdapter(this, userlist);
         listview_user.setAdapter(userlistadapter);
-        Toast.makeText(this, "添加成功 ", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.tips_add_success), Toast.LENGTH_SHORT).show();
         ReflashLocalUserList(true);
     }
 
@@ -1018,7 +1077,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             } catch (IOException e) {
                 //如果创建失败，就退出程序
                 e.printStackTrace();
-                Toast.makeText(this, "启动器配置模板创建失败", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.tips_launcher_new_fail), Toast.LENGTH_SHORT).show();
                 Log.e("initLauncher ", e.toString());
                 finish();
             }
@@ -1034,11 +1093,11 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 Log.e("初始化", "写入成功");
             } catch (IOException e) {
                 e.printStackTrace();
-                Toast.makeText(this, "启动器配置模板创建失败", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.tips_launcher_new_fail), Toast.LENGTH_SHORT).show();
                 Log.e("initLauncher ", e.toString());
                 finish();
             }
-            Toast.makeText(this, "已为启动器创建配置模板", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.tips_launcher_new_success), Toast.LENGTH_SHORT).show();
         } else {
             //如果文件存在，就读入配置文件
             try {
@@ -1047,14 +1106,14 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 settingModel = new Gson().fromJson(reader, LauncherSettingModel.class);
                 Log.e("初始化", "文件存在");
                 if (settingModel == null) {
-                    Toast.makeText(this, "启动器初始化失败", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.tips_launcher_init_fail), Toast.LENGTH_SHORT).show();
                     Log.e("initLauncher ", "SettingModel is null");
                     finish();
                 }
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
-                Toast.makeText(this, "读入启动器模板失败", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.tips_launcher_load_fail), Toast.LENGTH_SHORT).show();
                 Log.e("initLauncher ", e.toString());
                 finish();
             }
@@ -1069,19 +1128,12 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     //可以将启动器设置对象应用到启动其中。
     public void ApplyLauncherSetting(LauncherSettingModel Setting) {
         try {
-            setting_java.setSelection(getSpinnerFitString(setting_java, Setting.getConfigurations().getJava()));
-//          setting_opengl.setSelection(getSpinnerFitString(setting_opengl, settingModel.getConfigurations().getOpengl()));
-            setting_openal.setSelection(getSpinnerFitString(setting_openal, Setting.getConfigurations().getOpenal()));
-            setting_lwjgl.setSelection(getSpinnerFitString(setting_lwjgl, Setting.getConfigurations().getLwjgl()));
-            setting_runtime.setSelection(getSpinnerFitString(setting_runtime, Setting.getConfigurations().getRuntime()));
             setting_downloadtype.setSelection(getSpinnerFitString(setting_downloadtype, Setting.getDownloadType()));
             editText_javaArgs.setText(Setting.getConfigurations().getJavaArgs());
             editText_minecraftArgs.setText(Setting.getConfigurations().getMinecraftArgs());
-            editText_maxMemory.setText((new Integer(Setting.getConfigurations().getMaxMemory())).toString());
+            editText_maxMemory.setText((Integer.valueOf(Setting.getConfigurations().getMaxMemory())).toString());
             setting_notcheckJvm.setChecked(Setting.getConfigurations().isNotCheckJvm());
             setting_notcheckMinecraft.setChecked(Setting.getConfigurations().isNotCheckGame());
-            setting_notenableKeyboard.setChecked(Setting.getConfigurations().isNotEnableVirtualKeyboard());
-            setting_enableOtg.setChecked(Setting.getConfigurations().isEnableOtg());
 
             if (Setting.getLocalization().equals("public")) {
                 DATA_PATH = MCINABOX_DATA_PUBLIC;
@@ -1096,7 +1148,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
         } catch (NullPointerException e) {
             //如果读入的数据缺少参数，则删除掉并重新初始化。
-            Toast.makeText(this, "配置文件损坏", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.tips_launcher_load_bad), Toast.LENGTH_SHORT).show();
             Log.e("ApplyLauncherSetting ", e.toString());
             LauncherConfigFile.delete();
             initLauncher();
@@ -1119,49 +1171,216 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         ReflashLocalUserList(false);
         ReflashLocalKeyboardList();
         ReflashRuntimePackList();
+        RefreshRuntimePackInfo();
+        GetAvailableMemories();
     }
 
+
     public void InstallRuntime() {
-        final String packagePath;
-        packagePath = MCINABOX_DATA_RUNTIME + "/" + spinner_runtimepacks.getSelectedItem().toString();
+        String packagePath = null;
+        if(spinner_runtimepacks.getSelectedItem() == null){
+            Toast.makeText(this, getString(R.string.tips_runtime_notfound), Toast.LENGTH_SHORT).show();
+            return;
+        }else{
+            packagePath = MCINABOX_DATA_RUNTIME + "/" + spinner_runtimepacks.getSelectedItem().toString();
+        }
+        final String mpackagePath = packagePath;
         Log.e("PackagePack",packagePath);
 
         new Thread() {
             @Override
             public void run() {
-                File packageFile = new File(packagePath);
+                File packageFile = new File(mpackagePath);
                 if (!packageFile.exists()) {
-                    //运行库不存在
+                    Message msg_1 = new Message();
+                    msg_1.what = 4;
+                    handler.sendMessage(msg_1);
+                    return;
                 }
-                //开始安装运行库
-                Utils.extractTarXZ(packagePath, getDir("runtime", 0));
-                //运行库安装完成
-
+                Message msg_2 = new Message();
+                Message msg_3 = new Message();
+                msg_2.what = 5;
+                handler.sendMessage(msg_2);
+                Utils.extractTarXZ(mpackagePath, getDir("runtime", 0));
                 if (Utils.setExecutable(getDir("runtime", 0))) {
-                    //权限设置成功
+                    msg_3.what = 6;
+                    handler.sendMessage(msg_3);
                 } else {
-                    //权限设置失败
+                    msg_3.what = 7;
+                    handler.sendMessage(msg_3);
                 }
-
             }
         }.start();
 
 
     }
 
+    ArrayList<String> runtimelist = new ArrayList<String>();
     public void ReflashRuntimePackList(){
         ArrayList<String> packlist = new ArrayList<String>();
         File file = new File(MCINABOX_DATA_RUNTIME+"/");
         File[] files = file.listFiles();
         if (files == null) {
             //nothing.
+            if(spinner_runtimepacks.getAdapter() != null){
+                runtimelist.clear();
+                ((BaseAdapter)spinner_runtimepacks.getAdapter()).notifyDataSetChanged();
+            }
         } else {
             for (File targetFile : files) {
                 packlist.add(targetFile.getName());
             }
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, packlist);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spinner_runtimepacks.setAdapter(adapter);
+            if (spinner_runtimepacks.getAdapter() == null){
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, this.runtimelist);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinner_runtimepacks.setAdapter(adapter);
+            }else{
+                this.runtimelist.clear();
+                this.runtimelist.addAll(packlist);
+                ((BaseAdapter)spinner_runtimepacks.getAdapter()).notifyDataSetChanged();
+            }
+
         }
     }
+    public boolean CheckUsersData(LauncherSettingModel setting){
+        return (tipslist.size() == 0);
+    }
+
+    /**【在View下方显示Tipper】**/
+    private void ShowPopupTipperUnderView(View arg0){
+        TipperListAdapter tipperListAdapter = new TipperListAdapter(getApplication(), tipslist);
+        listView_tipper.setAdapter(tipperListAdapter);
+        int[] location = new int[2];
+        arg0.getLocationInWindow(location);
+        bubbleLayout_tipper.setArrowDirection(ArrowDirection.TOP);
+        popupWindow.showAtLocation(arg0, Gravity.NO_GRAVITY, location[0], arg0.getHeight() + location[1]);
+    }
+
+    public TimerTask TipperTask = new TimerTask() {
+        @Override
+        public void run() {
+            ArrayList<Integer> tip_indexs = new ArrayList<>();
+            LauncherSettingModel setting = SaveLauncherSettingToFile(LauncherConfigFile);
+            Message msg_1 = new Message();
+            msg_1.what = 1;
+            handler.sendMessage(msg_1);
+
+            boolean User_isSelected = false;
+            boolean Keyboard_isSelected = false;
+            boolean Minecraft_isSelected = false;
+            boolean Runtime_isImported = true;
+
+            //检查用户是否选择
+            LauncherSettingModel.Accounts[] accounts = setting.getAccounts();
+            for(LauncherSettingModel.Accounts p1 : accounts){
+                if(p1.isSelected()){
+                    User_isSelected = true;
+                }
+            }
+
+            //检查键盘模版是否选择
+            if(setting_keyboard.getSelectedItem() != null){
+                Keyboard_isSelected = true;
+            }
+
+            //检查游戏版本是否选择
+            if(spinner_choice_version.getSelectedItem() != null){
+                Minecraft_isSelected = true;
+            }
+
+            //检查运行库是否导入
+            for(String p1 : MCINABOX_RUNTIME_FILES) {
+                if (!FileTool.isFileExists(p1)) {
+                    Runtime_isImported = false;
+                }
+            }
+
+            if(User_isSelected && Keyboard_isSelected && Minecraft_isSelected && Runtime_isImported ){
+                if(listView_tipper.getAdapter() == null || listView_tipper.getAdapter().getCount() != 0){
+                    tipslist = new ArrayList<TipperListBean>(){};
+                    Message msg_2 = new Message();
+                    msg_2.what = 3;
+                    handler.sendMessage(msg_2);
+                }
+                return;
+            }else{
+                Message msg_2 = new Message();
+                msg_2.what = 2;
+                handler.sendMessage(msg_2);
+                if(!User_isSelected){
+                    tip_indexs.add(1);
+                }
+                if(!Keyboard_isSelected){
+                    tip_indexs.add(3);
+                }
+                if(!Minecraft_isSelected){
+                    tip_indexs.add(2);
+                }
+                if(!Runtime_isImported){
+                    tip_indexs.add(4);
+                }
+            }
+
+            if(tip_indexs.size() != 0){
+                ArrayList<TipperListBean> tipperlist = new ArrayList<TipperListBean>();
+                for (int index : tip_indexs){
+                    TipperListBean tmp = new TipperListBean();
+                    tmp.setContext(getApplication());
+                    tmp.setTipper_index(index);
+                    tipperlist.add(tmp);
+                }
+                tipslist = tipperlist;
+            }
+
+        }
+    };
+
+    Handler handler = new Handler(){
+        public void handleMessage(Message msg){
+            switch(msg.what){
+                case 1:
+                    ReflashLocalVersionList();
+                    ReflashLocalUserList(false);
+                    ReflashLocalKeyboardList();
+                    ReflashRuntimePackList();
+                    RefreshRuntimePackInfo();
+                    GetAvailableMemories();
+                    break;
+                case 2:
+                    launcher_info.setBackground(getResources().getDrawable(R.drawable.ic_info_red_500_24dp));
+                    break;
+                case 3:
+                    launcher_info.setBackground(getResources().getDrawable(R.drawable.ic_info_outline_blue_500_24dp));
+                    break;
+                case 4:
+                    Toast.makeText(getApplication(), getString(R.string.tips_runtime_notfound), Toast.LENGTH_SHORT).show();
+                    break;
+                case 5:
+                    Toast.makeText(getApplication(), getString(R.string.tips_runtime_installing), Toast.LENGTH_SHORT).show();
+                    break;
+                case 6:
+                    Toast.makeText(getApplication(), getString(R.string.tips_runtime_install_success), Toast.LENGTH_SHORT).show();
+                    break;
+                case 7:
+                    Toast.makeText(getApplication(), getString(R.string.tips_runtime_install_fail) + " " + getString(R.string.tips_runtime_install_fail_exeable), Toast.LENGTH_SHORT).show();
+                    break;
+            }
+            super.handleMessage(msg);
+        }
+    };
+
+    /**【刷新运行库信息】**/
+    public void RefreshRuntimePackInfo(){
+        String info = (new AnaliesRuntimeJson()).GetInformation(getApplication());
+        if (info == null || info.equals("")){
+            runtime_info.setText(getString(R.string.tips_import_runtime));
+        }else{
+            runtime_info.setText(info);
+        }
+    }
+
+    public void GetAvailableMemories(){
+        ((TextView)findViewById(R.id.game_setting_text_memory)).setText(MemoryUtils.getTotalMemory(getApplication()));
+    }
+
 }

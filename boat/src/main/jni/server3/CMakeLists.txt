@@ -1,0 +1,6 @@
+add_library(serve3 SHARED server.cpp)
+find_library(log-lib log)
+find_library(dl-lib dl)
+#find_library(libc++ c++)
+target_link_libraries(serve3 ${log-lib} ${dl-lib})
+SET(CMAKE_CXX_FLAGS "-isystem D:\\Android-others\\Sdk\\ndk\\16.1.4479499\\sysroot\\usr\\include\\arm-linux-androideabi -std=c++11")

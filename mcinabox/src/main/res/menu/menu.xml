@@ -5,7 +5,7 @@
 
     <item
         android:id="@+id/toolbar_action1"
-        android:title="@string/toolbar_menu_action1"
+        android:title="@string/title_setting"
         android:orderInCategory="1"
         app:showAsAction="never"/>
 

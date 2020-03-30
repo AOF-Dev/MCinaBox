@@ -1,6 +1,0 @@
-add_library(server2 SHARED server.cpp)
-find_library(log-lib log)
-find_library(dl-lib dl)
-find_library(libc++ c++)
-target_link_libraries(server2 ${log-lib} ${dl-lib} ${libc++})
-SET(CMAKE_CXX_FLAGS "-O2")

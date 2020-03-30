@@ -26,8 +26,10 @@ public class GLFW_KeyTool {
             return (KeyName.toCharArray()[0] - '0' + NUM_ZERO);
         } else if (KeyName.length() == 1 && (KeyName.charAt(0) >= 'A' && KeyName.charAt(0) <= 'Z')) {
             return (KeyName.toCharArray()[0] - 'A' + KEY_A);
-        } else if ((KeyName.length() >= 2 && KeyName.charAt(0) == 'F') && (KeyName.charAt(1) >= '1' && KeyName.charAt(1) <= '9')) {
+        } else if ((KeyName.length() == 2 && KeyName.charAt(0) == 'F') && (KeyName.charAt(1) >= '1' && KeyName.charAt(1) <= '9')) {
             return (KeyName.charAt(1) - '1' + KEY_F1);
+        }else if((KeyName.length() == 3 && KeyName.charAt(0) == 'F') && (KeyName.charAt(2) >= '0' && KeyName.charAt(2) <= '9')){
+            return (Integer.parseInt(""+KeyName.charAt(1) + KeyName.charAt(2)) - 1 + KEY_F1);
         } else {
             switch (KeyName) {
                 case "ESC":
@@ -48,6 +50,10 @@ public class GLFW_KeyTool {
                     return  GLFW_KEY_RIGHT_ALT;
                 case "RCTRL":
                     return  GLFW_KEY_RIGHT_CONTROL;
+                case "MOUSE_Pri":
+                    return 1001;
+                case "MOUSE_Sec":
+                    return 1002;
                 default:
                     return KEY_UNKNOW;
             }

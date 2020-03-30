@@ -21,7 +21,7 @@
             android:layout_width="60dp"
             android:layout_height="40dp"
             android:layout_marginLeft="10dp"
-            android:text="确定"/>
+            android:text="@string/tips_ok"/>
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
             android:layout_width="60dp"
             android:layout_height="40dp"
             android:layout_marginRight="10dp"
-            android:text="取消"/>
+            android:text="@string/tips_no"/>
 
     </LinearLayout>
 

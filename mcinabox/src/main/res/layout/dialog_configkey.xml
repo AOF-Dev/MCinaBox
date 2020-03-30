@@ -12,7 +12,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="基本"
+            android:text="@string/title_minecraft_setting_basic"
             android:textColor="@color/puredark"
             android:textSize="10sp" />
 
@@ -30,7 +30,7 @@
             <TextView
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:text="按键名" />
+                android:text="@string/tips_button_name" />
 
             <EditText
                 android:id="@+id/dialog_key_name"
@@ -46,12 +46,12 @@
             <TextView
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:text="位置(Dp)" />
+                android:text="@string/tips_button_location" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="X:" />
+                android:text="@string/tips_button_loaction_x" />
 
             <EditText
                 android:id="@+id/dialog_key_lx"
@@ -63,7 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:text="Y:" />
+                android:text="@string/tips_button_loaction_y" />
 
             <EditText
                 android:id="@+id/dialog_key_ly"
@@ -81,7 +81,7 @@
             <TextView
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:text="主按键" />
+                android:text="@string/tips_button_mainkey" />
 
             <Spinner
                 android:id="@+id/dialog_key_main"
@@ -94,7 +94,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="外观"
+            android:text="@string/tips_theme"
             android:textColor="@color/puredark"
             android:textSize="10sp" />
 
@@ -113,12 +113,12 @@
             <TextView
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:text="大小(Dp)"/>
+                android:text="@string/tips_button_size"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="宽"/>
+                android:text="@string/tips_button_size_width"/>
 
             <EditText
                 android:id="@+id/dialog_key_sizeW"
@@ -130,7 +130,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:text="高"/>
+                android:text="@string/tips_button_size_height"/>
             <EditText
                 android:id="@+id/dialog_key_sizeH"
                 android:layout_width="50dp"
@@ -148,7 +148,7 @@
             <TextView
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:text="颜色"/>
+                android:text="@string/tips_button_color"/>
             <EditText
                 android:id="@+id/dialog_color"
                 android:layout_width="0dp"
@@ -175,7 +175,7 @@
                 android:id="@+id/dialog_keycorner"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:text="圆角大小" />
+                android:text="@string/tips_button_corner_size" />
             <TextView
                 android:id="@+id/dialog_text_cornerprogress"
                 android:layout_width="wrap_content"
@@ -193,7 +193,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="功能"
+            android:text="@string/tips_function"
             android:textColor="@color/puredark"
             android:textSize="10sp" />
 
@@ -214,7 +214,7 @@
             <TextView
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:text="自动保持" />
+                android:text="@string/tips_button_autokeep" />
 
             <CheckBox
                 android:id="@+id/dialog_key_keep"
@@ -232,7 +232,7 @@
             <TextView
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:text="隐藏按键" />
+                android:text="@string/tips_button_hide" />
 
             <CheckBox
                 android:id="@+id/dialog_key_hide"
@@ -244,7 +244,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="附加"
+            android:text="@string/tips_addone"
             android:layout_marginTop="5dp"
             android:textColor="@color/puredark"
             android:textSize="10sp" />
@@ -266,7 +266,7 @@
             <TextView
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:text="组合键" />
+                android:text="@string/tips_button_combine" />
 
             <CheckBox
                 android:id="@+id/dialog_key_mult"
@@ -285,7 +285,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
-                android:text="组合键一" />
+                android:text="@string/tips_button_combine_one" />
 
             <Spinner
                 android:id="@+id/dialog_key_specialone"
@@ -299,7 +299,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:text="组合键二" />
+                android:text="@string/tips_button_combine_two" />
 
             <Spinner
                 android:id="@+id/dialog_key_specialtwo"
@@ -313,7 +313,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="操作"
+            android:text="@string/tips_step"
             android:textColor="@color/puredark"
             android:textSize="10sp" />
 
@@ -335,7 +335,7 @@
                 android:layout_width="60dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="10dp"
-                android:text="确定"/>
+                android:text="@string/tips_ok"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -345,7 +345,7 @@
                 android:layout_width="60dp"
                 android:layout_height="40dp"
                 android:layout_marginEnd="10dp"
-                android:text="取消"/>
+                android:text="@string/tips_no"/>
 
         </LinearLayout>
 
