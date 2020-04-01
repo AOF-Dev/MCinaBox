@@ -1,353 +1,373 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="300dp"
-    android:layout_height="350dp"
-    android:background="@drawable/background_layout_item_alpha">
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_layout_item_alpha"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="230dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_minecraft_setting_basic"
+                android:textColor="@color/puredark"
+                android:textSize="10sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginRight="5dp"
+                android:background="@android:color/background_dark" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tips_button_name" />
+
+                <EditText
+                    android:id="@+id/dialog_key_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tips_button_location" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tips_button_loaction_x" />
+
+                <EditText
+                    android:id="@+id/dialog_key_lx"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:digits="1234567890." />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/tips_button_loaction_y" />
+
+                <EditText
+                    android:id="@+id/dialog_key_ly"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:digits="1234567890." />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tips_button_mainkey" />
+
+                <Spinner
+                    android:id="@+id/dialog_key_main"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/keymap_main_array" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/tips_theme"
+                android:textColor="@color/puredark"
+                android:textSize="10sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginRight="5dp"
+                android:background="@android:color/background_dark" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tips_button_size" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tips_button_size_width" />
+
+                <EditText
+                    android:id="@+id/dialog_key_sizeW"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="@string/tips_button_size_height" />
+
+                <EditText
+                    android:id="@+id/dialog_key_sizeH"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tips_button_color" />
+
+                <EditText
+                    android:id="@+id/dialog_color"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="textEmailAddress" />
+
+                <ImageButton
+                    android:id="@+id/dialog_button_colorpicker"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_margin="2dp"
+                    android:backgroundTint="#ffffff"
+                    android:src="#000000" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/dialog_keycorner"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tips_button_corner_size" />
+
+                <TextView
+                    android:id="@+id/dialog_text_cornerprogress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="20" />
+
+                <SeekBar
+                    android:id="@+id/dialog_corner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:max="180"
+                    android:progress="20" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/tips_function"
+                android:textColor="@color/puredark"
+                android:textSize="10sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@android:color/background_dark" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tips_button_autokeep" />
+
+                <CheckBox
+                    android:id="@+id/dialog_key_keep"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tips_button_hide" />
+
+                <CheckBox
+                    android:id="@+id/dialog_key_hide"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/tips_addone"
+                android:textColor="@color/puredark"
+                android:textSize="10sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@android:color/background_dark" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tips_button_combine" />
+
+                <CheckBox
+                    android:id="@+id/dialog_key_mult"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:text="@string/tips_button_combine_one" />
+
+                <Spinner
+                    android:id="@+id/dialog_key_specialone"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/keymap_special_arry"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:text="@string/tips_button_combine_two" />
+
+                <Spinner
+                    android:id="@+id/dialog_key_specialtwo"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/keymap_special_arry"
+                    android:textSize="10sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/tips_step"
+        android:textColor="@color/puredark"
+        android:textSize="10sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@android:color/background_dark" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:background="@drawable/background_layout_item"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/dialog_button_finish"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:text="@string/tips_ok" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/title_minecraft_setting_basic"
-            android:textColor="@color/puredark"
-            android:textSize="10sp" />
+            android:layout_weight="1" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginRight="5dp"
-            android:background="@android:color/background_dark" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:text="@string/tips_button_name" />
-
-            <EditText
-                android:id="@+id/dialog_key_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:text="@string/tips_button_location" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tips_button_loaction_x" />
-
-            <EditText
-                android:id="@+id/dialog_key_lx"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:inputType="number"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:text="@string/tips_button_loaction_y" />
-
-            <EditText
-                android:id="@+id/dialog_key_ly"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:inputType="number"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:text="@string/tips_button_mainkey" />
-
-            <Spinner
-                android:id="@+id/dialog_key_main"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:entries="@array/keymap_main_array" />
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="@string/tips_theme"
-            android:textColor="@color/puredark"
-            android:textSize="10sp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginRight="5dp"
-            android:background="@android:color/background_dark" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="2dp">
-            <TextView
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:text="@string/tips_button_size"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tips_button_size_width"/>
-
-            <EditText
-                android:id="@+id/dialog_key_sizeW"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:inputType="number"/>
-            <TextView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:text="@string/tips_button_size_height"/>
-            <EditText
-                android:id="@+id/dialog_key_sizeH"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:inputType="number"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="2dp"
-            android:layout_marginTop="2dp">
-            <TextView
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:text="@string/tips_button_color"/>
-            <EditText
-                android:id="@+id/dialog_color"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:inputType="textEmailAddress"/>
-            <ImageButton
-                android:id="@+id/dialog_button_colorpicker"
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
-                android:layout_margin="2dp"
-                android:layout_gravity="center"
-                android:backgroundTint="#ffffff"
-                android:src="#000000"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="2dp"
-            android:layout_marginTop="2dp">
-            <TextView
-                android:id="@+id/dialog_keycorner"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:text="@string/tips_button_corner_size" />
-            <TextView
-                android:id="@+id/dialog_text_cornerprogress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="20"/>
-            <SeekBar
-                android:id="@+id/dialog_corner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:max="180"
-                android:progress="20"/>
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="@string/tips_function"
-            android:textColor="@color/puredark"
-            android:textSize="10sp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp"
-            android:background="@android:color/background_dark" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="2dp"
-            android:layout_marginTop="2dp">
-
-            <TextView
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:text="@string/tips_button_autokeep" />
-
-            <CheckBox
-                android:id="@+id/dialog_key_keep"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="2dp"
-            android:layout_marginTop="2dp">
-
-            <TextView
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:text="@string/tips_button_hide" />
-
-            <CheckBox
-                android:id="@+id/dialog_key_hide"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tips_addone"
-            android:layout_marginTop="5dp"
-            android:textColor="@color/puredark"
-            android:textSize="10sp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginRight="5dp"
-            android:background="@android:color/background_dark"
-            android:layout_marginBottom="5dp"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="2dp"
-            android:layout_marginTop="2dp">
-
-            <TextView
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:text="@string/tips_button_combine" />
-
-            <CheckBox
-                android:id="@+id/dialog_key_mult"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="2dp"
-            android:layout_marginTop="2dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                android:text="@string/tips_button_combine_one" />
-
-            <Spinner
-                android:id="@+id/dialog_key_specialone"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:textSize="10sp"
-                android:entries="@array/keymap_special_arry"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:text="@string/tips_button_combine_two" />
-
-            <Spinner
-                android:id="@+id/dialog_key_specialtwo"
-                android:layout_width="80dp"
-                android:textSize="10sp"
-                android:layout_height="wrap_content"
-                android:entries="@array/keymap_special_arry"/>
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="@string/tips_step"
-            android:textColor="@color/puredark"
-            android:textSize="10sp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginBottom="5dp"
-            android:layout_marginRight="5dp"
-            android:background="@android:color/background_dark" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="2dp"
-            android:layout_marginTop="2dp">
-            <Button
-                android:id="@+id/dialog_button_finish"
-                android:layout_width="60dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="10dp"
-                android:text="@string/tips_ok"/>
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"/>
-            <Button
-                android:id="@+id/dialog_button_cancel"
-                android:layout_width="60dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="10dp"
-                android:text="@string/tips_no"/>
-
-        </LinearLayout>
+        <Button
+            android:id="@+id/dialog_button_cancel"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="10dp"
+            android:text="@string/tips_no" />
 
     </LinearLayout>
-</ScrollView>
+
+
+</LinearLayout>

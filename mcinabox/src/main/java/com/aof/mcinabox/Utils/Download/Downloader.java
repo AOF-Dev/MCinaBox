@@ -34,4 +34,8 @@ public class Downloader {
         setTaskId(downloadManager.enqueue(request));
         return taskId;
     }
+    public void CancelAllDownloadTask(Context context){
+        DownloadManager downloadManager= (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
+        downloadManager.remove();
+    }
 }

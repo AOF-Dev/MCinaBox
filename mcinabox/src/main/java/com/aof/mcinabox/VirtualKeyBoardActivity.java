@@ -8,6 +8,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -39,6 +40,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import static com.aof.mcinabox.DataPathManifest.*;
 
@@ -61,6 +63,7 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
     Toolbar toolbar;
     String KeyboardDirPath;
     int ColorPickerTemp;
+    TextView buttonInfo,buttonTip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +105,9 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
         key_special_twoselected = configDialog.findViewById(R.id.dialog_key_specialtwo);
         model_selected = loadDialog.findViewById(R.id.dialog_spinner_modelselected);
 
-
+        buttonInfo = findViewById(R.id.text_buttoninfo);
+        buttonTip = findViewById(R.id.text_buttontip);
+        buttonTip.setOnClickListener(listener);
 
         dialog_button_cancel = configDialog.findViewById(R.id.dialog_button_cancel);
         dialog_button_finish = configDialog.findViewById(R.id.dialog_button_finish);
@@ -149,10 +154,10 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
     }
 
     //键名称 键宽 键长 透明度 X轴位置 Y轴位置 主按键 特殊键1 特殊键2 是否保持 是否隐藏 是否是组合键 形状 主按键位置 组合键一位置 组合键二位置 按键颜色 圆角半径
-    public void addStandKey(String KeyName, int KeySizeW, int KeySizeH , int KeyLX, int KeyLY, String KeyMain, String SpecialOne, String SpecialTwo, boolean isAutoKeep, boolean isHide, boolean isMult,int MainPos,int SpecialOnePos,int SpecialTwoPos,String colorhex,int conerRadius) {
+    public void addStandKey(String KeyName, int KeySizeW, int KeySizeH , float KeyLX, float KeyLY, String KeyMain, String SpecialOne, String SpecialTwo, boolean isAutoKeep, boolean isHide, boolean isMult,int MainPos,int SpecialOnePos,int SpecialTwoPos,String colorhex,int conerRadius) {
         GameButton KeyButton = new GameButton(getApplicationContext());
         KeyButton.setText(KeyName);
-        KeyButton.setLayoutParams(new ViewGroup.LayoutParams(getPxFromDp(this,KeySizeW),getPxFromDp(this,KeySizeH) ));
+        KeyButton.setLayoutParams(new ViewGroup.LayoutParams((int)getPxFromDp(this,KeySizeW),(int)getPxFromDp(this,KeySizeH) ));
         KeyButton.setX(getPxFromDp(this,KeyLX));
         KeyButton.setY(getPxFromDp(this,KeyLY));
         KeyButton.setKeyLX_dp(KeyLX);
@@ -215,28 +220,37 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
     }
 
     private void configStandKey(){
-        int KeyLX = 100;
-        int KeyLY = 100;
+        float KeyLX = 100;
+        float KeyLY = 100;
         int KeySizeW = 40;
         int KeySizeH = 40;
         String KeyName = editText_key_name.getText().toString();
         String KeyColor = editText_model_color.getText().toString();
 
-        try {
-            KeySizeW = Integer.parseInt(editText_key_sizeW.getText().toString());
-            KeySizeH = Integer.parseInt(editText_key_sizeH.getText().toString());
-            KeyLX = Integer.parseInt(editText_key_lx.getText().toString());
-            KeyLY = Integer.parseInt(editText_key_ly.getText().toString());
-        }catch (NullPointerException e){
-            e.printStackTrace();
-            Toast.makeText(this, getString(R.string.tips_keboard_config_location_notfound), Toast.LENGTH_SHORT).show();
+
+        if(editText_key_sizeW.getText().toString().equals("") || editText_key_sizeH.getText().toString().equals("")){
+            Toast.makeText(this, getString(R.string.tips_keyboard_config_location_notfound), Toast.LENGTH_SHORT).show();
             return;
+        }else if(editText_key_ly.getText().toString().equals("") || editText_key_lx.getText().toString().equals("")){
+            Toast.makeText(this, getString(R.string.tips_keyboard_config_size_notfound), Toast.LENGTH_SHORT).show();
+            return;
+        }else if(KeyName.equals("")){
+            Toast.makeText(this, getString(R.string.tips_keyboard_config_name_notfound), Toast.LENGTH_SHORT).show();
+            return;
+        }else if(KeyColor.equals("")){
+            Toast.makeText(this, getString(R.string.tips_keyboard_config_color_notfound), Toast.LENGTH_SHORT).show();
+            return;
+        }else{
+            Toast.makeText(this, getString(R.string.tips_add_success), Toast.LENGTH_SHORT).show();
         }
 
+        KeySizeW = Integer.parseInt(editText_key_sizeW.getText().toString());
+        KeySizeH = Integer.parseInt(editText_key_sizeH.getText().toString());
+        KeyLX = Float.parseFloat(editText_key_lx.getText().toString());
+        KeyLY = Float.parseFloat(editText_key_ly.getText().toString());
         boolean isAutoKeep = checkBox_isKeep.isChecked();
         boolean isHide = checkBox_isHide.isChecked();
         boolean isMult = checkBox_isMult.isChecked();
-
         int cornerRadius = seekBar_corner.getProgress();
         String KeyMain = (String)key_main_selected.getSelectedItem();
         String SpecialOne = (String)key_special_oneselected.getSelectedItem();
@@ -246,16 +260,9 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
         int SpecialTwoPos = key_special_twoselected.getSelectedItemPosition();
         String colorhex = editText_model_color.getText().toString();
 
-        if(KeyName.equals("")){
-            Toast.makeText(this, getString(R.string.tips_keyboard_config_name_notfound), Toast.LENGTH_SHORT).show();
-            return;
-        }else if(KeySizeW < 20 || KeySizeH < 20){
+        if(KeySizeW < 20 || KeySizeH < 20){
             Toast.makeText(this, getString(R.string.tips_keyboard_config_size_toosmall), Toast.LENGTH_SHORT).show();
             return;
-        }else if(KeyColor.equals("")){
-            Toast.makeText(this, getString(R.string.tips_keyboard_config_color_notfound), Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(this, getString(R.string.tips_add_success), Toast.LENGTH_SHORT).show();
         }
 
         addStandKey(KeyName,KeySizeW,KeySizeH,KeyLX,KeyLY,KeyMain,SpecialOne,SpecialTwo,isAutoKeep,isHide,isMult,MainPos,SpecialOnePos,SpecialTwoPos,colorhex,cornerRadius);
@@ -275,8 +282,6 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
         public void onClick(View arg0) {
 
             switch (arg0.getId()) {
-                default:
-                    break;
                 case R.id.dialog_button_finish:
                     configStandKey();
                     configDialog.dismiss();
@@ -344,50 +349,47 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
                     ApplyColorChangeToGameButton();
                     colorPickDialog.hide();
                     break;
+                case R.id.text_buttontip:
+                    buttonTip.setVisibility(View.INVISIBLE);
+                    break;
+                default:
+                    break;
             }
         }
     };
 
-
-    private android.view.View.OnClickListener keyboardListenerShort = new android.view.View.OnClickListener() {
-        @Override
-        public void onClick(View arg0) {
-
-            for (GameButton targetButton : keyboardList) {
-                if(arg0.getId() == targetButton.getId()){
-                    Toast.makeText(getApplicationContext(), targetButton.getText().toString()+" "+targetButton.getId()+" "+targetButton.getKeyMain() + " " + targetButton.getSpecialOne() + " " +targetButton.getSpecialTwo(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        }
-    };
 
     private android.view.View.OnLongClickListener keyboardListenerLong = new android.view.View.OnLongClickListener() {
         @Override
         public boolean onLongClick(View arg0) {
-
-            for (GameButton targetButton : keyboardList) {
-                if(arg0.getId() == targetButton.getId()){
-                    reloadStantKey(targetButton);
+            if(BeMoved){
+                //nothing
+            }else {
+                for (GameButton targetButton : keyboardList) {
+                    if (arg0.getId() == targetButton.getId()) {
+                        reloadStantKey(targetButton);
+                    }
                 }
+                ShowButtonInfoOnText(null,null,null);
             }
             return true;
         }
     };
 
-    public static int getPxFromDp(Context context, float dpValue) {
+    public static float getPxFromDp(Context context, float dpValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (dpValue * scale + 0.5f);
+        return (dpValue * scale);
     }
 
-    public static int getDpFromPx(Context context, float pxValue){
+    public static float getDpFromPx(Context context, float pxValue){
         final float scale = context.getResources().getDisplayMetrics().density;
-        return ((int) ((pxValue - 0.5f)/scale))+1;
+        return (pxValue / scale) ;
     }
 
     public void reflashKeyboard(){
         for (GameButton targetButton : keyboardList) {
             layout_keyboard.addView(targetButton);
-            targetButton.setOnClickListener(keyboardListenerShort);
+            targetButton.setOnTouchListener(touchlistener);
             targetButton.setOnLongClickListener(keyboardListenerLong);
         }
     }
@@ -528,6 +530,48 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
         ColorDrawable drawable = new ColorDrawable();
         drawable.setColor(ColorPickerTemp);
         dialog_button_colorpicker.setImageDrawable(drawable);
+    }
+
+    private boolean BeMoved;
+    private GameButton.OnTouchListener touchlistener = new GameButton.OnTouchListener(){
+        @Override
+        public boolean onTouch(View p1, MotionEvent p3){
+            switch(p3.getAction()){
+                case MotionEvent.ACTION_DOWN:
+                    ShowButtonInfoOnText((GameButton) p1,buttonInfo,p3);
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    BeMoved = true;
+                    ShowButtonInfoOnText((GameButton) p1,buttonInfo,p3);
+                    p1.setX(p3.getRawX() - (p1.getWidth() / 2));
+                    p1.setY(p3.getRawY() - (p1.getHeight() /2));
+                    break;
+                case MotionEvent.ACTION_UP:
+                    ShowButtonInfoOnText(null,buttonInfo,p3);
+                    if(BeMoved){
+                        ((GameButton)p1).setKeyLX_dp(getDpFromPx(getApplication(),p3.getRawX() - (p1.getWidth() / 2)));
+                        ((GameButton)p1).setKeyLY_dp(getDpFromPx(getApplication(),p3.getRawY() - (p1.getHeight() /2)));
+                        removeKeyboard();
+                        reflashKeyboard();
+                        BeMoved = false;
+                    }
+                    break;
+                default:
+                    break;
+            }
+            return false;
+        }
+    };
+
+    private void ShowButtonInfoOnText(GameButton p1,TextView p2,MotionEvent p3){
+        if(p1 != null && p3 != null){
+            p2.setText("按键名: " + p1.getText() + " 主按键: " + p1.getKeyMain() + " X坐标: " + getDpFromPx(getApplication(),p3.getRawX() - (p1.getWidth() / 2)) + "dp" + " Y坐标: " + getDpFromPx(getApplication(),p3.getRawY() - (p1.getHeight() / 2)) + "dp\n" +
+                    "宽度: " + p1.getKeySizeW() +  "dp" + " 高度: " + p1.getKeySizeH() + "dp" + " 颜色: " + p1.getColorHex() + " 圆角: " + p1.getCornerRadius() + "\n" +
+                    "自动保持: " + p1.isKeep() + " 隐藏: " + p1.isHide() + " 组合键: " + p1.isMult() + " 组合键一: " + p1.getSpecialOne() + " 组合键二: " + p1.getSpecialTwo()
+                    );
+        }else{
+            p2.setText("");
+        }
     }
 
 }

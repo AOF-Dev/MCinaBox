@@ -27,6 +27,14 @@ public class BoatInputEventSender{
     }
     
 	public static void setKey(int keyCode, boolean press , int keyChar){
+		if(keyCode == 1001){
+			setMouseButton(1,press);
+			return;
+		}
+		if(keyCode == 1002){
+			setMouseButton(3,press);
+			return;
+		}
 		
 		send(System.nanoTime(), press ? KeyPress : KeyRelease, keyCode, keyChar);
 	}

@@ -23,11 +23,18 @@ public class GameButton extends androidx.appcompat.widget.AppCompatButton {
     private int SpecialOneIndex;
     private int SpecialTwoIndex;
     private String TextColorHex;
-    private int KeyLX_dp;
-    private int KeyLY_dp;
+    private float KeyLX_dp;
+    private float KeyLY_dp;
     private int KeySizeW;
     private int KeySizeH;
+    private boolean BeMoved = false;
 
+    public boolean isBeMoved() {
+        return BeMoved;
+    }
+    public void setBeMoved(boolean beMoved) {
+        BeMoved = beMoved;
+    }
     public int getMainIndex() { return MainIndex; }
     public void setMainIndex(int mainIndex) { MainIndex = mainIndex; }
     public int getSpecialOneIndex() { return SpecialOneIndex; }
@@ -45,10 +52,10 @@ public class GameButton extends androidx.appcompat.widget.AppCompatButton {
     public void setKeySizeW(int keySizeW) {
         KeySizeW = keySizeW;
     }
-    public int getKeyLX_dp() { return KeyLX_dp; }
-    public void setKeyLX_dp(int keyLX_dp) { KeyLX_dp = keyLX_dp; }
-    public int getKeyLY_dp() { return KeyLY_dp; }
-    public void setKeyLY_dp(int keyLY_dp) { KeyLY_dp = keyLY_dp; }
+    public float getKeyLX_dp() { return KeyLX_dp; }
+    public void setKeyLX_dp(float keyLX_dp) { KeyLX_dp = keyLX_dp; }
+    public float getKeyLY_dp() { return KeyLY_dp; }
+    public void setKeyLY_dp(float keyLY_dp) { KeyLY_dp = keyLY_dp; }
     public String getColorHex() { return colorHex; }
     public void setColorHex(String colorHex) { this.colorHex = colorHex; }
     public int getCornerRadius() { return cornerRadius; }

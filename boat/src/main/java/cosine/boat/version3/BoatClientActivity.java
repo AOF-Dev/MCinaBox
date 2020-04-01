@@ -498,11 +498,11 @@ public class BoatClientActivity extends NativeActivity  implements View.OnClickL
         return keyboardList;
     }
 
-    public GameButton GetButtonFromModel(String KeyName, int KeySizeW,int KeySizeH, int KeyLX, int KeyLY, String KeyMain, String SpecialOne, String SpecialTwo, boolean isAutoKeep, boolean isHide, boolean isMult,int MainPos,int SpecialOnePos,int SpecialTwoPos,String colorhex,int conerRadius){
+    public GameButton GetButtonFromModel(String KeyName, int KeySizeW,int KeySizeH, float KeyLX, float KeyLY, String KeyMain, String SpecialOne, String SpecialTwo, boolean isAutoKeep, boolean isHide, boolean isMult,int MainPos,int SpecialOnePos,int SpecialTwoPos,String colorhex,int conerRadius){
         GameButton KeyButton = new GameButton(getApplicationContext());
         //设置外观以及基本属性
         KeyButton.setText(KeyName);
-        KeyButton.setLayoutParams(new ViewGroup.LayoutParams(getPxFromDp(this,KeySizeW),getPxFromDp(this,KeySizeH) ));
+        KeyButton.setLayoutParams(new ViewGroup.LayoutParams((int)getPxFromDp(this,KeySizeW),(int)getPxFromDp(this,KeySizeH) ));
         KeyButton.setX(getPxFromDp(this,KeyLX));
         KeyButton.setY(getPxFromDp(this,KeyLY));
         KeyButton.setKeyLX_dp(KeyLX);
@@ -538,14 +538,14 @@ public class BoatClientActivity extends NativeActivity  implements View.OnClickL
         return KeyButton;
     }
 
-    public static int getPxFromDp(Context context, float dpValue) {
+    public static float getPxFromDp(Context context, float dpValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (dpValue * scale + 0.5f);
+        return (dpValue * scale);
     }
 
-    public static int getDpFromPx(Context context, float pxValue){
+    public static float getDpFromPx(Context context, float pxValue){
         final float scale = context.getResources().getDisplayMetrics().density;
-        return ((int) ((pxValue - 0.5f)/scale))+1;
+        return (pxValue / scale);
     }
 
     private void OnTouchVirtualKeyboard(GameButton gameButton,MotionEvent p2){

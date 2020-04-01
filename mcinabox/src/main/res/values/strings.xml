@@ -8,7 +8,7 @@
     <string name="main_text_defaultlayout">主页</string>
 
     <string name="app_name">MCinaBox</string>
-    <string name="app_version">v0.1.0</string>
+    <string name="app_version">v0.1.1</string>
     <string name="app_copyright">此版本非发行版本，仅供 AOF放假后软件开发团队 内部成员使用！</string>
     <string name="app_about_mcinabox">MCinaBox Minecraft Launcher 是一个免费、开源的 Minecraft 启动器，允许玩家在 安卓设备 上方便快捷的安装、管理、运行游戏。启动器更新请查阅项目开源地址的 release 版面.\n当您使用本软件时，就表示您已阅读并同意本软件的版权信息，表示您愿意尊重软件开发者们的劳动成果，表示您愿意遵守本软件的开源协议。\n本软件仍处于测试阶段，如有问题，欢迎到Github进行反馈。</string>
     <string name="app_about_copyright">版权</string>
@@ -41,7 +41,7 @@
     <string name="title_download">下载</string>
     <string name="title_downloader_selected_version">选择的版本是: </string>
     <string name="title_downloader_selected_versionid">_._._</string>
-    <string name="title_downloader_warn">由于这一版本调用了系统下载器，可能存在下载不稳定的情况，请自行根据状态栏进度判断下载状态。</string>
+    <string name="title_downloader_warn">如果长时间未显示列表，请手动点击"刷新"\n由于这一版本调用了系统下载器，可能存在下载不稳定的情况，请自行根据状态栏进度判断下载状态。</string>
     <string name="title_minecraft_version_stable">稳定版</string>
     <string name="title_minecraft_version_snapshot">快照版</string>
     <string name="title_minecraft_version_old">远古版</string>
@@ -143,14 +143,17 @@
     <string name="tips_load_success">导入成功</string>
     <string name="tips_load_fail">导入失败</string>
     <string name="tips_keyboard_model_notfound">找不到键盘模板</string>
-    <string name="tips_keboard_config_location_notfound">坐标或按键值不能为空</string>
+    <string name="tips_keyboard_config_location_notfound">坐标值不能为空</string>
+    <string name="tips_keyboard_config_size_notfound">长宽不能为空</string>
     <string name="tips_keyboard_button_notfound">模板不能为空</string>
     <string name="tips_gamecheck_file_notfull">文件完整性检查未通过，请在全局游戏设置中禁用文件检查或重新下载游戏版本</string>
     <string name="tips_gamecheck_platform_uncorrect">运行库架构不兼容，请在全局游戏设置中禁用兼容性检查或安装正确的运行库</string>
+    <string name="tips_keyboard_config">提示:1.单击按住拖动，可以使按键随手指移动\n提示:2.长按不拖动，可以编辑或删除选中按钮</string>
 
     <string name="tipper_warn_runtime_notinstall">未安装本地运行库</string>
     <string name="tipper_warn_user_notselected">未创建或选择用户</string>
     <string name="tipper_warn_version_notselected">未下载或选择游戏版本</string>
     <string name="tipper_warn_keyboard_notselected">未创建或选择键盘布局</string>
+    <string name="tipper_warn_memory_notstable">当前内存大小易引发崩溃</string>
 
 </resources>

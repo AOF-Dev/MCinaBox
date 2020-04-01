@@ -8,8 +8,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/boat2" />
-            <option value="$PROJECT_DIR$/boat3" />
+            <option value="$PROJECT_DIR$/boat" />
             <option value="$PROJECT_DIR$/mcinabox" />
             <option value="$PROJECT_DIR$/sharedmodule" />
           </set>

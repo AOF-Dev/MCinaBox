@@ -40,7 +40,7 @@ public class DataPathManifest {
                 //Runtime
         RUNTIME_HOME = "/data/data/com.aof.mcinabox/app_runtime",
                 //版本信息
-        MCINABOX_VERSION = "0.1.0",
+        MCINABOX_VERSION = "0.1.1",
                 //下载源
         DOWNLOAD_SOURCE_OFFICIAL_MINECRAFT = "https://launchermeta.mojang.com",
         DOWNLOAD_SOURCE_OFFICIAL_RESOURCES = "http://resources.download.minecraft.net",

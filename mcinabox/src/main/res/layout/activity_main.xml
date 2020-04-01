@@ -82,7 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="40dp"
         android:paddingLeft="30dp"
-        android:paddingRight="30dp"
+        android:paddingRight="20dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
         android:background="@drawable/background_layout_startgame"
@@ -121,7 +121,7 @@
             android:layout_weight="1" />
         <Spinner
             android:id="@+id/spinner_choice_version"
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"/>
 
@@ -496,6 +496,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -679,6 +680,28 @@
                         android:paddingTop="3dp"
                         android:text="@string/title_download" />
                 </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/gamelist_button_canceldownload"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="#00ffffff"
+                        app:srcCompat="@drawable/ic_cancel_black_24dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="3dp"
+                        android:text="@string/tips_no" />
+                </LinearLayout>
+
 
             </LinearLayout>
 

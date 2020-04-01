@@ -67,6 +67,9 @@ public class TipperListAdapter extends BaseAdapter {
             case 4:
                 tips = viewHolder.context.getString(R.string.tipper_warn_runtime_notinstall);
                 break;
+            case 5:
+                tips = viewHolder.context.getString(R.string.tipper_warn_memory_notstable);
+                break;
             default:
                 break;
         }

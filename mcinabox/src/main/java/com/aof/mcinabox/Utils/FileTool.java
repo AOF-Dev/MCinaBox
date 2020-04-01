@@ -283,4 +283,37 @@ public class FileTool {
         return  filesname;
     }
 
+    /**【删除某一文件夹和其下的所有文件及文件夹】**/
+    public static void deleteDir(String dirPath)
+    {
+        File file = new File(dirPath);
+        if(file.isFile())
+        {
+            file.delete();
+        }else
+        {
+            File[] files = file.listFiles();
+            if(files == null)
+            {
+                file.delete();
+            }else
+            {
+                for (int i = 0; i < files.length; i++)
+                {
+                    deleteDir(files[i].getAbsolutePath());
+                }
+                file.delete();
+            }
+        }
+    }
+
+    public static boolean makeFloder(String dirPath){
+        File dir = new File(dirPath);
+        if (!dir.exists()){
+            return dir.mkdir();
+        }else{
+            return false;
+        }
+    }
+
 }

@@ -21,6 +21,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -40,10 +41,12 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aof.mcinabox.Keyboard.GameButton;
 import com.aof.mcinabox.Launcher.LauncherSettingModel;
 import com.aof.mcinabox.RuntimePack.AnaliesRuntimeJson;
 import com.aof.mcinabox.Tipper.TipperListAdapter;
 import com.aof.mcinabox.Tipper.TipperListBean;
+import com.aof.mcinabox.Utils.Download.Downloader;
 import com.aof.mcinabox.Utils.FileTool;
 import com.aof.mcinabox.Utils.MemoryUtils;
 import com.aof.mcinabox.Utils.PathTool;
@@ -94,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     public Spinner setting_downloadtype, setting_keyboard, spinner_choice_version,spinner_runtimepacks;
     public Switch setting_notcheckJvm, setting_notcheckMinecraft;
     public LinearLayout[] launcherBts2;
-    public LinearLayout gamelist_button_reflash, gamelist_button_installnewgame, gamelist_button_backfrom_installnewversion, gamelist_button_setting, main_button_startgame, gamelist_button_download, user_button_adduser, gamelist_button_reflash_locallist, user_button_reflash_userlist;
+    public LinearLayout gamelist_button_reflash, gamelist_button_installnewgame, gamelist_button_backfrom_installnewversion, gamelist_button_setting, main_button_startgame, gamelist_button_download, user_button_adduser, gamelist_button_reflash_locallist, user_button_reflash_userlist,gamelist_button_canceldownload;
     public View[] launcherLins;
     public View layout_user, layout_gamelist, layout_gameselected, layout_gamedir, layout_launchersetting, layout_gamelist_installversion, layout_gamelist_setting, layout_startgame;
     public ListView listview_minecraft_manifest, listview_user, listView_localversion, listView_tipper;
@@ -171,11 +174,12 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         gamelist_button_backfrom_installnewversion = findViewById(R.id.gamelist_button_backfrom_installnewversion);
         gamelist_button_setting = findViewById(R.id.gamelist_button_setting);
         gamelist_button_download = findViewById(R.id.gamelist_button_download);
+        gamelist_button_canceldownload = findViewById(R.id.gamelist_button_canceldownload);
         main_button_startgame = findViewById(R.id.main_button_startgame);
         user_button_adduser = findViewById(R.id.layout_user_adduser);
         user_button_reflash_userlist = findViewById(R.id.layout_user_reflash_userlist);
         gamelist_button_reflash_locallist = findViewById(R.id.gamelist_button_reflash_locallist);
-        launcherBts2 = new LinearLayout[]{main_button_startgame, gamelist_button_download, gamelist_button_reflash, gamelist_button_installnewgame, gamelist_button_backfrom_installnewversion, gamelist_button_setting, user_button_adduser, user_button_reflash_userlist, gamelist_button_reflash_locallist};
+        launcherBts2 = new LinearLayout[]{main_button_startgame,gamelist_button_canceldownload , gamelist_button_download, gamelist_button_reflash, gamelist_button_installnewgame, gamelist_button_backfrom_installnewversion, gamelist_button_setting, user_button_adduser, user_button_reflash_userlist, gamelist_button_reflash_locallist};
         for (LinearLayout button : launcherBts2) {
             button.setOnClickListener(listener);
         }
@@ -258,6 +262,12 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         //载入启动器配置文件
         initLauncher();
 
+        //添加无媒体文件标签
+        SetMCinaBoxNoMedia();
+
+        //删除tmp文件夹
+        RemoveTmpFloder();
+
         //执行自动刷新
         timer_tipper.schedule(TipperTask,1000,3000);
 
@@ -274,9 +284,9 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.toolbar_action1:
+            /*case R.id.toolbar_action1:
                 //ToolBar菜单的按键监听
-                break;
+                break;*/
         }
         return super.onOptionsItemSelected(item);
     }
@@ -342,6 +352,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                     break;
                 case R.id.gamelist_button_installnewgame:
                     SetOnlyVisibleTargetView(layout_gamelist_installversion);
+                    ReflashOnlineGameListWhenClick();
                     main_text_showstate.setText(getString(R.string.title_install_newversion) + " - " + getString(R.string.main_text_gamelist));
                     break;
                 case R.id.gamelist_button_backfrom_installnewversion:
@@ -415,6 +426,9 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 case R.id.toolbar_button_taskinfo:
                     ShowPopupTipperUnderView(arg0);
                     break;
+                case R.id.gamelist_button_canceldownload:
+                    CancelAllDownloadTask();
+                    break;
                 default:
                     break;
             }
@@ -455,6 +469,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             return;
         }
         Toast.makeText(this, getString(R.string.tips_online_version_downloadstart) + " " + targetVer.getId(), Toast.LENGTH_SHORT).show();
+        //下载时禁止多次点击.
+        gamelist_button_download.setClickable(false);
         taskId = downloadTask.DownloadMinecraftVersionJson(targetVer.getId(), targetVer.getUrl(), this);
         listener2(taskId);
         selectedVersion = targetVer;
@@ -487,6 +503,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     //可以获取minecraft游戏资源文件
     //请保证使用前存在对应的资源索引文件
     private void DownloadVersionAssets() {
+        gamelist_button_download.setClickable(true);
         DownloadMinecraft downloadTask = new DownloadMinecraft(GetDownloadServerUrl(setting_downloadtype.getSelectedItem().toString(), 0), GetDownloadServerUrl(setting_downloadtype.getSelectedItem().toString(), 1), DATA_PATH);
         ModelMinecraftAssetsJson assets = new AnaliesMinecraftAssetJson().getModelMinecraftAssetsJson(downloadTask.getMINECRAFT_ASSETS_DIR() + "indexes/" + selectedVersionJson.getAssetIndex().getId() + ".json");
         Set<String> keySets = assets.getObjects().keySet();
@@ -640,6 +657,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             public void onReceive(Context context, Intent intent) {
                 long ID = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
                 if (ID == Id) {
+                    //下载依赖库后允许再次点击按钮
                     Thread syncTask = new Thread() {
                         @Override
                         public void run() {
@@ -794,7 +812,12 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         //给模板对象设定参数
         settingModel.setDownloadType((String) setting_downloadtype.getSelectedItem());
         settingModel.setKeyboard((String) setting_keyboard.getSelectedItem());
-        configurations.setMaxMemory(Integer.parseInt((String) editText_maxMemory.getText().toString()));
+
+        if(editText_maxMemory.getText().toString().equals("")){
+            configurations.setMaxMemory(0);
+        }else{
+            configurations.setMaxMemory(Integer.parseInt((String) editText_maxMemory.getText().toString()));
+        }
         configurations.setJavaArgs(editText_javaArgs.getText().toString());
         configurations.setMinecraftArgs(editText_minecraftArgs.getText().toString());
         configurations.setNotCheckGame(setting_notcheckMinecraft.isChecked());
@@ -1295,6 +1318,13 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 }
             }
 
+            //检查内存大小设置是否正确
+            if(!editText_maxMemory.getText().toString().equals("") && Integer.parseInt((String) editText_maxMemory.getText().toString()) >= 128 && Integer.parseInt((String) editText_maxMemory.getText().toString()) <= 1024){
+                //nothing
+            }else{
+                tip_indexs.add(5);
+            }
+
             if(User_isSelected && Keyboard_isSelected && Minecraft_isSelected && Runtime_isImported ){
                 if(listView_tipper.getAdapter() == null || listView_tipper.getAdapter().getCount() != 0){
                     tipslist = new ArrayList<TipperListBean>(){};
@@ -1357,12 +1387,15 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                     break;
                 case 5:
                     Toast.makeText(getApplication(), getString(R.string.tips_runtime_installing), Toast.LENGTH_SHORT).show();
+                    ImportRuntime.setClickable(false);
                     break;
                 case 6:
                     Toast.makeText(getApplication(), getString(R.string.tips_runtime_install_success), Toast.LENGTH_SHORT).show();
+                    ImportRuntime.setClickable(true);
                     break;
                 case 7:
                     Toast.makeText(getApplication(), getString(R.string.tips_runtime_install_fail) + " " + getString(R.string.tips_runtime_install_fail_exeable), Toast.LENGTH_SHORT).show();
+                    ImportRuntime.setClickable(true);
                     break;
             }
             super.handleMessage(msg);
@@ -1381,6 +1414,42 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
     public void GetAvailableMemories(){
         ((TextView)findViewById(R.id.game_setting_text_memory)).setText(MemoryUtils.getTotalMemory(getApplication()));
+    }
+
+    public void SetMCinaBoxNoMedia(){
+        File file = new File(MCINABOX_DATA_PUBLIC + "/.nomedia");
+        File file2 = new File(MCINABOX_DATA_PRIVATE + "/.nomedia");
+        if(!file.exists()){
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if(!file2.exists()){
+            try {
+                file2.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    public void RemoveTmpFloder(){
+        FileTool.deleteDir(MCINABOX_TEMP);
+        FileTool.makeFloder(MCINABOX_TEMP);
+    }
+
+    public void ReflashOnlineGameListWhenClick(){
+        if(listview_minecraft_manifest.getAdapter() == null){
+            gamelist_button_reflash.performClick();
+        }else{
+            //nothing
+        }
+    }
+
+    public void CancelAllDownloadTask(){
+        Downloader downloader = new Downloader();
+        downloader.CancelAllDownloadTask(this);
     }
 
 }

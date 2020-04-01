@@ -116,16 +116,9 @@ public class DownloadMinecraft {
 
         //Toast.makeText(context,"执行版本信息更新",Toast.LENGTH_LONG).show();
 
-        //先判断文件是否存在
-        //若存在则删掉再下载
-        File file=new File(filePath);
-        if(file.exists()){
-            file.delete();
-        }
         //执行下载操作
         Downloader downloader = new Downloader();
         taskId = downloader.FileDownloader(context,savePath,fileName,fileUrl);
-
         return taskId;
     }
 
@@ -134,12 +127,12 @@ public class DownloadMinecraft {
         String fileUrl = url;
         String fileName = id + ".json";
         String savePath = getDOWNLOAD_VERSION_DIR()+id+"/";
-        String filePath = getMINECRAFT_VERSION_DIR()+fileName;
+        String filePath = getMINECRAFT_VERSION_DIR()+ id + "/" + fileName;
         long taskId;
 
         File file = new File(filePath);
         if(file.exists()){
-            file.delete();
+            return -1;
         }
         Downloader downloader = new Downloader();
         taskId = downloader.FileDownloader(context,savePath,fileName,fileUrl);
@@ -150,12 +143,12 @@ public class DownloadMinecraft {
         String fileUrl = url;
         String fileName = id + ".jar";
         String savePath = getDOWNLOAD_VERSION_DIR() + id + "/";
-        String filePath = getMINECRAFT_VERSION_DIR() + fileName;
+        String filePath = getMINECRAFT_VERSION_DIR() + id + "/" + fileName;
         long taskId;
 
         File file = new File(filePath);
         if(file.exists()){
-            file.delete();
+            return -1;
         }
         Downloader downloade = new Downloader();
         taskId = downloade.FileDownloader(context,savePath,fileName,fileUrl);
@@ -170,7 +163,6 @@ public class DownloadMinecraft {
         long taskId =0 ;
 
         //TODO:格式化传递的字符串，使其符合下载器的接受标准
-        //TODO:功能测试
 
         String editSavePath = "";
         String editFileName = "";
@@ -190,14 +182,13 @@ public class DownloadMinecraft {
             editFileName += path.charAt(a);
         }
 
+        filePath = getMINECRAFT_LIBRARIES_DIR() + editSavePath + "/" + editFileName;
         editSavePath = getDOWNLOAD_LIBRARIES_DIR() + editSavePath +"/";
-        filePath = getMINECRAFT_LIBRARIES_DIR() + editSavePath + editFileName;
 
         File file = new File(filePath);
         if(file.exists()){
-            file.delete();
+            return -1;
         }
-
         //Toast.makeText(context,"开始下载 "+editFileName,Toast.LENGTH_SHORT).show();
 
         Downloader downloader = new Downloader();
@@ -212,6 +203,11 @@ public class DownloadMinecraft {
         String filePath = getMINECRAFT_ASSETS_DIR() + "indexes/" + fileName;
         String savePath = getDOWNLOAD_ASSETS_DIR() + "indexes/";
         long taskId;
+
+        File file = new File(filePath);
+        if(file.exists()){
+            return -1;
+        }
 
         Downloader downloader = new Downloader();
         taskId = downloader.FileDownloader(context,savePath,fileName,fileUrl);
@@ -228,6 +224,11 @@ public class DownloadMinecraft {
         String filePath = getMINECRAFT_ASSETS_DIR() + "objects/" + tip + "/" + fileName;
         String savePath = getDOWNLOAD_ASSETS_DIR() + "objects/" + tip + "/";
         long taskId;
+
+        File file = new File(filePath);
+        if(file.exists()){
+            return -1;
+        }
 
         Downloader downloader = new Downloader();
         taskId = downloader.FileDownloader(context,savePath,fileName,fileUrl);

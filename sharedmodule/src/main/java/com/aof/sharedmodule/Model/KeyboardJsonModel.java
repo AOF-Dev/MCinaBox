@@ -4,8 +4,8 @@ public class KeyboardJsonModel {
     private String KeyName;
     private int KeySizeH;
     private int KeySizeW;
-    private int KeyLX;
-    private int KeyLY;
+    private float KeyLX;
+    private float KeyLY;
     private String KeyMain;
     private String SpecialOne;
     private String SpecialTwo;
@@ -23,7 +23,7 @@ public class KeyboardJsonModel {
         super();
     }
 
-    public KeyboardJsonModel(String keyName, int keySizeW, int keySizeH, int keyLX, int keyLY, String keyMain, String specialOne, String specialTwo, boolean isAutoKeep, boolean isHide, boolean isMult, int mainPos, int specialOnePos, int specialTwoPos, String colorhex, int radius) {
+    public KeyboardJsonModel(String keyName, int keySizeW, int keySizeH, float keyLX, float keyLY, String keyMain, String specialOne, String specialTwo, boolean isAutoKeep, boolean isHide, boolean isMult, int mainPos, int specialOnePos, int specialTwoPos, String colorhex, int radius) {
         super();
         KeyName = keyName;
         KeySizeH = keySizeH;
@@ -72,19 +72,19 @@ public class KeyboardJsonModel {
         KeySizeW = keySizeW;
     }
 
-    public int getKeyLX() {
+    public float getKeyLX() {
         return KeyLX;
     }
 
-    public void setKeyLX(int keyLX) {
+    public void setKeyLX(float keyLX) {
         KeyLX = keyLX;
     }
 
-    public int getKeyLY() {
+    public float getKeyLY() {
         return KeyLY;
     }
 
-    public void setKeyLY(int keyLY) {
+    public void setKeyLY(float keyLY) {
         KeyLY = keyLY;
     }
 
