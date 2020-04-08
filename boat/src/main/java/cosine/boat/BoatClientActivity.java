@@ -703,7 +703,7 @@ public class BoatClientActivity extends NativeActivity  implements View.OnClickL
                     Log.e("OnTouchCrossKey","Release Index: "+temp);
                     mInputEventSender.setKey(temp,false,0);
 
-                    //TODO:时序
+                    //时序
                     try {
                         Thread.sleep(0);
                     } catch (InterruptedException e) {
@@ -933,7 +933,7 @@ public class BoatClientActivity extends NativeActivity  implements View.OnClickL
                 Log.e("DnOrUpInput", "Catch Index: " + temp);
                 mInputEventSender.setKey(temp, true, 0);
 
-                //TODO:时序
+                //时序
                 try {
                     Thread.sleep(0);
                 } catch (InterruptedException e) {
@@ -949,7 +949,7 @@ public class BoatClientActivity extends NativeActivity  implements View.OnClickL
                 Log.e("DnOrUpInput","Release Index: "+temp);
                 mInputEventSender.setKey(temp,false,0);
 
-                //TODO:时序
+                //时序
                 try {
                     Thread.sleep(0);
                 } catch (InterruptedException e) {
@@ -1058,7 +1058,7 @@ public class BoatClientActivity extends NativeActivity  implements View.OnClickL
 				Log.e("JoyStick","Release Index " + temp);
 				mInputEventSender.setKey(temp,false,0);
 
-                //TODO:时序
+                //时序
                 try {
                     Thread.sleep(0);
                 } catch (InterruptedException e) {
@@ -1118,37 +1118,10 @@ public class BoatClientActivity extends NativeActivity  implements View.OnClickL
 			//捕获模式
 			switch(p1.getAction()){
 				case MotionEvent.ACTION_DOWN:
-					/*TOUCH_DOWN_TIME = p1.getDownTime();
-					if(layoutsPos.containsKey(touchpad)){
-						layoutsPos.remove(touchpad);
-						layoutsPos.put(touchpad,new int[] {(int) p1.getRawX(),(int) p1.getRawY()});
-					}else{
-                        layoutsPos.put(touchpad,new int[] {(int) p1.getRawX(),(int) p1.getRawY()});
-                    }*/
 					break;
 				case MotionEvent.ACTION_MOVE:
 					TOUCH_IS_MOVED = true;
-					//int[] temp = layoutsPos.get(touchpad);
-					/*if(!TOUCH_LONG_APPLY && !TOUCH_IS_OUTLIMITION) {
-						if (Math.abs(temp[0] - p1.getRawX()) >= MAX_MOVE_LIMITION && Math.abs(temp[1] - p1.getRawY()) >= MAX_MOVE_LIMITION) {
-							Log.e("Location","X轴偏移: " + Math.abs(temp[0] - p1.getRawX()) + " Y轴偏移: " + Math.abs(temp[1] - p1.getRawY()));
-							Log.e("Screen","触摸位置超出限制！");
-							TOUCH_IS_OUTLIMITION = true;
-						} else {
-							Log.e("Location","X轴偏移: " + Math.abs(temp[0] - p1.getRawX()) + " Y轴偏移: " + Math.abs(temp[1] - p1.getRawY()));
-                            Log.e("Screen","触摸位置未超出限制！");
-							TOUCH_IS_OUTLIMITION = false;
-						}
-						if(p1.getEventTime() - TOUCH_DOWN_TIME > MAX_CLICK_TIME){
-                            Log.e("Screen","触摸达到长按阀值！");
-							TOUCH_IS_LONGCLICK = true;
-						}
-						if(TOUCH_IS_LONGCLICK && !TOUCH_IS_OUTLIMITION){
-                            Log.e("Screen","长按事件被激活！");
-                            //mInputEventSender.setMouseButton((byte)1,true);
-						    TOUCH_LONG_APPLY = true;
-                        }
-					}*/
+
 					break;
 				case MotionEvent.ACTION_UP:
 					//TOUCH_UP_TIME = p1.getEventTime();

@@ -13,13 +13,15 @@ android {
         minSdkVersion 21
         targetSdkVersion 21
         versionCode 1
-        versionName '0.1.1'
+        versionName '0.1.2'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            debuggable = true
+            jniDebuggable = false
         }
     }
     lintOptions{
@@ -35,6 +37,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.github.shixiuwen:colorpicker:v1.0.3'
     implementation 'com.github.MasayukiSuda:BubbleLayout:v1.2.1'
+    implementation 'com.liulishuo.filedownloader:library:1.7.7'
     implementation project(path: ':sharedmodule')
     implementation project(path: ':boat')
 }

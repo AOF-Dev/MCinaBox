@@ -48,7 +48,7 @@
                 android:id="@+id/user_text_userstate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="离线模式" />
+                android:text="@string/title_offline" />
         </LinearLayout>
 
         <Button

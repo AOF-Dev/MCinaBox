@@ -26,7 +26,6 @@
             android:text="@string/app_version"
             android:textColor="@color/puredark"
             android:textSize="15sp" />
-
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -55,7 +54,12 @@
                 android:layout_height="20dp"
                 android:layout_marginEnd="5dp"
                 android:background="@drawable/ic_home_black_24dp" />
-
+            <Button
+                android:id="@+id/toolbar_button_language"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/ic_language_black_24dp" />
             <Button
                 android:id="@+id/toolbar_button_reflash"
                 android:layout_width="20dp"
@@ -68,8 +72,6 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:background="@drawable/ic_info_outline_blue_500_24dp" />
-
-
 
         </LinearLayout>
 
@@ -320,7 +322,7 @@
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:visibility="invisible"
+                android:visibility="gone"
                 android:layout_height="60dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="10dp"
@@ -680,28 +682,6 @@
                         android:paddingTop="3dp"
                         android:text="@string/title_download" />
                 </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/gamelist_button_canceldownload"
-                    android:visibility="gone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="#00ffffff"
-                        app:srcCompat="@drawable/ic_cancel_black_24dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="3dp"
-                        android:text="@string/tips_no" />
-                </LinearLayout>
-
 
             </LinearLayout>
 
@@ -1381,24 +1361,10 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/tips_China"
-                        android:textSize="10sp"
-                        android:textColor="@color/puredark"/>
-
-                </LinearLayout>
-
             </LinearLayout>
 
         </LinearLayout>
+
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

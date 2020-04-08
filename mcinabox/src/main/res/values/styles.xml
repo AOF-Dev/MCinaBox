@@ -8,9 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="ConfigDialog_editor" parent="Theme.AppCompat.Dialog">
+    <style name="ConfigDialog_editor" parent="Theme.AppCompat.Light.Dialog">
         <!-- 背景颜色及透明程度 -->
-        <item name="android:windowBackground">@color/dialogBackground</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
         <!-- 是否半透明 -->
         <item name="android:windowIsTranslucent">true</item>
         <!-- 是否没有标题 -->
@@ -20,7 +20,9 @@
         <!-- 是否背景模糊 -->
         <item name="android:backgroundDimEnabled">true</item>
         <!-- 设置背景模糊的透明度-->
-        <item name="android:backgroundDimAmount">0.1</item>
+        <item name="android:backgroundDimAmount">0.4</item>
+        <!-- 是否点击外部不消失 -->
+        <item name="android:windowCloseOnTouchOutside">false</item>
     </style>
 
 </resources>

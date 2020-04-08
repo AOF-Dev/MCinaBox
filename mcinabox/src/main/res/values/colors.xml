@@ -4,5 +4,5 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="puredark">#000000</color>
-    <color name="dialogBackground">#59A0A0A0</color>
+    <color name="dialogBackground">#00FFFFFF</color>
 </resources>

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="300dp"
     android:layout_height="wrap_content"
-    android:background="@drawable/background_layout_item_alpha"
+    android:background="@drawable/background_dialog_alpha"
     android:orientation="vertical">
 
     <ScrollView
@@ -33,7 +33,8 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="60dp"
+                    android:layout_width="100dp"
+                    android:textColor="@color/puredark"
                     android:layout_height="wrap_content"
                     android:text="@string/tips_button_name" />
 
@@ -49,13 +50,15 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="60dp"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/puredark"
                     android:text="@string/tips_button_location" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/puredark"
                     android:text="@string/tips_button_loaction_x" />
 
                 <EditText
@@ -68,6 +71,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
+                    android:textColor="@color/puredark"
                     android:text="@string/tips_button_loaction_y" />
 
                 <EditText
@@ -84,8 +88,9 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="60dp"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/puredark"
                     android:text="@string/tips_button_mainkey" />
 
                 <Spinner
@@ -117,13 +122,15 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="60dp"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/puredark"
                     android:text="@string/tips_button_size" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/puredark"
                     android:text="@string/tips_button_size_width" />
 
                 <EditText
@@ -137,6 +144,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
+                    android:textColor="@color/puredark"
                     android:text="@string/tips_button_size_height" />
 
                 <EditText
@@ -157,6 +165,7 @@
                 <TextView
                     android:layout_width="60dp"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/puredark"
                     android:text="@string/tips_button_color" />
 
                 <EditText
@@ -187,6 +196,7 @@
                     android:id="@+id/dialog_keycorner"
                     android:layout_width="60dp"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/puredark"
                     android:text="@string/tips_button_corner_size" />
 
                 <TextView
@@ -226,8 +236,9 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="60dp"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/puredark"
                     android:text="@string/tips_button_autokeep" />
 
                 <CheckBox
@@ -244,8 +255,9 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="60dp"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/puredark"
                     android:text="@string/tips_button_hide" />
 
                 <CheckBox
@@ -278,8 +290,9 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="60dp"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/puredark"
                     android:text="@string/tips_button_combine" />
 
                 <CheckBox
@@ -299,13 +312,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
+                    android:textColor="@color/puredark"
                     android:text="@string/tips_button_combine_one" />
 
                 <Spinner
                     android:id="@+id/dialog_key_specialone"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
-                    android:entries="@array/keymap_special_arry"
+                    android:entries="@array/keymap_main_array"
                     android:textSize="10sp" />
 
                 <TextView
@@ -313,13 +327,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
+                    android:textColor="@color/puredark"
                     android:text="@string/tips_button_combine_two" />
 
                 <Spinner
                     android:id="@+id/dialog_key_specialtwo"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
-                    android:entries="@array/keymap_special_arry"
+                    android:entries="@array/keymap_main_array"
                     android:textSize="10sp" />
             </LinearLayout>
         </LinearLayout>
@@ -345,7 +360,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:layout_marginBottom="2dp"
-        android:background="@drawable/background_layout_item"
         android:orientation="horizontal">
 
         <Button
@@ -353,6 +367,9 @@
             android:layout_width="60dp"
             android:layout_height="40dp"
             android:layout_marginStart="10dp"
+            android:layout_gravity="center"
+            android:background="@drawable/background_button"
+            android:textColor="@color/colorAccent"
             android:text="@string/tips_ok" />
 
         <TextView
@@ -365,6 +382,9 @@
             android:layout_width="60dp"
             android:layout_height="40dp"
             android:layout_marginEnd="10dp"
+            android:layout_gravity="center"
+            android:background="@drawable/background_button"
+            android:textColor="@color/colorAccent"
             android:text="@string/tips_no" />
 
     </LinearLayout>

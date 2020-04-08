@@ -23,10 +23,10 @@ public class LauncherActivity extends Activity{
 
         //初始化日志
         //【release版暂时不开启】
-        /*
+
         final String logPath = BOAT_HOME + "/log.txt";
         Logcat.initializeOutOfProcess(this, logPath, LogcatService.class);
-         */
+
 
         final String reportPath = BOAT_HOME + "/crash.txt";
         System.out.println("Crash report: " + reportPath);

@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="250dp"
     android:layout_height="wrap_content"
-    android:background="@drawable/background_layout_item_alpha">
+    android:background="@drawable/background_dialog_alpha">
 
     <com.shixia.colorpickerview.ColorPickerView
         android:id="@+id/cpv_color"
@@ -21,6 +21,9 @@
             android:layout_width="60dp"
             android:layout_height="40dp"
             android:layout_marginLeft="10dp"
+            android:background="@drawable/background_button"
+            android:layout_gravity="center"
+            android:textColor="@color/colorAccent"
             android:text="@string/tips_ok"/>
         <TextView
             android:layout_width="0dp"
@@ -31,6 +34,9 @@
             android:layout_width="60dp"
             android:layout_height="40dp"
             android:layout_marginRight="10dp"
+            android:background="@drawable/background_button"
+            android:layout_gravity="center"
+            android:textColor="@color/colorAccent"
             android:text="@string/tips_no"/>
 
     </LinearLayout>

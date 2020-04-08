@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="250dp"
-    android:layout_height="150dp"
-    android:background="@drawable/background_layout_item_alpha">
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_dialog_noalpha">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -26,6 +26,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/puredark"
                 android:text="@string/title_filename"/>
             <EditText
                 android:id="@+id/dialog_edittext_modelname"
@@ -53,10 +54,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColorHint="@color/puredark"
                 android:text="@string/tips_keyboard_path"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/puredark"
                 android:text="私有目录+/keyboard"
                 android:textIsSelectable="true"/>
         </LinearLayout>
@@ -77,18 +80,25 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal">
             <Button
                 android:id="@+id/dialog_button_save"
                 android:layout_width="60dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="10dp"
+                android:background="@drawable/background_button"
+                android:textColor="@color/colorAccent"
+                android:layout_gravity="center"
                 android:text="@string/tips_ok"/>
             <Button
                 android:id="@+id/dialog_button_cancelsave"
                 android:layout_width="60dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="110dp"
+                android:background="@drawable/background_button"
+                android:textColor="@color/colorAccent"
+                android:layout_gravity="center"
                 android:text="@string/tips_no"/>
         </LinearLayout>
 

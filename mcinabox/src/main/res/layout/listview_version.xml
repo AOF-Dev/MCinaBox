@@ -34,7 +34,7 @@
             android:layout_marginLeft="2dp"
             android:textSize="15sp"
             android:textColor="@color/puredark"
-            android:text="游戏版本:"/>
+            android:text="@string/title_version"/>
         <TextView
             android:id="@+id/versionlist_text_versionId"
             android:layout_width="0dp"

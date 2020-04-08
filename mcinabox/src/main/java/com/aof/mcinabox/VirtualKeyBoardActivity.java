@@ -1,5 +1,5 @@
 package com.aof.mcinabox;
-//yi 12 si 23
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -22,9 +22,10 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.aof.mcinabox.Utils.ColorUtils;
+import com.aof.mcinabox.utils.ColorUtils;
+import com.aof.mcinabox.launcher.json.KeyboardJson;
 import com.google.gson.Gson;
-import com.aof.mcinabox.Keyboard.*;
+import com.aof.mcinabox.launcher.keyboard.*;
 import com.shixia.colorpickerview.ColorPickerView;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,7 +41,6 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import static com.aof.mcinabox.DataPathManifest.*;
 
@@ -370,7 +370,7 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
                         reloadStantKey(targetButton);
                     }
                 }
-                ShowButtonInfoOnText(null,null,null);
+                ShowButtonInfoOnText(null,buttonInfo,null);
             }
             return true;
         }
@@ -435,9 +435,9 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
             return;
         }
 
-        ArrayList<KeyboardJsonModel> modelList = new ArrayList<KeyboardJsonModel>(){};
+        ArrayList<KeyboardJson> modelList = new ArrayList<KeyboardJson>(){};
         for(GameButton button : keyboardList){
-            modelList.add(new KeyboardJsonModel(button.getText().toString(),button.getKeySizeW(),button.getKeySizeH(),button.getKeyLX_dp(),button.getKeyLY_dp(),button.getKeyMain(),button.getSpecialOne(),button.getSpecialTwo(),button.isKeep(),button.isHide(),button.isMult(),button.getMainPos(),button.getSpecialOnePos(),button.getSpecialTwoPos(),button.getColorHex(),button.getCornerRadius()));
+            modelList.add(new KeyboardJson(button.getText().toString(),button.getKeySizeW(),button.getKeySizeH(),button.getKeyLX_dp(),button.getKeyLY_dp(),button.getKeyMain(),button.getSpecialOne(),button.getSpecialTwo(),button.isKeep(),button.isHide(),button.isMult(),button.getMainPos(),button.getSpecialOnePos(),button.getSpecialTwoPos(),button.getColorHex(),button.getCornerRadius()));
         }
 
         JSONArray jsonArray = new JSONArray();
@@ -474,12 +474,12 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
         try {
             inputStream = new FileInputStream(jsonFile);
             Reader reader = new InputStreamReader(inputStream);
-            KeyboardJsonModel[] jsonArray = new Gson().fromJson(reader, KeyboardJsonModel[].class);
-            List<KeyboardJsonModel> tempList1 = Arrays.asList(jsonArray);
-            ArrayList<KeyboardJsonModel> tempList2 = new ArrayList<KeyboardJsonModel>(tempList1);
+            KeyboardJson[] jsonArray = new Gson().fromJson(reader, KeyboardJson[].class);
+            List<KeyboardJson> tempList1 = Arrays.asList(jsonArray);
+            ArrayList<KeyboardJson> tempList2 = new ArrayList<KeyboardJson>(tempList1);
             if(tempList2.size() != 0){
                 Toast.makeText(this, getString(R.string.tips_load_success), Toast.LENGTH_SHORT).show();
-                for(KeyboardJsonModel targetModel : tempList2){
+                for(KeyboardJson targetModel : tempList2){
                     //这里采用了逐个添加
                     addStandKey(targetModel.getKeyName(),targetModel.getKeySizeW(),targetModel.getKeySizeH(),targetModel.getKeyLX(),targetModel.getKeyLY(),targetModel.getKeyMain(),targetModel.getSpecialOne(),targetModel.getSpecialTwo(),targetModel.isAutoKeep(),targetModel.isHide(),targetModel.isMult(),targetModel.getMainPos(),targetModel.getSpecialOnePos(),targetModel.getSpecialTwoPos(),targetModel.getColorhex(),targetModel.getCornerRadius());
                 }
@@ -533,24 +533,28 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
     }
 
     private boolean BeMoved;
+    private float[] buttonPos;
+    private float[] touchPos;
     private GameButton.OnTouchListener touchlistener = new GameButton.OnTouchListener(){
         @Override
         public boolean onTouch(View p1, MotionEvent p3){
             switch(p3.getAction()){
                 case MotionEvent.ACTION_DOWN:
                     ShowButtonInfoOnText((GameButton) p1,buttonInfo,p3);
+                    buttonPos = new float[]{p1.getX(),p1.getY()};
+                    touchPos = new float[]{p3.getRawX(),p3.getRawY()};
                     break;
                 case MotionEvent.ACTION_MOVE:
                     BeMoved = true;
                     ShowButtonInfoOnText((GameButton) p1,buttonInfo,p3);
-                    p1.setX(p3.getRawX() - (p1.getWidth() / 2));
-                    p1.setY(p3.getRawY() - (p1.getHeight() /2));
+                    p1.setX(buttonPos[0] + p3.getRawX() - touchPos[0] );
+                    p1.setY(buttonPos[1] + p3.getRawY() - touchPos[1] );
                     break;
                 case MotionEvent.ACTION_UP:
                     ShowButtonInfoOnText(null,buttonInfo,p3);
                     if(BeMoved){
-                        ((GameButton)p1).setKeyLX_dp(getDpFromPx(getApplication(),p3.getRawX() - (p1.getWidth() / 2)));
-                        ((GameButton)p1).setKeyLY_dp(getDpFromPx(getApplication(),p3.getRawY() - (p1.getHeight() /2)));
+                        ((GameButton)p1).setKeyLX_dp(getDpFromPx(getApplication(),buttonPos[0] + p3.getRawX() - touchPos[0]));
+                        ((GameButton)p1).setKeyLY_dp(getDpFromPx(getApplication(),buttonPos[1] + p3.getRawY() - touchPos[1] ));
                         removeKeyboard();
                         reflashKeyboard();
                         BeMoved = false;
@@ -570,7 +574,7 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
                     "自动保持: " + p1.isKeep() + " 隐藏: " + p1.isHide() + " 组合键: " + p1.isMult() + " 组合键一: " + p1.getSpecialOne() + " 组合键二: " + p1.getSpecialTwo()
                     );
         }else{
-            p2.setText("");
+            p2.setText(" ");
         }
     }
 

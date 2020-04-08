@@ -1,7 +1,9 @@
 package cosine.boat.version3;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
+import android.text.method.Touch;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.os.Bundle;
@@ -78,7 +80,7 @@ public class BoatClientActivity extends NativeActivity  implements View.OnClickL
 	private HashMap<Object,int[]> layoutsPos;
 	private CrossButton[] crosskeychildren;
 	private int[] tempCrossKey;
-	private CheckBox checkbox_qwertkeyboard,checkbox_crosskey,checkbox_mousekey,checkbox_virtualkeyboard,checkbox_otg,checkbox_joystick,checkbox_lock;
+	private CheckBox checkbox_qwertkeyboard,checkbox_crosskey,checkbox_mousekey,checkbox_virtualkeyboard,checkbox_otg,checkbox_joystick,checkbox_lock,checkbox_edittext;
 	private CheckBox[] toolerBarChildren;
 	private HorizontalScrollView SwitcherBar_container;
 	private ImageButton SwitcherBar_switcher;
@@ -90,6 +92,7 @@ public class BoatClientActivity extends NativeActivity  implements View.OnClickL
 	private Button qwertkeyboard_move;
 	private Button mousekey_move;
 	private Button crosskey_move;
+	private HashMap<GameButton,Boolean> autoKeep = new HashMap<GameButton,Boolean>();
 
 	private long TOUCH_DOWN_TIME;
 	private long TOUCH_UP_TIME;
@@ -373,7 +376,8 @@ public class BoatClientActivity extends NativeActivity  implements View.OnClickL
 		checkbox_joystick = SwitcherBar.findViewById(R.id.checkbox_Joystick);
 		checkbox_otg = SwitcherBar.findViewById(R.id.checkbox_Otg);
 		checkbox_lock = SwitcherBar.findViewById(R.id.checkbox_Lock);
-		toolerBarChildren = new CheckBox[]{checkbox_qwertkeyboard,checkbox_crosskey,checkbox_mousekey,checkbox_virtualkeyboard,checkbox_otg,checkbox_joystick,checkbox_lock};
+		checkbox_edittext = SwitcherBar.findViewById(R.id.checkbox_Edittext);
+		toolerBarChildren = new CheckBox[]{checkbox_qwertkeyboard,checkbox_crosskey,checkbox_mousekey,checkbox_virtualkeyboard,checkbox_otg,checkbox_joystick,checkbox_lock,checkbox_edittext};
 		SwitcherBar_container = SwitcherBar.findViewById(R.id.switchbar_container);
 		SwitcherBar_switcher = SwitcherBar.findViewById(R.id.switchbar_switcher);
 		SwitcherBar_switcher.setOnTouchListener(this);
@@ -440,19 +444,19 @@ public class BoatClientActivity extends NativeActivity  implements View.OnClickL
             }
         }
 
-        //设定CrossKey十字键的监听
-        for(int i = 0;i < ((LinearLayout)base.findViewById(R.id.CrossKey)).getChildCount();i++){
-            if(((LinearLayout)base.findViewById(R.id.CrossKey)).getChildAt(i) instanceof Button){
-                ((LinearLayout)base.findViewById(R.id.CrossKey)).getChildAt(i).setOnTouchListener(this);
-            }else{
-                for(int a = 0;a < ((LinearLayout)((LinearLayout)base.findViewById(R.id.CrossKey)).getChildAt(i)).getChildCount();a++){
-                    for(int b = 0;b< ((LinearLayout)(((LinearLayout)((LinearLayout)base.findViewById(R.id.CrossKey)).getChildAt(i)).getChildAt(a))).getChildCount();b++){
-                        ((LinearLayout)(((LinearLayout)((LinearLayout)base.findViewById(R.id.CrossKey)).getChildAt(i)).getChildAt(a))).getChildAt(b).setOnTouchListener(this);
-                        ((LinearLayout)(((LinearLayout)((LinearLayout)base.findViewById(R.id.CrossKey)).getChildAt(i)).getChildAt(a))).getChildAt(b).getBackground().setAlpha(100);
-                    }
-                }
-            }
-        }
+		//设定CrossKey十字键的监听
+		for(int i = 0;i < ((LinearLayout)base.findViewById(R.id.CrossKey)).getChildCount();i++){
+			if(((LinearLayout)base.findViewById(R.id.CrossKey)).getChildAt(i) instanceof Button){
+				((LinearLayout)base.findViewById(R.id.CrossKey)).getChildAt(i).setOnTouchListener(this);
+			}else{
+				for(int a = 0;a < ((LinearLayout)((LinearLayout)base.findViewById(R.id.CrossKey)).getChildAt(i)).getChildCount();a++){
+					for(int b = 0;b< ((LinearLayout)(((LinearLayout)((LinearLayout)base.findViewById(R.id.CrossKey)).getChildAt(i)).getChildAt(a))).getChildCount();b++){
+						((LinearLayout)(((LinearLayout)((LinearLayout)base.findViewById(R.id.CrossKey)).getChildAt(i)).getChildAt(a))).getChildAt(b).setOnTouchListener(this);
+						((LinearLayout)(((LinearLayout)((LinearLayout)base.findViewById(R.id.CrossKey)).getChildAt(i)).getChildAt(a))).getChildAt(b).getBackground().setAlpha(150);
+					}
+				}
+			}
+		}
 
 
         //显示布局到悬浮窗
@@ -538,18 +542,26 @@ public class BoatClientActivity extends NativeActivity  implements View.OnClickL
         return KeyButton;
     }
 
-    public static float getPxFromDp(Context context, float dpValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (dpValue * scale);
-    }
+	public static float getPxFromDp(Context context, float dpValue) {
+		final float scale = context.getResources().getDisplayMetrics().density;
+		return (float) (dpValue * scale + 0.5f);
+	}
 
-    public static float getDpFromPx(Context context, float pxValue){
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (pxValue / scale);
-    }
+	public static float getDpFromPx(Context context, float pxValue){
+		final float scale = context.getResources().getDisplayMetrics().density;
+		return ((float) ((pxValue - 0.5f)/scale))+1;
+	}
 
     private void OnTouchVirtualKeyboard(GameButton gameButton,MotionEvent p2){
         if(p2.getActionMasked() == MotionEvent.ACTION_DOWN){
+			if(gameButton.isKeep()){
+				if(autoKeep.containsKey(gameButton)){
+					autoKeep.remove(gameButton);
+					return;
+				}else{
+					autoKeep.put(gameButton,true);
+				}
+			}
             if(gameButton.isMult()){
                 Log.e("VirtualKey-Mult","KeyName: " + gameButton.getKeyMain() + " " + gameButton.getSpecialOne() + " " + gameButton.getSpecialTwo() +" KeyIndex: " + gameButton.getMainIndex() + " " + gameButton.getSpecialOneIndex() + " " + gameButton.getSpecialTwoIndex()  + " Status: " + "pressed");
                 BoatInputEventSender.setKey(gameButton.getMainIndex(), true, 0);
@@ -651,7 +663,7 @@ public class BoatClientActivity extends NativeActivity  implements View.OnClickL
                     Log.e("OnTouchCrossKey","Release Index: "+temp);
                     BoatInputEventSender.setKey(temp,false,0);
 
-                    //TODO:时序
+                    //时序
                     try {
                         Thread.sleep(0);
                     } catch (InterruptedException e) {
@@ -881,7 +893,7 @@ public class BoatClientActivity extends NativeActivity  implements View.OnClickL
                 Log.e("DnOrUpInput", "Catch Index: " + temp);
                 BoatInputEventSender.setKey(temp, true, 0);
 
-                //TODO:时序
+                //时序
                 try {
                     Thread.sleep(0);
                 } catch (InterruptedException e) {
@@ -897,7 +909,7 @@ public class BoatClientActivity extends NativeActivity  implements View.OnClickL
                 Log.e("DnOrUpInput","Release Index: "+temp);
                 BoatInputEventSender.setKey(temp,false,0);
 
-                //TODO:时序
+                //时序
                 try {
                     Thread.sleep(0);
                 } catch (InterruptedException e) {
@@ -970,6 +982,12 @@ public class BoatClientActivity extends NativeActivity  implements View.OnClickL
 					mousekey_move.setVisibility(View.INVISIBLE);
 					crosskey_move.setVisibility(View.INVISIBLE);
 				}
+			}else if(v == checkbox_edittext){
+				if(ischecked){
+					inputScanner.setVisibility(View.VISIBLE);
+				}else{
+					inputScanner.setVisibility(View.INVISIBLE);
+				}
 			}
 		}
 	};
@@ -1000,7 +1018,7 @@ public class BoatClientActivity extends NativeActivity  implements View.OnClickL
 				Log.e("JoyStick","Release Index " + temp);
 				BoatInputEventSender.setKey(temp,false,0);
 
-                //TODO:时序
+                //时序
                 try {
                     Thread.sleep(0);
                 } catch (InterruptedException e) {
@@ -1060,37 +1078,9 @@ public class BoatClientActivity extends NativeActivity  implements View.OnClickL
             //捕获模式
             switch(p1.getAction()){
                 case MotionEvent.ACTION_DOWN:
-					/*TOUCH_DOWN_TIME = p1.getDownTime();
-					if(layoutsPos.containsKey(touchpad)){
-						layoutsPos.remove(touchpad);
-						layoutsPos.put(touchpad,new int[] {(int) p1.getRawX(),(int) p1.getRawY()});
-					}else{
-                        layoutsPos.put(touchpad,new int[] {(int) p1.getRawX(),(int) p1.getRawY()});
-                    }*/
                     break;
                 case MotionEvent.ACTION_MOVE:
                     TOUCH_IS_MOVED = true;
-                    //int[] temp = layoutsPos.get(touchpad);
-					/*if(!TOUCH_LONG_APPLY && !TOUCH_IS_OUTLIMITION) {
-						if (Math.abs(temp[0] - p1.getRawX()) >= MAX_MOVE_LIMITION && Math.abs(temp[1] - p1.getRawY()) >= MAX_MOVE_LIMITION) {
-							Log.e("Location","X轴偏移: " + Math.abs(temp[0] - p1.getRawX()) + " Y轴偏移: " + Math.abs(temp[1] - p1.getRawY()));
-							Log.e("Screen","触摸位置超出限制！");
-							TOUCH_IS_OUTLIMITION = true;
-						} else {
-							Log.e("Location","X轴偏移: " + Math.abs(temp[0] - p1.getRawX()) + " Y轴偏移: " + Math.abs(temp[1] - p1.getRawY()));
-                            Log.e("Screen","触摸位置未超出限制！");
-							TOUCH_IS_OUTLIMITION = false;
-						}
-						if(p1.getEventTime() - TOUCH_DOWN_TIME > MAX_CLICK_TIME){
-                            Log.e("Screen","触摸达到长按阀值！");
-							TOUCH_IS_LONGCLICK = true;
-						}
-						if(TOUCH_IS_LONGCLICK && !TOUCH_IS_OUTLIMITION){
-                            Log.e("Screen","长按事件被激活！");
-                            //mInputEventSender.setMouseButton((byte)1,true);
-						    TOUCH_LONG_APPLY = true;
-                        }
-					}*/
                     break;
                 case MotionEvent.ACTION_UP:
                     //TOUCH_UP_TIME = p1.getEventTime();
