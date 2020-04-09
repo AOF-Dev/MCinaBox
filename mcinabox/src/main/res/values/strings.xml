@@ -1,15 +1,15 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <string name="main_text_nolog" translatable="false">Log.Hear</string>
-    <string name="main_text_gamelist">Game List</string>
+    <string name="main_text_gamelist">All Versions</string>
     <string name="main_text_gamedir">Current directory</string>
-    <string name="main_text_launchersetting">Starter Set</string>
+    <string name="main_text_launchersetting">Settings</string>
     <string name="main_text_launchercontrol">Virtual Keyboard Settings</string>
     <string name="main_text_defaultlayout">Home</string>
 
     <string name="app_name" translatable="false">MCinaBox</string>
-    <string name="app_version" translatable="false">v0.1.2-a</string>
-    <string name="app_about_dependent_info" translatable="false">BoatApp (CosineMath,MIT)\nGson (Google,Apache 2.0)\nJNDCrash (ivanarh,Apache-2.0)\nXZ for Java (Lasse Collin,Public Domain)\nGL4ES (pitSeb,MIT)\nOpenAL Soft (kcat,GPL-2.0)\nFileDownloader (lingochamp,Apache-2.0)\nBubbleLayout (MasayukiSuda)\nAndroidRocker (kongqw)\ncolorpicker (shixiuwen)</string>
+    <string name="app_version" translatable="false">v0.1.2</string>
+    <string name="app_about_dependent_info" translatable="false">BoatApp (CosineMath,MIT)\nGson (Google,Apache 2.0)\nJNDCrash (ivanarh,Apache-2.0)\nXZ for Java (Lasse Collin,Public Domain)\nGL4ES (pitiSeb,MIT)\nOpenAL Soft (kcat,GPL-2.0)\nFileDownloader (lingochamp,Apache-2.0)\nBubbleLayout (MasayukiSuda)\nAndroidRocker (kongqw)\ncolorpicker (shixiuwen)</string>
     <string name="app_copyright">This non-release version, only after a holiday AOF software development team members to use inside!</string>
     <string name="app_about_mcinabox">MCinaBox Minecraft Launcher is a free, open-source Minecraft launcher, allowing players quick and easy installation and management on Android devices running game. </string>
     <string name="app_about_copyright">copyright</string>
@@ -22,7 +22,7 @@
     <string name="app_about_copyright_info">MCinaBox Copyright © 2020 longjunyu.</string>
     <string name="app_about_developer_info">longjunyu (MCinaBox ljy122@qq.com)\nand all project contributors</string>
     <string name="app_about_contributor_info">No contributor</string>
-    <string name="app_about_thanks_info">CosineMath (BoatApp, https://github.com/CosineMath/) starter back-end support \ nbangbang93 (BMCLAPI, http://bmclapi2.bangbang93.com/)\nApp icon provider MC Red Bear \ nAOF software development team </string>
+    <string name="app_about_thanks_info">CosineMath (BoatApp, https://github.com/CosineMath/) launcher back-end support \ nbangbang93 (BMCLAPI, http://bmclapi2.bangbang93.com/)\nApp icon provider MC Red Bear \ nAOF software development team </string>
     <string name="app_about_details_info">Minecraft all copyright Mojang AB, the use of this software copyright issues arising, software producers are not responsible. </string>
     <string name="app_about_opensource_info">https://github.com/longjunyu2/MCinaBox (GPLv3 open-source agreement to comply with this project, please comply with open source license requirements)</string>
 
@@ -48,7 +48,7 @@
     <string name="title_install_newversion">Install version</string>
     <string name="title_install_gamepack">Install integrated package</string>
     <string name="title_setting_minecraft">Global Game Settings</string>
-    <string name="title_user_newuser">Adding new users</string>
+    <string name="title_user_newuser">Create new user</string>
     <string name="title_launcher">Launcher</string>
     <string name="title_gamedir">Game menu</string>
     <string name="title_game">Game</string>
@@ -81,6 +81,8 @@
     <string name="title_language" translatable="false">Language</string>
     <string name="title_version">Version:</string>
     <string name="title_offline">Offline</string>
+    <string name="title_warn">Warning</string>
+    <string name="title_unknown">Unknown</string>
 
     <string name="tips_button_loaction_x" translatable="false">X:</string>
     <string name="tips_button_loaction_y" translatable="false">Y:</string>
@@ -90,7 +92,7 @@
     <string name="tips_minecraft_setting_extra_javaargs">Java virtual machine parameters (do not fill)</string>
     <string name="tips_minecraft_setting_extra_mcargs">Minecraft additional parameters (do not fill)</string>
     <string name="tips_import_runtime">Please suffix .tar.xz local runtime into /sdcard/Android/data/com.aof.mcinabox/files/MCinaBox/runtimepack folder\nPage then select and import runtime startup settings</string>
-    <string name="tips_check_setting">Please complete the configuration starter</string>
+    <string name="tips_check_setting">Please complete the configuration for Launcher</string>
     <string name="tips_reflash_finish">Refresh complete</string>
     <string name="tips_online_version_reflash">Please refresh the list</string>
     <string name="tips_online_version_select">Please select a version</string>
@@ -100,7 +102,7 @@
     <string name="tips_online_version_nodata">No game inventory data</string>
     <string name="tips_launcher_init_fail">Start initialization failed</string>
     <string name="tips_launcher_save_fail">Initiator Configuration saving failed</string>
-    <string name="tips_launcher_new_fail">Starter configuration template creation failed</string>
+    <string name="tips_launcher_new_fail">Launcher configuration template creation failed</string>
     <string name="tips_launcher_new_success">Initiator configuration profile is created</string>
     <string name="tips_launcher_load_fail">Initiator Configuration failed to load</string>
     <string name="tips_launcher_load_bad">Startup configuration file is damaged</string>
@@ -112,7 +114,7 @@
     <string name="tips_runtime_install_success">Runtime installation was successful</string>
     <string name="tips_runtime_install_fail">Runtime installation fails</string>
     <string name="tips_runtime_install_fail_exeable">Reason: Failed to set permissions</string>
-    <string name="tips_ok">Determine</string>
+    <string name="tips_ok">OK</string>
     <string name="tips_no">Cancel</string>
     <string name="tips_button_name">Key name</string>
     <string name="tips_button_location">Location (Dp)</string>
@@ -157,6 +159,7 @@
     <string name="tips_download_assets_object">Downloading resource files …</string>
     <string name="tips_download_finish">Download Completed</string>
     <string name="tips_download_failed">Download failed</string>
+    <string name="tips_user_remove_warning">Confirm to delete this user?</string>
 
     <string name="tipper_warn_runtime_notinstall">Local runtime is not installed</string>
     <string name="tipper_warn_user_notselected">Not create or select user</string>

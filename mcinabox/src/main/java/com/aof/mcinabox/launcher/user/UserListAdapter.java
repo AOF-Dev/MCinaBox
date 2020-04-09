@@ -76,11 +76,11 @@ public class UserListAdapter extends BaseAdapter {
         }
         viewHolder.username.setText(userlist.get(position).getUser_name());
         if(userlist.get(position).getUser_model().equals("offline")){
-            viewHolder.userstate.setText("离线模式");
+            viewHolder.userstate.setText(viewHolder.context.getString(R.string.title_offline));
         }else if(userlist.get(position).getUser_model().equals("online")){
-            viewHolder.userstate.setText("在线模式");
+            viewHolder.userstate.setText(viewHolder.context.getString(R.string.title_online));
         }else{
-            viewHolder.userstate.setText("无法解析");
+            viewHolder.userstate.setText(viewHolder.context.getString(R.string.title_unknown));
         }
         viewHolder.removeuser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,11 +92,11 @@ public class UserListAdapter extends BaseAdapter {
                 //    设置Title的图标
                 //builder.setIcon(R.drawable.ic_launcher);
                 //    设置Title的内容
-                builder.setTitle("警告");
+                builder.setTitle(viewHolder.context.getString(R.string.title_warn));
                 //    设置Content来显示一个信息
-                builder.setMessage("您确定要删除这个用户吗？");
+                builder.setMessage(viewHolder.context.getString(R.string.tips_user_remove_warning));
                 //    设置一个PositiveButton
-                builder.setPositiveButton("确定", new DialogInterface.OnClickListener()
+                builder.setPositiveButton(viewHolder.context.getString(R.string.tips_ok), new DialogInterface.OnClickListener()
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which)
@@ -106,7 +106,7 @@ public class UserListAdapter extends BaseAdapter {
                     }
                 });
                 //    设置一个NegativeButton
-                builder.setNegativeButton("取消", new DialogInterface.OnClickListener()
+                builder.setNegativeButton(viewHolder.context.getString(R.string.tips_no), new DialogInterface.OnClickListener()
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which)

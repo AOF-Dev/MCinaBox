@@ -159,4 +159,7 @@
     <string name="tips_download_failed">下载失败</string>
     <string name="title_version">游戏版本:</string>
     <string name="title_offline">离线模式</string>
+    <string name="title_unknown">未知</string>
+    <string name="title_warn">警告</string>
+    <string name="tips_user_remove_warning">你确定要删除当前用户吗？</string>
 </resources>

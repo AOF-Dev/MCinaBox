@@ -27,7 +27,7 @@
     <string name="title_minecraft_setting_basic">ベーシック設定</string>
     <string name="title_minecraft_setting_keyboard_layout">キーボード配列</string>
     <string name="title_minecraft_setting_memory_max">メモリ最大値 (MB)</string>
-    <string name="title_minecraft_setting_memory_hardware">物理メモリのサイズ:</string>
+    <string name="title_minecraft_setting_memory_hardware">空きメモリ:</string>
     <string name="title_minecraft_setting_profession">高度な設定</string>
     <string name="title_minecraft_setting_notcheck_jvm">JVMの互換性を無視する</string> <!--不检查JVM架构的兼容性 翻译为 忽略JVM架构的兼容性-->
     <string name="title_minecraft_setting_notcheck_mc">Minecraftの完全性を無視する</string> <!--不检查Minecraft的完整性 翻译为 忽略Minecraft架构的完整性-->
@@ -35,7 +35,7 @@
     <string name="title_refresh">更新する</string>
     <string name="title_download">ダウンロードする</string>
     <string name="title_downloader_selected_version">選択したゲームは: </string>
-    <string name="title_downloader_warn">如果长时间未显示列表，请手动点击"刷新"\n由于这版本调用了系统下载器，可能存在下载不稳定的情况，请自行根据状态栏进度判断下载状态。</string>
+    <string name="title_downloader_warn">長い間リストが表示されない場合は、手動で「更新する」をクリックしてください。</string>
     <string name="title_minecraft_version_stable">安定版</string>
     <string name="title_minecraft_version_snapshot">スナップショット</string>
     <string name="title_minecraft_version_old">古いバージョン</string> <!--采用官方翻译-->
@@ -140,7 +140,7 @@
     <string name="tips_keyboard_button_notfound">キーボード配列は必ず導入してください</string>		<!-- 模板不能为空 翻译为　键盘模板必须导入  -->
     <string name="tips_gamecheck_file_notfull">ファイルの完全性チェックが失敗しました。縂起動構成で完全性を無視するまたはこのバージョンを再ダウンロードしてください。</string>
     <string name="tips_gamecheck_platform_uncorrect">このランタイムパッケージは互換性がありません。縂起動構成でJVMの互換性を無視するまたは正しいランタイムパッケージを導入してください。</string>
-    <string name="tips_keyboard_config">ヒント1：クリックしてドラッグするとボタンを指の方向に移動させます。\nヒント：2.ボタンを長押ししてドラッグしないと、選択ボタンを編集または削除できます。</string>
+    <string name="tips_keyboard_config">ヒント1：クリックしてドラッグするとボタンを指の方向に移動させます。\nヒント2：ボタンを長押ししてドラッグしないと、選択ボタンを編集または削除できます。</string>
     <string name="tips_gamecheck_version_notfound">Forge使用する前に対応バージョンのMinecraftをダウンロードしてください</string>
     <string name="tips_gamecheck_jar_notfound">ゲームのメインファイルが不完全です。必要なjarファイルがありません</string>
 
@@ -158,6 +158,9 @@
     <string name="tips_download_failed">下载失败</string>
     <string name="title_version">ゲームバージョン:</string>
     <string name="title_offline">オフラインモード</string>
+    <string name="tips_user_remove_warning">本当に現在のユーザを削除しますか？</string>
+    <string name="title_unknown">不明</string>
+    <string name="title_warn">警告</string>
 
     <!-- 翻訳者wjyue2001 -->
 </resources>

@@ -83,8 +83,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="40dp"
-        android:paddingLeft="30dp"
-        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="0dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
         android:background="@drawable/background_layout_startgame"
@@ -93,7 +93,7 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="20dp"
             android:id="@+id/main_button_startgame"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -123,7 +123,7 @@
             android:layout_weight="1" />
         <Spinner
             android:id="@+id/spinner_choice_version"
-            android:layout_width="80dp"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"/>
 
@@ -174,9 +174,9 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/layout_button_background"
                     android:drawableStart="@drawable/steve_pic_2"
-                    android:drawablePadding="6dp"
+                    android:drawablePadding="5dp"
                     android:gravity="center_vertical"
-                    android:paddingStart="15dp"
+                    android:paddingStart="10dp"
                     android:paddingEnd="0dp"
                     android:text="@string/title_user" />
             </LinearLayout>

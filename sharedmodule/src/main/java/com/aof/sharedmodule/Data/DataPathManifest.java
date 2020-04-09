@@ -1,8 +1,5 @@
 package com.aof.sharedmodule.Data;
 
-//为避免循环依赖,且顾及到前后端适配的可扩展性
-//需要copy一份adapt包保持对象的一致性
-
 public class DataPathManifest {
 
     /**【全局目录清单】**/
@@ -40,7 +37,7 @@ public class DataPathManifest {
                 //Runtime
         RUNTIME_HOME = "/data/data/com.aof.mcinabox/app_runtime",
                 //版本信息
-        MCINABOX_VERSION = "0.1.2-a";
+        MCINABOX_VERSION = "0.1.2";
 
     /**【一个全局目录的数组】**/
     public static final String[] MCINABOX_ALLPATH = {
