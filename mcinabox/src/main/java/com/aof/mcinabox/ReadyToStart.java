@@ -203,14 +203,14 @@ public class ReadyToStart {
         ArrayList<String> DependentLibrariesPaths = new ArrayList<String>();
 
         if(forgeMode){
-            File jar = new File(minecraft_version_path + versionSetting.getId() + "/" + versionSetting.getId() + ".jar");
+            File jar = new File(minecraft_version_path + versionSetting.getInheritsFrom() + "/" + versionSetting.getInheritsFrom() + ".jar");
             String jarPath;
             if(jar.exists()){
-                jarPath = minecraft_version_path + versionSetting.getId() + "/" + versionSetting.getId() + ".jar";
+                jarPath = minecraft_version_path + versionSetting.getInheritsFrom() + "/" + versionSetting.getInheritsFrom() + ".jar";
             }else{
-                jarPath = minecraft_version_path + versionSetting.getInheritsFrom() + "/" + versionSettingS.getInheritsFrom() + ".jar";
+                jarPath = minecraft_version_path + versionSetting.getId() + "/" + versionSetting.getId() + ".jar";
             }
-            JVM_ClassPath_Info = JVM_ClassPath_Runtime + GetClassPathArgs(versionSetting.getLibraries()) + GetClassPathArgs(versionSettingS.getLibraries()) + jarPath;
+            JVM_ClassPath_Info = JVM_ClassPath_Runtime + GetClassPathArgs(versionSettingS.getLibraries()) + GetClassPathArgs(versionSetting.getLibraries()) + jarPath;
         }else{
             JVM_ClassPath_Info = JVM_ClassPath_Runtime + GetClassPathArgs(versionSetting.getLibraries()) + minecraft_version_path + versionSetting.getId() + "/" + versionSetting.getId() + ".jar";
         }
