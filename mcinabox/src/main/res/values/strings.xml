@@ -8,7 +8,7 @@
     <string name="main_text_defaultlayout">Home</string>
 
     <string name="app_name" translatable="false">MCinaBox</string>
-    <string name="app_version" translatable="false">v0.1.2</string>
+    <string name="app_version" translatable="false">v0.1.2-b</string>
     <string name="app_about_dependent_info" translatable="false">BoatApp (CosineMath,MIT)\nGson (Google,Apache 2.0)\nJNDCrash (ivanarh,Apache-2.0)\nXZ for Java (Lasse Collin,Public Domain)\nGL4ES (pitiSeb,MIT)\nOpenAL Soft (kcat,GPL-2.0)\nFileDownloader (lingochamp,Apache-2.0)\nBubbleLayout (MasayukiSuda)\nAndroidRocker (kongqw)\ncolorpicker (shixiuwen)</string>
     <string name="app_copyright">This non-release version, only after a holiday AOF software development team members to use inside!</string>
     <string name="app_about_mcinabox">MCinaBox Minecraft Launcher is a free, open-source Minecraft launcher, allowing players quick and easy installation and management on Android devices running game. </string>
@@ -21,7 +21,7 @@
     <string name="app_about_opensource">Open source</string>
     <string name="app_about_copyright_info">MCinaBox Copyright © 2020 longjunyu.</string>
     <string name="app_about_developer_info">longjunyu (MCinaBox ljy122@qq.com)\nand all project contributors</string>
-    <string name="app_about_contributor_info">No contributor</string>
+    <string name="app_about_contributor_info" translatable="false">Frank Ou\nMCredbear\nmiguelmazetto</string>
     <string name="app_about_thanks_info">CosineMath (BoatApp, https://github.com/CosineMath/) launcher back-end support \ nbangbang93 (BMCLAPI, http://bmclapi2.bangbang93.com/)\nApp icon provider MC Red Bear \ nAOF software development team </string>
     <string name="app_about_details_info">Minecraft all copyright Mojang AB, the use of this software copyright issues arising, software producers are not responsible. </string>
     <string name="app_about_opensource_info">https://github.com/longjunyu2/MCinaBox (GPLv3 open-source agreement to comply with this project, please comply with open source license requirements)</string>

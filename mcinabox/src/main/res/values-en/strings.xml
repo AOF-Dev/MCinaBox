@@ -16,8 +16,7 @@
 	<string name="app_about_opensource">Open source</string>
 	<string name="app_about_copyright_info">MCinaBox Copyright © 2020 longjunyu.</string>
 	<string name="app_about_developer_info">longjunyu (MCinaBox ljy122@qq.com)\nand all project contributors</string>
-	<string name="app_about_contributor_info">No contributor</string>
-	<string name="app_about_thanks_info">CosineMath (BoatApp, https://github.com/CosineMath/) Launcher back-end support \ nbangbang93 (BMCLAPI, http://bmclapi2.bangbang93.com/)\nApp icon provider MC Red Bear \ nAOF software development team </string>
+    <string name="app_about_thanks_info">CosineMath (BoatApp, https://github.com/CosineMath/) Launcher back-end support \ nbangbang93 (BMCLAPI, http://bmclapi2.bangbang93.com/)\nApp icon provider MC Red Bear \ nAOF software development team </string>
 	<string name="app_about_details_info">Minecraft all copyright Mojang AB, the use of this software copyright issues arising, software producers are not responsible. </string>
 	<string name="app_about_opensource_info">https://github.com/longjunyu2/MCinaBox (GPLv3 open-source agreement to comply with this project, please comply with open source license requirements)</string>
 	<string name="title_setting">Set up</string>

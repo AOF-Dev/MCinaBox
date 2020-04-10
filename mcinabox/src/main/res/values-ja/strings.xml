@@ -16,7 +16,6 @@
     <string name="app_about_opensource">オープンソース</string>
     <string name="app_about_copyright_info">  MCinaBox 著作権所有 © 2020 longjunyu.</string>
     <string name="app_about_developer_info">longjunyu (MCinaBox ljy122@qq.com)\n以及全部的项目贡献者</string>
-    <string name="app_about_contributor_info">まだいない</string>
     <string name="app_about_thanks_info">CosineMath (BoatApp, https://github.com/CosineMath) 启动器后端支持\nApp图标提供者 MC红熊\nAOF软件开发团队的全体成员的合作与努力\n所有通过 Issues、Pull Requests 等方式参与本项目的贡献者</string>
     <string name="app_about_details_info">Minecraftの著作権はMojang ABが所有しており、本ソフトウェアを使用して発生した著作権問題については、ソフトウェア制作側は一切責任を負いません。正規版をサポートしてください\n本ソフトウェアで使用するOpenJDKは分割可能なモジュール部分であり、プロジェクト自体はOpenJDKに依存していません。ソースコードとバイナリファイルもプロジェクトに含まれていませんので、その使用するオープンソースプロトコルを遵守する必要はありません。</string><!--百度翻译-->
     <string name="app_about_opensource_info">https://github.com/longjunyu2/MCinaBox\n(本プロジェクトのオープンソースはGPLv 3契約を遵守します。オープンソースの要求を遵守し、開発者たちの労働成果を尊重してください。)</string><!--百度翻译-->
@@ -162,5 +161,5 @@
     <string name="title_unknown">不明</string>
     <string name="title_warn">警告</string>
 
-    <!-- 翻訳者wjyue2001 -->
+    <!-- 翻訳者 Frank Ou -->
 </resources>

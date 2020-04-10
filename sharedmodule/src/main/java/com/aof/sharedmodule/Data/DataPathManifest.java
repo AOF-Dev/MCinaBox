@@ -37,7 +37,7 @@ public class DataPathManifest {
                 //Runtime
         RUNTIME_HOME = "/data/data/com.aof.mcinabox/app_runtime",
                 //版本信息
-        MCINABOX_VERSION = "0.1.2";
+        MCINABOX_VERSION = "0.1.2-b";
 
     /**【一个全局目录的数组】**/
     public static final String[] MCINABOX_ALLPATH = {

@@ -135,8 +135,11 @@ Chinese Translation:
 This project exists thanks to all the people who contribute.
 
 ### List of contributors:
-- wjyue2001 provides Japanese translation
+- Frank Ou provides Japanese translation
 - MCredbear provides new English translation.(will be used)
+- mmiguelmazetto found the code that caused forge error and proposed the correction
+- All people who put forward issues.
+
 
 If you want to submit a pull request, there're some requirements:
 * IDE: Android Studio
