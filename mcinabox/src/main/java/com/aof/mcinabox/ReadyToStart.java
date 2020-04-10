@@ -85,6 +85,9 @@ public class ReadyToStart {
         isCheckFormat = !launcherSetting.getConfigurations().isNotCheckJvm();
         KeyboardFileName = KeyboardName;
         versionSetting = com.aof.mcinabox.minecraft.JsonUtils.getVersionFromFile(minecraft_version_path + versionId + "/" + versionId + ".json");
+        if(IsForgeMode()){
+            versionSettingS = com.aof.mcinabox.minecraft.JsonUtils.getVersionFromFile(minecraft_version_path + versionSetting.getInheritsFrom() + "/" + versionSetting.getInheritsFrom() + ".json");
+        }
     }
 
     private String runtimePath = RUNTIME_HOME;
@@ -116,7 +119,7 @@ public class ReadyToStart {
                 isOK = false;
             }else{
                 //如果有forge，就先检查原版的依赖库,再检查forge的依赖库
-                versionSetting = com.aof.mcinabox.minecraft.JsonUtils.getVersionFromFile(minecraft_version_path + versionSetting.getInheritsFrom() + "/" + versionSetting.getInheritsFrom() + ".json");
+                versionSettingS = com.aof.mcinabox.minecraft.JsonUtils.getVersionFromFile(minecraft_version_path + versionSetting.getInheritsFrom() + "/" + versionSetting.getInheritsFrom() + ".json");
                 VersionJson.DependentLibrary[] libraries = versionSettingS.getLibraries();
                 for(VersionJson.DependentLibrary targetLibrary : libraries){
                     if(!IsSpecialFile(targetLibrary.getName())){
