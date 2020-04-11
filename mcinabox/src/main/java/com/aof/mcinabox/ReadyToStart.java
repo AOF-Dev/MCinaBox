@@ -210,7 +210,7 @@ public class ReadyToStart {
             }else{
                 jarPath = minecraft_version_path + versionSetting.getId() + "/" + versionSetting.getId() + ".jar";
             }
-            JVM_ClassPath_Info = JVM_ClassPath_Runtime + GetClassPathArgs(versionSettingS.getLibraries()) + GetClassPathArgs(versionSetting.getLibraries()) + jarPath;
+            JVM_ClassPath_Info = JVM_ClassPath_Runtime + GetClassPathArgs(versionSetting.getLibraries()) + GetClassPathArgs(versionSettingS.getLibraries()) + jarPath;
         }else{
             JVM_ClassPath_Info = JVM_ClassPath_Runtime + GetClassPathArgs(versionSetting.getLibraries()) + minecraft_version_path + versionSetting.getId() + "/" + versionSetting.getId() + ".jar";
         }
