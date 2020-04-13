@@ -82,7 +82,7 @@ public class UserListAdapter extends BaseAdapter {
         }else if(userlist.get(position).getUser_model().equals("online")){
             viewHolder.userstate.setText(context.getString(R.string.title_online));
         }else{
-            viewHolder.userstate.setText(viewHolder.context.getString(R.string.title_unknown));
+            viewHolder.userstate.setText(context.getString(R.string.title_unknown));
         }
         viewHolder.removeuser.setOnClickListener(new View.OnClickListener() {
             @Override
