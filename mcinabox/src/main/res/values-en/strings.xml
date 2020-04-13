@@ -151,4 +151,5 @@
     <string name="title_unknown">Unknow</string>
 	<string name="title_warn">Warning</string>
 	<string name="tips_user_remove_warning">Confirm to delete this user?</string>
+    <string name="login_is_demo_account">"This account doesn't seems to have a Minecraft user linked to it. Did you buy Minecraft?  "</string>
 </resources>

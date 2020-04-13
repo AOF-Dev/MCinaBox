@@ -25,6 +25,7 @@ public class UserListAdapter extends BaseAdapter {
         userlist = list;
     }
     public ArrayList<RadioButton> recorder = new ArrayList<RadioButton>(){};
+    Context context;
 
     @Override
     public int getCount(){
@@ -42,6 +43,7 @@ public class UserListAdapter extends BaseAdapter {
 
     public UserListAdapter(Context context, ArrayList<UserListBean> list) {
         userlist = list;
+        this.context = context;
         mLayoutInflater = LayoutInflater.from(context);
     }
 
@@ -76,9 +78,9 @@ public class UserListAdapter extends BaseAdapter {
         }
         viewHolder.username.setText(userlist.get(position).getUser_name());
         if(userlist.get(position).getUser_model().equals("offline")){
-            viewHolder.userstate.setText(viewHolder.context.getString(R.string.title_offline));
+            viewHolder.userstate.setText(context.getString(R.string.title_offline));
         }else if(userlist.get(position).getUser_model().equals("online")){
-            viewHolder.userstate.setText(viewHolder.context.getString(R.string.title_online));
+            viewHolder.userstate.setText(context.getString(R.string.title_online));
         }else{
             viewHolder.userstate.setText(viewHolder.context.getString(R.string.title_unknown));
         }

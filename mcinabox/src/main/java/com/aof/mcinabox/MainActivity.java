@@ -28,6 +28,7 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -43,6 +44,7 @@ import android.widget.Toast;
 import com.aof.mcinabox.launcher.json.SettingJson;
 import com.aof.mcinabox.launcher.tipper.TipperListAdapter;
 import com.aof.mcinabox.launcher.tipper.TipperListBean;
+import com.aof.mcinabox.minecraft.Login;
 import com.aof.mcinabox.utils.FileTool;
 import com.aof.mcinabox.utils.LanguageUtils;
 import com.aof.mcinabox.utils.MemoryUtils;
@@ -106,7 +108,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     public File LauncherConfigFile;
     public ReadyToStart toStart;
     public Button dialog_button_confrom_createuser, dialog_button_cancle_createuser;
-    public EditText dialog_editText_username, dialog_editText_access;
+    public EditText dialog_editText_username, dialog_editText_userpasswd;
+    public LinearLayout dialog_linearlayout_userpasswd;
     public CheckBox dialog_checkBox_usermodel;
     public ConfigDialog userCreateDialog;
     public ConfigDialog downloaderDialog;
@@ -174,8 +177,16 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         dialog_button_confrom_createuser = userCreateDialog.findViewById(R.id.dialog_button_confirm_createuser);
         dialog_button_cancle_createuser = userCreateDialog.findViewById(R.id.dialog_button_cancle_createuser);
         dialog_editText_username = userCreateDialog.findViewById(R.id.dialog_edittext_input_username);
-        dialog_editText_access = userCreateDialog.findViewById(R.id.dialog_edittext_input_access);
+        dialog_editText_userpasswd = userCreateDialog.findViewById(R.id.dialog_edittext_input_userpasswd);
+        dialog_linearlayout_userpasswd = userCreateDialog.findViewById(R.id.dialog_linearlayout_input_userpasswd);
         dialog_checkBox_usermodel = userCreateDialog.findViewById(R.id.dialog_checkbox_online_model);
+        dialog_checkBox_usermodel.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked)dialog_linearlayout_userpasswd.setVisibility(View.VISIBLE);
+                else dialog_linearlayout_userpasswd.setVisibility(View.GONE);
+            }
+        });
 
         //初始化下载器交互界面
         downloaderDialog = new ConfigDialog(MainActivity.this,R.layout.dialog_download,false);
@@ -864,34 +875,59 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         ArrayList<UserListBean> userlist = ReflashLocalUserList(false);
         UserListBean newUser = new UserListBean();
         String username = dialog_editText_username.getText().toString();
-        String access = dialog_editText_access.getText().toString();
-        String usermodel;
-        if (dialog_checkBox_usermodel.isChecked()) {
-            usermodel = "online";
-        } else {
-            usermodel = "offline";
-        }
+        String userpasswd = dialog_editText_userpasswd.getText().toString();
 
-        if (username.equals("")) {
-            Toast.makeText(this, getString(R.string.tips_user_nousername), Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (userlist != null) {
-            for (UserListBean user : userlist) {
-                if (user.getUser_name().equals(username)) {
-                    Toast.makeText(this, getString(R.string.tips_user_sameusername), Toast.LENGTH_SHORT).show();
-                    return;
+        if (dialog_checkBox_usermodel.isChecked()) {
+            new Login(this).execute(username, userpasswd);
+        } else {
+            if (username.equals("")) {
+                Toast.makeText(this, getString(R.string.tips_user_nousername), Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (userlist != null) {
+                for (UserListBean user : userlist) {
+                    if (user.getUser_name().equals(username)) {
+                        Toast.makeText(this, getString(R.string.tips_user_sameusername), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                 }
             }
+            newUser.setUser_name(username);
+            newUser.setUser_model("offline");
+            newUser.setIsSelected(false);
+            userlist.add(newUser);
+            UserListAdapter userlistadapter = new UserListAdapter(this, userlist);
+            listview_user.setAdapter(userlistadapter);
+            Toast.makeText(this, getString(R.string.tips_add_success), Toast.LENGTH_SHORT).show();
+            ReflashLocalUserList(true);
         }
-        newUser.setUser_name(username);
-        newUser.setUser_model(usermodel);
-        newUser.setIsSelected(false);
-        userlist.add(newUser);
-        UserListAdapter userlistadapter = new UserListAdapter(this, userlist);
-        listview_user.setAdapter(userlistadapter);
-        Toast.makeText(this, getString(R.string.tips_add_success), Toast.LENGTH_SHORT).show();
-        ReflashLocalUserList(true);
+    }
+
+    public void OnlineLogin(String e) {
+        if(e == null){
+            UserListBean newUser = new UserListBean();
+            String username = dialog_editText_username.getText().toString();
+            if (username.equals("")) {
+                Toast.makeText(this, getString(R.string.tips_user_nousername), Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (userlist != null) {
+                for (UserListBean user : userlist) {
+                    if (user.getUser_name().equals(username)) {
+                        Toast.makeText(this, getString(R.string.tips_user_sameusername), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+            }
+            newUser.setUser_name(username);
+            newUser.setUser_model("online");
+            newUser.setIsSelected(false);
+            userlist.add(newUser);
+            UserListAdapter userlistadapter = new UserListAdapter(this, userlist);
+            listview_user.setAdapter(userlistadapter);
+            Toast.makeText(this, getString(R.string.tips_add_success), Toast.LENGTH_SHORT).show();
+            ReflashLocalUserList(true);
+        } else Toast.makeText(this, e, Toast.LENGTH_SHORT).show();
     }
 
     /**
