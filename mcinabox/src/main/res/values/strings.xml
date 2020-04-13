@@ -166,7 +166,8 @@
     <string name="tipper_warn_version_notselected">Or choose not to download version of the game</string>
     <string name="tipper_warn_keyboard_notselected">Not create or select keyboard layout</string>
     <string name="tipper_warn_memory_notstable">Easily lead to the collapse of the current memory size</string>
-    <string name="login_is_demo_account">This account doesn't seems to have a Minecraft user linked to it. Did you buy Minecraft? </string>
+
+    <string name="login_is_demo_account">This account doesn\'t seems to have a Minecraft user linked to it. Did you buy Minecraft? </string>
 	<string name="tips_login_wait">Logging in, please wait.</string>
 	
 </resources>

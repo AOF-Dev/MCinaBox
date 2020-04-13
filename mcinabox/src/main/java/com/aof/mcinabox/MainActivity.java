@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -694,6 +695,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 account.setType(user.getUser_model());
                 account.setUuid(user.getAuth_UUID());
                 account.setAccessToken(user.getAuth_Access_Token());
+
                 accounts[i] = account;
             }
         }
@@ -823,6 +825,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 user.setUser_name(account.getUsername());
                 user.setUser_model(account.getType());
                 user.setIsSelected(account.isSelected());
+                user.setAuth_UUID(account.getUuid());
+                user.setAuth_Access_Token(account.getAccessToken());
                 user.setContext(this);
                 tmp.add(user);
             }
@@ -898,7 +902,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             newUser.setUser_name(username);
             newUser.setUser_model("offline");
             newUser.setIsSelected(false);
-			newUser.setAuth_UUID(UUID.nameUUIDFromBytes((user.getUser_name()).getBytes()).toString());
+			newUser.setAuth_UUID(UUID.nameUUIDFromBytes((username).getBytes()).toString());
 			newUser.setAuth_Access_Token("0");
             userlist.add(newUser);
             UserListAdapter userlistadapter = new UserListAdapter(this, userlist);
@@ -916,7 +920,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 			String accessToken = prefs.getString("auth_accessToken", "0");
 			String userUUID = prefs.getString("auth_profile_id", "00000000-0000-0000-0000-000000000000");
 			String username = prefs.getString("auth_profile_name", "Player");
-			
+
             newUser.setUser_name(username);
             newUser.setUser_model("online");
             newUser.setIsSelected(false);

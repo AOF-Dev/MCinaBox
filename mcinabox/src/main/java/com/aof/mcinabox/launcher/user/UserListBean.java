@@ -35,6 +35,6 @@ public class UserListBean {
     public void setAuth_UUID(String auth_uuid) { this.auth_uuid = auth_uuid; }
     
 	public String getAuth_Access_Token() { return auth_access_token; }
-    public void setAuth_Access_Token(String auth_uuid) { this.auth_uuid = auth_access_token; }
+    public void setAuth_Access_Token(String auth_access_token) { this.auth_access_token = auth_access_token; }
     
 }
