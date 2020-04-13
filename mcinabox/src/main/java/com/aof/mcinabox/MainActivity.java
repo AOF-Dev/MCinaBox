@@ -692,8 +692,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 account.setSelected(user.isIsSelected());
                 account.setUsername(user.getUser_name());
                 account.setType(user.getUser_model());
-                account.setUuid(UUID.nameUUIDFromBytes((user.getUser_name()).getBytes()).toString());
-                account.setAccessToken("0");
+                account.setUuid(user.getAuth_UUID());
+                account.setAccessToken(user.getAuth_Access_Token());
                 accounts[i] = account;
             }
         }
@@ -872,29 +872,34 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
      **/
     private void CreateNewUser() {
         ReflashLocalUserList(true);
+		
         ArrayList<UserListBean> userlist = ReflashLocalUserList(false);
-        UserListBean newUser = new UserListBean();
-        String username = dialog_editText_username.getText().toString();
-        String userpasswd = dialog_editText_userpasswd.getText().toString();
-
+		UserListBean newUser = new UserListBean();
+		String username = dialog_editText_username.getText().toString();
+		String userpasswd = dialog_editText_userpasswd.getText().toString();
+		
+		if (username.equals("")) {
+			Toast.makeText(this, getString(R.string.tips_user_nousername), Toast.LENGTH_SHORT).show();
+			return;
+		}
+		if (userlist != null) {
+			for (UserListBean user : userlist) {
+				if (user.getUser_name().equals(username)) {
+					Toast.makeText(this, getString(R.string.tips_user_sameusername), Toast.LENGTH_SHORT).show();
+					return;
+				}
+			}
+		}
+		
         if (dialog_checkBox_usermodel.isChecked()) {
+			Toast.makeText(this, getString(R.string.tips_login_wait), Toast.LENGTH_SHORT).show();
             new Login(this).execute(username, userpasswd);
         } else {
-            if (username.equals("")) {
-                Toast.makeText(this, getString(R.string.tips_user_nousername), Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (userlist != null) {
-                for (UserListBean user : userlist) {
-                    if (user.getUser_name().equals(username)) {
-                        Toast.makeText(this, getString(R.string.tips_user_sameusername), Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                }
-            }
             newUser.setUser_name(username);
             newUser.setUser_model("offline");
             newUser.setIsSelected(false);
+			newUser.setAuth_UUID(UUID.nameUUIDFromBytes((user.getUser_name()).getBytes()).toString());
+			newUser.setAuth_Access_Token("0");
             userlist.add(newUser);
             UserListAdapter userlistadapter = new UserListAdapter(this, userlist);
             listview_user.setAdapter(userlistadapter);
@@ -906,22 +911,17 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     public void OnlineLogin(String e) {
         if(e == null){
             UserListBean newUser = new UserListBean();
-            String username = dialog_editText_username.getText().toString();
-            if (username.equals("")) {
-                Toast.makeText(this, getString(R.string.tips_user_nousername), Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (userlist != null) {
-                for (UserListBean user : userlist) {
-                    if (user.getUser_name().equals(username)) {
-                        Toast.makeText(this, getString(R.string.tips_user_sameusername), Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                }
-            }
+			
+			SharedPreferences prefs = this.getSharedPreferences("launcher_prefs", 0);
+			String accessToken = prefs.getString("auth_accessToken", "0");
+			String userUUID = prefs.getString("auth_profile_id", "00000000-0000-0000-0000-000000000000");
+			String username = prefs.getString("auth_profile_name", "Player");
+			
             newUser.setUser_name(username);
             newUser.setUser_model("online");
             newUser.setIsSelected(false);
+			newUser.setAuth_UUID(userUUID);
+			newUser.setAuth_Access_Token(accessToken);
             userlist.add(newUser);
             UserListAdapter userlistadapter = new UserListAdapter(this, userlist);
             listview_user.setAdapter(userlistadapter);
