@@ -265,6 +265,7 @@ public class BoatClientActivity extends NativeActivity  implements View.OnClickL
 		}
 
 		//开关栏手势
+//Switch bar gesture
 		if(p1 == SwitcherBar_switcher){
 			switch(p2.getAction()){
 				case MotionEvent.ACTION_DOWN:
@@ -315,6 +316,7 @@ public class BoatClientActivity extends NativeActivity  implements View.OnClickL
 		}
 
 		//移动十字键
+		//Move cross key
 		if(p1 == crosskey_move){
 			OnMoveCrossKey((Button)p1,p2);
 			return true;
@@ -365,6 +367,7 @@ public class BoatClientActivity extends NativeActivity  implements View.OnClickL
 	/**【初始化界面和布局】**/
 	public void InitWindowsAndScreenKeyboard(){
 		//初始化一个悬浮窗口
+		//Initializing a floating window
 		popupWindow = new PopupWindow();
 		popupWindow.setWidth(LayoutParams.MATCH_PARENT);
 		popupWindow.setHeight(LayoutParams.MATCH_PARENT);
