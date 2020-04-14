@@ -78,7 +78,7 @@ public class BoatClientActivity extends NativeActivity  implements View.OnClickL
 	private HashMap<Object,int[]> layoutsPos;
 	private CrossButton[] crosskeychildren;
 	private int[] tempCrossKey;
-	private CheckBox checkbox_qwertkeyboard,checkbox_crosskey,checkbox_mousekey,checkbox_virtualkeyboard,checkbox_otg,checkbox_joystick,checkbox_lock,checkbox_edittext;
+	private CheckBox checkbox_qwertkeyboard,checkbox_crosskey,checkbox_mousekey,checkbox_virtualkeyboard,checkbox_otg,checkbox_joystick,checkbox_lock,checkbox_edittext,checkbox_modeswitch;
 	private CheckBox[] toolerBarChildren;
 	private HorizontalScrollView SwitcherBar_container;
 	private ImageButton SwitcherBar_switcher;
@@ -94,13 +94,7 @@ public class BoatClientActivity extends NativeActivity  implements View.OnClickL
 	private Button crosskey_move;
 	private HashMap<GameButton,Boolean> autoKeep = new HashMap<GameButton,Boolean>();
 
-	private long TOUCH_DOWN_TIME;
-	private long TOUCH_UP_TIME;
-	private long MIN_CLICK_TIME = 0;
-	private long MAX_CLICK_TIME = 500; //ms
-	private long MAX_MOVE_LIMITION = 5; //px
-	private boolean TOUCH_IS_LONGCLICK = false;
-	private boolean TOUCH_IS_OUTLIMITION = false;
+	private final int PAUSE_TIME = 5; //ms
 	private boolean TOUCH_LONG_APPLY = false;
 	private boolean TOUCH_IS_MOVED = false;
 
@@ -399,7 +393,8 @@ public class BoatClientActivity extends NativeActivity  implements View.OnClickL
 		checkbox_otg = SwitcherBar.findViewById(R.id.checkbox_Otg);
 		checkbox_lock = SwitcherBar.findViewById(R.id.checkbox_Lock);
 		checkbox_edittext = SwitcherBar.findViewById(R.id.checkbox_Edittext);
-		toolerBarChildren = new CheckBox[]{checkbox_qwertkeyboard,checkbox_crosskey,checkbox_mousekey,checkbox_virtualkeyboard,checkbox_otg,checkbox_joystick,checkbox_lock,checkbox_edittext};
+		checkbox_modeswitch = SwitcherBar.findViewById(R.id.checkbox_ModeSwitch);
+		toolerBarChildren = new CheckBox[]{checkbox_qwertkeyboard,checkbox_crosskey,checkbox_mousekey,checkbox_virtualkeyboard,checkbox_otg,checkbox_joystick,checkbox_lock,checkbox_edittext,checkbox_modeswitch};
 		SwitcherBar_container = SwitcherBar.findViewById(R.id.switchbar_container);
 		SwitcherBar_switcher = SwitcherBar.findViewById(R.id.switchbar_switcher);
 		SwitcherBar_switcher.setOnTouchListener(this);
@@ -705,7 +700,7 @@ public class BoatClientActivity extends NativeActivity  implements View.OnClickL
 
                     //时序
                     try {
-                        Thread.sleep(0);
+                        Thread.sleep(PAUSE_TIME);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -935,7 +930,7 @@ public class BoatClientActivity extends NativeActivity  implements View.OnClickL
 
                 //时序
                 try {
-                    Thread.sleep(0);
+                    Thread.sleep(PAUSE_TIME);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -951,7 +946,7 @@ public class BoatClientActivity extends NativeActivity  implements View.OnClickL
 
                 //时序
                 try {
-                    Thread.sleep(0);
+                    Thread.sleep(PAUSE_TIME);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -1028,6 +1023,14 @@ public class BoatClientActivity extends NativeActivity  implements View.OnClickL
 				}else{
 					inputScanner.setVisibility(View.INVISIBLE);
 				}
+			}else if(v == checkbox_modeswitch){
+				if(mode){
+					mode = false;
+                    BoatClientActivity.this.mouseCursor.setVisibility(View.VISIBLE);
+				}else{
+					mode = true;
+                    BoatClientActivity.this.mouseCursor.setVisibility(View.INVISIBLE);
+				}
 			}
 		}
 	};
@@ -1060,7 +1063,7 @@ public class BoatClientActivity extends NativeActivity  implements View.OnClickL
 
                 //时序
                 try {
-                    Thread.sleep(0);
+                    Thread.sleep(PAUSE_TIME);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -1124,13 +1127,10 @@ public class BoatClientActivity extends NativeActivity  implements View.OnClickL
 
 					break;
 				case MotionEvent.ACTION_UP:
-					//TOUCH_UP_TIME = p1.getEventTime();
-					//long DV = TOUCH_UP_TIME - TOUCH_DOWN_TIME;
-					//if( !TOUCH_IS_MOVED && DV >= MIN_CLICK_TIME && DV <= MAX_CLICK_TIME){
 					if(!TOUCH_LONG_APPLY && !TOUCH_IS_MOVED){
 						mInputEventSender.setMouseButton((byte)2,true);
 						try {
-							Thread.sleep(0);
+							Thread.sleep(PAUSE_TIME);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -1140,8 +1140,6 @@ public class BoatClientActivity extends NativeActivity  implements View.OnClickL
 						Log.e("Screen","释放长按操作！");
 						mInputEventSender.setMouseButton((byte)1,false);
 					}
-					//TOUCH_IS_LONGCLICK = false;
-					//TOUCH_IS_OUTLIMITION = false;
 					TOUCH_IS_MOVED = false;
 					TOUCH_LONG_APPLY = false;
 

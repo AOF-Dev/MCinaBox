@@ -36,8 +36,10 @@ public class DataPathManifest {
         BOAT_HOME = "/sdcard/MCinaBox/BoatApp",
                 //Runtime
         RUNTIME_HOME = "/data/data/com.aof.mcinabox/app_runtime",
+                //ForgeInstaller
+        FORGEINSTALLER_HOME = MCINABOX_HOME + "/forgeinstaller",
                 //版本信息
-        MCINABOX_VERSION = "0.1.2-b";
+        MCINABOX_VERSION = "0.1.3";
 
     /**【一个全局目录的数组】**/
     public static final String[] MCINABOX_ALLPATH = {
@@ -63,7 +65,8 @@ public class DataPathManifest {
             MINECRAFT_DATA_PRIVATE_LOGS,
             MINECRAFT_DATA_PRIVATE_RESOURCEPACKS,
             MCINABOX_DATA_RUNTIME,
-            BOAT_HOME
+            BOAT_HOME,
+            FORGEINSTALLER_HOME
     };
 
     /**【运行库列表索引】**/

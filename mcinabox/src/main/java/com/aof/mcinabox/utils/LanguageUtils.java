@@ -25,6 +25,9 @@ public class LanguageUtils {
             case "繁体中文(zh-TW)":
                 mLocale = Locale.TRADITIONAL_CHINESE;
                 break;
+            case "Español(es)":
+                mLocale = Locale.forLanguageTag("es");
+                break;
             default:
                 mLocale = Locale.getDefault();
                 break;

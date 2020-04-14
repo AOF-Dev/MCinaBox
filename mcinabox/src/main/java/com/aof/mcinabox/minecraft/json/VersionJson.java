@@ -27,6 +27,7 @@ public class VersionJson {
     public class DependentLibrary{
         private String name;
         private Download downloads;
+        private String url;
         public class Download{
             private Artifact artifact;
             public class Artifact{
@@ -46,6 +47,8 @@ public class VersionJson {
             public Artifact getArtifact() { return artifact; }
             public void setArtifact(Artifact artifact) { this.artifact = artifact; }
         }
+        public String getUrl() {return url;}
+        public void setUrl(String url){this.url = url;}
         public String getName() { return name; }
         public void setName(String name) { this.name = name; }
         public Download getDownloads() { return downloads; }

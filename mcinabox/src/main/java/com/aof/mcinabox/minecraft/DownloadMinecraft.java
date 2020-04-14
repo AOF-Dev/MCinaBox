@@ -49,6 +49,9 @@ public class DownloadMinecraft {
     private String getDownloadUrlFromSource(String url,String type){
         return urlSource.getFileUrl(url,sourceName,type);
     }
+    private String getDownloadUrlFromLibraryName(String name,String type){
+        return urlSource.getSourceUrl(sourceName,type) + getLibraryJarRelatedPath(name) + "/" + getLibraryJarName(name);
+    }
 
     private String getSourceName(){
         return com.aof.mcinabox.launcher.JsonUtils.getSettingFromFile(MCINABOX_FILE_JSON).getDownloadType();
@@ -144,18 +147,37 @@ public class DownloadMinecraft {
         return tasks;
     }
 
-    private String getLibraryJarPath(String name){
+    /**【创建forge下载任务】**/
+    public ArrayList<BaseDownloadTask> createForgeDownloadTask(String id){
+        RefreshSourceName();
+        ArrayList<BaseDownloadTask> tasks = new ArrayList<BaseDownloadTask>();
+        VersionJson forge = com.aof.mcinabox.minecraft.JsonUtils.getVersionFromFile(MINECRAFT_HOME_VERSION + "/" + id + "/" + id + ".json");
+        if(forge == null){
+            Log.e("DownloadMinecraft","Not found Forge " + id + ".json");
+            return null;
+        }
+        for(VersionJson.DependentLibrary library : forge.getLibraries()){
+            if(library.getUrl() == null){
+                tasks.add(DownloadHelper.createDownloadTask(getLibraryJarName(library.getName()),getLibraryJarPath(library.getName()),getDownloadUrlFromLibraryName(library.getName(),"forge"),null));
+            }else{
+                tasks.add(DownloadHelper.createDownloadTask(getLibraryJarName(library.getName()),getLibraryJarPath(library.getName()),getDownloadUrlFromLibraryName(library.getName(),"libraries"),null));
+            }
+        }
+        return tasks;
+    }
+
+
+    private String getLibraryJarRelatedPath(String name){
         String packageName;
         String libraryName;
         String versionName;
-        String filePath;
 
         String[] Name = name.split(":");
         packageName = Name[0];
         libraryName = Name[1];
         versionName = Name[2];
 
-        String dirPath = MINECRAFT_HOME_LIBRARIES + "/";
+        String dirPath ="/";
         for(int i =0;i < packageName.length();i++){
             if(packageName.charAt(i) == '.'){
                 dirPath = dirPath + "/";
@@ -165,6 +187,10 @@ public class DownloadMinecraft {
         }
         dirPath = dirPath + "/" + libraryName + "/" + versionName;
         return dirPath;
+    }
+
+    private String getLibraryJarPath(String name){
+        return MINECRAFT_HOME_LIBRARIES + getLibraryJarRelatedPath(name);
     }
 
     private String getLibraryJarName(String name){

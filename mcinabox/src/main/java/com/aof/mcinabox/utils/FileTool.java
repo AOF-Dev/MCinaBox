@@ -194,6 +194,7 @@ public class FileTool {
             return 0;
         }catch (Exception e){
             e.printStackTrace();
+            Log.e("FileTool","Copy Failed");
             return -1;
         }
     }
@@ -313,6 +314,13 @@ public class FileTool {
             return dir.mkdir();
         }else{
             return false;
+        }
+    }
+
+    public static void moveFile(String fromFile,String toFile){
+        copyFile(fromFile,toFile);
+        if (new File(fromFile).exists()){
+            new File(fromFile).delete();
         }
     }
 

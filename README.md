@@ -13,12 +13,19 @@
 
 ## Background
 
-`Origin` I discovered the BoardwalkApp a few years ago, which can launch Minecraft Java Edition on Android devices. It's so exciting to see minecraft start on my phone. Thanks to Boardwalk, it left a deep impression on me, and since then I have also developed interest and love in programming. I learned Java programming for 8 days through 'Head First Java', and started to write my first Android program MCinaBox with the support of BoatApp Project.<br>
+`Origin` I discovered the `BoardwalkApp` a few years ago, which can launch Minecraft Java Edition on Android devices. It's so exciting to see minecraft start on my phone.It's really a curious and interesting project<br>
+`MBinaBox` is an open source project, and the back end is supported by the `BoatApp` project. And in the efforts of many people to make it run.
 >zhuowei 's BoardwalkApp https://github.com/zhuowei/Boardwalk <br>
 >CosineMath 's BoatApp https://github.com/CosineMath/BoatApp
 
 ## Change Log
 
+### v0.1.3
+- Fix create new user crash (By by-scott)
+- Fix minecraft dependency priority is higher than Forge
+- Add minecraft genuine validation (By by-scott)
+- Add mouse mode to switch (manual)
+- Add Spanish (By salted fish King)
 ### v0.1.2
 - Fix reediting keys caused a crash while repairing virtual keyboard configurations
 - Fix some control behavior exceptions in Boat-3 mode
@@ -41,6 +48,13 @@
 - First Release Version.
 
 Chinese Translation:
+
+### v0.1.3
+- 修复 创建新用户崩溃的问题 (By by-scott)
+- 修复 Minecraft依赖项优先级高于Forge
+- 添加 Minecraft正版验证 (By by-scott)
+- 添加 鼠标模式切换(手动)
+- 添加 西班牙语(By Salted fish King)
 
 ### v0.1.2
 - 修复 虚拟键盘配置时重新编辑键导致的崩溃
@@ -135,15 +149,18 @@ Chinese Translation:
 This project exists thanks to all the people who contribute.
 
 ### List of contributors:
-- Frank Ou provides Japanese translation
-- MCredbear provides new English translation.(will be used)
-- mmiguelmazetto found the code that caused forge error and proposed the correction
+- `by-scott` perfect user management and genuine verification code
+- `Frank Ou` provides Japanese translation
+- `MCredbear` provides English translation.
+- `miguelmazetto` found the code that caused forge error and proposed the correction
+- `Salted fish King` provides Spanish translation
+- `SnowFuryHQ` found the code that caused jni building error in Linux.
 - All people who put forward issues.
 
 
 If you want to submit a pull request, there're some requirements:
 * IDE: Android Studio
-* TargetSDK: 28
+* TargetSDK: 21
 * MimniumSDK: 21
 * Do NOT modify `gradle` files.
 

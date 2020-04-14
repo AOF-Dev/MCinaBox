@@ -17,6 +17,7 @@
         <item>日本語(ja)</item> <!-- 2 -->
         <item>简体中文(zh-CN)</item> <!-- 3 -->
         <item>繁体中文(zh-TW)</item> <!-- 4 -->
+        <item>Español(es)</item> <!-- 5 -->
     </string-array>
 
 </resources>

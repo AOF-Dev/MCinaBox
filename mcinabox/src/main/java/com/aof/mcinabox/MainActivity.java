@@ -45,6 +45,7 @@ import android.widget.Toast;
 import com.aof.mcinabox.launcher.json.SettingJson;
 import com.aof.mcinabox.launcher.tipper.TipperListAdapter;
 import com.aof.mcinabox.launcher.tipper.TipperListBean;
+import com.aof.mcinabox.minecraft.ForgeInstaller;
 import com.aof.mcinabox.minecraft.Login;
 import com.aof.mcinabox.utils.FileTool;
 import com.aof.mcinabox.utils.LanguageUtils;
@@ -81,6 +82,7 @@ import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.UUID;
+import java.util.zip.ZipException;
 
 import cosine.boat.Utils;
 
@@ -89,11 +91,11 @@ import static com.aof.mcinabox.DataPathManifest.*;
 public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
 
     public Button[] launcherBts;
-    public Button button_user, button_gameselected, button_gamelist, button_gamedir, button_launchersetting, button_launchercontrol, toolbar_button_backhome, toolbar_button_backfromhere,ImportRuntime,download_ok,download_cancle,toolbar_button_language;
+    public Button button_user, button_gameselected, button_gamelist, button_gamedir, button_launchersetting, button_launchercontrol, toolbar_button_backhome, toolbar_button_backfromhere,ImportRuntime,download_ok,download_cancle,toolbar_button_language,installForgeInstaller;
     public RadioGroup radioGroup_version_type;
     public RadioButton radioButton_type_release, radioButton_type_snapshot, radioButton_type_old;
     public RadioButton radioButton_gamedir_public, radioButton_gamedir_private;
-    public Spinner setting_downloadtype, setting_keyboard, spinner_choice_version,spinner_runtimepacks;
+    public Spinner setting_downloadtype, setting_keyboard, spinner_choice_version,spinner_runtimepacks,spinner_forgeinstaller;
     public Switch setting_notcheckJvm, setting_notcheckMinecraft;
     public LinearLayout[] launcherBts2;
     public LinearLayout gamelist_button_reflash, gamelist_button_installnewgame, gamelist_button_backfrom_installnewversion, gamelist_button_setting, main_button_startgame, gamelist_button_download, user_button_adduser, gamelist_button_reflash_locallist, user_button_reflash_userlist;
@@ -229,9 +231,10 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         radioButton_gamedir_public = findViewById(R.id.radiobutton_gamedir_public);
         radioButton_gamedir_private = findViewById(R.id.radiobutton_gamedir_private);
         ImportRuntime = findViewById(R.id.launchersetting_button_import);
+        installForgeInstaller = findViewById(R.id.launchersetting_button_forgeinstaller);
         launcher_info = findViewById(R.id.toolbar_button_taskinfo);
         launcher_refresh = findViewById(R.id.toolbar_button_reflash);
-        launcherBts = new Button[]{launcher_refresh,launcher_info,radioButton_gamedir_public, radioButton_gamedir_private, button_user, button_gameselected, button_gamelist, button_gamedir, button_launchersetting, button_launchercontrol, toolbar_button_backhome, toolbar_button_backfromhere,toolbar_button_language ,dialog_button_confrom_createuser, dialog_button_cancle_createuser,ImportRuntime};
+        launcherBts = new Button[]{launcher_refresh,launcher_info,radioButton_gamedir_public, radioButton_gamedir_private, button_user, button_gameselected, button_gamelist, button_gamedir, button_launchersetting, button_launchercontrol, toolbar_button_backhome, toolbar_button_backfromhere,toolbar_button_language ,dialog_button_confrom_createuser, dialog_button_cancle_createuser,ImportRuntime,installForgeInstaller};
         for (Button button : launcherBts) {
             button.setOnClickListener(listener);
         }
@@ -261,6 +264,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         spinner_choice_version = findViewById(R.id.spinner_choice_version);
 
         spinner_runtimepacks = findViewById(R.id.launchersetting_spinner_runtimepack);
+        spinner_forgeinstaller = findViewById(R.id.launchersetting_spinner_forgeinstaller);
 
         editText_javaArgs = findViewById(R.id.setting_edit_javaargs);
         editText_minecraftArgs = findViewById(R.id.setting_edit_minecraftargs);
@@ -465,6 +469,9 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                     break;
                 case R.id.toolbar_button_language:
                     languageDialog.show();
+                    break;
+                case R.id.launchersetting_button_forgeinstaller:
+                    installForgeFromInstaller();
                     break;
                 default:
                     break;
@@ -1051,6 +1058,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         ReflashLocalUserList(false);
         ReflashLocalKeyboardList();
         ReflashRuntimePackList();
+        ReflashForgeInstallerList();
         RefreshRuntimePackInfo();
         GetAvailableMemories();
     }
@@ -1119,9 +1127,37 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 this.runtimelist.addAll(packlist);
                 ((BaseAdapter)spinner_runtimepacks.getAdapter()).notifyDataSetChanged();
             }
-
         }
     }
+
+    ArrayList<String> forgeInstallerList = new ArrayList<>();
+    private void ReflashForgeInstallerList(){
+        ArrayList<String> packlist = new ArrayList<String>();
+        File file = new File(FORGEINSTALLER_HOME+"/");
+        File[] files = file.listFiles();
+        if (files == null) {
+            //nothing.
+            if(spinner_forgeinstaller.getAdapter() != null){
+                forgeInstallerList.clear();
+                ((BaseAdapter)spinner_forgeinstaller.getAdapter()).notifyDataSetChanged();
+            }
+        } else {
+            for (File targetFile : files) {
+                packlist.add(targetFile.getName());
+            }
+            if (spinner_forgeinstaller.getAdapter() == null){
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, this.forgeInstallerList);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinner_forgeinstaller.setAdapter(adapter);
+            }else{
+                this.forgeInstallerList.clear();
+                this.forgeInstallerList.addAll(packlist);
+                ((BaseAdapter)spinner_forgeinstaller.getAdapter()).notifyDataSetChanged();
+            }
+        }
+    }
+
+
     private boolean CheckUsersData(SettingJson setting){
         return (tipslist.size() == 0);
     }
@@ -1231,6 +1267,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                     ReflashLocalUserList(false);
                     ReflashLocalKeyboardList();
                     ReflashRuntimePackList();
+                    ReflashForgeInstallerList();
                     RefreshRuntimePackInfo();
                     GetAvailableMemories();
                     break;
@@ -1340,13 +1377,13 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 downloadTasks.clear();
                 totalProcess++;
                 StartDownloadMinecraft(totalProcess,minecraftId);
-            }else if(finishCount == downloadTasks.size() && totalProcess == 4){
+            }else if(finishCount == downloadTasks.size() && (totalProcess == 4 || totalProcess == 6)){
                 finishCount = 0;
                 downloadTasks.clear();
                 totalProcess =0;
                 ChangeDownloadPrcess(5,100);
             }
-            if(totalProcess == 2||totalProcess == 4){
+            if(totalProcess == 2||totalProcess == 4||totalProcess == 5){
                 ChangeDownloadPrcess(totalProcess,(finishCount*100)/downloadTasks.size());
             }
         }
@@ -1458,6 +1495,10 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 downloadTasks.addAll(mDownloadMinecraft.createAssetObjectsDownloadTask(id));
                 StartDownloadQueueSet(queueSet,downloadTasks);
                 break;
+            case 5:
+                downloadTasks.addAll(mDownloadMinecraft.createForgeDownloadTask(id));
+                StartDownloadQueueSet(queueSet,downloadTasks);
+                break;
         }
     }
 
@@ -1474,6 +1515,43 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         this.startActivity(intent);
+    }
+
+    private void installForgeFromInstaller(){
+        String filename;
+        if(spinner_forgeinstaller.getSelectedItem() != null){
+            filename = spinner_forgeinstaller.getSelectedItem().toString();
+        }else{
+            return;
+        }
+        ForgeInstaller installer = new ForgeInstaller(getApplication());
+        try {
+            installer.unzipForgeInstaller(filename);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(getApplication(), getString(R.string.tips_unzip_failed), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        String id = installer.makeForgeData();
+
+        //init
+        downloaderDialog.findViewById(R.id.dialog_download_finish).setVisibility(View.GONE);
+        downloaderDialog.findViewById(R.id.dialog_total_count).setVisibility(View.VISIBLE);
+        downloaderDialog.findViewById(R.id.dialog_download_ok).setClickable(false);
+        downloader_target_version.setText(id);
+        downloader_current_task.setText("");
+        downloader_total_process.setProgress(0);
+        downloader_current_process.setProgress(0);
+        downloader_current_count.setText("0%");
+        downloader_total_count.setText("0/0");
+        finishCount = 0;
+        downloadTasks.clear();
+        //show
+        downloaderDialog.show();
+        totalProcess = 6;
+        ChangeDownloadPrcess(6,0);
+        //auto download files
+        StartDownloadMinecraft(5,id);
     }
 
 }

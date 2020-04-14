@@ -5,7 +5,6 @@
     <string name="main_text_launchersetting">啟動器設定</string>
     <string name="main_text_launchercontrol">虛擬鍵盤設定</string>
     <string name="main_text_defaultlayout">主頁</string>
-    <string name="app_copyright">此版本非發行版本，僅供AOF放假後軟體發展團隊內部成員使用！</string>
     <string name="app_about_mcinabox">MCinaBox Minecraft Launcher是一個免費、開源的Minecraft啟動器，允許玩家在安卓設備上方便快捷的安裝、管理、運行遊戲。啟動器更新請查閱項目開源地址的release版面.\n當您使用本軟件時，就表示您已閱讀並同意本軟件的版權資訊，表示您願意尊重軟件開發者們的勞動成果，表示您願意遵守本軟件的開源協定。\n本軟件仍處於測試階段，如有問題，歡迎到Github進行迴響。</string>
     <string name="app_about_copyright">版權</string>
     <string name="app_about_developer">開發者</string>
@@ -14,8 +13,6 @@
     <string name="app_about_dependent">依賴</string>
     <string name="app_about_details">免責聲明</string>
     <string name="app_about_opensource">開源</string>
-    <string name="app_about_copyright_info">MCinaBox版權所有©2020 longjunyu.</string>
-    <string name="app_about_developer_info">longjunyu（MCinaBox ljy122@qq.com）\n以及全部的項目貢獻者</string>
     <string name="app_about_thanks_info">CosineMath（BoatApp，https://github.com/CosineMath/）啟動器後端支持\nbangbang93（BMCLAPI，http://bmclapi2.bangbang93.com/）\nApp圖標提供者MC紅熊\nAOF軟體發展團隊的全體成員的合作與努力\n所有通過Issues、Pull Requests等管道參與本項目的貢獻者</string>
     <string name="app_about_details_info">Minecraft版權歸Mojang AB所有，使用本軟件產生的版權問題，軟件製作方概不負責。請支持正版\n本軟件所使用的OpenJDK屬於可分割的模塊部分，項目本身並不依賴OpenJDK，其原始程式碼和二進位檔案也未包含在項目中，所以無需遵守其使用的開源協定。</string>
     <string name="app_about_opensource_info">https://github.com/longjunyu2/MCinaBox\n（本項目的開源遵守GPLv3協定，請遵守開源協定要求）</string>
@@ -151,5 +148,8 @@
     <string name="tips_user_remove_warning">你確定要删除當前用戶嗎？</string>
     <string name="title_warn">警告</string>
     <string name="title_unknown">未知</string>
+    <string name="tips_login_wait">正在登入，請稍等</string>
+    <string name="login_is_demo_account">此帳戶似乎沒有關聯的Minecraft用戶，您是否購買了Minecraft？</string>
+    <string name="title_forge_installer">Forge本地安装器</string>
 
 </resources>
