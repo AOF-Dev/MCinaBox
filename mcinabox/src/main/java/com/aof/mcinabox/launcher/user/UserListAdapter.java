@@ -58,7 +58,7 @@ public class UserListAdapter extends BaseAdapter {
             viewHolder.userstate = convertView.findViewById(R.id.user_text_userstate);
             viewHolder.removeuser = convertView.findViewById(R.id.user_button_removeuser);
             viewHolder.linearLayout = convertView.findViewById(R.id.small_layout_aboutuser);
-            viewHolder.context = userlist.get(position).getContext();
+            viewHolder.context = context;
             viewHolder.radioButton = convertView.findViewById(R.id.radiobutton_selecteduser);
             boolean isDif = true;
             for(RadioButton p1:recorder){
@@ -78,11 +78,11 @@ public class UserListAdapter extends BaseAdapter {
         }
         viewHolder.username.setText(userlist.get(position).getUser_name());
         if(userlist.get(position).getUser_model().equals("offline")){
-            viewHolder.userstate.setText(context.getString(R.string.title_offline));
+            viewHolder.userstate.setText(viewHolder.context.getString(R.string.title_offline));
         }else if(userlist.get(position).getUser_model().equals("online")){
-            viewHolder.userstate.setText(context.getString(R.string.title_online));
+            viewHolder.userstate.setText(viewHolder.context.getString(R.string.title_online));
         }else{
-            viewHolder.userstate.setText(context.getString(R.string.title_unknown));
+            viewHolder.userstate.setText(viewHolder.context.getString(R.string.title_unknown));
         }
         viewHolder.removeuser.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -18,10 +18,10 @@
         android:largeHeap="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".VirtualKeyBoardActivity" android:screenOrientation="landscape"/>
+        <activity android:name=".VirtualKeyBoardActivity" android:screenOrientation="sensorLandscape"/>
 
         <activity android:name=".MainActivity"
-            android:screenOrientation="landscape">
+            android:screenOrientation="sensorLandscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
