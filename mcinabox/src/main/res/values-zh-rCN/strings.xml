@@ -161,4 +161,7 @@
     <string name="title_unknown">未知</string>
     <string name="title_warn">警告</string>
     <string name="tips_user_remove_warning">你确定要删除当前用户吗？</string>
+
+    <string name="login_is_demo_account">此帐户似乎没有关联的Minecraft用户，您是否购买了Minecraft？</string>
+    <string name="tips_login_wait">正在登录，请稍等</string>
 </resources>

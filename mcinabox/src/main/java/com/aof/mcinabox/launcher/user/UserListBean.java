@@ -6,6 +6,8 @@ import com.aof.mcinabox.R;
 
 public class UserListBean {
     private String user_name;
+	private String auth_uuid;
+	private String auth_access_token;
     private String user_model;
     private int user_image;
     private boolean isSelected;
@@ -28,4 +30,11 @@ public class UserListBean {
     public void setIsSelected(boolean isSelected) { this.isSelected = isSelected; }
     public Context getContext() { return context; }
     public void setContext(Context context) { this.context = context; }
+	
+	public String getAuth_UUID() { return auth_uuid; }
+    public void setAuth_UUID(String auth_uuid) { this.auth_uuid = auth_uuid; }
+    
+	public String getAuth_Access_Token() { return auth_access_token; }
+    public void setAuth_Access_Token(String auth_access_token) { this.auth_access_token = auth_access_token; }
+    
 }
