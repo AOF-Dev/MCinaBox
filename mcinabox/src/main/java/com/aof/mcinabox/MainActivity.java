@@ -174,6 +174,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         setSupportActionBar(toolbar);
 
         //初始化用户创建界面
+        //Initialize user creation interface
         userCreateDialog = new ConfigDialog(MainActivity.this, R.layout.dialog_createuser, true);
         dialog_button_confrom_createuser = userCreateDialog.findViewById(R.id.dialog_button_confirm_createuser);
         dialog_button_cancle_createuser = userCreateDialog.findViewById(R.id.dialog_button_cancle_createuser);
@@ -190,6 +191,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         });
 
         //初始化下载器交互界面
+        //Initialize the downloader interface
         downloaderDialog = new ConfigDialog(MainActivity.this,R.layout.dialog_download,false);
         downloader_total_process = downloaderDialog.findViewById(R.id.dialog_total_process);
         downloader_current_process = downloaderDialog.findViewById(R.id.dialog_current_process);
@@ -203,6 +205,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         download_cancle.setOnClickListener(listener);
 
         //初始化语言选择器
+	//Initialize language selector
         languageDialog = new ConfigDialog(MainActivity.this,R.layout.dialog_languages,false);
         dialog_listview_languages = languageDialog.findViewById(R.id.dialog_listview_languages);
         dialog_listview_languages.setOnItemClickListener(new ListView.OnItemClickListener(){
@@ -217,6 +220,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         popupWindow = BubblePopupHelper.create(this, bubbleLayout_tipper);
 
         //给界面的按键设置按键监听
+        //Set the key monitor for the key in the interface
         button_user = findViewById(R.id.main_button_user);
         button_gameselected = findViewById(R.id.main_button_gameselected);
         button_gamelist = findViewById(R.id.main_button_gamelist);
@@ -474,6 +478,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
     /**
      * 【下载从网络版本列表中选择的版本】
+     * 【download the version selected from the network version list】
      **/
     private void DownloadSelectedVersion() {
         if(versionList == null){
@@ -495,6 +500,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
      **/
     //可以通过版本类型将版本分类并更新列表
     //使用前必须保证更新一次版本清单文件
+    //You can classify versions and update the list by version type
+    //Make sure to update the version list file once before use
     private void ReflashOnlineVersionList() {
         //获取实例化后的versionList
         versionList = com.aof.mcinabox.minecraft.JsonUtils.getVersionManifestFromFile(MCINABOX_TEMP + "/version_manifest.json").getVersions();
@@ -620,6 +627,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
      **/
     //可以通过传入的位置来设定ToolBar右侧返回键和系统返回键的执行逻辑，并设定ToolBar右侧指示器。
     //必须在每一次界面切换时执行一次，以设定正确的执行逻辑
+	
     private void setBackFromHere(int location) {
         switch (location) {
             default:
@@ -667,6 +675,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
      * 【保存启动器配置到配置文件】
      **/
     //可以得到现在的启动器配置并将其写入到本地配置文件 mcinabox.json 中
+    //You can get the current initiator configuration and write it to the local configuration file mcinabox.json
     //必须在关闭启动器时执行一次，以保存启动器配置
     //可以根据情况传入isContinueUsing参数，来设定配置文件的isUsing参数
     //但是你必须保证，如果你已经同时启用了共有目录和私有目录，不要将两个模板的isUsing设定为相同的值
@@ -678,6 +687,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         Gson gson = new Gson();
 
         //存储全部启动器设置到模板对象中
+	//Store all initiator settings in template object
         SettingJson settingModel = new SettingJson();
         SettingJson.Configurations configurations = settingModel.getConfigurations();
 
@@ -742,6 +752,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
      * 【检查MCinaBox的目录结构是否正常】
      **/
     //可以检查MCinaBox必要的目录结构，如果目录结构不完整将自动创建目录
+    //You can check the necessary directory structure of mcinabox. If the directory structure is incomplete, the directory will be created automatically
     //必须在启动时执行一次，如果目录结构不完整将会导致启动器崩溃
     private void CheckMcinaBoxDir() {
         for(String path : MCINABOX_ALLPATH){
@@ -753,9 +764,13 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
      * 【刷新本地游戏列表】
      **/
     //可以根据游戏目录下的version文件夹和文件夹下是否存在同名jar,json文件来判断是否有这一版本
-    //然后将这些版本存入列表中并执行刷新
+    //You can judge whether this version exists according to the version folder in the game directory and whether there is a jar with the same name and JSON file in the folder
+    //然后将这些版本存入列表中并执行刷
+	//These versions are then placed in the list and refreshed新
     //必须在启动器配置时使用一次，以显示本地游戏列表
+	//Must be used once in initiator configuration to display a list of local Games
     //也可再根据情况使用。
+	//It can also be used according to the situation.
     private ArrayList<LocalVersionListBean> localversionList;
     private ArrayList<String> versionIdList;
 
@@ -808,8 +823,11 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
      * 【刷新本地用户列表】
      **/
     //可以根据启动器设置，配置用户列表并刷新
+	//The user list can be configured and refreshed according to the initiator settings
     //必须在启动器配置时使用一次，以显示用户列表
+	//Must be used once in initiator configuration to display a list of users
     //也可再根据情况使用，使用前请保证启动器设置模板为最新状态
+	//It can also be used according to the situation. Before use, please make sure that the starter setting template is up to date
     private ArrayList<UserListBean> userlist = new ArrayList<UserListBean>(){};
     private ArrayList<UserListBean> ReflashLocalUserList(boolean isSaveBeforeReflash) {
         if (isSaveBeforeReflash) {
@@ -938,8 +956,11 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
      * 【检查启动器模板】
      **/
     //可以检查启动器设置文件是否存在
+	//You can check if the initiator settings file exists
     //若不存在则先创建新的文件
+	//If not, create a new file first
     //若存在则直接读入文件并返回一个启动器设置对象
+	//If it exists, read in the file directly and return an initiator setting object
     private SettingJson CheckLauncherSettingFile() {
         File configFile = LauncherConfigFile;
         Gson gson = new Gson();
@@ -948,6 +969,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         SettingJson settingModel = null;
 
         //检测启动器配置文件是否存在
+	    //Detect whether initiator profile exists
         if (!configFile.exists()) {
             //如果不存在，就创建一个空文件
             try {
@@ -955,12 +977,14 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 Log.e("初始化", "模板不存在，开始创建");
             } catch (IOException e) {
                 //如果创建失败，就退出程序
+		    //If the creation fails, exit the program
                 e.printStackTrace();
                 Toast.makeText(this, getString(R.string.tips_launcher_new_fail), Toast.LENGTH_SHORT).show();
                 Log.e("initLauncher ", e.toString());
                 finish();
             }
             //初始化模板并写出配置文件
+		//Initialize the template and write out the configuration file
             settingModel = new SettingJson();
             String jsonString = gson.toJson(settingModel);
             try {
@@ -979,6 +1003,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             Toast.makeText(this, getString(R.string.tips_launcher_new_success), Toast.LENGTH_SHORT).show();
         } else {
             //如果文件存在，就读入配置文件
+		//If the file exists, read in the configuration file
             try {
                 inputStream = new FileInputStream(configFile);
                 reader = new InputStreamReader(inputStream);
@@ -1005,6 +1030,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
      * 【应用启动器设置】
      **/
     //可以将启动器设置对象应用到启动其中。
+	//You can apply the initiator settings object to the startup.
     private void ApplyLauncherSetting(SettingJson Setting) {
         try {
             setting_downloadtype.setSelection(getSpinnerFitString(setting_downloadtype, Setting.getDownloadType()));
@@ -1028,6 +1054,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
         } catch (NullPointerException e) {
             //如果读入的数据缺少参数，则删除掉并重新初始化。
+		//If the data read in is missing parameters, delete it and reinitialize it.
             Toast.makeText(this, getString(R.string.tips_launcher_load_bad), Toast.LENGTH_SHORT).show();
             Log.e("ApplyLauncherSetting ", e.toString());
             LauncherConfigFile.delete();
@@ -1040,13 +1067,17 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
      * 【从配置文件载入启动器配置并应用】
      **/
     //可以读取上一次使用的配置文件并应用于启动器
+	//You can read the last used profile and apply it to the initiator
     //必须在启动器启动时执行一次，以设定启动的配置
+	//It must be performed once when the initiator is started to set the start configuration
     private void initLauncher() {
         //启动器初始化
+	    //Initiator initialization
         CheckMcinaBoxDir();
         SettingJson ConfigFile = CheckLauncherSettingFile();
         ApplyLauncherSetting(ConfigFile);
         //以下为载入启动器全局配置之后才能完成的设定
+             //The following settings can only be completed after loading the initiator global configuration
         ReflashLocalVersionList();
         ReflashLocalUserList(false);
         ReflashLocalKeyboardList();
@@ -1151,6 +1182,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             boolean Runtime_isImported = true;
 
             //检查用户是否选择
+		//Check whether the user selects
             SettingJson.Accounts[] accounts = setting.getAccounts();
             for(SettingJson.Accounts p1 : accounts){
                 if(p1.isSelected()){
@@ -1159,16 +1191,19 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             }
 
             //检查键盘模版是否选择
+		//Check whether the keyboard template is selected
             if(setting_keyboard.getSelectedItem() != null){
                 Keyboard_isSelected = true;
             }
 
             //检查游戏版本是否选择
+		//Check if the game version is selected
             if(spinner_choice_version.getSelectedItem() != null){
                 Minecraft_isSelected = true;
             }
 
             //检查运行库是否导入
+		//Check if the runtime is imported
             for(String p1 : MCINABOX_RUNTIME_FILES) {
                 if (!FileTool.isFileExists(p1)) {
                     Runtime_isImported = false;
@@ -1176,6 +1211,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             }
 
             //检查内存大小设置是否正确
+		//Check whether the memory size is set correctly
             if(!editText_maxMemory.getText().toString().equals("") && Integer.parseInt((String) editText_maxMemory.getText().toString()) >= 128 && Integer.parseInt((String) editText_maxMemory.getText().toString()) <= 1024){
                 //nothing
             }else{
@@ -1306,6 +1342,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     }
 
     //下载监听器
+	//Download monitor
     private int totalProcess = 0; //0 ~ 4
     private int finishCount = 0;
     private String minecraftId ="";
@@ -1326,6 +1363,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         @Override
         protected void completed(BaseDownloadTask task) {
             //如果完成的任务为清单文件下载，就刷新版本列表
+		//If the completed task is a manifest file download, refresh the version list
             finishCount++;
 
             if(task.getFilename().equals("version_manifest.json")){
@@ -1359,6 +1397,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         @Override
         protected void error(BaseDownloadTask task, Throwable e) {
             //任务全部取消
+		//Cancel all tasks
             Log.e("Downloader",e.toString());
             Toast.makeText(getApplication(), getString(R.string.tips_download_failed), Toast.LENGTH_SHORT).show();
             download_cancle.performClick();
@@ -1371,6 +1410,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     };
 
     //并行方式执行下载队列
+	//Execute download queue in parallel
     private void StartDownloadQueueSet(FileDownloadQueueSet queueSet,ArrayList<BaseDownloadTask> downloadTasks){
         //queueSet.disableCallbackProgressTimes();
         queueSet.downloadTogether(downloadTasks);
