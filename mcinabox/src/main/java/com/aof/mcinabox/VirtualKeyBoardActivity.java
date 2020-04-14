@@ -69,6 +69,7 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //再设置布局之前，先设置Activity必须全屏显示
+        //Before setting the layout, the activity must be displayed in full screen
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_virtual_keyboard);
 
@@ -134,6 +135,9 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
         tempKeyboardList = new ArrayList<GameButton>();
 
         //执行完初始化后的
+        //After initialization
+
+
         colorPicker.setOnColorChangeListener(colorChangedListener);
         dialog_button_colorpicker.setOnClickListener(listener);
 
@@ -185,6 +189,7 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
         gradientDrawable.setCornerRadius(conerRadius);
         KeyButton.setBackground(gradientDrawable);
         //先执行清除操作，再添加按键，再执行显示操作 才算做一次刷新！！
+        //First, perform the clear operation, then add the key, and then perform the display operation to make a refresh!!
         removeKeyboard();
         keyboardList.add(KeyButton);
         reflashKeyboard();
