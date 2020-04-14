@@ -122,7 +122,6 @@ In theory, forge is supported, but we need to make some changes to start it.
 1. Asynchronous message manager at risk of crashing
 2. Language options can not be reloaded well
 3. Unable to request more memory from the system, the upper limit is determined by the system
-4. Sometimes the downloader gets stuck at 99%. It can be solved by canceling and retrying
 
 ### Launch Minecraft
 1. Forge's loading animation will cause a crash
