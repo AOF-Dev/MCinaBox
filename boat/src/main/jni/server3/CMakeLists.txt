@@ -1,4 +1,4 @@
-add_library(serve3 SHARED server.cpp)
+add_library(serve3 SHARED Server.cpp)
 find_library(log-lib log)
 find_library(dl-lib dl)
 #find_library(libc++ c++)
