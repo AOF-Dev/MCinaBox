@@ -161,7 +161,7 @@
 	<string name="tipper_warn_keyboard_notselected">Not create keyboard layout</string>
 	<string name="tipper_warn_memory_notstable">Current memory size causes crash</string>
 
-	<string name="login_is_demo_account">This account doesn't seems to have a Minecraft user linked to it. Did you buy Minecraft?</string>
+	<string name="login_is_demo_account">This account doesn\'t seems to have a Minecraft user linked to it. Did you buy Minecraft?</string>
 	<string name="tips_login_wait">Logging in, please wait.</string>
 	<string name="title_forge_installer">Forge Installer</string>
 

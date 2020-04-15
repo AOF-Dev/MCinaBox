@@ -18,6 +18,7 @@ import android.os.Message;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -405,7 +406,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                     main_text_showstate.setText(getString(R.string.main_text_defaultlayout));
                     break;
                 case R.id.toolbar_button_backfromhere:
-                    setBackFromHere(layout_here_Id);
+                    BackFromHere();
                     break;
                 case R.id.radiobutton_gamedir_public:
                     radioButton_gamedir_public.setChecked(true);
@@ -479,6 +480,20 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         }
     };
 
+    /**
+     * 重写返回键
+     **/
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            BackFromHere();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+    /**返回功能**/
+    private void BackFromHere(){
+        setBackFromHere(layout_here_Id);
+    }
     /**
      * 【下载从网络版本列表中选择的版本】
      **/
