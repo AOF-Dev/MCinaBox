@@ -28,13 +28,13 @@
 	<string name="title_minecraft_setting_memory_max">Max Memory (MB)</string>
 	<string name="title_minecraft_setting_memory_hardware">Physical:</string>
 	<string name="title_minecraft_setting_profession">Advanced</string>
-	<string name="title_minecraft_setting_notcheck_jvm">Do not check compatibility JVM architecture</string>
+	<string name="title_minecraft_setting_notcheck_jvm">Do not check JVM architecture compatibility</string>
 	<string name="title_minecraft_setting_notcheck_mc">Do not check the integrity of Minecraft</string>
 	<string name="title_backspace">Back</string>
 	<string name="title_refresh">Refresh</string>
 	<string name="title_download">Download</string>
 	<string name="title_downloader_selected_version">Selected version: </string>
-	<string name="title_downloader_warn">If the list for a long time does not appear, manually click "Refresh"\nPlease wait for the download is complete, if the download is slow, try to replace other download sources</string>
+	<string name="title_downloader_warn">If the list does not appear for a long time, manually click "Refresh"\nPlease wait for the download to complete, if the download is slow, try switching to other download sources</string>
 
 	<string name="title_minecraft_version_stable">Release</string>
 	<string name="title_minecraft_version_snapshot">Snapshot</string>
@@ -70,7 +70,7 @@
 	<string name="title_warn">Warning</string>
 	<string name="title_unknown">Unknown</string>
 
-	<string name="tips_launcher_path">Notice:Using "Private File" need not give MCinaBox write permission,but every thing in "Private File" will be lost if you uninstall MCinaBox!</string>
+	<string name="tips_launcher_path">Notice: Although using "Private File" gives MCinaBox write permission automatically, everything in "Private File" will be lost if you uninstall MCinaBox!</string>
 	<string name="tips_minecraft_setting_extra_javaargs">Java virtual machine parameters (do not fill)</string>
 	<string name="tips_minecraft_setting_extra_mcargs">Minecraft additional parameters (do not fill)</string>
 
@@ -85,7 +85,7 @@
 	<string name="tips_online_version_nodata">No game inventory data</string>
 	<string name="tips_launcher_init_fail">Failed to initialize launcher</string>
 	<string name="tips_launcher_save_fail">Failed to save launcher configuration</string>
-	<string name="tips_launcher_new_fail">Failed to create launchet configuration model</string>
+	<string name="tips_launcher_new_fail">Failed to create launcher configuration model</string>
 	<string name="tips_launcher_new_success">Succeeded to create launcher configuration model</string>
 	<string name="tips_launcher_load_fail">Failed to load launcher configuration</string>
 	<string name="tips_launcher_load_bad">Launcher configuration file is broken</string>
@@ -97,17 +97,17 @@
 	<string name="tips_runtime_installing">Installing runtime…</string>
 	<string name="tips_runtime_install_success">Runtime installation succeeded</string>
 	<string name="tips_runtime_install_fail">Failed to install runtime</string>
-	<string name="tips_runtime_install_fail_exeable">Reason:failed to set permission</string>
+	<string name="tips_runtime_install_fail_exeable">Reason: failed to set permission</string>
 
 	<string name="tips_ok">OK</string>
 	<string name="tips_no">Cancel</string>
 	<string name="tips_button_name">Key name</string>
-	<string name="tips_button_location">Location (Dp)</string>
+	<string name="tips_button_location">Location (DP)</string>
 	<string name="tips_button_mainkey">Primary key</string>
 	<string name="tips_theme">Exterior</string>
-	<string name="tips_button_size">Size (Dp)</string>
+	<string name="tips_button_size">Size (DP)</string>
 	<string name="tips_button_size_width">Width</string>
-	<string name="tips_button_size_height">High</string>
+	<string name="tips_button_size_height">Height</string>
 	<string name="tips_button_color">Colour</string>
 	<string name="tips_button_corner_size">Fillet size</string>
 	<string name="tips_function">Features</string>
@@ -142,15 +142,15 @@
 	<string name="tips_keyboard_config_location_notfound">Coordinate value cannot be empty</string>
 	<string name="tips_keyboard_config_size_notfound">Width and height cannot be empty</string>
 	<string name="tips_keyboard_button_notfound">Layout cannot be empty</string>
-	<string name="tips_gamecheck_file_notfull">File integrity check failed,please disable file check in global game settings or download this version of game again</string>
-	<string name="tips_gamecheck_platform_uncorrect">The runtime architecture is not compatible,please disable the compatibility check in the global game settings or install the correct runtime library</string>
-	<string name="tips_keyboard_config">Tips:1.Press and drag to move keys with fingers\nTips:2.Long press without dragging, you can edit or delete the selected button</string>
+	<string name="tips_gamecheck_file_notfull">File integrity check failed, please disable file check in global game settings or download this version of the game again</string>
+	<string name="tips_gamecheck_platform_uncorrect">The runtime architecture is not compatible, please disable the compatibility check in the global game settings or install the correct runtime library</string>
+	<string name="tips_keyboard_config">Tips: 1. Press and drag to move keys with fingers\nTips: 2. Long press without dragging, you can edit or delete the selected button</string>
 	<string name="tips_gamecheck_version_notfound">Before enabling forge, please install the full version of the game it corresponds to</string>
 	<string name="tips_gamecheck_jar_notfound">The main game file is incomplete, missing jar files</string>
-	<string name="tips_download_version_json">Downloading the master list of documents …</string>
-	<string name="tips_download_version_libraries">Downloading master file and dependent libraries …</string>
-	<string name="tips_download_assets_index">Downloading the list of resource files …</string>
-	<string name="tips_download_assets_object">Downloading resource files …</string>
+	<string name="tips_download_version_json">Downloading the master list of documents…</string>
+	<string name="tips_download_version_libraries">Downloading master file and dependent libraries…</string>
+	<string name="tips_download_assets_index">Downloading the list of resource files…</string>
+	<string name="tips_download_assets_object">Downloading resource files…</string>
 	<string name="tips_download_finish">Download Completed</string>
 	<string name="tips_download_failed">Download failed</string>
 	<string name="tips_user_remove_warning">Confirm to delete this user?</string>
@@ -161,7 +161,7 @@
 	<string name="tipper_warn_keyboard_notselected">Not create keyboard layout</string>
 	<string name="tipper_warn_memory_notstable">Current memory size causes crash</string>
 
-	<string name="login_is_demo_account">This account doesn't seems to have a Minecraft user linked to it. Did you buy Minecraft? </string>
+	<string name="login_is_demo_account">This account doesn't seems to have a Minecraft user linked to it. Did you buy Minecraft?</string>
 	<string name="tips_login_wait">Logging in, please wait.</string>
 	<string name="title_forge_installer">Forge Installer</string>
 
