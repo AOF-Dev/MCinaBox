@@ -236,6 +236,44 @@ public class FileTool {
         }
     }
 
+    public static void copyfile(String from, String to,Boolean rewrite )
+    {
+        File fromFile = new File(from);
+        File toFile = new File(to);
+
+        if (!fromFile.exists()) {
+            return;
+        }
+        if (!fromFile.isFile()) {
+            return ;
+        }
+        if (!fromFile.canRead()) {
+            return ;
+        }
+        if (!toFile.getParentFile().exists()) {
+            toFile.getParentFile().mkdirs();
+        }
+        if (toFile.exists() && rewrite) {
+            toFile.delete();
+        }
+
+        try {
+            java.io.FileInputStream fosfrom = new java.io.FileInputStream(fromFile);
+            java.io.FileOutputStream fosto = new FileOutputStream(toFile);
+            byte bt[] = new byte[1024];
+            int c;
+            while ((c = fosfrom.read(bt)) > 0) {
+                fosto.write(bt, 0, c); //将内容写到新文件当中
+            }
+            fosfrom.close();
+            fosto.close();
+
+        } catch (Exception ex) {
+            Log.e("readfile", ex.getMessage());
+        }
+
+    }
+
     /**【复制文件夹】**/
     public static int copyDir(String fromFolder , String toFolder){
         File [] currentFiles;
