@@ -1483,6 +1483,15 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 downloaderDialog.findViewById(R.id.dialog_download_finish).setVisibility(View.VISIBLE);
                 downloaderDialog.findViewById(R.id.dialog_total_count).setVisibility(View.GONE);
                 break;
+			case 6:
+                task = getString(R.string.tips_download_finish);
+                totalCount = "1/1";
+                totalProcess = 100;
+				fitness_attribute();
+				download_ok.setClickable(true);
+                downloaderDialog.findViewById(R.id.dialog_download_finish).setVisibility(View.VISIBLE);
+                downloaderDialog.findViewById(R.id.dialog_total_count).setVisibility(View.GONE);
+                break;
         }
         downloader_current_task.setText(task);
         downloader_total_count.setText(totalCount);
@@ -1568,6 +1577,12 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         //auto download files
         StartDownloadMinecraft(5,id);
     }
-
+	
+	private void fitness_attribute() {
+		FileTool.checkFilePath()
+		FileTool.checkFilePath()
+		if(FileTool.isFileExists())FileTool.addFile()
+		FileTool.writeData()
+	}
 }
 
