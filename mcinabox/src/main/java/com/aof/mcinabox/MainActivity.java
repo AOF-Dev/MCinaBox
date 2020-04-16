@@ -1387,18 +1387,27 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 return;
             }
 
-            if(finishCount == downloadTasks.size() && totalProcess != 4){
-                finishCount = 0;
-                downloadTasks.clear();
-                totalProcess++;
-                StartDownloadMinecraft(totalProcess,minecraftId);
-            }else if(finishCount == downloadTasks.size() && (totalProcess == 4 || totalProcess == 6)){
-                finishCount = 0;
-                downloadTasks.clear();
-                totalProcess =0;
-                ChangeDownloadPrcess(5,100);
+            if(finishCount == downloadTasks.size() && (totalProcess != 7)){
+                if(finishCount == downloadTasks.size() && totalProcess != 4){
+                    finishCount = 0;
+                    downloadTasks.clear();
+                    totalProcess++;
+                    StartDownloadMinecraft(totalProcess,minecraftId);
+                }else if(finishCount == downloadTasks.size() && (totalProcess == 4 || totalProcess == 6)){
+                    finishCount = 0;
+                    downloadTasks.clear();
+                    totalProcess =0;
+                    ChangeDownloadPrcess(5,100);
+                }
+            } else if(finishCount == downloadTasks.size()){
+                    finishCount = 0;
+                    downloadTasks.clear();
+                    totalProcess =0;
+                    ChangeDownloadPrcess(8,100);
+
             }
-            if(totalProcess == 2||totalProcess == 4||totalProcess == 5){
+
+            if(totalProcess == 2||totalProcess == 4||totalProcess == 5||totalProcess == 7){
                 ChangeDownloadPrcess(totalProcess,(finishCount*100)/downloadTasks.size());
             }
         }
@@ -1483,12 +1492,17 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 downloaderDialog.findViewById(R.id.dialog_download_finish).setVisibility(View.VISIBLE);
                 downloaderDialog.findViewById(R.id.dialog_total_count).setVisibility(View.GONE);
                 break;
-			case 6:
+			case 7:
+                task = getString(R.string.tips_download_forge_object);
+                totalCount = "1/1";
+                totalProcess = 100;
+                break;
+            case 8:
                 task = getString(R.string.tips_download_finish);
                 totalCount = "1/1";
                 totalProcess = 100;
-				fitness_attribute();
-				download_ok.setClickable(true);
+                fitness_attribute();
+                download_ok.setClickable(true);
                 downloaderDialog.findViewById(R.id.dialog_download_finish).setVisibility(View.VISIBLE);
                 downloaderDialog.findViewById(R.id.dialog_total_count).setVisibility(View.GONE);
                 break;
@@ -1519,7 +1533,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 downloadTasks.addAll(mDownloadMinecraft.createAssetObjectsDownloadTask(id));
                 StartDownloadQueueSet(queueSet,downloadTasks);
                 break;
-            case 5:
+            case 7:
                 downloadTasks.addAll(mDownloadMinecraft.createForgeDownloadTask(id));
                 StartDownloadQueueSet(queueSet,downloadTasks);
                 break;
@@ -1542,47 +1556,64 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     }
 
     private void installForgeFromInstaller(){
-        String filename;
-        if(spinner_forgeinstaller.getSelectedItem() != null){
-            filename = spinner_forgeinstaller.getSelectedItem().toString();
-        }else{
-            return;
-        }
-        ForgeInstaller installer = new ForgeInstaller(getApplication());
-        try {
-            installer.unzipForgeInstaller(filename);
-        } catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(getApplication(), getString(R.string.tips_unzip_failed), Toast.LENGTH_SHORT).show();
-            return;
-        }
-        String id = installer.makeForgeData();
+        if(((String)setting_downloadtype.getSelectedItem()).equals("official")){
+            Toast.makeText(this, R.string.toast_change_downloadtype, Toast.LENGTH_SHORT).show();
+        } else {
+            String filename;
+            if(spinner_forgeinstaller.getSelectedItem() != null){
+                filename = spinner_forgeinstaller.getSelectedItem().toString();
+            }else{
+                return;
+            }
+            ForgeInstaller installer = new ForgeInstaller(getApplication());
+            try {
+                installer.unzipForgeInstaller(filename);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(getApplication(), getString(R.string.tips_unzip_failed), Toast.LENGTH_SHORT).show();
+                return;
+            }
+            String id = installer.makeForgeData();
 
-        //init
-        downloaderDialog.findViewById(R.id.dialog_download_finish).setVisibility(View.GONE);
-        downloaderDialog.findViewById(R.id.dialog_total_count).setVisibility(View.VISIBLE);
-        downloaderDialog.findViewById(R.id.dialog_download_ok).setClickable(false);
-        downloader_target_version.setText(id);
-        downloader_current_task.setText("");
-        downloader_total_process.setProgress(0);
-        downloader_current_process.setProgress(0);
-        downloader_current_count.setText("0%");
-        downloader_total_count.setText("0/0");
-        finishCount = 0;
-        downloadTasks.clear();
-        //show
-        downloaderDialog.show();
-        totalProcess = 6;
-        ChangeDownloadPrcess(6,0);
-        //auto download files
-        StartDownloadMinecraft(5,id);
+            //init
+            downloaderDialog.findViewById(R.id.dialog_download_finish).setVisibility(View.GONE);
+            downloaderDialog.findViewById(R.id.dialog_total_count).setVisibility(View.VISIBLE);
+            downloaderDialog.findViewById(R.id.dialog_download_ok).setClickable(false);
+            downloader_target_version.setText(id);
+            downloader_current_task.setText("");
+            downloader_total_process.setProgress(0);
+            downloader_current_process.setProgress(0);
+            downloader_current_count.setText("0%");
+            downloader_total_count.setText("0/0");
+            finishCount = 0;
+            downloadTasks.clear();
+            //show
+            downloaderDialog.show();
+            totalProcess = 7;
+            ChangeDownloadPrcess(7,0);
+            //auto download files
+            StartDownloadMinecraft(7,id);
+        }
     }
 	
 	private void fitness_attribute() {
-		FileTool.checkFilePath()
-		FileTool.checkFilePath()
-		if(FileTool.isFileExists())FileTool.addFile()
-		FileTool.writeData()
+		FileTool.checkFilePath(new File(getMinecraftHomePath()), true);
+		FileTool.checkFilePath(new File(getMinecraftHomePath() + "/config"), true);
+		String config_file = getMinecraftHomePath() + "/config/splash.properties";
+		if(FileTool.isFileExists(config_file))FileTool.addFile(config_file);
+		FileTool.writeData(config_file, "enabled=false");
 	}
+
+    private String getMinecraftHomePath(){
+        switch(com.aof.mcinabox.launcher.JsonUtils.getSettingFromFile(MCINABOX_FILE_JSON).getLocalization()){
+            case "private":
+                return MINECRAFT_DATA_PRIVATE;
+            case "public":
+                return MINECRAFT_DATA_PUBLIC;
+            default:
+                Log.e("DownloadMinecraft","Can't get minecraft home path.");
+                return null;
+        }
+    }
 }
 

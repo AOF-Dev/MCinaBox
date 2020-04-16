@@ -181,5 +181,7 @@
 
     <string name="login_is_demo_account">This account doesn\'t seems to have a Minecraft user linked to it. Did you buy Minecraft? </string>
     <string name="tips_login_wait">Logging in, please wait.</string>
-	
+    <string name="tips_download_forge_object">正在下载依赖库</string>
+    <string name="toast_change_downloadtype">请使用非官方下载源</string>
+
 </resources>
