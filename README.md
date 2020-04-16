@@ -14,7 +14,7 @@
 ## Background
 
 `Origin` I discovered the `BoardwalkApp` a few years ago, which can launch Minecraft Java Edition on Android devices. It's so exciting to see minecraft start on my phone.It's really a curious and interesting project<br>
-`MBinaBox` is an open source project, and the back end is supported by the `BoatApp` project. And in the efforts of many people to make it run.
+`MCinaBox` is an open source project, and the back end is supported by the `BoatApp` project. And in the efforts of many people to make it run.
 >zhuowei 's BoardwalkApp https://github.com/zhuowei/Boardwalk <br>
 >CosineMath 's BoatApp https://github.com/CosineMath/BoatApp
 
