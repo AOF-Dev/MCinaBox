@@ -162,4 +162,6 @@
     <string name="login_is_demo_account">此帐户似乎没有关联的Minecraft用户，您是否购买了Minecraft？</string>
     <string name="tips_login_wait">正在登录，请稍等</string>
     <string name="title_forge_installer">Forge本地安装器</string>
+    <string name="tips_download_forge_object">正在下载依赖库</string>
+    <string name="toast_change_downloadtype">请使用非官方下载源</string>
 </resources>
