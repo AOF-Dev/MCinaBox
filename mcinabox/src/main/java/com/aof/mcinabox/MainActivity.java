@@ -91,7 +91,7 @@ import cosine.boat.Utils;
 import static com.aof.mcinabox.DataPathManifest.*;
 
 public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
-    public static TextView versiondl;
+    
     public static final int LAUNCHER_IMPT_RTPACK = 127;
     public Button[] launcherBts;
     public Button button_user, button_gameselected, button_gamelist, button_gamedir, button_launchersetting, button_launchercontrol, toolbar_button_backhome, toolbar_button_backfromhere,ImportRuntime,download_ok,download_cancle,toolbar_button_language,installForgeInstaller;
@@ -170,9 +170,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
         //执行自动刷新
         timer_tipper.schedule(TipperTask,1000,3000);
-        //set the variable for downloader
-        versiondl = findViewById(R.id.dialogdownload_downlad_name);
-        thi = this;
     }
 
     private void InitUI(){
