@@ -1150,14 +1150,6 @@
                         android:textColor="@color/puredark"
                         android:textSize="13sp"/>
 
-                    <Spinner
-                        android:id="@+id/launchersetting_spinner_runtimepack"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:textAlignment="gravity"
-                        android:layout_gravity="center"
-                        android:layout_marginRight="2dp"
-                        android:layout_weight="1" />
                     <Button
                         android:id="@+id/launchersetting_button_import"
                         android:layout_width="wrap_content"
