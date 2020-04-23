@@ -87,6 +87,7 @@ public class ReadyToStart {
         versionSetting = com.aof.mcinabox.minecraft.JsonUtils.getVersionFromFile(minecraft_version_path + versionId + "/" + versionId + ".json");
         if(IsForgeMode()){
             versionSettingS = com.aof.mcinabox.minecraft.JsonUtils.getVersionFromFile(minecraft_version_path + versionSetting.getInheritsFrom() + "/" + versionSetting.getInheritsFrom() + ".json");
+            versionSetting.setAssets(versionSettingS.getAssets());
         }
     }
 
