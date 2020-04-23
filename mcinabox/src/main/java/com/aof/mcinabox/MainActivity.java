@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -90,13 +91,14 @@ import cosine.boat.Utils;
 import static com.aof.mcinabox.DataPathManifest.*;
 
 public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
-
+    
+    public static final int LAUNCHER_IMPT_RTPACK = 127;
     public Button[] launcherBts;
     public Button button_user, button_gameselected, button_gamelist, button_gamedir, button_launchersetting, button_launchercontrol, toolbar_button_backhome, toolbar_button_backfromhere,ImportRuntime,download_ok,download_cancle,toolbar_button_language,installForgeInstaller;
     public RadioGroup radioGroup_version_type;
     public RadioButton radioButton_type_release, radioButton_type_snapshot, radioButton_type_old;
     public RadioButton radioButton_gamedir_public, radioButton_gamedir_private;
-    public Spinner setting_downloadtype, setting_keyboard, spinner_choice_version,spinner_runtimepacks,spinner_forgeinstaller;
+    public Spinner setting_downloadtype, setting_keyboard, spinner_choice_version,spinner_forgeinstaller;
     public Switch setting_notcheckJvm, setting_notcheckMinecraft;
     public LinearLayout[] launcherBts2;
     public LinearLayout gamelist_button_reflash, gamelist_button_installnewgame, gamelist_button_backfrom_installnewversion, gamelist_button_setting, main_button_startgame, gamelist_button_download, user_button_adduser, gamelist_button_reflash_locallist, user_button_reflash_userlist;
@@ -132,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     private ProgressBar downloader_total_process,downloader_current_process;
     private TextView downloader_total_count,downloader_current_count,downloader_current_task,downloader_target_version;
     private String Language = "";
-
+    private MainActivity thi;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -168,7 +170,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
         //执行自动刷新
         timer_tipper.schedule(TipperTask,1000,3000);
-
     }
 
     private void InitUI(){
@@ -263,8 +264,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         setting_keyboard = findViewById(R.id.setting_spinner_keyboard);
         setting_downloadtype = findViewById(R.id.setting_spinner_downloadtype);
         spinner_choice_version = findViewById(R.id.spinner_choice_version);
-
-        spinner_runtimepacks = findViewById(R.id.launchersetting_spinner_runtimepack);
+        //Deprecated.
+        //spinner_runtimepacks = findViewById(R.id.launchersetting_spinner_runtimepack);
         spinner_forgeinstaller = findViewById(R.id.launchersetting_spinner_forgeinstaller);
 
         editText_javaArgs = findViewById(R.id.setting_edit_javaargs);
@@ -451,8 +452,29 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                     ReflashLocalVersionList();
                     break;
                 case R.id.launchersetting_button_import:
+                    if(ContextCompat.checkSelfPermission(thi,Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(thi,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},2048);
+                    }
+                    if(ContextCompat.checkSelfPermission(thi,Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        Toast.makeText(getApplicationContext(),"Please allow read storage permission to import runtime packs externally.",Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    FileChooser fc = new FileChooser(thi);
+                    fc.setExtension(".tar.xz");
+                    fc.setFileListener(new FileChooser.FileSelectedListener() {
+                        @Override
+                        public void fileSelected(File file) {
+                            InstallRuntimeFromPath(file.getPath());
+                        }
+                    });
+                    fc.showDialog();
+                    break;
+                    /*
+                    * Deprecated
+                case R.id.launchersetting_external_import:
                     InstallRuntime();
                     break;
+                     */
                 case R.id.toolbar_button_reflash:
                     SaveLauncherSettingToFile(LauncherConfigFile);
                     initLauncher();
@@ -1078,7 +1100,51 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         GetAvailableMemories();
     }
 
+    private void InstallRuntimeFromPath(String globalPath) {
+        //check the permissions first, we want to ensure that app have it. weird things can happen i we have denied.
+        if(ContextCompat.checkSelfPermission(this,Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},2048);
+        }
+        if(ContextCompat.checkSelfPermission(this,Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(getApplicationContext(),"Please allow read storage permission to import runtime packs externally.",Toast.LENGTH_LONG).show();
+            return;
+        }
 
+        final String mpackagePath = globalPath;
+        new Thread() {
+            @Override
+            public void run() {
+                File packageFile = new File(mpackagePath);
+                if (!packageFile.exists()) {
+
+                        Message msg_1 = new Message();
+                        msg_1.what = 4;
+                        handler.sendMessage(msg_1);
+                        return;
+
+                }else{
+                    if(packageFile.isDirectory()) {
+                        Toast.makeText(getApplicationContext(),"Runtime packs should not be directories!",Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                }
+                Message msg_2 = new Message();
+                Message msg_3 = new Message();
+                msg_2.what = 5;
+                handler.sendMessage(msg_2);
+                Utils.extractTarXZ(mpackagePath, getDir("runtime", 0));
+                if (Utils.setExecutable(getDir("runtime", 0))) {
+                    msg_3.what = 6;
+                    handler.sendMessage(msg_3);
+                } else {
+                    msg_3.what = 7;
+                    handler.sendMessage(msg_3);
+                }
+            }
+        }.start();
+    }
+    /*
+    * Deprecated
     private void InstallRuntime() {
         String packagePath = null;
         if(spinner_runtimepacks.getSelectedItem() == null){
@@ -1117,9 +1183,11 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
 
     }
-
+ */
     ArrayList<String> runtimelist = new ArrayList<String>();
     private void ReflashRuntimePackList(){
+        /*
+        * Deprecated
         ArrayList<String> packlist = new ArrayList<String>();
         File file = new File(MCINABOX_DATA_RUNTIME+"/");
         File[] files = file.listFiles();
@@ -1143,6 +1211,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 ((BaseAdapter)spinner_runtimepacks.getAdapter()).notifyDataSetChanged();
             }
         }
+        */
+
     }
 
     ArrayList<String> forgeInstallerList = new ArrayList<>();
@@ -1614,6 +1684,22 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 Log.e("DownloadMinecraft","Can't get minecraft home path.");
                 return null;
         }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case LAUNCHER_IMPT_RTPACK:
+                if (resultCode == RESULT_OK) {
+
+                    Uri uri = data.getData();
+                    System.out.println("URI="+uri.toString());
+                    String path = uri.getPath();
+                    System.out.println("PTH="+path);
+                    InstallRuntimeFromPath(path);
+                }
+                break;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }
 
