@@ -170,6 +170,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
         //执行自动刷新
         timer_tipper.schedule(TipperTask,1000,3000);
+	
+	thi = this;
     }
 
     private void InitUI(){
