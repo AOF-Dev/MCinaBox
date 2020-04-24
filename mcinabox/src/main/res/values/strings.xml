@@ -172,7 +172,13 @@
     <string name="tips_download_failed">Download failed</string>
     <string name="tips_user_remove_warning">Confirm to delete this user?</string>
     <string name="tips_unzip_failed">Unzip failed</string>
-
+    <string name="downloader_openingconnection">Opening connection...</string>
+    <string name="downloader_openingstreams">Opening streams...</string>
+    <string name="downloader_receivingdata">Receiving data...</string>
+    <string name="downloader_installingruntime">Installing runtime...</string>
+    <string name="downloader_fail">Failed: </string>
+    <string name="downloader_pleasewait">Please wait...</string>
+    <string name="downloader_data">Ext. Data:</string>
     <string name="tipper_warn_runtime_notinstall">Not install runtime</string>
     <string name="tipper_warn_user_notselected">Not create or select user</string>
     <string name="tipper_warn_version_notselected">Not download minecraft version</string>
