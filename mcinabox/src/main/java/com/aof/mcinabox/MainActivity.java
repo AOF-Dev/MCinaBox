@@ -52,6 +52,7 @@ import com.aof.mcinabox.minecraft.Login;
 import com.aof.mcinabox.utils.FileTool;
 import com.aof.mcinabox.utils.LanguageUtils;
 import com.aof.mcinabox.utils.MemoryUtils;
+import com.aof.mcinabox.utils.PackDownloader;
 import com.aof.mcinabox.utils.PathTool;
 import com.aof.mcinabox.minecraft.json.VersionManifestJson;
 import com.aof.mcinabox.launcher.keyboard.ConfigDialog;
@@ -60,6 +61,7 @@ import com.aof.mcinabox.launcher.version.LocalVersionListBean;
 import com.aof.mcinabox.launcher.user.UserListAdapter;
 import com.aof.mcinabox.launcher.user.UserListBean;
 
+import com.aof.mcinabox.utils.RuntimeInstallationListener;
 import com.daasuu.bl.ArrowDirection;
 import com.daasuu.bl.BubbleLayout;
 import com.daasuu.bl.BubblePopupHelper;
@@ -91,7 +93,6 @@ import cosine.boat.Utils;
 import static com.aof.mcinabox.DataPathManifest.*;
 
 public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
-    
     public static final int LAUNCHER_IMPT_RTPACK = 127;
     public Button[] launcherBts;
     public Button button_user, button_gameselected, button_gamelist, button_gamedir, button_launchersetting, button_launchercontrol, toolbar_button_backhome, toolbar_button_backfromhere,ImportRuntime,download_ok,download_cancle,toolbar_button_language,installForgeInstaller;
@@ -141,6 +142,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         //Activity生命周期开始，执行初始化
         super.onCreate(savedInstanceState);
 
+
         //显示activity_main为当前Activity布局
         setContentView(R.layout.activity_main);
 
@@ -170,8 +172,14 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
         //执行自动刷新
         timer_tipper.schedule(TipperTask,1000,3000);
-	
-	thi = this;
+
+        thi = this;
+
+        System.out.println("Checking availablity...");
+        if(com.aof.mcinabox.launcher.JsonUtils.getPackInformation(this).equals("")) {
+            System.out.println("Starting pack download...");
+            new PackDownloader(this, PackDownloader.PackDownloaderDialog.initDalog(this)).startDownload();
+        }
     }
 
     private void InitUI(){
@@ -1102,7 +1110,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         GetAvailableMemories();
     }
 
-    private void InstallRuntimeFromPath(String globalPath) {
+    public void InstallRuntimeFromPath(String globalPath) {
         //check the permissions first, we want to ensure that app have it. weird things can happen i we have denied.
         if(ContextCompat.checkSelfPermission(this,Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},2048);
@@ -1142,6 +1150,49 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                     msg_3.what = 7;
                     handler.sendMessage(msg_3);
                 }
+            }
+        }.start();
+    }
+    public void InstallRuntimeFromPath(String globalPath, final RuntimeInstallationListener listener) {
+        //check the permissions first, we want to ensure that app have it. weird things can happen i we have denied.
+        if(ContextCompat.checkSelfPermission(this,Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},2048);
+        }
+        if(ContextCompat.checkSelfPermission(this,Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(getApplicationContext(),"Please allow read storage permission to import runtime packs externally.",Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        final String mpackagePath = globalPath;
+        new Thread() {
+            @Override
+            public void run() {
+                File packageFile = new File(mpackagePath);
+                if (!packageFile.exists()) {
+                    Message msg_1 = new Message();
+                    msg_1.what = 4;
+                    handler.sendMessage(msg_1);
+                    return;
+
+                }else{
+                    if(packageFile.isDirectory()) {
+                        Toast.makeText(getApplicationContext(),"Runtime packs should not be directories!",Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                }
+                Message msg_2 = new Message();
+                Message msg_3 = new Message();
+                msg_2.what = 5;
+                handler.sendMessage(msg_2);
+                Utils.extractTarXZ(mpackagePath, getDir("runtime", 0));
+                if (Utils.setExecutable(getDir("runtime", 0))) {
+                    msg_3.what = 6;
+                    handler.sendMessage(msg_3);
+                } else {
+                    msg_3.what = 7;
+                    handler.sendMessage(msg_3);
+                }
+                listener.onInstallFinished();
             }
         }.start();
     }
@@ -1344,6 +1395,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
         }
     };
+    //I'm lazy, so I will use the dialog from PackDownloader.
 
     @SuppressLint("HandlerLeak")
     Handler handler = new Handler(){
@@ -1368,6 +1420,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                     Toast.makeText(getApplication(), getString(R.string.tips_runtime_notfound), Toast.LENGTH_SHORT).show();
                     break;
                 case 5:
+
                     Toast.makeText(getApplication(), getString(R.string.tips_runtime_installing), Toast.LENGTH_SHORT).show();
                     ImportRuntime.setClickable(false);
                     break;
