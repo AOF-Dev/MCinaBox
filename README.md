@@ -1,4 +1,8 @@
 # MCinaBox - A Minecraft Java Edition Launcher on Android
+
+# Warning 
+## Significant changes are being made to the code structure of this project. Please wait for the changes to be completed before submitting the code or fork project
+
 ## Table of Contents
 - [Background](#Background)
 - [Change Log](#Change-Log)
