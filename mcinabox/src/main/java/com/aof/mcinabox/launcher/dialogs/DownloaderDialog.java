@@ -34,7 +34,7 @@ public class DownloaderDialog extends StandDialog {
     private Button download_ok,download_cancel;
     private ImageView finishMark;
     private FileDownloadQueueSet queueSet;
-    public com.aof.mcinabox.minecraft.DownloadMinecraft mDownloadMinecraft;
+    public com.aof.mcinabox.minecraft.DownloadMinecraft mDownloadMinecraft =  new com.aof.mcinabox.minecraft.DownloadMinecraft();;
 
 
     @Override
@@ -56,8 +56,6 @@ public class DownloaderDialog extends StandDialog {
         //初始化下载器
         FileDownloader.setup(mContext);
         queueSet = new FileDownloadQueueSet(downloadListener);
-        mDownloadMinecraft = new com.aof.mcinabox.minecraft.DownloadMinecraft();
-
     }
 
     private void initDownloaderUI(String id){

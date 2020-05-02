@@ -28,7 +28,7 @@ public class LanguageUtils {
             case "Español(es)":
                 mLocale = Locale.forLanguageTag("es");
                 break;
-            case "Русский (RU)":
+            case "Русский (ru)":
                 mLocale = Locale.forLanguageTag("ru");
                 break;
             default:

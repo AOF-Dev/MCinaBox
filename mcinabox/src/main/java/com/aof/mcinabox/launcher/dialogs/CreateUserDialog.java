@@ -14,6 +14,7 @@ import com.aof.mcinabox.DataPathManifest;
 import com.aof.mcinabox.MainActivity;
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.launcher.json.SettingJson;
+import com.aof.mcinabox.launcher.uis.UserUI;
 import com.aof.mcinabox.minecraft.Login;
 
 import java.util.UUID;
@@ -77,7 +78,6 @@ public class CreateUserDialog extends StandDialog {
         SettingJson setting = com.aof.mcinabox.launcher.JsonUtils.getSettingFromFile(DataPathManifest.MCINABOX_FILE_JSON);
         SettingJson.Accounts[] accounts = setting.getAccounts();
         SettingJson.Accounts newAccount = new SettingJson().newAccounts;
-        SettingJson.Accounts[] newAccounts;
 
 
         String username = editUsername.getText().toString();
@@ -111,25 +111,14 @@ public class CreateUserDialog extends StandDialog {
             Toast.makeText(mContext, mContext.getString(R.string.tips_add_success), Toast.LENGTH_SHORT).show();
         }
 
-        if(accounts == null){
-            newAccounts = new SettingJson.Accounts[1];
-            newAccounts[0] = newAccount;
-        }else{
-            newAccounts = new SettingJson.Accounts[accounts.length + 1];
-            newAccounts[accounts.length] = newAccount;
-        }
-
-        setting.setAccounts(newAccounts);
-        com.aof.mcinabox.launcher.JsonUtils.saveSettingToFile(setting,DataPathManifest.MCINABOX_FILE_JSON);
+        UserUI uiUser = ((MainActivity)mContext).uiUser;
+        uiUser.addFormedUser(newAccount);
 
     }
 
     public void OnlineLogin(String e) {
 
-        SettingJson setting = com.aof.mcinabox.launcher.JsonUtils.getSettingFromFile(DataPathManifest.MCINABOX_FILE_JSON);
-        SettingJson.Accounts[] accounts = setting.getAccounts();
         SettingJson.Accounts newAccount = new SettingJson().newAccounts;
-        SettingJson.Accounts[] newAccounts;
 
         if(e == null){
             SharedPreferences prefs = mContext.getSharedPreferences("launcher_prefs", 0);
@@ -146,16 +135,8 @@ public class CreateUserDialog extends StandDialog {
             Toast.makeText(mContext, e, Toast.LENGTH_SHORT).show();
         }
 
-        if(accounts == null){
-            newAccounts = new SettingJson.Accounts[1];
-            newAccounts[0] = newAccount;
-        }else{
-            newAccounts = new SettingJson.Accounts[accounts.length + 1];
-            newAccounts[accounts.length] = newAccount;
-        }
-
-        setting.setAccounts(newAccounts);
-        com.aof.mcinabox.launcher.JsonUtils.saveSettingToFile(setting,DataPathManifest.MCINABOX_FILE_JSON);
+        UserUI uiUser = ((MainActivity)mContext).uiUser;
+        uiUser.addFormedUser(newAccount);
 
     }
 

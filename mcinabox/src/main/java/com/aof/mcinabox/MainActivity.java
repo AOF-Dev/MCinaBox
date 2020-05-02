@@ -243,7 +243,7 @@ public class MainActivity extends AppCompatActivity {
     private SettingJson saveLauncherSettingToFile() {
         SettingJson setting = new SettingJson();
         for (StandUI ui : UIs) {
-            ui.saveUIConfig(setting);
+            setting = ui.saveUIConfig(setting);
         }
 
         if (!com.aof.mcinabox.launcher.JsonUtils.saveSettingToFile(setting, MCINABOX_FILE_JSON)) {
@@ -451,7 +451,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStop() {
         super.onStop();
-        //SaveLauncherSettingToFile();
+        saveLauncherSettingToFile();
     }
 }
 

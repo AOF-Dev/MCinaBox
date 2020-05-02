@@ -11,6 +11,8 @@ import com.aof.mcinabox.launcher.json.SettingJson;
 import com.aof.mcinabox.launcher.user.UserListAdapter;
 import com.aof.mcinabox.launcher.user.UserListBean;
 
+import static com.aof.mcinabox.DataPathManifest.*;
+
 import java.util.ArrayList;
 
 public class UserUI extends StandUI {
@@ -44,11 +46,12 @@ public class UserUI extends StandUI {
         for (View v : views) {
             v.setOnClickListener(clickListener);
         }
+        refreshLocalUserList(com.aof.mcinabox.launcher.JsonUtils.getSettingFromFile(MCINABOX_FILE_JSON));
     }
 
     @Override
     public void refreshUI(SettingJson setting) {
-        refreshLocalUserList(setting);
+        //refreshLocalUserList should not run in the refreshUI method.
     }
 
     @Override
@@ -75,7 +78,7 @@ public class UserUI extends StandUI {
                 ((MainActivity) mContext).dialogCreateUser.show();
             }
             if (v == buttonRefreshUserList) {
-                ((MainActivity)mContext).refreshLauncher(null,true);
+                ((MainActivity) mContext).refreshLauncher(null, true);
             }
         }
 
@@ -85,9 +88,7 @@ public class UserUI extends StandUI {
      * 【刷新本地用户列表】
      * Refresh User list
      **/
-    private ArrayList<UserListBean> userlist = new ArrayList<UserListBean>() {
-    };
-
+    private ArrayList<UserListBean> userlist = new ArrayList<UserListBean>();
     private void refreshLocalUserList(SettingJson setting) {
         SettingJson.Accounts[] accounts = setting.getAccounts();
         ArrayList<UserListBean> tmp = new ArrayList<UserListBean>() {
@@ -114,6 +115,21 @@ public class UserUI extends StandUI {
         } else {
             listUsers.deferNotifyDataSetChanged();
         }
+    }
+
+    /**
+     * 【添加一个配制好的用户】
+     **/
+    public void addFormedUser(SettingJson.Accounts account) {
+        UserListBean user = new UserListBean();
+        user.setUser_name(account.getUsername());
+        user.setUser_model(account.getType());
+        user.setIsSelected(account.isSelected());
+        user.setAuth_UUID(account.getUuid());
+        user.setAuth_Access_Token(account.getAccessToken());
+        user.setContext(mContext);
+        userlist.add(user);
+        listUsers.deferNotifyDataSetChanged();
     }
 
     /**

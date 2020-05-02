@@ -60,7 +60,10 @@ public class StartGameUI extends StandUI {
     @Override
     public void refreshUI(SettingJson setting) {
         refreshLocalVersionList(setting);
-        if (!(setting.getLastVersion().equals("") || setting.getLastVersion() == null)) {
+        if(setting.getLastVersion() == null){
+            return;
+        }
+        if (!(setting.getLastVersion().equals(""))) {
             setConfigureToVersionlist(setting.getLastVersion(), listVersions);
         }
     }
