@@ -25,4 +25,21 @@
         <item name="android:windowCloseOnTouchOutside">false</item>
     </style>
 
+    <style name="StandDialog" parent="Theme.AppCompat.Light.Dialog">
+        <!-- 背景颜色及透明程度 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- 是否半透明 -->
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- 是否没有标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 是否背景模糊 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- 设置背景模糊的透明度-->
+        <item name="android:backgroundDimAmount">0.4</item>
+        <!-- 是否点击外部不消失 -->
+        <item name="android:windowCloseOnTouchOutside">false</item>
+    </style>
+
 </resources>

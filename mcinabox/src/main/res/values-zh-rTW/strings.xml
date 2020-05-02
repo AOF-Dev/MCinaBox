@@ -1,10 +1,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <string name="main_text_gamelist">遊戲清單</string>
-    <string name="main_text_gamedir">目前的目錄</string>
-    <string name="main_text_launchersetting">啟動器設定</string>
-    <string name="main_text_launchercontrol">虛擬鍵盤設定</string>
-    <string name="main_text_defaultlayout">主頁</string>
+    <string name="title_gamelist">遊戲清單</string>
+    <string name="title_gamedir">遊戲目錄</string>
+    <string name="title_launchersetting">啟動器設定</string>
+    <string name="title_keyboardsetting">虛擬鍵盤設定</string>
+    <string name="title_home">主頁</string>
     <string name="app_about_mcinabox">MCinaBox Minecraft Launcher是一個免費、開源的Minecraft啟動器，允許玩家在安卓設備上方便快捷的安裝、管理、運行遊戲。啟動器更新請查閱項目開源地址的release版面.\n當您使用本軟件時，就表示您已閱讀並同意本軟件的版權資訊，表示您願意尊重軟件開發者們的勞動成果，表示您願意遵守本軟件的開源協定。\n本軟件仍處於測試階段，如有問題，歡迎到Github進行迴響。</string>
     <string name="app_about_copyright">版權</string>
     <string name="app_about_developer">開發者</string>
@@ -39,7 +39,6 @@
     <string name="title_setting_minecraft">全域遊戲設定</string>
     <string name="title_user_newuser">添加新用戶</string>
     <string name="title_launcher">啟動器</string>
-    <string name="title_gamedir">遊戲目錄</string>
     <string name="title_game">遊戲</string>
     <string name="title_account">帳戶</string>
     <string name="title_user">用戶</string>

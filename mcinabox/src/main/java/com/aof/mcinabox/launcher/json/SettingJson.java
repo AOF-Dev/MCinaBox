@@ -1,9 +1,13 @@
 package com.aof.mcinabox.launcher.json;
 
+import android.annotation.SuppressLint;
+import android.text.Html;
+
 public class SettingJson {
 
 
     public Accounts newAccounts = new Accounts();
+
 
     public SettingJson(){
         //默认模板初始化
@@ -13,6 +17,7 @@ public class SettingJson {
         keyboard = "";
         localization = "public";
         language = "default(system)"; //default: Definited By System.
+        lastVersion = "";
 
         configurations = new Configurations();
         configurations.javaArgs = "";
@@ -27,11 +32,12 @@ public class SettingJson {
 
 
     private String localization; //存储路径："public"共有目录 "private"私有目录
-    private  String downloadType; //下载源："office"官方 "bmclapi"国内BMCLAPI "mcbbs"国内MCBBS
+    private String downloadType; //下载源："office"官方 "bmclapi"国内BMCLAPI "mcbbs"国内MCBBS
     private String keyboard; //虚拟键盘： ""选择的键盘模板
     private Configurations configurations; //全局游戏设置
     private Accounts[] accounts; //用户信息
     private String language; //语言
+    private String lastVersion; //最后一次选择的版本
 
     //全局游戏设置
     public class Configurations{
@@ -90,4 +96,6 @@ public class SettingJson {
     public void setConfigurations(Configurations configurations) { this.configurations = configurations; }
     public Accounts[] getAccounts() { return accounts; }
     public void setAccounts(Accounts[] accounts) { this.accounts = accounts; }
+    public String getLastVersion() { return lastVersion; }
+    public void setLastVersion(String lastVersion) { this.lastVersion = lastVersion; }
 }

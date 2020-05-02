@@ -1,7 +1,5 @@
 package com.aof.mcinabox.utils;
 
-import android.content.Context;
-import android.content.res.AssetManager;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
@@ -14,16 +12,13 @@ import java.io.OutputStream;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 
-/**
- * Created by 98426 on 2019/4/17.
- */
-
 public class FileTool {
 
     /**【检查文件目录是否存在，不存在就创建新的目录】**/
     public static void checkFilePath(File file ,boolean isDir){
         if(file!=null){
-            if(!isDir){     //如果是文件就返回父目录
+            if(!isDir){
+                //如果是文件就返回父目录
                 file = file.getParentFile();
             }
             if(file!=null && !file.exists()){
@@ -32,54 +27,17 @@ public class FileTool {
         }
     }
 
-    /**【创建一个新的文件夹】**/
-    public static void addFolder(String folderName){
-        try {
-            if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){
-                File sdCard = Environment.getExternalStorageDirectory();
-                File newFolder = new File(sdCard + File.separator + folderName);
-                if(!newFolder.exists()){
-                    boolean isSuccess = newFolder.mkdirs();
-                    Log.i("TAG:","文件夹创建状态--->" + isSuccess);
-                }
-                Log.i("TAG:","文件夹所在目录：" + newFolder.toString());
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    /**【创建文件】**/
-    public static void addFile(String fileName){
-        if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){
-            try {
-                File sdCard = Environment.getExternalStorageDirectory();
-                File newFile = new File(sdCard.getCanonicalPath()+File.separator+"testFolder/"+fileName);
-                if(!newFile.exists()){
-                    boolean isSuccess = newFile.createNewFile();
-                    Log.i("TAG:","文件创建状态--->"+isSuccess);
-                    Log.i("TAG:","文件所在路径："+newFile.toString());
-                    deleteFile(newFile);
-                }
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-        }
-    }
-
     /**【删除文件】**/
     public static void deleteFile(File file){
-        if(file.exists()){                          //判断文件是否存在
-            if(file.isFile()){                      //判断是否是文件
+        if(file.exists()){
+            if(file.isFile()){
                 boolean isSucess = file.delete();
-                Log.i("TAG:","文件删除状态--->" + isSucess);
-            }else if(file.isDirectory()){           //判断是否是文件夹
-                File files[] = file.listFiles();    //声明目录下所有文件
-                for (int i=0;i<files.length;i++){   //遍历目录下所有文件
-                    deleteFile(files[i]);           //把每个文件迭代删除
+            }else if(file.isDirectory()){
+                File files[] = file.listFiles();
+                for (int i=0;i<files.length;i++){
+                    deleteFile(files[i]);
                 }
                 boolean isSucess = file.delete();
-                Log.i("TAG:","文件夹删除状态--->" + isSucess);
             }
         }
     }
@@ -90,8 +48,8 @@ public class FileTool {
             if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){
                 File file = new File(path);
                 FileOutputStream out = new FileOutputStream(file,false);
-                out.write(fileData.getBytes("UTF-8"));              //将数据写入到文件中
-                Log.i("TAG:","将数据写入到文件中："+fileData);
+                //将数据写入到文件中
+                out.write(fileData.getBytes("UTF-8"));
                 out.close();
             }
         }catch (Exception e){
@@ -104,10 +62,12 @@ public class FileTool {
         try {
             if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){
                 File file = new File(path);
-                RandomAccessFile raf = new RandomAccessFile(file,"rw");  //按读写方式
-                raf.seek(file.length());                                        //将文件指针移到文件尾
-                raf.write(data.getBytes("UTF-8"));                //将数据写入到文件中
-                Log.i("TAG:","要续写进去的数据：" + data);
+                //按读写方式
+                RandomAccessFile raf = new RandomAccessFile(file,"rw");
+                //将文件指针移到文件尾
+                raf.seek(file.length());
+                //将数据写入到文件中
+                raf.write(data.getBytes("UTF-8"));
                 raf.close();
             }
         }catch (Exception e){
@@ -148,7 +108,8 @@ public class FileTool {
             return false;
         }
         File dire = new File(directoryPath);
-        return (dire.exists() && dire.isDirectory());  //如果是文件夹并且文件夹存在则返回true
+        //如果是文件夹并且文件夹存在则返回true
+        return (dire.exists() && dire.isDirectory());
     }
 
     /**【获取文件夹名称】**/
@@ -198,45 +159,8 @@ public class FileTool {
             return -1;
         }
     }
-    /**【复制文件】参数为：File  **/
-    public static int copyFile(File formFile , File toFile){
-        try {
-            InputStream forform = new FileInputStream(formFile);
-            OutputStream forto = new FileOutputStream(toFile);
-            byte [] bt = new byte[1024];
-            int len = forform.read(bt);
-            if(len > 0){
-                forto.write(bt,0,len);
-            }
-            forform.close();
-            forto.close();
-            return 0;
-        }catch (Exception e){
-            e.printStackTrace();
-            return -1;
-        }
-    }
-    /**【复制文件】使用：AssetManager  **/
-    public static void copyFileFormAsset(Context context,String assetFile , String toFilePath){
-        if(!new File(toFilePath).exists()){
-            try {
-                AssetManager assetManager = context.getAssets();
-                InputStream is = assetManager.open(assetFile);
-                OutputStream os = new FileOutputStream(new File(toFilePath));
-                byte [] bt = new byte[1024];
-                int len = 0;
-                while ((is.read(bt))>0){        //循环从输入流读取
-                    os.write(bt,0,len);     //将读取到的输入流写到输出流
-                }
-                is.close();
-                os.close();
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-        }
-    }
 
-    public static void copyfile(String from, String to,Boolean rewrite )
+    public static void copyFile(String from, String to,Boolean rewrite )
     {
         File fromFile = new File(from);
         File toFile = new File(to);
@@ -263,7 +187,8 @@ public class FileTool {
             byte bt[] = new byte[1024];
             int c;
             while ((c = fosfrom.read(bt)) > 0) {
-                fosto.write(bt, 0, c); //将内容写到新文件当中
+                //将内容写到新文件当中
+                fosto.write(bt, 0, c);
             }
             fosfrom.close();
             fosto.close();
@@ -278,18 +203,18 @@ public class FileTool {
     public static int copyDir(String fromFolder , String toFolder){
         File [] currentFiles;
         File root = new File(fromFolder);
-        if(!root.exists()){                     //如果文件不存在就返回出去
+        if(!root.exists()){
             return -1;
         }
-        currentFiles = root.listFiles();        //存在则获取当前目录下的所有文件
-        File targetDir = new File(toFolder);    //目标目录
-        if(!targetDir.exists()){                //不存在就创建新目录
+        currentFiles = root.listFiles();
+        File targetDir = new File(toFolder);
+        if(!targetDir.exists()){
             targetDir.mkdirs();
         }
-        for(int i=0;i<currentFiles.length;i++){ //遍历currentFiles下的所有文件
-            if(currentFiles[i].isDirectory()){  //如果当前目录为子目录
-                copyDir(currentFiles[i].getPath() + "/" , currentFiles[i].getName()+"/");  /**进行当前函数递归操作**/
-            }else{                              //当前为文件，则进行文件拷贝
+        for(int i=0;i<currentFiles.length;i++){
+            if(currentFiles[i].isDirectory()){
+                copyDir(currentFiles[i].getPath() + "/" , currentFiles[i].getName()+"/");
+            }else{
                 copyFile(currentFiles[i].getPath() , toFolder + currentFiles[i].getName());
             }
         }
@@ -359,6 +284,16 @@ public class FileTool {
         copyFile(fromFile,toFile);
         if (new File(fromFile).exists()){
             new File(fromFile).delete();
+        }
+    }
+
+    /**【创建文件】**/
+    public static void addFile(String filePath){
+        File file = new File(filePath);
+        try {
+            file.createNewFile();
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 

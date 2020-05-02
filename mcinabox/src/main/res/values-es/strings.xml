@@ -1,10 +1,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <string name="main_text_gamelist">Lista de juegos</string>
-    <string name="main_text_gamedir">Directorio actual</string>
-    <string name="main_text_launchersetting">Preferencias del arranque</string>
-    <string name="main_text_launchercontrol">Configuración de teclado virtual</string>
-    <string name="main_text_defaultlayout">Página</string>
+    <string name="title_gamelist">Lista de juegos</string>
+    <string name="title_gamedir">Directorio actual</string>
+    <string name="title_launchersetting">Preferencias del arranque</string>
+    <string name="title_keyboardsetting">Configuración de teclado virtual</string>
+    <string name="title_home">Página</string>
 
     <string name="app_about_copyright">Derechos</string>
     <string name="app_about_developer">Desarrollador</string>
@@ -36,7 +36,6 @@
     <string name="title_setting_minecraft">Preferencias del juego global</string>
     <string name="title_user_newuser">Añadir nuevo usuario</string>
     <string name="title_launcher">Arranque</string>
-    <string name="title_gamedir">Lista de juegos</string>
     <string name="title_game">Juego</string>
     <string name="title_account">Cuenta</string>
     <string name="title_user">Usuario</string>

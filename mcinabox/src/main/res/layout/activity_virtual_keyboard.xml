@@ -40,36 +40,28 @@
                 android:layout_marginEnd="8dp"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:background="@drawable/ic_add_circle_outline_black_24dp"
-                android:textSize="10sp"
-                />
+                android:background="@drawable/ic_add_circle_outline_black_24dp" />
             <Button
                 android:id="@+id/keyboard_button_saveModel"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:background="@drawable/ic_save_black_24dp"
-                android:textSize="10sp"
-                />
+                android:background="@drawable/ic_save_black_24dp" />
             <Button
                 android:id="@+id/keyboard_button_loadModel"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:background="@drawable/ic_unarchive_black_24dp"
-                android:textSize="10sp"
-                />
+                android:background="@drawable/ic_unarchive_black_24dp"/>
             <Button
                 android:id="@+id/keyboard_button_newModel"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:background="@drawable/ic_insert_drive_file_black_24dp"
-                android:textSize="10sp"
-                />
+                android:background="@drawable/ic_insert_drive_file_black_24dp" />
             <View
                 android:layout_width="1px"
                 android:layout_height="fill_parent"
@@ -88,14 +80,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
                 android:textColor="@color/puredark"
-                android:text="@string/main_text_launchercontrol"
-                />
+                android:text="@string/title_keyboardsetting" />
             <Button
                 android:id="@+id/toolbar2_button_backhome"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:background="@drawable/ic_home_black_24dp"
-                />
+                android:background="@drawable/ic_home_black_24dp" />
 
         </LinearLayout>
 

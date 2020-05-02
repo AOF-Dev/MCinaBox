@@ -2,6 +2,7 @@ package com.aof.mcinabox.launcher;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.launcher.json.KeyboardJson;
@@ -9,9 +10,12 @@ import com.aof.mcinabox.launcher.json.RuntimeJson;
 import com.aof.mcinabox.launcher.json.SettingJson;
 import com.google.gson.Gson;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -103,5 +107,23 @@ public class JsonUtils {
         return getKeyboardFromFile(new File(filepath));
     }
 
+    /**【保存mcinabox.json文件】**/
+    public static boolean saveSettingToFile(SettingJson setting,File toFile){
+        Gson gson = new Gson();
+        String jsonString = gson.toJson(setting);
+        try {
+            FileWriter jsonWriter = new FileWriter(toFile);
+            BufferedWriter out = new BufferedWriter(jsonWriter);
+            out.write(jsonString);
+            out.close();
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    public static boolean saveSettingToFile(SettingJson setting,String toFile){
+        return saveSettingToFile(setting,new File(toFile));
+    }
 
 }

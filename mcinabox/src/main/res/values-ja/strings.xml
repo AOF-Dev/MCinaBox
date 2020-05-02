@@ -1,10 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <string name="main_text_gamelist">起動構成</string>　<!--采用MClauncher官方翻译-->
-    <string name="main_text_gamedir">選択したゲームディレクトリー	</string><!--当前目录 翻译为 选择的目录 -->
-    <string name="main_text_launchersetting">ランチャ設定</string>
-    <string name="main_text_launchercontrol">キーボード配列編集</string> <!--虚拟键盘设置 翻译为 键盘布局编辑 -->
-    <string name="main_text_defaultlayout">ホームページ</string>
+    <string name="title_gamelist">起動構成</string>　<!--采用MClauncher官方翻译-->
+    <string name="title_launchersetting">ランチャ設定</string>
+    <string name="title_keyboardsetting">キーボード配列編集</string> <!--虚拟键盘设置 翻译为 键盘布局编辑 -->
+    <string name="title_home">ホームページ</string>
     <string name="app_about_mcinabox">MCinaBox Minecraft Launcherは無料でオープンしたMinecraft Java Editionランチャーです。プレーヤーがAndroidの設備に便利にインストール、管理、ゲームを開始することができます。\n本ソフトウェアを使用すると、本ソフトウェアの著作権情報を読んで同意したということです。ソフトウェア開発者たちの労働成果を尊重し、本ソフトウェアのオープンソースプロトコルを遵守したいということです。\n本ソフトウェアはまだテスト段階にあります。もし問題があれば、Githubにフィードバックしてください。</string><!--偷懒使用了翻译，发现百度翻译的内容意外的好-->
     <string name="app_about_copyright">版権</string>
     <string name="app_about_developer">開発者</string>
@@ -60,7 +59,7 @@
     <string name="title_runtime_lwjgl_version">LWJGL のバージョン</string>
     <string name="title_total_process">総進度</string>
     <string name="title_current_process">プロセス</string>　<!--当前进度 翻译为 进度-->
-    <string name="title_current_version">ダウンロードしているバージョン：/string> <!--当前版本 翻译为 下载中的版本-->
+    <string name="title_current_version">ダウンロードしているバージョン：</string> <!--当前版本 翻译为 下载中的版本-->
 
     <string name="tips_launcher_path">注意：プライベートパスを使かっていれば、MCinaBoxに追加または削除する権限を許可しなくてもいいですけど、もしアンインストールすれば、MCinaBoxのデータがなくなってしまいます！</string>
     <string name="tips_minecraft_setting_extra_javaargs">JVMの引数(入力しなってもいい)</string>

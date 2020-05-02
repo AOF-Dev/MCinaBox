@@ -60,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/puredark"
-                android:text="私有目录+/keyboard"
+                android:text="@string/title_keyboard_path"
                 android:textIsSelectable="true"/>
         </LinearLayout>
 

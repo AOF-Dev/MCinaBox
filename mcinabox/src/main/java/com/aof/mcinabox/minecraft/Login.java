@@ -2,10 +2,10 @@ package com.aof.mcinabox.minecraft;
 
 import android.content.*;
 import android.os.*;
-import android.util.*;
 
 import com.aof.mcinabox.MainActivity;
 import com.aof.mcinabox.R;
+import com.aof.mcinabox.launcher.dialogs.CreateUserDialog;
 import com.google.gson.*;
 import java.io.*;
 import java.net.*;
@@ -14,14 +14,16 @@ import java.util.*;
 
 public class Login extends AsyncTask<String, Void, String>
 {
-    private MainActivity context;
+    private CreateUserDialog context;
+    private MainActivity mContext;
     private YggdrasilAuthenticator authenticator = new YggdrasilAuthenticator();
-    public Login(MainActivity context) {
+    public Login(CreateUserDialog context,MainActivity mContext) {
         this.context = context;
+        this.mContext = mContext;
     }
 
     private UUID getClientId() {
-        SharedPreferences prefs = context.getSharedPreferences("launcher_prefs", 0);
+        SharedPreferences prefs = mContext.getSharedPreferences("launcher_prefs", 0);
         String out = prefs.getString("auth_clientId", null);
         boolean needsRegenUUID = prefs.getBoolean("auth_importedCredentials", false);
         UUID retval;
@@ -38,7 +40,7 @@ public class Login extends AsyncTask<String, Void, String>
 
     @Override
     public void onPreExecute() {
-        SharedPreferences prefs = context.getSharedPreferences("launcher_prefs", 0);
+        SharedPreferences prefs = mContext.getSharedPreferences("launcher_prefs", 0);
     }
 
     @Override
@@ -46,8 +48,8 @@ public class Login extends AsyncTask<String, Void, String>
         try {
             AuthenticateResponse response = authenticator.authenticate(args[0], args[1], getClientId());
             if (response == null) return "Response is null?";
-           if (response.selectedProfile == null) return context.getResources().getString(R.string.login_is_demo_account);
-            SharedPreferences prefs = context.getSharedPreferences("launcher_prefs", 0);
+           if (response.selectedProfile == null) return mContext.getResources().getString(R.string.login_is_demo_account);
+            SharedPreferences prefs = mContext.getSharedPreferences("launcher_prefs", 0);
             prefs.edit().
                     putString("auth_accessToken", response.accessToken).
                     putString("auth_profile_name", response.selectedProfile.name).

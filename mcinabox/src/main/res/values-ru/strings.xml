@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="main_text_gamelist">Все версии</string>
-    <string name="main_text_gamedir">Папки игры</string>
-    <string name="main_text_launchersetting">Настройки лаунчера</string>
-    <string name="main_text_launchercontrol">Настройки клавиатуры</string>
-    <string name="main_text_defaultlayout">Домой</string>
+    <string name="title_gamelist">Все версии</string>
+    <string name="title_gamedir">Папки игры</string>
+    <string name="title_launchersetting">Настройки лаунчера</string>
+    <string name="title_keyboardsetting">Настройки клавиатуры</string>
+    <string name="title_home">Домой</string>
     <string name="app_about_mcinabox">MCinaBox Minecraft Launcher - бесплатный лаунчер с открытым исходным кодом позволяющий легко установить и управлять устройствами с установленной игрой</string>
     <string name="toast_change_downloadtype">Пожалуйтса используйте неофициальный источник</string>
     <string name="tips_download_forge_object">Загрузка зависимых библиотек</string>

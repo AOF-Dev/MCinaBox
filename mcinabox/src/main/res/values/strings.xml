@@ -14,12 +14,7 @@
     <string name="app_about_contributor_info" translatable="false">by-scott\nFrankOu2001\nMCredbear\nmiguelmazetto\nSalted fish King\nSnowFuryHQ</string>
     <string name="title_downloader_selected_versionid" translatable="false">_._._</string>
     <string name="title_language" translatable="false">Language</string>
-
-    <string name="main_text_gamelist">All Versions</string>
-    <string name="main_text_gamedir">Game Directories</string>
-    <string name="main_text_launchersetting">Launcher Settings</string>
-    <string name="main_text_launchercontrol">Virtual Keyboard Settings</string>
-    <string name="main_text_defaultlayout">Home</string>
+    <string name="title_keyboard_path" translatable="false">[PrivateDir]/keyboard</string>
 
     <string name="app_about_mcinabox">MCinaBox Minecraft Launcher is a free, open-source Minecraft launcher, allowing players quick and easy installation and management on Android devices running game. </string>
 
@@ -59,11 +54,16 @@
     <string name="title_setting_minecraft">Global settings</string>
     <string name="title_user_newuser">Create new user</string>
     <string name="title_launcher">Launcher</string>
-    <string name="title_gamedir">Game menu</string>
     <string name="title_game">Game</string>
     <string name="title_account">Account</string>
+    <string name="title_gamelist">All Versions</string>
+    <string name="title_gamedir">Game Directories</string>
+    <string name="title_launchersetting">Launcher Settings</string>
+    <string name="title_keyboardsetting">Virtual Keyboard Settings</string>
+    <string name="title_home">Home</string>
     <string name="title_user">User</string>
     <string name="title_manager">Management</string>
+    <string name="title_plugin">Plugin</string>
     <string name="title_select_version">Select version</string>
     <string name="title_game_launch">Start game</string>
     <string name="title_downloader_source">Download Source</string>

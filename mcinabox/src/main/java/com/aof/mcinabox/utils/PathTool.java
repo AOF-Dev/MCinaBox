@@ -1,9 +1,24 @@
 package com.aof.mcinabox.utils;
 
+
+
 public class PathTool {
-    public PathTool(String homePath){
+    public PathTool(String datapath){
         super();
-        MCinaBox_Home = homePath;
+        initPath(datapath);
+    }
+
+    public PathTool(String type,boolean auto){
+        super();
+        if(type.equals("private")){
+            initPath(com.aof.mcinabox.DataPathManifest.MCINABOX_DATA_PRIVATE);
+        }else{
+            initPath(com.aof.mcinabox.DataPathManifest.MCINABOX_DATA_PUBLIC);
+        }
+    }
+
+    private void initPath(String dataPath){
+        MCinaBox_Home = dataPath;
         MINECRAFT_URL = "";
         MINECRAFT_ASSETS_URL ="";
         MINECRAFT_DIR = MCinaBox_Home + "/.minecraft/";
@@ -13,6 +28,7 @@ public class PathTool {
         MINECRAFT_ASSETS_DIR = MINECRAFT_DIR+"assets/";
         VERSION_MANIFEST_URL = MINECRAFT_URL + "/mc/game/version_manifest.json";
     }
+
     //下列路径定义为绝对路径
     String MCinaBox_Home; //
     String MINECRAFT_URL; //Minecraft 的 版本清单 version.json assetsIndex.json 下载地址
