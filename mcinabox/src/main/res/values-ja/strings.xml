@@ -2,8 +2,8 @@
 
     <string name="main_text_gamelist">起動構成</string>　<!--采用MClauncher官方翻译-->
     <string name="main_text_gamedir">選択したゲームディレクトリー	</string><!--当前目录 翻译为 选择的目录 -->
-    <string name="main_text_launchersetting">ランチャ設定する</string>
-    <string name="main_text_launchercontrol">キーボード配列編集する</string> <!--虚拟键盘设置 翻译为 键盘布局编辑 -->
+    <string name="main_text_launchersetting">ランチャ設定</string>
+    <string name="main_text_launchercontrol">キーボード配列編集</string> <!--虚拟键盘设置 翻译为 键盘布局编辑 -->
     <string name="main_text_defaultlayout">ホームページ</string>
     <string name="app_about_mcinabox">MCinaBox Minecraft Launcherは無料でオープンしたMinecraft Java Editionランチャーです。プレーヤーがAndroidの設備に便利にインストール、管理、ゲームを開始することができます。\n本ソフトウェアを使用すると、本ソフトウェアの著作権情報を読んで同意したということです。ソフトウェア開発者たちの労働成果を尊重し、本ソフトウェアのオープンソースプロトコルを遵守したいということです。\n本ソフトウェアはまだテスト段階にあります。もし問題があれば、Githubにフィードバックしてください。</string><!--偷懒使用了翻译，发现百度翻译的内容意外的好-->
     <string name="app_about_copyright">版権</string>
@@ -24,20 +24,20 @@
     <string name="title_minecraft_setting_keyboard_layout">キーボード配列</string>
     <string name="title_minecraft_setting_memory_max">メモリ最大値 (MB)</string>
     <string name="title_minecraft_setting_memory_hardware">空きメモリ:</string>
-    <string name="title_minecraft_setting_profession">高度な設定</string>
-    <string name="title_minecraft_setting_notcheck_jvm">JVMの互換性を無視する</string> <!--不检查JVM架构的兼容性 翻译为 忽略JVM架构的兼容性-->
-    <string name="title_minecraft_setting_notcheck_mc">Minecraftの完全性を無視する</string> <!--不检查Minecraft的完整性 翻译为 忽略Minecraft架构的完整性-->
-    <string name="title_backspace">戻る</string>
-    <string name="title_refresh">更新する</string>
-    <string name="title_download">ダウンロードする</string>
-    <string name="title_downloader_selected_version">選択したゲームは: </string>
+    <string name="title_minecraft_setting_profession">高級設定</string>
+    <string name="title_minecraft_setting_notcheck_jvm">JVMの互換性を無視</string> <!--不检查JVM架构的兼容性 翻译为 忽略JVM架构的兼容性-->
+    <string name="title_minecraft_setting_notcheck_mc">Minecraftの完全性を無視</string> <!--不检查Minecraft的完整性 翻译为 忽略Minecraft架构的完整性-->
+    <string name="title_backspace">戻す</string>
+    <string name="title_refresh">更新</string>
+    <string name="title_download">ダウンロード</string>
+    <string name="title_downloader_selected_version">選択したバージョン: </string><!--选择的游戏 翻译为 选择的版本-->
     <string name="title_downloader_warn">長い間リストが表示されない場合は、手動で「更新する」をクリックしてください。</string>
     <string name="title_minecraft_version_stable">安定版</string>
     <string name="title_minecraft_version_snapshot">スナップショット</string>
     <string name="title_minecraft_version_old">古いバージョン</string> <!--采用官方翻译-->
     <string name="title_install_newversion">新規追加</string> <!--采用官方翻译-->
-    <string name="title_install_gamepack">Modパックを導入する</string> <!--安装整合包 翻译为 导入整合包-->   <!--导入的翻译 选用汉字词的 導入 并非外来语英文的 インポート(import)-->
-    <string name="title_setting_minecraft">縂起動構成</string> <!--全局游戏设置 翻译为 总启动构成（总启动配置）【启动构成 是官方翻译】-->
+    <string name="title_install_gamepack">Modパックを導入</string> <!--安装整合包 翻译为 导入整合包-->   <!--导入的翻译 选用汉字词的 導入 并非外来语英文的 インポート(import)-->
+    <string name="title_setting_minecraft">起動構成を編集</string> <!--全局游戏设置 翻译为 启动设置编辑-->
     <string name="title_user_newuser">ユーザ追加</string>
     <string name="title_launcher">ランチャー</string>
     <string name="title_gamedir">ゲームディレクトリ</string>　<!--采用官方翻译-->
@@ -48,8 +48,8 @@
     <string name="title_select_version">バージョン</string> 	<!--请选择游戏版本 翻译为 版本-->
     <string name="title_game_launch">プレイ</string>　<!--启动游戏 翻译为 play(官方翻译)-->
     <string name="title_downloader_source">Minecraftダウンロードミラーサイト</string>
-    <string name="title_launcher_setting_runtimepack">ランタイムパッケージを導入する</string>
-    <string name="title_import">導入する</string>
+    <string name="title_launcher_setting_runtimepack">ランタイムパッケージを導入</string>
+    <string name="title_import">導入</string>
     <string name="title_about_auncher">MCinaBoxについて</string>
     <string name="title_runtime_package_name">ランタイムパッケージの名前</string>
     <string name="title_runtime_package_platform">ランタイムパッケージのブランっトフォーム</string>
@@ -59,12 +59,12 @@
     <string name="title_runtime_openal_version">OpenAL のバージョン</string>
     <string name="title_runtime_lwjgl_version">LWJGL のバージョン</string>
     <string name="title_total_process">総進度</string>
-    <string name="title_current_process">カレントプロセス</string>
-    <string name="title_current_version">カレントバージョン</string>
+    <string name="title_current_process">プロセス</string>　<!--当前进度 翻译为 进度-->
+    <string name="title_current_version">ダウンロードしているバージョン：/string> <!--当前版本 翻译为 下载中的版本-->
 
     <string name="tips_launcher_path">注意：プライベートパスを使かっていれば、MCinaBoxに追加または削除する権限を許可しなくてもいいですけど、もしアンインストールすれば、MCinaBoxのデータがなくなってしまいます！</string>
-    <string name="tips_minecraft_setting_extra_javaargs">JVMの引数(入力しないもいい)</string>
-    <string name="tips_minecraft_setting_extra_mcargs">Minecraft 余分な引数 (入力しないもいい)</string>
+    <string name="tips_minecraft_setting_extra_javaargs">JVMの引数(入力しなってもいい)</string>
+    <string name="tips_minecraft_setting_extra_mcargs">Minecraft 余分な引数 (入力しなってもいい)</string>
 
     <string name="tips_import_runtime">拡張子が.tar.xzのランタイムパッケージを　/sdcard/Android/data/com.aof.mcinabox/files/MCinaBox/runtimepack　に入れてください \nそして 「ランチャ設定する」で 選んでから導入してください</string>
     <string name="tips_check_setting">ランチャーを設定してください</string>
@@ -103,7 +103,7 @@
     <string name="tips_button_color">色</string>
     <string name="tips_button_corner_size">コーナーサイズ</string>
     <string name="tips_function">機能</string>
-    <string name="tips_button_autokeep">押し続ける</string>　<!--自动点击 翻译为 持续按压（按键/点击）-->
+    <string name="tips_button_autokeep">押し続けさせる</string>　<!--自动点击 翻译为 持续按压（按键/点击）-->
     <string name="tips_button_hide">ポインタ表示しない</string>
     <string name="tips_addone">ショートカットキー</string>
     <string name="tips_button_combine">有効</string>
@@ -121,12 +121,12 @@
     <string name="tips_keybard_choose">キーボード配列を選んでください: </string>
     <string name="tips_keyboard_path">キーボード配列のバス: </string>
     <string name="title_filename">ファイルの名前</string>
-    <string name="title_put">導出する</string>
+    <string name="title_put">導出</string>
 
-    <string name="tips_keyboard_config_name_notfound">ポインタの名前は必ず入力してください</string>		<!--按键名不能为空 翻译为 按键名为必填-->
-    <string name="tips_keyboard_config_size_toosmall">ポインタのサイズは必ず20dpi以上でございます</string> 		<!--按键的尺寸不能小于20 翻译为 按键的大小必须在20dpi以上-->
-    <string name="tips_keyboard_config_color_notfound">色は必ず入力してください</string>		<!-- 颜色不能为空 翻译为 颜色为必填 -->
-    <string name="tips_keyboard_config_filename_notfound">ファイル名は必ず入力してください</string> 	<!-- 文件名不能为空 翻译为 文件名为必填 -->
+    <string name="tips_keyboard_config_name_notfound">ポインタの名前を入力してください</string>		<!--按键名不能为空 翻译为 请输入按键名-->
+    <string name="tips_keyboard_config_size_toosmall">ポインタのサイズは20dpi以上でなければなりません</string> 		<!--按键的尺寸不能小于20 翻译为 按键的大小必须在20dpi以上-->
+    <string name="tips_keyboard_config_color_notfound">色を入力してください</string>		<!-- 颜色不能为空 翻译为 颜色为必填 -->
+    <string name="tips_keyboard_config_filename_notfound">ファイル名を入力してください</string> 	<!-- 文件名不能为空 翻译为 请输入文件名 -->
     <string name="tips_put_success">導出しました</string>
     <string name="tips_load_success">導入しました</string>
     <string name="tips_load_fail">導入失败しました</string>
@@ -140,10 +140,10 @@
     <string name="tips_gamecheck_version_notfound">Forge使用する前に対応バージョンのMinecraftをダウンロードしてください</string>
     <string name="tips_gamecheck_jar_notfound">ゲームのメインファイルが不完全です。必要なjarファイルがありません</string>
 
-    <string name="tipper_warn_runtime_notinstall">ランタイムパッケージインストールは失敗しませんでした</string>
-    <string name="tipper_warn_user_notselected">まだ作成または選んでないユーザー</string>
-    <string name="tipper_warn_version_notselected">まだダウンロードまたは選んでないゲームバージョン</string>
-    <string name="tipper_warn_keyboard_notselected">まだ作成または選んでないキーボード配列</string>
+    <string name="tipper_warn_runtime_notinstall">ランタイムパッケージインストールは失敗しました</string>
+    <string name="tipper_warn_user_notselected">まだユーザーを作成または選んでない</string>
+    <string name="tipper_warn_version_notselected">まだゲームバージョンをダウンロードまたは選んでない</string>
+    <string name="tipper_warn_keyboard_notselected">まだキーボード配列を作成または選んでない</string>
     <string name="tipper_warn_memory_notstable">このメモリーサイズはクラッシュの可能性が高いです</string>　　<!--当前内存大小易引发崩溃 翻译为 此内存大小有很高的可能性引发崩溃-->
 
     <string name="tips_download_version_json">メインファイルリストをダウンロードしています…</string>
@@ -151,15 +151,14 @@
     <string name="tips_download_assets_index">リソースリストをダウンロードしています…</string>
     <string name="tips_download_assets_object">リソースをダウンロードしています…</string>
     <string name="tips_download_finish">ダウンロードしました</string>
-    <string name="tips_download_failed">下载失败</string>
-    <string name="title_version">ゲームバージョン:</string>
+    <string name="tips_download_failed">ダウンロード失败しました</string>
+    <string name="title_version">マイクラのバージョン:</string>　<!--游戏版本 翻译为 我的世界的版本-->
     <string name="title_offline">オフラインモード</string>
     <string name="tips_user_remove_warning">本当に現在のユーザを削除しますか？</string>
     <string name="title_unknown">不明</string>
     <string name="title_warn">警告</string>
     <string name="tips_login_wait">ログイン中</string>
-    <string name="login_is_demo_account">このアカウントはMinecfratに紐付けないかもしれません。貴方はMinecfratを購入しませんでしたか</string>
-    <string name="title_forge_installer">Forge Installer</string>
+    <string name="login_is_demo_account">このアカウントはMinecfratに紐付けないかもしれません。貴方はMinecfratを購入しませんでしたか？</string>
 
-    <!-- 翻訳者 Frank Ou -->
+    <!-- 翻訳者 FrankOu2001 -->
 </resources>
