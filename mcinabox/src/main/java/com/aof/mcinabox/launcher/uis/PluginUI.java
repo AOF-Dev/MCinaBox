@@ -1,8 +1,12 @@
 package com.aof.mcinabox.launcher.uis;
 
 import android.app.Activity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 
+import com.aof.mcinabox.MainActivity;
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.launcher.json.SettingJson;
 
@@ -18,16 +22,29 @@ public class PluginUI extends StandUI {
         refreshUI(setting);
     }
 
-    LinearLayout lagout_plugin;
+    private LinearLayout lagout_plugin;
+    private Button buttonAddPlugin;
+    private Button buttonRefresh;
+    private ListView listPlugins;
+
+    private View[] views;
 
     @Override
     public void initUI() {
         lagout_plugin = mContext.findViewById(R.id.layout_plugin);
+        buttonAddPlugin = lagout_plugin.findViewById(R.id.plugin_button_addplugin);
+        buttonRefresh = lagout_plugin.findViewById(R.id.plugin_button_refresh);
+        listPlugins = listPlugins.findViewById(R.id.listview_plugins);
+
+        views = new View[]{buttonRefresh,buttonAddPlugin};
+        for(View v : views){
+            v.setOnClickListener(clickListener);
+        }
     }
 
     @Override
     public void refreshUI(SettingJson setting) {
-
+        refreshPluginList(setting);
     }
 
     @Override
@@ -43,5 +60,21 @@ public class PluginUI extends StandUI {
     @Override
     public int getUIVisiability() {
         return lagout_plugin.getVisibility();
+    }
+
+    private View.OnClickListener clickListener = new View.OnClickListener(){
+        @Override
+        public void onClick(View v){
+            if(v == buttonAddPlugin){
+                //TODO:添加插件功能
+            }
+            if(v == buttonRefresh){
+                ((MainActivity)mContext).refreshLauncher(null,true);
+            }
+        }
+    };
+
+    private void refreshPluginList(SettingJson setting){
+        //TODO:刷新插件列表功能
     }
 }

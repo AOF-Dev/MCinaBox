@@ -10,12 +10,14 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.aof.mcinabox.R;
+import com.aof.mcinabox.launcher.JsonUtils;
 import com.aof.mcinabox.launcher.json.SettingJson;
 import com.aof.mcinabox.utils.MemoryUtils;
 
 import java.io.File;
 import java.util.ArrayList;
 
+import static com.aof.sharedmodule.Data.DataPathManifest.MCINABOX_FILE_JSON;
 import static com.aof.sharedmodule.Data.DataPathManifest.MCINABOX_KEYBOARD;
 
 public class GameSettingUI extends StandUI {
@@ -23,6 +25,7 @@ public class GameSettingUI extends StandUI {
     public GameSettingUI(Activity context) {
         super(context);
         initUI();
+        preInitUI();
     }
 
     public GameSettingUI(Activity context, SettingJson setting) {
@@ -56,6 +59,11 @@ public class GameSettingUI extends StandUI {
     public void refreshUI(SettingJson setting) {
         refreshAvailableMemories();
         refreshLocalKeyboardList();
+    }
+
+    private void preInitUI(){
+        //These initial should not be applied after the UI has been created.
+        SettingJson setting = JsonUtils.getSettingFromFile(MCINABOX_FILE_JSON);
         setConfigureToKeyboardList(setting.getKeyboard());
         editJavaExtArgs.setText(setting.getConfigurations().getJavaArgs());
         editMaxMem.setText((Integer.valueOf(setting.getConfigurations().getMaxMemory())).toString());

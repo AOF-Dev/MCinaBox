@@ -26,7 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#00ffffff"
-                app:srcCompat="@drawable/ic_chevron_left_black_24dp" />
+                android:src="@drawable/ic_chevron_left_black_24dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -47,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#00ffffff"
-                app:srcCompat="@drawable/ic_refresh_black_24dp" />
+                android:src="@drawable/ic_refresh_black_24dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -90,7 +90,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#00ffffff"
-                    app:srcCompat="@drawable/ic_file_download_black_24dp" />
+                    android:src="@drawable/ic_file_download_black_24dp" />
 
                 <TextView
                     android:layout_width="wrap_content"

@@ -29,6 +29,7 @@ public class StartGameUI extends StandUI {
     public StartGameUI(Activity context) {
         super(context);
         initUI();
+        preInitUI();
     }
 
     public StartGameUI(Activity context, SettingJson setting) {
@@ -60,12 +61,6 @@ public class StartGameUI extends StandUI {
     @Override
     public void refreshUI(SettingJson setting) {
         refreshLocalVersionList(setting);
-        if(setting.getLastVersion() == null){
-            return;
-        }
-        if (!(setting.getLastVersion().equals(""))) {
-            setConfigureToVersionlist(setting.getLastVersion(), listVersions);
-        }
     }
 
     @Override
@@ -93,6 +88,17 @@ public class StartGameUI extends StandUI {
             }
         }
     };
+
+    public void preInitUI(){
+        //These initial should not be applied after the UI has been created.
+        SettingJson setting = JsonUtils.getSettingFromFile(MCINABOX_FILE_JSON);
+        if(setting.getLastVersion() == null){
+            return;
+        }
+        if (!(setting.getLastVersion().equals(""))) {
+            setConfigureToVersionlist(setting.getLastVersion(), listVersions);
+        }
+    }
 
 
     /**

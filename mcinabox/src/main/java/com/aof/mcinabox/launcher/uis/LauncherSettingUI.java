@@ -35,6 +35,7 @@ public class LauncherSettingUI extends StandUI {
     public LauncherSettingUI(Activity context) {
         super(context);
         initUI();
+        preInitUI();
     }
 
     public LauncherSettingUI(Activity context, SettingJson setting) {
@@ -68,7 +69,6 @@ public class LauncherSettingUI extends StandUI {
     @Override
     public void refreshUI(SettingJson setting) {
         refreshForgeInstallerList();
-        setConfigureToDownloadtype(setting.getDownloadType(), listDownloaderSources);
     }
 
     @Override
@@ -85,6 +85,12 @@ public class LauncherSettingUI extends StandUI {
     @Override
     public int getUIVisiability() {
         return layout_setting.getVisibility();
+    }
+
+    private void preInitUI(){
+        //These initial should not be applied after the UI has been created.
+        SettingJson setting = JsonUtils.getSettingFromFile(MCINABOX_FILE_JSON);
+        setConfigureToDownloadtype(setting.getDownloadType(), listDownloaderSources);
     }
 
     /**

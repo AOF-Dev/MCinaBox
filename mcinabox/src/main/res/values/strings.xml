@@ -86,6 +86,7 @@
     <string name="title_unknown">Unknown</string>
     <string name="title_forge_installer">Forge Installer</string>
     <string name="title_install">Install</string>
+    <string name="title_add_plugin">Add Plugin</string>
 
     <string name="tips_launcher_path">Notice:Using "Private File" need not give MCinaBox write permission,but every thing in "Private File" will be lost if you uninstall MCinaBox!</string>
     <string name="tips_minecraft_setting_extra_javaargs">Java virtual machine parameters (do not fill)</string>

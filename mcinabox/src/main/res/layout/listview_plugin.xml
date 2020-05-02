@@ -55,9 +55,9 @@
 
         </LinearLayout>
 
-        <CheckBox
+        <Switch
             android:id="@+id/plugin_button_able"
-            android:layout_width="25dp"
+            android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:layout_gravity="center"
             android:layout_marginEnd="10dp" />
