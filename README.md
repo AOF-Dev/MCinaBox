@@ -166,17 +166,17 @@ If you want to submit a pull request, there're some requirements:
 * Do NOT modify `gradle` files.
 
 ## Related
-> [BoatApp (CosineMath,MIT)](https://github.com/CosineMath/BoatApp)
-> Gson (Google,Apache 2.0)
-> XZ for Java (Lasse Collin,Public Domain)
-> [JNDCrash (ivanarh,Apache-2.0)](https://github.com/ivanarh/jndcrash)
-> [GL4ES (pitiSeb,MIT)](https://github.com/ptitSeb/gl4es)
-> [FileDownloader (lingochamp,Apache-2.0)](https://github.com/lingochamp/FileDownloader)
-> [BubbleLayout (MasayukiSuda)](https://github.com/MasayukiSuda/BubbleLayout)
-> [AndroidRocker (kongqw)](https://github.com/kongqw/AndroidRocker)
-> [colorpicker (shixiuwen)](https://github.com/shixiuwen/colorpicker)
-> [OpenJDK-8 (CosineMath,GPL-2.0)](https://github.com/CosineMath/openjdk-jdk8u-aarch32-android)
-> [lwjgl2.x (CosineMath)](https://github.com/CosineMath/lwjgl-boat)
-> [lwjgl3.x (CosineMath)](https://github.com/CosineMath/lwjgl3-boat)
-> [glfw (CosineMath)](https://github.com/CosineMath/glfw-boat)
-> [openal-soft (kcat,GPL-2.0)](https://github.com/kcat/openal-soft)
+> [BoatApp (CosineMath,MIT)](https://github.com/CosineMath/BoatApp)</br>
+> Gson (Google,Apache 2.0)</br>
+> XZ for Java (Lasse Collin,Public Domain)</br>
+> [JNDCrash (ivanarh,Apache-2.0)](https://github.com/ivanarh/jndcrash)</br>
+> [GL4ES (pitiSeb,MIT)](https://github.com/ptitSeb/gl4es)</br>
+> [FileDownloader (lingochamp,Apache-2.0)](https://github.com/lingochamp/FileDownloader)</br>
+> [BubbleLayout (MasayukiSuda)](https://github.com/MasayukiSuda/BubbleLayout)</br>
+> [AndroidRocker (kongqw)](https://github.com/kongqw/AndroidRocker)</br>
+> [colorpicker (shixiuwen)](https://github.com/shixiuwen/colorpicker)</br>
+> [OpenJDK-8 (CosineMath,GPL-2.0)](https://github.com/CosineMath/openjdk-jdk8u-aarch32-android)</br>
+> [lwjgl2.x (CosineMath)](https://github.com/CosineMath/lwjgl-boat)</br>
+> [lwjgl3.x (CosineMath)](https://github.com/CosineMath/lwjgl3-boat)</br>
+> [glfw (CosineMath)](https://github.com/CosineMath/glfw-boat)</br>
+> [openal-soft (kcat,GPL-2.0)](https://github.com/kcat/openal-soft)</br>
