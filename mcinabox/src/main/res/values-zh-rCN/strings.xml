@@ -14,8 +14,8 @@
     <string name="app_about_dependent">依赖</string>
     <string name="app_about_details">免责声明</string>
     <string name="app_about_opensource">开源</string>
-    <string name="app_about_thanks_info">CosineMath (BoatApp, https://github.com/CosineMath/) 启动器后端支持\nbangbang93 (BMCLAPI, http://bmclapi2.bangbang93.com/)\nApp图标提供者 MC红熊\nAOF软件开发团队的全体成员的合作与努力\n所有通过 Issues、Pull Requests 等方式参与本项目的贡献者</string>
-    <string name="app_about_details_info">Minecraft 版权归 Mojang AB 所有，使用本软件产生的版权问题，软件制作方概不负责。请支持正版\n本软件所使用的OpenJDK属于可分割的模块部分,项目本身并不依赖OpenJDK，其源代码和二进制文件也未包含在项目中，所以无需遵守其使用的开源协议。</string>
+    <string name="app_about_thanks_info">CosineMath (BoatApp, https://github.com/CosineMath/) 启动器后端支持\nbangbang93 (BMCLAPI, http://bmclapi2.bangbang93.com/)中国国内高速下载源支持\nApp图标提供者 MC红熊\nAOF软件开发团队的全体成员的合作与努力\n所有通过 Issues、Pull Requests 等方式参与本项目的贡献者</string>
+    <string name="app_about_details_info">Minecraft 版权归 Mojang AB 所有，使用本软件产生的版权问题，软件制作方概不负责。请支持正版。</string>
     <string name="app_about_opensource_info">https://github.com/longjunyu2/MCinaBox\n(本项目的开源遵守GPLv3协议,请遵守开源协议要求)</string>
 
     <string name="title_setting">设置</string>
@@ -165,4 +165,6 @@
     <string name="toast_change_downloadtype">请使用非官方下载源</string>
     <string name="title_plugin">插件</string>
     <string name="title_add_plugin">添加新插件</string>
+    <string name="title_install">安装</string>
+    <string name="title_show">查看</string>
 </resources>

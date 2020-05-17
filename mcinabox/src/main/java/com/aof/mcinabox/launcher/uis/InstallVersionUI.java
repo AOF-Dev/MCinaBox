@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 import static com.aof.sharedmodule.Data.DataPathManifest.MCINABOX_TEMP;
 
-public class InstallVersionUI extends StandUI implements RadioGroup.OnCheckedChangeListener {
+public class InstallVersionUI extends BaseUI implements RadioGroup.OnCheckedChangeListener {
 
     public InstallVersionUI(Activity context){
         super(context);

@@ -24,16 +24,16 @@ import static com.aof.sharedmodule.Data.DataPathManifest.MCINABOX_DATA_PUBLIC;
 import static com.aof.sharedmodule.Data.DataPathManifest.MCINABOX_FILE_JSON;
 import static com.aof.sharedmodule.Data.DataPathManifest.MCINABOX_VERSION;
 
-public class StartGameUI extends StandUI {
+public class StartGameUI extends BaseUI {
 
     public StartGameUI(Activity context) {
         super(context);
         initUI();
-        preInitUI();
     }
 
     public StartGameUI(Activity context, SettingJson setting) {
         this(context);
+        preInitUI(setting);
         refreshUI(setting);
     }
 
@@ -89,9 +89,8 @@ public class StartGameUI extends StandUI {
         }
     };
 
-    public void preInitUI(){
+    public void preInitUI(SettingJson setting){
         //These initial should not be applied after the UI has been created.
-        SettingJson setting = JsonUtils.getSettingFromFile(MCINABOX_FILE_JSON);
         if(setting.getLastVersion() == null){
             return;
         }

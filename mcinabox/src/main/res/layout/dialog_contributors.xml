@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="200dp"
+    android:layout_height="300dp"
+    android:background="@drawable/background_dialog_noalpha">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_big"
+        android:textColor="@color/text_title_main"
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        android:text="@string/title_contributors_list"/>
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="230dp"
+        android:layout_margin="5dp"
+        android:entries="@array/controbutors"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_mid"
+        android:textColor="@color/text_title_main"
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        android:text="@string/title_contributors_full"/>
+
+</LinearLayout>

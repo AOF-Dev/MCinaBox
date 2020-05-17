@@ -12,7 +12,7 @@ import com.aof.mcinabox.R;
 import com.aof.mcinabox.launcher.json.SettingJson;
 import com.aof.mcinabox.launcher.tipper.Tipper;
 
-public class MainToolbarUI extends StandUI {
+public class MainToolbarUI extends BaseUI {
 
     public MainToolbarUI(Activity context) {
         super(context);

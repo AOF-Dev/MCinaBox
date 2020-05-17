@@ -33,7 +33,7 @@ import com.aof.mcinabox.launcher.uis.InstallVersionUI;
 import com.aof.mcinabox.launcher.uis.LauncherSettingUI;
 import com.aof.mcinabox.launcher.uis.MainToolbarUI;
 import com.aof.mcinabox.launcher.uis.PluginUI;
-import com.aof.mcinabox.launcher.uis.StandUI;
+import com.aof.mcinabox.launcher.uis.BaseUI;
 import com.aof.mcinabox.launcher.uis.StartGameUI;
 import com.aof.mcinabox.launcher.uis.UserUI;
 import com.aof.mcinabox.utils.FileTool;
@@ -52,8 +52,6 @@ import java.io.Reader;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import cosine.boat.Utils;
-
 import static com.aof.mcinabox.DataPathManifest.*;
 
 public class MainActivity extends AppCompatActivity {
@@ -62,8 +60,6 @@ public class MainActivity extends AppCompatActivity {
 
     public Animation ShowAnim, HideAnim;
     public Timer timer_tipper = new Timer();
-
-    //--------
 
     public PluginUI uiPlugin;
     public InstallVersionUI uiInstallVersion;
@@ -77,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
     //Do not add toolbar into UIs!
     public MainToolbarUI uiMainToolbar;
 
-    //Do not add functionbar into UIs!
     public FunctionbarUI uiFunctionbar;
 
     public DownloaderDialog dialogDownloader;
@@ -85,9 +80,10 @@ public class MainActivity extends AppCompatActivity {
     public CreateUserDialog dialogCreateUser;
 
     //UIs includes all switchable UIs in MainActivity
-    public StandUI[] UIs;
+    public BaseUI[] UIs;
 
-    //--------
+    private static final int REFRESH_DELAY = 1000; //ms
+    private static final int REFRESH_PERIOD = 1000; //ms
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
         //删除tmp文件夹
         removeTmpFloder();
         //执行自动刷新
-        timer_tipper.schedule(TipperTask, 1000, 3000);
+        timer_tipper.schedule(TipperTask, REFRESH_DELAY, REFRESH_PERIOD);
     }
 
     private void initUIs() {
@@ -129,10 +125,10 @@ public class MainActivity extends AppCompatActivity {
         uiStartGame = new StartGameUI(this, setting);
         uiUser = new UserUI(this, setting);
         uiMainToolbar = new MainToolbarUI(this, setting);
-
-        UIs = new StandUI[]{uiInstallVersion, uiPlugin, uiGamedir, uiGamelist, uiGameSetting, uiLauncherSetting, uiStartGame, uiUser};
-
         uiFunctionbar = new FunctionbarUI(this);
+
+        UIs = new BaseUI[]{uiFunctionbar,uiInstallVersion, uiPlugin, uiGamedir, uiGamelist, uiGameSetting, uiLauncherSetting, uiStartGame, uiUser};
+
     }
 
     /**
@@ -189,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
      * 【界面切换】
      * Switch to the UI.
      **/
-    public void switchUIs(StandUI ui, String position) {
+    public void switchUIs(BaseUI ui, String position) {
         if (ui.getUIVisiability() != View.VISIBLE) {
             hideAllUIs();
             ui.setUIVisiability(View.VISIBLE);
@@ -204,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
      * Hide all UIs.
      **/
     private void hideAllUIs() {
-        for (StandUI ui : UIs) {
+        for (BaseUI ui : UIs) {
             if (ui.getUIVisiability() != View.INVISIBLE) {
                 ui.setUIVisiability(View.INVISIBLE);
             }
@@ -215,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
      * 【设定返回键的执行逻辑和顶部指示器】
      * Back
      **/
-    private StandUI currentUI;
+    private BaseUI currentUI;
 
     public void backFromHere() {
         if (currentUI == uiStartGame || currentUI == null) {
@@ -242,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
      **/
     private SettingJson saveLauncherSettingToFile() {
         SettingJson setting = new SettingJson();
-        for (StandUI ui : UIs) {
+        for (BaseUI ui : UIs) {
             setting = ui.saveUIConfig(setting);
         }
 
@@ -338,7 +334,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             mSetting = setting;
         }
-        for (StandUI ui : UIs) {
+        for (BaseUI ui : UIs) {
             ui.refreshUI(mSetting);
         }
     }

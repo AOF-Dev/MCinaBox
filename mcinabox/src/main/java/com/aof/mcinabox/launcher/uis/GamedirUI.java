@@ -2,13 +2,15 @@ package com.aof.mcinabox.launcher.uis;
 
 import android.app.Activity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.launcher.json.SettingJson;
 
-public class GamedirUI extends StandUI {
+public class GamedirUI extends BaseUI {
 
     public GamedirUI(Activity context) {
         super(context);
@@ -22,10 +24,12 @@ public class GamedirUI extends StandUI {
 
     private LinearLayout layout_gamedir;
     private RadioButton buttonPublic, buttonPrivate;
+    private Animation showAnim;
 
 
     @Override
     public void initUI() {
+        showAnim = AnimationUtils.loadAnimation(mContext, R.anim.layout_show);
         layout_gamedir = mContext.findViewById(R.id.layout_gamedir);
         buttonPublic = layout_gamedir.findViewById(R.id.radiobutton_gamedir_public);
         buttonPrivate = layout_gamedir.findViewById(R.id.radiobutton_gamedir_private);
@@ -54,6 +58,9 @@ public class GamedirUI extends StandUI {
 
     @Override
     public void setUIVisiability(int visiability) {
+        if(visiability == View.VISIBLE){
+            showAnim.start();
+        }
         layout_gamedir.setVisibility(visiability);
     }
 

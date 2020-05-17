@@ -13,7 +13,7 @@ import com.aof.mcinabox.R;
 import com.aof.mcinabox.utils.LanguageUtils;
 
 
-public class LanguageDialog extends StandDialog {
+public class LanguageDialog extends BaseDialog {
 
     public LanguageDialog(MainActivity context, int layoutID){
         super(context,layoutID);

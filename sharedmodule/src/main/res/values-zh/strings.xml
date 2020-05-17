@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="help_screen_mouse">屏幕鼠标，没有滚轮功能</string>
+    <string name="help_screen_joystick">屏幕摇杆</string>
+    <string name="help_screen_crosskey">和MCPE相似的屏幕控制器</string>
+    <string name="help_mouse_mode_switch">切换鼠标模式（在minecraft 1.13+ 上很管用）</string>
+    <string name="help_locker">控件位置锁</string>
+    <string name="help_customed_keyboard">定制的屏幕键盘</string>
+    <string name="help_screen_qwert">屏幕键盘，用来控制游戏，而不是用来输入文字</string>
+    <string name="help_screen_text_inputer">文字输入框（启用后在屏幕右上角出现，点击后可以输入文字）</string>
+</resources>

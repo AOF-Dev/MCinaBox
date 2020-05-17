@@ -4,7 +4,7 @@
     android:layout_width="270dp"
     android:layout_height="30dp"
     android:orientation="horizontal"
-    android:alpha="0.5"
+    android:alpha="0.2"
     android:weightSum="9.0">
 
     <com.aof.sharedmodule.Button.ItemButton

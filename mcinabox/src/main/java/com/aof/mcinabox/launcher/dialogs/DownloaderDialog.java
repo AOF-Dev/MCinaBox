@@ -23,7 +23,7 @@ import com.liulishuo.filedownloader.FileDownloader;
 import java.io.File;
 import java.util.ArrayList;
 
-public class DownloaderDialog extends StandDialog {
+public class DownloaderDialog extends BaseDialog {
 
     public DownloaderDialog(MainActivity context, int layoutID){
         super(context,layoutID);

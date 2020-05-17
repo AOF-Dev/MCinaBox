@@ -2,6 +2,8 @@ package com.aof.mcinabox.launcher.uis;
 
 import android.app.Activity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -10,7 +12,7 @@ import com.aof.mcinabox.MainActivity;
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.launcher.json.SettingJson;
 
-public class PluginUI extends StandUI {
+public class PluginUI extends BaseUI {
 
     public PluginUI(Activity context){
         super(context);
@@ -26,11 +28,13 @@ public class PluginUI extends StandUI {
     private Button buttonAddPlugin;
     private Button buttonRefresh;
     private ListView listPlugins;
+    private Animation showAnim;
 
     private View[] views;
 
     @Override
     public void initUI() {
+        showAnim = AnimationUtils.loadAnimation(mContext, R.anim.layout_show);
         lagout_plugin = mContext.findViewById(R.id.layout_plugin);
         buttonAddPlugin = lagout_plugin.findViewById(R.id.plugin_button_addplugin);
         buttonRefresh = lagout_plugin.findViewById(R.id.plugin_button_refresh);
@@ -54,6 +58,9 @@ public class PluginUI extends StandUI {
 
     @Override
     public void setUIVisiability(int visiability) {
+        if(visiability == View.VISIBLE){
+            showAnim.start();
+        }
         lagout_plugin.setVisibility(visiability);
     }
 

@@ -6,6 +6,8 @@ import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -20,6 +22,7 @@ import com.aof.mcinabox.FileChooser;
 import com.aof.mcinabox.MainActivity;
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.launcher.JsonUtils;
+import com.aof.mcinabox.launcher.dialogs.ContributorsDialog;
 import com.aof.mcinabox.launcher.dialogs.DownloaderDialog;
 import com.aof.mcinabox.launcher.json.SettingJson;
 import com.aof.mcinabox.minecraft.ForgeInstaller;
@@ -30,16 +33,16 @@ import java.util.ArrayList;
 import static com.aof.sharedmodule.Data.DataPathManifest.FORGEINSTALLER_HOME;
 import static com.aof.sharedmodule.Data.DataPathManifest.MCINABOX_FILE_JSON;
 
-public class LauncherSettingUI extends StandUI {
+public class LauncherSettingUI extends BaseUI {
 
     public LauncherSettingUI(Activity context) {
         super(context);
         initUI();
-        preInitUI();
     }
 
     public LauncherSettingUI(Activity context, SettingJson setting) {
         this(context);
+        preInitUI(setting);
         refreshUI(setting);
     }
 
@@ -48,18 +51,24 @@ public class LauncherSettingUI extends StandUI {
     private Spinner listForgeInstallers;
     private Button buttonImportRuntime;
     private Button buttonInstallForge;
+    private Button buttonShowControbutors;
+    private Animation showAnim;
+    private ContributorsDialog contributorsDialog;
 
     private View[] views;
 
     @Override
     public void initUI() {
+        showAnim = AnimationUtils.loadAnimation(mContext, R.anim.layout_show);
         layout_setting = mContext.findViewById(R.id.layout_launchersetting);
         listDownloaderSources = layout_setting.findViewById(R.id.setting_spinner_downloadtype);
         buttonImportRuntime = layout_setting.findViewById(R.id.launchersetting_button_import);
         listForgeInstallers = layout_setting.findViewById(R.id.launchersetting_spinner_forgeinstaller);
         buttonInstallForge = layout_setting.findViewById(R.id.launchersetting_button_forgeinstaller);
+        buttonShowControbutors = layout_setting.findViewById(R.id.setting_show_contributors);
+        contributorsDialog = new ContributorsDialog((MainActivity) mContext,R.layout.dialog_contributors);
 
-        views = new View[]{buttonInstallForge, buttonImportRuntime};
+        views = new View[]{buttonInstallForge, buttonImportRuntime,buttonShowControbutors};
         for (View v : views) {
             v.setOnClickListener(clickListener);
         }
@@ -79,6 +88,9 @@ public class LauncherSettingUI extends StandUI {
 
     @Override
     public void setUIVisiability(int visiability) {
+        if(visiability == View.VISIBLE){
+            showAnim.start();
+        }
         layout_setting.setVisibility(visiability);
     }
 
@@ -87,9 +99,8 @@ public class LauncherSettingUI extends StandUI {
         return layout_setting.getVisibility();
     }
 
-    private void preInitUI(){
+    private void preInitUI(SettingJson setting){
         //These initial should not be applied after the UI has been created.
-        SettingJson setting = JsonUtils.getSettingFromFile(MCINABOX_FILE_JSON);
         setConfigureToDownloadtype(setting.getDownloadType(), listDownloaderSources);
     }
 
@@ -190,6 +201,9 @@ public class LauncherSettingUI extends StandUI {
             }
             if (v == buttonInstallForge) {
                 installForgeFromInstaller();
+            }
+            if(v == buttonShowControbutors){
+                contributorsDialog.show();
             }
         }
     };

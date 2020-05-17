@@ -11,7 +11,7 @@ public class Utils {
     public static int getItemPosByString(String str, Spinner spinner) {
         int count = spinner.getChildCount();
         for (int a = 0; a < count; a++) {
-            if (spinner.getItemAtPosition(a).toString().equals(str)) {
+            if (spinner.getItemAtPosition(a).equals(str)) {
                 return a;
             }
         }

@@ -30,6 +30,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:textSize="@dimen/text_mid"
+                android:textColor="@color/text_title_main"
                 android:text="@string/title_add_plugin"
                 android:paddingTop="3dp"/>
 
@@ -53,6 +55,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="3dp"
+                android:textSize="@dimen/text_mid"
+                android:textColor="@color/text_title_main"
                 android:text="@string/title_refresh" />
         </LinearLayout>
 

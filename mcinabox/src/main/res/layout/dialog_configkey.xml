@@ -22,13 +22,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/title_minecraft_setting_basic"
-                    android:textColor="@color/puredark"
-                    android:textSize="10sp" />
+                    android:textColor="@color/text_title_main"
+                    android:textSize="@dimen/text_small" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginEnd="5dp"
                     android:background="@android:color/background_dark" />
 
                 <LinearLayout
@@ -40,7 +40,8 @@
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:text="@string/tips_button_name"
-                        android:textColor="@color/puredark" />
+                        android:textColor="@color/text_title_main"
+                        android:textSize="@dimen/text_mid" />
 
                     <EditText
                         android:id="@+id/dialog_key_name"
@@ -57,13 +58,15 @@
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:text="@string/tips_button_location"
-                        android:textColor="@color/puredark" />
+                        android:textColor="@color/text_title_main"
+                        android:textSize="@dimen/text_mid" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/tips_button_loaction_x"
-                        android:textColor="@color/puredark" />
+                        android:textColor="@color/text_title_main"
+                        android:textSize="@dimen/text_mid" />
 
                     <EditText
                         android:id="@+id/dialog_key_lx"
@@ -76,7 +79,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:text="@string/tips_button_loaction_y"
-                        android:textColor="@color/puredark" />
+                        android:textColor="@color/text_title_main"
+                        android:textSize="@dimen/text_mid" />
 
                     <EditText
                         android:id="@+id/dialog_key_ly"
@@ -95,7 +99,8 @@
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:text="@string/tips_button_mainkey"
-                        android:textColor="@color/puredark" />
+                        android:textColor="@color/text_title_main"
+                        android:textSize="@dimen/text_mid" />
 
                     <Spinner
                         android:id="@+id/dialog_key_main"
@@ -109,8 +114,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="@string/tips_theme"
-                    android:textColor="@color/puredark"
-                    android:textSize="10sp" />
+                    android:textColor="@color/text_title_main"
+                    android:textSize="@dimen/text_small" />
 
                 <View
                     android:layout_width="match_parent"
@@ -129,13 +134,15 @@
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:text="@string/tips_button_size"
-                        android:textColor="@color/puredark" />
+                        android:textColor="@color/text_title_main"
+                        android:textSize="@dimen/text_mid"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/tips_button_size_width"
-                        android:textColor="@color/puredark" />
+                        android:textColor="@color/text_title_main"
+                        android:textSize="@dimen/text_mid" />
 
                     <EditText
                         android:id="@+id/dialog_key_sizeW"
@@ -147,9 +154,10 @@
 
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginEnd="20dp"
                         android:text="@string/tips_button_size_height"
-                        android:textColor="@color/puredark" />
+                        android:textColor="@color/text_title_main"
+                        android:textSize="@dimen/text_mid" />
 
                     <EditText
                         android:id="@+id/dialog_key_sizeH"
@@ -170,7 +178,8 @@
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:text="@string/tips_button_color"
-                        android:textColor="@color/puredark" />
+                        android:textColor="@color/text_title_main"
+                        android:textSize="@dimen/text_mid" />
 
                     <EditText
                         android:id="@+id/dialog_color"
@@ -201,12 +210,15 @@
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:text="@string/tips_button_corner_size"
-                        android:textColor="@color/puredark" />
+                        android:textColor="@color/text_title_main"
+                        android:textSize="@dimen/text_mid" />
 
                     <TextView
                         android:id="@+id/dialog_text_cornerprogress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/text_info"
+                        android:textSize="@dimen/text_mid"
                         android:text="20" />
 
                     <SeekBar
@@ -222,8 +234,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="@string/tips_function"
-                    android:textColor="@color/puredark"
-                    android:textSize="10sp" />
+                    android:textColor="@color/text_title_main"
+                    android:textSize="@dimen/text_small" />
 
                 <View
                     android:layout_width="match_parent"
@@ -243,7 +255,8 @@
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:text="@string/tips_button_autokeep"
-                        android:textColor="@color/puredark" />
+                        android:textColor="@color/text_title_main"
+                        android:textSize="@dimen/text_mid" />
 
                     <CheckBox
                         android:id="@+id/dialog_key_keep"
@@ -262,7 +275,8 @@
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:text="@string/tips_button_hide"
-                        android:textColor="@color/puredark" />
+                        android:textColor="@color/text_title_main"
+                        android:textSize="@dimen/text_mid" />
 
                     <CheckBox
                         android:id="@+id/dialog_key_hide"
@@ -276,8 +290,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="@string/tips_addone"
-                    android:textColor="@color/puredark"
-                    android:textSize="10sp" />
+                    android:textColor="@color/text_title_main"
+                    android:textSize="@dimen/text_small" />
 
                 <View
                     android:layout_width="match_parent"
@@ -297,7 +311,8 @@
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:text="@string/tips_button_combine"
-                        android:textColor="@color/puredark" />
+                        android:textColor="@color/text_title_main"
+                        android:textSize="@dimen/text_mid" />
 
                     <CheckBox
                         android:id="@+id/dialog_key_mult"
@@ -315,31 +330,32 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
+                        android:layout_marginEnd="5dp"
                         android:text="@string/tips_button_combine_one"
-                        android:textColor="@color/puredark" />
+                        android:textColor="@color/text_title_main"
+                        android:textSize="@dimen/text_mid" />
 
                     <Spinner
                         android:id="@+id/dialog_key_specialone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:entries="@array/keymap_main_array"
-                        android:textSize="10sp" />
+                        android:textSize="@dimen/text_small" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
-                        android:text="@string/tips_button_combine_two"
-                        android:textColor="@color/puredark" />
+                        android:textColor="@color/text_title_main"
+                        android:textSize="@dimen/text_mid" />
 
                     <Spinner
                         android:id="@+id/dialog_key_specialtwo"
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:entries="@array/keymap_main_array"
-                        android:textSize="10sp" />
+                        android:textSize="@dimen/text_small" />
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
@@ -350,13 +366,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:text="@string/tips_step"
-        android:textColor="@color/puredark"
-        android:textSize="10sp" />
+        android:textColor="@color/text_title_main"
+        android:textSize="@dimen/text_small" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:layout_marginRight="5dp"
+        android:layout_marginEnd="5dp"
         android:layout_marginBottom="5dp"
         android:background="@android:color/background_dark" />
 
@@ -369,13 +385,9 @@
 
         <Button
             android:id="@+id/dialog_button_finish"
-            android:layout_width="60dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
             android:layout_marginStart="10dp"
-            android:background="@drawable/background_button"
-            android:text="@string/tips_ok"
-            android:textColor="@color/colorAccent" />
+            style="@style/LauncherButton_1"
+            android:text="@string/tips_ok" />
 
         <TextView
             android:layout_width="0dp"
@@ -384,13 +396,9 @@
 
         <Button
             android:id="@+id/dialog_button_cancel"
-            android:layout_width="60dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
             android:layout_marginEnd="10dp"
-            android:background="@drawable/background_button"
-            android:text="@string/tips_no"
-            android:textColor="@color/colorAccent" />
+            style="@style/LauncherButton_1"
+            android:text="@string/tips_no" />
 
     </LinearLayout>
 

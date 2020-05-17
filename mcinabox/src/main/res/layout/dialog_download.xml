@@ -17,16 +17,16 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/title_current_version"
-            android:textColor="@color/puredark"
-            android:textSize="15sp" />
+            android:textColor="@color/text_title_main"
+            android:textSize="@dimen/text_big" />
 
         <TextView
             android:id="@+id/dialog_version_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textColor="@color/puredark"
-            android:textSize="15sp" />
+            android:textColor="@color/text_title_main"
+            android:textSize="@dimen/text_big" />
 
     </LinearLayout>
 
@@ -41,8 +41,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="@string/title_total_process"
-            android:textColor="@color/puredark"
-            android:textSize="10sp" />
+            android:textColor="@color/text_title_main"
+            android:textSize="@dimen/text_small" />
 
         <View
             android:layout_width="match_parent"
@@ -99,8 +99,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="@string/title_current_process"
-            android:textColor="@color/puredark"
-            android:textSize="10sp" />
+            android:textColor="@color/text_title_main"
+            android:textSize="@dimen/text_small" />
 
         <View
             android:layout_width="match_parent"
@@ -162,8 +162,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="@string/tips_step"
-            android:textColor="@color/puredark"
-            android:textSize="10sp" />
+            android:textColor="@color/text_title_main"
+            android:textSize="@dimen/text_small" />
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
@@ -182,12 +182,8 @@
         <Button
             android:id="@+id/dialog_download_ok"
             android:clickable="false"
-            android:layout_width="60dp"
-            android:layout_height="40dp"
             android:layout_marginStart="10dp"
-            android:background="@drawable/background_button"
-            android:layout_gravity="center"
-            android:textColor="@color/colorAccent"
+            style="@style/LauncherButton_1"
             android:text="@string/tips_ok" />
 
         <TextView
@@ -197,12 +193,8 @@
 
         <Button
             android:id="@+id/dialog_download_cancle"
-            android:layout_width="60dp"
-            android:layout_height="40dp"
+            style="@style/LauncherButton_1"
             android:layout_marginEnd="10dp"
-            android:background="@drawable/background_button"
-            android:layout_gravity="center"
-            android:textColor="@color/colorAccent"
             android:text="@string/tips_no" />
 
     </LinearLayout>

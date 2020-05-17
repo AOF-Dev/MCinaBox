@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
-        android:background="#55636363"
+        android:background="@drawable/background_switchbar"
         android:layout_marginLeft="5dp"
         android:paddingLeft="5dp"
         android:src="@drawable/ic_settings_applications_black_18dp"/>
@@ -106,7 +106,15 @@
                 android:button="@null"
                 android:background="@drawable/ic_navigation_black_24dp"
                 android:checked="false"/>
-
+            <CheckBox
+                android:id="@+id/checkbox_Help"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_margin="3dp"
+                android:layout_gravity="center"
+                android:button="@null"
+                android:background="@drawable/ic_help_outline_blue_500_24dp"
+                android:checked="false"/>
         </LinearLayout>
 
     </HorizontalScrollView>

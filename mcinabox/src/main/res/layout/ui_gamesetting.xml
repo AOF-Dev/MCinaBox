@@ -19,6 +19,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
+                android:textColor="@color/text_info"
+                android:textSize="@dimen/text_big"
                 android:text="@string/title_minecraft_setting_basic" />
 
             <LinearLayout
@@ -42,8 +44,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="@string/title_minecraft_setting_keyboard_layout"
-                        android:textColor="@color/puredark"
-                        android:textSize="13sp" />
+                        android:textColor="@color/text_title_main"
+                        android:textSize="@dimen/text_mid" />
 
                     <Spinner
                         android:id="@+id/setting_spinner_keyboard"
@@ -73,8 +75,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/title_minecraft_setting_memory_max"
-                            android:textColor="@color/puredark"
-                            android:textSize="13sp" />
+                            android:textColor="@color/text_title_main"
+                            android:textSize="@dimen/text_mid"/>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -85,14 +87,15 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/title_minecraft_setting_memory_hardware"
-                                android:textSize="10sp" />
+                                android:textColor="@color/text_info"
+                                android:textSize="@dimen/text_small" />
 
                             <TextView
                                 android:id="@+id/game_setting_text_memory"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="xxxMB"
-                                android:textSize="10sp" />
+                                android:textColor="@color/text_info"
+                                android:textSize="@dimen/text_mid" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -112,8 +115,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
+                android:textColor="@color/text_info"
+                android:textSize="@dimen/text_big"
                 android:text="@string/title_minecraft_setting_profession" />
 
             <LinearLayout
@@ -137,7 +142,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/tips_minecraft_setting_extra_javaargs"
-                        android:textSize="13sp" />
+                        android:textSize="@dimen/text_mid" />
                 </LinearLayout>
 
                 <View
@@ -156,7 +161,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/tips_minecraft_setting_extra_mcargs"
-                        android:textSize="13sp" />
+                        android:textSize="@dimen/text_mid" />
                 </LinearLayout>
 
                 <View
@@ -175,8 +180,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="@string/title_minecraft_setting_notcheck_jvm"
-                        android:textColor="@color/puredark"
-                        android:textSize="13sp" />
+                        android:textColor="@color/text_title_main"
+                        android:textSize="@dimen/text_mid" />
 
                     <Switch
                         android:id="@+id/setting_switch_notcheckjvm"
@@ -200,8 +205,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="@string/title_minecraft_setting_notcheck_mc"
-                        android:textColor="@color/puredark"
-                        android:textSize="13sp" />
+                        android:textColor="@color/text_title_main"
+                        android:textSize="@dimen/text_mid" />
 
                     <Switch
                         android:id="@+id/setting_switch_notcheckminecraft"

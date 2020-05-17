@@ -34,6 +34,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="3dp"
+                android:textSize="@dimen/text_mid"
+                android:textColor="@color/text_title_main"
                 android:text="@string/title_user_newuser" />
         </LinearLayout>
 
@@ -55,6 +57,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="3dp"
+                android:textSize="@dimen/text_mid"
+                android:textColor="@color/text_title_main"
                 android:text="@string/title_refresh" />
         </LinearLayout>
 

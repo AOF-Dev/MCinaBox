@@ -2,6 +2,8 @@ package com.aof.mcinabox.launcher.uis;
 
 import android.app.Activity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -15,7 +17,7 @@ import static com.aof.mcinabox.DataPathManifest.*;
 
 import java.util.ArrayList;
 
-public class UserUI extends StandUI {
+public class UserUI extends BaseUI {
 
     public UserUI(Activity context) {
         super(context);
@@ -31,12 +33,14 @@ public class UserUI extends StandUI {
     private LinearLayout buttonCreateUser;
     private LinearLayout buttonRefreshUserList;
     private ListView listUsers;
+    private Animation showAnim;
 
     private View[] views;
 
 
     @Override
     public void initUI() {
+        showAnim = AnimationUtils.loadAnimation(mContext, R.anim.layout_show);
         layout_user = mContext.findViewById(R.id.layout_user);
         buttonCreateUser = layout_user.findViewById(R.id.layout_user_adduser);
         buttonRefreshUserList = layout_user.findViewById(R.id.layout_user_reflash_userlist);
@@ -62,6 +66,9 @@ public class UserUI extends StandUI {
 
     @Override
     public void setUIVisiability(int visiability) {
+        if(visiability == View.VISIBLE){
+            showAnim.start();
+        }
         layout_user.setVisibility(visiability);
     }
 

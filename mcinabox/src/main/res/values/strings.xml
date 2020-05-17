@@ -2,7 +2,7 @@
 
     <string name="main_text_nolog" translatable="false">Log.Hear</string>
     <string name="app_name" translatable="false">MCinaBox</string>
-    <string name="app_version" translatable="false">v0.1.3</string>
+    <string name="app_version" translatable="false">v0.1.4-pre-1</string>
     <string name="app_about_dependent_info" translatable="false">BoatApp (CosineMath,MIT)\nGson (Google,Apache 2.0)\nJNDCrash (ivanarh,Apache-2.0)\nXZ for Java (Lasse Collin,Public Domain)\nGL4ES (pitiSeb,MIT)\nOpenAL Soft (kcat,GPL-2.0)\nFileDownloader (lingochamp,Apache-2.0)\nBubbleLayout (MasayukiSuda)\nAndroidRocker (kongqw)\ncolorpicker (shixiuwen)</string>
     <string name="app_copyright" translatable="false">This non-release version, only after a holiday AOF software development team members to use inside!</string>
     <string name="tips_button_loaction_x" translatable="false">X:</string>
@@ -11,10 +11,11 @@
     <string name="tips_launcher_public_path" translatable="false">/sdcard/MCinaBox</string>
     <string name="app_about_copyright_info" translatable="false">MCinaBox Copyright © 2020 longjunyu.</string>
     <string name="app_about_developer_info" translatable="false">longjunyu (MCinaBox ljy122@qq.com)\nand all project contributors</string>
-    <string name="app_about_contributor_info" translatable="false">by-scott\nFrankOu2001\nMCredbear\nmiguelmazetto\nSalted fish King\nSnowFuryHQ</string>
     <string name="title_downloader_selected_versionid" translatable="false">_._._</string>
     <string name="title_language" translatable="false">Language</string>
     <string name="title_keyboard_path" translatable="false">[PrivateDir]/keyboard</string>
+    <string name="title_contributors_list" translatable="false">List of Contributors.</string>
+    <string name="title_contributors_full" translatable="false">Full list in Github.</string>
 
     <string name="app_about_mcinabox">MCinaBox Minecraft Launcher is a free, open-source Minecraft launcher, allowing players quick and easy installation and management on Android devices running game. </string>
 
@@ -87,6 +88,7 @@
     <string name="title_forge_installer">Forge Installer</string>
     <string name="title_install">Install</string>
     <string name="title_add_plugin">Add Plugin</string>
+    <string name="title_show">show</string>
 
     <string name="tips_launcher_path">Notice:Using "Private File" need not give MCinaBox write permission,but every thing in "Private File" will be lost if you uninstall MCinaBox!</string>
     <string name="tips_minecraft_setting_extra_javaargs">Java virtual machine parameters (do not fill)</string>
@@ -118,7 +120,7 @@
     <string name="tips_runtime_install_fail_exeable">Reason: failed to set permission</string>
 
     <string name="tips_ok">OK</string>
-    <string name="tips_no">Cancеl</string>
+    <string name="tips_no">Cancel</string>
     <string name="tips_button_name">Key name</string>
     <string name="tips_button_location">Location (Dp)</string>
     <string name="tips_button_mainkey">Primary key</string>

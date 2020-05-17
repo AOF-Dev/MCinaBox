@@ -12,12 +12,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/puredark"
+            android:textColor="@color/text_title_main"
+            android:textSize="@dimen/text_mid"
             android:text="@string/title_user_newuser"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp"
             android:background="@android:color/background_dark" />
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,13 +27,15 @@
             <TextView
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
-                android:textColor="@color/puredark"
+                android:textColor="@color/text_title_main"
+                android:textSize="@dimen/text_mid"
                 android:text="@string/title_user_name"/>
             <EditText
                 android:id="@+id/dialog_edittext_input_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColorHint="#8C8C8C"
+                android:textColor="@color/text_hint"
+                android:textSize="@dimen/text_mid"
                 android:hint="@string/tips_user_namehint"/>
         </LinearLayout>
 
@@ -45,12 +48,15 @@
             <TextView
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
-                android:textColor="@color/puredark"
+                android:textColor="@color/text_title_main"
+                android:textSize="@dimen/text_mid"
                 android:text="@string/title_password"/>
             <EditText
                 android:id="@+id/dialog_edittext_input_userpasswd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/text_hint"
+                android:textSize="@dimen/text_mid"
                 android:hint="@string/tips_user_passwordhint"/>
         </LinearLayout>
 
@@ -63,7 +69,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textColor="@color/puredark"
+                android:textColor="@color/text_title_main"
+                android:textSize="@dimen/text_mid"
                 android:text="@string/title_online"/>
             <CheckBox
                 android:id="@+id/dialog_checkbox_online_model"
@@ -80,11 +87,8 @@
             android:orientation="horizontal">
             <Button
                 android:id="@+id/dialog_button_confirm_createuser"
-                android:layout_width="60dp"
-                android:layout_height="40dp"
-                android:textColor="@color/colorAccent"
-                android:layout_gravity="center"
-                android:background="@drawable/background_button"
+                android:layout_marginStart="10dp"
+                style="@style/LauncherButton_1"
                 android:text="@string/tips_ok"/>
             <TextView
                 android:layout_width="0dp"
@@ -92,11 +96,8 @@
                 android:layout_weight="1"/>
             <Button
                 android:id="@+id/dialog_button_cancle_createuser"
-                android:layout_width="60dp"
-                android:layout_height="40dp"
-                android:textColor="@color/colorAccent"
-                android:layout_gravity="center"
-                android:background="@drawable/background_button"
+                android:layout_marginEnd="10dp"
+                style="@style/LauncherButton_1"
                 android:text="@string/tips_no"/>
         </LinearLayout>
 

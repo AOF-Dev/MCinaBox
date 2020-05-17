@@ -28,13 +28,14 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#00ffffff"
-                app:srcCompat="@drawable/ic_add_black_24dp" />
+                android:src="@drawable/ic_add_black_24dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="3dp"
+                android:textSize="@dimen/text_mid"
+                android:textColor="@color/text_title_main"
                 android:text="@string/title_install_newversion" />
         </LinearLayout>
 
@@ -49,13 +50,14 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#00ffffff"
-                app:srcCompat="@drawable/ic_input_black_24dp" />
+                android:src="@drawable/ic_input_black_24dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="3dp"
+                android:textSize="@dimen/text_mid"
+                android:textColor="@color/text_title_main"
                 android:text="@string/title_install_gamepack" />
         </LinearLayout>
 
@@ -70,13 +72,14 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#00ffffff"
-                app:srcCompat="@drawable/ic_refresh_black_24dp" />
+                android:src="@drawable/ic_refresh_black_24dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="3dp"
+                android:textSize="@dimen/text_mid"
+                android:textColor="@color/text_title_main"
                 android:text="@string/title_refresh" />
         </LinearLayout>
 
@@ -91,13 +94,14 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#00ffffff"
-                app:srcCompat="@drawable/ic_settings_black_24dp" />
+                android:src="@drawable/ic_settings_black_24dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="3dp"
+                android:textSize="@dimen/text_mid"
+                android:textColor="@color/text_title_main"
                 android:text="@string/title_setting_minecraft" />
         </LinearLayout>
 

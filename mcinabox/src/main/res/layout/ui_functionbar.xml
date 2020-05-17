@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="180dp"
+    android:layout_width="200dp"
     android:layout_height="match_parent"
     android:background="@drawable/background_layout_fictionlist">
 
@@ -34,19 +34,49 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingStart="15dp"
+                android:paddingBottom="10dp"
                 android:orientation="horizontal">
 
-                <Button
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/steve_pic_2"/>
+                <LinearLayout
                     android:id="@+id/main_button_user"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:background="@drawable/layout_button_background"
-                    android:drawableStart="@drawable/steve_pic_2"
-                    android:drawablePadding="5dp"
-                    android:gravity="center_vertical"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="0dp"
-                    android:text="@string/title_user" />
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/functionbar_username"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_mid"
+                        android:text="@string/title_user"
+                        android:textColor="@color/text_info"/>
+
+                    <TextView
+                        android:id="@+id/functionbar_usertype"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_small"
+                        android:text="type"
+                        android:textColor="@color/text_info"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_list_black_36dp"/>
+
             </LinearLayout>
 
             <TextView

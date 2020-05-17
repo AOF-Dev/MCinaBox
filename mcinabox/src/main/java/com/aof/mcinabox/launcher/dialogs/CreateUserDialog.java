@@ -19,7 +19,7 @@ import com.aof.mcinabox.minecraft.Login;
 
 import java.util.UUID;
 
-public class CreateUserDialog extends StandDialog {
+public class CreateUserDialog extends BaseDialog {
 
     public CreateUserDialog(MainActivity context, int layoutID){
         super(context,layoutID);

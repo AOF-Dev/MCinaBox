@@ -2,6 +2,8 @@ package com.aof.mcinabox.launcher.uis;
 
 import android.app.Activity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -17,7 +19,7 @@ import com.aof.mcinabox.utils.PathTool;
 import java.io.File;
 import java.util.ArrayList;
 
-public class GamelistUI extends StandUI {
+public class GamelistUI extends BaseUI {
 
     public GamelistUI(Activity context){
         super(context);
@@ -34,11 +36,13 @@ public class GamelistUI extends StandUI {
     private LinearLayout buttonRefreshList;
     private LinearLayout buttonGameSetting;
     private ListView listLocalVersions;
+    private Animation showAnim;
 
     private View[] views;
 
     @Override
     public void initUI() {
+        showAnim = AnimationUtils.loadAnimation(mContext, R.anim.layout_show);
         layout_gamelist = mContext.findViewById(R.id.layout_gamelist);
         buttonInstallGame = layout_gamelist.findViewById(R.id.gamelist_button_installnewgame);
         buttonRefreshList = layout_gamelist.findViewById(R.id.gamelist_button_reflash_locallist);
@@ -63,6 +67,9 @@ public class GamelistUI extends StandUI {
 
     @Override
     public void setUIVisiability(int visiability) {
+        if(visiability == View.VISIBLE){
+            showAnim.start();
+        }
         layout_gamelist.setVisibility(visiability);
     }
 

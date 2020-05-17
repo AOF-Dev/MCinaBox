@@ -32,6 +32,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="3dp"
+                android:textColor="@color/text_title_main"
+                android:textSize="@dimen/text_mid"
                 android:text="@string/title_backspace" />
         </LinearLayout>
 
@@ -53,6 +55,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="3dp"
+                android:textColor="@color/text_title_main"
+                android:textSize="@dimen/text_mid"
                 android:text="@string/title_refresh" />
         </LinearLayout>
 
@@ -69,7 +73,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/title_downloader_selected_version"
-                android:textSize="12sp" />
+                android:textColor="@color/text_title_main"
+                android:textSize="@dimen/text_mid"/>
 
             <TextView
                 android:id="@+id/gamelist_text_show_selectedversion"
@@ -77,13 +82,14 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/title_downloader_selected_versionid"
-                android:textSize="10sp" />
+                android:textColor="@color/text_info"
+                android:textSize="@dimen/text_small"/>
 
             <LinearLayout
                 android:id="@+id/gamelist_button_download"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -96,6 +102,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingTop="3dp"
+                    android:textColor="@color/text_title_main"
+                    android:textSize="@dimen/text_mid"
                     android:text="@string/title_download" />
             </LinearLayout>
 
@@ -110,6 +118,8 @@
         android:layout_marginTop="5dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
+        android:textColor="@color/text_info"
+        android:textSize="@dimen/text_mid"
         android:text="@string/title_downloader_warn" />
 
     <LinearLayout
@@ -130,6 +140,8 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="5dp"
                 android:checked="true"
+                android:textColor="@color/text_title_main"
+                android:textSize="@dimen/text_mid"
                 android:text="@string/title_minecraft_version_stable" />
 
             <RadioButton
@@ -138,6 +150,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
+                android:textColor="@color/text_title_main"
+                android:textSize="@dimen/text_mid"
                 android:text="@string/title_minecraft_version_snapshot" />
 
             <RadioButton
@@ -146,6 +160,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
+                android:textColor="@color/text_title_main"
+                android:textSize="@dimen/text_mid"
                 android:text="@string/title_minecraft_version_old" />
 
         </RadioGroup>

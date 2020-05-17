@@ -1,9 +1,8 @@
 package cosine.boat;
 
+import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
-import android.text.method.Touch;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.os.Bundle;
@@ -15,7 +14,6 @@ import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
-import android.view.LayoutInflater;
 import android.view.Gravity;
 import android.view.WindowManager.LayoutParams;
 import android.view.View;
@@ -40,10 +38,12 @@ import java.util.List;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.aof.mcinabox.plugin.controller.client.Client;
 import com.aof.sharedmodule.Button.CrossButton;
 import com.aof.sharedmodule.Button.ItemButton;
 import com.aof.sharedmodule.Button.MouseButton;
 import com.aof.sharedmodule.Button.QwertButton;
+import com.aof.sharedmodule.Dialog.Helper;
 import com.aof.sharedmodule.Tools.Convert_GLFW_LWJGL;
 import com.google.gson.Gson;
 import com.aof.sharedmodule.Model.ArgsModel;
@@ -54,7 +54,7 @@ import com.aof.sharedmodule.Model.KeyboardJsonModel;
 import com.kongqw.rockerlibrary.view.RockerView;
 import org.lwjgl.input.Keyboard;
 
-public class BoatClientActivity extends NativeActivity  implements View.OnClickListener, View.OnTouchListener, TextWatcher, TextView.OnEditorActionListener {
+public class BoatClientActivity extends NativeActivity  implements Client, View.OnClickListener, View.OnTouchListener, TextWatcher, TextView.OnEditorActionListener {
 
 	private ArgsModel argsModel;
 	private ArrayList<GameButton> KeyboardList;
@@ -78,7 +78,7 @@ public class BoatClientActivity extends NativeActivity  implements View.OnClickL
 	private HashMap<Object,int[]> layoutsPos;
 	private CrossButton[] crosskeychildren;
 	private int[] tempCrossKey;
-	private CheckBox checkbox_qwertkeyboard,checkbox_crosskey,checkbox_mousekey,checkbox_virtualkeyboard,checkbox_otg,checkbox_joystick,checkbox_lock,checkbox_edittext,checkbox_modeswitch;
+	private CheckBox checkbox_qwertkeyboard,checkbox_crosskey,checkbox_mousekey,checkbox_virtualkeyboard,checkbox_otg,checkbox_joystick,checkbox_lock,checkbox_edittext,checkbox_modeswitch,checkbox_helper;
 	private CheckBox[] toolerBarChildren;
 	private HorizontalScrollView SwitcherBar_container;
 	private ImageButton SwitcherBar_switcher;
@@ -103,6 +103,7 @@ public class BoatClientActivity extends NativeActivity  implements View.OnClickL
 
 		super.onCreate(savedInstanceState);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
 		//初始化键值转换工具
 		ConvertInput = new Convert_GLFW_LWJGL();
 		//获取参数对象
@@ -366,7 +367,8 @@ public class BoatClientActivity extends NativeActivity  implements View.OnClickL
 		popupWindow.setFocusable(true);
 
 		//设定界面
-		base = (RelativeLayout) LayoutInflater.from(BoatClientActivity.this).inflate(R.layout.overlay, null);
+		//base = (RelativeLayout) LayoutInflater.from(BoatClientActivity.this).inflate(R.layout.overlay, null);
+		base = findViewById(R.id.base);
 		touchpad = base.findViewById(R.id.touchpad).findViewById(R.id.touchpad_button);
 		touchpad.setOnTouchListener(this);
 		touchpad.setOnLongClickListener(longclicklistener);
@@ -394,7 +396,8 @@ public class BoatClientActivity extends NativeActivity  implements View.OnClickL
 		checkbox_lock = SwitcherBar.findViewById(R.id.checkbox_Lock);
 		checkbox_edittext = SwitcherBar.findViewById(R.id.checkbox_Edittext);
 		checkbox_modeswitch = SwitcherBar.findViewById(R.id.checkbox_ModeSwitch);
-		toolerBarChildren = new CheckBox[]{checkbox_qwertkeyboard,checkbox_crosskey,checkbox_mousekey,checkbox_virtualkeyboard,checkbox_otg,checkbox_joystick,checkbox_lock,checkbox_edittext,checkbox_modeswitch};
+		checkbox_helper = SwitcherBar.findViewById(R.id.checkbox_Help);
+		toolerBarChildren = new CheckBox[]{checkbox_qwertkeyboard,checkbox_crosskey,checkbox_mousekey,checkbox_virtualkeyboard,checkbox_otg,checkbox_joystick,checkbox_lock,checkbox_edittext,checkbox_modeswitch,checkbox_helper};
 		SwitcherBar_container = SwitcherBar.findViewById(R.id.switchbar_container);
 		SwitcherBar_switcher = SwitcherBar.findViewById(R.id.switchbar_switcher);
 		SwitcherBar_switcher.setOnTouchListener(this);
@@ -1031,6 +1034,9 @@ public class BoatClientActivity extends NativeActivity  implements View.OnClickL
 					mode = true;
                     BoatClientActivity.this.mouseCursor.setVisibility(View.INVISIBLE);
 				}
+			}else if(v == checkbox_helper){
+				Helper helper = new Helper(getApplication());
+				helper.show();
 			}
 		}
 	};
@@ -1179,5 +1185,27 @@ public class BoatClientActivity extends NativeActivity  implements View.OnClickL
 	}
 
 
+	/*
+	Client Implenment
+	*/
+	@Override
+	public void setKey(int keyCode, boolean pressed) {
+		mInputEventSender.setKey(keyCode,pressed,0);
+	}
+
+	@Override
+	public void setMouseButton(int mouseCode, boolean pressed) {
+		mInputEventSender.setMouseButton((byte) mouseCode,pressed);
+	}
+
+	@Override
+	public void setMousePoniter(int x, int y) {
+		mInputEventSender.setPointer(x,y);
+	}
+
+	@Override
+	public Activity getActivity() {
+		return this;
+	}
 }
 

@@ -44,6 +44,7 @@ import com.aof.sharedmodule.Button.CrossButton;
 import com.aof.sharedmodule.Button.ItemButton;
 import com.aof.sharedmodule.Button.MouseButton;
 import com.aof.sharedmodule.Button.QwertButton;
+import com.aof.sharedmodule.Dialog.Helper;
 import com.aof.sharedmodule.Tools.GLFW_KeyTool;
 import com.google.gson.Gson;
 import com.aof.sharedmodule.Model.ArgsModel;
@@ -80,7 +81,7 @@ public class BoatClientActivity extends NativeActivity  implements View.OnClickL
 	private HashMap<Object,int[]> layoutsPos;
 	private CrossButton[] crosskeychildren;
 	private int[] tempCrossKey;
-	private CheckBox checkbox_qwertkeyboard,checkbox_crosskey,checkbox_mousekey,checkbox_virtualkeyboard,checkbox_otg,checkbox_joystick,checkbox_lock,checkbox_edittext,checkbox_modeswitch;
+	private CheckBox checkbox_qwertkeyboard,checkbox_crosskey,checkbox_mousekey,checkbox_virtualkeyboard,checkbox_otg,checkbox_joystick,checkbox_lock,checkbox_edittext,checkbox_modeswitch,checkbox_helper;
 	private CheckBox[] toolerBarChildren;
 	private HorizontalScrollView SwitcherBar_container;
 	private ImageButton SwitcherBar_switcher;
@@ -372,7 +373,8 @@ public class BoatClientActivity extends NativeActivity  implements View.OnClickL
 		checkbox_lock = SwitcherBar.findViewById(R.id.checkbox_Lock);
 		checkbox_edittext = SwitcherBar.findViewById(R.id.checkbox_Edittext);
 		checkbox_modeswitch = SwitcherBar.findViewById(R.id.checkbox_ModeSwitch);
-		toolerBarChildren = new CheckBox[]{checkbox_qwertkeyboard,checkbox_crosskey,checkbox_mousekey,checkbox_virtualkeyboard,checkbox_otg,checkbox_joystick,checkbox_lock,checkbox_edittext,checkbox_modeswitch};
+		checkbox_helper = SwitcherBar.findViewById(R.id.checkbox_Help);
+		toolerBarChildren = new CheckBox[]{checkbox_qwertkeyboard,checkbox_crosskey,checkbox_mousekey,checkbox_virtualkeyboard,checkbox_otg,checkbox_joystick,checkbox_lock,checkbox_edittext,checkbox_modeswitch,checkbox_helper};
 		SwitcherBar_container = SwitcherBar.findViewById(R.id.switchbar_container);
 		SwitcherBar_switcher = SwitcherBar.findViewById(R.id.switchbar_switcher);
 		SwitcherBar_switcher.setOnTouchListener(this);
@@ -991,6 +993,9 @@ public class BoatClientActivity extends NativeActivity  implements View.OnClickL
                     BoatClientActivity.this.mouseCursor.setVisibility(View.INVISIBLE);
                     mode = true;
                 }
+            }else if(v == checkbox_helper){
+                Helper helper = new Helper(getApplication());
+                helper.show();
             }
 		}
 	};

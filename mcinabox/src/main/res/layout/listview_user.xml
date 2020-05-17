@@ -42,7 +42,8 @@
                 android:layout_marginTop="3dp"
                 android:layout_marginBottom="5dp"
                 android:text="@string/title_user_name"
-                android:textColor="@color/puredark" />
+                android:textSize="@dimen/text_mid"
+                android:textColor="@color/text_title_main" />
 
             <TextView
                 android:id="@+id/user_text_userstate"

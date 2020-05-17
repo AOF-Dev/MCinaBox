@@ -39,7 +39,6 @@ public class LauncherActivity extends Activity{
             // Initialization failed, check error value.
         }
 
-        setContentView(R.layout.launcher_layout);
 
         //界面跳转至Client
         Intent intent = new Intent(this, BoatClientActivity.class);

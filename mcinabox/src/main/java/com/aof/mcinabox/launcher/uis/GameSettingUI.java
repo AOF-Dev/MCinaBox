@@ -20,16 +20,16 @@ import java.util.ArrayList;
 import static com.aof.sharedmodule.Data.DataPathManifest.MCINABOX_FILE_JSON;
 import static com.aof.sharedmodule.Data.DataPathManifest.MCINABOX_KEYBOARD;
 
-public class GameSettingUI extends StandUI {
+public class GameSettingUI extends BaseUI {
 
     public GameSettingUI(Activity context) {
         super(context);
         initUI();
-        preInitUI();
     }
 
     public GameSettingUI(Activity context, SettingJson setting) {
         this(context);
+        preInitUI(setting);
         refreshUI(setting);
     }
 
@@ -61,9 +61,8 @@ public class GameSettingUI extends StandUI {
         refreshLocalKeyboardList();
     }
 
-    private void preInitUI(){
+    private void preInitUI(SettingJson setting){
         //These initial should not be applied after the UI has been created.
-        SettingJson setting = JsonUtils.getSettingFromFile(MCINABOX_FILE_JSON);
         setConfigureToKeyboardList(setting.getKeyboard());
         editJavaExtArgs.setText(setting.getConfigurations().getJavaArgs());
         editMaxMem.setText((Integer.valueOf(setting.getConfigurations().getMaxMemory())).toString());

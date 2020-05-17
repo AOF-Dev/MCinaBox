@@ -19,12 +19,12 @@
             android:src="@drawable/ic_report_problem_yellow_900_24dp" />
         <TextView
             android:id="@+id/tipper_info"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="2dp"
             android:layout_gravity="center"
-            android:textColor="@color/puredark"
-            android:textSize="13sp"
+            android:textSize="@dimen/text_mid"
+            android:textColor="@color/text_info"
             android:text=""
             android:layout_weight="1"/>
 

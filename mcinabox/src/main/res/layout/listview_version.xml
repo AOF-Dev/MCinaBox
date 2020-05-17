@@ -31,19 +31,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="2dp"
-            android:textSize="15sp"
-            android:textColor="@color/puredark"
+            android:layout_marginStart="2dp"
+            android:textSize="@dimen/text_big"
+            android:textColor="@color/text_title_main"
             android:text="@string/title_version"/>
         <TextView
             android:id="@+id/versionlist_text_versionId"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textColor="@color/puredark"
-            android:textSize="15dp"
+            android:textColor="@color/text_title_main"
+            android:textSize="@dimen/text_big"
             android:layout_weight="1"
-            android:layout_marginLeft="2dp"/>
+            android:layout_marginStart="2dp"/>
 
         <Button
             android:id="@+id/gamelist_button_removeversion"

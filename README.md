@@ -1,8 +1,8 @@
 # MCinaBox - A Minecraft Java Edition Launcher on Android
 
-# Warning 
-## There is a problem with the latest source code. Some functions are not working properly.
-## 由于我没时间维护项目，最新的源代码不完善。
+## Warning
+- There is a problem with the latest source code. Some functions are not working properly.
+- 由于我没时间维护项目，最新的源代码不完善。
 
 ## Table of Contents
 - [Background](#Background)
@@ -124,9 +124,7 @@ In theory, forge is supported, but we need to make some changes to start it.
 ## Known Issues
 
 ### Launcher
-1. Asynchronous message manager at risk of crashing
-2. Language options can not be reloaded well
-3. Unable to request more memory from the system, the upper limit is determined by the system
+1. Unable to request more memory from the system, the upper limit is determined by the system
 
 ### Launch Minecraft
 1. Forge's loading animation will cause a crash

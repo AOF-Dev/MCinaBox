@@ -4,9 +4,9 @@
     android:layout_height="wrap_content"
     android:background="@drawable/background_layout_startgame"
     android:orientation="horizontal"
-    android:paddingLeft="20dp"
+    android:paddingStart="20dp"
     android:paddingTop="5dp"
-    android:paddingRight="0dp"
+    android:paddingEnd="0dp"
     android:paddingBottom="5dp">
 
     <LinearLayout
@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
         android:orientation="vertical">
 
         <TextView
@@ -22,16 +22,16 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/title_select_version"
-            android:textColor="#F5F5F5"
-            android:textSize="13sp" />
+            android:textColor="@color/text_title_sec"
+            android:textSize="@dimen/text_mid" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/title_game_launch"
-            android:textColor="#F5F5F5"
-            android:textSize="12sp" />
+            android:textColor="@color/text_title_sec"
+            android:textSize="@dimen/text_mid" />
 
     </LinearLayout>
 

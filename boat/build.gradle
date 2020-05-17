@@ -44,4 +44,5 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation project(path: ':sharedmodule')
     implementation 'com.github.kongqw:AndroidRocker:1.0.1'
+    implementation project(path: ':plugin')
 }

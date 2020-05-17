@@ -11,23 +11,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/title_load"
-            android:textColor="@color/puredark"
-            android:textSize="10sp" />
+            android:textColor="@color/text_title_main"
+            android:textSize="@dimen/text_small" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp"
             android:background="@android:color/background_dark" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/puredark"
+                android:textColor="@color/text_title_main"
+                android:textSize="@dimen/text_mid"
                 android:text="@string/tips_keybard_choose"/>
             <Spinner
                 android:id="@+id/dialog_spinner_modelselected"
@@ -38,13 +40,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/title_model"
-            android:textColor="@color/puredark"
-            android:textSize="10sp" />
+            android:textColor="@color/text_title_main"
+            android:textSize="@dimen/text_small" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp"
             android:background="@android:color/background_dark" />
         <LinearLayout
             android:layout_width="wrap_content"
@@ -53,13 +55,17 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/puredark"
+                android:layout_margin="5dp"
+                android:textColor="@color/text_title_main"
+                android:textSize="@dimen/text_mid"
                 android:text="@string/tips_keyboard_path"/>
             <TextView
+                android:layout_margin="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/title_keyboard_path"
-                android:textColor="@color/puredark"
+                android:textColor="@color/text_info"
+                android:textSize="@dimen/text_small"
                 android:textIsSelectable="true"/>
         </LinearLayout>
 
@@ -67,14 +73,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/tips_step"
-            android:textColor="@color/puredark"
-            android:textSize="10sp" />
+            android:textColor="@color/text_title_main"
+            android:textSize="@dimen/text_small" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp"
             android:background="@android:color/background_dark" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -83,25 +90,19 @@
             android:orientation="horizontal">
             <Button
                 android:id="@+id/dialog_button_load"
-                android:layout_width="60dp"
-                android:layout_height="40dp"
                 android:layout_marginStart="10dp"
-                android:background="@drawable/background_button"
-                android:textColor="@color/colorAccent"
-                android:layout_gravity="center"
+                style="@style/LauncherButton_1"
                 android:text="@string/tips_ok"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
             <Button
                 android:id="@+id/dialog_button_cancelload"
-                android:layout_width="60dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="110dp"
-                android:background="@drawable/background_button"
-                android:textColor="@color/colorAccent"
-                android:layout_gravity="center"
+                style="@style/LauncherButton_1"
+                android:layout_marginEnd="10dp"
                 android:text="@string/tips_no"/>
         </LinearLayout>
-
-
 
     </LinearLayout>
 

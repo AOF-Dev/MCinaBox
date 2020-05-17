@@ -41,7 +41,7 @@ public class DataPathManifest {
                 //ForgeInstaller
         FORGEINSTALLER_HOME = MCINABOX_HOME + "/forgeinstaller",
                 //版本信息
-        MCINABOX_VERSION = "0.1.3";
+        MCINABOX_VERSION = "0.1.4-pre-1";
 
     /**【一个全局目录的数组】**/
     public static final String[] MCINABOX_ALLPATH = {
