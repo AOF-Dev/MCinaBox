@@ -220,34 +220,43 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
     }
 
     private void configStandKey(){
-        float KeyLX = 100;
-        float KeyLY = 100;
-        int KeySizeW = 40;
-        int KeySizeH = 40;
+        float KeyLX;
+        float KeyLY;
+        int KeySizeW;
+        int KeySizeH;
         String KeyName = editText_key_name.getText().toString();
         String KeyColor = editText_model_color.getText().toString();
 
 
         if(editText_key_sizeW.getText().toString().equals("") || editText_key_sizeH.getText().toString().equals("")){
-            Toast.makeText(this, getString(R.string.tips_keyboard_config_location_notfound), Toast.LENGTH_SHORT).show();
-            return;
-        }else if(editText_key_ly.getText().toString().equals("") || editText_key_lx.getText().toString().equals("")){
-            Toast.makeText(this, getString(R.string.tips_keyboard_config_size_notfound), Toast.LENGTH_SHORT).show();
-            return;
-        }else if(KeyName.equals("")){
-            Toast.makeText(this, getString(R.string.tips_keyboard_config_name_notfound), Toast.LENGTH_SHORT).show();
-            return;
-        }else if(KeyColor.equals("")){
-            Toast.makeText(this, getString(R.string.tips_keyboard_config_color_notfound), Toast.LENGTH_SHORT).show();
-            return;
+            KeySizeH = 40;
+            KeySizeW = 40;
         }else{
-            Toast.makeText(this, getString(R.string.tips_add_success), Toast.LENGTH_SHORT).show();
+            KeySizeW = Integer.parseInt(editText_key_sizeW.getText().toString());
+            KeySizeH = Integer.parseInt(editText_key_sizeH.getText().toString());
         }
 
-        KeySizeW = Integer.parseInt(editText_key_sizeW.getText().toString());
-        KeySizeH = Integer.parseInt(editText_key_sizeH.getText().toString());
-        KeyLX = Float.parseFloat(editText_key_lx.getText().toString());
-        KeyLY = Float.parseFloat(editText_key_ly.getText().toString());
+        if(KeySizeW < 20 || KeySizeH < 20){
+            Toast.makeText(this, getString(R.string.tips_keyboard_config_size_toosmall), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(editText_key_ly.getText().toString().equals("") || editText_key_lx.getText().toString().equals("")){
+            KeyLY = getResources().getDisplayMetrics().widthPixels/2;
+            KeyLX = getResources().getDisplayMetrics().heightPixels/2;
+        }else{
+            KeyLX = Float.parseFloat(editText_key_lx.getText().toString());
+            KeyLY = Float.parseFloat(editText_key_ly.getText().toString());
+        }
+
+        if(KeyName.equals("")){
+            KeyName = "Unknow";
+        }
+
+        if(KeyColor.equals("")){
+            KeyColor = "#80828282";
+        }
+
         boolean isAutoKeep = checkBox_isKeep.isChecked();
         boolean isHide = checkBox_isHide.isChecked();
         boolean isMult = checkBox_isMult.isChecked();
@@ -260,13 +269,8 @@ public class VirtualKeyBoardActivity extends AppCompatActivity {
         int SpecialTwoPos = key_special_twoselected.getSelectedItemPosition();
         String colorhex = editText_model_color.getText().toString();
 
-        if(KeySizeW < 20 || KeySizeH < 20){
-            Toast.makeText(this, getString(R.string.tips_keyboard_config_size_toosmall), Toast.LENGTH_SHORT).show();
-            return;
-        }
-
         addStandKey(KeyName,KeySizeW,KeySizeH,KeyLX,KeyLY,KeyMain,SpecialOne,SpecialTwo,isAutoKeep,isHide,isMult,MainPos,SpecialOnePos,SpecialTwoPos,colorhex,cornerRadius);
-
+        Toast.makeText(this, getString(R.string.tips_add_success), Toast.LENGTH_SHORT).show();
     }
 
 
