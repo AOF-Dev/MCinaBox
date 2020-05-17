@@ -1,7 +1,8 @@
 # MCinaBox - A Minecraft Java Edition Launcher on Android
 
 # Warning 
-## Significant changes are being made to the code structure of this project. Please wait for the changes to be completed before submitting the code or fork project
+## There is a problem with the latest source code. Some functions are not working properly.
+## 由于我没时间维护项目，最新的源代码不完善。
 
 ## Table of Contents
 - [Background](#Background)
@@ -12,7 +13,7 @@
 - [Known Issues](#Known-Issues)
 - [Maintainers](#Maintainers)
 - [Contribution](#Contribution)
-- [Related Efforts](#Related-Efforts)
+- [Related](#Related)
 - [License](#License)
 
 ## Background
@@ -152,12 +153,9 @@ Chinese Translation:
 This project exists thanks to all the people who contribute.
 
 ### List of contributors:
-- `by-scott` perfect user management and genuine verification code
-- `Frank Ou` provides Japanese translation
-- `MCredbear` provides English translation.
-- `miguelmazetto` found the code that caused forge error and proposed the correction
-- `Salted fish King` provides Spanish translation
-- `SnowFuryHQ` found the code that caused jni building error in Linux.
+- [ALL](https://github.com/longjunyu2/MCinaBox/graphs/contributors)
+- `MCredbear`
+- `Salted fish King`
 - All people who put forward issues.
 
 
@@ -167,5 +165,18 @@ If you want to submit a pull request, there're some requirements:
 * MimniumSDK: 21
 * Do NOT modify `gradle` files.
 
-## Related Efforts
->CosineMath 's BoatApp https://github.com/CosineMath/BoatApp
+## Related
+> [BoatApp (CosineMath,MIT)](https://github.com/CosineMath/BoatApp)</br>
+> Gson (Google,Apache 2.0)</br>
+> XZ for Java (Lasse Collin,Public Domain)</br>
+> [JNDCrash (ivanarh,Apache-2.0)](https://github.com/ivanarh/jndcrash)</br>
+> [GL4ES (pitiSeb,MIT)](https://github.com/ptitSeb/gl4es)</br>
+> [FileDownloader (lingochamp,Apache-2.0)](https://github.com/lingochamp/FileDownloader)</br>
+> [BubbleLayout (MasayukiSuda)](https://github.com/MasayukiSuda/BubbleLayout)</br>
+> [AndroidRocker (kongqw)](https://github.com/kongqw/AndroidRocker)</br>
+> [colorpicker (shixiuwen)](https://github.com/shixiuwen/colorpicker)</br>
+> [OpenJDK-8 (CosineMath,GPL-2.0)](https://github.com/CosineMath/openjdk-jdk8u-aarch32-android)</br>
+> [lwjgl2.x (CosineMath)](https://github.com/CosineMath/lwjgl-boat)</br>
+> [lwjgl3.x (CosineMath)](https://github.com/CosineMath/lwjgl3-boat)</br>
+> [glfw (CosineMath)](https://github.com/CosineMath/glfw-boat)</br>
+> [openal-soft (kcat,GPL-2.0)](https://github.com/kcat/openal-soft)</br>
