@@ -25,8 +25,8 @@ public class PluginUI extends BaseUI {
     }
 
     private LinearLayout lagout_plugin;
-    private Button buttonAddPlugin;
-    private Button buttonRefresh;
+    private LinearLayout buttonAddPlugin;
+    private LinearLayout buttonRefresh;
     private ListView listPlugins;
     private Animation showAnim;
 
@@ -38,7 +38,7 @@ public class PluginUI extends BaseUI {
         lagout_plugin = mContext.findViewById(R.id.layout_plugin);
         buttonAddPlugin = lagout_plugin.findViewById(R.id.plugin_button_addplugin);
         buttonRefresh = lagout_plugin.findViewById(R.id.plugin_button_refresh);
-        listPlugins = listPlugins.findViewById(R.id.listview_plugins);
+        listPlugins = lagout_plugin.findViewById(R.id.listview_plugins);
 
         views = new View[]{buttonRefresh,buttonAddPlugin};
         for(View v : views){
