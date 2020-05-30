@@ -68,7 +68,7 @@ public class MainToolbarUI extends BaseUI {
 
     @Override
     public void setUIVisiability(int visiability) {
-        layout_toolbar.setVisibility(visiability);
+        //Do not change its visiability.
     }
 
     @Override

@@ -89,7 +89,7 @@ public class LauncherSettingUI extends BaseUI {
     @Override
     public void setUIVisiability(int visiability) {
         if(visiability == View.VISIBLE){
-            showAnim.start();
+            layout_setting.startAnimation(showAnim);
         }
         layout_setting.setVisibility(visiability);
     }

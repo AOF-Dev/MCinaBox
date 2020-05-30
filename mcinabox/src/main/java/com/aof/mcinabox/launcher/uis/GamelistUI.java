@@ -68,7 +68,7 @@ public class GamelistUI extends BaseUI {
     @Override
     public void setUIVisiability(int visiability) {
         if(visiability == View.VISIBLE){
-            showAnim.start();
+            layout_gamelist.startAnimation(showAnim);
         }
         layout_gamelist.setVisibility(visiability);
     }
