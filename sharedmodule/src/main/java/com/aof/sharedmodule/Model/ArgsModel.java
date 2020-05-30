@@ -7,7 +7,6 @@ public class ArgsModel implements Serializable {
     String KeyboardPath = MCINABOX_KEYBOARD;
     String KeyboardName; //键盘模板名称
     String[] args; //全部启动参数
-    Boolean forceRootRuntime; //强制运行库提权
     String Home;
 
     public String getKeyboardFilePath(){
@@ -33,13 +32,4 @@ public class ArgsModel implements Serializable {
     public void setArgs(String[] args) {
         this.args = args;
     }
-
-    public Boolean getForceRootRuntime() {
-        return forceRootRuntime;
-    }
-
-    public void setForceRootRuntime(Boolean forceRootRuntime) {
-        this.forceRootRuntime = forceRootRuntime;
-    }
-
 }

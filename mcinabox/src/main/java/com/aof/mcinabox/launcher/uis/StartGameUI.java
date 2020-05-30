@@ -9,7 +9,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.aof.mcinabox.R;
-import com.aof.mcinabox.ReadyToStart;
+import com.aof.mcinabox.launcher.core.LaunchMinecraft;
 import com.aof.mcinabox.launcher.JsonUtils;
 import com.aof.mcinabox.launcher.json.SettingJson;
 import com.aof.mcinabox.launcher.version.LocalVersionListBean;
@@ -155,7 +155,7 @@ public class StartGameUI extends BaseUI {
         } else {
             dataPath = MCINABOX_DATA_PUBLIC;
         }
-        ReadyToStart starter = new ReadyToStart(mContext, MCINABOX_VERSION, dataPath, listVersions.getSelectedItem().toString(), JsonUtils.getSettingFromFile(MCINABOX_FILE_JSON).getKeyboard());
+        LaunchMinecraft starter = new LaunchMinecraft(mContext, MCINABOX_VERSION, dataPath, listVersions.getSelectedItem().toString(), JsonUtils.getSettingFromFile(MCINABOX_FILE_JSON).getKeyboard());
         if (checkConfig()) {
             starter.StartGame();
         } else {
