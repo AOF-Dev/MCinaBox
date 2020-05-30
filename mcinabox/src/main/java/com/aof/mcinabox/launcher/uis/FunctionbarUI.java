@@ -18,6 +18,10 @@ public class FunctionbarUI extends BaseUI {
         super(context);
         initUI();
     }
+    public FunctionbarUI(Activity context, SettingJson setting) {
+        this(context);
+        refreshUI(setting);
+    }
 
     private LinearLayout layout_functionbar;
     private LinearLayout buttonUser;
@@ -54,7 +58,7 @@ public class FunctionbarUI extends BaseUI {
 
     @Override
     public void refreshUI(SettingJson setting) {
-
+        refreshUserInfo(setting);
     }
 
     @Override

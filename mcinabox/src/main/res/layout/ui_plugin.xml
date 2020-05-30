@@ -22,14 +22,12 @@
             android:layout_marginEnd="10dp"
             android:orientation="horizontal">
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:src="@drawable/ic_add_black_24dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:textSize="@dimen/text_mid"
                 android:textColor="@color/text_title_main"
                 android:text="@string/title_add_plugin"

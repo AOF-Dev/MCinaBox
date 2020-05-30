@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
         uiStartGame = new StartGameUI(this, setting);
         uiUser = new UserUI(this, setting);
         uiMainToolbar = new MainToolbarUI(this, setting);
-        uiFunctionbar = new FunctionbarUI(this);
+        uiFunctionbar = new FunctionbarUI(this, setting);
 
         UIs = new BaseUI[]{uiFunctionbar,uiInstallVersion, uiPlugin, uiGamedir, uiGamelist, uiGameSetting, uiLauncherSetting, uiStartGame, uiUser};
 

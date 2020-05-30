@@ -27,7 +27,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    android:layout_margin="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -35,7 +37,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="@string/title_downloader_source"
-                        android:textColor="@color/puredark"
+                        android:textColor="@color/text_title_main"
                         android:textSize="@dimen/text_mid" />
 
                     <Spinner
@@ -60,7 +62,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="@string/title_launcher_setting_runtimepack"
-                        android:textColor="@color/puredark"
+                        android:textColor="@color/text_title_main"
                         android:textSize="@dimen/text_mid" />
 
                     <TextView
@@ -91,7 +93,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="@string/title_forge_installer"
-                        android:textColor="@color/puredark"
+                        android:textColor="@color/text_title_main"
                         android:textSize="@dimen/text_mid" />
 
                     <Spinner
@@ -144,7 +146,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="@string/app_about_mcinabox"
-                        android:textColor="@color/puredark"
+                        android:textColor="@color/text_info"
                         android:textSize="@dimen/text_small" />
                 </LinearLayout>
 
@@ -165,14 +167,14 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="@string/app_about_copyright"
-                        android:textColor="@color/puredark"
+                        android:textColor="@color/text_title_main"
                         android:textSize="@dimen/text_small" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/app_about_copyright_info"
-                        android:textColor="@color/puredark"
+                        android:textColor="@color/text_title_main"
                         android:textSize="@dimen/text_small" />
 
                 </LinearLayout>
@@ -188,14 +190,14 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="@string/app_about_developer"
-                        android:textColor="@color/puredark"
+                        android:textColor="@color/text_title_main"
                         android:textSize="@dimen/text_small" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/app_about_developer_info"
-                        android:textColor="@color/puredark"
+                        android:textColor="@color/text_title_main"
                         android:textSize="@dimen/text_small" />
 
                 </LinearLayout>
@@ -211,14 +213,14 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="@string/app_about_contributor"
-                        android:textColor="@color/puredark"
+                        android:textColor="@color/text_title_main"
                         android:textSize="@dimen/text_small" />
 
                     <Button
                         android:id="@+id/setting_show_contributors"
                         style="@style/LauncherButton_1"
-                        android:layout_height="15dp"
-                        android:layout_width="20dp"
+                        android:layout_height="30dp"
+                        android:layout_width="50dp"
                         android:textSize="@dimen/text_small"
                         android:text="@string/title_show"/>
 
@@ -236,14 +238,14 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="@string/app_about_thanks"
-                        android:textColor="@color/puredark"
+                        android:textColor="@color/text_title_main"
                         android:textSize="@dimen/text_small" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/app_about_thanks_info"
-                        android:textColor="@color/puredark"
+                        android:textColor="@color/text_title_main"
                         android:textSize="@dimen/text_small" />
 
                 </LinearLayout>
@@ -259,14 +261,14 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="@string/app_about_dependent"
-                        android:textColor="@color/puredark"
+                        android:textColor="@color/text_title_main"
                         android:textSize="@dimen/text_small" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/app_about_dependent_info"
-                        android:textColor="@color/puredark"
+                        android:textColor="@color/text_title_main"
                         android:textSize="@dimen/text_small" />
 
                 </LinearLayout>
@@ -282,14 +284,14 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="@string/app_about_details"
-                        android:textColor="@color/puredark"
+                        android:textColor="@color/text_title_main"
                         android:textSize="@dimen/text_small" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/app_about_details_info"
-                        android:textColor="@color/puredark"
+                        android:textColor="@color/text_title_main"
                         android:textSize="@dimen/text_small" />
 
                 </LinearLayout>
@@ -305,14 +307,14 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="@string/app_about_opensource"
-                        android:textColor="@color/puredark"
+                        android:textColor="@color/text_title_main"
                         android:textSize="@dimen/text_small" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/app_about_opensource_info"
-                        android:textColor="@color/puredark"
+                        android:textColor="@color/text_title_main"
                         android:textIsSelectable="true"
                         android:textSize="@dimen/text_small" />
 
