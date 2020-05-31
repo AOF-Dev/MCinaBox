@@ -26,14 +26,9 @@ import static com.aof.sharedmodule.Data.DataPathManifest.MCINABOX_VERSION;
 
 public class StartGameUI extends BaseUI {
 
-    public StartGameUI(Activity context) {
-        super(context);
-        initUI();
-    }
-
     public StartGameUI(Activity context, SettingJson setting) {
-        this(context);
-        preInitUI(setting);
+        super(context);
+        initUI(setting);
         refreshUI(setting);
     }
 
@@ -45,7 +40,7 @@ public class StartGameUI extends BaseUI {
 
 
     @Override
-    public void initUI() {
+    public void initUI(SettingJson setting) {
 
         layout_startgame = mContext.findViewById(R.id.layout_startgame);
         buttonStartGame = layout_startgame.findViewById(R.id.main_button_startgame);
@@ -55,6 +50,7 @@ public class StartGameUI extends BaseUI {
         for (View v : views) {
             v.setOnClickListener(clickListener);
         }
+        loadInfo(setting);
 
     }
 
@@ -89,7 +85,7 @@ public class StartGameUI extends BaseUI {
         }
     };
 
-    public void preInitUI(SettingJson setting){
+    public void loadInfo(SettingJson setting){
         //These initial should not be applied after the UI has been created.
         if(setting.getLastVersion() == null){
             return;
@@ -155,7 +151,7 @@ public class StartGameUI extends BaseUI {
         } else {
             dataPath = MCINABOX_DATA_PUBLIC;
         }
-        LaunchMinecraft starter = new LaunchMinecraft(mContext, MCINABOX_VERSION, dataPath, listVersions.getSelectedItem().toString(), JsonUtils.getSettingFromFile(MCINABOX_FILE_JSON).getKeyboard());
+        LaunchMinecraft starter = new LaunchMinecraft(mContext);
         if (checkConfig()) {
             starter.StartGame();
         } else {

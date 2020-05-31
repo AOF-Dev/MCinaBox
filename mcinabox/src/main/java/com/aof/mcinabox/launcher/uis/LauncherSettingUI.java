@@ -35,14 +35,9 @@ import static com.aof.sharedmodule.Data.DataPathManifest.MCINABOX_FILE_JSON;
 
 public class LauncherSettingUI extends BaseUI {
 
-    public LauncherSettingUI(Activity context) {
-        super(context);
-        initUI();
-    }
-
     public LauncherSettingUI(Activity context, SettingJson setting) {
-        this(context);
-        preInitUI(setting);
+        super(context);
+        initUI(setting);
         refreshUI(setting);
     }
 
@@ -58,7 +53,7 @@ public class LauncherSettingUI extends BaseUI {
     private View[] views;
 
     @Override
-    public void initUI() {
+    public void initUI(SettingJson setting) {
         showAnim = AnimationUtils.loadAnimation(mContext, R.anim.layout_show);
         layout_setting = mContext.findViewById(R.id.layout_launchersetting);
         listDownloaderSources = layout_setting.findViewById(R.id.setting_spinner_downloadtype);
@@ -72,6 +67,7 @@ public class LauncherSettingUI extends BaseUI {
         for (View v : views) {
             v.setOnClickListener(clickListener);
         }
+        loadInfo(setting);
 
     }
 
@@ -99,7 +95,7 @@ public class LauncherSettingUI extends BaseUI {
         return layout_setting.getVisibility();
     }
 
-    private void preInitUI(SettingJson setting){
+    private void loadInfo(SettingJson setting){
         //These initial should not be applied after the UI has been created.
         setConfigureToDownloadtype(setting.getDownloadType(), listDownloaderSources);
     }

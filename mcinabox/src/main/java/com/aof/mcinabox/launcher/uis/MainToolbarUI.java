@@ -14,13 +14,9 @@ import com.aof.mcinabox.launcher.tipper.Tipper;
 
 public class MainToolbarUI extends BaseUI {
 
-    public MainToolbarUI(Activity context) {
-        super(context);
-        initUI();
-    }
-
     public MainToolbarUI(Activity context, SettingJson setting) {
-        this(context);
+        super(context);
+        initUI(setting);
         refreshUI(setting);
     }
 
@@ -38,7 +34,7 @@ public class MainToolbarUI extends BaseUI {
 
 
     @Override
-    public void initUI() {
+    public void initUI(SettingJson setting) {
         layout_toolbar = mContext.findViewById(R.id.layout_toolbar_main);
         buttonBack = layout_toolbar.findViewById(R.id.toolbar_button_backfromhere);
         textPosition = layout_toolbar.findViewById(R.id.main_text_showstate);
@@ -57,7 +53,6 @@ public class MainToolbarUI extends BaseUI {
 
     @Override
     public void refreshUI(SettingJson setting) {
-        refreshTaskInfo(setting);
         tipper.refreshTipper(setting,this);
     }
 
@@ -78,10 +73,6 @@ public class MainToolbarUI extends BaseUI {
 
     public void setCurrentPosition(String position){
         textPosition.setText(position);
-    }
-
-    private void refreshTaskInfo(SettingJson setting){
-
     }
 
     public void setTaskInfoBackground(int id){

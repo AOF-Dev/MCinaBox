@@ -19,13 +19,9 @@ import java.util.ArrayList;
 
 public class UserUI extends BaseUI {
 
-    public UserUI(Activity context) {
-        super(context);
-        initUI();
-    }
-
     public UserUI(Activity context, SettingJson setting) {
-        this(context);
+        super(context);
+        initUI(setting);
         refreshUI(setting);
     }
 
@@ -39,7 +35,7 @@ public class UserUI extends BaseUI {
 
 
     @Override
-    public void initUI() {
+    public void initUI(SettingJson setting) {
         showAnim = AnimationUtils.loadAnimation(mContext, R.anim.layout_show);
         layout_user = mContext.findViewById(R.id.layout_user);
         buttonCreateUser = layout_user.findViewById(R.id.layout_user_adduser);
@@ -50,12 +46,11 @@ public class UserUI extends BaseUI {
         for (View v : views) {
             v.setOnClickListener(clickListener);
         }
-        refreshLocalUserList(com.aof.mcinabox.launcher.JsonUtils.getSettingFromFile(MCINABOX_FILE_JSON));
     }
 
     @Override
     public void refreshUI(SettingJson setting) {
-        //refreshLocalUserList should not run in the refreshUI method.
+        refreshLocalUserList(setting);
     }
 
     @Override

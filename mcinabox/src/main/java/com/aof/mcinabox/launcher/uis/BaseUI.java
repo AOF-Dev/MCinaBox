@@ -13,12 +13,8 @@ public abstract class BaseUI {
         setUIContext(context);
     }
 
-    public BaseUI(Activity context, SettingJson setting){
-        this(context);
-    }
-
     //Initate UI and functions.
-    public abstract void initUI();
+    public abstract void initUI(SettingJson setting);
 
     //Apply states from Setting to UIs
     public abstract void refreshUI(SettingJson setting);

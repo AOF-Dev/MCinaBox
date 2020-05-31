@@ -69,10 +69,7 @@ public class MainActivity extends AppCompatActivity {
     public LauncherSettingUI uiLauncherSetting;
     public StartGameUI uiStartGame;
     public UserUI uiUser;
-
-    //Do not add toolbar into UIs!
     public MainToolbarUI uiMainToolbar;
-
     public FunctionbarUI uiFunctionbar;
 
     public DownloaderDialog dialogDownloader;
@@ -85,6 +82,8 @@ public class MainActivity extends AppCompatActivity {
     private static final int REFRESH_DELAY = 1000; //ms
     private static final int REFRESH_PERIOD = 1000; //ms
 
+    private SettingJson Setting;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -96,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         //检查目录
         CheckMcinaBoxDir();
         //检查配置文件
-        checkLauncherSettingFile();
+        this.Setting = checkLauncherSettingFile();
         //初始化控件
         initUIs();
         //添加无媒体文件标签
@@ -104,30 +103,29 @@ public class MainActivity extends AppCompatActivity {
         //删除tmp文件夹
         removeTmpFloder();
         //执行自动刷新
-        timer_tipper.schedule(TipperTask, REFRESH_DELAY, REFRESH_PERIOD);
+        this.timer_tipper.schedule(TipperTask, REFRESH_DELAY, REFRESH_PERIOD);
     }
 
     private void initUIs() {
         ShowAnim = AnimationUtils.loadAnimation(this, R.anim.layout_show);
         HideAnim = AnimationUtils.loadAnimation(this, R.anim.layout_hide);
 
-        SettingJson setting = com.aof.mcinabox.launcher.JsonUtils.getSettingFromFile(MCINABOX_FILE_JSON);
         dialogDownloader = new DownloaderDialog(this, R.layout.dialog_download);
         dialogLanguage = new LanguageDialog(this, R.layout.dialog_languages);
         dialogCreateUser = new CreateUserDialog(this, R.layout.dialog_createuser);
 
-        uiInstallVersion = new InstallVersionUI(this, setting);
-        uiPlugin = new PluginUI(this, setting);
-        uiGamedir = new GamedirUI(this, setting);
-        uiGamelist = new GamelistUI(this, setting);
-        uiGameSetting = new GameSettingUI(this, setting);
-        uiLauncherSetting = new LauncherSettingUI(this, setting);
-        uiStartGame = new StartGameUI(this, setting);
-        uiUser = new UserUI(this, setting);
-        uiMainToolbar = new MainToolbarUI(this, setting);
-        uiFunctionbar = new FunctionbarUI(this, setting);
+        uiInstallVersion = new InstallVersionUI(this, this.Setting);
+        uiPlugin = new PluginUI(this, this.Setting);
+        uiGamedir = new GamedirUI(this, this.Setting);
+        uiGamelist = new GamelistUI(this, this.Setting);
+        uiGameSetting = new GameSettingUI(this, this.Setting);
+        uiLauncherSetting = new LauncherSettingUI(this, this.Setting);
+        uiStartGame = new StartGameUI(this, this.Setting);
+        uiUser = new UserUI(this, this.Setting);
+        uiMainToolbar = new MainToolbarUI(this, this.Setting);
+        uiFunctionbar = new FunctionbarUI(this, this.Setting);
 
-        UIs = new BaseUI[]{uiFunctionbar,uiInstallVersion, uiPlugin, uiGamedir, uiGamelist, uiGameSetting, uiLauncherSetting, uiStartGame, uiUser};
+        UIs = new BaseUI[]{uiMainToolbar,uiFunctionbar, uiInstallVersion, uiPlugin, uiGamedir, uiGamelist, uiGameSetting, uiLauncherSetting, uiStartGame, uiUser};
 
     }
 
@@ -232,20 +230,25 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * 【保存启动器配置到配置文件】
-     * Save Launcher Setting to file.
-     **/
-    private SettingJson saveLauncherSettingToFile() {
+    /**【获取全部页面配置】**/
+    public void getSetting(SettingJson settingJson){
         SettingJson setting = new SettingJson();
         for (BaseUI ui : UIs) {
             setting = ui.saveUIConfig(setting);
         }
+        settingJson = setting;
+    }
 
-        if (!com.aof.mcinabox.launcher.JsonUtils.saveSettingToFile(setting, MCINABOX_FILE_JSON)) {
+    /**
+     * 【保存启动器配置到配置文件】
+     * Save Launcher Setting to file.
+     **/
+    private SettingJson saveLauncherSettingToFile(SettingJson settingJson) {
+        getSetting(settingJson);
+        if (!com.aof.mcinabox.launcher.JsonUtils.saveSettingToFile(settingJson, MCINABOX_FILE_JSON)) {
             //TODO:Save Failed.
         }
-        return setting;
+        return settingJson;
     }
 
     /**
@@ -358,8 +361,8 @@ public class MainActivity extends AppCompatActivity {
 
             switch (msg.what) {
                 case 1:
-                    saveLauncherSettingToFile();
-                    refreshLauncher(checkLauncherSettingFile(), false);
+                    refreshLauncher(Setting,false);
+                    getSetting(Setting);
             }
             super.handleMessage(msg);
 
@@ -447,7 +450,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStop() {
         super.onStop();
-        saveLauncherSettingToFile();
+        saveLauncherSettingToFile(this.Setting);
     }
+
 }
 

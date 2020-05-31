@@ -14,13 +14,9 @@ import com.aof.mcinabox.launcher.json.SettingJson;
 
 public class PluginUI extends BaseUI {
 
-    public PluginUI(Activity context){
-        super(context);
-        initUI();
-    }
-
     public PluginUI(Activity context,SettingJson setting){
-        this(context);
+        super(context);
+        initUI(setting);
         refreshUI(setting);
     }
 
@@ -33,7 +29,7 @@ public class PluginUI extends BaseUI {
     private View[] views;
 
     @Override
-    public void initUI() {
+    public void initUI(SettingJson setting) {
         showAnim = AnimationUtils.loadAnimation(mContext, R.anim.layout_show);
         lagout_plugin = mContext.findViewById(R.id.layout_plugin);
         buttonAddPlugin = lagout_plugin.findViewById(R.id.plugin_button_addplugin);
@@ -48,7 +44,7 @@ public class PluginUI extends BaseUI {
 
     @Override
     public void refreshUI(SettingJson setting) {
-        refreshPluginList(setting);
+        refreshPluginList();
     }
 
     @Override
@@ -81,7 +77,7 @@ public class PluginUI extends BaseUI {
         }
     };
 
-    private void refreshPluginList(SettingJson setting){
+    private void refreshPluginList(){
         //TODO:刷新插件列表功能
     }
 }
