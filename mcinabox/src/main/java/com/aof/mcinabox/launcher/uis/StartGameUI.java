@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.aof.mcinabox.MainActivity;
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.launcher.core.LaunchMinecraft;
 import com.aof.mcinabox.launcher.JsonUtils;
@@ -145,12 +146,7 @@ public class StartGameUI extends BaseUI {
      * Start to launch Minecraft.
      **/
     private void startMinecraft() {
-        String dataPath;
-        if (JsonUtils.getSettingFromFile(MCINABOX_FILE_JSON).getLocalization().equals("private")) {
-            dataPath = MCINABOX_DATA_PRIVATE;
-        } else {
-            dataPath = MCINABOX_DATA_PUBLIC;
-        }
+        ((MainActivity)mContext).quickSave();
         LaunchMinecraft starter = new LaunchMinecraft(mContext);
         if (checkConfig()) {
             starter.StartGame();

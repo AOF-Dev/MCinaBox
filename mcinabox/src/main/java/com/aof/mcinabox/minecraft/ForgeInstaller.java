@@ -43,7 +43,6 @@ public class ForgeInstaller {
             forgeJson = com.aof.mcinabox.minecraft.JsonUtils.getVersionFromFile(forgeFile);
             if(forgeJson != null) {
                 FileTool.checkFilePath(new File(MINECRAFT_HOME_VERSION + "/" + forgeJson.getId()),true);
-                //TODO:Copy File 失败，如果复制文件成功，之后的解析json的代码，安装forge的代码应该可以工作。
                 FileTool.copyFile(MCINABOX_TEMP + "/forge/version.json",MINECRAFT_HOME_VERSION + "/" + forgeJson.getId() + "/" + forgeJson.getId() + ".json", true);
                 try {
                     Thread.sleep(100);

@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
         uiMainToolbar = new MainToolbarUI(this, this.Setting);
         uiFunctionbar = new FunctionbarUI(this, this.Setting);
 
-        UIs = new BaseUI[]{uiMainToolbar,uiFunctionbar, uiInstallVersion, uiPlugin, uiGamedir, uiGamelist, uiGameSetting, uiLauncherSetting, uiStartGame, uiUser};
+        UIs = new BaseUI[]{uiMainToolbar, uiFunctionbar, uiInstallVersion, uiPlugin, uiGamedir, uiGamelist, uiGameSetting, uiLauncherSetting, uiStartGame, uiUser};
 
     }
 
@@ -230,8 +230,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /**【获取全部页面配置】**/
-    public void getSetting(SettingJson settingJson){
+    /**
+     * 【获取全部页面配置】
+     **/
+    public void getSetting(SettingJson settingJson) {
         SettingJson setting = new SettingJson();
         for (BaseUI ui : UIs) {
             setting = ui.saveUIConfig(setting);
@@ -343,6 +345,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
+     * 【立即获取并保存配置信息】
+     **/
+    public void quickSave() {
+        refreshLauncher(Setting, false);
+        saveLauncherSettingToFile(Setting);
+    }
+
+    /**
      * 【定时器 定时保存并刷新界面】
      * Auto timer task.
      **/
@@ -361,7 +371,7 @@ public class MainActivity extends AppCompatActivity {
 
             switch (msg.what) {
                 case 1:
-                    refreshLauncher(Setting,false);
+                    refreshLauncher(Setting, false);
                     getSetting(Setting);
             }
             super.handleMessage(msg);
