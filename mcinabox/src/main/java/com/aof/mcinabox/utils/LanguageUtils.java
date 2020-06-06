@@ -28,8 +28,11 @@ public class LanguageUtils {
             case "Español(es)":
                 mLocale = Locale.forLanguageTag("es");
                 break;
-            case "Русский (ru)":
+            case "Русский(ru)":
                 mLocale = Locale.forLanguageTag("ru");
+                break;
+            case "Brazilian(pt-BR)":
+                mLocale = Locale.forLanguageTag("pt-rBR");
                 break;
             default:
                 mLocale = Locale.getDefault();

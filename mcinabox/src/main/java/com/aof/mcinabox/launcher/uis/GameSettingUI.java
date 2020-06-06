@@ -59,6 +59,7 @@ public class GameSettingUI extends BaseUI {
 
     private void loadInfo(SettingJson setting){
         //These initial should not be applied after the UI has been created.
+        refreshLocalKeyboardList();
         setConfigureToKeyboardList(setting.getKeyboard());
         editJavaExtArgs.setText(setting.getConfigurations().getJavaArgs());
         editMaxMem.setText((Integer.valueOf(setting.getConfigurations().getMaxMemory())).toString());
