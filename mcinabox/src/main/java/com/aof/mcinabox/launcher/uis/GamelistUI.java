@@ -21,10 +21,8 @@ import java.util.ArrayList;
 
 public class GamelistUI extends BaseUI {
 
-    public GamelistUI(Activity context,SettingJson setting){
+    public GamelistUI(Activity context){
         super(context);
-        initUI(setting);
-        refreshUI(setting);
     }
 
     private LinearLayout layout_gamelist;
@@ -37,7 +35,7 @@ public class GamelistUI extends BaseUI {
     private View[] views;
 
     @Override
-    public void initUI(SettingJson setting) {
+    public void onCreate(SettingJson setting) {
         showAnim = AnimationUtils.loadAnimation(mContext, R.anim.layout_show);
         layout_gamelist = mContext.findViewById(R.id.layout_gamelist);
         buttonInstallGame = layout_gamelist.findViewById(R.id.gamelist_button_installnewgame);
@@ -49,6 +47,7 @@ public class GamelistUI extends BaseUI {
         for(View v : views){
             v.setOnClickListener(clickListener);
         }
+        refreshUI(setting);
     }
 
     @Override

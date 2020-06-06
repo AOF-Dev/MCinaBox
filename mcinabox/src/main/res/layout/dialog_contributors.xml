@@ -17,12 +17,13 @@
         android:layout_width="wrap_content"
         android:layout_height="230dp"
         android:layout_margin="5dp"
+        style="@style/NormalListview"
         android:entries="@array/controbutors"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/text_mid"
-        android:textColor="@color/text_title_main"
+        android:textSize="@dimen/text_small"
+        android:textColor="@color/text_info"
         android:layout_gravity="center"
         android:layout_margin="5dp"
         android:text="@string/title_contributors_full"/>

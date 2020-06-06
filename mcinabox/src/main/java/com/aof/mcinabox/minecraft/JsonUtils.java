@@ -5,6 +5,7 @@ import android.util.Log;
 import com.aof.mcinabox.minecraft.json.AssetsJson;
 import com.aof.mcinabox.minecraft.json.VersionJson;
 import com.aof.mcinabox.minecraft.json.VersionManifestJson;
+import com.aof.mcinabox.utils.ErrorUtils;
 import com.google.gson.Gson;
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,6 +19,7 @@ public class JsonUtils {
     public static VersionManifestJson getVersionManifestFromFile(File file){
         if(file == null){
             Log.e("JsonUtils","Json File is null.");
+            ErrorUtils.FileNotFound(file);
             return null;
         }
         try {
@@ -30,6 +32,7 @@ public class JsonUtils {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             Log.e("JsonUtils","Json File not found.");
+            ErrorUtils.FileNotFound(file);
             return null;
         }
     }
@@ -41,6 +44,7 @@ public class JsonUtils {
     public static VersionJson getVersionFromFile(File file){
         if(file == null){
             Log.e("JsonUtils","Json File is null.");
+            ErrorUtils.FileNotFound(file);
             return null;
         }
         try {
@@ -53,6 +57,7 @@ public class JsonUtils {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             Log.e("JsonUtils","Json File not found.");
+            ErrorUtils.FileNotFound(file);
             return null;
         }
     }
@@ -64,6 +69,7 @@ public class JsonUtils {
     public static AssetsJson getAssetsFromFile(File file){
         if(file == null){
             Log.e("JsonUtils","Json File is null.");
+            ErrorUtils.FileNotFound(file);
             return null;
         }
         try {
@@ -76,6 +82,7 @@ public class JsonUtils {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             Log.e("JsonUtils","Json File not found.");
+            ErrorUtils.FileNotFound(file);
             return null;
         }
     }

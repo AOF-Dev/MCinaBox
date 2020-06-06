@@ -14,10 +14,8 @@ import com.aof.mcinabox.launcher.json.SettingJson;
 
 public class FunctionbarUI extends BaseUI {
 
-    public FunctionbarUI(Activity context, SettingJson setting) {
+    public FunctionbarUI(Activity context) {
         super(context);
-        initUI(setting);
-        refreshUI(setting);
     }
 
     private LinearLayout layout_functionbar;
@@ -35,7 +33,7 @@ public class FunctionbarUI extends BaseUI {
 
 
     @Override
-    public void initUI(SettingJson setting) {
+    public void onCreate(SettingJson setting) {
         layout_functionbar = mContext.findViewById(R.id.layout_functions);
         buttonUser = layout_functionbar.findViewById(R.id.main_button_user);
         buttonPlugin = layout_functionbar.findViewById(R.id.main_button_plugin);
@@ -51,6 +49,7 @@ public class FunctionbarUI extends BaseUI {
         for(View v : views){
             v.setOnClickListener(clickListener);
         }
+        refreshUI(setting);
 
     }
 
@@ -131,6 +130,5 @@ public class FunctionbarUI extends BaseUI {
             textUserType.setText("");
         }
     }
-
 
 }

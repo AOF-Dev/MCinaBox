@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Application;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -102,6 +103,10 @@ public class MainActivity extends AppCompatActivity {
         setMCinaBoxNoMedia();
         //删除tmp文件夹
         removeTmpFloder();
+        //Life
+        for(BaseUI ui:UIs){
+            ui.onCreate(this.Setting);
+        }
         //执行自动刷新
         this.timer_tipper.schedule(TipperTask, REFRESH_DELAY, REFRESH_PERIOD);
     }
@@ -114,19 +119,18 @@ public class MainActivity extends AppCompatActivity {
         dialogLanguage = new LanguageDialog(this, R.layout.dialog_languages);
         dialogCreateUser = new CreateUserDialog(this, R.layout.dialog_createuser);
 
-        uiInstallVersion = new InstallVersionUI(this, this.Setting);
-        uiPlugin = new PluginUI(this, this.Setting);
-        uiGamedir = new GamedirUI(this, this.Setting);
-        uiGamelist = new GamelistUI(this, this.Setting);
-        uiGameSetting = new GameSettingUI(this, this.Setting);
-        uiLauncherSetting = new LauncherSettingUI(this, this.Setting);
-        uiStartGame = new StartGameUI(this, this.Setting);
-        uiUser = new UserUI(this, this.Setting);
-        uiMainToolbar = new MainToolbarUI(this, this.Setting);
-        uiFunctionbar = new FunctionbarUI(this, this.Setting);
+        uiInstallVersion = new InstallVersionUI(this);
+        uiPlugin = new PluginUI(this);
+        uiGamedir = new GamedirUI(this);
+        uiGamelist = new GamelistUI(this);
+        uiGameSetting = new GameSettingUI(this);
+        uiLauncherSetting = new LauncherSettingUI(this);
+        uiStartGame = new StartGameUI(this);
+        uiUser = new UserUI(this);
+        uiMainToolbar = new MainToolbarUI(this);
+        uiFunctionbar = new FunctionbarUI(this);
 
         UIs = new BaseUI[]{uiMainToolbar, uiFunctionbar, uiInstallVersion, uiPlugin, uiGamedir, uiGamelist, uiGameSetting, uiLauncherSetting, uiStartGame, uiUser};
-
     }
 
     /**
@@ -461,6 +465,10 @@ public class MainActivity extends AppCompatActivity {
     public void onStop() {
         super.onStop();
         saveLauncherSettingToFile(this.Setting);
+        for(BaseUI ui:UIs){
+            ui.onStop();
+        }
+
     }
 
 }

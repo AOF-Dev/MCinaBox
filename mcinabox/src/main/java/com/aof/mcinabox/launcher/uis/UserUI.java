@@ -19,10 +19,8 @@ import java.util.ArrayList;
 
 public class UserUI extends BaseUI {
 
-    public UserUI(Activity context, SettingJson setting) {
+    public UserUI(Activity context) {
         super(context);
-        initUI(setting);
-        refreshUI(setting);
     }
 
     private LinearLayout layout_user;
@@ -35,7 +33,7 @@ public class UserUI extends BaseUI {
 
 
     @Override
-    public void initUI(SettingJson setting) {
+    public void onCreate(SettingJson setting) {
         showAnim = AnimationUtils.loadAnimation(mContext, R.anim.layout_show);
         layout_user = mContext.findViewById(R.id.layout_user);
         buttonCreateUser = layout_user.findViewById(R.id.layout_user_adduser);
@@ -46,6 +44,7 @@ public class UserUI extends BaseUI {
         for (View v : views) {
             v.setOnClickListener(clickListener);
         }
+        refreshUI(setting);
     }
 
     @Override

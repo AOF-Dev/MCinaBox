@@ -12,10 +12,9 @@ import com.aof.mcinabox.launcher.json.SettingJson;
 
 public class GamedirUI extends BaseUI {
 
-    public GamedirUI(Activity context, SettingJson setting) {
+    public GamedirUI(Activity context) {
         super(context);
-        initUI(setting);
-        refreshUI(setting);
+
     }
 
     private LinearLayout layout_gamedir;
@@ -25,7 +24,7 @@ public class GamedirUI extends BaseUI {
 
 
     @Override
-    public void initUI(SettingJson setting) {
+    public void onCreate(SettingJson setting) {
         showAnim = AnimationUtils.loadAnimation(mContext, R.anim.layout_show);
         layout_gamedir = mContext.findViewById(R.id.layout_gamedir);
         buttonPublic = layout_gamedir.findViewById(R.id.radiobutton_gamedir_public);
@@ -41,6 +40,7 @@ public class GamedirUI extends BaseUI {
         for(View v:views){
             v.setOnClickListener(clickListener);
         }
+        refreshUI(setting);
     }
 
     @Override

@@ -27,10 +27,8 @@ import static com.aof.sharedmodule.Data.DataPathManifest.MCINABOX_VERSION;
 
 public class StartGameUI extends BaseUI {
 
-    public StartGameUI(Activity context, SettingJson setting) {
+    public StartGameUI(Activity context) {
         super(context);
-        initUI(setting);
-        refreshUI(setting);
     }
 
     private LinearLayout layout_startgame;
@@ -41,7 +39,7 @@ public class StartGameUI extends BaseUI {
 
 
     @Override
-    public void initUI(SettingJson setting) {
+    public void onCreate(SettingJson setting) {
 
         layout_startgame = mContext.findViewById(R.id.layout_startgame);
         buttonStartGame = layout_startgame.findViewById(R.id.main_button_startgame);
@@ -52,6 +50,7 @@ public class StartGameUI extends BaseUI {
             v.setOnClickListener(clickListener);
         }
         loadInfo(setting);
+        refreshUI(setting);
 
     }
 

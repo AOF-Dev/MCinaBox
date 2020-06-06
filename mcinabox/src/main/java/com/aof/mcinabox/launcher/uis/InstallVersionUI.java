@@ -24,10 +24,8 @@ import static com.aof.sharedmodule.Data.DataPathManifest.MCINABOX_TEMP;
 public class InstallVersionUI extends BaseUI implements RadioGroup.OnCheckedChangeListener {
 
 
-    public InstallVersionUI(Activity context,SettingJson setting){
+    public InstallVersionUI(Activity context){
         super(context);
-        initUI(setting);
-        refreshUI(setting);
     }
 
     private LinearLayout layout_installversion;
@@ -44,7 +42,7 @@ public class InstallVersionUI extends BaseUI implements RadioGroup.OnCheckedChan
     private View[] views;
 
     @Override
-    public void initUI(SettingJson setting) {
+    public void onCreate(SettingJson setting) {
         layout_installversion = mContext.findViewById(R.id.layout_gamelist_install);
         buttonBack = layout_installversion.findViewById(R.id.gamelist_button_backfrom_installnewversion);
         buttonRefresh = layout_installversion.findViewById(R.id.gamelist_button_refresh);
@@ -67,6 +65,7 @@ public class InstallVersionUI extends BaseUI implements RadioGroup.OnCheckedChan
         for(View v : views){
             v.setOnClickListener(clickListener);
         }
+        refreshUI(setting);
     }
 
     @Override

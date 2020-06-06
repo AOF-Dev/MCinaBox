@@ -22,10 +22,8 @@ import static com.aof.sharedmodule.Data.DataPathManifest.MCINABOX_KEYBOARD;
 
 public class GameSettingUI extends BaseUI {
 
-    public GameSettingUI(Activity context, SettingJson setting) {
+    public GameSettingUI(Activity context) {
         super(context);
-        initUI(setting);
-        refreshUI(setting);
     }
 
     private LinearLayout layout_gamesetting;
@@ -39,7 +37,7 @@ public class GameSettingUI extends BaseUI {
 
 
     @Override
-    public void initUI(SettingJson setting) {
+    public void onCreate(SettingJson setting) {
         layout_gamesetting = mContext.findViewById(R.id.layout_gamelist_setting);
         textPhysicalMem = layout_gamesetting.findViewById(R.id.game_setting_text_memory);
         editMaxMem = layout_gamesetting.findViewById(R.id.setting_edit_maxmemory);
@@ -49,6 +47,7 @@ public class GameSettingUI extends BaseUI {
         switchDisMCCheck = layout_gamesetting.findViewById(R.id.setting_switch_notcheckminecraft);
         listKeyboards = layout_gamesetting.findViewById(R.id.setting_spinner_keyboard);
         loadInfo(setting);
+        refreshUI(setting);
     }
 
     @Override
@@ -58,7 +57,7 @@ public class GameSettingUI extends BaseUI {
     }
 
     private void loadInfo(SettingJson setting){
-        //These initial should not be applied after the UI has been created.
+        //This should not be applied again after the UI has been created.
         refreshLocalKeyboardList();
         setConfigureToKeyboardList(setting.getKeyboard());
         editJavaExtArgs.setText(setting.getConfigurations().getJavaArgs());

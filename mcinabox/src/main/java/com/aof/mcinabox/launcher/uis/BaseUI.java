@@ -1,9 +1,12 @@
 package com.aof.mcinabox.launcher.uis;
 
 import android.app.Activity;
+import android.app.Application;
+import android.os.Bundle;
+
 import com.aof.mcinabox.launcher.json.SettingJson;
 
-public abstract class BaseUI {
+public abstract class BaseUI implements UILifecycleCallbacks {
 
     public Activity mContext;
 
@@ -12,9 +15,6 @@ public abstract class BaseUI {
         super();
         setUIContext(context);
     }
-
-    //Initate UI and functions.
-    public abstract void initUI(SettingJson setting);
 
     //Apply states from Setting to UIs
     public abstract void refreshUI(SettingJson setting);
@@ -33,4 +33,30 @@ public abstract class BaseUI {
         this.mContext = context;
     }
 
+    @Override
+    public void onCreate(SettingJson setting){ }
+
+    @Override
+    public void onStart(SettingJson setting){ }
+
+    @Override
+    public void onResumed(){ }
+
+    @Override
+    public void onPaused(){ }
+
+    @Override
+    public void onStop(){ }
+
+    @Override
+    public void onDestory(){ }
+}
+
+interface UILifecycleCallbacks{
+    void onCreate(SettingJson setting);
+    void onStart(SettingJson setting);
+    void onResumed();
+    void onPaused();
+    void onStop();
+    void onDestory();
 }

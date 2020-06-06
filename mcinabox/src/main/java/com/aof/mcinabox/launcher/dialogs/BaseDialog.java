@@ -11,13 +11,13 @@ import com.aof.mcinabox.R;
 public abstract class BaseDialog extends Dialog {
 
     public BaseDialog(Activity mContext, int layoutID) {
-        super(mContext, R.style.StandDialog);
+        super(mContext, R.style.NormalDialog);
         setContentView(layoutID);
         this.mContext = mContext;
     }
 
     public BaseDialog(Activity mContext, View view){
-        super(mContext,R.style.StandDialog);
+        super(mContext,R.style.NormalDialog);
         setContentView(view);
         this.mContext = mContext;
     }
