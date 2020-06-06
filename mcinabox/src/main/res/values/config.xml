@@ -16,7 +16,8 @@
         <item>English(en)</item>
         <item>Español(es)</item>
         <item>日本語(ja)</item>
-        <item>Русский (ru)</item>
+        <item>Brazilian(pt-BR)</item>
+        <item>Русский(ru)</item>
         <item>简体中文(zh-CN)</item>
         <item>繁体中文(zh-TW)</item>
     </string-array>

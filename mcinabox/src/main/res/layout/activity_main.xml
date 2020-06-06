@@ -26,6 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="40dp"
         android:visibility="visible"
+        android:elevation="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -37,6 +38,7 @@
         android:layout_width="180dp"
         android:layout_height="match_parent"
         android:layout_marginTop="30dp"
+        android:elevation="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layout_toolbar_main" />
