@@ -10,7 +10,7 @@ import com.aof.mcinabox.R;
 public class ConfigDialog extends Dialog {
 
     public ConfigDialog(Context context,int id,boolean isCanceledOnTouchOutside){
-        super(context,R.style.ConfigDialog_editor);
+        super(context,R.style.NormalDialog);
         this.isCanceledOnTouchOutside = isCanceledOnTouchOutside;
         setContentView(id);
     }
