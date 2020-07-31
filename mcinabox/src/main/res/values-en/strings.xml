@@ -28,8 +28,8 @@
 	<string name="title_minecraft_setting_memory_max">Max Memory (MB)</string>
 	<string name="title_minecraft_setting_memory_hardware">Physical:</string>
 	<string name="title_minecraft_setting_profession">Advanced</string>
-	<string name="title_minecraft_setting_notcheck_jvm">Don't check JVM architecture compatibility</string>
-	<string name="title_minecraft_setting_notcheck_mc">Don't check the integrity of Minecraft</string>
+	<string name="title_minecraft_setting_notcheck_jvm">Don\'t check JVM architecture compatibility</string>
+	<string name="title_minecraft_setting_notcheck_mc">Don\'t check the integrity of Minecraft</string>
 	<string name="title_backspace">Back</string>
 	<string name="title_refresh">Refresh</string>
 	<string name="title_download">Download</string>
