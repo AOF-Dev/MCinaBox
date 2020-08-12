@@ -153,7 +153,7 @@ This project exists thanks to all the people who contribute.
 ### List of contributors:
 - [ALL](https://github.com/longjunyu2/MCinaBox/graphs/contributors)
 - `MCredbear`
-- `Salted fish King`
+- `TSaltedfishKing`
 - All people who put forward issues.
 
 
