@@ -59,7 +59,7 @@ Chinese Translation:
 - Repair Minecraft dependency has higher priority than forge
 - Add Minecraft Genuine verification (By by-scott)
 - Add Mouse mode switch(Manual)
-- Add Spanish(By Salted fish King)
+- Add Spanish(By TSaltedfishKing)
 
 ### v0.1.2
 - Repair The virtual keyboard configuration edit key again lead to collapse
@@ -69,16 +69,17 @@ Chinese Translation:
 - Add Multilingual support(Preliminary)
 - Add Forge and LiteLoader support(Please refer to the documentation)
 ### v0.1.1
-- Repair 内存为空时因异步消息管理器刷新而引发的崩溃
-- Repair 添加自定义按键时一些值为空引发的崩溃
-- Repair 下载器重复下载已经存在的文件
-- Repair boat-3模式下主键值为鼠标的自定义按键无效
-- Repair Android媒体扫描minecraft文件夹而引发的图库崩溃
-- Change 自定义按键对话框操作按钮置顶
-- Add 自定义按键时拖动来改变位置
-- Add 状态指示器增加对内存大小设置的限制
-- Remove 暂时移除整合包导入功能入口
-- Remove 暂时移除Toolbar 更多选项
+- Repair Memory is empty collapse caused by asynchronous message manager refresh
+- Repair Add a custom button triggered the collapse of some value is empty
+- Repair Repeated downloader to download the already existing files
+- Repair Boat - 3 mode primary key value for the custom of the mouse button is invalid
+- Repair Android media gallery collapse caused scan minecraft folder
+- Change Custom dialog operation buttons placed at the top
+- Add Custom button drag to change position
+- Add Status indicator to increase the limitation on the memory size Settings
+- Remove Temporarily remove integration package import entry
+- Remove Temporarily remove the Toolbar more options
+
 ### v0.1.0
 - First release
 
