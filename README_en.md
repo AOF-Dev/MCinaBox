@@ -3,7 +3,7 @@ language
 [Now is English] [简体中文](./README.md)
 ## Warning
 - There is a problem with the latest source code. Some functions are not working properly.
-- 由于我没时间维护项目，最新的源代码不完善。
+- Because I have no time to maintain the project, the latest source code is not perfect.
 
 ## Table of Contents
 - [Background](#Background)
@@ -56,11 +56,11 @@ language
 Chinese Translation:
 
 ### v0.1.3
-- 修复 创建新用户崩溃的问题 (By by-scott)
-- 修复 Minecraft依赖项优先级高于Forge
-- 添加 Minecraft正版验证 (By by-scott)
-- 添加 鼠标模式切换(手动)
-- 添加 西班牙语(By Salted fish King)
+- Repair Creating new users crashes (By by-scott)
+- Repair Minecraft dependency has higher priority than forge
+- Add Minecraft Genuine verification (By by-scott)
+- Add Mouse mode switch(Manual)
+- Add Spanish(By Salted fish King)
 
 ### v0.1.2
 - 修复 虚拟键盘配置时重新编辑键导致的崩溃
