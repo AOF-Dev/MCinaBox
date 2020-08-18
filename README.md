@@ -1,5 +1,6 @@
 # MCinaBox - A Minecraft Java Edition Launcher on Android
-
+language
+[English](./readme_en.md)
 ## Warning
 - There is a problem with the latest source code. Some functions are not working properly.
 - 由于我没时间维护项目，最新的源代码不完善。
