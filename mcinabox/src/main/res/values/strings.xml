@@ -17,7 +17,7 @@
     <string name="title_contributors_list" translatable="false">List of Contributors.</string>
     <string name="title_contributors_full" translatable="false">Full list in Github.</string>
 
-    <string name="app_about_mcinabox">MCinaBox Minecraft Launcher is a free, open-source Minecraft launcher, allowing players quick and easy installation and management on Android devices running game. </string>
+    <string name="app_about_mcinabox">MCinaBox Minecraft Launcher is a free, open-source Minecraft launcher, which allows players to quickly and easily install and play Minecraft Java Edition on Android devices. </string>
 
     <string name="app_about_copyright">Copyright Notice</string>
     <string name="app_about_developer">Developers</string>
@@ -39,8 +39,8 @@
     <string name="title_minecraft_setting_memory_max">Max Memory (MB)</string>
     <string name="title_minecraft_setting_memory_hardware">Physical:</string>
     <string name="title_minecraft_setting_profession">Advanced</string>
-    <string name="title_minecraft_setting_notcheck_jvm">Do not check compatibility JVM architecture</string>
-    <string name="title_minecraft_setting_notcheck_mc">Do not check the integrity of Minecraft</string>
+    <string name="title_minecraft_setting_notcheck_jvm">Don\'t check compatibility JVM architecture</string>
+    <string name="title_minecraft_setting_notcheck_mc">Don\'t check the integrity of Minecraft</string>
     <string name="title_backspace">Back</string>
     <string name="title_refresh">Refresh</string>
     <string name="title_download">Download</string>
@@ -90,12 +90,12 @@
     <string name="title_add_plugin">Add Plugin</string>
     <string name="title_show">show</string>
 
-    <string name="tips_launcher_path">Notice:Using "Private File" need not give MCinaBox write permission,but every thing in "Private File" will be lost if you uninstall MCinaBox!</string>
+    <string name="tips_launcher_path">Although using "Private File" automatically gives MCinaBox write permission, but every thing in "Private File" will be lost if you clear data or uninstall MCinaBox!</string>
     <string name="tips_minecraft_setting_extra_javaargs">Java virtual machine parameters (do not fill)</string>
     <string name="tips_minecraft_setting_extra_mcargs">Minecraft additional parameters (do not fill)</string>
 
-    <string name="tips_import_runtime">Please put the runtime package with suffix .tar.xz into /sdcard/Android/data/com.aof.mcinabox/files/MCinaBox/runtimepack  then import runtime library at Launcher Settings page</string>
-    <string name="tips_check_setting">Please complete launcher configuration</string>
+    <string name="tips_import_runtime">Please put the runtime package with the file extension .tar.xz into /sdcard/Android/data/com.aof.mcinabox/files/MCinaBox/runtimepack  then import runtime library at Launcher Settings page</string>
+    <string name="tips_check_setting">Please complete the launcher configuration</string>
     <string name="tips_reflash_finish">Refresh complite</string>
     <string name="tips_online_version_reflash">Please refresh the list</string>
     <string name="tips_online_version_select">Please select a version</string>
@@ -162,8 +162,8 @@
     <string name="tips_keyboard_config_location_notfound">Coordinate value cannot be empty</string>
     <string name="tips_keyboard_config_size_notfound">Width and height cannot be empty</string>
     <string name="tips_keyboard_button_notfound">Layout cannot be empty</string>
-    <string name="tips_gamecheck_file_notfull">File integrity check failed,please disable file check in global game settings or download this version of game again</string>
-    <string name="tips_gamecheck_platform_uncorrect">The runtime architecture is not compatible,please disable the compatibility check in the global game settings or install the correct runtime library</string>
+    <string name="tips_gamecheck_file_notfull">File integrity check failed, please disable file check in global game settings or download this version of game again</string>
+    <string name="tips_gamecheck_platform_uncorrect">The runtime architecture is not compatible, please disable the compatibility check in the global game settings or install the correct runtime library</string>
     <string name="tips_keyboard_config">Tips:1.Press and drag to move keys with fingers\nTips:2.Long press without dragging, you can edit or delete the selected button</string>
     <string name="tips_gamecheck_version_notfound">Before enabling forge, please install the full version of the game corresponds to</string>
     <string name="tips_gamecheck_jar_notfound">The main game file is incomplete, missing jar files</string>
@@ -176,10 +176,10 @@
     <string name="tips_user_remove_warning">Confirm to delete this user?</string>
     <string name="tips_unzip_failed">Unzip failed</string>
 
-    <string name="tipper_warn_runtime_notinstall">Not install runtime</string>
-    <string name="tipper_warn_user_notselected">Not create or select user</string>
-    <string name="tipper_warn_version_notselected">Not download minecraft version</string>
-    <string name="tipper_warn_keyboard_notselected">Not create keyboard layout</string>
+    <string name="tipper_warn_runtime_notinstall">No runtime installation found</string>
+    <string name="tipper_warn_user_notselected">No user is created or selected</string>
+    <string name="tipper_warn_version_notselected">No minecraft version is downloaded</string>
+    <string name="tipper_warn_keyboard_notselected">No keyboard layout is created or selected</string>
     <string name="tipper_warn_memory_notstable">Current memory size causes crash</string>
 
     <string name="login_is_demo_account">This account doesn\'t seems to have a Minecraft user linked to it. Did you buy Minecraft? </string>
