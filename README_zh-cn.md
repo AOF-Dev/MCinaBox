@@ -52,59 +52,55 @@
 ### Install
 1. 将最新的APK和运行时包下载到您的Android手机。
 2. 安装APK并至少启动一次。
-3. 将运行时复制到
+3. 将运行时复制到```/sdcard/Android/data/com.aof.mcinabox/files/MCinaBox/runtimepack/```
 4. 然后启动APK并找到```Launcher Set```以导入运行时包。
 ### Play
-1. Before you start the game, you need to configure the starter according to the instructions in the software. Until the indicator changes from red to blue.
-2. What you need to do includes creating users, modifying the maximum memory, downloading game versions, and creating your own virtual keyboard templates.
+1. 在开始游戏之前，您需要根据软件中的说明配置启动器。 直到指示灯从红色变为蓝色。
+2. 您需要做的包括创建用户，修改最大内存，下载游戏版本以及创建自己的虚拟键盘模板。
 ### Forge
-In theory, forge is supported, but we need to make some changes to start it.
-1. Copy an installed version of forge from your computer to ```/sdcard/mcinabox/.minecraft/```, including ```libraries``` and ```versions```
-2. Launch it in MCinaBox at least one time. (As a result, it can't be started)
+理论上，支持forge，但是我们需要进行一些更改以启动它。
+1. 将已安装的forge版本从计算机复制到```/sdcard/mcinabox/.minecraft/```，包括```libraries```和```versions```。
+2. 至少一次在MCinaBox中启动它。（因此，它无法启动）
 3. Edit ```/sdcard/MCinaBox/.minecraft/config/splash.properties``` to change ```enabled=true``` to ```enabled=false``` to close forge loading animation.
-4. Try to launch forge again.It's going to be black for a while, but it's usually useful
+编辑```/sdcard/MCinaBox/.minecraft/config/splash.properties```以将```enabled=true```更改为```enabled=false````以关闭forge加载动画。
+4. 尝试再次启动forge。它会变黑替换，但通常很有用。
 ### Matters needing attention
-1. Mipmap will cause rendering problems. Please turn it off in Minecraft ```settings - video settings - mipmap=0```
+1. Mipmap将导致渲染问题。 请在Minecraft```settings - video settings - mipmap=0```中将其关闭。
 
 ## Preview
 
 ## Known Issues
 
 ### Launcher
-1. Unable to request more memory from the system, the upper limit is determined by the system
+1. 无法从系统请求更多内存，上限由系统确定。
 
 ### Launch Minecraft
-1. Forge's loading animation will cause a crash
-2. It seems that there will be an X11 error when starting the Minecraft version below 1.6
-3. Unable to initialize Minecraft 1.13.x
-4. Minecraft 1.14.X ~ 1.15.X has rendering problems
-5. Too fast key input may cause lwjgl to crash
+1. Forge的加载动画会导致崩溃
+2. 在低于1.6的Minecraft版本中启动似乎会出现X11错误
+3. 无法初始化Minecraft 1.13.x
+4. Minecraft 1.14.X〜1.15.X出现渲染问题
+5. 太快的按键输入可能导致lwjgl崩溃
 
 ## Maintainers
 [@longjunyu2](https://github.com/longjunyu2)
 
 ## License
-The software is distributed under [GPL v3](https://www.gnu.org/licenses/gpl-3.0.html) with additional terms.
-### Additional terms under GPLv3 Section 7
-1. When you distribute a modified version of the software, you must change the software name or the version number in a reasonable way in order to distinguish it from the original version. [under GPLv3, 7(c).]
-2. You must not remove the copyright declaration displayed in the software. [under GPLv3, 7(b).]
-
-Chinese Translation:
+该软件根据[GPL v3](https://www.gnu.org/licenses/gpl-3.0.html)和附加条款进行分发。
 ### 附加条款（依据 GPLv3 协议第七条）
 1. 当你分发本程序的修改版本时，你必须以一种合理的方式修改本程序的名称或版本号，以示其与原始版本不同。 [依据 GPLv3, 7(c).]
 2. 你不得移除本程序所显示的版权声明。[依据 GPLv3, 7(b).]
 
 ## Contribution
-This project exists thanks to all the people who contribute.
+这个项目的存在要感谢所有贡献者。
 
 ### List of contributors:
 - [ALL](https://github.com/longjunyu2/MCinaBox/graphs/contributors)
 - `MCredbear`
 - `TSaltedfishKing`
-- All people who put forward issues.
+- 提出问题的所有人。
 
 
-If you want to submit a pull request, there're some requirements:
+如果要提交拉取请求，则有一些要求：
 * IDE: Android Studio
 * TargetSDK: 21
 * MimniumSDK: 21
