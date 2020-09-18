@@ -1,8 +1,8 @@
 # MCinaBox - A Minecraft Java Edition Launcher on Android
 现在是简体中文[Change to English](./README_en.md)</br>
-Other languages are still being translated. Please be patient(Software and some page)
+其他语言仍在翻译中。 请耐心等待（软件和某些页面）
 ## Warning
-- There is a problem with the latest source code. Some functions are not working properly.
+- 最新的源代码有问题。 某些功能无法正常工作。
 - 由于我没时间维护项目，最新的源代码不完善。
 
 ## Table of Contents
@@ -19,8 +19,8 @@ Other languages are still being translated. Please be patient(Software and some 
 - [Q&A]
 ## Background
 
-`Origin` I discovered the `BoardwalkApp` a few years ago, which can launch Minecraft Java Edition on Android devices. It's so exciting to see minecraft start on my phone.It's really a curious and interesting project<br>
-`MCinaBox` is an open source project, and the back end is supported by the `BoatApp` project. And in the efforts of many people to make it run.
+`Origin`我几年前发现了`BoardwalkApp`，它可以在Android设备上启动Minecraft Java Edition。 看到我的世界在我的手机上启动真是令人兴奋，这确实是一个有趣而有趣的项目<br>
+ `MCinaBox`是一个开源项目，后端由`BoatApp`项目支持。 并且在许多人的努力下使其得以运行。
 >zhuowei 's BoardwalkApp https://github.com/zhuowei/Boardwalk <br>
 >CosineMath 's BoatApp https://github.com/CosineMath/BoatApp
 
@@ -40,20 +40,20 @@ Other languages are still being translated. Please be patient(Software and some 
 - ```git clone https://github.com/longjunyu2/MCinaBox.git ```
 
 ### Import
-- Import this project in your Android Studio.
+- 将此项目导入您的Android Studio
 
 ### Build
-- Build via Android Studio.
+- 通过Android Studio构建
 
-#### You can also get released apk from [here](https://github.com/longjunyu2/MCinaBox/releases).
+#### 您也可以从[这里](https://github.com/longjunyu2/MCinaBox/releases)获得发布的APK。
 
 ## Usage
 
 ### Install
-1. Download the lastest APK and runtime pack to your Android phone.
-2. Install APK and start it at least one time.
-3. Copy the runtime to ```/sdcard/Android/data/com.aof.mcinabox/files/MCinaBox/runtimepack/```
-4. Then start APK and find ```Launcher Set``` to import the runtime pack.
+1. 将最新的APK和运行时包下载到您的Android手机。
+2. 安装APK并至少启动一次。
+3. 将运行时复制到
+4. 然后启动APK并找到```Launcher Set```以导入运行时包。
 ### Play
 1. Before you start the game, you need to configure the starter according to the instructions in the software. Until the indicator changes from red to blue.
 2. What you need to do includes creating users, modifying the maximum memory, downloading game versions, and creating your own virtual keyboard templates.
