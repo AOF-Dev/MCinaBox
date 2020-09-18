@@ -62,7 +62,7 @@
 1. 将已安装的forge版本从计算机复制到```/sdcard/mcinabox/.minecraft/```，包括```libraries```和```versions```。
 2. 至少一次在MCinaBox中启动它。（因此，它无法启动）
 3. Edit ```/sdcard/MCinaBox/.minecraft/config/splash.properties``` to change ```enabled=true``` to ```enabled=false``` to close forge loading animation.
-编辑```/sdcard/MCinaBox/.minecraft/config/splash.properties```以将```enabled=true```更改为```enabled=false````以关闭forge加载动画。
+编辑```/sdcard/MCinaBox/.minecraft/config/splash.properties```以将```enabled=true```更改为```enabled=false```以关闭forge加载动画。
 4. 尝试再次启动forge。它会变黑替换，但通常很有用。
 ### Matters needing attention
 1. Mipmap将导致渲染问题。 请在Minecraft```settings - video settings - mipmap=0```中将其关闭。
