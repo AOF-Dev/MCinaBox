@@ -1,5 +1,5 @@
 # MCinaBox - A Minecraft Java Edition Launcher on Android
-[Now is English] [切换为简体中文](./README.md)
+[Now is English] [切换为简体中文](./README_zh-cn.md)
 ## Warning
 - There is a problem with the latest source code. Some functions are not working properly.
 - Because I have no time to maintain the project, the latest source code is not perfect.
@@ -24,63 +24,8 @@
 >CosineMath 's BoatApp https://github.com/CosineMath/BoatApp
 ## Change Log
 
-### v0.1.3
-- Fix create new user crash (By by-scott)
-- Fix minecraft dependency priority is higher than Forge
-- Add minecraft genuine validation (By by-scott)
-- Add mouse mode to switch (manual)
-- Add Spanish (By salted fish King)
-### v0.1.2
-- Fix reediting keys caused a crash while repairing virtual keyboard configurations
-- Fix some control behavior exceptions in Boat-3 mode
-- Add a new downloader to provide visual download progress feedback
-- Add the Minecraft Json Parsing Tool Library
-- Add multilingual support (preliminary)
-- Add Forge and LiteLoader support (see documentation)
-### v0.1.1
-- Fix crashes caused by asynchronous message manager refresh when memory is empty
-- Fix crashes caused by null values when adding custom keys
-- Fix downloader to duplicate download of existing files
-- Fix invalid custom keys with primary key value of mouse in boat-3 mode
-- Fix Gallery crash caused by Android media scanning minecraft folder
-- Change custom key dialog action button set top
-- Add drag to change position when adding custom keys
-- Add a status indicator to increase the limit on memory size settings
-- Remove temporary removal of integration package import function entry
-- Remove more options for temporarily removing Toolbar
-### v0.1.0
-- First Release Version.
-
-Chinese Translation:
-
-### v0.1.3
-- Repair Creating new users crashes (By by-scott)
-- Repair Minecraft dependency has higher priority than forge
-- Add Minecraft Genuine verification (By by-scott)
-- Add Mouse mode switch(Manual)
-- Add Spanish(By TSaltedfishKing)
-
-### v0.1.2
-- Repair The virtual keyboard configuration edit key again lead to collapse
-- Repair Some of the Boat - 3 mode control behavior
-- Add Download progress download a new program to provide visual feedback
-- Add Minecraft Json parse tool library
-- Add Multilingual support(Preliminary)
-- Add Forge and LiteLoader support(Please refer to the documentation)
-### v0.1.1
-- Repair Memory is empty collapse caused by asynchronous message manager refresh
-- Repair Add a custom button triggered the collapse of some value is empty
-- Repair Repeated downloader to download the already existing files
-- Repair Boat - 3 mode primary key value for the custom of the mouse button is invalid
-- Repair Android media gallery collapse caused scan minecraft folder
-- Change Custom dialog operation buttons placed at the top
-- Add Custom button drag to change position
-- Add Status indicator to increase the limitation on the memory size Settings
-- Remove Temporarily remove integration package import entry
-- Remove Temporarily remove the Toolbar more options
-
-### v0.1.0
-- First release
+- [English](./CHANGELOG.md)
+- [Chinese](./CHANGELOG_zh-cn.md)
 
 ## Build
 
@@ -103,7 +48,7 @@ Chinese Translation:
 ## Usage
 
 ### Install
-1. Download the lastest APK and runtime pack to your Android phone.
+1. Download the latest APK and runtime pack to your Android phone.
 2. Install APK and start it at least one time.
 3. Copy the runtime to ```/sdcard/Android/data/com.aof.mcinabox/files/MCinaBox/runtimepack/```
 4. Then start APK and find ```Launcher Set``` to import the runtime pack.
@@ -141,11 +86,6 @@ The software is distributed under [GPL v3](https://www.gnu.org/licenses/gpl-3.0.
 ### Additional terms under GPLv3 Section 7
 1. When you distribute a modified version of the software, you must change the software name or the version number in a reasonable way in order to distinguish it from the original version. [under GPLv3, 7(c).]
 2. You must not remove the copyright declaration displayed in the software. [under GPLv3, 7(b).]
-
-Chinese Translation:
-### 附加条款（依据 GPLv3 协议第七条）
-1. 当你分发本程序的修改版本时，你必须以一种合理的方式修改本程序的名称或版本号，以示其与原始版本不同。 [依据 GPLv3, 7(c).]
-2. 你不得移除本程序所显示的版权声明。[依据 GPLv3, 7(b).]
 
 ## Contribution
 This project exists thanks to all the people who contribute.
