@@ -16,7 +16,7 @@
 - [Contribution](#Contribution)
 - [Related](#Related)
 - [License](#License)
-- [Q&A]
+- [Q&A](./Q&A.md)
 ## Background
 
 `Origin`我几年前发现了`BoardwalkApp`，它可以在Android设备上启动Minecraft Java Edition。 看到我的世界在我的手机上启动真是令人兴奋，这确实是一个有趣而有趣的项目<br>
