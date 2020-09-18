@@ -104,7 +104,7 @@
 * IDE: Android Studio
 * TargetSDK: 21
 * MimniumSDK: 21
-* Do NOT modify `gradle` files.
+* 不要修改`gradle`文件。
 
 ## Related
 > [BoatApp (CosineMath,MIT)](https://github.com/CosineMath/BoatApp)</br>
