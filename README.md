@@ -60,7 +60,7 @@ In theory, forge is supported, but we need to make some changes to start it.
 1. Copy an installed version of forge from your computer to ```/sdcard/mcinabox/.minecraft/```, including ```libraries``` and ```versions```
 2. Launch it in MCinaBox at least one time. (As a result, it can't be started)
 3. Edit ```/sdcard/MCinaBox/.minecraft/config/splash.properties``` to change ```enabled=true``` to ```enabled=false``` to close forge loading animation.
-4. Try to launch forge again.It's going to be black for a while, but it's usually useful
+4. Try to launch forge again. It's going to be black for a while, but it's usually useful.
 ### Matters needing attention
 1. Mipmap will cause rendering problems. Please turn it off in Minecraft ```settings - video settings - mipmap=0```
 
