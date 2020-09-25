@@ -10,13 +10,13 @@
         android:background="@drawable/background_layout_item"
         android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/tipper_image"
+        <TextView
+            android:id="@+id/tipper_level"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_gravity="center"
-            android:src="@drawable/ic_report_problem_yellow_900_24dp" />
+            android:textSize="@dimen/text_big" />
         <TextView
             android:id="@+id/tipper_info"
             android:layout_width="0dp"

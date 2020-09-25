@@ -1,20 +1,20 @@
 package com.aof.mcinabox.launcher.uis;
 
-import android.app.Activity;
+import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import androidx.appcompat.widget.Toolbar;
-
 import com.aof.mcinabox.MainActivity;
 import com.aof.mcinabox.R;
-import com.aof.mcinabox.launcher.json.SettingJson;
-import com.aof.mcinabox.launcher.tipper.Tipper;
+import com.aof.mcinabox.launcher.lang.LanguageDialog;
+import com.aof.mcinabox.launcher.setting.support.SettingJson;
+import com.aof.utils.dialog.DialogUtils;
+import com.aof.utils.dialog.support.DialogSupports;
 
 public class MainToolbarUI extends BaseUI {
 
-    public MainToolbarUI(Activity context) {
+    public MainToolbarUI(Context context) {
         super(context);
     }
 
@@ -25,39 +25,39 @@ public class MainToolbarUI extends BaseUI {
     private Button buttonLanguage;
     private Button buttonRefresh;
     private Button buttonInfo;
-
-    private Tipper tipper;
-
-    private View[] views;
-
+    private SettingJson setting;
 
     @Override
-    public void onCreate(SettingJson setting) {
-        layout_toolbar = mContext.findViewById(R.id.layout_toolbar_main);
+    public void onCreate() {
+        super.onCreate();
+        setting = MainActivity.Setting;
+        layout_toolbar = MainActivity.CURRENT_ACTIVITY.findViewById(R.id.layout_toolbar_main);
         buttonBack = layout_toolbar.findViewById(R.id.toolbar_button_backfromhere);
         textPosition = layout_toolbar.findViewById(R.id.main_text_showstate);
         buttonHome = layout_toolbar.findViewById(R.id.toolbar_button_backhome);
         buttonLanguage = layout_toolbar.findViewById(R.id.toolbar_button_language);
         buttonRefresh = layout_toolbar.findViewById(R.id.toolbar_button_refresh);
         buttonInfo = layout_toolbar.findViewById(R.id.toolbar_button_taskinfo);
-        tipper = new Tipper(mContext);
         setToolbarAsActionbar();
 
-        views = new View[]{buttonInfo,buttonRefresh,buttonLanguage,buttonHome,buttonBack};
-        for(View v : views){
+        for (View v : new View[]{buttonInfo, buttonRefresh, buttonLanguage, buttonHome, buttonBack}) {
             v.setOnClickListener(clickListener);
         }
-        refreshUI(setting);
+        refreshUI();
     }
 
     @Override
-    public void refreshUI(SettingJson setting) {
-        tipper.refreshTipper(setting,this);
+    public void refreshUI() {
+        if(MainActivity.CURRENT_ACTIVITY.mTipperManager != null && MainActivity.CURRENT_ACTIVITY.mTipperManager.getTipCounts() != 0){
+            buttonInfo.setVisibility(View.VISIBLE);
+        }else{
+            buttonInfo.setVisibility(View.GONE);
+        }
     }
 
     @Override
-    public SettingJson saveUIConfig(SettingJson setting) {
-        return setting;
+    public void saveUIConfig() {
+
     }
 
     @Override
@@ -70,37 +70,38 @@ public class MainToolbarUI extends BaseUI {
         return layout_toolbar.getVisibility();
     }
 
-    public void setCurrentPosition(String position){
+    public void setCurrentPosition(String position) {
         textPosition.setText(position);
     }
 
-    public void setTaskInfoBackground(int id){
-        buttonInfo.setBackground(mContext.getResources().getDrawable(id));
-    }
-
-    private View.OnClickListener clickListener = new View.OnClickListener(){
+    private View.OnClickListener clickListener = new View.OnClickListener() {
 
         @Override
         public void onClick(View v) {
-            if(v == buttonRefresh){
-                ((MainActivity)mContext).refreshLauncher(null,true);
+            if (v == buttonRefresh) {
+                DialogUtils.createBothChoicesDialog(mContext,"警告","此操作将会重启APP，是否继续？","继续","取消",new DialogSupports(){
+                    @Override
+                    public void runWhenPositive(){
+                        MainActivity.CURRENT_ACTIVITY.restarter();
+                    }
+                });
             }
-            if(v == buttonBack){
-                ((MainActivity)mContext).backFromHere();
+            if (v == buttonBack) {
+                MainActivity.CURRENT_ACTIVITY.backFromHere();
             }
-            if(v == buttonHome){
-                ((MainActivity)mContext).switchUIs(((MainActivity)mContext).uiStartGame,mContext.getString(R.string.title_home));
+            if (v == buttonHome) {
+                MainActivity.CURRENT_ACTIVITY.switchUIs(MainActivity.CURRENT_ACTIVITY.mUiManager.uiStartGame, mContext.getString(R.string.title_home));
+            }
+            if (v == buttonLanguage) {
+                new LanguageDialog(mContext).show();
             }
             if(v == buttonInfo){
-                tipper.showTipper(v);
-            }
-            if(v == buttonLanguage){
-                ((MainActivity)mContext).dialogLanguage.show();
+                MainActivity.CURRENT_ACTIVITY.mTipperManager.showTipper(buttonInfo);
             }
         }
     };
 
-    private void setToolbarAsActionbar(){
-        ((MainActivity)mContext).setSupportActionBar(layout_toolbar);
+    private void setToolbarAsActionbar() {
+        MainActivity.CURRENT_ACTIVITY.setSupportActionBar(layout_toolbar);
     }
 }

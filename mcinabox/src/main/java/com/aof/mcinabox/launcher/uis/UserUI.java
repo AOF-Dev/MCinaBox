@@ -1,25 +1,28 @@
 package com.aof.mcinabox.launcher.uis;
 
-import android.app.Activity;
+import android.content.Context;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-
 import com.aof.mcinabox.MainActivity;
 import com.aof.mcinabox.R;
-import com.aof.mcinabox.launcher.json.SettingJson;
-import com.aof.mcinabox.launcher.user.UserListAdapter;
-import com.aof.mcinabox.launcher.user.UserListBean;
-
-import static com.aof.mcinabox.DataPathManifest.*;
+import com.aof.mcinabox.launcher.tipper.TipperManager;
+import com.aof.mcinabox.launcher.tipper.support.TipperRunable;
+import com.aof.mcinabox.launcher.user.CreateUserDialog;
+import com.aof.mcinabox.launcher.setting.support.SettingJson;
+import com.aof.mcinabox.launcher.user.UserManager;
+import com.aof.mcinabox.launcher.user.support.UserListAdapter;
+import com.aof.mcinabox.launcher.user.support.UserListBean;
+import com.aof.utils.dialog.DialogUtils;
 
 import java.util.ArrayList;
 
 public class UserUI extends BaseUI {
 
-    public UserUI(Activity context) {
+    public UserUI(Context context) {
         super(context);
     }
 
@@ -28,34 +31,32 @@ public class UserUI extends BaseUI {
     private LinearLayout buttonRefreshUserList;
     private ListView listUsers;
     private Animation showAnim;
-
-    private View[] views;
-
+    private SettingJson setting;
 
     @Override
-    public void onCreate(SettingJson setting) {
+    public void onCreate() {
+        super.onCreate();
+        setting = MainActivity.Setting;
         showAnim = AnimationUtils.loadAnimation(mContext, R.anim.layout_show);
-        layout_user = mContext.findViewById(R.id.layout_user);
+        layout_user = MainActivity.CURRENT_ACTIVITY.findViewById(R.id.layout_user);
         buttonCreateUser = layout_user.findViewById(R.id.layout_user_adduser);
         buttonRefreshUserList = layout_user.findViewById(R.id.layout_user_reflash_userlist);
         listUsers = layout_user.findViewById(R.id.list_user);
 
-        views = new View[]{buttonCreateUser, buttonRefreshUserList};
-        for (View v : views) {
+        for (View v : new View[]{buttonCreateUser, buttonRefreshUserList}) {
             v.setOnClickListener(clickListener);
         }
-        refreshUI(setting);
+
+        refreshList();
     }
 
     @Override
-    public void refreshUI(SettingJson setting) {
-        refreshLocalUserList(setting);
+    public void refreshUI() {
+
     }
 
     @Override
-    public SettingJson saveUIConfig(SettingJson setting) {
-        saveUserList(setting);
-        return setting;
+    public void saveUIConfig() {
     }
 
     @Override
@@ -76,87 +77,54 @@ public class UserUI extends BaseUI {
         @Override
         public void onClick(View v) {
             if (v == buttonCreateUser) {
-                ((MainActivity) mContext).dialogCreateUser.show();
+                new CreateUserDialog(mContext).show();
             }
             if (v == buttonRefreshUserList) {
-                ((MainActivity) mContext).refreshLauncher(null, true);
+                refreshList();
             }
         }
-
     };
 
-    /**
-     * 【刷新本地用户列表】
-     * Refresh User list
-     **/
-    private ArrayList<UserListBean> userlist = new ArrayList<UserListBean>();
-    private void refreshLocalUserList(SettingJson setting) {
-        SettingJson.Accounts[] accounts = setting.getAccounts();
-        ArrayList<UserListBean> tmp = new ArrayList<UserListBean>() {
-        };
-        if (accounts == null) {
-            userlist = new ArrayList<UserListBean>() {
-            };
-        } else {
-            for (SettingJson.Accounts account : accounts) {
-                UserListBean user = new UserListBean();
-                user.setUser_name(account.getUsername());
-                user.setUser_model(account.getType());
-                user.setIsSelected(account.isSelected());
-                user.setAuth_UUID(account.getUuid());
-                user.setAuth_Access_Token(account.getAccessToken());
-                user.setContext(mContext);
-                tmp.add(user);
+    public void reloadListView(){
+        for(SettingJson.Account account : MainActivity.Setting.getAccounts()){
+            if(account != null){
+                usersList.add(UserManager.account2Bean(mContext,account));
             }
         }
-        userlist = tmp;
-        if (listUsers.getAdapter() == null) {
-            UserListAdapter userlistadapter = new UserListAdapter(mContext, userlist);
-            listUsers.setAdapter(userlistadapter);
-        } else {
-            listUsers.deferNotifyDataSetChanged();
+        this.listUsers.setAdapter(new UserListAdapter(mContext,usersList));
+        refreshList();
+    }
+
+    private ArrayList<UserListBean> usersList;
+    public void refreshList(){
+        if(usersList == null){
+            usersList = new ArrayList<>();
+            listUsers.setAdapter(new UserListAdapter(mContext,usersList));
+        }else{
+            usersList.clear();
         }
-    }
-
-    /**
-     * 【添加一个配制好的用户】
-     **/
-    public void addFormedUser(SettingJson.Accounts account) {
-        UserListBean user = new UserListBean();
-        user.setUser_name(account.getUsername());
-        user.setUser_model(account.getType());
-        user.setIsSelected(account.isSelected());
-        user.setAuth_UUID(account.getUuid());
-        user.setAuth_Access_Token(account.getAccessToken());
-        user.setContext(mContext);
-        userlist.add(user);
-        listUsers.deferNotifyDataSetChanged();
-    }
-
-    /**
-     * 【保存用户列表】
-     * Save user data.
-     **/
-    private SettingJson saveUserList(SettingJson setting) {
-        SettingJson.Accounts[] accounts;
-        if (listUsers.getAdapter() == null) {
-            accounts = new SettingJson.Accounts[0];
-        } else {
-            accounts = new SettingJson.Accounts[listUsers.getAdapter().getCount()];
-            for (int i = 0; i < listUsers.getAdapter().getCount(); i++) {
-                SettingJson.Accounts account = new SettingJson().newAccounts;
-                UserListBean user = (UserListBean) listUsers.getAdapter().getItem(i);
-                account.setSelected(user.isIsSelected());
-                account.setUsername(user.getUser_name());
-                account.setType(user.getUser_model());
-                account.setUuid(user.getAuth_UUID());
-                account.setAccessToken(user.getAuth_Access_Token());
-
-                accounts[i] = account;
+        for(SettingJson.Account account : MainActivity.Setting.getAccounts()){
+            if(account != null){
+                usersList.add(UserManager.account2Bean(mContext,account));
             }
         }
-        setting.setAccounts(accounts);
-        return setting;
+        ((BaseAdapter)listUsers.getAdapter()).notifyDataSetChanged();
+    }
+
+    public boolean addFormatedUser(SettingJson.Account account){
+        if(account == null){
+            return false;
+        }else{
+            UserListBean tmp = UserManager.account2Bean(mContext, account);
+            for(UserListBean bean : usersList){
+                if(bean.equals(tmp)){
+                    return false;
+                }
+            }
+            usersList.add(tmp);
+            refreshList();
+            return true;
+        }
     }
 
 }

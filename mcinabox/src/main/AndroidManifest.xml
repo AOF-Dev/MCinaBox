@@ -20,6 +20,10 @@
 
         <activity android:name=".VirtualKeyBoardActivity" android:screenOrientation="sensorLandscape"/>
 
+        <activity android:name=".gamecontroller.ckb.CustomizeKeyboardEditorActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="sensorLandscape" />
+
         <activity android:name=".MainActivity"
             android:screenOrientation="sensorLandscape">
             <intent-filter>
@@ -29,41 +33,28 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="cosine.boat.BoatClientActivity"
+        <activity android:name="cosine.boat.BoatActivity"
             android:theme="@style/AppTheme"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="sensorLandscape">
+            android:screenOrientation="sensorLandscape"
+            android:excludeFromRecents="false"
+            android:launchMode="singleInstance"
+            android:alwaysRetainTaskState="true">
             <meta-data
                 android:name="android.app.lib_name"
-                android:value="client" />
+                android:value="boat" />
         </activity>
 
         <activity
             android:label="@string/app_name"
             android:name="cosine.boat.LauncherActivity"
             android:configChanges="keyboardHidden|orientation">
-
-        </activity>
-
-        <activity android:name="cosine.boat.version3.BoatClientActivity"
-            android:theme="@style/AppTheme"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="sensorLandscape">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="client3" />
-        </activity>
-
-        <activity
-            android:label="@string/app_name"
-            android:name="cosine.boat.version3.LauncherActivity"
-            android:configChanges="keyboardHidden|orientation">
-
         </activity>
 
         <service
             android:name="ru.ivanarh.jndcrash.NDCrashService"
             android:process=":reportprocess"/>
+
         <service
             android:name="cosine.boat.logcat.LogcatService"
             android:process=":logcatprocess"/>

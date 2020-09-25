@@ -1,6 +1,7 @@
 package com.aof.mcinabox.launcher.dialogs;
 
-import android.os.Bundle;
+import android.app.Dialog;
+import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -9,12 +10,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.aof.mcinabox.DataPathManifest;
 import com.aof.mcinabox.MainActivity;
 import com.aof.mcinabox.R;
-import com.aof.mcinabox.launcher.JsonUtils;
+import com.aof.mcinabox.definitions.manifest.AppManifest;
+import com.aof.mcinabox.launcher.download.support.DownloadSupport;
 import com.aof.mcinabox.launcher.uis.InstallVersionUI;
-import com.aof.mcinabox.utils.FileTool;
+import com.aof.utils.FileTool;
 import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloadListener;
 import com.liulishuo.filedownloader.FileDownloadQueueSet;
@@ -23,39 +24,26 @@ import com.liulishuo.filedownloader.FileDownloader;
 import java.io.File;
 import java.util.ArrayList;
 
-public class DownloaderDialog extends BaseDialog {
+public class DownloaderDialog extends Dialog {
 
     public DownloaderDialog(MainActivity context, int layoutID){
-        super(context,layoutID);
+        super(context);
+        this.mContext = context;
+        setContentView(R.layout.dialog_download);
+        initUI();
     }
 
+    private Context mContext;
     private ProgressBar downloader_total_process,downloader_current_process;
-    private  TextView downloader_total_count,downloader_current_count,downloader_current_task,downloader_target_version;
+    private TextView downloader_total_count,downloader_current_count,downloader_current_task,downloader_target_version;
     private Button download_ok,download_cancel;
     private ImageView finishMark;
     private FileDownloadQueueSet queueSet;
-    public com.aof.mcinabox.minecraft.DownloadMinecraft mDownloadMinecraft =  new com.aof.mcinabox.minecraft.DownloadMinecraft();;
+    public DownloadSupport mDownloadSupport;
 
+    private void initUI(){
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        downloader_total_process = findViewById(R.id.dialog_total_process);
-        downloader_current_process = findViewById(R.id.dialog_current_process);
-        downloader_total_count = findViewById(R.id.dialog_total_count);
-        downloader_current_count = findViewById(R.id.dialog_current_count);
-        downloader_current_task = findViewById(R.id.dialog_process_name);
-        downloader_target_version = findViewById(R.id.dialog_version_id);
-        download_ok = findViewById(R.id.dialog_download_ok);
-        download_cancel = findViewById(R.id.dialog_download_cancle);
-        finishMark = findViewById(R.id.dialog_download_finish);
-        initDownloader();
-
-    }
-
-    private void initDownloader(){
-        //初始化下载器
-        FileDownloader.setup(mContext);
-        queueSet = new FileDownloadQueueSet(downloadListener);
+        queueSet = new FileDownloadQueueSet(new BoxFileDownloadListener());
     }
 
     private void initDownloaderUI(String id){
@@ -107,7 +95,7 @@ public class DownloaderDialog extends BaseDialog {
         StartDownload(7,id);
     }
     public void startDownloadManifest(){
-        downloadTasks.add(mDownloadMinecraft.createVersionManifestDownloadTask());
+        downloadTasks.add(mDownloadSupport.createVersionManifestDownloadTask());
         StartDownloadQueueSet(queueSet,downloadTasks);
     }
 
@@ -160,12 +148,7 @@ public class DownloaderDialog extends BaseDialog {
     }
 
     private void fitness_attribute() {
-        String homePath;
-        if(JsonUtils.getSettingFromFile(DataPathManifest.MCINABOX_FILE_JSON).getLocalization().equals("private")){
-            homePath = DataPathManifest.MCINABOX_DATA_PRIVATE;
-        }else{
-            homePath = DataPathManifest.MCINABOX_DATA_PUBLIC;
-        }
+        String homePath = AppManifest.MINECRAFT_HOME;
         FileTool.checkFilePath(new File(homePath), true);
         FileTool.checkFilePath(new File(homePath + "/config"), true);
         String config_file = homePath + "/config/splash.properties";
@@ -178,24 +161,24 @@ public class DownloaderDialog extends BaseDialog {
     private void StartDownload(int totalProcess,String id){
         switch(totalProcess){
             case 1:
-                downloadTasks.add(mDownloadMinecraft.createVersionJsonDownloadTask(id));
+                downloadTasks.add(mDownloadSupport.createVersionJsonDownloadTask(id));
                 StartDownloadQueueSet(queueSet,downloadTasks);
                 break;
             case 2:
-                downloadTasks.add(mDownloadMinecraft.createVersionJarDownloadTask(id));
-                downloadTasks.addAll(mDownloadMinecraft.createLibrariesDownloadTask(id));
+                downloadTasks.add(mDownloadSupport.createVersionJarDownloadTask(id));
+                downloadTasks.addAll(mDownloadSupport.createLibrariesDownloadTask(id));
                 StartDownloadQueueSet(queueSet,downloadTasks);
                 break;
             case 3:
-                downloadTasks.add(mDownloadMinecraft.createAssetIndexDownloadTask(id));
+                downloadTasks.add(mDownloadSupport.createAssetIndexDownloadTask(id));
                 StartDownloadQueueSet(queueSet,downloadTasks);
                 break;
             case 4:
-                downloadTasks.addAll(mDownloadMinecraft.createAssetObjectsDownloadTask(id));
+                downloadTasks.addAll(mDownloadSupport.createAssetObjectsDownloadTask(id));
                 StartDownloadQueueSet(queueSet,downloadTasks);
                 break;
             case 7:
-                downloadTasks.addAll(mDownloadMinecraft.createForgeDownloadTask(id));
+                downloadTasks.addAll(mDownloadSupport.createForgeDownloadTask(id));
                 StartDownloadQueueSet(queueSet,downloadTasks);
                 break;
         }
@@ -207,7 +190,7 @@ public class DownloaderDialog extends BaseDialog {
         queueSet.start();
     }
 
-    private FileDownloadListener downloadListener = new FileDownloadListener() {
+    private class BoxFileDownloadListener extends FileDownloadListener{
         @Override
         protected void pending(BaseDownloadTask task, int soFarBytes, int totalBytes) {
 
@@ -230,7 +213,7 @@ public class DownloaderDialog extends BaseDialog {
                 downloadTasks.clear();
                 //清单文件下载完成后刷新一次列表
                 MainActivity context = (MainActivity) mContext;
-                InstallVersionUI uiInstallVersion = context.uiInstallVersion;
+                InstallVersionUI uiInstallVersion = context.mUiManager.uiInstallVersion;
                 uiInstallVersion.refreshOnlineVersionList();
 
                 finishCount = 0;

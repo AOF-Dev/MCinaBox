@@ -25,9 +25,10 @@ public class FileChooser {
     // filter on file extension
     private String extension = null;
 
-    public void setExtension(String extension) {
+    public FileChooser setExtension(String extension) {
         this.extension = (extension == null) ? null :
                 extension.toLowerCase();
+        return this;
     }
 
     // file selection event handling

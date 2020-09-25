@@ -1,6 +1,7 @@
 package com.aof.mcinabox.launcher.uis;
 
-import android.app.Activity;
+import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -10,21 +11,17 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.aof.mcinabox.MainActivity;
 import com.aof.mcinabox.R;
-import com.aof.mcinabox.launcher.dialogs.DownloaderDialog;
-import com.aof.mcinabox.launcher.json.SettingJson;
+import com.aof.mcinabox.launcher.download.DownloadManager;
+import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.mcinabox.minecraft.json.VersionManifestJson;
-
 import java.util.ArrayList;
-
-import static com.aof.sharedmodule.Data.DataPathManifest.MCINABOX_TEMP;
+import static com.aof.mcinabox.definitions.manifest.AppManifest.MCINABOX_TEMP;
 
 public class InstallVersionUI extends BaseUI implements RadioGroup.OnCheckedChangeListener {
 
-
-    public InstallVersionUI(Activity context){
+    public InstallVersionUI(Context context) {
         super(context);
     }
 
@@ -38,12 +35,17 @@ public class InstallVersionUI extends BaseUI implements RadioGroup.OnCheckedChan
     private RadioButton buttonSnapshot;
     private RadioButton buttonOld;
     private ListView listVersionsOnline;
+    private SettingJson setting;
 
-    private View[] views;
+    private DownloadManager mDownloadManager;
+
+    private final static String TAG = "InstallVersionUI";
 
     @Override
-    public void onCreate(SettingJson setting) {
-        layout_installversion = mContext.findViewById(R.id.layout_gamelist_install);
+    public void onCreate() {
+        super.onCreate();
+        setting = MainActivity.Setting;
+        layout_installversion = MainActivity.CURRENT_ACTIVITY.findViewById(R.id.layout_gamelist_install);
         buttonBack = layout_installversion.findViewById(R.id.gamelist_button_backfrom_installnewversion);
         buttonRefresh = layout_installversion.findViewById(R.id.gamelist_button_refresh);
         textSelectedVersion = layout_installversion.findViewById(R.id.gamelist_text_show_selectedversion);
@@ -61,21 +63,21 @@ public class InstallVersionUI extends BaseUI implements RadioGroup.OnCheckedChan
             }
         });
 
-        views = new View[]{buttonBack,buttonRefresh,buttonDownload};
-        for(View v : views){
+        for (View v : new View[]{buttonBack, buttonRefresh, buttonDownload}) {
             v.setOnClickListener(clickListener);
         }
-        refreshUI(setting);
+        //初始化下载管理器
+        mDownloadManager = new DownloadManager(mContext);
     }
 
     @Override
-    public void refreshUI(SettingJson setting) {
+    public void refreshUI() {
 
     }
 
     @Override
-    public SettingJson saveUIConfig(SettingJson setting) {
-        return setting;
+    public void saveUIConfig() {
+
     }
 
     @Override
@@ -90,15 +92,13 @@ public class InstallVersionUI extends BaseUI implements RadioGroup.OnCheckedChan
 
     /**
      * 【下载从网络版本列表中选择的版本】
-     * Download the selected version.
-     * Maybe we need a method to choice what to download, such as Libraries only and Version Jar only.
      **/
     private int selectedVersionPos = -1;
     private VersionManifestJson.Version[] versionList;
 
     private void DownloadSelectedVersion() {
-        MainActivity context = (MainActivity) mContext;
-        DownloaderDialog downloaderDialog = context.dialogDownloader;
+        //TODO:修复下载功能
+
         if (versionList == null) {
             Toast.makeText(mContext, mContext.getString(R.string.tips_online_version_reflash), Toast.LENGTH_SHORT).show();
             return;
@@ -107,13 +107,12 @@ public class InstallVersionUI extends BaseUI implements RadioGroup.OnCheckedChan
             Toast.makeText(mContext, mContext.getString(R.string.tips_online_version_select), Toast.LENGTH_SHORT).show();
             return;
         }
-        downloaderDialog.startDownloadMinecraft(listVersionsOnline.getAdapter().getItem(selectedVersionPos).toString());
+        mDownloadManager.startPresetDownload(DownloadManager.DOWNLOAD_PRESET_VERSION_JSON ,listVersionsOnline.getAdapter().getItem(selectedVersionPos).toString());
 
     }
 
     /**
      * 【更新网络版本列表】
-     * Update version manifest.
      **/
     public void refreshOnlineVersionList() {
         //获取实例化后的versionList
@@ -131,16 +130,14 @@ public class InstallVersionUI extends BaseUI implements RadioGroup.OnCheckedChan
             switch (version.getType()) {
                 default:
                     break;
-                case "release":
+                case VersionManifestJson.TYPE_RELEASE:
                     version_type_release.add(version);
                     break;
-                case "snapshot":
+                case VersionManifestJson.TYPE_SNAPSHOT:
                     version_type_snapsht.add(version);
                     break;
-                case "old_beta":
-                    version_type_old.add(version);
-                    break;
-                case "old_alpha":
+                case VersionManifestJson.TYPE_OLD_BETA:
+                case VersionManifestJson.TYPE_OLD_ALPHA:
                     version_type_old.add(version);
                     break;
             }
@@ -170,13 +167,12 @@ public class InstallVersionUI extends BaseUI implements RadioGroup.OnCheckedChan
                 break;
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_list_item_1, nameList);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(mContext, android.R.layout.simple_list_item_1, nameList);
         listVersionsOnline.setAdapter(adapter);
     }
 
     /**
      * 【当版本类型发生变化时】
-     * When the type of Version changed.
      **/
     @Override
     public void onCheckedChanged(RadioGroup radioGroup_version_type, int checkedId) {
@@ -190,17 +186,20 @@ public class InstallVersionUI extends BaseUI implements RadioGroup.OnCheckedChan
     private View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if(v == buttonBack){
-                ((MainActivity)mContext).backFromHere();
+            if (v == buttonBack) {
+                MainActivity.CURRENT_ACTIVITY.backFromHere();
             }
-            if(v == buttonRefresh){
-                MainActivity context = (MainActivity) mContext;
-                DownloaderDialog dialogDownloader = context.dialogDownloader;
-                //What will happen if click buttonRefresh many times before one finished?
-                //Maybe we need a way to limitation the too much click.
-                dialogDownloader.startDownloadManifest();
+            if (v == buttonRefresh) {
+                mDownloadManager.downloadManifestAndUpdateGameListUi(mDownloadManager.new Runable() {
+                    @Override
+                    public void run() {
+                        Log.e(TAG, "开始刷新列表");
+                        refreshOnlineVersionList();
+                    }
+                });
+
             }
-            if(v == buttonDownload){
+            if (v == buttonDownload) {
                 DownloadSelectedVersion();
             }
         }

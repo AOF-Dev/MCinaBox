@@ -1,48 +1,52 @@
-tasks.whenTaskAdded{ task->
-    if(task.name.equals("lint")) {
-        task.enabled=false
-    }
-}
 apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+    buildToolsVersion '30.0.2'
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        ndk{
-            abiFilters "armeabi-v7a"
-        }
-        externalNativeBuild {
+        /*externalNativeBuild {
             cmake {
                 arguments "-DANDROID_STL=c++_shared"
             }
         }
+
+         */
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            /*ndk{
+                abiFilters "armeabi-v7a"
+            }
+
+             */
         }
     }
-    externalNativeBuild {
+    /*externalNativeBuild {
         cmake {
             path file('src/main/jni/CMakeLists.txt')
         }
     }
+     */
+    //ndkVersion '17.2.4988734'
 
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation project(path: ':gamecontroller')
+    implementation project(path: ':jndcrash')
+    implementation project(path: ':assets')
+    implementation project(path: ':definitions')
     implementation 'com.google.code.gson:gson:2.8.6'
-    implementation project(path: ':sharedmodule')
-    implementation 'com.github.kongqw:AndroidRocker:1.0.1'
+
     implementation project(path: ':plugin')
+    implementation project(path: ':utils')
 }

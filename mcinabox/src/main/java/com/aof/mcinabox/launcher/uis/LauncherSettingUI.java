@@ -1,41 +1,40 @@
 package com.aof.mcinabox.launcher.uis;
 
 import android.Manifest;
-import android.app.Activity;
+import android.content.Context;
 import android.content.pm.PackageManager;
-import android.os.Handler;
-import android.os.Message;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
-
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
 import com.aof.mcinabox.FileChooser;
 import com.aof.mcinabox.MainActivity;
 import com.aof.mcinabox.R;
-import com.aof.mcinabox.launcher.JsonUtils;
+import com.aof.mcinabox.definitions.manifest.AppManifest;
 import com.aof.mcinabox.launcher.dialogs.ContributorsDialog;
-import com.aof.mcinabox.launcher.dialogs.DownloaderDialog;
-import com.aof.mcinabox.launcher.json.SettingJson;
-import com.aof.mcinabox.minecraft.ForgeInstaller;
+import com.aof.mcinabox.launcher.runtime.RuntimeManager;
+import com.aof.mcinabox.launcher.setting.support.SettingJson;
+import com.aof.mcinabox.launcher.uis.support.Utils;
+import com.aof.mcinabox.minecraft.forge.ForgeInstaller;
+import com.aof.utils.dialog.DialogUtils;
+import com.aof.utils.dialog.support.DialogSupports;
 
 import java.io.File;
 import java.util.ArrayList;
 
-import static com.aof.sharedmodule.Data.DataPathManifest.FORGEINSTALLER_HOME;
-import static com.aof.sharedmodule.Data.DataPathManifest.MCINABOX_FILE_JSON;
+public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedListener, CompoundButton.OnCheckedChangeListener {
 
-public class LauncherSettingUI extends BaseUI {
-
-    public LauncherSettingUI(Activity context) {
+    public LauncherSettingUI(Context context) {
         super(context);
     }
 
@@ -45,45 +44,67 @@ public class LauncherSettingUI extends BaseUI {
     private Button buttonImportRuntime;
     private Button buttonInstallForge;
     private Button buttonShowControbutors;
+    private SwitchCompat switchAutoBackground;
+    private SwitchCompat switchFullscreen;
     private Animation showAnim;
-    private ContributorsDialog contributorsDialog;
-
-    private View[] views;
+    private SettingJson setting;
 
     @Override
-    public void onCreate(SettingJson setting) {
+    public void onCreate() {
+        super.onCreate();
+        setting = MainActivity.Setting;
         showAnim = AnimationUtils.loadAnimation(mContext, R.anim.layout_show);
-        layout_setting = mContext.findViewById(R.id.layout_launchersetting);
+        layout_setting = MainActivity.CURRENT_ACTIVITY.findViewById(R.id.layout_launchersetting);
         listDownloaderSources = layout_setting.findViewById(R.id.setting_spinner_downloadtype);
         buttonImportRuntime = layout_setting.findViewById(R.id.launchersetting_button_import);
         listForgeInstallers = layout_setting.findViewById(R.id.launchersetting_spinner_forgeinstaller);
         buttonInstallForge = layout_setting.findViewById(R.id.launchersetting_button_forgeinstaller);
         buttonShowControbutors = layout_setting.findViewById(R.id.setting_show_contributors);
-        contributorsDialog = new ContributorsDialog((MainActivity) mContext,R.layout.dialog_contributors);
+        switchAutoBackground = layout_setting.findViewById(R.id.launchersetting_switch_auto_background);
+        switchFullscreen = layout_setting.findViewById(R.id.launchersetting_switch_fullscreen);
 
-        views = new View[]{buttonInstallForge, buttonImportRuntime,buttonShowControbutors};
-        for (View v : views) {
+        switchAutoBackground.setChecked(setting.isBackgroundAutoSwitch());
+        switchFullscreen.setChecked(setting.isFullscreen());
+
+        //设定监听器
+        for (View v : new View[]{buttonInstallForge, buttonImportRuntime, buttonShowControbutors}) {
             v.setOnClickListener(clickListener);
         }
-        loadInfo(setting);
-        refreshUI(setting);
+        for(SwitchCompat sc : new SwitchCompat[]{switchAutoBackground,switchFullscreen}){
+            sc.setOnCheckedChangeListener(this);
+        }
+        listDownloaderSources.setOnItemSelectedListener(this);
+
+        //设定属性
+        refreshForgeInstallerList();
+        setConfigureToDownloadtype(setting.getDownloadType(), listDownloaderSources);
+
+        //调用主题管理器设定主题
+        if(setting.isBackgroundAutoSwitch()){
+            if(!MainActivity.CURRENT_ACTIVITY.mThemeManager.autoSetBackground(MainActivity.CURRENT_ACTIVITY.findViewById(R.id.layout_main))){
+                DialogUtils.createSingleChoiceDialog(mContext,"错误","图片文件已损坏，启动器背景图片切换失败！","确定",null);
+            }
+        }
+
+        if(setting.isFullscreen()){
+            MainActivity.CURRENT_ACTIVITY.mThemeManager.setFullScreen(MainActivity.CURRENT_ACTIVITY);
+        }
 
     }
 
     @Override
-    public void refreshUI(SettingJson setting) {
+    public void refreshUI() {
         refreshForgeInstallerList();
     }
 
     @Override
-    public SettingJson saveUIConfig(SettingJson setting) {
+    public void saveUIConfig() {
         setting.setDownloadType(listDownloaderSources.getSelectedItem().toString());
-        return setting;
     }
 
     @Override
     public void setUIVisiability(int visiability) {
-        if(visiability == View.VISIBLE){
+        if (visiability == View.VISIBLE) {
             layout_setting.startAnimation(showAnim);
         }
         layout_setting.setVisibility(visiability);
@@ -94,20 +115,14 @@ public class LauncherSettingUI extends BaseUI {
         return layout_setting.getVisibility();
     }
 
-    private void loadInfo(SettingJson setting){
-        //This should not be applied again after the UI has been created.
-        setConfigureToDownloadtype(setting.getDownloadType(), listDownloaderSources);
-    }
-
     /**
      * 【刷新forgeinstaller列表】
-     * Refresh the ForgeInstaller list.
      **/
-    private ArrayList<String> forgeInstallerList = new ArrayList<String>();
+    private ArrayList<String> forgeInstallerList = new ArrayList<>();
 
     private void refreshForgeInstallerList() {
-        ArrayList<String> packlist = new ArrayList<String>();
-        File file = new File(FORGEINSTALLER_HOME + "/");
+        ArrayList<String> packlist = new ArrayList<>();
+        File file = new File(AppManifest.FORGE_HOME + "/");
         File[] files = file.listFiles();
         if (files == null) {
             //nothing.
@@ -120,7 +135,7 @@ public class LauncherSettingUI extends BaseUI {
                 packlist.add(targetFile.getName());
             }
             if (listForgeInstallers.getAdapter() == null) {
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_item, this.forgeInstallerList);
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_item, this.forgeInstallerList);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 listForgeInstallers.setAdapter(adapter);
             } else {
@@ -133,15 +148,10 @@ public class LauncherSettingUI extends BaseUI {
 
     /**
      * 【安装ForgeInstaller】
-     * Install Forge via ForgeInstaller
-     * This function is very primary....
-     * Will be kicked later...
      **/
     private void installForgeFromInstaller() {
-        MainActivity context = (MainActivity) mContext;
-        DownloaderDialog downloaderDialog = context.dialogDownloader;
-        if (JsonUtils.getSettingFromFile(MCINABOX_FILE_JSON).getDownloadType().equals("official")) {
-            Toast.makeText(mContext, R.string.toast_change_downloadtype, Toast.LENGTH_SHORT).show();
+        if (MainActivity.Setting.getDownloadType().equals(SettingJson.DOWNLOAD_SOURCE_OFFICIAL)) {
+            DialogUtils.createSingleChoiceDialog(mContext,"错误",mContext.getString(R.string.toast_change_downloadtype),"确定",null);
         } else {
             String filename;
             if (listForgeInstallers.getSelectedItem() != null) {
@@ -154,17 +164,21 @@ public class LauncherSettingUI extends BaseUI {
                 installer.unzipForgeInstaller(filename);
             } catch (Exception e) {
                 e.printStackTrace();
-                Toast.makeText(mContext, mContext.getString(R.string.tips_unzip_failed), Toast.LENGTH_SHORT).show();
+                DialogUtils.createSingleChoiceDialog(mContext,"错误",mContext.getString(R.string.tips_unzip_failed),"确定",null);
                 return;
             }
-            String id = installer.makeForgeData();
-            downloaderDialog.startDownloadForge(id);
+
+            try {
+                installer.startDownloadForge(installer.makeForgeData());
+            }catch (Exception e){
+                e.printStackTrace();
+                DialogUtils.createSingleChoiceDialog(mContext,"错误","发生未知错误，Forge安装失败","确定",null);
+            }
         }
     }
 
     /**
      * 【匹配下载源】
-     * Select the Download Souce.
      **/
     private void setConfigureToDownloadtype(String type, Spinner list) {
         int pos = Utils.getItemPosByString(type, list);
@@ -178,18 +192,16 @@ public class LauncherSettingUI extends BaseUI {
         public void onClick(View v) {
             if (v == buttonImportRuntime) {
                 if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(mContext, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 2048);
+                    ActivityCompat.requestPermissions(MainActivity.CURRENT_ACTIVITY, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 2048);
                 }
                 if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(mContext, "Please allow read storage permission to import runtime packs externally.", Toast.LENGTH_LONG).show();
                     return;
                 }
-                FileChooser fc = new FileChooser(mContext);
-                fc.setExtension(".tar.xz");
-                fc.setFileListener(new FileChooser.FileSelectedListener() {
+                FileChooser fc = new FileChooser(MainActivity.CURRENT_ACTIVITY).setExtension(".tar.xz").setFileListener(new FileChooser.FileSelectedListener() {
                     @Override
                     public void fileSelected(File file) {
-                        installRuntimeFromPath(file.getPath());
+                        RuntimeManager.installRuntimeFromPath(mContext, file.getPath());
                     }
                 });
                 fc.showDialog();
@@ -197,59 +209,41 @@ public class LauncherSettingUI extends BaseUI {
             if (v == buttonInstallForge) {
                 installForgeFromInstaller();
             }
-            if(v == buttonShowControbutors){
-                contributorsDialog.show();
+            if (v == buttonShowControbutors) {
+                new ContributorsDialog(mContext).show();
             }
         }
     };
 
-    /**
-     * 【从路径安装运行库】
-     * Install Runtime from path.
-     **/
-    public void installRuntimeFromPath(String globalPath) {
-        //check the permissions first, we want to ensure that app have it. weird things can happen i we have denied.
-        if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(mContext, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 2048);
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        if (parent == listDownloaderSources) {
+            setting.setDownloadType((String) listDownloaderSources.getItemAtPosition(position));
         }
-        if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(mContext, "Please allow read storage permission to import runtime packs externally.", Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        final String mpackagePath = globalPath;
-        new Thread() {
-            @Override
-            public void run() {
-                Handler handler = ((MainActivity) mContext).handler;
-                File packageFile = new File(mpackagePath);
-                if (!packageFile.exists()) {
-
-                    Message msg_1 = new Message();
-                    msg_1.what = 4;
-                    handler.sendMessage(msg_1);
-                    return;
-
-                } else {
-                    if (packageFile.isDirectory()) {
-                        Toast.makeText(mContext, "Runtime packs should not be directories!", Toast.LENGTH_LONG).show();
-                        return;
-                    }
-                }
-                Message msg_2 = new Message();
-                Message msg_3 = new Message();
-                msg_2.what = 5;
-                handler.sendMessage(msg_2);
-                cosine.boat.Utils.extractTarXZ(mpackagePath, mContext.getDir("runtime", 0));
-                if (cosine.boat.Utils.setExecutable(mContext.getDir("runtime", 0))) {
-                    msg_3.what = 6;
-                    handler.sendMessage(msg_3);
-                } else {
-                    msg_3.what = 7;
-                    handler.sendMessage(msg_3);
-                }
-            }
-        }.start();
     }
 
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if(buttonView == switchAutoBackground){
+            if(isChecked){
+                DialogUtils.createSingleChoiceDialog(mContext,"提示",String.format("请将后缀名为png的图片放入 %s 文件夹中，启动器将会随机选择一张作为背景，该操作重启后生效。",AppManifest.MCINABOX_BACKGROUND),"确定",null);
+            }
+            setting.setBackgroundAutoSwitch(isChecked);
+        }
+
+        if(buttonView == switchFullscreen){
+            if(isChecked){
+                MainActivity.CURRENT_ACTIVITY.mThemeManager.setFullScreen(MainActivity.CURRENT_ACTIVITY);
+            }else{
+                DialogUtils.createSingleChoiceDialog(mContext,"提示","您已经关闭了状态栏隐藏功能，将在下一次启动时应用更改。","确定",null);
+            }
+            setting.setFullscreen(isChecked);
+        }
+    }
 }

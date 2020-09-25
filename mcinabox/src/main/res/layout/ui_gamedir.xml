@@ -7,6 +7,7 @@
     <!-- 可以添加其他的view -->
 
     <LinearLayout
+        android:id='@+id/gamedir_select_public'
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginLeft="20dp"
@@ -17,16 +18,11 @@
         android:orientation="horizontal"
         android:padding="5dp">
 
-        <RadioButton
-            android:id="@+id/radiobutton_gamedir_public"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
-
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
             android:src="@drawable/ic_dns_black_24dp" />
 
         <TextView
@@ -38,15 +34,6 @@
             android:textSize="@dimen/text_mid"
             android:textColor="@color/text_title_main" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
-            android:text="@string/tips_launcher_public_path"
-            android:textIsSelectable="true"
-            android:textColor="@color/text_info"
-            android:textSize="@dimen/text_small" />
     </LinearLayout>
 
     <LinearLayout
@@ -55,21 +42,17 @@
         android:layout_height="60dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/background_layout_item"
         android:orientation="horizontal"
         android:padding="5dp">
 
-        <RadioButton
-            android:id="@+id/radiobutton_gamedir_private"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
-
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
             android:src="@drawable/ic_lock_outline_black_24dp" />
 
         <TextView
@@ -81,15 +64,38 @@
             android:textSize="@dimen/text_mid"
             android:textColor="@color/text_title_main" />
 
-        <TextView
-            android:layout_width="wrap_content"
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/background_layout_item"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <EditText
+            android:id="@+id/gamedir_edit_gamedir"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:textSize="@dimen/text_mid"
+            android:textColor="@color/text_title_main" />
+
+        <Button
+            android:id="@+id/gamedir_button_save"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
-            android:text="@string/tips_launcher_private_path"
-            android:textIsSelectable="true"
-            android:textColor="@color/text_info"
-            android:textSize="@dimen/text_small" />
+            android:layout_margin="5dp"
+            android:text="保存"/>
+
     </LinearLayout>
 
     <LinearLayout

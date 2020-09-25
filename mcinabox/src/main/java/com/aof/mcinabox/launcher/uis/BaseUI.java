@@ -1,26 +1,22 @@
 package com.aof.mcinabox.launcher.uis;
 
-import android.app.Activity;
-import android.app.Application;
-import android.os.Bundle;
-
-import com.aof.mcinabox.launcher.json.SettingJson;
+import android.content.Context;
 
 public abstract class BaseUI implements UILifecycleCallbacks {
 
-    public Activity mContext;
+    public Context mContext;
 
     //Method instruction
-    public BaseUI(Activity context){
+    public BaseUI(Context context){
         super();
         setUIContext(context);
     }
 
     //Apply states from Setting to UIs
-    public abstract void refreshUI(SettingJson setting);
+    public abstract void refreshUI();
 
     //Save States of UIs to Setting
-    public abstract SettingJson saveUIConfig(SettingJson setting);
+    public abstract void saveUIConfig();
 
     //Set the visiability of the UI
     public abstract void setUIVisiability(int visiability);
@@ -29,34 +25,38 @@ public abstract class BaseUI implements UILifecycleCallbacks {
     public abstract int getUIVisiability();
 
     //Set Android Context
-    public void setUIContext(Activity context){
+    public void setUIContext(Context context){
         this.mContext = context;
     }
 
     @Override
-    public void onCreate(SettingJson setting){ }
+    public void onCreate(){ }
 
     @Override
-    public void onStart(SettingJson setting){ }
+    public void onStart(){ }
 
     @Override
-    public void onResumed(){ }
+    public void onResume(){ }
 
     @Override
-    public void onPaused(){ }
+    public void onPause(){ }
 
     @Override
     public void onStop(){ }
 
     @Override
-    public void onDestory(){ }
+    public void onDestory(){}
+
+    @Override
+    public void onRestart(){}
 }
 
 interface UILifecycleCallbacks{
-    void onCreate(SettingJson setting);
-    void onStart(SettingJson setting);
-    void onResumed();
-    void onPaused();
+    void onCreate();
+    void onStart();
+    void onResume();
+    void onRestart();
+    void onPause();
     void onStop();
     void onDestory();
 }

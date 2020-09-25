@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:background="@drawable/background_dialog_noalpha">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="@dimen/text_small"
+                android:textColor="@color/text_info"
+                android:text="标准键盘按键:"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/dialog_keymap_selecter_keyboard_layout"
+                android:layout_height="130dp"
+                android:layout_width="460dp"
+                android:layout_gravity="center"
+                layout="@layout/selecter_keyboard"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="@dimen/text_small"
+                android:textColor="@color/text_info"
+                android:text="鼠标按键:"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/dialog_keymap_selecter_mouse_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+                style="@style/selecterButtonStyle"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_margin="5dp"
+                android:layout_gravity="center"
+                android:text="左键"
+                custom:button_name="MOUSE_BUTTON_LEFT"/>
+
+            <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+                style="@style/selecterButtonStyle"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_margin="5dp"
+                android:layout_gravity="center"
+                android:text="中键"
+                custom:button_name="MOUSE_BUTTON_MIDDLE"/>
+
+            <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+                style="@style/selecterButtonStyle"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_margin="5dp"
+                android:layout_gravity="center"
+                android:text="右键"
+                custom:button_name="MOUSE_BUTTON_RIGHT"/>
+
+            <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+                style="@style/selecterButtonStyle"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_margin="5dp"
+                android:layout_gravity="center"
+                android:text="滚轮上"
+                custom:button_name="MOUSE_WHEEL_UP"/>
+
+            <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+                style="@style/selecterButtonStyle"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_margin="5dp"
+                android:layout_gravity="center"
+                android:text="滚轮下"
+                custom:button_name="MOUSE_WHEEL_DOWN"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/background_gray_corner">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:textSize="@dimen/text_small"
+            android:textColor="@color/text_info"
+            android:text="已选择:"/>
+
+        <TextView
+            android:id="@+id/dialog_keymap_selecter_text_keyname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_title_main"
+            android:textSize="@dimen/text_small"
+            android:layout_gravity="center"
+            android:layout_margin="5dp" />
+
+        <Button
+            android:id="@+id/dialog_keymap_selecter_button_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_gravity="center"
+            android:text="确认"/>
+
+        <Button
+            android:id="@+id/dialog_keymap_selecter_button_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_gravity="center"
+            android:text="取消"/>
+
+        <Button
+            android:id="@+id/dialog_keymap_selecter_button_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_gravity="center"
+            android:text="清除"/>
+
+
+    </LinearLayout>
+
+</LinearLayout>

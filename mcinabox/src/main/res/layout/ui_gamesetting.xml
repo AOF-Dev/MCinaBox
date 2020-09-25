@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_layout_fictionlist"
@@ -11,13 +12,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
             <!-- 可以添加其他的view -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/text_info"
                 android:textSize="@dimen/text_big"
@@ -97,6 +98,7 @@
                                 android:textColor="@color/text_info"
                                 android:textSize="@dimen/text_mid" />
                         </LinearLayout>
+
                     </LinearLayout>
 
                     <EditText
@@ -105,7 +107,34 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
                         android:layout_marginBottom="8dp"
-                        android:textAlignment="textEnd" />
+                        android:textAlignment="textEnd"
+                        android:inputType="number" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:background="@android:color/background_dark" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="自动设定内存上限"
+                        android:textColor="@color/text_title_main"
+                        android:textSize="@dimen/text_mid" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/setting_swith_auto_memory"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
                 </LinearLayout>
 
@@ -142,7 +171,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/tips_minecraft_setting_extra_javaargs"
-                        android:textSize="@dimen/text_mid" />
+                        android:textSize="@dimen/text_mid"
+                        android:inputType="text" />
                 </LinearLayout>
 
                 <View
@@ -161,7 +191,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/tips_minecraft_setting_extra_mcargs"
-                        android:textSize="@dimen/text_mid" />
+                        android:textSize="@dimen/text_mid"
+                        android:inputType="text"/>
                 </LinearLayout>
 
                 <View
@@ -183,7 +214,7 @@
                         android:textColor="@color/text_title_main"
                         android:textSize="@dimen/text_mid" />
 
-                    <Switch
+                    <androidx.appcompat.widget.SwitchCompat
                         android:id="@+id/setting_switch_notcheckjvm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
@@ -208,8 +239,133 @@
                         android:textColor="@color/text_title_main"
                         android:textSize="@dimen/text_mid" />
 
-                    <Switch
+                    <androidx.appcompat.widget.SwitchCompat
                         android:id="@+id/setting_switch_notcheckminecraft"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:background="@android:color/background_dark" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="不检查消息管理器"
+                        android:textColor="@color/text_title_main"
+                        android:textSize="@dimen/text_mid" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/setting_switch_notchecktipper"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:background="@android:color/background_dark" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="不检查Forge的配置"
+                        android:textColor="@color/text_title_main"
+                        android:textSize="@dimen/text_mid" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/setting_switch_notcheckforge"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:background="@android:color/background_dark" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="不检查options.txt"
+                        android:textColor="@color/text_title_main"
+                        android:textSize="@dimen/text_mid" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/setting_switch_notcheckoptions"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:background="@android:color/background_dark" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="总是让我选择运行库加载策略"
+                        android:textColor="@color/text_title_main"
+                        android:textSize="@dimen/text_mid" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/setting_switch_always_choice_runtime_manifest"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:background="@android:color/background_dark" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="启用调试"
+                        android:textColor="@color/text_title_main"
+                        android:textSize="@dimen/text_mid" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/setting_switch_debug"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </LinearLayout>

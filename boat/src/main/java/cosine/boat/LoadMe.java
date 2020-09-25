@@ -1,12 +1,12 @@
 package cosine.boat;
 
-import com.aof.sharedmodule.Model.ArgsModel;
-import static com.aof.sharedmodule.Data.DataPathManifest.*;
+import com.aof.mcinabox.definitions.models.BoatArgs;
+import static com.aof.mcinabox.definitions.manifest.AppManifest.*;
 
 public class LoadMe {
 
 	public static native int chdir(String str);
-	public static native void jliLaunch(String[] strArr);
+	public static native int jliLaunch(String[] strArr);
 	public static native void redirectStdio(String file);
 	public static native void setenv(String str, String str2);
 	public static native void setupJLI();
@@ -16,32 +16,27 @@ public class LoadMe {
 		System.loadLibrary("boat");
 	}
 
-	public static int exec(ArgsModel args, BoatClientActivity activity) {
+	public static int exec(BoatArgs args) {
 		try {
-			String runtimePath = RUNTIME_HOME;
-			String home = args.getHome();
 
-			setenv("HOME", home);
-			setenv("JAVA_HOME" ,runtimePath + "/j2re-image");
-			setenv("BOAT_INPUT_PORT", Integer.toString(activity.mInputEventSender.port));
+			setenv("HOME", args.getGamedir());
+			setenv("JAVA_HOME" ,args.getJava_home());
 
-			dlopen(runtimePath + "/j2re-image/lib/aarch32/jli/libjli.so");
-			dlopen(runtimePath + "/j2re-image/lib/aarch32/client/libjvm.so");
-			dlopen(runtimePath + "/j2re-image/lib/aarch32/libverify.so");
-			dlopen(runtimePath + "/j2re-image/lib/aarch32/libjava.so");
-			dlopen(runtimePath + "/j2re-image/lib/aarch32/libnet.so");
-			dlopen(runtimePath + "/j2re-image/lib/aarch32/libnio.so");
-			dlopen(runtimePath + "/j2re-image/lib/aarch32/libawt.so");
-			dlopen(runtimePath + "/j2re-image/lib/aarch32/libawt_headless.so");
-			dlopen("libserver.so");
-			dlopen(runtimePath + "/libopenal.so.1");
-			dlopen(runtimePath + "/libGL.so.1");
-			dlopen(runtimePath + "/lwjgl2/liblwjgl.so");
+			// sharedlibraries
+			for(String str : args.getShared_libraries()){
+				dlopen(str);
+			}
 
 			setupJLI();
-			redirectStdio(home + "/boat_output.txt");
-			chdir(home);
-			jliLaunch(args.getArgs());
+			redirectStdio(BOAT_CACHE_HOME + "/boat_output.txt");
+			chdir(args.getGamedir());
+
+			String finalArgs[] = new String[] {"java"};
+			for (int i = 0; i < finalArgs.length; i++){
+
+				System.out.println(finalArgs[i]);
+			}
+			System.out.println("OpenJDK exited with code : " + jliLaunch(args.getArgs()));
 
 		} catch (Exception e) {
 			e.printStackTrace();

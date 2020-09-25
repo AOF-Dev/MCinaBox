@@ -1,17 +1,17 @@
 package com.aof.mcinabox.launcher.dialogs;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 
 import com.aof.mcinabox.MainActivity;
+import com.aof.mcinabox.R;
 
-public class ContributorsDialog extends BaseDialog {
+public class ContributorsDialog extends Dialog {
 
-    public ContributorsDialog(MainActivity context, int layoutID){
-        super(context,layoutID);
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-
+    public ContributorsDialog(Context context){
+        super(context);
+        setContentView(R.layout.dialog_contributors);
+        setCanceledOnTouchOutside(true);
     }
 }

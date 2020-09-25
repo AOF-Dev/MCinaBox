@@ -4,19 +4,26 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
+        <option name="testRunner" value="PLATFORM" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleJvm" value="1.8" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/assets" />
             <option value="$PROJECT_DIR$/boat" />
+            <option value="$PROJECT_DIR$/ckb" />
+            <option value="$PROJECT_DIR$/definitions" />
+            <option value="$PROJECT_DIR$/gamecontroller" />
+            <option value="$PROJECT_DIR$/jndcrash" />
+            <option value="$PROJECT_DIR$/lwjgl" />
             <option value="$PROJECT_DIR$/mcinabox" />
             <option value="$PROJECT_DIR$/plugin" />
-            <option value="$PROJECT_DIR$/sharedmodule" />
+            <option value="$PROJECT_DIR$/utils" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
-        <option name="testRunner" value="PLATFORM" />
       </GradleProjectSettings>
     </option>
   </component>

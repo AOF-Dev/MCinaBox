@@ -1,66 +1,63 @@
 package com.aof.mcinabox.launcher.uis;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.aof.mcinabox.MainActivity;
 import com.aof.mcinabox.R;
-import com.aof.mcinabox.VirtualKeyBoardActivity;
-import com.aof.mcinabox.launcher.json.SettingJson;
+import com.aof.mcinabox.gamecontroller.ckb.CustomizeKeyboardEditorActivity;
+import com.aof.mcinabox.launcher.setting.support.SettingJson;
 
 public class FunctionbarUI extends BaseUI {
 
-    public FunctionbarUI(Activity context) {
+    public FunctionbarUI(Context context) {
         super(context);
     }
 
     private LinearLayout layout_functionbar;
     private LinearLayout buttonUser;
-    private Button buttonPlugin;
-    private Button buttonGamelist;
-    private Button buttonGamedir;
-    private Button buttonSetting;
-    private Button buttonKeyboard;
-
+    private LinearLayout buttonPlugin;
+    private LinearLayout buttonGamelist;
+    private LinearLayout buttonGamedir;
+    private LinearLayout buttonSetting;
+    private LinearLayout buttonKeyboard;
+    private LinearLayout buttonHome;
     private TextView textUserName;
     private TextView textUserType;
-
-    private View[] views;
-
+    private SettingJson setting;
 
     @Override
-    public void onCreate(SettingJson setting) {
-        layout_functionbar = mContext.findViewById(R.id.layout_functions);
+    public void onCreate() {
+        super.onCreate();
+        setting = MainActivity.Setting;
+        layout_functionbar = MainActivity.CURRENT_ACTIVITY.findViewById(R.id.layout_functions);
         buttonUser = layout_functionbar.findViewById(R.id.main_button_user);
         buttonPlugin = layout_functionbar.findViewById(R.id.main_button_plugin);
         buttonGamelist = layout_functionbar.findViewById(R.id.main_button_gamelist);
         buttonGamedir = layout_functionbar.findViewById(R.id.main_button_gamedir);
         buttonSetting = layout_functionbar.findViewById(R.id.main_button_setting);
         buttonKeyboard = layout_functionbar.findViewById(R.id.main_button_keyboard);
-
+        buttonHome = layout_functionbar.findViewById(R.id.main_button_home);
         textUserName = layout_functionbar.findViewById(R.id.functionbar_username);
         textUserType = layout_functionbar.findViewById(R.id.functionbar_usertype);
 
-        views = new View[]{buttonUser,buttonPlugin,buttonGamelist,buttonGamedir,buttonSetting,buttonKeyboard};
-        for(View v : views){
+        for(View v : new View[]{buttonUser,buttonPlugin,buttonGamelist,buttonGamedir,buttonSetting,buttonKeyboard,buttonHome}){
             v.setOnClickListener(clickListener);
         }
-        refreshUI(setting);
+        refreshUI();
 
     }
 
     @Override
-    public void refreshUI(SettingJson setting) {
-        refreshUserInfo(setting);
+    public void refreshUI() {
+        refreshUserInfo();
     }
 
     @Override
-    public SettingJson saveUIConfig(SettingJson setting) {
-        return setting;
+    public void saveUIConfig() {
+
     }
 
     @Override
@@ -78,42 +75,44 @@ public class FunctionbarUI extends BaseUI {
         @Override
         public void onClick(View v) {
             if(v == buttonUser){
-                ((MainActivity)mContext).switchUIs(((MainActivity) mContext).uiUser,mContext.getString(R.string.title_user));
+                MainActivity.CURRENT_ACTIVITY.switchUIs(MainActivity.CURRENT_ACTIVITY.mUiManager.uiUser,mContext.getString(R.string.title_user));
             }
             if(v == buttonPlugin){
-                ((MainActivity)mContext).switchUIs(((MainActivity) mContext).uiPlugin,mContext.getString(R.string.title_plugin));
+                MainActivity.CURRENT_ACTIVITY.switchUIs(MainActivity.CURRENT_ACTIVITY.mUiManager.uiPlugin,mContext.getString(R.string.title_plugin));
             }
             if(v == buttonGamelist){
-                ((MainActivity)mContext).switchUIs(((MainActivity) mContext).uiGamelist,mContext.getString(R.string.title_gamelist));
+                MainActivity.CURRENT_ACTIVITY.switchUIs(MainActivity.CURRENT_ACTIVITY.mUiManager.uiGamelist,mContext.getString(R.string.title_gamelist));
             }
             if(v == buttonGamedir){
-                ((MainActivity)mContext).switchUIs(((MainActivity) mContext).uiGamedir,mContext.getString(R.string.title_gamedir));
+                MainActivity.CURRENT_ACTIVITY.switchUIs(MainActivity.CURRENT_ACTIVITY.mUiManager.uiGamedir,mContext.getString(R.string.title_gamedir));
             }
             if(v == buttonSetting){
-                ((MainActivity)mContext).switchUIs(((MainActivity) mContext).uiLauncherSetting,mContext.getString(R.string.title_launchersetting));
+                MainActivity.CURRENT_ACTIVITY.switchUIs(MainActivity.CURRENT_ACTIVITY.mUiManager.uiLauncherSetting,mContext.getString(R.string.title_launchersetting));
             }
             if(v == buttonKeyboard){
-                //Start VirtualKeyboardActivity.
-                Intent intent = new Intent(mContext, VirtualKeyBoardActivity.class);
+                Intent intent = new Intent(mContext, CustomizeKeyboardEditorActivity.class);
                 mContext.startActivity(intent);
+            }
+            if(v == buttonHome){
+                MainActivity.CURRENT_ACTIVITY.switchUIs(MainActivity.CURRENT_ACTIVITY.mUiManager.uiStartGame,mContext.getString(R.string.title_home));
             }
         }
     };
 
-    private void refreshUserInfo(SettingJson setting){
+    private void refreshUserInfo(){
         boolean selected = false;
-        SettingJson.Accounts[] accounts = setting.getAccounts();
+        SettingJson.Account[] accounts = setting.getAccounts();
         if(accounts != null && accounts.length != 0){
-            for(SettingJson.Accounts a : accounts){
+            for(SettingJson.Account a : accounts){
                 if(a.isSelected()){
                     selected = true;
                     textUserName.setText(a.getUsername());
                     String type;
                     switch(a.getType()){
-                        case "offline":
+                        case SettingJson.USER_TYPE_OFFLINE:
                             type = mContext.getString(R.string.title_offline);
                             break;
-                        case "online":
+                        case SettingJson.USER_TYPE_ONLINE:
                             type = mContext.getString(R.string.title_online);
                             break;
                         default:

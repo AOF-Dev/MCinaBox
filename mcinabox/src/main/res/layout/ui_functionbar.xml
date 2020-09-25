@@ -15,14 +15,15 @@
             android:gravity="clip_vertical"
             android:orientation="vertical">
             <!-- 可以添加其他的view -->
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
-                android:text="@string/title_account"
-                android:textColor="@color/puredark"
-                android:textSize="10sp" />
+                android:text="主页"
+                android:textColor="@color/text_info"
+                android:textSize="@dimen/text_small" />
 
             <View
                 android:layout_width="fill_parent"
@@ -32,50 +33,92 @@
                 android:background="@android:color/background_dark" />
 
             <LinearLayout
+                android:id="@+id/main_button_home"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
+                android:orientation="horizontal"
                 android:paddingStart="15dp"
-                android:paddingBottom="10dp"
-                android:orientation="horizontal">
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
 
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/steve_pic_2"/>
+                    android:src="@drawable/ic_home_black_24dp"/>
+
+                <TextView
+                    android:layout_marginStart="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="主页"
+                    android:textColor="@color/text_title_main"
+                    android:textSize="@dimen/text_big" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/title_account"
+                android:textColor="@color/text_info"
+                android:textSize="@dimen/text_small" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@android:color/background_dark" />
+
+            <LinearLayout
+                android:id="@+id/main_button_user"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingStart="15dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/steve_pic_2" />
+
                 <LinearLayout
-                    android:id="@+id/main_button_user"
-                    android:background="@drawable/layout_button_background"
                     android:layout_width="80dp"
                     android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
+                    android:background="@drawable/layout_button_background"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/functionbar_username"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_mid"
                         android:text="@string/title_user"
-                        android:textColor="@color/text_info"/>
+                        android:textColor="@color/text_info"
+                        android:textSize="@dimen/text_mid" />
 
                     <TextView
                         android:id="@+id/functionbar_usertype"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_small"
-                        android:text="type"
-                        android:textColor="@color/text_info"/>
+                        android:textColor="@color/text_info"
+                        android:textSize="@dimen/text_small" />
 
                 </LinearLayout>
 
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_marginEnd="5dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_list_black_36dp"/>
+                    android:layout_marginEnd="5dp"
+                    android:src="@drawable/ic_list_black_36dp" />
 
             </LinearLayout>
 
@@ -85,8 +128,8 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
                 android:text="@string/title_game"
-                android:textColor="@color/puredark"
-                android:textSize="10sp" />
+                android:textColor="@color/text_info"
+                android:textSize="@dimen/text_small" />
 
             <View
                 android:layout_width="fill_parent"
@@ -96,39 +139,55 @@
                 android:background="@android:color/background_dark" />
 
             <LinearLayout
+                android:id="@+id/main_button_plugin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingStart="15dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
 
-                <Button
-                    android:id="@+id/main_button_plugin"
-                    android:layout_width="match_parent"
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/grass" />
+
+                <TextView
+                    android:layout_marginStart="10dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/layout_button_background"
-                    android:drawableStart="@drawable/grass"
-                    android:drawablePadding="5dp"
-                    android:gravity="center_vertical"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="0dp"
-                    android:text="@string/title_plugin" />
+                    android:layout_gravity="center"
+                    android:text="@string/title_plugin"
+                    android:textColor="@color/text_title_main"
+                    android:textSize="@dimen/text_big" />
+
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/main_button_gamelist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingStart="15dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
 
-                <Button
-                    android:id="@+id/main_button_gamelist"
-                    android:layout_width="match_parent"
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/bookshelf" />
+
+                <TextView
+                    android:layout_marginStart="10dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/layout_button_background"
-                    android:drawableStart="@drawable/bookshelf"
-                    android:drawablePadding="5dp"
-                    android:gravity="center_vertical"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="0dp"
-                    android:text="@string/title_gamelist" />
+                    android:layout_gravity="center"
+                    android:text="@string/title_gamelist"
+                    android:textColor="@color/text_title_main"
+                    android:textSize="@dimen/text_big" />
+
             </LinearLayout>
 
             <TextView
@@ -137,8 +196,8 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
                 android:text="@string/title_gamedir"
-                android:textColor="@color/puredark"
-                android:textSize="10sp" />
+                android:textColor="@color/text_info"
+                android:textSize="@dimen/text_small" />
 
             <View
                 android:layout_width="fill_parent"
@@ -148,21 +207,28 @@
                 android:background="@android:color/background_dark" />
 
             <LinearLayout
+                android:id="@+id/main_button_gamedir"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingStart="15dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
 
-                <Button
-                    android:id="@+id/main_button_gamedir"
-                    android:layout_width="match_parent"
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/craft_table" />
+
+                <TextView
+                    android:layout_marginStart="10dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/layout_button_background"
-                    android:drawableStart="@drawable/craft_table"
-                    android:drawablePadding="5dp"
-                    android:gravity="center_vertical"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="0dp"
-                    android:text="@string/title_gamedir" />
+                    android:layout_gravity="center"
+                    android:text="@string/title_gamedir"
+                    android:textColor="@color/text_title_main"
+                    android:textSize="@dimen/text_big" />
 
             </LinearLayout>
 
@@ -172,8 +238,8 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
                 android:text="@string/title_launcher"
-                android:textColor="@color/puredark"
-                android:textSize="10sp" />
+                android:textColor="@color/text_info"
+                android:textSize="@dimen/text_small" />
 
             <View
                 android:layout_width="fill_parent"
@@ -183,39 +249,55 @@
                 android:background="@android:color/background_dark" />
 
             <LinearLayout
+                android:id="@+id/main_button_setting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingStart="15dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
 
-                <Button
-                    android:id="@+id/main_button_setting"
-                    android:layout_width="match_parent"
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/command" />
+
+                <TextView
+                    android:layout_marginStart="10dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/layout_button_background"
-                    android:drawableStart="@drawable/command"
-                    android:drawablePadding="5dp"
-                    android:gravity="center_vertical"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="0dp"
-                    android:text="@string/title_launchersetting" />
+                    android:layout_gravity="center"
+                    android:text="@string/title_launchersetting"
+                    android:textColor="@color/text_title_main"
+                    android:textSize="@dimen/text_big" />
+
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/main_button_keyboard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingStart="15dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
 
-                <Button
-                    android:id="@+id/main_button_keyboard"
-                    android:layout_width="match_parent"
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/furnace" />
+
+                <TextView
+                    android:layout_marginStart="10dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/layout_button_background"
-                    android:drawableStart="@drawable/furnace"
-                    android:drawablePadding="5dp"
-                    android:gravity="center_vertical"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="0dp"
-                    android:text="@string/title_keyboardsetting" />
+                    android:layout_gravity="center"
+                    android:text="@string/title_keyboardsetting"
+                    android:textColor="@color/text_title_main"
+                    android:textSize="@dimen/text_big" />
+
             </LinearLayout>
 
         </LinearLayout>

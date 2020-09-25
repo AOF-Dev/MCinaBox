@@ -1,20 +1,18 @@
 package com.aof.mcinabox.launcher.uis;
 
-import android.app.Activity;
+import android.content.Context;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-
 import com.aof.mcinabox.MainActivity;
 import com.aof.mcinabox.R;
-import com.aof.mcinabox.launcher.json.SettingJson;
+import com.aof.mcinabox.launcher.setting.support.SettingJson;
 
 public class PluginUI extends BaseUI {
 
-    public PluginUI(Activity context) {
+    public PluginUI(Context context) {
         super(context);
     }
 
@@ -23,32 +21,31 @@ public class PluginUI extends BaseUI {
     private LinearLayout buttonRefresh;
     private ListView listPlugins;
     private Animation showAnim;
-
-    private View[] views;
+    private SettingJson setting;
 
     @Override
-    public void onCreate(SettingJson setting) {
+    public void onCreate( ) {
+        super.onCreate();
+        setting = MainActivity.Setting;
         showAnim = AnimationUtils.loadAnimation(mContext, R.anim.layout_show);
-        lagout_plugin = mContext.findViewById(R.id.layout_plugin);
+        lagout_plugin = MainActivity.CURRENT_ACTIVITY.findViewById(R.id.layout_plugin);
         buttonAddPlugin = lagout_plugin.findViewById(R.id.plugin_button_addplugin);
         buttonRefresh = lagout_plugin.findViewById(R.id.plugin_button_refresh);
         listPlugins = lagout_plugin.findViewById(R.id.listview_plugins);
 
-        views = new View[]{buttonRefresh,buttonAddPlugin};
-        for(View v : views){
+        for(View v : new View[]{buttonAddPlugin, buttonRefresh}){
             v.setOnClickListener(clickListener);
         }
-        refreshUI(setting);
+        refreshUI();
     }
 
     @Override
-    public void refreshUI(SettingJson setting) {
+    public void refreshUI() {
         refreshPluginList();
     }
 
     @Override
-    public SettingJson saveUIConfig(SettingJson setting) {
-        return setting;
+    public void saveUIConfig() {
     }
 
     @Override
@@ -71,7 +68,7 @@ public class PluginUI extends BaseUI {
                 //TODO:添加插件功能
             }
             if(v == buttonRefresh){
-                ((MainActivity)mContext).refreshLauncher(null,true);
+                //TODO:刷新插件列表
             }
         }
     };

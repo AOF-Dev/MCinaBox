@@ -1,68 +1,61 @@
 package com.aof.mcinabox.launcher.uis;
 
-import android.app.Activity;
+import android.content.Context;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.Toast;
-
 import com.aof.mcinabox.MainActivity;
 import com.aof.mcinabox.R;
-import com.aof.mcinabox.launcher.core.LaunchMinecraft;
-import com.aof.mcinabox.launcher.JsonUtils;
-import com.aof.mcinabox.launcher.json.SettingJson;
-import com.aof.mcinabox.launcher.version.LocalVersionListBean;
-import com.aof.mcinabox.utils.FileTool;
-import com.aof.mcinabox.utils.PathTool;
-
-import java.io.File;
+import com.aof.mcinabox.launcher.launch.LaunchManager;
+import com.aof.mcinabox.launcher.setting.support.SettingJson;
+import com.aof.mcinabox.launcher.uis.support.Utils;
+import com.aof.mcinabox.launcher.version.VersionManager;
 import java.util.ArrayList;
+import java.util.Arrays;
 
-import static com.aof.sharedmodule.Data.DataPathManifest.MCINABOX_DATA_PRIVATE;
-import static com.aof.sharedmodule.Data.DataPathManifest.MCINABOX_DATA_PUBLIC;
-import static com.aof.sharedmodule.Data.DataPathManifest.MCINABOX_FILE_JSON;
-import static com.aof.sharedmodule.Data.DataPathManifest.MCINABOX_VERSION;
+public class StartGameUI extends BaseUI implements Spinner.OnItemSelectedListener {
 
-public class StartGameUI extends BaseUI {
-
-    public StartGameUI(Activity context) {
+    public StartGameUI(Context context) {
         super(context);
     }
 
     private LinearLayout layout_startgame;
     private LinearLayout buttonStartGame;
     private Spinner listVersions;
-
-    private View[] views;
-
+    private SettingJson setting;
 
     @Override
-    public void onCreate(SettingJson setting) {
-
-        layout_startgame = mContext.findViewById(R.id.layout_startgame);
+    public void onCreate() {
+        super.onCreate();
+        setting = MainActivity.Setting;
+        layout_startgame = MainActivity.CURRENT_ACTIVITY.findViewById(R.id.layout_startgame);
         buttonStartGame = layout_startgame.findViewById(R.id.main_button_startgame);
         listVersions = layout_startgame.findViewById(R.id.spinner_choice_version);
 
-        views = new View[]{buttonStartGame};
-        for (View v : views) {
+        //设定属性
+        refreshLocalVersionList();
+        if(setting.getLastVersion() != null &&  !setting.getLastVersion().equals("")){
+            setConfigureToVersionlist(setting.getLastVersion(), listVersions);
+        }
+
+        //设定监听器
+        for (View v : new View[]{buttonStartGame}) {
             v.setOnClickListener(clickListener);
         }
-        loadInfo(setting);
-        refreshUI(setting);
+        listVersions.setOnItemSelectedListener(this);
 
     }
 
     @Override
-    public void refreshUI(SettingJson setting) {
-        refreshLocalVersionList(setting);
+    public void refreshUI() {
+        refreshLocalVersionList();
     }
 
     @Override
-    public SettingJson saveUIConfig(SettingJson setting) {
-        saveLastVersion(setting);
-        return setting;
+    public void saveUIConfig() {
     }
 
     @Override
@@ -85,105 +78,51 @@ public class StartGameUI extends BaseUI {
         }
     };
 
-    public void loadInfo(SettingJson setting){
-        //These initial should not be applied after the UI has been created.
-        if(setting.getLastVersion() == null){
-            return;
-        }
-        if (!(setting.getLastVersion().equals(""))) {
-            setConfigureToVersionlist(setting.getLastVersion(), listVersions);
-        }
-    }
-
 
     /**
      * 【刷新本地游戏列表】
-     * Refresh loacl verion list.
      **/
     private ArrayList<String> versionIdList;
-    private void refreshLocalVersionList(SettingJson setting) {
-
-        PathTool pathTool = new PathTool(setting.getLocalization(), true);
-        ArrayList<String> versionIdList = new ArrayList<String>();
-        ArrayList<LocalVersionListBean> mlocalversionList = new ArrayList<LocalVersionListBean>();
-
-        ArrayList<String> versionIdListTmp;
-        try {
-            versionIdListTmp = FileTool.listChildDirFromTargetDir(pathTool.getMINECRAFT_VERSION_DIR());
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-            versionIdListTmp = new ArrayList<String>() {
-            };
-        }
-
-        for (String fileName : versionIdListTmp) {
-            if ((new File(pathTool.getMINECRAFT_VERSION_DIR() + fileName + "/" + fileName + ".json")).exists()) {
-                versionIdList.add(fileName);
-            }
-        }
-        for (String fileName : versionIdList) {
-            LocalVersionListBean localVersionListBean = new LocalVersionListBean();
-            localVersionListBean.setVersion_Id(fileName);
-            mlocalversionList.add(localVersionListBean);
-        }
-
-        if (listVersions.getAdapter() == null) {
-            this.versionIdList = versionIdList;
-            ArrayAdapter<String> mAdapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_item, this.versionIdList);
-            mAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-            listVersions.setAdapter(mAdapter);
-        } else {
-            this.versionIdList.clear();
-            this.versionIdList.addAll(versionIdList);
-            ((BaseAdapter) listVersions.getAdapter()).notifyDataSetChanged();
+    private void refreshLocalVersionList() {
+        if(listVersions.getAdapter() == null){
+            versionIdList = new ArrayList<>();
+            versionIdList.addAll(Arrays.asList(VersionManager.getVersionsList()));
+            listVersions.setAdapter(new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_dropdown_item, this.versionIdList));
+        }else{
+            versionIdList.clear();
+            versionIdList.addAll(Arrays.asList(VersionManager.getVersionsList()));
+            ((BaseAdapter)listVersions.getAdapter()).notifyDataSetChanged();
         }
     }
 
     /**
      * 【启动Minecraft】
-     * Start to launch Minecraft.
      **/
     private void startMinecraft() {
-        ((MainActivity)mContext).quickSave();
-        LaunchMinecraft starter = new LaunchMinecraft(mContext);
-        if (checkConfig()) {
-            starter.StartGame();
-        } else {
-            Toast.makeText(mContext, mContext.getString(R.string.tips_check_setting), Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    /**
-     * 【检查启动状态】
-     * Check the state of the Launcher.
-     * If return false, launch task will be abort.
-     **/
-    private boolean checkConfig() {
-        //TODO:根据Tipper
-        return true;
-    }
-
-    /**
-     * 【保存选中的版本号】
-     * Save the last seleced version into Setting file.
-     **/
-    private void saveLastVersion(SettingJson setting) {
-        if (listVersions.getSelectedItem() != null) {
-            setting.setLastVersion(listVersions.getSelectedItem().toString());
-        } else {
-            setting.setLastVersion("");
-        }
+        new LaunchManager(mContext).launchMinecraft(MainActivity.Setting ,LaunchManager.LAUNCH_PRECHECK);
     }
 
     /**
      * 【匹配选中的版本】
-     * Selected the last version that launched.
      **/
     private void setConfigureToVersionlist(String id, Spinner list) {
         int pos = Utils.getItemPosByString(id, list);
         if (pos != -1) {
             list.setSelection(pos);
+        }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        if(parent == listVersions){
+            setting.setLastVersion((String) listVersions.getItemAtPosition(position));
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+        if(parent == listVersions){
+            setting.setLastVersion("");
         }
     }
 }

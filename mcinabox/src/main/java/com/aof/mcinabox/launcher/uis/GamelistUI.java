@@ -1,27 +1,24 @@
 package com.aof.mcinabox.launcher.uis;
 
-import android.app.Activity;
+import android.content.Context;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-
 import com.aof.mcinabox.MainActivity;
 import com.aof.mcinabox.R;
-import com.aof.mcinabox.launcher.json.SettingJson;
-import com.aof.mcinabox.launcher.version.LocalVersionListAdapter;
-import com.aof.mcinabox.launcher.version.LocalVersionListBean;
-import com.aof.mcinabox.utils.FileTool;
-import com.aof.mcinabox.utils.PathTool;
+import com.aof.mcinabox.launcher.setting.support.SettingJson;
+import com.aof.mcinabox.launcher.version.VersionManager;
+import com.aof.mcinabox.launcher.version.support.LocalVersionListAdapter;
+import com.aof.mcinabox.launcher.version.support.LocalVersionListBean;
 
-import java.io.File;
 import java.util.ArrayList;
 
 public class GamelistUI extends BaseUI {
 
-    public GamelistUI(Activity context){
+    public GamelistUI(Context context){
         super(context);
     }
 
@@ -31,33 +28,33 @@ public class GamelistUI extends BaseUI {
     private LinearLayout buttonGameSetting;
     private ListView listLocalVersions;
     private Animation showAnim;
-
-    private View[] views;
+    private SettingJson setting;
 
     @Override
-    public void onCreate(SettingJson setting) {
+    public void onCreate() {
+        super.onCreate();
+        setting = MainActivity.Setting;
         showAnim = AnimationUtils.loadAnimation(mContext, R.anim.layout_show);
-        layout_gamelist = mContext.findViewById(R.id.layout_gamelist);
+        layout_gamelist = MainActivity.CURRENT_ACTIVITY.findViewById(R.id.layout_gamelist);
         buttonInstallGame = layout_gamelist.findViewById(R.id.gamelist_button_installnewgame);
         buttonRefreshList = layout_gamelist.findViewById(R.id.gamelist_button_reflash_locallist);
         buttonGameSetting = layout_gamelist.findViewById(R.id.gamelist_button_setting);
         listLocalVersions = layout_gamelist.findViewById(R.id.list_local_version);
 
-        views = new View[]{buttonGameSetting,buttonInstallGame,buttonRefreshList};
-        for(View v : views){
+        for(View v : new View[]{buttonGameSetting,buttonInstallGame,buttonRefreshList}){
             v.setOnClickListener(clickListener);
         }
-        refreshUI(setting);
+        refreshUI();
     }
 
     @Override
-    public void refreshUI(SettingJson setting) {
-        refreshLocalVersionList(setting);
+    public void refreshUI() {
+        refreshLocalVersionList();
     }
 
     @Override
-    public SettingJson saveUIConfig(SettingJson setting) {
-        return setting;
+    public void saveUIConfig() {
+
     }
 
     @Override
@@ -78,13 +75,13 @@ public class GamelistUI extends BaseUI {
         @Override
         public void onClick(View v) {
             if(v == buttonGameSetting) {
-                ((MainActivity) mContext).switchUIs(((MainActivity) mContext).uiGameSetting, mContext.getString(R.string.title_setting_minecraft) + " - " + mContext.getString(R.string.title_gamelist));
+                MainActivity.CURRENT_ACTIVITY.switchUIs(MainActivity.CURRENT_ACTIVITY.mUiManager.uiGameSetting, mContext.getString(R.string.title_setting_minecraft) + " - " + mContext.getString(R.string.title_gamelist));
             }
             if(v == buttonInstallGame){
-                ((MainActivity)mContext).switchUIs(((MainActivity) mContext).uiInstallVersion,mContext.getString(R.string.title_install_newversion) + " - " + mContext.getString(R.string.title_gamelist));
+                MainActivity.CURRENT_ACTIVITY.switchUIs(MainActivity.CURRENT_ACTIVITY.mUiManager.uiInstallVersion,mContext.getString(R.string.title_install_newversion) + " - " + mContext.getString(R.string.title_gamelist));
             }
             if(v == buttonRefreshList){
-
+                refreshLocalVersionList();
             }
         }
 
@@ -92,45 +89,18 @@ public class GamelistUI extends BaseUI {
 
     /**
      * 【刷新本地游戏列表】
-     * Refresh the local Version list.
-     * These versions are from your sdcard.
      **/
-    private ArrayList<LocalVersionListBean> localversionList;
-
-    private ArrayList<String> versionIdList;
-
-    public void refreshLocalVersionList(SettingJson setting) {
-        PathTool pathTool = new PathTool(setting.getLocalization(),true);
-        ArrayList<String> versionIdListTmp;
-        try {
-            versionIdListTmp = FileTool.listChildDirFromTargetDir(pathTool.getMINECRAFT_VERSION_DIR());
-        }catch(NullPointerException e){
-            e.printStackTrace();
-            versionIdListTmp = new ArrayList<String>(){};
-        }
-        ArrayList<String> versionIdList = new ArrayList<String>();
-        ArrayList<LocalVersionListBean> mlocalversionList = new ArrayList<LocalVersionListBean>();
-        for (String fileName : versionIdListTmp) {
-            if ((new File(pathTool.getMINECRAFT_VERSION_DIR() + fileName + "/" + fileName + ".json")).exists()) {
-                versionIdList.add(fileName);
-            }
-        }
-        for (String fileName : versionIdList) {
-            LocalVersionListBean localVersionListBean = new LocalVersionListBean();
-            localVersionListBean.setVersion_Id(fileName);
-            mlocalversionList.add(localVersionListBean);
-        }
-
-        if(listLocalVersions.getAdapter() == null){
-            this.localversionList = mlocalversionList;
-            LocalVersionListAdapter localversionlistadapter = new LocalVersionListAdapter(mContext, this.localversionList);
-            listLocalVersions.setAdapter(localversionlistadapter);
+    private ArrayList<LocalVersionListBean> beans;
+    public void refreshLocalVersionList() {
+        if(beans == null){
+            beans = new ArrayList<>();
+            beans.addAll(VersionManager.getVersionBeansList());
+            listLocalVersions.setAdapter(new LocalVersionListAdapter(mContext, beans));
         }else{
-            this.localversionList.clear();
-            this.localversionList.addAll(mlocalversionList);
+            beans.clear();
+            beans.addAll(VersionManager.getVersionBeansList());
             ((BaseAdapter)listLocalVersions.getAdapter()).notifyDataSetChanged();
         }
-
     }
 
 
