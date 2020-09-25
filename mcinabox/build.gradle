@@ -9,7 +9,6 @@ android {
         targetSdkVersion 21
         versionCode 5
         versionName '0.1.4-p2'
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
