@@ -1,103 +1,108 @@
 # MCinaBox - A Minecraft Java Edition Launcher on Android
 现在是简体中文[Change to English](./README_en.md)</br>
 其他语言仍在翻译中。 请耐心等待（软件和某些页面）
-## Warning
-- 最新的源代码有问题。 某些功能无法正常工作。
-- 由于我没时间维护项目，最新的源代码不完善。
 
-## Table of Contents
-- [Background](#Background)
-- [Change Log](#Change-Log)
-- [Build](#Build)
-- [Usage](#Usage)
-- [Preview](#Preview)
-- [Known Issues](#Known-Issues)
-- [Maintainers](#Maintainers)
-- [Contribution](#Contribution)
-- [Related](#Related)
-- [License](#License)
+## 面向开发者
+- 当前分支为Dev分支，面向开发者们。
+
+## 目录
+- [项目背景](#项目背景)
+- [更新日志](#更新日志)
+- [构建](#构建)
+- [使用](#使用)
+- [预览](#预览)
+- [已知问题](#已知问题)
+- [维护者](#维护者)
+- [许可](#许可)
+- [贡献者](#贡献者)
+- [依赖的开源项目库](#依赖的开源项目)
 - [Q&A](./Q&A.md)
-## Background
 
-`Origin`我几年前发现了`BoardwalkApp`，它可以在Android设备上启动Minecraft Java Edition。 看到我的世界在我的手机上启动真是令人兴奋，这确实是一个有趣而有趣的项目<br>
- `MCinaBox`是一个开源项目，后端由`BoatApp`项目支持。 并且在许多人的努力下使其得以运行。
->zhuowei 's BoardwalkApp https://github.com/zhuowei/Boardwalk <br>
->CosineMath 's BoatApp https://github.com/CosineMath/BoatApp
+## 项目背景
+- `MCinaBox`是一个开源项目，目标是构建并发展一个运行在Android系统上的Minecraft Java版的启动器。
+- `前端` 提供用户管理、Minecraft版本管理、Minecraft游戏控制器、Minecraft启动参数生成、配置后端等`配置`和`管理`功能，减少完整的启动器开发的工作量。
+- `后端` 提供JRE运行环境、Minecraft运行环境等`核心`功能。
+- `组成` MCinaBox 启动器由前端和后端共同组成
 
-## Change Log
-
+## 更新日志
 - [English](./CHANGELOG.md)
 - [Chinese](./CHANGELOG_zh-cn.md)
 
-## Build
+## 构建
 
-### Environment
+### 准备开发环境
 - Android Studio
 - Android NDK
 - Git
 
-### Clone
+### 克隆到本地
 - ```git clone https://github.com/longjunyu2/MCinaBox.git ```
 
-### Import
-- 将此项目导入您的Android Studio
+### 导入项目到AS
+- 将此项目导入您的 Android Studio
 
-### Build
-- 通过Android Studio构建
+### 编译
+- 通过 Android Studio 编译项目
 
 #### 您也可以从[这里](https://github.com/longjunyu2/MCinaBox/releases)获得发布的APK。
 
-## Usage
+## 使用
 
-### Install
+### 安装
 1. 将最新的APK和运行时包下载到您的Android手机。
-2. 安装APK并至少启动一次。
-3. 将运行时复制到```/sdcard/Android/data/com.aof.mcinabox/files/MCinaBox/runtimepack/```
-4. 然后启动APK并找到```Launcher Set```以导入运行时包。
-### Play
-1. 在开始游戏之前，您需要根据软件中的说明配置启动器。 直到指示灯从红色变为蓝色。
-2. 您需要做的包括创建用户，修改最大内存，下载游戏版本以及创建自己的虚拟键盘模板。
-### Forge
-理论上，支持forge，但是我们需要进行一些更改以启动它。
-1. 将已安装的forge版本从计算机复制到```/sdcard/mcinabox/.minecraft/```，包括```libraries```和```versions```。
-2. 至少一次在MCinaBox中启动它。（因此，它无法启动）
-3. Edit ```/sdcard/MCinaBox/.minecraft/config/splash.properties``` to change ```enabled=true``` to ```enabled=false``` to close forge loading animation.
-编辑```/sdcard/MCinaBox/.minecraft/config/splash.properties```以将```enabled=true```更改为```enabled=false```以关闭forge加载动画。
-4. 尝试再次启动forge。它会变黑替换，但通常很有用。
-### Matters needing attention
-1. Mipmap将导致渲染问题。 请在Minecraft```settings - video settings - mipmap=0```中将其关闭。
+2. 然后启动APK并找到 `启动器设置` - `导入运行库` 点击 `导入` 以导入运行库。
 
-## Preview
+### 开始
+1. 首先，您需要创建一个用户。 请在 `左侧导航栏` - `用户` - `添加新用户` 来创建一个用户
+2. 其次，您需要下载Minecraft。 请在 `左侧导航栏` - `游戏列表` - `安装新游戏版本` 下载Minecraft游戏
+3. 最后，您将要启动游戏。 请在`左侧导航栏` - `主页` 选择一个Minecraft版本并启动。
 
-## Known Issues
+### Forge API
+1. 首先，请在Forge官网下载Forge-Installer，必须是`通用版`的且是`jar`格式。
+2. 然后，请将下载的jar文件放入`/sdcard/Android/com.aof.mcinabox/files/MCinaBox/forge`文件夹中。
+3. 最后，请打开MCinabox，在`左侧导航栏` - `启动器设置` - `Forge本地安装其` 选择并安装forge版本。
 
-### Launcher
-1. 无法从系统请求更多内存，上限由系统确定。
+### 自定义
+1. MCinaBox提供了大量的自定义选项，您可以在 `左侧导航栏你` - `游戏列表` - `全局游戏设置` 中配置您的启动参数。
+2. MCinaBox提供了自定义Minecraft工作目录的功能，您可以在 `左侧导航栏` - `游戏目录` 中配置您的Minecraft工作目录。
+3. MCinaBox提供了自定义游戏控制器的功能，您可以在 `左侧导航栏` - `虚拟键盘设置` 中创建您的虚拟键盘布局。
 
-### Launch Minecraft
-1. Forge的加载动画会导致崩溃
-2. 在低于1.6的Minecraft版本中启动似乎会出现X11错误
-3. 无法初始化Minecraft 1.13.x
-4. Minecraft 1.14.X〜1.15.X出现渲染问题
-5. 太快的按键输入可能导致lwjgl崩溃
+### 正版登录
+1. MCinaBox支持Minecraft的正版验证，您可以在创建用户时，勾选 `正版登录` ，输入您的Mojang账户和密码来进行登录。
+2. MCinaBox不会以任何形式记录您的密码。
 
-## Maintainers
+## 预览
+
+## 已知问题
+
+### 启动器
+1. 启动器可用的内存大小和系统可用内存相比小很多，且调高内存易发生崩溃。
+
+### 我的世界
+1. Forge的加载动画会导致崩溃。
+2. 在低于1.6的Minecraft版本中启动似乎会出现X11错误。
+3. 无法初始化Minecraft 1.13.x。
+4. Minecraft 1.14.X〜1.15.X出现渲染问题。
+5. 有时候会发生lwjgl崩溃。
+
+## 维护者
 [@longjunyu2](https://github.com/longjunyu2)
+[@AOF-Dev](https://github.com/AOF-Dev)
 
-## License
+## 许可
 该软件根据[GPL v3](https://www.gnu.org/licenses/gpl-3.0.html)和附加条款进行分发。
 ### 附加条款（依据 GPLv3 协议第七条）
 1. 当你分发本程序的修改版本时，你必须以一种合理的方式修改本程序的名称或版本号，以示其与原始版本不同。 [依据 GPLv3, 7(c).]
 2. 你不得移除本程序所显示的版权声明。[依据 GPLv3, 7(b).]
 
-## Contribution
+## 贡献者
 这个项目的存在要感谢所有贡献者。
 
-### List of contributors:
-- [ALL](https://github.com/longjunyu2/MCinaBox/graphs/contributors)
+### 贡献者列表:
+- [全部](https://github.com/longjunyu2/MCinaBox/graphs/contributors)
 - `MCredbear`
 - `TSaltedfishKing`
-- 提出问题的所有人。
+- 所有提出Issues的人。
 
 
 如果要提交拉取请求，则有一些要求：
@@ -106,18 +111,18 @@
 * MimniumSDK: 21
 * 不要修改`gradle`文件。
 
-## Related
-> [BoatApp (CosineMath,MIT)](https://github.com/CosineMath/BoatApp)</br>
-> Gson (Google,Apache 2.0)</br>
-> XZ for Java (Lasse Collin,Public Domain)</br>
-> [JNDCrash (ivanarh,Apache-2.0)](https://github.com/ivanarh/jndcrash)</br>
-> [GL4ES (pitiSeb,MIT)](https://github.com/ptitSeb/gl4es)</br>
-> [FileDownloader (lingochamp,Apache-2.0)](https://github.com/lingochamp/FileDownloader)</br>
-> [BubbleLayout (MasayukiSuda)](https://github.com/MasayukiSuda/BubbleLayout)</br>
-> [AndroidRocker (kongqw)](https://github.com/kongqw/AndroidRocker)</br>
-> [colorpicker (shixiuwen)](https://github.com/shixiuwen/colorpicker)</br>
-> [OpenJDK-8 (CosineMath,GPL-2.0)](https://github.com/CosineMath/openjdk-jdk8u-aarch32-android)</br>
-> [lwjgl2.x (CosineMath)](https://github.com/CosineMath/lwjgl-boat)</br>
-> [lwjgl3.x (CosineMath)](https://github.com/CosineMath/lwjgl3-boat)</br>
-> [glfw (CosineMath)](https://github.com/CosineMath/glfw-boat)</br>
-> [openal-soft (kcat,GPL-2.0)](https://github.com/kcat/openal-soft)</br>
+## 依赖的开源项目
+* [BoatApp (CosineMath,MIT)](https://github.com/CosineMath/BoatApp)
+* Gson (Google,Apache 2.0)
+* XZ for Java (Lasse Collin,Public Domain)
+* [JNDCrash (ivanarh,Apache-2.0)](https://github.com/ivanarh/jndcrash)
+* [GL4ES (pitiSeb,MIT)](https://github.com/ptitSeb/gl4es)
+* [FileDownloader (lingochamp,Apache-2.0)](https://github.com/lingochamp/FileDownloader)
+* [BubbleLayout (MasayukiSuda,All)](https://github.com/MasayukiSuda/BubbleLayout)
+* [AndroidRocker (kongqw,All)](https://github.com/kongqw/AndroidRocker)
+* [colorpicker (shixiuwen,All)](https://github.com/shixiuwen/colorpicker)
+* [OpenJDK-8 (CosineMath,GPL-2.0)](https://github.com/CosineMath/openjdk-jdk8u-aarch32-android)
+* [lwjgl2.x (CosineMath,All)](https://github.com/CosineMath/lwjgl-boat)
+* [lwjgl3.x (CosineMath,All)](https://github.com/CosineMath/lwjgl3-boat)
+* [glfw (CosineMath,All)](https://github.com/CosineMath/glfw-boat)
+* [openal-soft (kcat,GPL-2.0)](https://github.com/kcat/openal-soft)
