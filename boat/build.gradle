@@ -8,33 +8,25 @@ android {
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
-        /*externalNativeBuild {
+        externalNativeBuild {
             cmake {
-                arguments "-DANDROID_STL=c++_shared"
+                abiFilters "armeabi-v7a"
             }
         }
-
-         */
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            /*ndk{
-                abiFilters "armeabi-v7a"
-            }
-
-             */
         }
     }
-    /*externalNativeBuild {
+    externalNativeBuild {
         cmake {
             path file('src/main/jni/CMakeLists.txt')
         }
     }
-     */
-    //ndkVersion '17.2.4988734'
 
+    ndkVersion '16.1.4479499'
 }
 
 dependencies {
