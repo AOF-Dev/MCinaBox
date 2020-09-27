@@ -22,7 +22,7 @@
                 android:layout_marginTop="10dp"
                 android:textColor="@color/text_info"
                 android:textSize="@dimen/text_big"
-                android:text="@string/title_minecraft_setting_basic" />
+                android:text="@string/title_setting_basic" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -44,7 +44,7 @@
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="@string/title_minecraft_setting_keyboard_layout"
+                        android:text="@string/title_keyboard_layout"
                         android:textColor="@color/text_title_main"
                         android:textSize="@dimen/text_mid" />
 
@@ -75,7 +75,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/title_minecraft_setting_memory_max"
+                            android:text="@string/title_max_memory"
                             android:textColor="@color/text_title_main"
                             android:textSize="@dimen/text_mid"/>
 
@@ -87,7 +87,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/title_minecraft_setting_memory_hardware"
+                                android:text="@string/title_hardware_memory"
                                 android:textColor="@color/text_info"
                                 android:textSize="@dimen/text_small" />
 
@@ -127,7 +127,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="自动设定内存上限"
+                        android:text="@string/tips_auto_setting_max_memory"
                         android:textColor="@color/text_title_main"
                         android:textSize="@dimen/text_mid" />
 
@@ -148,7 +148,7 @@
                 android:layout_marginTop="10dp"
                 android:textColor="@color/text_info"
                 android:textSize="@dimen/text_big"
-                android:text="@string/title_minecraft_setting_profession" />
+                android:text="@string/title_profession_setting" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -170,7 +170,7 @@
                         android:id="@+id/setting_edit_javaargs"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/tips_minecraft_setting_extra_javaargs"
+                        android:hint="@string/tips_jvm_extra_args"
                         android:textSize="@dimen/text_mid"
                         android:inputType="text" />
                 </LinearLayout>
@@ -190,7 +190,7 @@
                         android:id="@+id/setting_edit_minecraftargs"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/tips_minecraft_setting_extra_mcargs"
+                        android:hint="@string/tips_minecraft_extra_args"
                         android:textSize="@dimen/text_mid"
                         android:inputType="text"/>
                 </LinearLayout>
@@ -210,7 +210,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="@string/title_minecraft_setting_notcheck_jvm"
+                        android:text="@string/title_not_check_jvm_platform"
                         android:textColor="@color/text_title_main"
                         android:textSize="@dimen/text_mid" />
 
@@ -235,7 +235,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="@string/title_minecraft_setting_notcheck_mc"
+                        android:text="@string/title_not_check_minecraft"
                         android:textColor="@color/text_title_main"
                         android:textSize="@dimen/text_mid" />
 
@@ -260,7 +260,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="不检查消息管理器"
+                        android:text="@string/title_not_check_tipper"
                         android:textColor="@color/text_title_main"
                         android:textSize="@dimen/text_mid" />
 
@@ -285,7 +285,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="不检查Forge的配置"
+                        android:text="@string/title_not_check_forge_config"
                         android:textColor="@color/text_title_main"
                         android:textSize="@dimen/text_mid" />
 
@@ -310,7 +310,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="不检查options.txt"
+                        android:text="@string/title_not_check_options_txt"
                         android:textColor="@color/text_title_main"
                         android:textSize="@dimen/text_mid" />
 
@@ -335,7 +335,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="总是让我选择运行库加载策略"
+                        android:text="@string/title_select_runtime_manifest_by_user"
                         android:textColor="@color/text_title_main"
                         android:textSize="@dimen/text_mid" />
 
@@ -360,7 +360,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="启用调试"
+                        android:text="@string/title_enable_debug"
                         android:textColor="@color/text_title_main"
                         android:textSize="@dimen/text_mid" />
 

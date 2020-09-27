@@ -40,7 +40,6 @@ public class TipperManager {
             }
         }
         tipperList.add(tipbean);
-        Log.e(TAG,"添加完成 " + tipperList.size());
     }
 
     public void removeTip(int id){

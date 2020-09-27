@@ -1,8 +1,6 @@
 package com.aof.mcinabox.launcher.download.support;
 
-import android.util.Log;
 import androidx.annotation.Nullable;
-
 import com.aof.mcinabox.definitions.manifest.AppManifest;
 import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloader;
@@ -11,7 +9,6 @@ import com.liulishuo.filedownloader.FileDownloader;
 public class DownloadHelper {
 
     public static BaseDownloadTask createDownloadTask(String filepath, String url, @Nullable Integer tag){
-        Log.e("DownloadHelper","Url: "+url+" Filepath: "+ filepath);
         if(tag == null){
             //filepath是下载文件的绝对路径而不是目录
             return FileDownloader.getImpl().create(url).setPath(filepath).addHeader("User-Agent", AppManifest.APP_NAME + "/" + AppManifest.MCINABOX_VERSION_NAME);

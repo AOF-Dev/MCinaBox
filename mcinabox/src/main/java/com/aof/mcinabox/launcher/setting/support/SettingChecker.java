@@ -2,6 +2,7 @@ package com.aof.mcinabox.launcher.setting.support;
 
 import android.content.Context;
 import com.aof.mcinabox.MainActivity;
+import com.aof.mcinabox.R;
 import com.aof.mcinabox.definitions.manifest.AppManifest;
 import com.aof.mcinabox.launcher.runtime.RuntimeManager;
 import com.aof.mcinabox.launcher.tipper.TipperManager;
@@ -40,10 +41,10 @@ public class SettingChecker {
 
     public void checkIfChoseUser(){
         if(UserManager.getSelectedAccount(mSetting) == null){
-            mTipperManager.addTip(TipperManager.createTipBean(mContext, TipperManager.TIPPER_LEVEL_WARN, "未选择用户", new TipperRunable() {
+            mTipperManager.addTip(TipperManager.createTipBean(mContext, TipperManager.TIPPER_LEVEL_WARN, mContext.getString(R.string.tips_not_selected_user), new TipperRunable() {
                 @Override
                 public void run() {
-                    DialogUtils.createSingleChoiceDialog(mContext,"警告","您还没有选择用户，请在左侧导航栏选择用户管理并创建或选择一个用户。","确定",null);
+                    DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_warn),mContext.getString(R.string.tips_not_create_user_please_do_it),mContext.getString(R.string.title_ok),null);
                 }
             },CHECKER_ID_NOT_CHOOSE_USER));
         }else{
@@ -52,10 +53,10 @@ public class SettingChecker {
     }
     public void checkIfInstallRuntime(){
         if(RuntimeManager.getPackInfo() == null){
-            mTipperManager.addTip(TipperManager.createTipBean(mContext, TipperManager.TIPPER_LEVEL_WARN, "未安装运行库", new TipperRunable() {
+            mTipperManager.addTip(TipperManager.createTipBean(mContext, TipperManager.TIPPER_LEVEL_WARN, mContext.getString(R.string.tips_not_install_runtime), new TipperRunable() {
                 @Override
                 public void run() {
-                    DialogUtils.createSingleChoiceDialog(mContext,"警告","您还没有安装运行库，请在左侧导航栏选择启动器设置并安装运行库。","确定",null);
+                    DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_warn),mContext.getString(R.string.tips_not_install_runtime_please_do_it),mContext.getString(R.string.title_ok),null);
                 }
             },CHECKER_ID_NOT_INSTALL_RUNTIME));
         }else{
@@ -64,10 +65,10 @@ public class SettingChecker {
     }
     public void checkIfInstallGame(){
         if(FileTool.listChildDirFromTargetDir(AppManifest.MINECRAFT_VERSIONS).size() == 0){
-            mTipperManager.addTip(TipperManager.createTipBean(mContext, TipperManager.TIPPER_LEVEL_WARN, "未安装游戏", new TipperRunable() {
+            mTipperManager.addTip(TipperManager.createTipBean(mContext, TipperManager.TIPPER_LEVEL_WARN, mContext.getString(R.string.tips_not_select_version), new TipperRunable() {
                 @Override
                 public void run() {
-                    DialogUtils.createSingleChoiceDialog(mContext,"警告","您还没有安装任何的游戏版本，请在左侧导航栏选择游戏列表-安装新游戏版本并安装一个游戏版本。","确定",null);
+                    DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_warn),mContext.getString(R.string.tips_not_selected_version_please_do_it),mContext.getString(R.string.title_ok),null);
                 }
             },CHECKER_ID_NOT_INSTALL_GAME));
         }else{
@@ -76,10 +77,10 @@ public class SettingChecker {
     }
     public void checkMenmrySize(){
         if(mSetting.getConfigurations().getMaxMemory() < 256){
-            mTipperManager.addTip(TipperManager.createTipBean(mContext, TipperManager.TIPPER_LEVEL_NOTE, "内存分配过低", new TipperRunable() {
+            mTipperManager.addTip(TipperManager.createTipBean(mContext, TipperManager.TIPPER_LEVEL_NOTE, mContext.getString(R.string.tips_available_memory_low), new TipperRunable() {
                 @Override
                 public void run() {
-                    DialogUtils.createSingleChoiceDialog(mContext,"提示","您设定的内存上限过低，可能导致java虚拟机崩溃，请在左侧导航栏选择启动器设置调整内存大小。","确定",null);
+                    DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_note),mContext.getString(R.string.tips_please_set_more_memory),mContext.getString(R.string.title_ok),null);
                 }
             },CHECKER_ID_MEMORY_LOW));
         }else{
@@ -87,10 +88,10 @@ public class SettingChecker {
         }
 
         if(mSetting.getConfigurations().getMaxMemory() > MemoryUtils.getDynamicHeapSize(mContext) * 2 - 20){
-            mTipperManager.addTip(TipperManager.createTipBean(mContext, TipperManager.TIPPER_LEVEL_NOTE, "内存分配过高", new TipperRunable() {
+            mTipperManager.addTip(TipperManager.createTipBean(mContext, TipperManager.TIPPER_LEVEL_NOTE, mContext.getString(R.string.tips_available_memory_over), new TipperRunable() {
                 @Override
                 public void run() {
-                    DialogUtils.createSingleChoiceDialog(mContext,"提示","您设定的内存上限过高，可能导致java虚拟机崩溃，请在左侧导航栏选择启动器设置调整内存大小。","确定",null);
+                    DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_note),mContext.getString(R.string.tips_please_set_less_memory),mContext.getString(R.string.title_ok),null);
                 }
             },CHECKER_ID_MEMORY_OVER));
         }else{
@@ -100,10 +101,10 @@ public class SettingChecker {
 
     public void checkIfDisableFileCheck(){
         if(mSetting.getConfigurations().isNotCheckGame()){
-            mTipperManager.addTip(TipperManager.createTipBean(mContext, TipperManager.TIPPER_LEVEL_NOTE, "不检查文件完整性", new TipperRunable() {
+            mTipperManager.addTip(TipperManager.createTipBean(mContext, TipperManager.TIPPER_LEVEL_NOTE, mContext.getString(R.string.title_not_check_minecraft), new TipperRunable() {
                 @Override
                 public void run() {
-                    DialogUtils.createSingleChoiceDialog(mContext,"提示","您禁用了文件完整性检查，如果游戏文件不完整，您将不会得到任何提示，在游戏不完整的情况下继续启动，有可能造成minecraft异常崩溃。因此建议您开启文件完整性检查。","确定",null);
+                    DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_note),mContext.getString(R.string.tips_please_turn_on_minecraft_check),mContext.getString(R.string.title_ok),null);
                 }
             },CHECKER_ID_NOT_CHECK_GAME));
         }else{

@@ -10,7 +10,7 @@
         android:visibility="invisible"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="0.5"
         android:background="#66B2B2B2"
         android:layout_gravity="start"/>
 

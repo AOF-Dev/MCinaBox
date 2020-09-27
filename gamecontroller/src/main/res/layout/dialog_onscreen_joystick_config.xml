@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="5dp"
-        android:text="MCPE摇杆设定"
+        android:text="@string/title_pe_joystick_config"
         android:textColor="@color/text_title_main"
         android:textSize="@dimen/text_big" />
     <LinearLayout
@@ -29,7 +29,7 @@
                 android:layout_margin="5dp"
                 android:textSize="@dimen/text_mid"
                 android:textColor="@color/text_title_main"
-                android:text="透明度"/>
+                android:text="@string/title_alpha_size"/>
 
             <SeekBar
                 android:id="@+id/input_onscreen_joystick_dialog_seekbar_alpha"
@@ -72,7 +72,7 @@
                 android:layout_margin="5dp"
                 android:textSize="@dimen/text_mid"
                 android:textColor="@color/text_title_main"
-                android:text="大小"/>
+                android:text="@string/title_size"/>
 
             <SeekBar
                 android:id="@+id/input_onscreen_joystick_dialog_seekbar_size"
@@ -111,7 +111,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:text="显示"
+                android:text="@string/title_show"
                 android:textColor="@color/text_title_main"
                 android:textSize="@dimen/text_mid" />
 
@@ -126,7 +126,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:text="所有"
+                    android:text="@string/title_all"
                     android:textColor="@color/text_info"
                     android:checked="true"
                     android:textSize="@dimen/text_small" />
@@ -137,7 +137,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:text="游戏内"
+                    android:text="@string/title_in_game"
                     android:textColor="@color/text_info"
                     android:textSize="@dimen/text_small" />
 
@@ -147,7 +147,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:text="游戏外"
+                    android:text="@string/title_out_game"
                     android:textColor="@color/text_info"
                     android:textSize="@dimen/text_small" />
 
@@ -160,6 +160,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="?android:attr/buttonBarStyle"
         android:orientation="horizontal">
 
         <Button
@@ -169,7 +170,8 @@
             android:layout_weight="2"
             android:layout_margin="5dp"
             android:layout_gravity="center"
-            android:text="确定" />
+            style="?android:attr/buttonBarButtonStyle"
+            android:text="@string/title_ok" />
         <Button
             android:id="@+id/input_onscreen_joystick_dialog_button_cancel"
             android:layout_width="0dp"
@@ -177,14 +179,17 @@
             android:layout_weight="2"
             android:layout_margin="5dp"
             android:layout_gravity="center"
-            android:text="取消" />
+            style="?android:attr/buttonBarButtonStyle"
+            android:text="@string/title_cancel" />
         <Button
             android:id="@+id/input_onscreen_joystick_dialog_button_restore"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:layout_margin="5dp"
-            android:text="还原"/>
+            android:layout_gravity="center"
+            style="?android:attr/buttonBarButtonStyle"
+            android:text="@string/title_restore"/>
 
     </LinearLayout>
 

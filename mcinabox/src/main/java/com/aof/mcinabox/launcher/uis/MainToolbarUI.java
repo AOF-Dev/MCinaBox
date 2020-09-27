@@ -79,7 +79,7 @@ public class MainToolbarUI extends BaseUI {
         @Override
         public void onClick(View v) {
             if (v == buttonRefresh) {
-                DialogUtils.createBothChoicesDialog(mContext,"警告","此操作将会重启APP，是否继续？","继续","取消",new DialogSupports(){
+                DialogUtils.createBothChoicesDialog(mContext,mContext.getString(R.string.title_warn),mContext.getString(R.string.tips_going_to_restart_app),mContext.getString(R.string.title_continue),mContext.getString(R.string.title_cancel),new DialogSupports(){
                     @Override
                     public void runWhenPositive(){
                         MainActivity.CURRENT_ACTIVITY.restarter();

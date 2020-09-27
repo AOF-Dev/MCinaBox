@@ -264,7 +264,7 @@ public class GameButtonDialog extends Dialog implements View.OnClickListener, Se
         }
 
         if (v == buttonDel) {
-            DialogUtils.createBothChoicesDialog(mContext, "删除按键", "你确定要删除这个按键吗？执行该操作后无法恢复。", "确定", "取消", new DialogSupports() {
+            DialogUtils.createBothChoicesDialog(mContext, mContext.getString(R.string.title_warn), mContext.getString(R.string.tips_are_you_sure_to_delete_button), mContext.getString(R.string.title_ok), mContext.getString(R.string.title_cancel), new DialogSupports() {
                 @Override
                 public void runWhenPositive() {
                     mGameButton.removeSelfFromParent();
@@ -274,7 +274,7 @@ public class GameButtonDialog extends Dialog implements View.OnClickListener, Se
         }
 
         if (v == buttonCopy) {
-            DialogUtils.createBothChoicesDialog(mContext, "复制按键", "你确定要复制这个按键吗？执行该操作后将会将编辑对象切换为新增按键。", "确定", "取消", new DialogSupports() {
+            DialogUtils.createBothChoicesDialog(mContext, mContext.getString(R.string.title_warn), mContext.getString(R.string.tips_are_you_sure_to_clone_button), mContext.getString(R.string.title_ok), mContext.getString(R.string.title_cancel), new DialogSupports() {
                 @Override
                 public void runWhenPositive() {
                     buttonOK.performClick();

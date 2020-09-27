@@ -55,8 +55,8 @@ public class GameButton extends androidx.appcompat.widget.AppCompatButton implem
     public final static int DEFAULT_CORNOR_SIZE_PT = 20;
     public final static int DEFAULT_ALPHA_SIZE_PT = 30;
     public final static int DEFAULT_TEXT_SIZE_SP = 5;
-    public final static String DEFAULT_BACK_COLOR_HEX = "#FFFFFF";
-    public final static String DEFAULT_TEXT_COLOR_HEX = "#000000";
+    public final static String DEFAULT_BACK_COLOR_HEX = "#000000";
+    public final static String DEFAULT_TEXT_COLOR_HEX = "#FFFFFF";
 
     private final static String TAG = "GameButton";
     private final static int KEY_TYPE = KEYBOARD_BUTTON;

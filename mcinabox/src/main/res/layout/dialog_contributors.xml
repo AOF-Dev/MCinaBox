@@ -12,7 +12,7 @@
         android:textColor="@color/text_title_main"
         android:layout_gravity="center"
         android:layout_margin="5dp"
-        android:text="@string/title_contributors_list"/>
+        android:text="@string/tips_contributors_list"/>
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="230dp"
@@ -26,6 +26,6 @@
         android:textColor="@color/text_info"
         android:layout_gravity="center"
         android:layout_margin="5dp"
-        android:text="@string/title_contributors_full"/>
+        android:text="@string/tips_contributors_full"/>
 
 </LinearLayout>

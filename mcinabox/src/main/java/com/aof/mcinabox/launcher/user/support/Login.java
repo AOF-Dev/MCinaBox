@@ -47,7 +47,7 @@ public class Login extends AsyncTask<String, Void, String>
         try {
             AuthenticateResponse response = authenticator.authenticate(args[0], args[1], getClientId());
             if (response == null) return "Response is null?";
-           if (response.selectedProfile == null) return mContext.getResources().getString(R.string.login_is_demo_account);
+           if (response.selectedProfile == null) return mContext.getResources().getString(R.string.tips_login_is_demo_account);
             SharedPreferences prefs = mContext.getSharedPreferences(UserManager.launcher_prefs_file, 0);
             prefs.edit().
                     putString(UserManager.auth_accessToken, response.accessToken).

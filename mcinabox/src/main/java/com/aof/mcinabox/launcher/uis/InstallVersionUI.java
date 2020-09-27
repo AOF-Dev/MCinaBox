@@ -100,11 +100,11 @@ public class InstallVersionUI extends BaseUI implements RadioGroup.OnCheckedChan
         //TODO:修复下载功能
 
         if (versionList == null) {
-            Toast.makeText(mContext, mContext.getString(R.string.tips_online_version_reflash), Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, mContext.getString(R.string.tips_please_refresh), Toast.LENGTH_SHORT).show();
             return;
         }
         if (selectedVersionPos == -1) {
-            Toast.makeText(mContext, mContext.getString(R.string.tips_online_version_select), Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, mContext.getString(R.string.tips_please_select_version), Toast.LENGTH_SHORT).show();
             return;
         }
         mDownloadManager.startPresetDownload(DownloadManager.DOWNLOAD_PRESET_VERSION_JSON ,listVersionsOnline.getAdapter().getItem(selectedVersionPos).toString());
@@ -179,7 +179,7 @@ public class InstallVersionUI extends BaseUI implements RadioGroup.OnCheckedChan
         if (versionList != null) {
             refreshOnlineVersionList();
         } else {
-            Toast.makeText(mContext, mContext.getString(R.string.tips_online_version_nodata), Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, mContext.getString(R.string.tips_no_manifest_data), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -193,7 +193,6 @@ public class InstallVersionUI extends BaseUI implements RadioGroup.OnCheckedChan
                 mDownloadManager.downloadManifestAndUpdateGameListUi(mDownloadManager.new Runable() {
                     @Override
                     public void run() {
-                        Log.e(TAG, "开始刷新列表");
                         refreshOnlineVersionList();
                     }
                 });

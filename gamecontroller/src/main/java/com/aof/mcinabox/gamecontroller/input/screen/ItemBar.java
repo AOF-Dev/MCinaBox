@@ -322,7 +322,7 @@ class ItembarConfigDialog extends Dialog implements View.OnClickListener , Dialo
 
         if(v == buttonRestore){
 
-            DialogUtils.createBothChoicesDialog(mContext,"还原默认设置","你确定要还原默认设置吗？","确定","取消",new DialogSupports(){
+            DialogUtils.createBothChoicesDialog(mContext,mContext.getString(R.string.title_warn),mContext.getString(R.string.tips_are_you_sure_to_restore_setting),mContext.getString(R.string.title_ok),mContext.getString(R.string.title_cancel),new DialogSupports(){
                 @Override
                 public void runWhenPositive(){
                     restoreConfig();

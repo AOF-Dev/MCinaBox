@@ -1,6 +1,5 @@
 package com.aof.mcinabox.launcher.uis;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
 import android.view.animation.Animation;
@@ -12,7 +11,6 @@ import com.aof.mcinabox.MainActivity;
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.launcher.gamedir.GamedirManager;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
-import com.aof.utils.PromptUtils;
 import com.aof.utils.dialog.DialogUtils;
 import com.aof.utils.dialog.support.DialogSupports;
 
@@ -95,23 +93,23 @@ public class GamedirUI extends BaseUI {
 
                 final File dir = new File(t);
                 if(dir.exists() && !dir.isDirectory()){
-                    DialogUtils.createSingleChoiceDialog(mContext,"错误","目标路径是文件而不是文件夹","确定",null);
+                    DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_error),mContext.getString(R.string.tips_target_dir_is_file),mContext.getString(R.string.title_ok),null);
                 }else if(!dir.exists()){
-                    DialogUtils.createBothChoicesDialog(mContext,"警告","目标路径不存在，是否创建文件夹？","确定","取消",new DialogSupports(){
+                    DialogUtils.createBothChoicesDialog(mContext,mContext.getString(R.string.title_warn),mContext.getString(R.string.tips_target_dir_is_not_exist),mContext.getString(R.string.title_ok),mContext.getString(R.string.title_cancel),new DialogSupports(){
                         @Override
                         public void runWhenPositive() {
                             if(!GamedirManager.setGamedir(mContext, MainActivity.Setting, dir.getAbsolutePath())){
-                                DialogUtils.createSingleChoiceDialog(mContext,"错误","发生未知错误，路径设置失败！","确定",null);
+                                DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_error),mContext.getString(R.string.tips_failed_to_revise_game_dir),mContext.getString(R.string.title_ok),null);
                             }else{
-                                DialogUtils.createSingleChoiceDialog(mContext,"提示","路径修改成功！","确定",null);
+                                DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_note),mContext.getString(R.string.tips_successed_to_revise_game_dir),mContext.getString(R.string.title_ok),null);
                             }
                         }
                     });
                 }else{
                     if(!GamedirManager.setGamedir(mContext, MainActivity.Setting, dir.getAbsolutePath())){
-                        DialogUtils.createSingleChoiceDialog(mContext,"错误","发生未知错误，路径设置失败！","确定",null);
+                        DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_error),mContext.getString(R.string.tips_failed_to_revise_game_dir),mContext.getString(R.string.title_ok),null);
                     }else{
-                        DialogUtils.createSingleChoiceDialog(mContext,"提示","路径修改成功！","确定",null);
+                        DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_note),mContext.getString(R.string.tips_successed_to_revise_game_dir),mContext.getString(R.string.title_ok),null);
                     }
                 }
             }

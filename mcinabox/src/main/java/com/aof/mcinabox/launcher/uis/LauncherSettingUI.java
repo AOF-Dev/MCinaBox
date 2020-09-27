@@ -27,7 +27,6 @@ import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.mcinabox.launcher.uis.support.Utils;
 import com.aof.mcinabox.minecraft.forge.ForgeInstaller;
 import com.aof.utils.dialog.DialogUtils;
-import com.aof.utils.dialog.support.DialogSupports;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -82,7 +81,7 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
         //调用主题管理器设定主题
         if(setting.isBackgroundAutoSwitch()){
             if(!MainActivity.CURRENT_ACTIVITY.mThemeManager.autoSetBackground(MainActivity.CURRENT_ACTIVITY.findViewById(R.id.layout_main))){
-                DialogUtils.createSingleChoiceDialog(mContext,"错误","图片文件已损坏，启动器背景图片切换失败！","确定",null);
+                DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_error), mContext.getString(R.string.tips_failed_to_change_backfround_pic_is_broken),mContext.getString(R.string.title_ok),null);
             }
         }
 
@@ -151,7 +150,7 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
      **/
     private void installForgeFromInstaller() {
         if (MainActivity.Setting.getDownloadType().equals(SettingJson.DOWNLOAD_SOURCE_OFFICIAL)) {
-            DialogUtils.createSingleChoiceDialog(mContext,"错误",mContext.getString(R.string.toast_change_downloadtype),"确定",null);
+            DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_error),mContext.getString(R.string.tips_please_change_downloadtype),mContext.getString(R.string.title_ok),null);
         } else {
             String filename;
             if (listForgeInstallers.getSelectedItem() != null) {
@@ -164,7 +163,7 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
                 installer.unzipForgeInstaller(filename);
             } catch (Exception e) {
                 e.printStackTrace();
-                DialogUtils.createSingleChoiceDialog(mContext,"错误",mContext.getString(R.string.tips_unzip_failed),"确定",null);
+                DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_error),mContext.getString(R.string.tips_unzip_failed),mContext.getString(R.string.title_ok),null);
                 return;
             }
 
@@ -172,7 +171,7 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
                 installer.startDownloadForge(installer.makeForgeData());
             }catch (Exception e){
                 e.printStackTrace();
-                DialogUtils.createSingleChoiceDialog(mContext,"错误","发生未知错误，Forge安装失败","确定",null);
+                DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_error),mContext.getString(R.string.tips_failed_to_install_forge),mContext.getString(R.string.title_ok),null);
             }
         }
     }
@@ -232,7 +231,7 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if(buttonView == switchAutoBackground){
             if(isChecked){
-                DialogUtils.createSingleChoiceDialog(mContext,"提示",String.format("请将后缀名为png的图片放入 %s 文件夹中，启动器将会随机选择一张作为背景，该操作重启后生效。",AppManifest.MCINABOX_BACKGROUND),"确定",null);
+                DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_note),String.format(mContext.getString(R.string.tips_please_put_pic_to_background_dir),AppManifest.MCINABOX_BACKGROUND),mContext.getString(R.string.title_ok),null);
             }
             setting.setBackgroundAutoSwitch(isChecked);
         }
@@ -241,7 +240,7 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
             if(isChecked){
                 MainActivity.CURRENT_ACTIVITY.mThemeManager.setFullScreen(MainActivity.CURRENT_ACTIVITY);
             }else{
-                DialogUtils.createSingleChoiceDialog(mContext,"提示","您已经关闭了状态栏隐藏功能，将在下一次启动时应用更改。","确定",null);
+                DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_note),mContext.getString(R.string.tips_successed_to_disable_hide_stat_bar),mContext.getString(R.string.title_ok),null);
             }
             setting.setFullscreen(isChecked);
         }

@@ -100,7 +100,7 @@
             android:textColor="@color/text_info"
             android:textSize="@dimen/text_small"
             android:layout_gravity="start"
-            android:text="下载速度:"/>
+            android:text="@string/title_download_speed"/>
 
         <TextView
             android:id="@+id/dialog_download_text_speed"
@@ -123,7 +123,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="@string/title_current_process"
+            android:text="@string/title_current_task"
             android:textColor="@color/text_title_main"
             android:textSize="@dimen/text_small" />
 
@@ -192,7 +192,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="@string/tips_step"
+            android:text="@string/title_step"
             android:textColor="@color/text_title_main"
             android:textSize="@dimen/text_small" />
         <View
@@ -217,10 +217,10 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             style="?android:attr/buttonBarButtonStyle"
-            android:text="@string/tips_ok" />
+            android:text="@string/title_ok" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
 
@@ -231,7 +231,7 @@
             android:layout_width="wrap_content"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_marginEnd="10dp"
-            android:text="@string/tips_no" />
+            android:text="@string/title_cancel" />
 
     </LinearLayout>
 

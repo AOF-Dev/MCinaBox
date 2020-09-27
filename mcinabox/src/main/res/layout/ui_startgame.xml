@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/title_game_launch"
+            android:text="@string/title_launch_game"
             android:textColor="@color/text_title_sec"
             android:textSize="@dimen/text_mid" />
 

@@ -65,7 +65,6 @@ public class UrlSource {
     }
 
     public String getSourceUrl(String sourceName,String type){
-        Log.e("SourceUrl","下载源:"+sourceName+" 类型:"+type);
         return Objects.requireNonNull(SourceMap.get(sourceName)).get(type);
     }
     public String getFileUrl(String originUrl,String sourceName, String type){

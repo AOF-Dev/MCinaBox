@@ -2,6 +2,8 @@ package com.aof.mcinabox.launcher.launch.support;
 
 import android.content.Context;
 import android.util.Log;
+
+import com.aof.mcinabox.R;
 import com.aof.mcinabox.definitions.manifest.AppManifest;
 import com.aof.mcinabox.definitions.models.BoatArgs;
 import com.aof.mcinabox.launcher.launch.LaunchManager;
@@ -46,7 +48,7 @@ public class BoatArgsMaker {
     }
 
     public void setup(String id){
-        mLaunchManager.brige_setProgressText("正在初始化启动参数...");
+        mLaunchManager.brige_setProgressText(mContext.getString(R.string.tips_initing_launch_arg));
         //读入version的json信息
         version = JsonUtils.getVersionFromFile(Utils.getJsonAbsPath(id));
         //判断读入的version是否使用了API,如果使用了就先交换变量，再读入原版的version信息
@@ -76,14 +78,14 @@ public class BoatArgsMaker {
         for(int a = 0; a < items.length ; a++){
             items[a] = manifests[a].name;
         }
-        DialogUtils.createItemsChoiceDialog(mContext,"请选择运行库加载策略:",null,"取消",false,items,new DialogSupports(){
+        DialogUtils.createItemsChoiceDialog(mContext,mContext.getString(R.string.tips_please_select_runtime_manifest),null,mContext.getString(R.string.title_cancel),false,items,new DialogSupports(){
             @Override
             public void runWhenItemsSelected(int pos){
                 onManifestSelected(pos);
             }
             @Override
             public void runWhenNegative(){
-                mLaunchManager.brige_exitWithError("用户取消了操作。");
+                mLaunchManager.brige_exitWithError(mContext.getString(R.string.tips_user_canceled));
             }
         });
     }
@@ -96,7 +98,7 @@ public class BoatArgsMaker {
     }
 
     public void make(){
-        mLaunchManager.brige_setProgressText("正在生成启动参数...");
+        mLaunchManager.brige_setProgressText(mContext.getString(R.string.tips_making_launch_arg));
         //执行参数拼接
         try {
             this.mArgs =  new BoatArgs()
@@ -108,7 +110,7 @@ public class BoatArgsMaker {
             mLaunchManager.launchMinecraft(mSetting,LaunchManager.LAUNCH_GAME);
         }catch (Exception e){
             e.printStackTrace();
-            mLaunchManager.brige_exitWithError("出现未知错误，启动参数生成失败！");
+            mLaunchManager.brige_exitWithError(mContext.getString(R.string.tips_failed_to_make_launch_arg));
         }
     }
 

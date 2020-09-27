@@ -35,7 +35,7 @@ public class RuntimeManager {
      **/
     public static void installRuntimeFromPath(final Context context, String globalPath) {
 
-        final TaskDialog mDialog = DialogUtils.createTaskDialog(context, "正在安装运行库...","",false);
+        final TaskDialog mDialog = DialogUtils.createTaskDialog(context, context.getString(R.string.tips_installing_runtime),"",false);
         mDialog.show();
         @SuppressLint("HandlerLeak") final Handler mHandler = new Handler(){
             @Override
@@ -46,11 +46,11 @@ public class RuntimeManager {
                         mDialog.dismiss();
                         break;
                     case 6:
-                        Toast.makeText(MainActivity.CURRENT_ACTIVITY, MainActivity.CURRENT_ACTIVITY.getString(R.string.tips_runtime_install_success), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.CURRENT_ACTIVITY, MainActivity.CURRENT_ACTIVITY.getString(R.string.tips_runtime_install_successed), Toast.LENGTH_SHORT).show();
                         mDialog.dismiss();
                         break;
                     case 7:
-                        Toast.makeText(MainActivity.CURRENT_ACTIVITY, MainActivity.CURRENT_ACTIVITY.getString(R.string.tips_runtime_install_fail) + " " + MainActivity.CURRENT_ACTIVITY.getString(R.string.tips_runtime_install_fail_exeable), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.CURRENT_ACTIVITY, MainActivity.CURRENT_ACTIVITY.getString(R.string.tips_runtime_install_failed) + " " + MainActivity.CURRENT_ACTIVITY.getString(R.string.tips_runtime_install_fail_exeable), Toast.LENGTH_SHORT).show();
                         mDialog.dismiss();
                         break;
                 }

@@ -75,10 +75,10 @@ public class GamelistUI extends BaseUI {
         @Override
         public void onClick(View v) {
             if(v == buttonGameSetting) {
-                MainActivity.CURRENT_ACTIVITY.switchUIs(MainActivity.CURRENT_ACTIVITY.mUiManager.uiGameSetting, mContext.getString(R.string.title_setting_minecraft) + " - " + mContext.getString(R.string.title_gamelist));
+                MainActivity.CURRENT_ACTIVITY.switchUIs(MainActivity.CURRENT_ACTIVITY.mUiManager.uiGameSetting, mContext.getString(R.string.title_game_global_setting) + " - " + mContext.getString(R.string.title_game_list));
             }
             if(v == buttonInstallGame){
-                MainActivity.CURRENT_ACTIVITY.switchUIs(MainActivity.CURRENT_ACTIVITY.mUiManager.uiInstallVersion,mContext.getString(R.string.title_install_newversion) + " - " + mContext.getString(R.string.title_gamelist));
+                MainActivity.CURRENT_ACTIVITY.switchUIs(MainActivity.CURRENT_ACTIVITY.mUiManager.uiInstallVersion,mContext.getString(R.string.title_install_new_version) + " - " + mContext.getString(R.string.title_game_list));
             }
             if(v == buttonRefreshList){
                 refreshLocalVersionList();

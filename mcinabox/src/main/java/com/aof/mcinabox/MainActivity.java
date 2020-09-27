@@ -59,21 +59,21 @@ public class MainActivity extends AppCompatActivity {
         Setting = checkLauncherSettingFile();
         //初始化清单
         AppManifest.initManifest(this,Setting.getGamedir());
-    }
-
-    @Override
-    protected void onStart(){
-        super.onStart();
-        //初始化主题管理器
-        mThemeManager = new ThemeManager(this);
         //检查目录
         CheckMcinaBoxDir();
+        //初始化主题管理器
+        mThemeManager = new ThemeManager(this);
         //初始化消息管理器
         mTipperManager = new TipperManager(this);
         //初始化界面管理器
         mUiManager = new UiManager(this,Setting);
         //Life Circle
         mUiManager.onCreate();
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
         //执行自动刷新
         this.mTimer = new Timer();
         this.mTimer.schedule(createTimerTask(), REFRESH_DELAY, REFRESH_PERIOD);

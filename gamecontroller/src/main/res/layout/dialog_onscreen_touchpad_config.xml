@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="5dp"
-        android:text="屏幕触摸板设定"
+        android:text="@string/title_screen_touchpad_config"
         android:textColor="@color/text_title_main"
         android:textSize="@dimen/text_big" />
     <LinearLayout
@@ -29,7 +29,7 @@
                 android:layout_margin="5dp"
                 android:textSize="@dimen/text_mid"
                 android:textColor="@color/text_title_main"
-                android:text="灵敏度"/>
+                android:text="@string/title_sensitivity"/>
 
             <SeekBar
                 android:id="@+id/input_onscreen_touchpad_dialog_seekbar_speed"
@@ -69,7 +69,7 @@
                 android:layout_margin="5dp"
                 android:textSize="@dimen/text_mid"
                 android:textColor="@color/text_title_main"
-                android:text="延迟"/>
+                android:text="@string/title_trigger"/>
 
             <SeekBar
                 android:id="@+id/input_onscreen_touchpad_dialog_seekbar_delay"
@@ -109,7 +109,7 @@
                 android:layout_margin="5dp"
                 android:textSize="@dimen/text_mid"
                 android:textColor="@color/text_title_main"
-                android:text="模式"/>
+                android:text="@string/title_mode"/>
 
             <RadioGroup
                 android:layout_width="match_parent"
@@ -125,7 +125,7 @@
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:checked="true"
-                    android:text="点对点"/>
+                    android:text="@string/title_point"/>
 
                 <RadioButton
                     android:id="@+id/input_onscreen_touchpad_dialog_radio_slide"
@@ -133,34 +133,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
-                    android:text="滑动" />
+                    android:text="@string/title_slide_touch" />
 
             </RadioGroup>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_margin="5dp"
-                android:textSize="@dimen/text_small"
-                android:textColor="@color/text_warn"
-                android:text="*注:模式选择仅对非捕获状态有效"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_margin="5dp"
-                android:textSize="@dimen/text_small"
-                android:textColor="@color/text_warn"
-                android:text="*注:灵敏度调节在点对点模式的非捕获状态下无效."/>
 
         </LinearLayout>
 

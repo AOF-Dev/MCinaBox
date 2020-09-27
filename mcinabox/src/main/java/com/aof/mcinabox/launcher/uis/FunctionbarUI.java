@@ -81,13 +81,13 @@ public class FunctionbarUI extends BaseUI {
                 MainActivity.CURRENT_ACTIVITY.switchUIs(MainActivity.CURRENT_ACTIVITY.mUiManager.uiPlugin,mContext.getString(R.string.title_plugin));
             }
             if(v == buttonGamelist){
-                MainActivity.CURRENT_ACTIVITY.switchUIs(MainActivity.CURRENT_ACTIVITY.mUiManager.uiGamelist,mContext.getString(R.string.title_gamelist));
+                MainActivity.CURRENT_ACTIVITY.switchUIs(MainActivity.CURRENT_ACTIVITY.mUiManager.uiGamelist,mContext.getString(R.string.title_game_list));
             }
             if(v == buttonGamedir){
-                MainActivity.CURRENT_ACTIVITY.switchUIs(MainActivity.CURRENT_ACTIVITY.mUiManager.uiGamedir,mContext.getString(R.string.title_gamedir));
+                MainActivity.CURRENT_ACTIVITY.switchUIs(MainActivity.CURRENT_ACTIVITY.mUiManager.uiGamedir,mContext.getString(R.string.title_game_dir));
             }
             if(v == buttonSetting){
-                MainActivity.CURRENT_ACTIVITY.switchUIs(MainActivity.CURRENT_ACTIVITY.mUiManager.uiLauncherSetting,mContext.getString(R.string.title_launchersetting));
+                MainActivity.CURRENT_ACTIVITY.switchUIs(MainActivity.CURRENT_ACTIVITY.mUiManager.uiLauncherSetting,mContext.getString(R.string.title_launcher_setting));
             }
             if(v == buttonKeyboard){
                 Intent intent = new Intent(mContext, CustomizeKeyboardEditorActivity.class);

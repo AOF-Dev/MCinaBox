@@ -78,7 +78,7 @@ public class UiManager {
 
         if (currentUI == uiGameSetting ||
                 currentUI == uiInstallVersion) {
-            switchUIs(uiGamelist, mContext.getString(R.string.title_gamelist));
+            switchUIs(uiGamelist, mContext.getString(R.string.title_game_list));
         }
     }
 

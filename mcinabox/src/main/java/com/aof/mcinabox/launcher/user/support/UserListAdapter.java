@@ -93,7 +93,7 @@ public class UserListAdapter extends BaseAdapter {
             holder.buttonRelogin.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
-                    DialogUtils.createBothChoicesDialog(context, context.getString(R.string.title_warn), "您正在刷新正版账户的状态，此操作将会删除并重新获取正版账户的凭证，请确保网络畅通。是否执行？", context.getString(R.string.tips_ok), context.getString(R.string.tips_no), new DialogSupports(){
+                    DialogUtils.createBothChoicesDialog(context, context.getString(R.string.title_warn), context.getString(R.string.tips_are_you_sure_to_refresh_online_account), context.getString(R.string.title_ok), context.getString(R.string.title_cancel), new DialogSupports(){
                         @Override
                         public void runWhenPositive(){
                             //TODO:添加正版用户状态刷新功能
@@ -116,7 +116,7 @@ public class UserListAdapter extends BaseAdapter {
         holder.buttonDel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogUtils.createBothChoicesDialog(context, context.getString(R.string.title_warn), context.getString(R.string.tips_user_remove_warning), context.getString(R.string.tips_ok), context.getString(R.string.tips_no), new DialogSupports(){
+                DialogUtils.createBothChoicesDialog(context, context.getString(R.string.title_warn), context.getString(R.string.tips_warning_delect_user), context.getString(R.string.title_ok), context.getString(R.string.title_cancel), new DialogSupports(){
                     @Override
                     public void runWhenPositive(){
                         UserManager.removeAccount(MainActivity.Setting, userlist.get(position).getUser_name());

@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="5dp"
-        android:text="MCPE物品栏设定"
+        android:text="@string/title_itembar_config"
         android:textColor="@color/text_title_main"
         android:textSize="@dimen/text_big" />
     <LinearLayout
@@ -29,7 +29,7 @@
                 android:layout_margin="5dp"
                 android:textSize="@dimen/text_mid"
                 android:textColor="@color/text_title_main"
-                android:text="透明度"/>
+                android:text="@string/title_alpha_size"/>
 
             <SeekBar
                 android:id="@+id/input_itembar_dialog_seekbar_alpha"
@@ -71,7 +71,7 @@
                 android:layout_margin="5dp"
                 android:textSize="@dimen/text_mid"
                 android:textColor="@color/text_title_main"
-                android:text="大小"/>
+                android:text="@string/title_size"/>
 
             <SeekBar
                 android:id="@+id/input_itembar_dialog_seekbar_size"
@@ -112,7 +112,7 @@
                 android:layout_margin="5dp"
                 android:textSize="@dimen/text_mid"
                 android:textColor="@color/text_title_main"
-                android:text="移动"/>
+                android:text="@string/title_move"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -129,7 +129,7 @@
                     android:layout_weight="1"
                     style="?android:attr/buttonBarButtonStyle"
                     android:layout_gravity="center"
-                    android:text="←"/>
+                    android:text="@string/title_point_left"/>
 
                 <Button
                     android:id="@+id/input_itembar_dialog_button_move_right"
@@ -138,7 +138,7 @@
                     android:layout_weight="1"
                     style="?android:attr/buttonBarButtonStyle"
                     android:layout_gravity="center"
-                    android:text="→"/>
+                    android:text="@string/title_point_right"/>
 
                 <Button
                     android:id="@+id/input_itembar_dialog_button_move_up"
@@ -147,7 +147,7 @@
                     android:layout_weight="1"
                     style="?android:attr/buttonBarButtonStyle"
                     android:layout_gravity="center"
-                    android:text="↑"/>
+                    android:text="@string/title_point_up"/>
 
                 <Button
                     android:id="@+id/input_itembar_dialog_button_move_down"
@@ -156,7 +156,7 @@
                     android:layout_weight="1"
                     style="?android:attr/buttonBarButtonStyle"
                     android:layout_gravity="center"
-                    android:text="↓"/>
+                    android:text="@string/title_point_down"/>
 
             </LinearLayout>
 
@@ -174,7 +174,7 @@
                 android:layout_margin="5dp"
                 android:textSize="@dimen/text_small"
                 android:textColor="@color/text_warn"
-                android:text="*注: 物品栏仅在捕获模式下可见"/>
+                android:text="@string/tips_itembar_warn"/>
 
         </LinearLayout>
 
@@ -184,6 +184,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="?android:attr/buttonBarStyle"
         android:orientation="horizontal">
 
         <Button
@@ -193,7 +194,8 @@
             android:layout_weight="2"
             android:layout_margin="5dp"
             android:layout_gravity="center"
-            android:text="确定" />
+            style="?android:attr/buttonBarButtonStyle"
+            android:text="@string/title_ok" />
         <Button
             android:id="@+id/input_itembar_dialog_button_cancel"
             android:layout_width="0dp"
@@ -201,14 +203,16 @@
             android:layout_weight="2"
             android:layout_margin="5dp"
             android:layout_gravity="center"
-            android:text="取消" />
+            style="?android:attr/buttonBarButtonStyle"
+            android:text="@string/title_cancel" />
         <Button
             android:id="@+id/input_itembar_dialog_button_restore"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:layout_margin="5dp"
-            android:text="还原"/>
+            style="?android:attr/buttonBarButtonStyle"
+            android:text="@string/title_restore"/>
 
     </LinearLayout>
 

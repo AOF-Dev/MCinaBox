@@ -230,7 +230,7 @@ public class VirtualController extends BaseController implements AppEvent , View
                 String KeyName = e.getKeyName();
                 String[] strs = KeyName.split(MARK_KEYNAME_SPLIT);
                 for(String str : strs){
-                    Log.e(e.getTag(),"切分: " + str + " 总大小: " + strs.length );
+                    //Log.e(e.getTag(),"切分: " + str + " 总大小: " + strs.length );
                     sendKeyEvent(new BaseKeyEvent(e.getTag(),str,e.isPressed(),e.getType(),e.getPointer()));
                 }
                 break;
@@ -370,13 +370,12 @@ public class VirtualController extends BaseController implements AppEvent , View
             topMargin = 0;
         }
 
-        Log.e(TAG,"屏幕宽度 " + screenWidth + " 屏幕高度 " + screenHeight + '\n' + "左侧比例 " + leftScale + " 顶部比例 " + topScale + '\n' + "左侧边距大小 " + leftMargin + " 顶部边距大小 " +topMargin);
+        //Log.e(TAG,"屏幕宽度 " + screenWidth + " 屏幕高度 " + screenHeight + '\n' + "左侧比例 " + leftScale + " 顶部比例 " + topScale + '\n' + "左侧边距大小 " + leftMargin + " 顶部边距大小 " +topMargin);
 
         return new int[]{leftMargin , topMargin};
     }
 
     private void resetAllPosOnScreen(){
-        Log.e(TAG,"reset Pos");
         int[] i;
 
         i = calculateMarginsOnScreen(onscreenKeyboard, 0.5f , 0.5f);

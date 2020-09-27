@@ -2,6 +2,8 @@ package com.aof.mcinabox.launcher.download;
 
 import android.content.Context;
 import android.util.Log;
+
+import com.aof.mcinabox.R;
 import com.aof.mcinabox.launcher.download.support.DownloadSupport;
 import com.aof.mcinabox.launcher.download.support.DownloaderDialog;
 import com.aof.utils.FormatUtils;
@@ -60,44 +62,44 @@ public class DownloadManager {
         switch (presetId) {
             case DOWNLOAD_PRESET_MANIFEST:
                 tasks.add(mSupport.createVersionManifestDownloadTask());
-                pgName = "正在下载清单文件...";
+                pgName = mContext.getString(R.string.tips_downloading_manifest);
                 all = 1;
                 current = 1;
                 break;
             case DOWNLOAD_PRESET_VERSION_JSON:
                 this.mDialog = new DownloaderDialog(mContext,this);
                 tasks.add(mSupport.createVersionJsonDownloadTask(id));
-                pgName = "正在下载版本信息...";
+                pgName = mContext.getString(R.string.tips_downloading_version_json);
                 all = 5;
                 current =1;
                 break;
             case DOWNLOAD_PRESET_VERSION_LIBS:
                 tasks.addAll(mSupport.createLibrariesDownloadTask(id));
-                pgName = "正在下载游戏依赖库...";
+                pgName = mContext.getString(R.string.tips_downloading_libraries);
                 all = 5;
                 current = 2;
                 break;
             case DOWNLOAD_PRESET_VERSION_JAR:
                 tasks.add(mSupport.createVersionJarDownloadTask(id));
-                pgName = "正在下载游戏主文件...";
+                pgName = mContext.getString(R.string.tips_downloading_version_jar);
                 all = 5;
                 current = 3;
                 break;
             case DOWNLOAD_PRESET_ASSETS_INDEX:
                 tasks.add(mSupport.createAssetIndexDownloadTask(id));
-                pgName = "正在下载游戏资源文件信息...";
+                pgName = mContext.getString(R.string.tips_downloading_assets_index_json);
                 all = 5;
                 current = 4;
                 break;
             case DOWNLOAD_PRESET_ASSETS_OBJS:
                 tasks.addAll(mSupport.createAssetObjectsDownloadTask(id));
-                pgName = "正在下载游戏资源文件...";
+                pgName = mContext.getString(R.string.tips_downloading_assets_objs);
                 all = 5;
                 current = 5;
                 break;
             case DOWNLOAD_FORGE_LIBS:
                 tasks.addAll(mSupport.createForgeDownloadTask(id));
-                pgName = "正在下载Forge依赖库...";
+                pgName = mContext.getString(R.string.tips_downloading_forge_objs);
                 all = 1;
                 current = 1;
                 break;
@@ -105,10 +107,6 @@ public class DownloadManager {
                 return;
         }
         this.taskCounts = tasks.size();
-        Log.e(TAG,"创建任务总数: " + tasks.size());
-        for(BaseDownloadTask task : tasks){
-            Log.e(TAG,"创建任务: " + task.getFilename());
-        }
         mQueueSet = new FileDownloadQueueSet(mFileDownloadListener);
         mQueueSet.downloadSequentially(tasks);
         mQueueSet.start();
@@ -138,15 +136,10 @@ public class DownloadManager {
         @Override
         protected void pending(BaseDownloadTask task, int soFarBytes, int totalBytes) {
 
-            Log.e(TAG,"加入等待队列：" + task.getFilename());
-
         }
 
         @Override
         protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-
-            Log.e(TAG,"加入下载队列：" + task.getFilename());
-
             //反馈下载速度
             if(currentPresetId == DOWNLOAD_PRESET_VERSION_JSON || currentPresetId == DOWNLOAD_PRESET_VERSION_JAR || currentPresetId == DOWNLOAD_PRESET_ASSETS_INDEX){
                 mDialog.setCurrentProgress(soFarBytes *100 / totalBytes);
@@ -156,13 +149,11 @@ public class DownloadManager {
             if(currentPresetId != DOWNLOAD_PRESET_MANIFEST){
                 mDialog.setFileName(task.getFilename());
             }
-
         }
 
         @Override
         protected void completed(BaseDownloadTask task) {
 
-            Log.e(TAG,"完成：" + task.getFilename() + " 模式: " + enablePreset);
             if(enablePreset){
                 taskFinished++;
                 if(currentPresetId == DOWNLOAD_FORGE_LIBS || currentPresetId == DOWNLOAD_PRESET_VERSION_LIBS || currentPresetId == DOWNLOAD_PRESET_ASSETS_OBJS){
@@ -190,13 +181,13 @@ public class DownloadManager {
         @Override
         protected void error(BaseDownloadTask task, Throwable e) {
             updateDialogUi(false);
-            Log.e(TAG,"失败：" + task.getFilename());
-            Log.e(TAG,"信息: " + e.getMessage() + " 原因: " + e.getCause());
+            Log.e(TAG,"failed：" + task.getFilename());
+            Log.e(TAG,"message: " + e.getMessage() + " cause: " + e.getCause());
         }
 
         @Override
         protected void warn(BaseDownloadTask task) {
-            Log.e(TAG,"警告：" + task.getFilename());
+
         }
     };
 

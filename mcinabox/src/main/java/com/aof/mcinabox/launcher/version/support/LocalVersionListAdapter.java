@@ -60,7 +60,7 @@ public class LocalVersionListAdapter extends BaseAdapter {
         viewHolder.removeversion.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                DialogUtils.createBothChoicesDialog(mContext,"警告",String.format("即将删除 %s ，此操作不会对依赖库和资源文件进行任何更改，此操作执行后将无法恢复，是否继续？",versionlist.get(position).getVersion_Id()),"继续","取消",new DialogSupports(){
+                DialogUtils.createBothChoicesDialog(mContext,mContext.getString(R.string.title_warn),String.format(mContext.getString(R.string.tips_are_you_sure_to_delete_version),versionlist.get(position).getVersion_Id()),mContext.getString(R.string.title_ok),mContext.getString(R.string.title_cancel),new DialogSupports(){
                     @Override
                     public void runWhenPositive(){
                         VersionManager.removeVersion(versionlist.get(position).getVersion_Id(),VersionManager.REMOVE_VERSION_ONLY);

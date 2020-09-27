@@ -120,9 +120,9 @@ public class CkbManagerDialog extends Dialog implements View.OnClickListener, Co
     private void loadSelectedFile(){
         String fileName = spinnerSelected.getSelectedItem().toString();
         if(! mManager.loadKeyboard(fileName)){
-            DialogUtils.createSingleChoiceDialog(mContext, "错误", "载入键盘文件失败，文件已损坏！", "确定", null);
+            DialogUtils.createSingleChoiceDialog(mContext, mContext.getString(R.string.title_error), mContext.getString(R.string.tips_failed_to_import_keyboard_layout), mContext.getString(R.string.title_ok), null);
         }else{
-            PromptUtils.createPrompt(mContext,"键盘文件载入成功!");
+            PromptUtils.createPrompt(mContext,mContext.getString(R.string.tips_successed_to_import_keyboard_layout));
         }
     }
 
@@ -136,12 +136,12 @@ public class CkbManagerDialog extends Dialog implements View.OnClickListener, Co
         }
         if (v == buttonExport) {
             if (editFileName.getText() == null) {
-                PromptUtils.createPrompt(mContext, "文件名不能为空!");
+                PromptUtils.createPrompt(mContext, mContext.getString(R.string.tips_filename_can_not_be_void));
                 return;
             }
             final String fn = editFileName.getText().toString();
             if (fn.equals("")) {
-                PromptUtils.createPrompt(mContext, "文件名不能为空!");
+                PromptUtils.createPrompt(mContext, mContext.getString(R.string.tips_filename_can_not_be_void));
                 return;
             }
 
@@ -150,7 +150,7 @@ public class CkbManagerDialog extends Dialog implements View.OnClickListener, Co
             for (String str : FileTool.listChildFilesFromTargetDir(AppManifest.MCINABOX_KEYBOARD)) {
                 if (str.equals(fn + ".json")) {
                     run = false;
-                    DialogUtils.createBothChoicesDialog(mContext, "是否覆盖", "存在同名文件，是否覆盖现有文件？覆盖操作不可恢复", "覆盖", "取消", new DialogSupports() {
+                    DialogUtils.createBothChoicesDialog(mContext, mContext.getString(R.string.title_warn), mContext.getString(R.string.tips_filename_has_been_used), mContext.getString(R.string.title_over_write), mContext.getString(R.string.title_cancel), new DialogSupports() {
                         @Override
                         public void runWhenPositive() {
                             mManager.exportKeyboard(fn);
@@ -167,7 +167,7 @@ public class CkbManagerDialog extends Dialog implements View.OnClickListener, Co
             if (spinnerSelected.getSelectedItem() != null) {
                 String str = spinnerSelected.getSelectedItem().toString();
                 if (!str.equals("")) {
-                    DialogUtils.createBothChoicesDialog(mContext, "即将删除文件","您将要删除文件 " + str + " ,删除操作不可恢复。", "删除", "取消", new DialogSupports(){
+                    DialogUtils.createBothChoicesDialog(mContext, mContext.getString(R.string.title_warn),String.format(mContext.getString(R.string.tips_are_you_sure_to_delete_file),str), mContext.getString(R.string.title_delete), mContext.getString(R.string.title_cancel), new DialogSupports(){
                         @Override
                         public void runWhenPositive(){
                             removeSelectedFile();
@@ -181,7 +181,7 @@ public class CkbManagerDialog extends Dialog implements View.OnClickListener, Co
             if(spinnerSelected.getSelectedItem() != null){
                 String str = spinnerSelected.getSelectedItem().toString();
                 if(!str.equals("")){
-                    DialogUtils.createBothChoicesDialog(mContext, "即将载入文件","您将要载入文件 " + str + " ,载入操作将会清除您当前的配置，请确认您已经保存了当前的模板。", "载入", "取消", new DialogSupports(){
+                    DialogUtils.createBothChoicesDialog(mContext, mContext.getString(R.string.title_warn),String.format(mContext.getString(R.string.tips_are_you_sure_to_import_keyboard_layout),str), mContext.getString(R.string.title_import), mContext.getString(R.string.title_cancel), new DialogSupports(){
                         @Override
                         public void runWhenPositive(){
                             loadSelectedFile();
@@ -192,7 +192,7 @@ public class CkbManagerDialog extends Dialog implements View.OnClickListener, Co
         }
 
         if(v == buttonClear){
-            DialogUtils.createBothChoicesDialog(mContext,"即将清空模板", "您将要清除当前已添加的所有自定义按键，此操作不会影响已保存的模板文件，清除操作不可恢复。","清空","取消",new DialogSupports(){
+            DialogUtils.createBothChoicesDialog(mContext,mContext.getString(R.string.title_warn), mContext.getString(R.string.tips_are_you_sure_to_clear_all_buttons),mContext.getString(R.string.title_ok),mContext.getString(R.string.title_cancel),new DialogSupports(){
                 @Override
                 public void runWhenPositive(){
                     mManager.clearKeyboard();

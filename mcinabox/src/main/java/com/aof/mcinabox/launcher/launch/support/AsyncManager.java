@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 
+import com.aof.mcinabox.R;
 import com.aof.mcinabox.definitions.manifest.AppManifest;
 import com.aof.mcinabox.launcher.launch.LaunchManager;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
@@ -83,26 +84,25 @@ public class AsyncManager {
                             ui_thread_next();
                             return;
                         }
-                        ui_thread_set_progress("正在检查消息管理器...");
+                        ui_thread_set_progress(mContext.getString(R.string.tips_checking_tipper_manager));
                         paused(DEFAULT_DELAY);
                         if (CheckManifest.checkTipper()) {
                             ui_thread_next();
                         } else {
                             ui_thread_create_dialog(new DialogRecorder()
                                     .setType(DialogRecorder.TYPE_NORMAL)
-                                    .setTitle("警告")
-                                    .setMsg("检测到消息管理器存在未处理的重要消息，忽略这些消息可能会导致启动出现异常。是否继续？")
-                                    .setPName("继续")
-                                    .setNName("取消")
+                                    .setTitle(mContext.getString(R.string.title_warn))
+                                    .setMsg(mContext.getString(R.string.tips_tipper_is_not_void_may_cause_crash))
+                                    .setPName(mContext.getString(R.string.title_continue))
+                                    .setNName(mContext.getString(R.string.title_cancel))
                                     .setSupport(new DialogSupports() {
                                         @Override
                                         public void runWhenPositive() {
                                             ui_thread_next();
                                         }
-
                                         @Override
                                         public void runWhenNegative() {
-                                            ui_thread_send_error("消息管理器存在未处理的消息，用户结束了操作。");
+                                            ui_thread_send_error(mContext.getString(R.string.tips_tipper_is_not_void_and_user_canceled));
                                         }
                                     })
                             );
@@ -115,12 +115,12 @@ public class AsyncManager {
                 progress = new Thread() {
                     @Override
                     public void run() {
-                        ui_thread_set_progress("正在检查启动器配置...");
+                        ui_thread_set_progress(mContext.getString(R.string.tips_checking_launcher_setting));
                         paused(DEFAULT_DELAY);
                         if (CheckManifest.checkVersionThatSelected(mSetting)) {
                             ui_thread_next();
                         } else {
-                            ui_thread_send_error("未检测到游戏，请先安装一个Minecraft。");
+                            ui_thread_send_error(mContext.getString(R.string.tips_have_no_minecraft_please_install));
                         }
                     }
                 };
@@ -129,12 +129,12 @@ public class AsyncManager {
                 progress = new Thread() {
                     @Override
                     public void run() {
-                        ui_thread_set_progress("正在检查运行库...");
+                        ui_thread_set_progress(mContext.getString(R.string.tips_checking_runtime));
                         paused(DEFAULT_DELAY);
                         if (CheckManifest.checkRuntimePack()) {
                             ui_thread_next();
                         } else {
-                            ui_thread_send_error("未检测到运行库，请先安装运行库。");
+                            ui_thread_send_error(mContext.getString(R.string.tips_have_no_runtime_please_install));
                         }
                     }
                 };
@@ -147,16 +147,16 @@ public class AsyncManager {
                             ui_thread_next();
                             return;
                         }
-                        ui_thread_set_progress("正在检查系统架构...");
+                        ui_thread_set_progress(mContext.getString(R.string.tips_checking_system_platform));
                         paused(DEFAULT_DELAY);
                         if (CheckManifest.checkPlatform()) {
                             ui_thread_next();
                         } else {
                             ui_thread_create_dialog(new DialogRecorder()
-                                    .setTitle("警告")
-                                    .setMsg("检测到运行库架构和您的系统架构不符，可能导致启动失败或性能损失，是否继续？")
-                                    .setPName("继续")
-                                    .setNName("取消")
+                                    .setTitle(mContext.getString(R.string.title_warn))
+                                    .setMsg(mContext.getString(R.string.tips_platform_not_correct_may_cause_crash))
+                                    .setPName(mContext.getString(R.string.title_continue))
+                                    .setNName(mContext.getString(R.string.title_cancel))
                                     .setSupport(new DialogSupports() {
                                         @Override
                                         public void runWhenPositive() {
@@ -165,7 +165,7 @@ public class AsyncManager {
 
                                         @Override
                                         public void runWhenNegative() {
-                                            ui_thread_send_error("运行库架构与系统不符合，用户结束了操作。");
+                                            ui_thread_send_error(mContext.getString(R.string.tips_platforn_not_correct_and_user_canceled));
                                         }
                                     })
                                     .setType(DialogRecorder.TYPE_NORMAL)
@@ -178,12 +178,12 @@ public class AsyncManager {
                 progress = new Thread() {
                     @Override
                     public void run() {
-                        ui_thread_set_progress("正在检查游戏主文件...");
+                        ui_thread_set_progress(mContext.getString(R.string.tips_checking_main_file));
                         paused(DEFAULT_DELAY);
                         if (CheckManifest.checkMinecraftMainFiles(mSetting)) {
                             ui_thread_next();
                         } else {
-                            ui_thread_send_error("未找到Minecraft JAR主文件，请重新安装该Minecraft版本。");
+                            ui_thread_send_error(mContext.getString(R.string.tips_not_found_main_jar_please_reinstall));
                         }
                     }
                 };
@@ -196,7 +196,7 @@ public class AsyncManager {
                             ui_thread_next();
                             return;
                         }
-                        ui_thread_set_progress("正在检查游戏依赖库...");
+                        ui_thread_set_progress(mContext.getString(R.string.tips_checking_libraries));
                         paused(DEFAULT_DELAY);
                         String[] result = CheckManifest.checkMinecraftLibraries(mSetting);
                         if (result == null) {
@@ -207,10 +207,10 @@ public class AsyncManager {
                                 tmp.append(str).append("\n");
                             }
                             ui_thread_create_dialog(new DialogRecorder()
-                                    .setTitle("警告")
-                                    .setMsg("检测到运行库不完整，缺少文件: " + "\n" + tmp + "是否继续？")
-                                    .setPName("继续")
-                                    .setNName("取消")
+                                    .setTitle(mContext.getString(R.string.title_warn))
+                                    .setMsg(String.format(mContext.getString(R.string.tips_lose_libraries),tmp))
+                                    .setPName(mContext.getString(R.string.title_continue))
+                                    .setNName(mContext.getString(R.string.title_cancel))
                                     .setSupport(new DialogSupports() {
                                         @Override
                                         public void runWhenPositive() {
@@ -219,7 +219,7 @@ public class AsyncManager {
 
                                         @Override
                                         public void runWhenNegative() {
-                                            ui_thread_send_error("Minecraft依赖库不完整，请重新安装该Mineccraft版本，用户结束了操作。");
+                                            ui_thread_send_error(mContext.getString(R.string.tips_lose_libraries_and_user_canceled_please_reinstall_minecraft));
                                         }
                                     })
                                     .setType(DialogRecorder.TYPE_NORMAL)
@@ -236,16 +236,16 @@ public class AsyncManager {
                             ui_thread_next();
                             return;
                         }
-                        ui_thread_set_progress("正在检查游戏资源索引文件...");
+                        ui_thread_set_progress(mContext.getString(R.string.tips_checking_assets_index));
                         paused(DEFAULT_DELAY);
                         if (CheckManifest.checkMinecraftAssetsIndex(mSetting)) {
                             ui_thread_next();
                         } else {
                             ui_thread_create_dialog(new DialogRecorder()
-                                    .setTitle("警告")
-                                    .setMsg("未检测到Minecraft资源索引文件，将会导致Minecraft没有声音和多语言支持，是否继续？")
-                                    .setPName("继续")
-                                    .setNName("取消")
+                                    .setTitle(mContext.getString(R.string.title_warn))
+                                    .setMsg(mContext.getString(R.string.tips_not_found_assets_index))
+                                    .setPName(mContext.getString(R.string.title_continue))
+                                    .setNName(mContext.getString(R.string.title_cancel))
                                     .setSupport(new DialogSupports() {
                                         @Override
                                         public void runWhenPositive() {
@@ -254,7 +254,7 @@ public class AsyncManager {
 
                                         @Override
                                         public void runWhenNegative() {
-                                            ui_thread_send_error("缺少Minecraft资源索引文件，用户结束了操作。");
+                                            ui_thread_send_error(mContext.getString(R.string.tips_not_found_assets_index_and_user_canceled));
                                         }
                                     })
                                     .setType(DialogRecorder.TYPE_NORMAL)
@@ -271,7 +271,7 @@ public class AsyncManager {
                             ui_thread_next();
                             return;
                         }
-                        ui_thread_set_progress("正在检查游戏资源文件...");
+                        ui_thread_set_progress(mContext.getString(R.string.tips_checking_assets_objs));
                         paused(DEFAULT_DELAY);
                         String[] result = CheckManifest.checkMinecraftAssetsObjects(mSetting);
                         if (result == null) {
@@ -282,10 +282,10 @@ public class AsyncManager {
                                 tmp.append(str).append("\n");
                             }
                             ui_thread_create_dialog(new DialogRecorder()
-                                    .setTitle("警告")
-                                    .setMsg("检测到资源文件不完整，缺少文件: " + "\n" + tmp + "是否继续？")
-                                    .setPName("继续")
-                                    .setNName("取消")
+                                    .setTitle(mContext.getString(R.string.title_warn))
+                                    .setMsg(String.format(mContext.getString(R.string.tips_lose_assets_objs),tmp))
+                                    .setPName(mContext.getString(R.string.title_continue))
+                                    .setNName(mContext.getString(R.string.title_cancel))
                                     .setSupport(new DialogSupports() {
                                         @Override
                                         public void runWhenPositive() {
@@ -294,7 +294,7 @@ public class AsyncManager {
 
                                         @Override
                                         public void runWhenNegative() {
-                                            ui_thread_send_error("Minecraft资源不完整，用户结束了操作。");
+                                            ui_thread_send_error(mContext.getString(R.string.tips_lose_assets_objs_and_user_canceled));
                                         }
                                     })
                                     .setType(DialogRecorder.TYPE_NORMAL)
@@ -311,16 +311,16 @@ public class AsyncManager {
                             ui_thread_next();
                             return;
                         }
-                        ui_thread_set_progress("正在检查Forge配置...");
+                        ui_thread_set_progress(mContext.getString(R.string.tips_checking_forge_config));
                         paused(DEFAULT_DELAY);
                         if (CheckManifest.checkForgeSplash()) {
                             ui_thread_next();
                         } else {
                             ui_thread_create_dialog(new DialogRecorder()
-                                    .setTitle("警告")
-                                    .setMsg("检测到Forge动画没有禁用，是否禁用？")
-                                    .setPName("继续")
-                                    .setNName("取消")
+                                    .setTitle(mContext.getString(R.string.title_warn))
+                                    .setMsg(mContext.getString(R.string.tips_not_disable_forge_splash))
+                                    .setPName(mContext.getString(R.string.title_continue))
+                                    .setNName(mContext.getString(R.string.title_cancel))
                                     .setSupport(new DialogSupports() {
                                         @Override
                                         public void runWhenPositive() {
@@ -333,7 +333,7 @@ public class AsyncManager {
                                                 FileTool.writeData(config_file, "enabled=false");
                                             } catch (Exception e) {
                                                 e.printStackTrace();
-                                                ui_thread_send_error("发生未知错误，禁用forge动画失败");
+                                                ui_thread_send_error(mContext.getString(R.string.tips_failed_to_disable_forge_splash));
                                             }
                                             ui_thread_next();
                                         }
@@ -357,23 +357,23 @@ public class AsyncManager {
                             ui_thread_next();
                             return;
                         }
-                        ui_thread_set_progress("正在检查options.txt...");
+                        ui_thread_set_progress(mContext.getString(R.string.tips_checking_options_txt));
                         paused(DEFAULT_DELAY);
                         if(CheckManifest.checkMinecraftOptionsMipmap(mSetting)){
                             ui_thread_next();
                         } else {
                             ui_thread_create_dialog(new DialogRecorder()
-                                    .setTitle("警告")
-                                    .setMsg("检测到Minecraft的Mipmap等级不为0, 这将造成游戏流畅度下降并产生一些渲染错误。是否修改Mipmap等级为0？")
-                                    .setPName("修改")
-                                    .setNName("取消")
+                                    .setTitle(mContext.getString(R.string.title_warn))
+                                    .setMsg(mContext.getString(R.string.tips_mipmap_level_is_not_0))
+                                    .setPName(mContext.getString(R.string.title_revision))
+                                    .setNName(mContext.getString(R.string.title_cancel))
                                     .setSupport(new DialogSupports() {
                                         @Override
                                         public void runWhenPositive() {
                                             if(FileTool.addStringLineToFile("\nmipmapLevels:0",AppManifest.MINECRAFT_HOME + "/options.txt")){
                                                 ui_thread_next();
                                             }else{
-                                                ui_thread_send_error(String.format("发生未知错误， %s 修改失败！",AppManifest.MINECRAFT_HOME + "/options.txt"));
+                                                ui_thread_send_error(String.format(mContext.getString(R.string.tips_failed_to_revise),AppManifest.MINECRAFT_HOME + "/options.txt"));
                                             }
                                         }
 
@@ -396,23 +396,23 @@ public class AsyncManager {
                             ui_thread_next();
                             return;
                         }
-                        ui_thread_set_progress("正在检查options.txt...");
+                        ui_thread_set_progress(mContext.getString(R.string.tips_checking_options_txt));
                         paused(DEFAULT_DELAY);
                         if(CheckManifest.checkMinecraftOptionsTouchMode()){
                             ui_thread_next();
                         } else {
                             ui_thread_create_dialog(new DialogRecorder()
-                                    .setTitle("警告")
-                                    .setMsg("检测到Minecraft的触屏模式开启, 这将使游戏难以操作。是否关闭触屏模式？")
-                                    .setPName("修改")
-                                    .setNName("取消")
+                                    .setTitle(mContext.getString(R.string.title_warn))
+                                    .setMsg(mContext.getString(R.string.tips_not_disable_touch_screen))
+                                    .setPName(mContext.getString(R.string.title_revision))
+                                    .setNName(mContext.getString(R.string.title_cancel))
                                     .setSupport(new DialogSupports() {
                                         @Override
                                         public void runWhenPositive() {
                                             if(FileTool.addStringLineToFile("\ntouchscreen:false",AppManifest.MINECRAFT_HOME + "/options.txt")){
                                                 ui_thread_next();
                                             }else{
-                                                ui_thread_send_error(String.format("发生未知错误， %s 修改失败！",AppManifest.MINECRAFT_HOME + "/options.txt"));
+                                                ui_thread_send_error(String.format(mContext.getString(R.string.tips_failed_to_revise),AppManifest.MINECRAFT_HOME + "/options.txt"));
                                             }
                                         }
 

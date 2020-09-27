@@ -184,7 +184,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="@string/title_gamelist"
+                    android:text="@string/title_game_list"
                     android:textColor="@color/text_title_main"
                     android:textSize="@dimen/text_big" />
 
@@ -195,7 +195,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
-                android:text="@string/title_gamedir"
+                android:text="@string/title_game_dir"
                 android:textColor="@color/text_info"
                 android:textSize="@dimen/text_small" />
 
@@ -226,7 +226,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="@string/title_gamedir"
+                    android:text="@string/title_game_dir"
                     android:textColor="@color/text_title_main"
                     android:textSize="@dimen/text_big" />
 
@@ -268,7 +268,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="@string/title_launchersetting"
+                    android:text="@string/title_launcher_setting"
                     android:textColor="@color/text_title_main"
                     android:textSize="@dimen/text_big" />
 
@@ -294,7 +294,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="@string/title_keyboardsetting"
+                    android:text="@string/title_keyboard_setting"
                     android:textColor="@color/text_title_main"
                     android:textSize="@dimen/text_big" />
 

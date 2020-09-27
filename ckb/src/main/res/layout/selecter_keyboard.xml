@@ -411,10 +411,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="R"
-            custom:button_name="R"
-            custom:char_none="r"
-            custom:char_capslock="R"
-            custom:char_shift="R"/>
+            custom:button_name="R"/>
 
         <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
             style="@style/selecterButtonStyle"

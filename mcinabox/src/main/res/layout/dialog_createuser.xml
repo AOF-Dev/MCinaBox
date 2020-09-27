@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/text_title_main"
             android:textSize="@dimen/text_mid"
-            android:text="@string/title_user_newuser"/>
+            android:text="@string/title_create_new_user"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_hint"
                 android:textSize="@dimen/text_mid"
-                android:hint="@string/tips_user_passwordhint"/>
+                android:hint="@string/tips_please_enter_password"/>
         </LinearLayout>
 
         <LinearLayout
@@ -66,7 +66,7 @@
             android:visibility="visible"
             android:orientation="horizontal">
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textColor="@color/text_title_main"
@@ -89,7 +89,7 @@
                 android:id="@+id/dialog_button_confirm_createuser"
                 android:layout_marginStart="10dp"
                 style="@style/LauncherButton_1"
-                android:text="@string/tips_ok"/>
+                android:text="@string/title_ok"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -98,7 +98,7 @@
                 android:id="@+id/dialog_button_cancle_createuser"
                 android:layout_marginEnd="10dp"
                 style="@style/LauncherButton_1"
-                android:text="@string/tips_no"/>
+                android:text="@string/title_cancel"/>
         </LinearLayout>
 
 

@@ -86,18 +86,18 @@ public class CreateUserDialog extends Dialog implements View.OnClickListener, Ch
         //检查用户名
         for(String str : UserManager.getUsersName(MainActivity.Setting)){
             if (str.equals(username)){
-                PromptUtils.createPrompt(mContext, "用户已经存在!");
+                PromptUtils.createPrompt(mContext, mContext.getString(R.string.tips_the_user_has_been_created));
                 return false;
             }
         }
         if(username.equals("")){
-            PromptUtils.createPrompt(mContext, "用户名不能为空!");
+            PromptUtils.createPrompt(mContext, mContext.getString(R.string.tips_user_name_can_not_be_void));
             return false;
         }
         //检查密码是否为空
         if(enableLegal){
             if(password.equals("")){
-                PromptUtils.createPrompt(mContext, "密码不能为空!");
+                PromptUtils.createPrompt(mContext, mContext.getString(R.string.tips_password_can_not_be_void));
                 return false;
             }
         }

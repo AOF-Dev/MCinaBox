@@ -36,7 +36,7 @@
                 android:paddingTop="3dp"
                 android:textSize="@dimen/text_mid"
                 android:textColor="@color/text_title_main"
-                android:text="@string/title_install_newversion" />
+                android:text="@string/title_install_new_version" />
         </LinearLayout>
 
         <LinearLayout
@@ -58,7 +58,7 @@
                 android:paddingTop="3dp"
                 android:textSize="@dimen/text_mid"
                 android:textColor="@color/text_title_main"
-                android:text="@string/title_install_gamepack" />
+                android:text="@string/title_install_game_pack" />
         </LinearLayout>
 
         <LinearLayout
@@ -102,7 +102,7 @@
                 android:paddingTop="3dp"
                 android:textSize="@dimen/text_mid"
                 android:textColor="@color/text_title_main"
-                android:text="@string/title_setting_minecraft" />
+                android:text="@string/title_game_global_setting" />
         </LinearLayout>
 
     </LinearLayout>

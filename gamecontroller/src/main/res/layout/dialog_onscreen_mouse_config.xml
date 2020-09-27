@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="5dp"
-        android:text="PC鼠标设定"
+        android:text="@string/title_pc_mouse_config"
         android:textColor="@color/text_title_main"
         android:textSize="@dimen/text_big" />
     <LinearLayout
@@ -29,7 +29,7 @@
                 android:layout_margin="5dp"
                 android:textSize="@dimen/text_mid"
                 android:textColor="@color/text_title_main"
-                android:text="透明度"/>
+                android:text="@string/title_alpha_size"/>
 
             <SeekBar
                 android:id="@+id/input_onscreen_mouse_dialog_seekbar_alpha"
@@ -71,7 +71,7 @@
                 android:layout_margin="5dp"
                 android:textSize="@dimen/text_mid"
                 android:textColor="@color/text_title_main"
-                android:text="大小"/>
+                android:text="@string/title_size"/>
 
             <SeekBar
                 android:id="@+id/input_onscreen_mouse_dialog_seekbar_size"
@@ -113,7 +113,7 @@
                 android:layout_margin="5dp"
                 android:textSize="@dimen/text_mid"
                 android:textColor="@color/text_title_main"
-                android:text="滚轮速度"/>
+                android:text="@string/title_mouse_wheel_speed"/>
 
             <SeekBar
                 android:id="@+id/input_onscreen_mouse_dialog_seekbar_wheelspeed"
@@ -152,7 +152,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:text="显示"
+                android:text="@string/title_show"
                 android:textColor="@color/text_title_main"
                 android:textSize="@dimen/text_mid" />
 
@@ -167,7 +167,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:text="所有"
+                    android:text="@string/title_all"
                     android:textColor="@color/text_info"
                     android:checked="true"
                     android:textSize="@dimen/text_small" />
@@ -178,7 +178,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:text="游戏内"
+                    android:text="@string/title_in_game"
                     android:textColor="@color/text_info"
                     android:textSize="@dimen/text_small" />
 
@@ -188,7 +188,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:text="游戏外"
+                    android:text="@string/title_out_game"
                     android:textColor="@color/text_info"
                     android:textSize="@dimen/text_small" />
 
@@ -212,7 +212,7 @@
             android:layout_margin="5dp"
             android:layout_gravity="center"
             style="?android:attr/buttonBarButtonStyle"
-            android:text="确定" />
+            android:text="@string/title_ok" />
         <Button
             android:id="@+id/input_onscreen_mouse_dialog_button_cancel"
             android:layout_width="0dp"
@@ -221,7 +221,7 @@
             android:layout_margin="5dp"
             android:layout_gravity="center"
             style="?android:attr/buttonBarButtonStyle"
-            android:text="取消" />
+            android:text="@string/title_cancel" />
         <Button
             android:id="@+id/input_onscreen_mouse_dialog_button_restore"
             android:layout_width="0dp"
@@ -230,7 +230,7 @@
             android:layout_margin="5dp"
             android:layout_gravity="center"
             style="?android:attr/buttonBarButtonStyle"
-            android:text="还原"/>
+            android:text="@string/title_restore"/>
 
     </LinearLayout>
 

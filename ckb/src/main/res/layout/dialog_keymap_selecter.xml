@@ -23,7 +23,7 @@
                 android:layout_gravity="center"
                 android:textSize="@dimen/text_small"
                 android:textColor="@color/text_info"
-                android:text="标准键盘按键:"/>
+                android:text="@string/tips_stand_keyboard_buttons"/>
 
 
         </LinearLayout>
@@ -55,7 +55,7 @@
                 android:layout_gravity="center"
                 android:textSize="@dimen/text_small"
                 android:textColor="@color/text_info"
-                android:text="鼠标按键:"/>
+                android:text="@string/tips_stand_mouse_button"/>
 
         </LinearLayout>
 
@@ -71,7 +71,7 @@
                 android:layout_height="25dp"
                 android:layout_margin="5dp"
                 android:layout_gravity="center"
-                android:text="左键"
+                android:text="@string/title_mouse_lb"
                 custom:button_name="MOUSE_BUTTON_LEFT"/>
 
             <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
@@ -80,7 +80,7 @@
                 android:layout_height="25dp"
                 android:layout_margin="5dp"
                 android:layout_gravity="center"
-                android:text="中键"
+                android:text="@string/title_mouse_cb"
                 custom:button_name="MOUSE_BUTTON_MIDDLE"/>
 
             <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
@@ -89,7 +89,7 @@
                 android:layout_height="25dp"
                 android:layout_margin="5dp"
                 android:layout_gravity="center"
-                android:text="右键"
+                android:text="@string/title_mouse_rb"
                 custom:button_name="MOUSE_BUTTON_RIGHT"/>
 
             <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
@@ -98,7 +98,7 @@
                 android:layout_height="25dp"
                 android:layout_margin="5dp"
                 android:layout_gravity="center"
-                android:text="滚轮上"
+                android:text="@string/title_wheel_up"
                 custom:button_name="MOUSE_WHEEL_UP"/>
 
             <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
@@ -107,7 +107,7 @@
                 android:layout_height="25dp"
                 android:layout_margin="5dp"
                 android:layout_gravity="center"
-                android:text="滚轮下"
+                android:text="@string/title_wheel_down"
                 custom:button_name="MOUSE_WHEEL_DOWN"/>
 
         </LinearLayout>
@@ -127,7 +127,7 @@
             android:layout_margin="5dp"
             android:textSize="@dimen/text_small"
             android:textColor="@color/text_info"
-            android:text="已选择:"/>
+            android:text="@string/tips_selected"/>
 
         <TextView
             android:id="@+id/dialog_keymap_selecter_text_keyname"
@@ -144,7 +144,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_gravity="center"
-            android:text="确认"/>
+            android:text="@string/title_ok"/>
 
         <Button
             android:id="@+id/dialog_keymap_selecter_button_cancel"
@@ -152,7 +152,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_gravity="center"
-            android:text="取消"/>
+            android:text="@string/title_cancel"/>
 
         <Button
             android:id="@+id/dialog_keymap_selecter_button_clear"
@@ -160,7 +160,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_gravity="center"
-            android:text="清除"/>
+            android:text="@string/title_clear"/>
 
 
     </LinearLayout>

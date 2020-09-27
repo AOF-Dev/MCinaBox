@@ -78,7 +78,7 @@ public class DownloaderDialog extends Dialog implements Dialog.OnCancelListener,
         }
 
         if(v == buttonCancel){
-            DialogUtils.createBothChoicesDialog(mContext,"警告","你确定要取消下载任务吗？该操作不会改变已经下载的内容。","确定","取消",new DialogSupports(){
+            DialogUtils.createBothChoicesDialog(mContext,mContext.getString(R.string.title_warn),mContext.getString(R.string.tips_are_you_sure_to_cancel_download_task),mContext.getString(R.string.title_ok),mContext.getString(R.string.title_cancel),new DialogSupports(){
                 @Override
                 public void runWhenPositive(){
                     DownloaderDialog.this.cancel();
@@ -112,14 +112,14 @@ public class DownloaderDialog extends Dialog implements Dialog.OnCancelListener,
     public DownloaderDialog setFinished(){
         this.ivFinish.setVisibility(View.VISIBLE);
         this.textProgress.setVisibility(View.GONE);
-        this.textProgressName.setText("下载完成");
+        this.textProgressName.setText(mContext.getString(R.string.tips_download_finished));
         this.buttonOK.setVisibility(View.VISIBLE);
         this.buttonCancel.setVisibility(View.GONE);
         return this;
     }
 
     public DownloaderDialog setFailed(){
-        this.textProgressName.setText("下载失败");
+        this.textProgressName.setText(mContext.getString(R.string.tips_download_failed));
         return this;
     }
 

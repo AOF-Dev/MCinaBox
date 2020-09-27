@@ -36,7 +36,7 @@
                 android:paddingTop="3dp"
                 android:textSize="@dimen/text_mid"
                 android:textColor="@color/text_title_main"
-                android:text="@string/title_user_newuser" />
+                android:text="@string/title_create_new_user" />
         </LinearLayout>
 
         <LinearLayout

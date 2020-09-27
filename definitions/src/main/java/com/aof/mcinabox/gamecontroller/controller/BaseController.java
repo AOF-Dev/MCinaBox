@@ -96,7 +96,6 @@ public abstract class BaseController implements Controller {
     @Override
     public void setInputMode(int mode){
         this.inputMode = mode;
-        Log.e(TAG,"输入模式: " + inputMode);
         for(Input i : inputs){
             i.setInputMode(mode);
         }

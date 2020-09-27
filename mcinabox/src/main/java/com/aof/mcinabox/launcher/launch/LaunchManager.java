@@ -2,15 +2,11 @@ package com.aof.mcinabox.launcher.launch;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
-import com.aof.mcinabox.MainActivity;
+import com.aof.mcinabox.R;
 import com.aof.mcinabox.definitions.models.BoatArgs;
 import com.aof.mcinabox.launcher.launch.support.AsyncManager;
 import com.aof.mcinabox.launcher.launch.support.BoatArgsMaker;
-import com.aof.mcinabox.launcher.launch.support.FeedBackDialog;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
-import com.aof.mcinabox.launcher.tipper.TipperManager;
-import com.aof.mcinabox.launcher.tipper.support.TipperRunable;
 import com.aof.utils.dialog.DialogUtils;
 import com.aof.utils.dialog.support.TaskDialog;
 
@@ -28,7 +24,7 @@ public class LaunchManager {
 
     public LaunchManager(Context context){
         this.mContext = context;
-        fbDialog = DialogUtils.createTaskDialog(mContext,"正在启动...","",false);
+        fbDialog = DialogUtils.createTaskDialog(mContext,mContext.getString(R.string.tips_launching),"",false);
     }
 
     public void brige_setProgressText(String des){
@@ -41,7 +37,7 @@ public class LaunchManager {
 
     public void brige_exitWithError(String des){
         if(des != null && ! des.equals("")){
-            DialogUtils.createSingleChoiceDialog(mContext,"错误",des,"确定",null);
+            DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_error),des,mContext.getString(R.string.title_ok),null);
         }
         fbDialog.dismiss();
     }

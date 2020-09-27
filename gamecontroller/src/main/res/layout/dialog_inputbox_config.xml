@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="5dp"
-        android:text="输入框设定"
+        android:text="@string/title_inputbox_config"
         android:textColor="@color/text_title_main"
         android:textSize="@dimen/text_big" />
 
@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:text="透明度"
+                android:text="@string/title_alpha_size"
                 android:textColor="@color/text_title_main"
                 android:textSize="@dimen/text_mid" />
 
@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:text="大小"
+                android:text="@string/title_size"
                 android:textColor="@color/text_title_main"
                 android:textSize="@dimen/text_mid" />
 
@@ -111,7 +111,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:text="移动"
+                android:text="@string/title_move"
                 android:textColor="@color/text_title_main"
                 android:textSize="@dimen/text_mid" />
 
@@ -130,7 +130,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:text="←" />
+                    android:text="@string/title_point_left" />
 
                 <Button
                     android:id="@+id/input_inputbox_dialog_button_move_right"
@@ -139,7 +139,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:text="→" />
+                    android:text="@string/title_point_right" />
 
                 <Button
                     android:id="@+id/input_inputbox_dialog_button_move_up"
@@ -148,7 +148,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:text="↑" />
+                    android:text="@string/title_point_up" />
 
                 <Button
                     android:id="@+id/input_inputbox_dialog_button_move_down"
@@ -157,7 +157,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:text="↓" />
+                    android:text="@string/title_point_down" />
 
             </LinearLayout>
 
@@ -173,7 +173,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:text="显示"
+                android:text="@string/title_show"
                 android:textColor="@color/text_title_main"
                 android:textSize="@dimen/text_mid" />
 
@@ -188,7 +188,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:text="所有"
+                    android:text="@string/title_all"
                     android:textColor="@color/text_info"
                     android:checked="true"
                     android:textSize="@dimen/text_small" />
@@ -199,7 +199,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:text="游戏内"
+                    android:text="@string/title_in_game"
                     android:textColor="@color/text_info"
                     android:textSize="@dimen/text_small" />
 
@@ -209,7 +209,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:text="游戏外"
+                    android:text="@string/title_out_game"
                     android:textColor="@color/text_info"
                     android:textSize="@dimen/text_small" />
 
@@ -231,7 +231,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
                 android:layout_weight="2"
-                android:text="确定" />
+                android:text="@string/title_ok" />
 
             <Button
                 android:id="@+id/input_inputbox_dialog_button_cancel"
@@ -241,7 +241,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
                 android:layout_weight="2"
-                android:text="取消" />
+                android:text="@string/title_cancel" />
 
             <Button
                 android:id="@+id/input_inputbox_dialog_button_restore"
@@ -251,7 +251,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
                 android:layout_weight="2"
-                android:text="还原" />
+                android:text="@string/title_restore" />
 
         </LinearLayout>
 

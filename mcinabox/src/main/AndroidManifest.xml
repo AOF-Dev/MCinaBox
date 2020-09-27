@@ -18,8 +18,6 @@
         android:largeHeap="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".VirtualKeyBoardActivity" android:screenOrientation="sensorLandscape"/>
-
         <activity android:name=".gamecontroller.ckb.CustomizeKeyboardEditorActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="sensorLandscape" />

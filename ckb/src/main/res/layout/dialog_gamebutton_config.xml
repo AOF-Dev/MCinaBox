@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_margin="5dp"
-        android:text="按键编辑器"
+        android:text="@string/title_custom_button_editor"
         android:textColor="@color/text_title_main"
         android:textSize="@dimen/text_big" />
 
@@ -40,7 +40,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="2"
-                    android:text="按键名"
+                    android:text="@string/app_name"
                     android:textColor="@color/text_info"
                     android:textSize="@dimen/text_big" />
 
@@ -66,7 +66,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="2"
-                    android:text="按键宽度"
+                    android:text="@string/title_width"
                     android:textColor="@color/text_info"
                     android:textSize="@dimen/text_big" />
 
@@ -79,8 +79,8 @@
                     android:gravity="center"
                     android:textAlignment="gravity"
                     android:textSize="@dimen/text_small"
-                    style="@style/Widget.AppCompat.Button.Small"
-                    android:text="←"/>
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:text="@string/title_point_left"/>
 
                 <EditText
                     android:id="@+id/gamebutton_config_dialog_edittext_width"
@@ -101,8 +101,8 @@
                     android:gravity="center"
                     android:textAlignment="gravity"
                     android:textSize="@dimen/text_small"
-                    style="@style/Widget.AppCompat.Button.Small"
-                    android:text="→"/>
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:text="@string/title_point_right"/>
 
             </LinearLayout>
 
@@ -117,7 +117,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="2"
-                    android:text="按键高度"
+                    android:text="@string/title_height"
                     android:textColor="@color/text_info"
                     android:textSize="@dimen/text_big" />
 
@@ -130,8 +130,8 @@
                     android:gravity="center"
                     android:textAlignment="gravity"
                     android:textSize="@dimen/text_small"
-                    style="@style/Widget.AppCompat.Button.Small"
-                    android:text="←"/>
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:text="@string/title_point_left"/>
 
                 <EditText
                     android:id="@+id/gamebutton_config_dialog_edittext_height"
@@ -152,8 +152,8 @@
                     android:gravity="center"
                     android:textAlignment="gravity"
                     android:textSize="@dimen/text_small"
-                    style="@style/Widget.AppCompat.Button.Small"
-                    android:text="→"/>
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:text="@string/title_point_right"/>
 
             </LinearLayout>
 
@@ -168,7 +168,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="2"
-                    android:text="左边距"
+                    android:text="@string/title_margin_left"
                     android:textColor="@color/text_info"
                     android:textSize="@dimen/text_big" />
 
@@ -181,8 +181,8 @@
                     android:gravity="center"
                     android:textAlignment="gravity"
                     android:textSize="@dimen/text_small"
-                    style="@style/Widget.AppCompat.Button.Small"
-                    android:text="←"/>
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:text="@string/title_point_left"/>
 
                 <EditText
                     android:id="@+id/gamebutton_config_dialog_edittext_left"
@@ -203,8 +203,8 @@
                     android:gravity="center"
                     android:textAlignment="gravity"
                     android:textSize="@dimen/text_small"
-                    style="@style/Widget.AppCompat.Button.Small"
-                    android:text="→"/>
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:text="@string/title_point_right"/>
 
             </LinearLayout>
 
@@ -219,7 +219,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="2"
-                    android:text="上边距"
+                    android:text="@string/title_margin_top"
                     android:textColor="@color/text_info"
                     android:textSize="@dimen/text_big" />
 
@@ -232,8 +232,8 @@
                     android:gravity="center"
                     android:textAlignment="gravity"
                     android:textSize="@dimen/text_small"
-                    style="@style/Widget.AppCompat.Button.Small"
-                    android:text="←"/>
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:text="@string/title_point_left"/>
 
                 <EditText
                     android:id="@+id/gamebutton_config_dialog_edittext_top"
@@ -254,8 +254,8 @@
                     android:gravity="center"
                     android:textAlignment="gravity"
                     android:textSize="@dimen/text_small"
-                    style="@style/Widget.AppCompat.Button.Small"
-                    android:text="→"/>
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:text="@string/title_point_right"/>
 
             </LinearLayout>
 
@@ -270,7 +270,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="2"
-                    android:text="映射"
+                    android:text="@string/title_mapping"
                     android:textColor="@color/text_info"
                     android:textSize="@dimen/text_big" />
 
@@ -405,7 +405,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="2"
-                    android:text="式样"
+                    android:text="@string/title_theme"
                     android:textColor="@color/text_info"
                     android:textSize="@dimen/text_big" />
 
@@ -430,7 +430,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="2"
-                    android:text="背景颜色"
+                    android:text="@string/title_back_color"
                     android:textColor="@color/text_info"
                     android:textSize="@dimen/text_big" />
 
@@ -464,7 +464,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="2"
-                    android:text="文字颜色"
+                    android:text="@string/title_text_color"
                     android:textColor="@color/text_info"
                     android:textSize="@dimen/text_big" />
 
@@ -498,7 +498,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="2"
-                    android:text="文字大小"
+                    android:text="@string/title_text_size"
                     android:textColor="@color/text_info"
                     android:textSize="@dimen/text_big" />
 
@@ -533,7 +533,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="2"
-                    android:text="圆角"
+                    android:text="@string/title_corner"
                     android:textColor="@color/text_info"
                     android:textSize="@dimen/text_big" />
 
@@ -567,7 +567,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="2"
-                    android:text="透明度"
+                    android:text="@string/title_un_alpha_size"
                     android:textColor="@color/text_info"
                     android:textSize="@dimen/text_big" />
 
@@ -600,7 +600,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="自动保持"
+                    android:text="@string/title_keep"
                     android:textColor="@color/text_info"
                     android:textSize="@dimen/text_big" />
 
@@ -630,7 +630,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="隐藏"
+                    android:text="@string/title_hide"
                     android:textColor="@color/text_info"
                     android:textSize="@dimen/text_big" />
 
@@ -660,7 +660,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="视角跟随"
+                    android:text="@string/title_sight_follow"
                     android:textColor="@color/text_info"
                     android:textSize="@dimen/text_big" />
 
@@ -675,8 +675,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_margin="5dp"
-                    />
+                    android:layout_margin="5dp" />
 
             </LinearLayout>
 
@@ -690,7 +689,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="显示"
+                    android:text="@string/title_show"
                     android:textColor="@color/text_info"
                     android:textSize="@dimen/text_big" />
 
@@ -711,21 +710,21 @@
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/text_small"
                         android:textColor="@color/text_info"
-                        android:text="所有"/>
+                        android:text="@string/title_all"/>
                     <RadioButton
                         android:id="@+id/gamebutton_config_dialog_rb_in_game"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/text_small"
                         android:textColor="@color/text_info"
-                        android:text="游戏内"/>
+                        android:text="@string/title_in_game"/>
                     <RadioButton
                         android:id="@+id/gamebutton_config_dialog_rb_out_game"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/text_small"
                         android:textColor="@color/text_info"
-                        android:text="游戏外"/>
+                        android:text="@string/title_out_game"/>
 
 
                 </RadioGroup>
@@ -751,7 +750,7 @@
             android:layout_weight="1"
             android:textAllCaps="false"
             style="?android:attr/buttonBarButtonStyle"
-            android:text="确定" />
+            android:text="@string/title_ok" />
 
         <Button
             android:id="@+id/gamebutton_config_dialog_button_cancel"
@@ -760,7 +759,7 @@
             android:layout_weight="1"
             android:textAllCaps="false"
             style="?android:attr/buttonBarButtonStyle"
-            android:text="取消" />
+            android:text="@string/title_cancel" />
 
         <Button
             android:id="@+id/gamebutton_config_dialog_button_del"
@@ -769,7 +768,7 @@
             android:layout_weight="1"
             android:textAllCaps="false"
             style="?android:attr/buttonBarButtonStyle"
-            android:text="删除" />
+            android:text="@string/title_delete" />
 
         <Button
             android:id="@+id/gamebutton_config_dialog_button_copy"
@@ -778,7 +777,7 @@
             android:layout_weight="1"
             android:textAllCaps="false"
             style="?android:attr/buttonBarButtonStyle"
-            android:text="复制" />
+            android:text="@string/title_copy" />
 
     </LinearLayout>
 

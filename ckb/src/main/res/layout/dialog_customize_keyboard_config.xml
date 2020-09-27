@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
-        android:text="自定义键盘设定"
+        android:text="@string/title_custom_keyboard_config"
         android:textColor="@color/text_title_main"
         android:textSize="@dimen/text_big" />
 
@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:layout_marginStart="2dp"
-        android:text="按键设置"
+        android:text="@string/title_button_config"
         android:textColor="@color/text_info"
         android:textSize="@dimen/text_small" />
 
@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="2dp"
-                android:text="模式"
+                android:text="@string/title_mode"
                 android:textColor="@color/text_title_main"
                 android:textSize="@dimen/text_big" />
 
@@ -58,7 +58,7 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:checked="true"
-                    android:text="编辑"
+                    android:text="@string/title_edit"
                     android:textColor="@color/text_info"
                     android:textSize="@dimen/text_mid" />
 
@@ -68,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:text="生效"
+                    android:text="@string/title_effect"
                     android:textColor="@color/text_info"
                     android:textSize="@dimen/text_mid" />
 
@@ -91,7 +91,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="2dp"
-                    android:text="操作"
+                    android:text="@string/title_step"
                     android:textColor="@color/text_title_main"
                     android:textSize="@dimen/text_big" />
 
@@ -101,7 +101,7 @@
                     android:layout_gravity="center"
                     android:layout_weight="2"
                     android:gravity="end"
-                    android:text="总数"
+                    android:text="@string/title_total_count"
                     android:textAlignment="viewEnd"
                     android:textColor="@color/text_info"
                     android:textSize="@dimen/text_mid" />
@@ -112,7 +112,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="2dp"
-                    android:text="0"
                     android:textColor="@color/text_info"
                     android:textSize="@dimen/text_mid" />
 
@@ -123,7 +122,8 @@
                     android:layout_gravity="center"
                     android:layout_margin="2dp"
                     android:layout_weight="1"
-                    android:text="添加"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:text="@string/title_add"
                     android:textSize="@dimen/text_small" />
 
                 <Button
@@ -133,7 +133,8 @@
                     android:layout_gravity="center"
                     android:layout_margin="2dp"
                     android:layout_weight="1"
-                    android:text="清空"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:text="@string/title_clear"
                     android:textSize="@dimen/text_small" />
 
             </LinearLayout>
@@ -147,7 +148,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:layout_marginStart="2dp"
-        android:text="模板设置"
+        android:text="@string/title_mould"
         android:textColor="@color/text_info"
         android:textSize="@dimen/text_small" />
 
@@ -168,7 +169,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="2dp"
-                android:text="选择"
+                android:text="@string/title_choice"
                 android:textColor="@color/text_title_main"
                 android:textSize="@dimen/text_big" />
 
@@ -193,7 +194,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="2"
-                    android:text="导入"
+                    android:text="@string/title_import"
+                    style="?android:attr/buttonBarButtonStyle"
                     android:textSize="@dimen/text_small" />
 
                 <Button
@@ -202,7 +204,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="2"
-                    android:text="删除"
+                    android:text="@string/title_delete"
+                    style="?android:attr/buttonBarButtonStyle"
                     android:textSize="@dimen/text_small" />
 
             </LinearLayout>
@@ -219,7 +222,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="2dp"
-                android:text="保存"
+                android:text="@string/title_save"
                 android:textColor="@color/text_title_main"
                 android:textSize="@dimen/text_big" />
 
@@ -245,7 +248,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="2"
-                    android:text="导出"
+                    android:text="@string/title_output"
+                    style="?android:attr/buttonBarButtonStyle"
                     android:textSize="@dimen/text_small" />
 
             </LinearLayout>
