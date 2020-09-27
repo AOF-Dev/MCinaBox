@@ -12,17 +12,17 @@
         android:id="@+id/ckbe_toolbar"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:background="?attr/colorPrimary"
+        android:background="?android:attr/colorPrimary"
         android:elevation="4dp"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
+        android:minHeight="?android:attr/actionBarSize"
+        android:theme="?android:attr/actionBarTheme"
         app:title="MCinaBox"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0.1.4"
+            android:text="@string/app_version"
             android:textSize="@dimen/text_big"
             />
 
