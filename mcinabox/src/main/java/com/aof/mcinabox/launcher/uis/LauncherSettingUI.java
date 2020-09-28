@@ -88,7 +88,7 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
         }
 
         if(setting.isFullscreen()){
-            MainActivity.CURRENT_ACTIVITY.mThemeManager.setFullScreen(MainActivity.CURRENT_ACTIVITY);
+            MainActivity.CURRENT_ACTIVITY.mThemeManager.setFullScreen(MainActivity.CURRENT_ACTIVITY,true);
         }
 
     }
@@ -243,8 +243,9 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
 
         if(buttonView == switchFullscreen){
             if(isChecked){
-                MainActivity.CURRENT_ACTIVITY.mThemeManager.setFullScreen(MainActivity.CURRENT_ACTIVITY);
+                MainActivity.CURRENT_ACTIVITY.mThemeManager.setFullScreen(MainActivity.CURRENT_ACTIVITY,true);
             }else{
+                MainActivity.CURRENT_ACTIVITY.mThemeManager.setFullScreen(MainActivity.CURRENT_ACTIVITY,false);
                 DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_note),mContext.getString(R.string.tips_successed_to_disable_hide_stat_bar),mContext.getString(R.string.title_ok),null);
             }
             setting.setFullscreen(isChecked);
