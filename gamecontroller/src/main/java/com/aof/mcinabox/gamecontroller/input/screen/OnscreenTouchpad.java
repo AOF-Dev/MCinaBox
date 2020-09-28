@@ -377,6 +377,11 @@ public class OnscreenTouchpad implements OnscreenInput, AppEvent, KeyMap, MouseM
         updateUI();
     }
 
+    @Override
+    public boolean isEnable() {
+        return this.enable;
+    }
+
     private void updateUI() {
         if (enable) {
             setUiVisibility(View.VISIBLE);
