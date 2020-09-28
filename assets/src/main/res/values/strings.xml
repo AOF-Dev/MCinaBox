@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <string name="app_name" translatable="false">MCinaBox</string>
-    <string name="app_version" translatable="false">v0.1.4-p2</string>
+    <string name="app_version" translatable="false">v0.1.4-p3</string>
     <string name="app_about_dependent_info" translatable="false">BoatApp (CosineMath,MIT)\nGson (Google,Apache 2.0)\nJNDCrash (ivanarh,Apache-2.0)\nXZ for Java (Lasse Collin,Public Domain)\nGL4ES (pitiSeb,MIT)\nOpenAL Soft (kcat,GPL-2.0)\nFileDownloader (lingochamp,Apache-2.0)\nBubbleLayout (MasayukiSuda)\nAndroidRocker (kongqw)\ncolorpicker (shixiuwen)</string>
     <string name="app_about_copyright_info" translatable="false">MCinaBox Copyright © 2020 longjunyu.</string>
     <string name="app_about_developer_info" translatable="false">longjunyu (MCinaBox ljy122@qq.com)\nand all project contributors</string>
