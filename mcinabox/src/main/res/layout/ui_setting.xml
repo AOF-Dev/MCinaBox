@@ -76,7 +76,7 @@
                         android:layout_height="wrap_content"
                         android:visibility="invisible"
                         android:layout_weight="1"/>
-                    
+
                     <Button
                         android:id="@+id/launchersetting_button_import"
                         style="@style/LauncherButton_1"
