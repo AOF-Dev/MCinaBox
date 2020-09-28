@@ -1,7 +1,6 @@
 package com.aof.mcinabox.launcher.launch.support;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.definitions.manifest.AppManifest;
@@ -66,7 +65,7 @@ public class BoatArgsMaker {
     }
 
     private void manifestSelecter(){
-        manifests = RuntimeManager.getRutinmeInfoManifest(version);
+        manifests = RuntimeManager.getRuntinmeInfoManifest(version);
 
         if(manifests.length == 1 && !mSetting.getConfigurations().isAlwaysChoiceRuntimeManifest()){
             //如果只有一种可选策略，并且设置中仅用了AlwaysChoiceRuntimeMainfest，则不显示选择对话框

@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.widget.Toast;
 import com.aof.mcinabox.MainActivity;
 import com.aof.mcinabox.R;
@@ -115,7 +114,7 @@ public class RuntimeManager {
         return getPackInfo(AppManifest.BOAT_RUNTIME_INFO_JSON);
     }
 
-    public static RuntimePackInfo.Manifest[] getRutinmeInfoManifest(String infoPath, VersionJson version){
+    public static RuntimePackInfo.Manifest[] getRuntinmeInfoManifest(String infoPath, VersionJson version){
         ArrayList<RuntimePackInfo.Manifest> mabifests = new ArrayList<>();
         RuntimePackInfo info = RuntimeManager.getPackInfo(infoPath);
         RuntimePackInfo.Manifest[] originalManifests = Objects.requireNonNull(info).manifest;
@@ -148,8 +147,8 @@ public class RuntimeManager {
         return tmp;
     }
 
-    public static RuntimePackInfo.Manifest[] getRutinmeInfoManifest(VersionJson version){
-        return getRutinmeInfoManifest(AppManifest.BOAT_RUNTIME_INFO_JSON, version);
+    public static RuntimePackInfo.Manifest[] getRuntinmeInfoManifest(VersionJson version){
+        return getRuntinmeInfoManifest(AppManifest.BOAT_RUNTIME_INFO_JSON, version);
     }
 
     public static void clearRuntime(final Context context){
