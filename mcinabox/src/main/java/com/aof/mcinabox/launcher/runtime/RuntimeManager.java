@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.widget.Toast;
 import com.aof.mcinabox.MainActivity;
 import com.aof.mcinabox.R;
@@ -17,6 +18,8 @@ import com.aof.utils.FileTool;
 import com.aof.utils.dialog.DialogUtils;
 import com.aof.utils.dialog.support.TaskDialog;
 import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -106,8 +109,12 @@ public class RuntimeManager {
             return gson.fromJson(reader, RuntimePackInfo.class);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            return null;
+            Log.e(TAG,"packinfo.json not found.");
+        } catch (Exception e){
+            e.printStackTrace();
+            Log.e(TAG,e.getMessage());
         }
+        return null;
     }
 
     public static RuntimePackInfo getPackInfo(){
