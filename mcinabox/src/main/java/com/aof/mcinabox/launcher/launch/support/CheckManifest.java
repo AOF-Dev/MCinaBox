@@ -1,20 +1,17 @@
 package com.aof.mcinabox.launcher.launch.support;
 
-import android.util.Log;
-
 import com.aof.mcinabox.MainActivity;
 import com.aof.mcinabox.definitions.manifest.AppManifest;
 import com.aof.mcinabox.launcher.runtime.RuntimeManager;
+import com.aof.mcinabox.launcher.runtime.support.RuntimePackInfo;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.mcinabox.launcher.tipper.TipperManager;
 import com.aof.mcinabox.minecraft.JsonUtils;
+import com.aof.utils.AppUtils;
 import com.aof.utils.FileTool;
-
 import java.io.File;
 import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.util.ArrayList;
-import java.util.regex.Pattern;
 
 public class CheckManifest {
 
@@ -33,8 +30,10 @@ public class CheckManifest {
     }
 
     public static boolean checkPlatform() {
-        //TODO: 检查架构
-        return true;
+        RuntimePackInfo info = RuntimeManager.getPackInfo();
+        String platform = info.platform;
+        String abi = AppUtils.formatCpuAbi(AppUtils.getCpuAbi());
+        return abi == null || platform.equals(AppUtils.formatCpuAbi(AppUtils.getCpuAbi()));
     }
 
     public static boolean checkMinecraftMainFiles(SettingJson settingJson) {
