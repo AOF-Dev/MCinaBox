@@ -251,7 +251,7 @@
     <string name="tips_password_can_not_be_void">Password can not be blank!</string>
     <string name="tips_are_you_sure_to_restore_setting">Are you sure that you want to restore the default settings?</string>
     <string name="tips_are_you_sure_to_cancel_download_task">Are you sure that you want to cancel the download task? This operation will not change the downloaded content.</string>
-    <string name="tips_are_you_sure_to_delete_button"Are you sure that you want to delete this button?  It cannot be restored after performing this operation.</string>
+    <string name="tips_are_you_sure_to_delete_button">Are you sure that you want to delete this button?  It cannot be restored after performing this operation.</string>
     <string name="tips_are_you_sure_to_clone_button">Are you sure that you want to copy this button?  After performing this operation, the editing object will be switched to a new button.</string>
     <string name="tips_target_dir_is_file">The target path is a file, not a folder!"</string>
     <string name="tips_target_dir_is_not_exist">The target path does not exist, do you want to create a folder?</string>
