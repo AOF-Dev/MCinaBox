@@ -66,9 +66,9 @@ public class Login extends AsyncTask<String, Void, String>
         super.onPostExecute(s);
         //写入正版用户信息
         if(s == null){
-            PromptUtils.createPrompt(mContext,s);
-        }else{
             UserManager.addAccount(MainActivity.Setting, UserManager.getOnlineAccount(mContext));
+        }else{
+            PromptUtils.createPrompt(mContext,s);
         }
     }
 }
