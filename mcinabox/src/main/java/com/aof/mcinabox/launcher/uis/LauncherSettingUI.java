@@ -43,6 +43,7 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
     private Button buttonImportRuntime;
     private Button buttonInstallForge;
     private Button buttonShowControbutors;
+    private Button buttonClearRuntime;
     private SwitchCompat switchAutoBackground;
     private SwitchCompat switchFullscreen;
     private Animation showAnim;
@@ -59,6 +60,7 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
         listForgeInstallers = layout_setting.findViewById(R.id.launchersetting_spinner_forgeinstaller);
         buttonInstallForge = layout_setting.findViewById(R.id.launchersetting_button_forgeinstaller);
         buttonShowControbutors = layout_setting.findViewById(R.id.setting_show_contributors);
+        buttonClearRuntime = layout_setting.findViewById(R.id.launchersetting_button_clear_runtime);
         switchAutoBackground = layout_setting.findViewById(R.id.launchersetting_switch_auto_background);
         switchFullscreen = layout_setting.findViewById(R.id.launchersetting_switch_fullscreen);
 
@@ -66,7 +68,7 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
         switchFullscreen.setChecked(setting.isFullscreen());
 
         //设定监听器
-        for (View v : new View[]{buttonInstallForge, buttonImportRuntime, buttonShowControbutors}) {
+        for (View v : new View[]{buttonInstallForge, buttonImportRuntime, buttonShowControbutors, buttonClearRuntime}) {
             v.setOnClickListener(clickListener);
         }
         for(SwitchCompat sc : new SwitchCompat[]{switchAutoBackground,switchFullscreen}){
@@ -210,6 +212,9 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
             }
             if (v == buttonShowControbutors) {
                 new ContributorsDialog(mContext).show();
+            }
+            if(v == buttonClearRuntime){
+                RuntimeManager.clearRuntime(mContext);
             }
         }
     };

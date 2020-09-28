@@ -76,12 +76,20 @@
                         android:layout_height="wrap_content"
                         android:visibility="invisible"
                         android:layout_weight="1"/>
+                    
                     <Button
                         android:id="@+id/launchersetting_button_import"
                         style="@style/LauncherButton_1"
                         android:layout_marginStart="5dp"
                         android:layout_marginEnd="5dp"
                         android:text="@string/title_import" />
+
+                    <Button
+                        android:id="@+id/launchersetting_button_clear_runtime"
+                        style="@style/LauncherButton_1"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:text="@string/title_clear" />
 
                 </LinearLayout>
 
@@ -123,6 +131,7 @@
                         android:layout_marginStart="5dp"
                         android:layout_marginEnd="5dp"
                         android:text="@string/title_install" />
+
 
                 </LinearLayout>
 

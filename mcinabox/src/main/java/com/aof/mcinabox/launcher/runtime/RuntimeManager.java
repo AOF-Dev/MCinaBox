@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.widget.Toast;
 import com.aof.mcinabox.MainActivity;
 import com.aof.mcinabox.R;
@@ -35,12 +36,15 @@ public class RuntimeManager {
      **/
     public static void installRuntimeFromPath(final Context context, String globalPath) {
 
-        final TaskDialog mDialog = DialogUtils.createTaskDialog(context, context.getString(R.string.tips_installing_runtime),"",false);
+        final TaskDialog mDialog = DialogUtils.createTaskDialog(context,"","",false);
         mDialog.show();
         @SuppressLint("HandlerLeak") final Handler mHandler = new Handler(){
             @Override
             public void handleMessage(Message msg){
                 switch (msg.what) {
+                    case 3:
+                        mDialog.setTotalTaskName(context.getString(R.string.tips_installing_runtime));
+                        break;
                     case 4:
                         Toast.makeText(MainActivity.CURRENT_ACTIVITY, MainActivity.CURRENT_ACTIVITY.getString(R.string.tips_runtime_notfound), Toast.LENGTH_SHORT).show();
                         mDialog.dismiss();
@@ -62,35 +66,33 @@ public class RuntimeManager {
         new Thread() {
             @Override
             public void run() {
+                sendMsg(3);
                 File packageFile = new File(mpackagePath);
                 if (!packageFile.exists()) {
-
-                    Message msg_1 = new Message();
-                    msg_1.what = 4;
-                    mHandler.sendMessage(msg_1);
+                    sendMsg(4);
                     return;
-
                 } else {
                     if (packageFile.isDirectory()) {
                         Toast.makeText(context, "Runtime packs should not be directories!", Toast.LENGTH_LONG).show();
                         return;
                     }
                 }
-                Message msg_2 = new Message();
-                Message msg_3 = new Message();
-                msg_2.what = 5;
-                mHandler.sendMessage(msg_2);
                 File dir = new File(AppManifest.BOAT_RUNTIME_HOME);
                 if(!dir.exists()){
                     FileTool.makeFloder(dir.getAbsolutePath());
                 }
                 BoatUtils.extractTarXZ(mpackagePath, AppManifest.BOAT_RUNTIME_HOME);
                 if (BoatUtils.setExecutable(AppManifest.BOAT_RUNTIME_HOME)) {
-                    msg_3.what = 6;
+                    sendMsg(6);
                 } else {
-                    msg_3.what = 7;
+                    sendMsg(7);
                 }
-                mHandler.sendMessage(msg_3);
+            }
+
+            public void sendMsg(int what){
+                Message msg = new Message();
+                msg.what = what;
+                mHandler.sendMessage(msg);
             }
         }.start();
     }
@@ -148,5 +150,43 @@ public class RuntimeManager {
 
     public static RuntimePackInfo.Manifest[] getRutinmeInfoManifest(VersionJson version){
         return getRutinmeInfoManifest(AppManifest.BOAT_RUNTIME_INFO_JSON, version);
+    }
+
+    public static void clearRuntime(final Context context){
+
+        final TaskDialog mDialog = DialogUtils.createTaskDialog(context,"","",false);
+        mDialog.show();
+        @SuppressLint("HandlerLeak") final Handler mHandler = new Handler(){
+            @Override
+            public void handleMessage(Message msg){
+                switch (msg.what) {
+                    case 1:
+                        mDialog.setTotalTaskName(context.getString(R.string.tips_installing_runtime));
+                        break;
+                    case 2:
+                        mDialog.dismiss();
+                        break;
+                }
+                super.handleMessage(msg);
+            }
+        };
+
+        new Thread(){
+            @Override
+            public void run(){
+                sendMsg(1);
+                File file = new File(AppManifest.BOAT_RUNTIME_HOME);
+                if(file.exists()){
+                    FileTool.deleteDir(file.getAbsolutePath());
+                }
+                sendMsg(2);
+            }
+
+            public void sendMsg(int what){
+                Message msg = new Message();
+                msg.what = what;
+                mHandler.sendMessage(msg);
+            }
+        }.start();
     }
 }

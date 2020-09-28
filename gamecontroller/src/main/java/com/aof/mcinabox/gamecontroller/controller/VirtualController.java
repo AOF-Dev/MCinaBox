@@ -17,10 +17,9 @@ import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Switch;
-
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.content.ContextCompat;
-
 import com.aof.mcinabox.definitions.id.AppEvent;
 import com.aof.mcinabox.gamecontroller.R;
 import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
@@ -37,7 +36,6 @@ import com.aof.mcinabox.gamecontroller.input.screen.OnscreenTouchpad;
 import com.aof.mcinabox.gamecontroller.codes.Translation;
 import com.aof.utils.dialog.DialogUtils;
 import com.aof.utils.dialog.support.DialogSupports;
-
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -64,28 +62,28 @@ public class VirtualController extends BaseController implements AppEvent , View
     //Dialog的控件
 
     private ImageButton buttonCustomizeKeyboard;
-    private Switch switchCustomizeKeyboard;
+    private SwitchCompat switchCustomizeKeyboard;
 
     private ImageButton buttonPCKeyboard;
-    private Switch switchPCKeyboard;
+    private SwitchCompat switchPCKeyboard;
 
     private ImageButton buttonPCMouse;
-    private Switch switchPCMouse;
+    private SwitchCompat switchPCMouse;
 
     private ImageButton buttonPEKeyboard;
-    private Switch switchPEKeyboard;
+    private SwitchCompat switchPEKeyboard;
 
     private ImageButton buttonPEJoystick;
-    private Switch switchPEJoystick;
+    private SwitchCompat switchPEJoystick;
 
     private ImageButton buttonPEItembar;
-    private Switch switchPEItembar;
+    private SwitchCompat switchPEItembar;
 
     private ImageButton buttonTouchpad;
-    private Switch switchTouchpad;
+    private SwitchCompat switchTouchpad;
 
     private ImageButton buttonInputBox;
-    private Switch switchInputBox;
+    private SwitchCompat switchInputBox;
 
     private Button buttonOK;
 
@@ -190,9 +188,11 @@ public class VirtualController extends BaseController implements AppEvent , View
         for(View v : new View[]{buttonCustomizeKeyboard,buttonOK,buttonResetPos,buttonPCKeyboard , buttonPCMouse , buttonPEKeyboard , buttonPEJoystick , buttonPEItembar ,buttonTouchpad, buttonInputBox}){
             v.setOnClickListener(this);
         }
-        for(Switch s : new Switch[]{switchCustomizeKeyboard,switchPCKeyboard , switchPCMouse , switchPEKeyboard , switchPEJoystick , switchPEItembar , switchTouchpad, switchInputBox}){
+
+        for(SwitchCompat s : new SwitchCompat[]{switchCustomizeKeyboard,switchPCKeyboard , switchPCMouse , switchPEKeyboard , switchPEJoystick , switchPEItembar , switchTouchpad, switchInputBox}){
             s.setOnCheckedChangeListener(this);
         }
+
         checkboxLock.setOnCheckedChangeListener(this);
 
         //绑定Input对象与ImageButton和Switch
@@ -295,6 +295,7 @@ public class VirtualController extends BaseController implements AppEvent , View
         }
 
         if(v == buttonOK){
+            saveConfigToFile();
             settingDialog.dismiss();
             return;
         }
@@ -312,7 +313,7 @@ public class VirtualController extends BaseController implements AppEvent , View
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-        if(buttonView instanceof Switch && bindingViews.containsKey(buttonView)){
+        if(buttonView instanceof SwitchCompat && bindingViews.containsKey(buttonView)){
             if(isChecked){
                 (Objects.requireNonNull(bindingViews.get(buttonView))).setEnable(true);
             }else{
