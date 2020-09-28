@@ -94,6 +94,11 @@ public class ItemBar implements OnscreenInput, AppEvent {
     }
 
     @Override
+    public boolean isEnable() {
+        return this.enable;
+    }
+
+    @Override
     public void setUiVisibility(int visiablity) {
         switch (visiablity){
             case View.VISIBLE:

@@ -115,6 +115,11 @@ public class OnscreenMouse implements OnscreenInput, AppEvent {
     }
 
     @Override
+    public boolean isEnable() {
+        return this.enable;
+    }
+
+    @Override
     public void setInputMode(int inputMode) {
         updateUI();
     }

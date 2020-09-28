@@ -76,6 +76,10 @@ public class OnscreenJoystick implements OnscreenInput , RockerView.OnShakeListe
         return (new float[]{onscreenJoystick.getX(),onscreenJoystick.getY()});
     }
 
+    @Override
+    public boolean isEnable() {
+        return this.enable;
+    }
 
     @Override
     public void setMargins(int left, int top, int right, int bottom) {

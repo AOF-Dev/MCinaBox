@@ -102,6 +102,11 @@ public class OnscreenKeyboard implements OnscreenInput, AppEvent {
     }
 
     @Override
+    public boolean isEnable() {
+        return this.enable;
+    }
+
+    @Override
     public void setUiMoveable(boolean moveable) {
         this.moveable = moveable;
     }

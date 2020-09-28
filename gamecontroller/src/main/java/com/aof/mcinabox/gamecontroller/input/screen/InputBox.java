@@ -62,6 +62,11 @@ public class InputBox implements OnscreenInput, TextWatcher, TextView.OnEditorAc
     }
 
     @Override
+    public boolean isEnable() {
+        return this.enable;
+    }
+
+    @Override
     public void setEnable(boolean e){
         this.enable = e;
         updateUI();

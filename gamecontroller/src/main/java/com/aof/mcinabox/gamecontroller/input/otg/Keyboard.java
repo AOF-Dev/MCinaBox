@@ -43,6 +43,11 @@ public class Keyboard implements OtgInput , AppEvent {
     }
 
     @Override
+    public boolean isEnable() {
+        return false;
+    }
+
+    @Override
     public boolean onKeyMultiple(int keyCode, int count, KeyEvent event) {
         return false;
     }

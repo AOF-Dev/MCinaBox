@@ -36,6 +36,10 @@ public class CustomizeKeyboard implements OnscreenInput, AppEvent, Controller, C
         return true;
     }
 
+    @Override
+    public boolean isEnable() {
+        return false;
+    }
 
     @Override
     public void sendKey(BaseKeyEvent event) {

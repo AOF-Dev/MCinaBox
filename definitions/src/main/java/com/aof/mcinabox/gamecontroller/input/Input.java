@@ -1,9 +1,6 @@
 package com.aof.mcinabox.gamecontroller.input;
 
-import android.app.Activity;
 import android.content.Context;
-
-import com.aof.mcinabox.gamecontroller.controller.BaseController;
 import com.aof.mcinabox.definitions.id.key.KeyEvent;
 import com.aof.mcinabox.gamecontroller.controller.Controller;
 
@@ -14,4 +11,5 @@ public interface Input extends KeyEvent {
     void runConfigure();
     void saveConfig();
     void setEnable(boolean enable);
+    boolean isEnable();
 }

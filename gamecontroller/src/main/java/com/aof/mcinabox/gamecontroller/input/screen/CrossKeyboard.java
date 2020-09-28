@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -274,7 +273,6 @@ public class CrossKeyboard implements OnscreenInput, KeyMap {
         } else {
             location = 0;
         }
-        Log.e("location", "" + location);
 
         uiUpdate(location, e);
         makeKeyEvent(location, e);
@@ -482,6 +480,11 @@ public class CrossKeyboard implements OnscreenInput, KeyMap {
     public void setEnable(boolean enable) {
         this.enable = enable;
         updateUI();
+    }
+
+    @Override
+    public boolean isEnable() {
+        return this.enable;
     }
 
     private void updateUI() {
@@ -792,7 +795,7 @@ class CrossKeyboardConfigDialog extends Dialog implements View.OnClickListener, 
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
         if (buttonView == switchBounce) {
-            if (isChecked) {
+            if (isChecked && mInput.isEnable()) {
                 ((CrossKeyboard) mInput).setKeyboardExtendVisiability(View.VISIBLE);
             } else {
                 ((CrossKeyboard) mInput).setKeyboardExtendVisiability(View.INVISIBLE);

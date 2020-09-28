@@ -43,6 +43,11 @@ public class Gyroscope implements Input, SensorEventListener {
     }
 
     @Override
+    public boolean isEnable() {
+        return false;
+    }
+
+    @Override
     public void runConfigure() {
 
     }
