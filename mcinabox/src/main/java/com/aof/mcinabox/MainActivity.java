@@ -56,7 +56,9 @@ public class MainActivity extends AppCompatActivity {
         //初始化配置管理器
         mSettingManager = new SettingManager(this);
         //检查配置文件
-        Setting = checkLauncherSettingFile();
+        if(Setting == null){
+            Setting = checkLauncherSettingFile();
+        }
         //初始化清单
         AppManifest.initManifest(this,Setting.getGamedir());
         //检查目录
