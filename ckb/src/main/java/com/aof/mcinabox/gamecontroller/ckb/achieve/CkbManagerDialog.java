@@ -55,6 +55,12 @@ public class CkbManagerDialog extends Dialog implements View.OnClickListener, Co
         this.mContext = context;
         this.mManager = manager;
         initUI();
+
+        //当进入游戏的时候自动设定客制化键盘模式为生效，如果是编辑界面，则不自动设置
+        if(manager.getController() != null){
+            radioGame.setChecked(true);
+        }
+
     }
 
     private void initUI() {
@@ -139,7 +145,7 @@ public class CkbManagerDialog extends Dialog implements View.OnClickListener, Co
                 PromptUtils.createPrompt(mContext, mContext.getString(R.string.tips_filename_can_not_be_void));
                 return;
             }
-            if (editFileName.getText().equals(CkbManager.LAST_KEYBOARD_LAYOUT_NAME)){
+            if (editFileName.getText().toString().equals(CkbManager.LAST_KEYBOARD_LAYOUT_NAME)){
                 PromptUtils.createPrompt(mContext, mContext.getString(R.string.tips_please_change_file_name));
                 return;
             }

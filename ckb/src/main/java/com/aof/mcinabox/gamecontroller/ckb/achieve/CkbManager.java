@@ -38,7 +38,7 @@ public class CkbManager {
 
     private int buttonMode = GameButton.MODE_MOVEABLE_EDITABLE;
 
-    public CkbManager(@NonNull Context context , @NonNull CallCustomizeKeyboard call , Controller controller){
+    public CkbManager(@NonNull Context context , @NonNull CallCustomizeKeyboard call , Controller controller) {
         super();
         this.mContext = context;
         this.mCall = call;
