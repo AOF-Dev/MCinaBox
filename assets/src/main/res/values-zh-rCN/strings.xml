@@ -267,5 +267,6 @@
     <string name="tips_stand_mouse_button">鼠标按键</string>
     <string name="tips_selected">已选择：</string>
     <string name="tips_please_change_file_name">请更改文件名称!</string>
+    <string name="tips_memory_over_total_size">内存上限超过物理内存</string>
 
 </resources>

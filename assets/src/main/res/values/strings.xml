@@ -278,6 +278,7 @@
     <string name="tips_stand_mouse_button">Standard Mouse button</string>
     <string name="tips_selected">Selected：</string>
     <string name="tips_please_change_file_name">Please change the file name!</string>
+    <string name="tips_memory_over_total_size">Memory limit is over total memory.</string>
 
 
     <!--

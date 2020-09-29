@@ -20,6 +20,7 @@ public class SettingChecker {
     private final static int CHECKER_ID_MEMORY_LOW = 13;
     private final static int CHECKER_ID_MEMORY_OVER = 14;
     private final static int CHECKER_ID_NOT_CHECK_GAME = 15;
+    private final static int CHECKER_ID_MEMORY_OVER_PHYSICS_MEMORY_SIZE = 16;
 
     private Context mContext;
     private SettingJson mSetting;
@@ -96,6 +97,17 @@ public class SettingChecker {
             },CHECKER_ID_MEMORY_OVER));
         }else{
             mTipperManager.removeTip(CHECKER_ID_MEMORY_OVER);
+        }
+
+        if(mSetting.getConfigurations().getMaxMemory() > MemoryUtils.getTotalMemoryMB(mContext)){
+            mTipperManager.addTip(TipperManager.createTipBean(mContext, TipperManager.TIPPER_LEVEL_WARN, mContext.getString(R.string.tips_available_memory_over), new TipperRunable() {
+                @Override
+                public void run() {
+                    DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_note),mContext.getString(R.string.tips_please_set_less_memory),mContext.getString(R.string.title_ok),null);
+                }
+            },CHECKER_ID_MEMORY_OVER_PHYSICS_MEMORY_SIZE));
+        }else{
+            mTipperManager.removeTip(CHECKER_ID_MEMORY_OVER_PHYSICS_MEMORY_SIZE);
         }
     }
 
