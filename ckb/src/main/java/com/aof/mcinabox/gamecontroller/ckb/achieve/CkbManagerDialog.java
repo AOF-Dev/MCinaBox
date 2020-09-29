@@ -139,6 +139,10 @@ public class CkbManagerDialog extends Dialog implements View.OnClickListener, Co
                 PromptUtils.createPrompt(mContext, mContext.getString(R.string.tips_filename_can_not_be_void));
                 return;
             }
+            if (editFileName.getText().equals(CkbManager.LAST_KEYBOARD_LAYOUT_NAME)){
+                PromptUtils.createPrompt(mContext, mContext.getString(R.string.tips_please_change_file_name));
+                return;
+            }
             final String fn = editFileName.getText().toString();
             if (fn.equals("")) {
                 PromptUtils.createPrompt(mContext, mContext.getString(R.string.tips_filename_can_not_be_void));

@@ -143,6 +143,13 @@ public class CustomizeKeyboardEditorActivity extends AppCompatActivity implement
         }
     }
 
+    @Override
+    public void onStop(){
+        super.onStop();
+        //当Activity停止的时候自动保存键盘配置
+        mManager.autoSaveKeyboard();
+    }
+
 
 
 }

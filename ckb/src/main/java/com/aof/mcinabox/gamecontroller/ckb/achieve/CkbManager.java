@@ -1,7 +1,6 @@
 package com.aof.mcinabox.gamecontroller.ckb.achieve;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -18,7 +17,6 @@ import com.google.gson.Gson;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,6 +28,7 @@ public class CkbManager {
     private final static String TAG = "CkbManager";
     public final static int MAX_KEYBOARD_SIZE = 80;
     public final static int MIN_KEYBOARD_SIZE = 0;
+    public final static String LAST_KEYBOARD_LAYOUT_NAME = "tmp";
 
     private Context mContext;
     private CallCustomizeKeyboard mCall;
@@ -51,6 +50,8 @@ public class CkbManager {
 
         //初始化按键列表
         buttonList = new GameButtonArray<>();
+        //当Manager初始化的时候自动加载键盘布局
+        autoLoadKeyboard();
 
     }
 
@@ -177,6 +178,14 @@ public class CkbManager {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public void autoSaveKeyboard(){
+        exportKeyboard(LAST_KEYBOARD_LAYOUT_NAME);
+    }
+
+    public void autoLoadKeyboard(){
+        loadKeyboard(LAST_KEYBOARD_LAYOUT_NAME + ".json");
     }
 
     public boolean loadKeyboard(String fileName){

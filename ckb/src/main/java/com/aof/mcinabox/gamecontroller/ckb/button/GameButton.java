@@ -558,7 +558,6 @@ public class GameButton extends androidx.appcompat.widget.AppCompatButton implem
         switch(this.buttonMode){
             case MODE_GAME:
                 if(!isHide){
-
                     switch (inputMode){
                         case MARK_INPUT_MODE_CATCH:
                             if(show == SHOW_ALL || show == SHOW_IN_GAME){

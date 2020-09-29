@@ -266,5 +266,6 @@
     <string name="tips_stand_keyboard_buttons">标准键盘按键</string>
     <string name="tips_stand_mouse_button">鼠标按键</string>
     <string name="tips_selected">已选择：</string>
+    <string name="tips_please_change_file_name">请更改文件名称!</string>
 
 </resources>

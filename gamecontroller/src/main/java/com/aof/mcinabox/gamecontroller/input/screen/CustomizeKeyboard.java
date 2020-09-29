@@ -114,7 +114,8 @@ public class CustomizeKeyboard implements OnscreenInput, AppEvent, Controller, C
 
     @Override
     public void saveConfig() {
-        //do nothing.
+        //当调用保存方法时通过管理器自动保存键盘文件
+        mManager.autoSaveKeyboard();
     }
 
     @Override
@@ -134,7 +135,7 @@ public class CustomizeKeyboard implements OnscreenInput, AppEvent, Controller, C
 
     @Override
     public void setUiVisibility(int visiablity) {
-        //TODO: 接入自带的控制器
+        // to do nothing
     }
 
     @Override
