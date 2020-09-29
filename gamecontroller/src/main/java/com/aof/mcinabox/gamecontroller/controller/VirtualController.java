@@ -104,6 +104,7 @@ public class VirtualController extends BaseController implements AppEvent , View
     private final static String sp_enable_onscreentouchpad = "enable_touchpad";
     private final static String sp_enable_joystick = "enable_mcpe_joystick";
     private final static String sp_enable_inputbox = "enable_inputbox";
+    private final static String sp_first_loadder = "first_loaded";
 
     public VirtualController(Activity activity , int transType) {
         super(activity);
@@ -399,6 +400,9 @@ public class VirtualController extends BaseController implements AppEvent , View
         editor.putBoolean(sp_enable_onscreentouchpad,switchTouchpad.isChecked());
         editor.putBoolean(sp_enable_crosskeyboard,switchPEKeyboard.isChecked());
         editor.putBoolean(sp_enable_inputbox,switchInputBox.isChecked());
+        if(!mContext.getSharedPreferences(spFileName,spMode).contains(sp_first_loadder)){
+            editor.putBoolean(sp_first_loadder,false);
+        }
         editor.apply();
 
     }
@@ -413,6 +417,9 @@ public class VirtualController extends BaseController implements AppEvent , View
         switchPEJoystick.setChecked(sp.getBoolean(sp_enable_joystick,false));
         switchTouchpad.setChecked(sp.getBoolean(sp_enable_onscreentouchpad,false));
         switchInputBox.setChecked(sp.getBoolean(sp_enable_inputbox,false));
+        if(!sp.contains(sp_first_loadder)){
+            buttonResetPos.performClick();
+        }
     }
 
     @Override
