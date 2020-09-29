@@ -65,7 +65,7 @@ public class CkbManager {
             return false;
         }else{
             if(button == null){
-                button = new GameButton(mContext,mCall,mController,this).setButtonMode(buttonMode).setFirstAdded();
+                button = new GameButton(mContext,mCall,mController,this).setButtonMode(this.buttonMode).setFirstAdded();
                 ( new GameButtonDialog(mContext,button,this) ).show();
             }
             this.buttonList.add(button);
@@ -131,6 +131,10 @@ public class CkbManager {
         }else{
             return false;
         }
+    }
+
+    public int getButtonsMode(){
+        return this.buttonMode;
     }
 
     public GameButton[] getGameButtons(){

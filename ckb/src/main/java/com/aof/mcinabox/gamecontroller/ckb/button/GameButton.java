@@ -127,7 +127,7 @@ public class GameButton extends androidx.appcompat.widget.AppCompatButton implem
         }
         mRecorder = new CkbThemeRecorder();
         this.setKeyName("");
-        this.setButtonMode(DEFAULT_BUTTON_MODE);
+        this.setButtonMode(mManager.getButtonsMode());
         this.setTextSize(DEFAULT_TEXT_SIZE_SP);
 
         String[] strs = new String[MAX_KEYMAP_SIZE];
