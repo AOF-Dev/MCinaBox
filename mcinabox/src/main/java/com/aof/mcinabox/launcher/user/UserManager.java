@@ -25,10 +25,14 @@ public class UserManager {
         user.setAccessToken("0");
         user.setSelected(false);
         user.setType(SettingJson.USER_TYPE_OFFLINE);
-        user.setUuid(UUID.nameUUIDFromBytes((username).getBytes()).toString());
+        user.setUuid(createUUIDByString(username));
         user.setUsername(username);
 
         return user;
+    }
+
+    public static String createUUIDByString(String str){
+        return UUID.nameUUIDFromBytes((str).getBytes()).toString();
     }
 
     public static boolean addAccount(SettingJson setting, SettingJson.Account account){

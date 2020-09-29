@@ -103,7 +103,8 @@ public class CreateUserDialog extends Dialog implements View.OnClickListener, Ch
         }
         //创建用户
         if(enableLegal){
-            new Login(mContext).execute(username, password);
+            new Login(mContext).doInBackground(username, password, UserManager.createUUIDByString(username));
+            return true;
         }else{
             UserManager.addAccount(MainActivity.Setting,UserManager.getOfflineAccount(username));
         }

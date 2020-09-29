@@ -21,7 +21,7 @@ public class Login extends AsyncTask<String, Void, String>
         this.mContext = context;
     }
 
-    private UUID getClientId() {
+    public UUID getClientId() {
         SharedPreferences prefs = mContext.getSharedPreferences(UserManager.launcher_prefs_file, 0);
         String out = prefs.getString(UserManager.auth_clientId, null);
         boolean needsRegenUUID = prefs.getBoolean(UserManager.auth_importedCredentials, false);
@@ -45,7 +45,7 @@ public class Login extends AsyncTask<String, Void, String>
     @Override
     public String doInBackground(String... args) {
         try {
-            AuthenticateResponse response = authenticator.authenticate(args[0], args[1], getClientId());
+            AuthenticateResponse response = authenticator.authenticate(args[0], args[1], UUID.fromString(args[2]));
             if (response == null) return "Response is null?";
            if (response.selectedProfile == null) return mContext.getResources().getString(R.string.tips_login_is_demo_account);
             SharedPreferences prefs = mContext.getSharedPreferences(UserManager.launcher_prefs_file, 0);
