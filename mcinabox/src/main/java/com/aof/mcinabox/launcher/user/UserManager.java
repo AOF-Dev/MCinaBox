@@ -39,6 +39,15 @@ public class UserManager {
         if (setting.getAccounts() == null){
             return false;
         }
+        //先检查是否由相同用户名的用户,如果存在的话直接删除
+        for(SettingJson.Account a : setting.getAccounts()){
+            if(a.getUsername().equals(account.getUsername())){
+                account.setSelected(a.isSelected());
+                UserManager.removeAccount(setting,account.getUsername());
+                break;
+            }
+        }
+
 
         SettingJson.Account[] accounts = new SettingJson.Account[setting.getAccounts().length +1];
         SettingJson.Account[] lastAccounts = setting.getAccounts();

@@ -41,13 +41,7 @@ public class CreateUserDialog extends Dialog implements View.OnClickListener, Ch
         editPassword = findViewById(R.id.dialog_edittext_input_userpasswd);
         layoutPassword = findViewById(R.id.dialog_linearlayout_input_userpasswd);
         checkboxUsermodel = findViewById(R.id.dialog_checkbox_online_model);
-        checkboxUsermodel.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) layoutPassword.setVisibility(View.VISIBLE);
-                else layoutPassword.setVisibility(View.GONE);
-            }
-        });
+        checkboxUsermodel.setOnCheckedChangeListener(this);
 
         for (View v : new View[]{buttonOK, buttonCancel}) {
             v.setOnClickListener(this);
@@ -71,10 +65,10 @@ public class CreateUserDialog extends Dialog implements View.OnClickListener, Ch
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if(buttonView == checkboxUsermodel){
             if(isChecked){
-                editPassword.setVisibility(View.VISIBLE);
+                layoutPassword.setVisibility(View.VISIBLE);
                 enableLegal = true;
             }else{
-                editPassword.setVisibility(View.GONE);
+                layoutPassword.setVisibility(View.GONE);
                 enableLegal = false;
             }
         }
@@ -103,7 +97,7 @@ public class CreateUserDialog extends Dialog implements View.OnClickListener, Ch
         }
         //创建用户
         if(enableLegal){
-            new Login(mContext).doInBackground(username, password, UserManager.createUUIDByString(username));
+            new Login(mContext).execute(Login.REQUEST_MODE_AUTHENTICATE, username, password, UserManager.createUUIDByString(username));
             return true;
         }else{
             UserManager.addAccount(MainActivity.Setting,UserManager.getOfflineAccount(username));
