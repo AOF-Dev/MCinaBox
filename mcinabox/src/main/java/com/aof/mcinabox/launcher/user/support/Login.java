@@ -211,12 +211,16 @@ class YggdrasilAuthenticator {
                 is = conn.getInputStream();
             }
 
-            for (; ; ) {
-                int amt = is.read(buf);
-                if (amt < 0)
-                    break;
-                bos.write(buf, 0, amt);
+            //当状态码为204时响应为空，所以不进行读取
+            if(statusCode != 204){
+                for (; ; ) {
+                    int amt = is.read(buf);
+                    if (amt < 0)
+                        break;
+                    bos.write(buf, 0, amt);
+                }
             }
+
         } finally {
             if (is != null) {
                 try {
