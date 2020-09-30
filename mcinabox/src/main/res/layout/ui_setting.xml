@@ -166,7 +166,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="自动切换背景"
+                        android:text="@string/title_automatically_switch_background"
                         android:textColor="@color/text_title_main"
                         android:textSize="@dimen/text_mid" />
 
@@ -191,7 +191,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="隐藏状态栏"
+                        android:text="@string/title_hide_status_bar"
                         android:textColor="@color/text_title_main"
                         android:textSize="@dimen/text_mid" />
 
