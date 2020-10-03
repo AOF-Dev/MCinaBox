@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="title_gamelist">버전 목록</string>
+    <string name="title_gamedir">게임 경로</string>
+    <string name="title_launchersetting">런처 설정</string>
+    <string name="title_keyboardsetting">가상 키보드 설정</string>
+    <string name="title_home">홈</string>
+
+    <string name="app_about_mcinabox">MCinaBox Minecraft Launcher는 플레이어가 Android 장치에서 빠르고 편리하게 Minecraft를 설치, 관리 및 실행할 수 있는 무료 오픈소스 Minecraft 런처입니다. 런처 업데이트에 관한 내용은 프로젝트 Github 페이지의 release를 참조하세요. \n이 소프트웨어를 사용하는 것은 소프트웨어의 저작권 정보를 읽고 동의했으며, 소프트웨어 개발자의 작업물을 기꺼이 존중하고 소프트웨어의 오픈소스 계약을 준수할 의사가 있음을 의미합니다. \n이 소프트웨어는 아직 테스트 단계입니다. 질문이 있으시다면 언제든지 Github에 피드백을 보내주시길 바랍니다.</string>
+
+    <string name="app_about_copyright">저작권 안내</string>
+    <string name="app_about_developer">개발자</string>
+    <string name="app_about_contributor">기여자</string>
+    <string name="app_about_thanks">고마운 분들</string>
+    <string name="app_about_dependent">의존성</string>
+    <string name="app_about_details">선언</string>
+    <string name="app_about_opensource">오픈소스</string>
+
+    <string name="app_about_thanks_info">CosineMath (BoatApp, https://github.com/CosineMath/) 런처 백엔드 지원 \nbangbang93 (BMCLAPI, http://bmclapi2.bangbang93.com/)\n앱 아이콘 제공 MCreadbear\nAOF 소프트웨어 개발 팀 </string>
+    <string name="app_about_details_info">Minecraft의 모든 저작권은 Mojang AB에 있으며, 이 소프트웨어의 사용으로 발생하는 저작권 문제에 대해 소프트웨어 제작자는 책임을 지지 않습니다.</string>
+    <string name="app_about_opensource_info">https://github.com/longjunyu2/MCinaBox (이 프로젝트를 준수하기 위한 GPLv3 오픈 소스 계약과, 오픈 소스 라이선스 요구 사항을 준수하십시오)</string>
+
+    <string name="title_setting">설정</string>
+    <string name="title_launcher_private_path">개별 저장소</string>
+    <string name="title_launcher_public_path">공용 저장소</string>
+    <string name="title_minecraft_setting_basic">일반</string>
+    <string name="title_minecraft_setting_keyboard_layout">키보드 레이아웃</string>
+    <string name="title_minecraft_setting_memory_max">최대 메모리 (MB)</string>
+    <string name="title_minecraft_setting_memory_hardware">물리적 크기:</string>
+    <string name="title_minecraft_setting_profession">고급</string>
+    <string name="title_minecraft_setting_notcheck_jvm">JVM 아키텍처의 호환성을 검사하지 않습니다</string>
+    <string name="title_minecraft_setting_notcheck_mc">Minecraft의 무결성을 검사하지 않습니다</string>
+    <string name="title_backspace">뒤로</string>
+    <string name="title_refresh">새로고침</string>
+    <string name="title_download">다운로드</string>
+    <string name="title_downloader_selected_version">선택한 버전: </string>
+    <string name="title_downloader_warn">시간이 지나도 목록이 나타나지 않으면, "새로고침"을 눌러주세요\n다운로드가 완료될 때까지 기다리시고, 다운로드가 느리다면 다른 다운로드 소스를 선택해보세요</string>
+
+    <string name="title_minecraft_version_stable">릴리스</string>
+    <string name="title_minecraft_version_snapshot">스냅샷</string>
+    <string name="title_minecraft_version_old">구형</string>
+    <string name="title_install_newversion">새 버전 설치</string>
+    <string name="title_install_gamepack">패키지 설치</string>
+    <string name="title_setting_minecraft">전역 설정</string>
+    <string name="title_user_newuser">새로운 사용자 등록</string>
+    <string name="title_launcher">런처</string>
+    <string name="title_game">게임</string>
+    <string name="title_account">계정</string>
+    <string name="title_user">사용자</string>
+    <string name="title_manager">관리</string>
+    <string name="title_select_version">버전 선택</string>
+    <string name="title_game_launch">게임 시작</string>
+    <string name="title_downloader_source">다운로드 소스</string>
+    <string name="title_launcher_setting_runtimepack">런타임 불러오기</string>
+    <string name="title_import">불러오기</string>
+    <string name="title_about_auncher">MCinaBox에 대하여</string>
+    <string name="title_runtime_package_name">런타임 패키지 이름</string>
+    <string name="title_runtime_package_platform">런타임 아키텍처</string>
+    <string name="title_runtime_package_releasetime">배포 날짜</string>
+    <string name="title_runtime_java_version">자바 버전</string>
+    <string name="title_runtime_opengl_version">OpenGL 버전</string>
+    <string name="title_runtime_openal_version">OpenAL 버전</string>
+    <string name="title_runtime_lwjgl_version">LWJGL 버전</string>
+    <string name="title_total_process">총 진행도</string>
+    <string name="title_current_process">진행중인 작업</string>
+    <string name="title_current_version">현재 버전</string>
+    <string name="title_version">버전:</string>
+    <string name="title_offline">오프라인</string>
+    <string name="title_warn">경고</string>
+    <string name="title_unknown">알 수 없음</string>
+
+    <string name="tips_launcher_path">안내: "개별 저장소"를 사용하면 MCinabox에 접근 권한을 부여할 필요가 없지만, MCinbox를 삭제하거나 데이터를 지우면 "개별 저장소"의 모든 자료를 잃어버리게 됩니다!</string>
+    <string name="tips_minecraft_setting_extra_javaargs">자바 가상 머신 인수 (필요 없음)</string>
+    <string name="tips_minecraft_setting_extra_mcargs">Minecraft 추가 인수 (필요 없음)</string>
+
+    <string name="tips_import_runtime">런타임 패키지를 ".tar.xz" 확장자 형태로 /sdcard/Android/data/com.aof.mcinabox/files/MCinaBox/runtimepack 폴더에 넣어주세요 \n그리고 "런처 설정" 페이지에서 런타임 라이브러리를 가져오세요</string>
+
+    <string name="tips_check_setting">런처 구성을 완료해주세요</string>
+    <string name="tips_reflash_finish">새로고침 완료</string>
+    <string name="tips_online_version_reflash">목록을 갱신해주세요</string>
+    <string name="tips_online_version_select">버전을 선택하세요</string>
+    <string name="tips_online_version_notfound">다운로드 실패. 대응하는 버전을 찾지 못했습니다</string>
+    <string name="tips_online_version_downloadstart">다운로드 시작</string>
+    <string name="tips_online_version_refresh_finish">버전 목록 업데이트 완료</string>
+    <string name="tips_online_version_nodata">게임 인벤토리 데이터가 없습니다</string>
+    <string name="tips_launcher_init_fail">런처를 초기화하지 못했습니다</string>
+    <string name="tips_launcher_save_fail">런처 구성을 저장하지 못했습니다</string>
+    <string name="tips_launcher_new_fail">런처 구성 템플릿을 생성하지 못했습니다</string>
+    <string name="tips_launcher_new_success">런처 구성 템플릿이 성공적으로 생성되었습니다</string>
+    <string name="tips_launcher_load_fail">런처 구성을 불러오지 못헀습니다</string>
+    <string name="tips_launcher_load_bad">런처 구성 파일이 손상되었습니다</string>
+    <string name="tips_user_nousername">사용자 이름을 입력하세요</string>
+    <string name="tips_user_sameusername">이미 존재하는 사용자입니다</string>
+    <string name="tips_add_success">성공적으로 추가되었습니다</string>
+
+    <string name="tips_runtime_notfound">런타임 라이브러리가 존재하지 않습니다</string>
+    <string name="tips_runtime_installing">런타임 설치중 …</string>
+    <string name="tips_runtime_install_success">런타임 라이브러리가 성공적으로 설치되었습니다</string>
+    <string name="tips_runtime_install_fail">런타임을 설치하지 못했습니다</string>
+    <string name="tips_runtime_install_fail_exeable">사유: 권한 설정 실패</string>
+
+    <string name="tips_ok">확인</string>
+    <string name="tips_no">취소</string>
+    <string name="tips_button_name">버튼 이름</string>
+    <string name="tips_button_location">위치 (DP)</string>
+    <string name="tips_button_mainkey">기본 버튼</string>
+    <string name="tips_theme">모양</string>
+    <string name="tips_button_size">크기 (DP)</string>
+    <string name="tips_button_size_width">너비</string>
+    <string name="tips_button_size_height">높이</string>
+    <string name="tips_button_color">색상</string>
+    <string name="tips_button_corner_size">모서리 크기</string>
+    <string name="tips_function">기능</string>
+    <string name="tips_button_autokeep">자동으로 누르기</string>
+    <string name="tips_button_hide">버튼 숨기기</string>
+    <string name="tips_addone">단축키</string>
+    <string name="tips_button_combine">키 조합</string>
+    <string name="tips_button_combine_one">키 조합 1번</string>
+    <string name="tips_button_combine_two">키 조합 2번</string>
+    <string name="tips_step">작업</string>
+
+    <string name="title_user_name">사용자 이름</string>
+    <string name="tips_user_namehint">사용자 이름 또는 계정</string>
+    <string name="title_password">비밀번호</string>
+    <string name="tips_user_passwordhint">비밀번호를 입력하세요</string>
+    <string name="title_online">온라인 로그인</string>
+    <string name="title_load">불러오기</string>
+    <string name="title_model">구성</string>
+    <string name="tips_keybard_choose">템플릿 파일을 선택하세요:</string>
+    <string name="tips_keyboard_path">템플릿 파일 경로:</string>
+    <string name="title_filename">파일 이름</string>
+    <string name="title_put">내보내기</string>
+
+    <string name="tips_keyboard_config_name_notfound">버튼 이름이 있어야 합니다</string>
+    <string name="tips_keyboard_config_size_toosmall">버튼 크기는 20보다 작을 수 없습니다</string>
+    <string name="tips_keyboard_config_color_notfound">버튼 색상이 있어야 합니다</string>
+    <string name="tips_keyboard_config_filename_notfound">파일 이름이 있어야 합니다</string>
+    <string name="tips_put_success">내보내기 성공</string>
+    <string name="tips_load_success">불러오기 성공</string>
+    <string name="tips_keyboard_model_notfound">키보드 템플릿을 찾을 수 없습니다</string>
+    <string name="tips_keyboard_config_location_notfound">좌표 값이 있어야 합니다</string>
+    <string name="tips_keyboard_config_size_notfound">너비와 높이가 있어야 합니다</string>
+    <string name="tips_keyboard_button_notfound">템플릿은 비워둘 수 없습니다</string>
+    <string name="tips_gamecheck_file_notfull">파일 무결성 검사에 실패했습니다. 전역 게임 설정에서 파일 검사를 비활성화하거나, 게임 버전을 다시 다운로드하세요</string>
+    <string name="tips_gamecheck_platform_uncorrect">런타임 라이브러리 아키텍처가 호환되지 않습니다. 전역 게임 설정에서 호환성 검사를 비활성화하거나, 올바른 런타임 라이브러리를 설치하세요</string>
+    <string name="tips_keyboard_config">팁: 1. 누른 채로 드래그하면 손가락으로 버튼을 움직일 수 있습니다. \n팁: 2. 드래그하지 않고 길게 누르면, 선택한 버튼을 편집하거나 제거할 수 있습니다.</string>
+    <string name="tips_gamecheck_version_notfound">Forge를 활성화하기 전에 먼저 해당 게임 버전을 설치하세요</string>
+    <string name="tips_download_version_json">기본 파일 목록을 다운로드하는 중입니다 …</string>
+    <string name="tips_download_version_libraries">기본 파일 및 종속 라이브러리를 다운로드하는 중입니다 …</string>
+    <string name="tips_download_assets_index">리소스 파일 목록을 다운로드하는 중입니다 …</string>
+    <string name="tips_download_assets_object">리소스 파일을 다운로드하는 중입니다 …</string>
+    <string name="tips_download_finish">다운로드 완료</string>
+    <string name="tips_user_remove_warning">이 사용자를 삭제하시겠습니까?</string>
+
+    <string name="tipper_warn_runtime_notinstall">런타임 라이브러리가 설치되지 않았습니다</string>
+    <string name="tipper_warn_user_notselected">생성되거나 선택된 사용자가 없습니다</string>
+    <string name="tipper_warn_version_notselected">다운로드한 Minecraft 버전이 없습니다</string>
+    <string name="tipper_warn_keyboard_notselected">만들거나 선택한 키보드 레이아웃이 없습니다</string>
+    <string name="tipper_warn_memory_notstable">현재 메모리 크기는 충돌을 일으킬 수 있습니다</string>
+
+    <string name="login_is_demo_account">이 계정에 연결된 Minecraft 사용자가 없는 것 같습니다. Minecraft를 구입하셨나요?</string>
+    <string name="tips_login_wait">로그인 중입니다. 잠시 기다려 주세요</string>
+    <string name="title_forge_installer">Forge 설치기</string>
+    <string name="title_plugin">플러그인</string>
+    <string name="title_install">설치</string>
+    <string name="title_add_plugin">플러그인 추가</string>
+    <string name="tips_load_fail">불러오기 실패</string>
+    <string name="tips_gamecheck_jar_notfound">주 게임 파일이 불완전하고, jar 파일이 누락되었습니다</string>
+    <string name="tips_download_failed">다운로드 실패</string>
+    <string name="tips_unzip_failed">압축 해제 실패</string>
+    <string name="tips_download_forge_object">종속 라이브러리를 다운로드하고 있습니다</string>
+    <string name="toast_change_downloadtype">비공식 다운로드 소스를 사용하세요</string>
+    <string name="title_show">보기</string>
+
+</resources>
+    <!-- Create by jooya0203 -->

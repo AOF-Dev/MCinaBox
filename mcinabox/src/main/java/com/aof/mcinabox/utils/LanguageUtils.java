@@ -34,6 +34,9 @@ public class LanguageUtils {
             case "Brazilian(pt-BR)":
                 mLocale = Locale.forLanguageTag("pt-rBR");
                 break;
+            case "한국어(ko-KR)":
+                mLocale = Locale.forLanguageTag("ko-rKR");
+                break;
             default:
                 mLocale = Locale.getDefault();
                 break;
