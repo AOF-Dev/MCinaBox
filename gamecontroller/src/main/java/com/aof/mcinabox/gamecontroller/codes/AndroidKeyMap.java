@@ -1,16 +1,14 @@
 package com.aof.mcinabox.gamecontroller.codes;
 
 import android.view.KeyEvent;
-
 import com.aof.mcinabox.definitions.map.KeyMap;
-
 import java.util.HashMap;
 
 public class AndroidKeyMap implements KeyMap {
     private HashMap<Integer,String> androidKeyMap;
 
     public AndroidKeyMap(){
-        androidKeyMap = new HashMap<Integer, String>();
+        androidKeyMap = new HashMap<>();
         init();
     }
 
@@ -119,6 +117,40 @@ public class AndroidKeyMap implements KeyMap {
         /* missing RWIN in /android/view/KeyEvent.java */
         /* missing LWIN in /android/view/KeyEvent.java */
         /* missing RightK in GLFW.java */
+
+        //手柄
+        androidKeyMap.put(KeyEvent.KEYCODE_BUTTON_1,KEYMAP_BUTTON_1);
+        androidKeyMap.put(KeyEvent.KEYCODE_BUTTON_2,KEYMAP_BUTTON_2);
+        androidKeyMap.put(KeyEvent.KEYCODE_BUTTON_3,KEYMAP_BUTTON_3);
+        androidKeyMap.put(KeyEvent.KEYCODE_BUTTON_4,KEYMAP_BUTTON_4);
+        androidKeyMap.put(KeyEvent.KEYCODE_BUTTON_5,KEYMAP_BUTTON_5);
+        androidKeyMap.put(KeyEvent.KEYCODE_BUTTON_6,KEYMAP_BUTTON_6);
+        androidKeyMap.put(KeyEvent.KEYCODE_BUTTON_7,KEYMAP_BUTTON_7);
+        androidKeyMap.put(KeyEvent.KEYCODE_BUTTON_8,KEYMAP_BUTTON_8);
+        androidKeyMap.put(KeyEvent.KEYCODE_BUTTON_9,KEYMAP_BUTTON_9);
+        androidKeyMap.put(KeyEvent.KEYCODE_BUTTON_10,KEYMAP_BUTTON_10);
+        androidKeyMap.put(KeyEvent.KEYCODE_BUTTON_11,KEYMAP_BUTTON_11);
+        androidKeyMap.put(KeyEvent.KEYCODE_BUTTON_12,KEYMAP_BUTTON_12);
+        androidKeyMap.put(KeyEvent.KEYCODE_BUTTON_13,KEYMAP_BUTTON_13);
+        androidKeyMap.put(KeyEvent.KEYCODE_BUTTON_14,KEYMAP_BUTTON_14);
+        androidKeyMap.put(KeyEvent.KEYCODE_BUTTON_15,KEYMAP_BUTTON_15);
+        androidKeyMap.put(KeyEvent.KEYCODE_BUTTON_16,KEYMAP_BUTTON_16);
+        androidKeyMap.put(KeyEvent.KEYCODE_BUTTON_A,KEYMAP_BUTTON_A);
+        androidKeyMap.put(KeyEvent.KEYCODE_BUTTON_B,KEYMAP_BUTTON_B);
+        androidKeyMap.put(KeyEvent.KEYCODE_BUTTON_C,KEYMAP_BUTTON_C);
+        androidKeyMap.put(KeyEvent.KEYCODE_BUTTON_X,KEYMAP_BUTTON_X);
+        androidKeyMap.put(KeyEvent.KEYCODE_BUTTON_Y,KEYMAP_BUTTON_Y);
+        androidKeyMap.put(KeyEvent.KEYCODE_BUTTON_Z,KEYMAP_BUTTON_Z);
+        androidKeyMap.put(KeyEvent.KEYCODE_BUTTON_L1,KEYMAP_BUTTON_L1);
+        androidKeyMap.put(KeyEvent.KEYCODE_BUTTON_L2,KEYMAP_BUTTON_L2);
+        androidKeyMap.put(KeyEvent.KEYCODE_BUTTON_R1,KEYMAP_BUTTON_R1);
+        androidKeyMap.put(KeyEvent.KEYCODE_BUTTON_R2,KEYMAP_BUTTON_R2);
+        androidKeyMap.put(KeyEvent.KEYCODE_BUTTON_MODE,KEYMAP_BUTTON_MODE);
+        androidKeyMap.put(KeyEvent.KEYCODE_BUTTON_SELECT,KEYMAP_BUTTON_SELECT);
+        androidKeyMap.put(KeyEvent.KEYCODE_BUTTON_START,KEYMAP_BUTTON_START);
+        androidKeyMap.put(KeyEvent.KEYCODE_BUTTON_THUMBL,KEYMAP_BUTTON_THUMBL);
+        androidKeyMap.put(KeyEvent.KEYCODE_BUTTON_THUMBR,KEYMAP_BUTTON_THUMBR);
+
     }
 
     public String translate(int keyCode){

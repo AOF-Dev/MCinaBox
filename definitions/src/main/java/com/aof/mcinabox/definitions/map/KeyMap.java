@@ -110,7 +110,40 @@ public interface KeyMap {
             KEYMAP_KEY_DECIMAL = "NUMPAD.",  // .
             KEYMAP_KEY_NUMPADENTER = "NUMPADENTER",  // Enter on numeric keypad
             KEYMAP_KEY_DIVIDE = "NUMPAD\\", // /
-            KEYMAP_KEY_MULTIPLY = "NUMPAD*"// *
+            KEYMAP_KEY_MULTIPLY = "NUMPAD*", // *
+
+            /* keys on stand gamepad */
+            KEYMAP_BUTTON_1 = "BUTTON_1",
+            KEYMAP_BUTTON_2 = "BUTTON_2",
+            KEYMAP_BUTTON_3 = "BUTTON_3",
+            KEYMAP_BUTTON_4 = "BUTTON_4",
+            KEYMAP_BUTTON_5 = "BUTTON_5",
+            KEYMAP_BUTTON_6 = "BUTTON_6",
+            KEYMAP_BUTTON_7 = "BUTTON_7",
+            KEYMAP_BUTTON_8 = "BUTTON_8",
+            KEYMAP_BUTTON_9 = "BUTTON_9",
+            KEYMAP_BUTTON_10 = "BUTTON_10",
+            KEYMAP_BUTTON_11 = "BUTTON_11",
+            KEYMAP_BUTTON_12 = "BUTTON_12",
+            KEYMAP_BUTTON_13 = "BUTTON_13",
+            KEYMAP_BUTTON_14 = "BUTTON_14",
+            KEYMAP_BUTTON_15 = "BUTTON_15",
+            KEYMAP_BUTTON_16 = "BUTTON_16",
+            KEYMAP_BUTTON_A = "BUTTON_A",
+            KEYMAP_BUTTON_B = "BUTTON_B",
+            KEYMAP_BUTTON_C = "BUTTON_C",
+            KEYMAP_BUTTON_X = "BUTTON_X",
+            KEYMAP_BUTTON_Y = "BUTTON_Y",
+            KEYMAP_BUTTON_Z = "BUTTON_Z",
+            KEYMAP_BUTTON_L1 = "BUTTON_L1",
+            KEYMAP_BUTTON_L2 = "BUTTON_L2",
+            KEYMAP_BUTTON_R1 = "BUTTON_R1",
+            KEYMAP_BUTTON_R2 = "BUTTON_R2",
+            KEYMAP_BUTTON_MODE = "BUTTON_MODE",
+            KEYMAP_BUTTON_SELECT = "BUTTON_SELECT",
+            KEYMAP_BUTTON_START = "BUTTON_START",
+            KEYMAP_BUTTON_THUMBL = "BUTTON_THUMBL",
+            KEYMAP_BUTTON_THUMBR = "BUTTON_THUMBR"
     ;
                     
 }
