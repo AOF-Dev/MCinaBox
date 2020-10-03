@@ -38,7 +38,7 @@ typedef struct {
 } BoatInputEvent;
 
 typedef struct {
-	
+
 	ANativeWindow* window;
 	void* display;
 	
@@ -58,6 +58,7 @@ void* boatGetNativeDisplay();
 void boatSetCurrentEventProcessor(void (*)());
 void boatGetCurrentEvent(BoatInputEvent*);
 void boatSetCursorMode(int);
+void sendKeyEvent(AInputEvent*);
 //void boatSetCursorPos(int, int);
 
 #endif

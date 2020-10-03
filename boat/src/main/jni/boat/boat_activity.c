@@ -1,7 +1,12 @@
-
-
-
+#include <pthread.h>
+#include <stdbool.h>
 #include "boat.h"
+
+static bool isLoop = false;
+static pthread_t loopID;
+
+
+void *looper(void *args);
 
 
 //ANativeActivity callbacks
@@ -51,8 +56,10 @@ void onNativeWindowResized(ANativeActivity* activity, ANativeWindow* win){
 }
 
 void onInputQueueCreated(ANativeActivity* activity, AInputQueue* queue) {
+    isLoop = true;
+    activity->instance = (void *) queue;
+    pthread_create(&loopID, NULL, looper, activity);
 
-	
 }
 
 void onInputQueueDestroyed(ANativeActivity* activity, AInputQueue* queue) {
@@ -79,10 +86,26 @@ void ANativeActivity_onCreate(ANativeActivity* activity, void* savedState, size_
     activity->callbacks->onWindowFocusChanged = onWindowFocusChanged;
     activity->callbacks->onNativeWindowCreated = onNativeWindowCreated;
     activity->callbacks->onNativeWindowDestroyed = onNativeWindowDestroyed;
-    activity->callbacks->onInputQueueCreated = 0;
-    activity->callbacks->onInputQueueDestroyed = 0;
+    activity->callbacks->onInputQueueCreated = onInputQueueCreated;
+    activity->callbacks->onInputQueueDestroyed = onInputQueueDestroyed;
     activity->callbacks->onConfigurationChanged = onConfigurationChanged;
     activity->callbacks->onLowMemory = onLowMemory;
 
+}
+
+
+void *looper(void *args) {
+    ANativeActivity *activity = (ANativeActivity *) args;
+    AInputQueue *queue = (AInputQueue *) activity->instance;
+    AInputEvent *event = NULL;
+    while (isLoop) {
+        if (!AInputQueue_hasEvents(queue)) {
+            continue;
+        }
+        AInputQueue_getEvent(queue, &event);
+        sendKeyEvent(event);
+        AInputQueue_finishEvent(queue, event, 1);
+    }
+    return args;
 }
 

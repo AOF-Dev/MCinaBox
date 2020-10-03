@@ -2,6 +2,7 @@ package cosine.boat;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.os.Bundle;
 import android.app.NativeActivity;
@@ -39,14 +40,15 @@ public class BoatActivity extends NativeActivity implements View.OnClickListener
 
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setCallback(this);
         boatArgs = (BoatArgs) getIntent().getSerializableExtra("LauncherConfig");
 
         //设置悬浮窗口以及基本LinearLayout
         popupWindow = new PopupWindow();
         popupWindow.setWidth(LayoutParams.MATCH_PARENT);
         popupWindow.setHeight(LayoutParams.MATCH_PARENT);
-        popupWindow.setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);
-        popupWindow.setFocusable(true);
+        popupWindow.setFocusable(false);
+        popupWindow.setInputMethodMode(PopupWindow.INPUT_METHOD_NOT_NEEDED);
         baseLayout = new RelativeLayout(this);
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         baseLayout.setLayoutParams(layoutParams);
@@ -227,6 +229,10 @@ public class BoatActivity extends NativeActivity implements View.OnClickListener
     @Override
     public void onDestroy(){
         super.onDestroy();
+    }
+
+    public void onKey(KeyEvent event){
+
     }
 
 }
