@@ -5,5 +5,7 @@ import android.view.View;
 
 import com.aof.mcinabox.definitions.id.AppEvent;
 
-public interface OtgInput extends Input , AppEvent , KeyEvent.Callback , View.OnHoverListener {
+public interface HwInput extends Input, AppEvent {
+    boolean onKey(KeyEvent event);
+    int getSource();
 }

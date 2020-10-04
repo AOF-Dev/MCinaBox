@@ -8,10 +8,10 @@ import android.view.View;
 import com.aof.mcinabox.definitions.id.AppEvent;
 import com.aof.mcinabox.gamecontroller.controller.Controller;
 import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
-import com.aof.mcinabox.gamecontroller.input.OtgInput;
+import com.aof.mcinabox.gamecontroller.input.HwInput;
 import com.aof.mcinabox.gamecontroller.codes.AndroidKeyMap;
 
-public class Keyboard implements OtgInput , AppEvent {
+public class Keyboard implements HwInput, AppEvent, KeyEvent.Callback {
 
     private Context mContext;
     private Controller mController;
@@ -49,11 +49,6 @@ public class Keyboard implements OtgInput , AppEvent {
 
     @Override
     public boolean onKeyMultiple(int keyCode, int count, KeyEvent event) {
-        return false;
-    }
-
-    @Override
-    public boolean onHover(View v, MotionEvent event) {
         return false;
     }
 
@@ -96,4 +91,13 @@ public class Keyboard implements OtgInput , AppEvent {
         mController.sendKey(new BaseKeyEvent(TAG,keyName,pressed,type,null));
     }
 
+    @Override
+    public boolean onKey(KeyEvent event) {
+        return false;
+    }
+
+    @Override
+    public int getSource() {
+        return 0;
+    }
 }

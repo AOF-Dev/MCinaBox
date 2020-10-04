@@ -25,3 +25,4 @@ public interface Controller{
     int getInputMode();
     int[] getPointer();
 }
+

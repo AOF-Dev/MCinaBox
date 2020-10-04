@@ -7,9 +7,10 @@ public interface KeyEvent {
     int MOUSE_POINTER = 13;
     int TYPE_WORDS = 14;
 
-    int TO_LWJGL_KEY = 21;
-    int TO_GLFW_KEY = 22;
-    int TO_X_KEY = 23;
+    int KEYMAP_TO_LWJGL = 21;
+    int KEYMAP_TO_GLFW = 22;
+    int KEYMAP_TO_X = 23;
+    int ANDROID_TO_KEYMAP = 24;
 
     String MARK_KEYNAME_SPLIT = "\\|";
     String MARK_KEYNAME_SPLIT_STRING = "|";

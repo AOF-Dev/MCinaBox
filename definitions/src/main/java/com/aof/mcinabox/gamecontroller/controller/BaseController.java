@@ -1,6 +1,7 @@
 package com.aof.mcinabox.gamecontroller.controller;
 
 import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,14 +18,14 @@ import static com.aof.mcinabox.definitions.id.key.KeyMode.MARK_INPUT_MODE_ALONE;
 public abstract class BaseController implements Controller {
     public ArrayList<Input> inputs;
     public ClientInput client;
-    public Activity context;
+    public Context context;
     private int inputMode = MARK_INPUT_MODE_ALONE;
     private int[] pointerPos;
     private final static String TAG = "BaseController";
 
-    public BaseController(Activity activity){
-        context = activity;
-        client = (ClientInput) activity;
+    public BaseController(Context context, ClientInput client){
+        this.context = context;
+        this.client = client;
         inputs = new ArrayList<>();
     }
 

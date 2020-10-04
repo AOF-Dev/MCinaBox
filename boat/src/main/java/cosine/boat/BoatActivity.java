@@ -22,6 +22,7 @@ import com.aof.mcinabox.gamecontroller.client.ClientInput;
 import com.aof.mcinabox.gamecontroller.controller.BaseController;
 import com.aof.mcinabox.gamecontroller.controller.Controller;
 import com.aof.mcinabox.gamecontroller.controller.HardwareController;
+import com.aof.mcinabox.gamecontroller.controller.HwController;
 import com.aof.mcinabox.gamecontroller.controller.VirtualController;
 import java.util.ArrayList;
 
@@ -31,7 +32,7 @@ public class BoatActivity extends NativeActivity implements View.OnClickListener
     private PopupWindow popupWindow;
     private RelativeLayout baseLayout;
     private BaseController virtualController;
-    private BaseController otgController;
+    private BaseController hardwareController;
     private BoatHandler mHandler;
     private final static String TAG = "BoatActivity";
 
@@ -56,8 +57,8 @@ public class BoatActivity extends NativeActivity implements View.OnClickListener
         popupWindow.setContentView(baseLayout);
 
         //添加控制器
-        virtualController = new VirtualController(this, TO_X_KEY);
-        otgController = new HardwareController(this, TO_X_KEY);
+        virtualController = new VirtualController(this,this, KEYMAP_TO_X);
+        hardwareController = new HardwareController(this,this, KEYMAP_TO_X);
         //设定当前Activity
         BoatInput.mActivity = this;
 
@@ -117,12 +118,12 @@ public class BoatActivity extends NativeActivity implements View.OnClickListener
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case BoatInput.CursorDisabled:
-                    for (Controller c : new Controller[]{otgController, virtualController}) {
+                    for (Controller c : new Controller[]{hardwareController, virtualController}) {
                         c.setInputMode(MARK_INPUT_MODE_CATCH);
                     }
                     break;
                 case BoatInput.CursorEnabled:
-                    for (Controller c : new Controller[]{otgController, virtualController}) {
+                    for (Controller c : new Controller[]{hardwareController, virtualController}) {
                         c.setInputMode(MARK_INPUT_MODE_ALONE);
                     }
                     break;
@@ -215,7 +216,7 @@ public class BoatActivity extends NativeActivity implements View.OnClickListener
     }
 
     private void stopControllers() {
-        for (Controller c : new Controller[]{otgController, virtualController}) {
+        for (Controller c : new Controller[]{hardwareController, virtualController}) {
             c.onStop();
         }
     }
@@ -232,7 +233,7 @@ public class BoatActivity extends NativeActivity implements View.OnClickListener
     }
 
     public void onKey(KeyEvent event){
-
+        ((HwController)hardwareController).dispatchKeyEvent(event);
     }
 
 }

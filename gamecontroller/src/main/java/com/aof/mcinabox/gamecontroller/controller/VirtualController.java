@@ -22,6 +22,7 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.content.ContextCompat;
 import com.aof.mcinabox.definitions.id.AppEvent;
 import com.aof.mcinabox.gamecontroller.R;
+import com.aof.mcinabox.gamecontroller.client.ClientInput;
 import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
 import com.aof.mcinabox.gamecontroller.input.Input;
 import com.aof.mcinabox.gamecontroller.input.OnscreenInput;
@@ -106,9 +107,9 @@ public class VirtualController extends BaseController implements AppEvent , View
     private final static String sp_enable_inputbox = "enable_inputbox";
     private final static String sp_first_loadder = "first_loaded";
 
-    public VirtualController(Activity activity , int transType) {
-        super(activity);
-        mContext = activity;
+    public VirtualController(Context context , ClientInput client, int transType) {
+        super(context,client);
+        mContext = context;
 
         //初始化键值翻译器
         this.mTranslation = new Translation(transType);
