@@ -1,7 +1,6 @@
 package com.aof.mcinabox.launcher.launch.support;
 
 import android.content.Context;
-
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.definitions.manifest.AppManifest;
 import com.aof.mcinabox.definitions.models.BoatArgs;
@@ -174,11 +173,6 @@ public class BoatArgsMaker {
     private String getClasspath(){
         String[] in_runtime = runtimeManifest.classpath.split(Definitions.RUNTIME_CONDITION_SPILT);
         StringBuilder result = new StringBuilder();
-        for(VersionJson.DependentLibrary library : version.getLibraries()){
-            if(!Utils.filterLib(library.getName())){
-                result.append(Utils.getLibPathByPkgName(library.getName())).append(":");
-            }
-        }
         if(forge != null){
             for(VersionJson.DependentLibrary library : forge.getLibraries()){
                 if(!Utils.filterLib(library.getName())){
@@ -186,6 +180,12 @@ public class BoatArgsMaker {
                 }
             }
         }
+        for(VersionJson.DependentLibrary library : version.getLibraries()){
+            if(!Utils.filterLib(library.getName())){
+                result.append(Utils.getLibPathByPkgName(library.getName())).append(":");
+            }
+        }
+
         for(String str : in_runtime){
             result.append(AppManifest.BOAT_RUNTIME_HOME).append("/").append(str).append(":");
         }
