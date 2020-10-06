@@ -5,6 +5,8 @@ import android.content.Context;
 import android.media.AudioManager;
 import android.view.InputDevice;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
+
 import com.aof.mcinabox.definitions.map.KeyMap;
 import com.aof.mcinabox.gamecontroller.codes.Translation;
 import com.aof.mcinabox.gamecontroller.controller.Controller;
@@ -80,6 +82,11 @@ public class Phone implements HwInput {
             default:
                 return false;
         }
+    }
+
+    @Override
+    public boolean onMotionKey(MotionEvent event) {
+        return false;
     }
 
     @Override

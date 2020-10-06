@@ -1,55 +1,29 @@
 package com.aof.mcinabox.gamecontroller.input.otg;
 
 import android.content.Context;
-import android.util.Log;
+import android.view.InputDevice;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
-import android.view.View;
 import com.aof.mcinabox.definitions.id.AppEvent;
 import com.aof.mcinabox.gamecontroller.controller.Controller;
 import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
 import com.aof.mcinabox.gamecontroller.input.HwInput;
 import com.aof.mcinabox.gamecontroller.codes.AndroidKeyMap;
 
-public class Keyboard implements HwInput, AppEvent, KeyEvent.Callback {
+public class Keyboard implements HwInput, AppEvent{
 
     private Context mContext;
     private Controller mController;
     private AndroidKeyMap androidKeyMap;
 
+    private boolean enable;
+
     private final static String TAG = "OtgKeyboard";
     private final static int type = KEYBOARD_BUTTON;
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-
-        //对于任何按键，只对第一次的onKeyDown回调做出响应
-        //以免长按或短时间内多次按下使pressed被多次执行
-        if(event.getRepeatCount() == 0){
-            this.sendKeyEvent(androidKeyMap.translate(keyCode),true);
-        }
-        return true;
-    }
-
-    @Override
-    public boolean onKeyLongPress(int keyCode, KeyEvent event) {
-        return false;
-    }
-
-    @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
-        this.sendKeyEvent(androidKeyMap.translate(keyCode),true);
-        return false;
-    }
-
-    @Override
     public boolean isEnable() {
-        return false;
-    }
-
-    @Override
-    public boolean onKeyMultiple(int keyCode, int count, KeyEvent event) {
-        return false;
+        return this.enable;
     }
 
     @Override
@@ -69,12 +43,12 @@ public class Keyboard implements HwInput, AppEvent, KeyEvent.Callback {
 
     @Override
     public void setInputMode(int inputMode) {
-        // to do nothing.
+
     }
 
     @Override
     public void runConfigure() {
-        Log.e(TAG,"Run Configure.");
+
     }
 
     @Override
@@ -84,7 +58,7 @@ public class Keyboard implements HwInput, AppEvent, KeyEvent.Callback {
 
     @Override
     public void setEnable(boolean enable) {
-
+        this.enable = enable;
     }
 
     private void sendKeyEvent(String keyName , boolean pressed){
@@ -93,11 +67,29 @@ public class Keyboard implements HwInput, AppEvent, KeyEvent.Callback {
 
     @Override
     public boolean onKey(KeyEvent event) {
+        if(event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_UP || event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_DOWN || event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_MUTE){
+            return false;
+        }
+        switch (event.getAction()){
+            case KeyEvent.ACTION_DOWN:
+                if(event.getRepeatCount() == 0){
+                    this.sendKeyEvent(androidKeyMap.translate(event.getKeyCode()),true);
+                }
+                break;
+            case KeyEvent.ACTION_UP:
+                this.sendKeyEvent(androidKeyMap.translate(event.getKeyCode()),false);
+                break;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onMotionKey(MotionEvent event) {
         return false;
     }
 
     @Override
     public int getSource() {
-        return 0;
+        return InputDevice.SOURCE_KEYBOARD;
     }
 }

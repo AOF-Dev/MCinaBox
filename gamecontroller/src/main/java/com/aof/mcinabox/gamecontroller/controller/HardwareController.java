@@ -10,21 +10,25 @@ import android.view.View;
 import com.aof.mcinabox.definitions.id.AppEvent;
 import com.aof.mcinabox.gamecontroller.client.ClientInput;
 import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
-import com.aof.mcinabox.gamecontroller.input.Input;
 import com.aof.mcinabox.gamecontroller.input.HwInput;
+import com.aof.mcinabox.gamecontroller.input.Input;
+import com.aof.mcinabox.gamecontroller.input.otg.JoyStick;
 import com.aof.mcinabox.gamecontroller.input.otg.Keyboard;
 import com.aof.mcinabox.gamecontroller.codes.AndroidKeyMap;
 import com.aof.mcinabox.gamecontroller.codes.Translation;
+import com.aof.mcinabox.gamecontroller.input.otg.Mouse;
 import com.aof.mcinabox.gamecontroller.input.otg.Phone;
 import java.util.ArrayList;
 
 public class HardwareController extends BaseController implements AppEvent , View.OnHoverListener, HwController {
 
     private AndroidKeyMap androidKeyMap = new AndroidKeyMap();
-    private Translation translation;
     private HwInput keyboard;
     private HwInput phone;
+    private HwInput mouse;
+    private HwInput joystick;
     private Context mContext;
+    private Translation mTranslation;
     private final static String TAG = "HardwareController";
 
     public HardwareController(Context context, ClientInput client, int transType){
@@ -32,20 +36,65 @@ public class HardwareController extends BaseController implements AppEvent , Vie
         this.mContext = context;
         checkInputDevices();
 
-        translation = new Translation(transType);
+        //初始化键值翻译器
+        this.mTranslation = new Translation(transType);
 
         //初始化Input
         keyboard = new Keyboard();
         phone = new Phone();
+        mouse = new Mouse();
+        joystick = new JoyStick();
+
         //添加Input
-        //this.addInput(keyboard);
-        this.addInput(phone);
+        for(Input i : new Input[]{keyboard,phone,mouse,joystick}){
+            addInput(i);
+            //直接启用
+            i.setEnable(true);
+        }
+
+
     }
 
     @Override
     public void sendKey(BaseKeyEvent event) {
         toLog(event);
-        client.setKey(translation.trans(event.getKeyName()),event.isPressed());
+        switch (event.getType()){
+            case KEYBOARD_BUTTON:
+            case MOUSE_BUTTON:
+                String KeyName = event.getKeyName();
+                String[] strs = KeyName.split(MARK_KEYNAME_SPLIT);
+                for(String str : strs){
+                    sendKeyEvent(new BaseKeyEvent(event.getTag(),str,event.isPressed(),event.getType(),event.getPointer()));
+                }
+                break;
+            case MOUSE_POINTER:
+                sendKeyEvent(event);
+            case TYPE_WORDS:
+                sendKeyEvent(event);
+                break;
+            default:
+                break;
+        }
+    }
+
+    //事件发送
+    private void sendKeyEvent(BaseKeyEvent e){
+        switch (e.getType()){
+            case KEYBOARD_BUTTON:
+                client.setKey(mTranslation.trans(e.getKeyName()),e.isPressed());
+                break;
+            case MOUSE_BUTTON:
+                client.setMouseButton(mTranslation.trans(e.getKeyName()),e.isPressed());
+                break;
+            case MOUSE_POINTER:
+                if(e.getPointer() != null){
+                    client.setMousePoniter(e.getPointer()[0],e.getPointer()[1]);
+                }
+                break;
+            case TYPE_WORDS:
+                client.typeWords(e.getChars());
+            default:
+        }
     }
 
     @Override
@@ -57,9 +106,33 @@ public class HardwareController extends BaseController implements AppEvent , Vie
     //注意每一种输入方式的优先级
     @Override
     public void dispatchKeyEvent(KeyEvent event) {
-        if( (event.getDevice().getSources() & InputDevice.SOURCE_KEYBOARD) == InputDevice.SOURCE_KEYBOARD){
+        if (event == null) return;
+        if( (event.getDevice().getSources() & InputDevice.SOURCE_MOUSE) == InputDevice.SOURCE_MOUSE){
+            for(HwInput hwi : new HwInput[]{mouse}){
+                if(hwi.isEnable() && hwi.onKey(event)){
+                    return;
+                }
+            }
+        } else if( (event.getDevice().getSources() & InputDevice.SOURCE_KEYBOARD) == InputDevice.SOURCE_KEYBOARD){
             for(HwInput hwi : new HwInput[]{phone,keyboard}){
-                if(hwi.onKey(event)){
+                if(hwi.isEnable() && hwi.onKey(event)){
+                    return;
+                }
+            }
+        }
+    }
+
+    @Override
+    public void dispatchMotionKeyEvent(MotionEvent event) {
+        if( (event.getDevice().getSources() & InputDevice.SOURCE_MOUSE) == InputDevice.SOURCE_MOUSE){
+            for(HwInput hwi : new HwInput[]{mouse}){
+                if(hwi.isEnable() && hwi.onMotionKey(event)){
+                    return;
+                }
+            }
+        }else if( (event.getDevice().getSources() & InputDevice.SOURCE_JOYSTICK) == InputDevice.SOURCE_JOYSTICK){
+            for(HwInput hwi : new HwInput[]{joystick}){
+                if(hwi.isEnable() && hwi.onMotionKey(event)){
                     return;
                 }
             }

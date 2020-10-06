@@ -7,41 +7,34 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 
 import com.aof.mcinabox.gamecontroller.controller.Controller;
-import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
 import com.aof.mcinabox.gamecontroller.input.HwInput;
 
-public class Mouse implements HwInput {
+public class JoyStick implements HwInput {
 
-    private final static String TAG = "Mouse";
-    private final static int type2 = MOUSE_BUTTON;
-    private final static int type1 = MOUSE_POINTER;
+    private final static String TAG = "JoyStick";
 
     private Context mContext;
     private Controller mController;
     private boolean enable;
 
+    private static final int type1 = KEYBOARD_BUTTON;
+    private static final int type2 = MOUSE_POINTER;
+
     @Override
     public boolean onKey(KeyEvent event) {
-        Log.e(TAG,event.toString());
-        Log.e(TAG,event.getDevice().toString());
-        return true;
+        return false;
     }
 
     @Override
     public boolean onMotionKey(MotionEvent event) {
         Log.e(TAG,event.toString());
         Log.e(TAG,event.getDevice().toString());
-        switch (event.getAction()){
-            case MotionEvent.ACTION_HOVER_MOVE:
-                sendPointer((int)event.getX(), (int)event.getY());
-                break;
-        }
         return true;
     }
 
     @Override
     public int getSource() {
-        return InputDevice.SOURCE_MOUSE;
+        return InputDevice.SOURCE_JOYSTICK;
     }
 
     @Override
@@ -53,7 +46,7 @@ public class Mouse implements HwInput {
 
     @Override
     public boolean unload() {
-        return false;
+        return true;
     }
 
     @Override
@@ -80,9 +73,4 @@ public class Mouse implements HwInput {
     public boolean isEnable() {
         return this.enable;
     }
-
-    private void sendPointer(int x, int y) {
-        mController.sendKey(new BaseKeyEvent(TAG, null, false, type1, new int[]{x, y}));
-    }
-
 }
