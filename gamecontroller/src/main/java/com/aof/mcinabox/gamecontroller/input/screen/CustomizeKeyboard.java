@@ -120,7 +120,11 @@ public class CustomizeKeyboard implements OnscreenInput, AppEvent, Controller, C
 
     @Override
     public void setEnable(boolean enable) {
-        //do nothing.
+        if(enable){
+            mManager.showOrHideGameButtons(CkbManager.SHOW_BUTTON);
+        }else{
+            mManager.showOrHideGameButtons(CkbManager.HIDE_BUTTON);
+        }
     }
 
     @Override
