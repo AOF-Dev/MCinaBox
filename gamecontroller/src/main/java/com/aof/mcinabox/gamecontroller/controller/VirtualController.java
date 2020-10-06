@@ -1,7 +1,6 @@
 package com.aof.mcinabox.gamecontroller.controller;
 
 import android.animation.ObjectAnimator;
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -16,7 +15,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.Switch;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.content.ContextCompat;
@@ -107,12 +105,18 @@ public class VirtualController extends BaseController implements AppEvent , View
     private final static String sp_enable_inputbox = "enable_inputbox";
     private final static String sp_first_loadder = "first_loaded";
 
+    int screenWidth;
+    int screenHeight;
+
     public VirtualController(Context context , ClientInput client, int transType) {
         super(context,client);
         mContext = context;
 
         //初始化键值翻译器
         this.mTranslation = new Translation(transType);
+
+        screenWidth = context.getResources().getDisplayMetrics().widthPixels;
+        screenHeight = context.getResources().getDisplayMetrics().heightPixels;
 
         //初始化
         init();
@@ -159,6 +163,7 @@ public class VirtualController extends BaseController implements AppEvent , View
                 settingDialog.show();
             }
         });
+        dButton.setY((float) (screenHeight / 2));
         client.addControllerView(dButton);
 
         //初始化Dialog的控件
@@ -222,7 +227,6 @@ public class VirtualController extends BaseController implements AppEvent , View
 
     @Override
     public void sendKey(BaseKeyEvent e) {
-        super.sendKey(e);
         //日志输出
         toLog(e);
         //事件分配
@@ -338,9 +342,6 @@ public class VirtualController extends BaseController implements AppEvent , View
 
     //根据X,Y的比例，计算Input主控件中心位置在Activity的主View中的位置
     private int[] calculateMarginsOnScreen(OnscreenInput i, float leftScale , float topScale){
-
-        int screenWidth = context.getResources().getDisplayMetrics().widthPixels;
-        int screenHeight = context.getResources().getDisplayMetrics().heightPixels;
         int viewWidth;
         int viewHeight;
         int leftMargin;
@@ -413,10 +414,10 @@ public class VirtualController extends BaseController implements AppEvent , View
         switchCustomizeKeyboard.setChecked(sp.getBoolean(sp_enable_ckb,false));
         switchPCKeyboard.setChecked(sp.getBoolean(sp_enable_onscreenkeyboard,false));
         switchPCMouse.setChecked(sp.getBoolean(sp_enable_onscreenmouse,false));
-        switchPEKeyboard.setChecked(sp.getBoolean(sp_enable_crosskeyboard,false));
-        switchPEItembar.setChecked(sp.getBoolean(sp_enable_itembar,false));
+        switchPEKeyboard.setChecked(sp.getBoolean(sp_enable_crosskeyboard,true));
+        switchPEItembar.setChecked(sp.getBoolean(sp_enable_itembar,true));
         switchPEJoystick.setChecked(sp.getBoolean(sp_enable_joystick,false));
-        switchTouchpad.setChecked(sp.getBoolean(sp_enable_onscreentouchpad,false));
+        switchTouchpad.setChecked(sp.getBoolean(sp_enable_onscreentouchpad,true));
         switchInputBox.setChecked(sp.getBoolean(sp_enable_inputbox,false));
         if(!sp.contains(sp_first_loadder)){
             buttonResetPos.performClick();
