@@ -2,6 +2,7 @@ package com.aof.mcinabox.gamecontroller.ckb.achieve;
 
 import android.content.Context;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 
@@ -29,10 +30,13 @@ public class CkbManager {
     public final static int MAX_KEYBOARD_SIZE = 80;
     public final static int MIN_KEYBOARD_SIZE = 0;
     public final static String LAST_KEYBOARD_LAYOUT_NAME = "tmp";
+    public final static int SHOW_BUTTON = 1;
+    public final static int HIDE_BUTTON = 2;
 
     private Context mContext;
     private CallCustomizeKeyboard mCall;
     private Controller mController;
+    private boolean hasHide = false;
 
     private GameButtonArray<GameButton> buttonList;
 
@@ -227,6 +231,28 @@ public class CkbManager {
             removeView(gb);
         }
         buttonList = new GameButtonArray<>();
+    }
+
+    public void showOrHideGameButtons(int i){
+        // 仅仅只是暂时把GameButton对象从显示层中删除
+        // 不要更改按键记录
+        switch(i){
+            case SHOW_BUTTON:
+                if(hasHide){
+                    for(GameButton gb : buttonList){
+                        this.addView(gb);
+                    }
+                }
+                break;
+            case HIDE_BUTTON:
+                if(!hasHide){
+                    for(GameButton gb : buttonList){
+                        this.removeView(gb);
+                    }
+                }
+                break;
+        }
+
     }
 
 
