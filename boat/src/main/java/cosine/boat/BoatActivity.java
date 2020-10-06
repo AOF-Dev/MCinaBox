@@ -2,6 +2,7 @@ package cosine.boat;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.os.Bundle;
@@ -50,7 +51,14 @@ public class BoatActivity extends NativeActivity implements View.OnClickListener
         popupWindow.setHeight(LayoutParams.MATCH_PARENT);
         popupWindow.setFocusable(false);
         popupWindow.setInputMethodMode(PopupWindow.INPUT_METHOD_NOT_NEEDED);
-        baseLayout = new RelativeLayout(this);
+        baseLayout = new RelativeLayout(this){
+            @Override
+            public boolean dispatchGenericMotionEvent(MotionEvent event){
+                Log.e(TAG,event.toString());
+                Log.e(TAG,event.getDevice().toString());
+                return BoatActivity.this.dispatchGenericMotionEvent(event);
+            }
+        };
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         baseLayout.setLayoutParams(layoutParams);
         baseLayout.setBackgroundColor(Color.parseColor("#00FFFFFF"));
@@ -176,6 +184,11 @@ public class BoatActivity extends NativeActivity implements View.OnClickListener
         this.addView(v);
     }
 
+    @Override
+    public int[] getPointer() {
+        return BoatInput.getPointer();
+    }
+
     public void bringControllerToFront(){
         for(View v : cvs){
            v.bringToFront();
@@ -232,10 +245,18 @@ public class BoatActivity extends NativeActivity implements View.OnClickListener
         super.onDestroy();
     }
 
-    public void onKey(KeyEvent event){
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event){
         ((HwController)hardwareController).dispatchKeyEvent(event);
+        return true;
     }
 
+
+    @Override
+    public boolean dispatchGenericMotionEvent(MotionEvent ev){
+        ((HwController)hardwareController).dispatchMotionKeyEvent(ev);
+        return true;
+    }
 }
 
 

@@ -37,6 +37,11 @@ public class BoatInput{
 		send(System.nanoTime(), press ? KeyPress : KeyRelease, keyCode, keyChar);
 	}
 
+	public static int[] getPointer(){
+		return get();
+	}
+
+	public static native int[] get();
 
 	public static native void send(long time, int type, int p1, int p2);
 
@@ -53,7 +58,7 @@ public class BoatInput{
                                         int code, int repeat, int metaState,
                                         int deviceId, int scancode, int flags, int source) {
         KeyEvent event = new KeyEvent(downTime, eventTime, action, code, repeat, metaState, deviceId, scancode, flags, source);
-        mActivity.onKey(event);
+        mActivity.dispatchKeyEvent(event);
     }
 
 }
