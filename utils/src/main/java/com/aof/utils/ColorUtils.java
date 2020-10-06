@@ -105,8 +105,13 @@ public class ColorUtils {
      * return colorInt - -12590395
      * */
     public static int hex2Int(String colorHex){
-        int colorInt = 0;
-        colorInt = Color.parseColor(colorHex);
+        int colorInt;
+        try {
+            colorInt = Color.parseColor(colorHex);
+        }catch (Exception e){
+            e.printStackTrace();
+            colorInt = 0;
+        }
         return colorInt;
     }
 

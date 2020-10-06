@@ -5,5 +5,7 @@ public class DialogSupports {
     public void runWhenPositive(){}
     public void runWhenNegative(){}
     public void runWhenItemsSelected(int pos){}
+    public void runWhenItemsSelected(){}
+    public void runWhenColorSelected(int[] colors){}
 
 }

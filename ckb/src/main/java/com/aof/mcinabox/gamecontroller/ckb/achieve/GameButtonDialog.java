@@ -3,6 +3,7 @@ package com.aof.mcinabox.gamecontroller.ckb.achieve;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,6 +24,7 @@ import com.aof.mcinabox.gamecontroller.ckb.R;
 import com.aof.mcinabox.gamecontroller.ckb.button.GameButton;
 import com.aof.mcinabox.gamecontroller.ckb.support.CkbThemeMarker;
 import com.aof.mcinabox.gamecontroller.ckb.support.QwertButton;
+import com.aof.utils.ColorUtils;
 import com.aof.utils.dialog.support.DialogSupports;
 import com.aof.utils.dialog.DialogUtils;
 
@@ -208,6 +210,8 @@ public class GameButtonDialog extends Dialog implements View.OnClickListener, Se
         seekbarCornerSize.setProgress(mGameButton.getCornerRadius() - GameButton.MIN_CORNOR_SIZE_PT);
         switchKeep.setChecked(mGameButton.isKeep());
         switchHide.setChecked(mGameButton.isHide());
+        viewBackColorPreview.setBackgroundColor(ColorUtils.hex2Int(mGameButton.getBackColorHex()));
+        viewTextColorPreview.setBackgroundColor(ColorUtils.hex2Int(mGameButton.getTextColorHex()));
         switchViewerFollow.setChecked(mGameButton.isViewerFollow());
         switch (mGameButton.getShow()) {
             case GameButton.SHOW_ALL:
@@ -360,11 +364,11 @@ public class GameButtonDialog extends Dialog implements View.OnClickListener, Se
         }
 
         if (v == viewBackColorPreview) {
-            //TODO:颜色选择器
+            showColorPicker(editBackColor.getText().toString(), editBackColor, v, COLOR_TYPE_BACK);
         }
 
         if (v == viewTextColorPreview) {
-            //TODO:颜色选择器
+            showColorPicker(editTextColor.getText().toString(), editTextColor, v, COLOR_TYPE_TEXT);
         }
 
     }
@@ -586,6 +590,35 @@ public class GameButtonDialog extends Dialog implements View.OnClickListener, Se
         textMap3.setText(tmp[2]);
         textMap4.setText(tmp[3]);
     }
+
+    private final static int COLOR_TYPE_TEXT = 0;
+    private final static int COLOR_TYPE_BACK = 1;
+
+    private void showColorPicker(String originalHex, final EditText et, final View v, final int type) {
+        int color = ColorUtils.hex2Int(originalHex);
+        if(color == -1){
+            color = Color.BLACK;
+        }
+        DialogUtils.createColorPickerDialog(mContext, mContext.getString(R.string.title_colorpicker), mContext.getString(R.string.title_ok), mContext.getString(R.string.title_cancel), color, DialogUtils.COLORPICKER_LIGHTNESS_ONLY, new DialogSupports() {
+            @Override
+            public void runWhenColorSelected(int[] colors) {
+                if (colors.length >= 1) {
+                    et.setText(ColorUtils.int2Hex(colors[0]));
+                    v.setBackgroundColor(colors[0]);
+                    switch (type) {
+                        case COLOR_TYPE_BACK:
+                            mGameButton.setBackColor(ColorUtils.int2Hex(colors[0]));
+                            break;
+                        case COLOR_TYPE_TEXT:
+                            mGameButton.setTextColor(ColorUtils.int2Hex(colors[0]));
+                            break;
+                    }
+                }
+            }
+        });
+    }
+
+
 }
 
 class CkbKeyMapSelecterDialog extends Dialog implements View.OnClickListener, Dialog.OnCancelListener {
@@ -683,5 +716,4 @@ class CkbKeyMapSelecterDialog extends Dialog implements View.OnClickListener, Di
             this.textKeyName.setText("");
         }
     }
-
 }
