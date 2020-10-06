@@ -1,16 +1,10 @@
 package com.aof.mcinabox.gamecontroller.controller;
 
-import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.aof.mcinabox.definitions.id.key.KeyEvent;
-import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
 import com.aof.mcinabox.gamecontroller.input.Input;
 import com.aof.mcinabox.gamecontroller.client.ClientInput;
-
 import java.util.ArrayList;
 
 import static com.aof.mcinabox.definitions.id.key.KeyMode.MARK_INPUT_MODE_ALONE;
@@ -20,7 +14,6 @@ public abstract class BaseController implements Controller {
     public ClientInput client;
     public Context context;
     private int inputMode = MARK_INPUT_MODE_ALONE;
-    private int[] pointerPos;
     private final static String TAG = "BaseController";
 
     public BaseController(Context context, ClientInput client){
@@ -106,14 +99,17 @@ public abstract class BaseController implements Controller {
     public void addContentView(View view, ViewGroup.LayoutParams params){
         client.addContentView(view,params);
     }
+
     @Override
     public void addView(View view){
         client.addView(view);
     }
+
     @Override
     public void typeWords(String str){
         client.typeWords(str);
     }
+
     @Override
     public void onStop(){
         for(Input i : inputs){
@@ -124,19 +120,10 @@ public abstract class BaseController implements Controller {
     public int getInputMode(){
         return this.inputMode;
     }
-    @Override
-    public void sendKey(BaseKeyEvent event){
-        if(event.getType() == KeyEvent.MOUSE_POINTER && event.getPointer() != null){
-            this.pointerPos = event.getPointer();
-        }
-    }
+
     @Override
     public int[] getPointer(){
-        if(this.pointerPos != null){
-            return this.pointerPos;
-        }else{
-            return new int[]{0,0};
-        }
+        return client.getPointer();
     }
 }
 

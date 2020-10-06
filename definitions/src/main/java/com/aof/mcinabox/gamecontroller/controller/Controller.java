@@ -9,7 +9,6 @@ import com.aof.mcinabox.gamecontroller.input.Input;
 import java.util.ArrayList;
 
 public interface Controller{
-
     void sendKey(BaseKeyEvent event);
     int getInputCounts();
     boolean addInput(Input input);

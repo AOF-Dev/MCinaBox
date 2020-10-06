@@ -15,4 +15,5 @@ public interface ClientInput extends KeyEvent {
     void addContentView(View view,ViewGroup.LayoutParams params);
     void typeWords(String str);
     void addControllerView(View v);
+    int[] getPointer();
 }
