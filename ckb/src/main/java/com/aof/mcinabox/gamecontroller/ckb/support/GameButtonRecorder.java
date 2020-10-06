@@ -53,8 +53,8 @@ public class GameButtonRecorder {
         }
         gb.setKeep(this.isKeep);
         gb.setHide(this.isHide);
-        gb.setKeyPos(this.keyPos[0],this.keyPos[1]);
         gb.setKeySize(this.keySize[0],this.keySize[1]);
+        gb.setKeyPos(this.keyPos[0],this.keyPos[1]);
         gb.setAlphaSize(this.alphaSize);
         gb.setKeyName(this.keyName);
         gb.setTextSize(this.textSize);
