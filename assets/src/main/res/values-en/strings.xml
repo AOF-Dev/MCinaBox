@@ -158,6 +158,7 @@
 	<string name="title_un_alpha_size">Opacity</string>
 	<string name="title_hide_status_bar">Hide status bar</string>
 	<string name="title_automatically_switch_background">Automatically switch background</string>
+	<string name="title_colorpicker">Color picker</string>
 
 	<string name="tips_contributors_list">List of Contributors</string>
 	<string name="tips_contributors_full">Subject to the Github project provided</string>

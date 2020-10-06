@@ -7,7 +7,6 @@ import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RoundRectShape;
-import android.util.Log;
 
 public class CkbThemeMarker {
 
@@ -56,7 +55,7 @@ public class CkbThemeMarker {
         int strokeWidth = 5;
         int drawableSize = 50;
         int radius = recorder.getCornerRadius();
-        int mainColor = Color.WHITE;
+        int mainColor = recorder.getColor(0);
 
         GradientDrawable drawable1 = new GradientDrawable();
         drawable1.setShape(GradientDrawable.RECTANGLE);
@@ -74,7 +73,7 @@ public class CkbThemeMarker {
     private static LayerDrawable getDesign_double_ring(CkbThemeRecorder recorder){
         int strokeWidth_1 = 5;
         int strokeWidth_2 = 5;
-        int mainColor = Color.WHITE;
+        int mainColor = recorder.getColor(0);
         int drawableSize = 50;
         int radius = recorder.getCornerRadius();
 

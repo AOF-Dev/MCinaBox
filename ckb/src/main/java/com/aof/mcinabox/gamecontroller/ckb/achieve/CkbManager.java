@@ -242,6 +242,7 @@ public class CkbManager {
                     for(GameButton gb : buttonList){
                         this.addView(gb);
                     }
+                    hasHide = false;
                 }
                 break;
             case HIDE_BUTTON:
@@ -249,6 +250,7 @@ public class CkbManager {
                     for(GameButton gb : buttonList){
                         this.removeView(gb);
                     }
+                    hasHide = true;
                 }
                 break;
         }
