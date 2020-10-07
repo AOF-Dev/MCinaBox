@@ -12,6 +12,8 @@ public class LoadMe {
 	public static native void setupJLI();
 	public static native int dlopen(String name);
 
+	private final static String TAG = "LoadMe";
+
 	static {
 		System.loadLibrary("boat");
 	}
@@ -21,6 +23,7 @@ public class LoadMe {
 
 			setenv("HOME", args.getGamedir());
 			setenv("JAVA_HOME" ,args.getJava_home());
+			setenv("LIBGL_MIPMAP","3");
 
 			// sharedlibraries
 			for(String str : args.getShared_libraries()){
@@ -30,13 +33,7 @@ public class LoadMe {
 			setupJLI();
 			redirectStdio(BOAT_CACHE_HOME + "/boat_output.txt");
 			chdir(args.getGamedir());
-
-			String finalArgs[] = new String[] {"java"};
-			for (int i = 0; i < finalArgs.length; i++){
-
-				System.out.println(finalArgs[i]);
-			}
-			System.out.println("OpenJDK exited with code : " + jliLaunch(args.getArgs()));
+			jliLaunch(args.getArgs());
 
 		} catch (Exception e) {
 			e.printStackTrace();

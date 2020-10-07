@@ -10,74 +10,77 @@ void *looper(void *args);
 
 
 //ANativeActivity callbacks
-void onStart(ANativeActivity* activity){
-	
-}
-void onResume(ANativeActivity* activity){
-	
+void onStart(ANativeActivity *activity) {
+
 }
 
-void* onSaveInstanceState(ANativeActivity* activity, size_t* outSize){
-	
+void onResume(ANativeActivity *activity) {
+
 }
 
-void onPause(ANativeActivity* activity){
-	
+void *onSaveInstanceState(ANativeActivity *activity, size_t *outSize) {
+
 }
 
-void onStop(ANativeActivity* activity){
-	
+void onPause(ANativeActivity *activity) {
+
 }
 
-void onDestroy(ANativeActivity* activity){
-	
+void onStop(ANativeActivity *activity) {
+
 }
 
-void onWindowFocusChanged(ANativeActivity* activity, int hasFocus){
-	
-    
+void onDestroy(ANativeActivity *activity) {
+
 }
 
-void onNativeWindowCreated(ANativeActivity* activity, ANativeWindow* win){
-	__android_log_print(ANDROID_LOG_ERROR, "Boat", "onNativeWindowCreated : %p", win);
-    
-	mBoat.window = win;
-	mBoat.display = 0;
+void onWindowFocusChanged(ANativeActivity *activity, int hasFocus) {
+
+
 }
 
-void onNativeWindowDestroyed(ANativeActivity* activity, ANativeWindow* win){
-	
-}
-void onNativeWindowRedrawNeeded(ANativeActivity* activity, ANativeWindow* win){
-	
-}
-void onNativeWindowResized(ANativeActivity* activity, ANativeWindow* win){
-	
+void onNativeWindowCreated(ANativeActivity *activity, ANativeWindow *win) {
+    __android_log_print(ANDROID_LOG_ERROR, "Boat", "onNativeWindowCreated : %p", win);
+
+    mBoat.window = win;
+    mBoat.display = 0;
 }
 
-void onInputQueueCreated(ANativeActivity* activity, AInputQueue* queue) {
+void onNativeWindowDestroyed(ANativeActivity *activity, ANativeWindow *win) {
+
+}
+
+void onNativeWindowRedrawNeeded(ANativeActivity *activity, ANativeWindow *win) {
+
+}
+
+void onNativeWindowResized(ANativeActivity *activity, ANativeWindow *win) {
+
+}
+
+void onInputQueueCreated(ANativeActivity *activity, AInputQueue *queue) {
     isLoop = true;
     activity->instance = (void *) queue;
     pthread_create(&loopID, NULL, looper, activity);
 
 }
 
-void onInputQueueDestroyed(ANativeActivity* activity, AInputQueue* queue) {
-    
-	
-}
-void onConfigurationChanged(ANativeActivity* activity){
-	
+void onInputQueueDestroyed(ANativeActivity *activity, AInputQueue *queue) {
+
+
 }
 
-void onLowMemory(ANativeActivity* activity)
-{
-	
+void onConfigurationChanged(ANativeActivity *activity) {
+
 }
 
-void ANativeActivity_onCreate(ANativeActivity* activity, void* savedState, size_t savedStateSize) {
-    
-	activity->callbacks->onStart = onStart;
+void onLowMemory(ANativeActivity *activity) {
+
+}
+
+void ANativeActivity_onCreate(ANativeActivity *activity, void *savedState, size_t savedStateSize) {
+
+    activity->callbacks->onStart = onStart;
     activity->callbacks->onResume = onResume;
     activity->callbacks->onSaveInstanceState = onSaveInstanceState;
     activity->callbacks->onPause = onPause;
