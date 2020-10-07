@@ -23,5 +23,6 @@ public interface Controller{
     void onStop();
     int getInputMode();
     int[] getPointer();
+    void saveConfig();
 }
 

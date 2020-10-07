@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -128,6 +129,7 @@ public class ItemBar implements OnscreenInput, AppEvent {
         ViewGroup.LayoutParams p = itemBar.getLayoutParams();
         ((ViewGroup.MarginLayoutParams)p).setMargins(left,top,0,0);
         itemBar.setLayoutParams(p);
+        Log.e(TAG,String.format("已设置物品栏位置: %d %d ",left,top));
     }
 
     @Override
@@ -215,6 +217,10 @@ public class ItemBar implements OnscreenInput, AppEvent {
         //控件重绘
         itemBar.requestLayout();
         itemBar.invalidate();
+    }
+
+    public int getUiVisiability(){
+        return itemBar.getVisibility();
     }
 
 }
@@ -508,8 +514,10 @@ class ItembarConfigDialog extends Dialog implements View.OnClickListener , Dialo
         SharedPreferences.Editor editor = mContext.getSharedPreferences(spFileName,spMode).edit();
         editor.putInt(sp_alpha_name,seekbarAlpha.getProgress());
         editor.putInt(sp_size_name,seekbarSize.getProgress());
-        editor.putInt(sp_pos_x_name,(int)mInput.getPos()[0]);
-        editor.putInt(sp_pos_y_name,(int)mInput.getPos()[1]);
+        if(mInput.getUiVisiability() == View.VISIBLE){
+            editor.putInt(sp_pos_x_name,(int)mInput.getPos()[0]);
+            editor.putInt(sp_pos_y_name,(int)mInput.getPos()[1]);
+        }
         editor.apply();
     }
 

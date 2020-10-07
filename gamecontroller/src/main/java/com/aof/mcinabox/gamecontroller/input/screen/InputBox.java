@@ -100,6 +100,11 @@ public class InputBox implements OnscreenInput, TextWatcher, TextView.OnEditorAc
     }
 
     @Override
+    public int getUiVisiability() {
+        return inputBox.getVisibility();
+    }
+
+    @Override
     public boolean onTouch(View v, MotionEvent event) {
         return false;
     }
@@ -623,8 +628,10 @@ class InputBoxConfigDialog extends Dialog implements View.OnClickListener, Dialo
         SharedPreferences.Editor editor = mContext.getSharedPreferences(spFileName, spMode).edit();
         editor.putInt(sp_alpha_name, seekbarAlpha.getProgress());
         editor.putInt(sp_size_name, seekbarSize.getProgress());
-        editor.putInt(sp_pos_x_name, (int) mInput.getPos()[0]);
-        editor.putInt(sp_pos_y_name, (int) mInput.getPos()[1]);
+        if(mInput.getUiVisiability() == View.VISIBLE){
+            editor.putInt(sp_pos_x_name, (int) mInput.getPos()[0]);
+            editor.putInt(sp_pos_y_name, (int) mInput.getPos()[1]);
+        }
         editor.putInt(sp_show_name, ((InputBox)mInput).getShowStat());
         editor.apply();
     }

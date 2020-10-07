@@ -173,6 +173,11 @@ public class CustomizeKeyboard implements OnscreenInput, AppEvent, Controller, C
         return mManager.getGameButtons();
     }
 
+    @Override
+    public int getUiVisiability() {
+        return View.VISIBLE;
+    }
+
 }
 
 

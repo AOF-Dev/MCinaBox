@@ -11,4 +11,5 @@ public interface OnscreenInput extends Input, View.OnTouchListener, AppEvent{
     void setMargins(int left, int top ,int right , int bottom);
     int[] getSize(); // View.getWidth() , View.getHeight()
     View[] getViews();
+    int getUiVisiability();
 }

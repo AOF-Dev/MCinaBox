@@ -52,7 +52,7 @@ public class OnscreenMouse implements OnscreenInput, AppEvent {
     private int screenWidth;
     private int screenHeight;
 
-    private LinearLayout OnscreenMouse;
+    private LinearLayout onscreenMouse;
     private Button moveButton;
     private MouseButton mouseButton_pri;
     private MouseButton mouseButton_sec;
@@ -78,15 +78,15 @@ public class OnscreenMouse implements OnscreenInput, AppEvent {
         screenWidth = context.getResources().getDisplayMetrics().widthPixels;
         screenHeight = context.getResources().getDisplayMetrics().heightPixels;
 
-        OnscreenMouse = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.virtual_mouse, null);
-        mController.addContentView(OnscreenMouse, new ViewGroup.LayoutParams(DisplayUtils.getPxFromDp(mContext, widthDp), DisplayUtils.getPxFromDp(mContext, heightDp)));
+        onscreenMouse = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.virtual_mouse, null);
+        mController.addContentView(onscreenMouse, new ViewGroup.LayoutParams(DisplayUtils.getPxFromDp(mContext, widthDp), DisplayUtils.getPxFromDp(mContext, heightDp)));
 
-        mouseButton_pri = OnscreenMouse.findViewById(R.id.onscreen_mouse_pri);
-        mouseButton_sec = OnscreenMouse.findViewById(R.id.onscreen_mouse_sec);
-        mouseButton_middle = OnscreenMouse.findViewById(R.id.onscreen_mouse_middle);
-        mouseButton_wheel_up = OnscreenMouse.findViewById(R.id.onscreen_mouse_wheel_up);
-        mouseButton_wheel_down = OnscreenMouse.findViewById(R.id.onscreen_mouse_wheel_down);
-        moveButton = OnscreenMouse.findViewById(R.id.onscreen_mouse_move);
+        mouseButton_pri = onscreenMouse.findViewById(R.id.onscreen_mouse_pri);
+        mouseButton_sec = onscreenMouse.findViewById(R.id.onscreen_mouse_sec);
+        mouseButton_middle = onscreenMouse.findViewById(R.id.onscreen_mouse_middle);
+        mouseButton_wheel_up = onscreenMouse.findViewById(R.id.onscreen_mouse_wheel_up);
+        mouseButton_wheel_down = onscreenMouse.findViewById(R.id.onscreen_mouse_wheel_down);
+        moveButton = onscreenMouse.findViewById(R.id.onscreen_mouse_move);
 
         //设定监听器
         View[] views = new View[]{mouseButton_pri, mouseButton_sec, mouseButton_middle, mouseButton_wheel_up, mouseButton_wheel_down, moveButton};
@@ -111,7 +111,7 @@ public class OnscreenMouse implements OnscreenInput, AppEvent {
 
     @Override
     public void setUiVisibility(int visiablity) {
-        OnscreenMouse.setVisibility(visiablity);
+        onscreenMouse.setVisibility(visiablity);
     }
 
     @Override
@@ -203,7 +203,7 @@ public class OnscreenMouse implements OnscreenInput, AppEvent {
         }
 
         if (v == moveButton) {
-            moveViewByTouch(OnscreenMouse, event);
+            moveViewByTouch(onscreenMouse, event);
             return true;
         }
 
@@ -212,32 +212,37 @@ public class OnscreenMouse implements OnscreenInput, AppEvent {
 
     @Override
     public boolean unload() {
-        OnscreenMouse.setVisibility(View.INVISIBLE);
-        ViewGroup vg = (ViewGroup) OnscreenMouse.getParent();
-        vg.removeView(OnscreenMouse);
+        onscreenMouse.setVisibility(View.INVISIBLE);
+        ViewGroup vg = (ViewGroup) onscreenMouse.getParent();
+        vg.removeView(onscreenMouse);
         return false;
     }
 
     @Override
     public float[] getPos() {
-        return (new float[]{OnscreenMouse.getX(), OnscreenMouse.getY()});
+        return (new float[]{onscreenMouse.getX(), onscreenMouse.getY()});
     }
 
     @Override
     public void setMargins(int left, int top, int right, int bottom) {
-        ViewGroup.LayoutParams p = OnscreenMouse.getLayoutParams();
+        ViewGroup.LayoutParams p = onscreenMouse.getLayoutParams();
         ((ViewGroup.MarginLayoutParams) p).setMargins(left, top, 0, 0);
-        OnscreenMouse.setLayoutParams(p);
+        onscreenMouse.setLayoutParams(p);
     }
 
     @Override
     public int[] getSize() {
-        return new int[]{OnscreenMouse.getLayoutParams().width, OnscreenMouse.getLayoutParams().height};
+        return new int[]{onscreenMouse.getLayoutParams().width, onscreenMouse.getLayoutParams().height};
     }
 
     @Override
     public View[] getViews() {
-        return new View[]{this.OnscreenMouse};
+        return new View[]{this.onscreenMouse};
+    }
+
+    @Override
+    public int getUiVisiability() {
+        return onscreenMouse.getVisibility();
     }
 
     private void sendKeyEvent(View v, MotionEvent e) {
@@ -286,9 +291,9 @@ public class OnscreenMouse implements OnscreenInput, AppEvent {
                 p2.postInvalidate();
                 break;
             case MotionEvent.ACTION_UP:
-                ViewGroup.LayoutParams p = OnscreenMouse.getLayoutParams();
-                ((ViewGroup.MarginLayoutParams) p).setMargins(OnscreenMouse.getLeft(), OnscreenMouse.getTop(), 0, 0);
-                OnscreenMouse.setLayoutParams(p);
+                ViewGroup.LayoutParams p = onscreenMouse.getLayoutParams();
+                ((ViewGroup.MarginLayoutParams) p).setMargins(onscreenMouse.getLeft(), onscreenMouse.getTop(), 0, 0);
+                onscreenMouse.setLayoutParams(p);
                 break;
             default:
                 break;
@@ -297,16 +302,16 @@ public class OnscreenMouse implements OnscreenInput, AppEvent {
     }
 
     public void setAlpha(float a) {
-        OnscreenMouse.setAlpha(a);
+        onscreenMouse.setAlpha(a);
     }
 
     public void setSize(int width, int height) {
-        ViewGroup.LayoutParams p = OnscreenMouse.getLayoutParams();
+        ViewGroup.LayoutParams p = onscreenMouse.getLayoutParams();
         p.width = width;
         p.height = height;
         //控件重绘
-        OnscreenMouse.requestLayout();
-        OnscreenMouse.invalidate();
+        onscreenMouse.requestLayout();
+        onscreenMouse.invalidate();
     }
 
     public void saveConfig() {
@@ -627,8 +632,10 @@ class OnscreenMouseConfigDialog extends Dialog implements View.OnClickListener, 
         editor.putInt(sp_alpha_name, seekbarAlpha.getProgress());
         editor.putInt(sp_size_name, seekbarSize.getProgress());
         editor.putInt(sp_wheel_speed_name, seekbarWheelSpeed.getProgress());
-        editor.putInt(sp_pos_x_name, (int) mInput.getPos()[0]);
-        editor.putInt(sp_pos_y_name, (int) mInput.getPos()[1]);
+        if(mInput.getUiVisiability() == View.VISIBLE){
+            editor.putInt(sp_pos_x_name,(int)mInput.getPos()[0]);
+            editor.putInt(sp_pos_y_name,(int)mInput.getPos()[1]);
+        }
         editor.putInt(sp_show_name, ((OnscreenMouse)mInput).getShowStat());
         editor.apply();
     }

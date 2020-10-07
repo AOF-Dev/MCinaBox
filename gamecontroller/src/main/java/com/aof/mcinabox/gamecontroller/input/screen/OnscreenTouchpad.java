@@ -342,6 +342,11 @@ public class OnscreenTouchpad implements OnscreenInput, AppEvent, KeyMap, MouseM
         return new View[]{this.onscreenTouchpad};
     }
 
+    @Override
+    public int getUiVisiability() {
+        return onscreenTouchpad.getVisibility();
+    }
+
     public void setInputSpeedLevel(int level) {
         this.inputSpeedLevel = level;
     }

@@ -100,6 +100,11 @@ public class OnscreenJoystick implements OnscreenInput , RockerView.OnShakeListe
     }
 
     @Override
+    public int getUiVisiability() {
+        return onscreenJoystick.getVisibility();
+    }
+
+    @Override
     public boolean onTouch(View v, MotionEvent event) {
         if(v == buttonMove){
             if(moveable){
@@ -524,8 +529,10 @@ class OnscreenJoystickConfigDialog extends Dialog implements View.OnClickListene
         SharedPreferences.Editor editor = mContext.getSharedPreferences(spFileName,spMode).edit();
         editor.putInt(sp_alpha_name,seekbarAlpha.getProgress());
         editor.putInt(sp_size_name,seekbarSize.getProgress());
-        editor.putInt(sp_pos_x_name,(int)mInput.getPos()[0]);
-        editor.putInt(sp_pos_y_name,(int)mInput.getPos()[1]);
+        if(mInput.getUiVisiability() == View.VISIBLE){
+            editor.putInt(sp_pos_x_name,(int)mInput.getPos()[0]);
+            editor.putInt(sp_pos_y_name,(int)mInput.getPos()[1]);
+        }
         editor.putInt(sp_show_name, ((OnscreenJoystick)mInput).getShowStat());
         editor.apply();
     }

@@ -176,6 +176,11 @@ public class CrossKeyboard implements OnscreenInput, KeyMap {
         return new View[]{this.crossKeyboard, this.crossKeyBoardExtend};
     }
 
+    @Override
+    public int getUiVisiability() {
+        return crossKeyboard.getVisibility();
+    }
+
     private void applyCrossKey(View v, MotionEvent e) {
         int[] boardPos = new int[2];  //CrossKey的左上角坐标
         int[] touchPos = new int[2];  //触摸位置的坐标
@@ -776,8 +781,10 @@ class CrossKeyboardConfigDialog extends Dialog implements View.OnClickListener, 
         editor.putInt(sp_alpha_name, seekbarAlpha.getProgress());
         editor.putInt(sp_size_name, seekbarSize.getProgress());
         editor.putBoolean(sp_switch_bounce_name, switchBounce.isChecked());
-        editor.putInt(sp_pos_x_name, (int) mInput.getPos()[0]);
-        editor.putInt(sp_pos_y_name, (int) mInput.getPos()[1]);
+        if(mInput.getUiVisiability() == View.VISIBLE){
+            editor.putInt(sp_pos_x_name, (int) mInput.getPos()[0]);
+            editor.putInt(sp_pos_y_name, (int) mInput.getPos()[1]);
+        }
         editor.putInt(sp_extra_pos_x_name, (int) mInput.getViews()[1].getX());
         editor.putInt(sp_extra_pos_y_name, (int) mInput.getViews()[1].getY());
         editor.putInt(sp_show_name, ((CrossKeyboard) mInput).getShowStat());

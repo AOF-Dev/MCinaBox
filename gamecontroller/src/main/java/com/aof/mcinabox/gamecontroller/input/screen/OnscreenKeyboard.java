@@ -34,7 +34,7 @@ public class OnscreenKeyboard implements OnscreenInput, AppEvent {
 
     private Context mContext;
     private Controller mController;
-    private LinearLayout OnscreenKeyboard;
+    private LinearLayout onscreenKeyboard;
     private boolean moveable = false;
     private boolean enable;
 
@@ -71,14 +71,14 @@ public class OnscreenKeyboard implements OnscreenInput, AppEvent {
         screenWidth = context.getResources().getDisplayMetrics().widthPixels;
         screenHeight = context.getResources().getDisplayMetrics().heightPixels;
 
-        OnscreenKeyboard = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.virtual_keyboard, null);
-        mController.addContentView(OnscreenKeyboard,new ViewGroup.LayoutParams(DisplayUtils.getPxFromDp(mContext,widthDp), DisplayUtils.getPxFromDp(mContext,heightDp)));
+        onscreenKeyboard = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.virtual_keyboard, null);
+        mController.addContentView(onscreenKeyboard,new ViewGroup.LayoutParams(DisplayUtils.getPxFromDp(mContext,widthDp), DisplayUtils.getPxFromDp(mContext,heightDp)));
 
         //设置监听器
-        for(int a=0;a < OnscreenKeyboard.getChildCount() ; a++){
-            if(OnscreenKeyboard.getChildAt(a) instanceof LinearLayout) {
-                for (int b = 0; b < ((LinearLayout) OnscreenKeyboard.getChildAt(a)).getChildCount(); b++) {
-                    ((LinearLayout) OnscreenKeyboard.getChildAt(a)).getChildAt(b).setOnTouchListener(this);
+        for(int a = 0; a < onscreenKeyboard.getChildCount() ; a++){
+            if(onscreenKeyboard.getChildAt(a) instanceof LinearLayout) {
+                for (int b = 0; b < ((LinearLayout) onscreenKeyboard.getChildAt(a)).getChildCount(); b++) {
+                    ((LinearLayout) onscreenKeyboard.getChildAt(a)).getChildAt(b).setOnTouchListener(this);
                 }
             }
         }
@@ -87,16 +87,16 @@ public class OnscreenKeyboard implements OnscreenInput, AppEvent {
         configDialog = new OnscreenKeyboardConfigDialog(mContext,this);
 
         //信号
-        qButtonCaps = OnscreenKeyboard.findViewById(R.id.virtual_keyboard_button_caps);
-        qButtonLShift = OnscreenKeyboard.findViewById(R.id.virtual_keyboard_button_lshift);
-        qButtonRShift = OnscreenKeyboard.findViewById(R.id.virtual_keyboard_button_Rshift);
-        textSignalCaps = OnscreenKeyboard.findViewById(R.id.virtual_keyboard_signal_text_caps);
-        textSignalType = OnscreenKeyboard.findViewById(R.id.virtual_keyboard_signal_enable_type);
+        qButtonCaps = onscreenKeyboard.findViewById(R.id.virtual_keyboard_button_caps);
+        qButtonLShift = onscreenKeyboard.findViewById(R.id.virtual_keyboard_button_lshift);
+        qButtonRShift = onscreenKeyboard.findViewById(R.id.virtual_keyboard_button_Rshift);
+        textSignalCaps = onscreenKeyboard.findViewById(R.id.virtual_keyboard_signal_text_caps);
+        textSignalType = onscreenKeyboard.findViewById(R.id.virtual_keyboard_signal_enable_type);
         textSignalType.setOnTouchListener(this);
         textSignalType.setClickable(true);
         textSignalCaps.setClickable(true);
 
-        OnscreenKeyboard.setOnTouchListener(this);
+        onscreenKeyboard.setOnTouchListener(this);
 
         return true;
     }
@@ -113,7 +113,7 @@ public class OnscreenKeyboard implements OnscreenInput, AppEvent {
 
     @Override
     public void setUiVisibility(int visiablity) {
-        OnscreenKeyboard.setVisibility(visiablity);
+        onscreenKeyboard.setVisibility(visiablity);
     }
 
     @Override
@@ -198,7 +198,7 @@ public class OnscreenKeyboard implements OnscreenInput, AppEvent {
             return true;
         }
 
-        if(v == OnscreenKeyboard && moveable){
+        if(v == onscreenKeyboard && moveable){
             moveViewByTouch(v,e);
             return true;
         }
@@ -207,32 +207,37 @@ public class OnscreenKeyboard implements OnscreenInput, AppEvent {
 
     @Override
     public boolean unload() {
-        OnscreenKeyboard.setVisibility(View.INVISIBLE);
-        ViewGroup vg = (ViewGroup) OnscreenKeyboard.getParent();
-        vg.removeView(OnscreenKeyboard);
+        onscreenKeyboard.setVisibility(View.INVISIBLE);
+        ViewGroup vg = (ViewGroup) onscreenKeyboard.getParent();
+        vg.removeView(onscreenKeyboard);
         return true;
     }
 
     @Override
     public float[] getPos() {
-        return (new float[]{OnscreenKeyboard.getX(),OnscreenKeyboard.getY()});
+        return (new float[]{onscreenKeyboard.getX(), onscreenKeyboard.getY()});
     }
 
     @Override
     public void setMargins(int left, int top ,int right , int bottom) {
-        ViewGroup.LayoutParams p = OnscreenKeyboard.getLayoutParams();
+        ViewGroup.LayoutParams p = onscreenKeyboard.getLayoutParams();
         ((ViewGroup.MarginLayoutParams)p).setMargins(left,top,0,0);
-        OnscreenKeyboard.setLayoutParams(p);
+        onscreenKeyboard.setLayoutParams(p);
     }
 
     @Override
     public int[] getSize() {
-        return new int[]{OnscreenKeyboard.getLayoutParams().width,OnscreenKeyboard.getLayoutParams().height};
+        return new int[]{onscreenKeyboard.getLayoutParams().width, onscreenKeyboard.getLayoutParams().height};
     }
 
     @Override
     public View[] getViews(){
-        return new View[]{this.OnscreenKeyboard};
+        return new View[]{this.onscreenKeyboard};
+    }
+
+    @Override
+    public int getUiVisiability() {
+        return onscreenKeyboard.getVisibility();
     }
 
     private void sendKeyEvent(View v,MotionEvent e){
@@ -300,9 +305,9 @@ public class OnscreenKeyboard implements OnscreenInput, AppEvent {
                 v.postInvalidate();
                 break;
             case MotionEvent.ACTION_UP:
-                ViewGroup.LayoutParams p = OnscreenKeyboard.getLayoutParams();
-                ((ViewGroup.MarginLayoutParams)p).setMargins(OnscreenKeyboard.getLeft(),OnscreenKeyboard.getTop(),0,0);
-                OnscreenKeyboard.setLayoutParams(p);
+                ViewGroup.LayoutParams p = onscreenKeyboard.getLayoutParams();
+                ((ViewGroup.MarginLayoutParams)p).setMargins(onscreenKeyboard.getLeft(), onscreenKeyboard.getTop(),0,0);
+                onscreenKeyboard.setLayoutParams(p);
                 break;
             default:
                 break;
@@ -310,16 +315,16 @@ public class OnscreenKeyboard implements OnscreenInput, AppEvent {
     }
 
     public void setAlpha(float a){
-        OnscreenKeyboard.setAlpha(a);
+        onscreenKeyboard.setAlpha(a);
     }
 
     public void setSize(int width, int height){
-        ViewGroup.LayoutParams p = OnscreenKeyboard.getLayoutParams();
+        ViewGroup.LayoutParams p = onscreenKeyboard.getLayoutParams();
         p.width = width;
         p.height = height;
         //控件重绘
-        OnscreenKeyboard.requestLayout();
-        OnscreenKeyboard.invalidate();
+        onscreenKeyboard.requestLayout();
+        onscreenKeyboard.invalidate();
     }
 
     @Override
@@ -615,8 +620,10 @@ class OnscreenKeyboardConfigDialog extends Dialog implements View.OnClickListene
         SharedPreferences.Editor editor = mContext.getSharedPreferences(spFileName,spMode).edit();
         editor.putInt(sp_alpha_name,seekbarAlpha.getProgress());
         editor.putInt(sp_size_name,seekbarSize.getProgress());
-        editor.putInt(sp_pos_x_name,(int)mInput.getPos()[0]);
-        editor.putInt(sp_pos_y_name,(int)mInput.getPos()[1]);
+        if(mInput.getUiVisiability() == View.VISIBLE){
+            editor.putInt(sp_pos_x_name,(int)mInput.getPos()[0]);
+            editor.putInt(sp_pos_y_name,(int)mInput.getPos()[1]);
+        }
         editor.putInt(sp_show_name, ((OnscreenKeyboard)mInput).getShowStat());
         editor.apply();
     }

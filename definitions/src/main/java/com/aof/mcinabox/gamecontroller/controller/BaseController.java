@@ -112,9 +112,7 @@ public abstract class BaseController implements Controller {
 
     @Override
     public void onStop(){
-        for(Input i : inputs){
-            i.saveConfig();
-        }
+        this.saveConfig();
     }
     @Override
     public int getInputMode(){
@@ -124,6 +122,13 @@ public abstract class BaseController implements Controller {
     @Override
     public int[] getPointer(){
         return client.getPointer();
+    }
+
+    @Override
+    public void saveConfig(){
+        for(Input i : inputs){
+            i.saveConfig();
+        }
     }
 }
 

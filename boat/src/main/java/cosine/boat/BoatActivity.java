@@ -26,6 +26,8 @@ import com.aof.mcinabox.gamecontroller.controller.HardwareController;
 import com.aof.mcinabox.gamecontroller.controller.HwController;
 import com.aof.mcinabox.gamecontroller.controller.VirtualController;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class BoatActivity extends NativeActivity implements View.OnClickListener, View.OnTouchListener, ClientInput, AppEvent {
 
@@ -36,6 +38,8 @@ public class BoatActivity extends NativeActivity implements View.OnClickListener
     private BaseController hardwareController;
     private BoatHandler mHandler;
     private final static String TAG = "BoatActivity";
+    private Timer mTimer;
+    private final static int REFRESH_P = 5000; //ms
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +77,21 @@ public class BoatActivity extends NativeActivity implements View.OnClickListener
         //初始化Handler
         mHandler = new BoatHandler();
 
+        //启动定时器
+        mTimer = new Timer();
+        mTimer.schedule(createTimerTask(),REFRESH_P,REFRESH_P);
+
+    }
+
+    private TimerTask createTimerTask(){
+        return new TimerTask() {
+            @Override
+            public void run() {
+                for (Controller c : new Controller[]{virtualController,hardwareController}){
+                    c.saveConfig();
+                }
+            }
+        };
     }
 
     @Override
@@ -90,6 +109,21 @@ public class BoatActivity extends NativeActivity implements View.OnClickListener
             popupWindow.showAtLocation(BoatActivity.this.getWindow().getDecorView(), Gravity.TOP | Gravity.LEFT, 0, 0);
         }
 
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        //取消定时器
+        mTimer.cancel();
+    }
+
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        //启动定时器
+        mTimer = new Timer();
+        mTimer.schedule(createTimerTask(),REFRESH_P,REFRESH_P);
     }
 
     @Override
