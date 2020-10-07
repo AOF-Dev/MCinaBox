@@ -425,12 +425,16 @@ public class GameButton extends androidx.appcompat.widget.AppCompatButton implem
                 if(isKeep){
                     if(!isBeingPressed){
                         for(int a = 0; a < MAX_KEYMAP_SIZE ; a++){
-                            sendKey(keyMaps[a],true,keyTypes[a]);
+                            if(!keyMaps[a].equals("")){
+                                sendKey(keyMaps[a],true,keyTypes[a]);
+                            }
                         }
                     }
                 }else{
                     for(int a = 0; a < MAX_KEYMAP_SIZE ; a++){
-                        sendKey(keyMaps[a],true,keyTypes[a]);
+                        if(!keyMaps[a].equals("")){
+                            sendKey(keyMaps[a],true,keyTypes[a]);
+                        }
                     }
                 }
                 break;
@@ -441,7 +445,9 @@ public class GameButton extends androidx.appcompat.widget.AppCompatButton implem
                 if(isKeep){
                     if(isBeingPressed){
                         for(int a = 0; a < MAX_KEYMAP_SIZE ; a++){
-                            sendKey(keyMaps[a],false,keyTypes[a]);
+                            if(!keyMaps[a].equals("")){
+                                sendKey(keyMaps[a],false,keyTypes[a]);
+                            }
                         }
                         isBeingPressed = false;
                     }else{
@@ -449,7 +455,9 @@ public class GameButton extends androidx.appcompat.widget.AppCompatButton implem
                     }
                 }else{
                     for(int a = 0; a < MAX_KEYMAP_SIZE ; a++){
-                        sendKey(keyMaps[a],false,keyTypes[a]);
+                        if(!keyMaps[a].equals("")){
+                            sendKey(keyMaps[a],false,keyTypes[a]);
+                        }
                     }
                 }
                 break;
