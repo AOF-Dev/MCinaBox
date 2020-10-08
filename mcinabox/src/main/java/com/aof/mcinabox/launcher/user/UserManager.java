@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 
 import com.aof.mcinabox.MainActivity;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
-import com.aof.mcinabox.launcher.user.support.UserListBean;
 import com.aof.utils.FileTool;
 import java.io.File;
 import java.util.UUID;
@@ -25,14 +24,14 @@ public class UserManager {
         user.setAccessToken("0");
         user.setSelected(false);
         user.setType(SettingJson.USER_TYPE_OFFLINE);
-        user.setUuid(createUUIDByString(username));
+        user.setUuid(createUUID(username).toString());
         user.setUsername(username);
 
         return user;
     }
 
-    public static String createUUIDByString(String str){
-        return UUID.nameUUIDFromBytes((str).getBytes()).toString();
+    public static UUID createUUID(String str){
+        return UUID.nameUUIDFromBytes((str).getBytes());
     }
 
     public static boolean addAccount(SettingJson setting, SettingJson.Account account){
@@ -61,51 +60,8 @@ public class UserManager {
 
         accounts[a] = account;
         setting.setAccounts(accounts);
+        MainActivity.CURRENT_ACTIVITY.mUiManager.uiUser.reloadListView();
         return true;
-    }
-
-    public static SettingJson.Account getOnlineAccount(Context context){
-        SharedPreferences prefs = context.getSharedPreferences("launcher_prefs", 0);
-
-        if( ! prefs.contains(auth_profile_name)){
-            return null;
-        }
-
-        SettingJson.Account account = new SettingJson().new Account();
-        account.setUsername(prefs.getString(auth_profile_name,"Player"));
-        account.setType(SettingJson.USER_TYPE_ONLINE);
-        account.setSelected(false);
-        account.setUuid(prefs.getString(auth_profile_id,"00000000-0000-0000-0000-000000000000"));
-        account.setAccessToken(prefs.getString(auth_accessToken,"0"));
-
-        return account;
-    }
-
-    public static UserListBean account2Bean(Context context, SettingJson.Account account){
-        if(account != null){
-            return new UserListBean()
-                    .setUser_name(account.getUsername())
-                    .setAuth_Access_Token(account.getAccessToken())
-                    .setAuth_UUID(account.getUuid())
-                    .setContext(context)
-                    .setSelected(account.isSelected())
-                    .setUser_model(account.getType());
-        }else{
-            return null;
-        }
-    }
-
-    public static SettingJson.Account bean2Account(UserListBean bean){
-        if(bean != null){
-            return new SettingJson().new Account()
-                    .setAccessToken(bean.getAuth_Access_Token())
-                    .setSelected(bean.isSelected())
-                    .setType(bean.getUser_model())
-                    .setUuid(bean.getAuth_UUID())
-                    .setUsername(bean.getUser_name());
-        }else{
-            return null;
-        }
     }
 
     public static String[] getUsersName(SettingJson setting){

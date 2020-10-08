@@ -16,7 +16,6 @@ import com.aof.mcinabox.MainActivity;
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.mcinabox.launcher.user.UserManager;
-import com.aof.utils.PromptUtils;
 import com.aof.utils.dialog.support.DialogSupports;
 import com.aof.utils.dialog.DialogUtils;
 
@@ -24,13 +23,13 @@ import java.util.ArrayList;
 
 public class UserListAdapter extends BaseAdapter {
 
-    private ArrayList<UserListBean> userlist;
+    private ArrayList<SettingJson.Account> userlist;
     private Context context;
     private ArrayList<RadioButton> recorder = new ArrayList<RadioButton>() {
     };
     private final static String TAG = "UserListAdapter";
 
-    public UserListAdapter(ArrayList<UserListBean> list) {
+    public UserListAdapter(ArrayList<SettingJson.Account> list) {
         userlist = list;
     }
 
@@ -49,7 +48,7 @@ public class UserListAdapter extends BaseAdapter {
         return position;
     }
 
-    public UserListAdapter(Context context, ArrayList<UserListBean> list) {
+    public UserListAdapter(Context context, ArrayList<SettingJson.Account> list) {
         this.userlist = list;
         this.context = context;
     }
@@ -67,7 +66,7 @@ public class UserListAdapter extends BaseAdapter {
             holder.buttonRelogin = convertView.findViewById(R.id.user_button_relogin);
             holder.layout = convertView.findViewById(R.id.small_layout_aboutuser);
             holder.radioSelecter = convertView.findViewById(R.id.radiobutton_selecteduser);
-            holder.textUsername.setText(userlist.get(position).getUser_name());
+            holder.textUsername.setText(userlist.get(position).getUsername());
 
             //用户选择切换
             boolean isDif = true;
@@ -91,7 +90,7 @@ public class UserListAdapter extends BaseAdapter {
         }
 
         //判断是否启用账户刷新按钮
-        if (userlist.get(position).getUser_model().equals(SettingJson.USER_TYPE_OFFLINE)) {
+        if (userlist.get(position).getType().equals(SettingJson.USER_TYPE_OFFLINE)) {
             holder.buttonRelogin.setVisibility(View.GONE);
         } else {
             holder.buttonRelogin.setVisibility(View.VISIBLE);
@@ -103,7 +102,7 @@ public class UserListAdapter extends BaseAdapter {
                         @Override
                         public void runWhenPositive() {
                             Log.e(TAG, "check validate");
-                            new Login(context).execute(Login.REQUEST_MODE_VALIDATE, userlist.get(position).getAuth_Access_Token());
+                            new LoginServer(userlist.get(position).getApiUrl()).refresh(userlist.get(position).getAccessToken());
                         }
                     });
                 }
@@ -111,10 +110,12 @@ public class UserListAdapter extends BaseAdapter {
         }
 
         //设置账户模式
-        if (userlist.get(position).getUser_model().equals(SettingJson.USER_TYPE_OFFLINE)) {
+        if (userlist.get(position).getType().equals(SettingJson.USER_TYPE_OFFLINE)) {
             holder.userstate.setText(context.getString(R.string.title_offline));
-        } else if (userlist.get(position).getUser_model().equals(SettingJson.USER_TYPE_ONLINE)) {
+        } else if (userlist.get(position).getType().equals(SettingJson.USER_TYPE_ONLINE)) {
             holder.userstate.setText(context.getString(R.string.title_online));
+        } else if (userlist.get(position).getType().equals(SettingJson.USER_TYPE_EXTERNAL)) {
+            holder.userstate.setText(String.format(context.getString(R.string.title_server).toString().concat(": ").concat(userlist.get(position).getServerName())));
         } else {
             holder.userstate.setText(context.getString(R.string.title_unknown));
         }
@@ -126,7 +127,7 @@ public class UserListAdapter extends BaseAdapter {
                 DialogUtils.createBothChoicesDialog(context, context.getString(R.string.title_warn), context.getString(R.string.tips_warning_delect_user), context.getString(R.string.title_ok), context.getString(R.string.title_cancel), new DialogSupports() {
                     @Override
                     public void runWhenPositive() {
-                        UserManager.removeAccount(MainActivity.Setting, userlist.get(position).getUser_name());
+                        UserManager.removeAccount(MainActivity.Setting, userlist.get(position).getUsername());
                         //删除后重置用户列表
                         MainActivity.CURRENT_ACTIVITY.mUiManager.uiUser.reloadListView();
                     }
@@ -141,7 +142,7 @@ public class UserListAdapter extends BaseAdapter {
                     p1.setChecked(false);
                 }
                 holder.radioSelecter.setChecked(true);
-                UserManager.setAccountSelected(userlist.get(position).getUser_name());
+                UserManager.setAccountSelected(userlist.get(position).getUsername());
             }
         });
 
