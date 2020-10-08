@@ -6,6 +6,7 @@ public class SettingJson {
 
     public final static String USER_TYPE_OFFLINE = "offline";
     public final static String USER_TYPE_ONLINE = "online";
+    public final static String USER_TYPE_EXTERNAL = "external";
 
     public final static String DOWNLOAD_SOURCE_OFFICIAL = "official";
     public final static String DOWNLOAD_SOURCE_BMCLAPI = "bmclapi";
@@ -167,6 +168,9 @@ public class SettingJson {
         String username; //用户名
         String type; //用户类型 "offline"离线模式 "online"线上模式
         String accessToken; //通行令牌
+        String apiMeta;
+        String apiUrl;
+        String serverName;
         boolean selected; //是否被选中
 
         public Account(){
@@ -189,6 +193,33 @@ public class SettingJson {
 
         public Account setUsername(String username) {
             this.username = username;
+            return this;
+        }
+
+        public String getApiMeta() {
+            return apiMeta;
+        }
+
+        public Account setApiMeta(String apiMeta) {
+            this.apiMeta = apiMeta;
+            return this;
+        }
+
+        public String getApiUrl() {
+            return apiUrl;
+        }
+
+        public Account setApiUrl(String apiUrl) {
+            this.apiUrl = apiUrl;
+            return this;
+        }
+
+        public String getServerName() {
+            return serverName;
+        }
+
+        public Account setServerName(String serverName) {
+            this.serverName = serverName;
             return this;
         }
 

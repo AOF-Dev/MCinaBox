@@ -115,6 +115,9 @@ public class FunctionbarUI extends BaseUI {
                         case SettingJson.USER_TYPE_ONLINE:
                             type = mContext.getString(R.string.title_online);
                             break;
+                        case SettingJson.USER_TYPE_EXTERNAL:
+                            type = mContext.getString(R.string.title_external);
+                            break;
                         default:
                             type = mContext.getString(R.string.title_unknown);
                             break;

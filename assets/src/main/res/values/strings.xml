@@ -79,6 +79,7 @@
     <string name="title_user_name">Username</string>
     <string name="title_password">Password</string>
     <string name="title_online">Genuine Login</string>
+    <string name="title_external">External Login</string>
     <string name="title_filename">Filename</string>
     <string name="title_output">Export</string>
     <string name="title_ok">Ok</string>
@@ -170,6 +171,8 @@
     <string name="title_hide_status_bar">Hide status bar</string>
     <string name="title_automatically_switch_background">Automatically switch background</string>
     <string name="title_colorpicker">Color picker</string>
+    <string name="title_server">Server</string>
+    <string name="title_online_login">Online login</string>
 
     <string name="tips_contributors_list">List of Contributors</string>
     <string name="tips_contributors_full">Subject to the Github project provided</string>
@@ -282,4 +285,6 @@
     <string name="tips_selected">Selected：</string>
     <string name="tips_please_change_file_name">Please change the file name!</string>
     <string name="tips_memory_over_total_size">Memory limit is over total memory.</string>
+    <string name="tips_please_enter_server">The default is the official Mojang server</string>
+    <string name="tips_redirecting">Redirecting...</string>
 </resources>

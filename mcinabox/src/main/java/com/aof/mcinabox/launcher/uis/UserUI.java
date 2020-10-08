@@ -15,7 +15,6 @@ import com.aof.mcinabox.launcher.user.CreateUserDialog;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.mcinabox.launcher.user.UserManager;
 import com.aof.mcinabox.launcher.user.support.UserListAdapter;
-import com.aof.mcinabox.launcher.user.support.UserListBean;
 import com.aof.utils.dialog.DialogUtils;
 
 import java.util.ArrayList;
@@ -88,14 +87,14 @@ public class UserUI extends BaseUI {
     public void reloadListView(){
         for(SettingJson.Account account : MainActivity.Setting.getAccounts()){
             if(account != null){
-                usersList.add(UserManager.account2Bean(mContext,account));
+                usersList.add(account);
             }
         }
         this.listUsers.setAdapter(new UserListAdapter(mContext,usersList));
         refreshList();
     }
 
-    private ArrayList<UserListBean> usersList;
+    private ArrayList<SettingJson.Account> usersList;
     public void refreshList(){
         if(usersList == null){
             usersList = new ArrayList<>();
@@ -105,7 +104,7 @@ public class UserUI extends BaseUI {
         }
         for(SettingJson.Account account : MainActivity.Setting.getAccounts()){
             if(account != null){
-                usersList.add(UserManager.account2Bean(mContext,account));
+                usersList.add(account);
             }
         }
         ((BaseAdapter)listUsers.getAdapter()).notifyDataSetChanged();
@@ -115,8 +114,8 @@ public class UserUI extends BaseUI {
         if(account == null){
             return false;
         }else{
-            UserListBean tmp = UserManager.account2Bean(mContext, account);
-            for(UserListBean bean : usersList){
+            SettingJson.Account tmp = account;
+            for(SettingJson.Account bean : usersList){
                 if(bean.equals(tmp)){
                     return false;
                 }

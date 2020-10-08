@@ -9,6 +9,7 @@ import com.aof.mcinabox.launcher.runtime.RuntimeManager;
 import com.aof.mcinabox.launcher.runtime.support.Definitions;
 import com.aof.mcinabox.launcher.runtime.support.RuntimePackInfo;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
+import com.aof.mcinabox.launcher.user.UserManager;
 import com.aof.mcinabox.minecraft.JsonUtils;
 import com.aof.mcinabox.minecraft.json.VersionJson;
 import com.aof.utils.dialog.support.DialogSupports;
@@ -125,6 +126,7 @@ public class BoatArgsMaker {
         String JVM_ExtraArgs = mSetting.getConfigurations().getJavaArgs();
         String JVM_ClassPath = "-cp";
         String JVM_ClassPath_info = this.getClasspath();
+        String AuthlibInjectorArgs = this.getAuthlibInjectorArgs();
         String Minecraft_MainClass = this.getMainClass();
         String MinecraftExtraArgs = mSetting.getConfigurations().getMinecraftArgs();
         String MinecraftWindowArgs = this.ConvertJsStringModleToJavaStringModle("--width ${window_width} --height ${window_height}");
@@ -140,6 +142,7 @@ public class BoatArgsMaker {
         //tmp.addAll(Arrays.asList(JVM_ExtraArgs.split(" ")));
         tmp.add(JVM_ClassPath);
         tmp.add(JVM_ClassPath_info);
+        if(AuthlibInjectorArgs != null) tmp.addAll(Arrays.asList(AuthlibInjectorArgs.split(" ")));
         tmp.addAll(Arrays.asList(Minecraft_MainClass.split(" ")));
         //tmp.addAll(Arrays.asList(MinecraftExtraArgs.split(" ")));
         tmp.addAll(Arrays.asList(MinecraftWindowArgs.split(" ")));
@@ -225,13 +228,8 @@ public class BoatArgsMaker {
     private String ConvertJsStringModleToJavaStringModle(String str) {
         String JavaString;
         StringBuilder tempString = new StringBuilder();
-        SettingJson.Account account = null;
+        SettingJson.Account account = UserManager.getSelectedAccount(mSetting);
         HashMap<String, String> ArgsMap = new HashMap<>();
-        for(SettingJson.Account a : mSetting.getAccounts()){
-            if(a.isSelected()){
-                account = a;
-            }
-        }
 
         //需要转义的键名-键值
         ArgsMap.put("{auth_player_name}", Objects.requireNonNull(account).getUsername());
@@ -248,7 +246,6 @@ public class BoatArgsMaker {
         ArgsMap.put("{version_type}", version.getType());
         ArgsMap.put("{window_width}", String.valueOf(mContext.getResources().getDisplayMetrics().widthPixels));
         ArgsMap.put("{window_height}", String.valueOf(mContext.getResources().getDisplayMetrics().heightPixels));
-
 
         for (int i = 0; i < str.length(); i++) {
             if (str.charAt(i) == '$') {
@@ -293,5 +290,16 @@ public class BoatArgsMaker {
         return result;
     }
 
+    private String getAuthlibInjectorArgs() {
+        StringBuffer args = new StringBuffer();
+        SettingJson.Account account = UserManager.getSelectedAccount(mSetting);
+
+        if(account.getType().equals(SettingJson.USER_TYPE_EXTERNAL)) {
+            args.append("-javaagent:" + AppManifest.MINECRAFT_HOME + "/authlib-injector.jar=" + account.getApiUrl());
+            args.append(" -Dauthlibinjector.yggdrasil.prefetched=" + account.getApiMeta());
+            return args.toString();
+        }
+        return null;
+    }
 }
 

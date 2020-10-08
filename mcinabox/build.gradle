@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     buildToolsVersion '30.0.2'
-    ndkVersion '16.1.4479499'
+    ndkVersion '17.2.4988734'
 
     defaultConfig {
         applicationId "com.aof.mcinabox"
@@ -34,6 +34,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.github.MasayukiSuda:BubbleLayout:v1.2.1'
     implementation 'com.liulishuo.filedownloader:library:1.7.7'
+    implementation 'com.squareup.okhttp3:okhttp:4.9.0'
     implementation project(path: ':boat')
     implementation project(path: ':plugin')
     implementation project(path: ':assets')
