@@ -27,7 +27,8 @@ public class AsyncManager {
     private final static int DEFAULT_DELAY = 200;
 
     private enum PROGRESS {
-        CHECK_TIPPER,
+        CHECK_TIPPER_HIGH,
+        CHECK_TIPPER_LOW,
         CHECK_SETTING,
         CHECK_RUNTIME_INFO,
         CHECK_RUNTIME_PLATFORM,
@@ -40,7 +41,7 @@ public class AsyncManager {
         CHECK_MINECRAFT_OPTIONS_TOUCHMODE
     }
 
-    private int currentPorgress = PROGRESS.CHECK_TIPPER.ordinal();
+    private int currentPorgress = PROGRESS.CHECK_TIPPER_HIGH.ordinal();
 
     public AsyncManager(Context context, LaunchManager launchManager, SettingJson setting) {
         this.mContext = context;
@@ -76,7 +77,7 @@ public class AsyncManager {
     private Thread createThread(PROGRESS p) {
         Thread progress = null;
         switch (p) {
-            case CHECK_TIPPER:
+            case CHECK_TIPPER_LOW:
                 progress = new Thread() {
                     @Override
                     public void run() {
@@ -86,7 +87,7 @@ public class AsyncManager {
                         }
                         ui_thread_set_progress(mContext.getString(R.string.tips_checking_tipper_manager));
                         paused(DEFAULT_DELAY);
-                        if (CheckManifest.checkTipper()) {
+                        if (CheckManifest.checkTipperLow()) {
                             ui_thread_next();
                         } else {
                             ui_thread_create_dialog(new DialogRecorder()
@@ -102,6 +103,36 @@ public class AsyncManager {
                                         }
                                         @Override
                                         public void runWhenNegative() {
+                                            ui_thread_send_error(mContext.getString(R.string.tips_tipper_is_not_void_and_user_canceled));
+                                        }
+                                    })
+                            );
+                        }
+                    }
+                };
+
+                break;
+            case CHECK_TIPPER_HIGH:
+                progress = new Thread() {
+                    @Override
+                    public void run() {
+                        if (mSetting.getConfigurations().isNotCheckTipper()) {
+                            ui_thread_next();
+                            return;
+                        }
+                        ui_thread_set_progress(mContext.getString(R.string.tips_checking_tipper_manager));
+                        paused(DEFAULT_DELAY);
+                        if (CheckManifest.checkTipperHigh()) {
+                            ui_thread_next();
+                        } else {
+                            ui_thread_create_dialog(new DialogRecorder()
+                                    .setType(DialogRecorder.TYPE_ONLY_NOTE)
+                                    .setTitle(mContext.getString(R.string.title_error))
+                                    .setMsg(mContext.getString(R.string.tips_tipper_not_allow_launch))
+                                    .setPName(mContext.getString(R.string.title_ok))
+                                    .setSupport(new DialogSupports() {
+                                        @Override
+                                        public void runWhenPositive() {
                                             ui_thread_send_error(mContext.getString(R.string.tips_tipper_is_not_void_and_user_canceled));
                                         }
                                     })

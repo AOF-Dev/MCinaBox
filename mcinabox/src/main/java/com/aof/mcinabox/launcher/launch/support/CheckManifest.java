@@ -17,8 +17,12 @@ public class CheckManifest {
 
     private final static String TAG = "CheckManifest";
 
-    public static boolean checkTipper() {
+    public static boolean checkTipperLow() {
         return MainActivity.CURRENT_ACTIVITY.mTipperManager.getTipCounts(TipperManager.TIPPER_LEVEL_WARN) + MainActivity.CURRENT_ACTIVITY.mTipperManager.getTipCounts(TipperManager.TIPPER_LEVEL_ERROR) == 0;
+    }
+
+    public static boolean checkTipperHigh() {
+        return MainActivity.CURRENT_ACTIVITY.mTipperManager.getTipCounts(TipperManager.TIPPER_LEVEL_ERROR) == 0;
     }
 
     public static boolean checkVersionThatSelected(SettingJson settingJson) {
