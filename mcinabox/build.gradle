@@ -30,10 +30,9 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.aar','*.jar'])
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.github.MasayukiSuda:BubbleLayout:v1.2.1'
-    implementation 'com.liulishuo.filedownloader:library:1.7.7'
     implementation 'com.squareup.okhttp3:okhttp:4.9.0'
     implementation project(path: ':boat')
     implementation project(path: ':plugin')
