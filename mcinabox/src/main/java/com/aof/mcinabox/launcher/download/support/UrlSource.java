@@ -1,6 +1,5 @@
 package com.aof.mcinabox.launcher.download.support;
 
-import android.util.Log;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import java.util.HashMap;
 import java.util.Objects;
@@ -17,6 +16,7 @@ public class UrlSource {
     public final static String TYPE_LIBRARIES = "libraries";
     public final static String TYPE_FORGE_LIBRARIES = "forge";
     public final static String TYPE_LITELOADER_VERSION_JSON = "liteloader_version_json";
+    public final static String TYPE_AUTHLIB_INJECTOR_JAR = "authlib_injector_jar";
 
     public UrlSource(){
         initSourceMap(new String[][] {
@@ -29,6 +29,7 @@ public class UrlSource {
                 {SettingJson.DOWNLOAD_SOURCE_OFFICIAL,TYPE_LIBRARIES,"https://libraries.minecraft.net"},
                 {SettingJson.DOWNLOAD_SOURCE_OFFICIAL,TYPE_FORGE_LIBRARIES,"https://files.minecraftforge.net/maven"},
                 {SettingJson.DOWNLOAD_SOURCE_OFFICIAL,TYPE_LITELOADER_VERSION_JSON,"http://dl.liteloader.com/versions/versions.json"},
+                {SettingJson.DOWNLOAD_SOURCE_OFFICIAL,TYPE_AUTHLIB_INJECTOR_JAR,"https://authlib-injector.yushi.moe/artifact/latest.json"},
                 //BMCLAPI下载源
                 {SettingJson.DOWNLOAD_SOURCE_BMCLAPI,TYPE_VERSION_MANIFEST,"https://bmclapi2.bangbang93.com/mc/game/version_manifest.json"},
                 {SettingJson.DOWNLOAD_SOURCE_BMCLAPI,TYPE_VERSION_JSON,"https://bmclapi2.bangbang93.com"},
@@ -38,6 +39,7 @@ public class UrlSource {
                 {SettingJson.DOWNLOAD_SOURCE_BMCLAPI,TYPE_LIBRARIES,"https://bmclapi2.bangbang93.com/maven"},
                 {SettingJson.DOWNLOAD_SOURCE_BMCLAPI,TYPE_FORGE_LIBRARIES,"https://bmclapi2.bangbang93.com/maven"},
                 {SettingJson.DOWNLOAD_SOURCE_BMCLAPI,TYPE_LITELOADER_VERSION_JSON,"https://bmclapi.bangbang93.com/maven/com/mumfrey/liteloader/versions.json"},
+                {SettingJson.DOWNLOAD_SOURCE_BMCLAPI,TYPE_AUTHLIB_INJECTOR_JAR,"https://bmclapi2.bangbang93.com/mirrors/authlib-injector/artifact/latest.json"},
                 //MCBBS下载源
                 {SettingJson.DOWNLOAD_SOURCE_MCBBS,TYPE_VERSION_MANIFEST,"https://download.mcbbs.net/mc/game/version_manifest.json"},
                 {SettingJson.DOWNLOAD_SOURCE_MCBBS,TYPE_VERSION_JSON,"https://download.mcbbs.net"},
@@ -47,6 +49,7 @@ public class UrlSource {
                 {SettingJson.DOWNLOAD_SOURCE_MCBBS,TYPE_LIBRARIES,"https://download.mcbbs.net/maven"},
                 {SettingJson.DOWNLOAD_SOURCE_MCBBS,TYPE_FORGE_LIBRARIES,"https://download.mcbbs.net/maven"},
                 {SettingJson.DOWNLOAD_SOURCE_MCBBS,TYPE_LITELOADER_VERSION_JSON,"https://download.mcbbs.net/maven/com/mumfrey/liteloader/versions.json"},
+                {SettingJson.DOWNLOAD_SOURCE_MCBBS,TYPE_AUTHLIB_INJECTOR_JAR,"https://download.mcbbs.net/mirrors/authlib-injector/artifact/latest.json"},
         });
     }
 

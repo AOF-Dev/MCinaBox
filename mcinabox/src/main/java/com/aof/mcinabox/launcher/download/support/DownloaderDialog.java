@@ -103,6 +103,11 @@ public class DownloaderDialog extends Dialog implements Dialog.OnCancelListener,
         return this;
     }
 
+    public DownloaderDialog setTotalProgress(int progress){
+        this.pbTotal.setProgress(progress);
+        return this;
+    }
+
     public DownloaderDialog setCurrentProgress(int progress){
         this.pbCurrent.setProgress(progress);
         this.textCurrentPrecentage.setText(progress + "%");
@@ -115,6 +120,8 @@ public class DownloaderDialog extends Dialog implements Dialog.OnCancelListener,
         this.textProgressName.setText(mContext.getString(R.string.tips_download_finished));
         this.buttonOK.setVisibility(View.VISIBLE);
         this.buttonCancel.setVisibility(View.GONE);
+        this.setCurrentProgress(100);
+        this.setTotalProgress(100);
         return this;
     }
 

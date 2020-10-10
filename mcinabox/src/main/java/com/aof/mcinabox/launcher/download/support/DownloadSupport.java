@@ -139,7 +139,6 @@ public class DownloadSupport {
         return tasks;
     }
 
-
     private String getLibraryJarRelatedPath(String name){
         String packageName;
         String libraryName;

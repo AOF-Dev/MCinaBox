@@ -11,7 +11,6 @@ import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloadListener;
 import com.liulishuo.filedownloader.FileDownloadQueueSet;
 import com.liulishuo.filedownloader.FileDownloader;
-import com.liulishuo.filedownloader.util.FileDownloadUtils;
 import java.util.ArrayList;
 
 public class DownloadManager {
@@ -28,6 +27,7 @@ public class DownloadManager {
     public final static int DOWNLOAD_PRESET_ASSETS_INDEX = 4;
     public final static int DOWNLOAD_PRESET_ASSETS_OBJS = 5;
     public final static int DOWNLOAD_FORGE_LIBS = 6;
+    public final static int DOWNLOAD_AUTHLIB_INJECTOR = 7;
 
     private final static String TAG = "DownloadManager";
 
@@ -131,6 +131,16 @@ public class DownloadManager {
         }
     }
 
+    public void startDownload(String title, String pgName, int all, int current, BaseDownloadTask[] tasks, Runable runable){
+        this.taskFinished = 0;
+        this.mRunable = runable;
+        this.taskCounts = tasks.length;
+        mQueueSet = new FileDownloadQueueSet(mFileDownloadListener);
+        mQueueSet.downloadSequentially(tasks);
+        mQueueSet.start();
+        updateDialogUi(title,pgName,all,current);
+    }
+
     private FileDownloadListener mFileDownloadListener = new FileDownloadListener() {
 
         @Override
@@ -141,21 +151,20 @@ public class DownloadManager {
         @Override
         protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
             //反馈下载速度
-            if(currentPresetId == DOWNLOAD_PRESET_VERSION_JSON || currentPresetId == DOWNLOAD_PRESET_VERSION_JAR || currentPresetId == DOWNLOAD_PRESET_ASSETS_INDEX){
+            if(!enablePreset || currentPresetId == DOWNLOAD_PRESET_VERSION_JSON || currentPresetId == DOWNLOAD_PRESET_VERSION_JAR || currentPresetId == DOWNLOAD_PRESET_ASSETS_INDEX){
                 mDialog.setCurrentProgress(soFarBytes *100 / totalBytes);
                 mDialog.setSpeed(FormatUtils.formatDataTransferSpeed(task.getSpeed(),FormatUtils.CAPACITY_TYPE_KBYTE,FormatUtils.DTS_TYPE_S));
             }
             //反馈文件名称
-            if(currentPresetId != DOWNLOAD_PRESET_MANIFEST){
+            if(!enablePreset || currentPresetId != DOWNLOAD_PRESET_MANIFEST){
                 mDialog.setFileName(task.getFilename());
             }
         }
 
         @Override
         protected void completed(BaseDownloadTask task) {
-
+            taskFinished++;
             if(enablePreset){
-                taskFinished++;
                 if(currentPresetId == DOWNLOAD_FORGE_LIBS || currentPresetId == DOWNLOAD_PRESET_VERSION_LIBS || currentPresetId == DOWNLOAD_PRESET_ASSETS_OBJS){
                     mDialog.setSpeed(FormatUtils.formatDataTransferSpeed(task.getSpeed(),FormatUtils.CAPACITY_TYPE_KBYTE,FormatUtils.DTS_TYPE_S));
                 }
@@ -169,7 +178,12 @@ public class DownloadManager {
                     }
                 }
             }else{
-                mRunable.run();
+                if(taskCounts == taskFinished){
+                    updateDialogUi(true);
+                }
+                if(mRunable != null){
+                    mRunable.run();
+                }
             }
         }
 

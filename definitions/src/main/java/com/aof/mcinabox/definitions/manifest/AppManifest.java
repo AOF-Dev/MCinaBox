@@ -25,6 +25,8 @@ public class AppManifest {
     public static String BOAT_RUNTIME_HOME;
     public static String BOAT_RUNTIME_INFO_JSON;
     public static String FORGE_HOME;
+    public static String AUTHLIB_HOME;
+    public static String AUTHLIB_INJETOR_JAR;
 
     public static String MINECRAFT_HOME;
     public static String MINECRAFT_VERSIONS;
@@ -63,6 +65,8 @@ public class AppManifest {
         BOAT_RUNTIME_HOME = RUNTIME_HOME + "/boat";
         BOAT_RUNTIME_INFO_JSON = BOAT_RUNTIME_HOME + "/packinfo.json";
         FORGE_HOME = MCINABOX_HOME + "/forge";
+        AUTHLIB_HOME = MCINABOX_HOME + "/authlib-injector";
+        AUTHLIB_INJETOR_JAR = AUTHLIB_HOME + "/authlib-injector.jar";
 
         MINECRAFT_HOME = mchome;
         MINECRAFT_ASSETS = MINECRAFT_HOME + "/assets";
@@ -77,6 +81,6 @@ public class AppManifest {
 
     /**【一个全局目录的数组】**/
     public static String[] getAllPath(){
-        return new String[]{MCINABOX_HOME, MCINABOX_KEYBOARD, MCINABOX_TEMP, BOAT_CACHE_HOME, RUNTIME_HOME ,FORGE_HOME, MCINABOX_BACKGROUND};
+        return new String[]{MCINABOX_HOME, MCINABOX_KEYBOARD, MCINABOX_TEMP, BOAT_CACHE_HOME, RUNTIME_HOME ,FORGE_HOME, MCINABOX_BACKGROUND, AUTHLIB_HOME};
     }
 }
