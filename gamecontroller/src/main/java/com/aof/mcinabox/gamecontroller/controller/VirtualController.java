@@ -123,6 +123,12 @@ public class VirtualController extends BaseController implements AppEvent , View
 
     }
 
+    @Override
+    public void saveConfig(){
+        super.saveConfig();
+        this.saveConfigToFile();
+    }
+
     private void init(){
         //初始化Setting对话框
         settingDialog = new VirtualControllerSetting(context);
@@ -411,7 +417,7 @@ public class VirtualController extends BaseController implements AppEvent , View
 
     private void loadConfigFromFile(){
         SharedPreferences sp = mContext.getSharedPreferences(spFileName,spMode);
-        switchCustomizeKeyboard.setChecked(sp.getBoolean(sp_enable_ckb,false));
+        switchCustomizeKeyboard.setChecked(sp.getBoolean(sp_enable_ckb,true));
         switchPCKeyboard.setChecked(sp.getBoolean(sp_enable_onscreenkeyboard,false));
         switchPCMouse.setChecked(sp.getBoolean(sp_enable_onscreenmouse,false));
         switchPEKeyboard.setChecked(sp.getBoolean(sp_enable_crosskeyboard,true));
