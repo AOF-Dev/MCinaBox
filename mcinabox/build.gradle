@@ -30,7 +30,7 @@ android {
 	
  }
 	signingConfigs {
-        release {
+           customDebug {
             storeFile file("debug.keystore")
             storePassword "android"
             keyAlias "androiddebugkey"
