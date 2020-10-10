@@ -35,6 +35,7 @@
     <string name="title_profession_setting">高级设置</string>
     <string name="title_not_check_jvm_platform">不检查JVM架构的兼容性</string>
     <string name="title_not_check_minecraft">不检查Minecraft的完整性</string>
+    <string name="title_missing_authlib">找不到authlib-injector库</string>
     <string name="title_not_check_tipper">不检查消息管理器</string>
     <string name="title_not_check_forge_config">不检查Forge的配置</string>
     <string name="title_not_check_options_txt">不检查options.txt</string>
@@ -203,6 +204,7 @@
     <string name="tips_login_is_demo_account">此帐户似乎没有关联的Minecraft用户，您是否购买了Minecraft？</string>
     <string name="tips_checking_tipper_manager">正在检查消息管理器…</string>
     <string name="tips_tipper_is_not_void_may_cause_crash">检测到消息管理器存在未处理的重要消息，忽略这些消息可能会导致启动出现异常。是否继续？</string>
+    <string name="tips_tipper_not_allow_launch">消息管理器中存在错误级条目，启动被阻止，请处理后重试。</string>
     <string name="tips_tipper_is_not_void_and_user_canceled">消息管理器存在未处理的消息，用户结束了操作。</string>
     <string name="tips_checking_launcher_setting">正在检查启动器配置…</string>
     <string name="tips_have_no_minecraft_please_install">未检测到游戏，请先安装一个Minecraft。</string>
@@ -233,7 +235,7 @@
     <string name="tips_please_select_runtime_manifest">请选择运行库加载策略:</string>
     <string name="tips_user_canceled">用户取消了操作。</string>
     <string name="tips_making_launch_arg">正在生成启动参数…</string>
-    <string name="tips_failed_to_make_launch_arg">出现未知错误，启动参数生成失败！</string>
+    <string name="tips_failed_to_make_launch_arg">出现未知错误，启动参数生成失败！\n错误: %s</string>
     <string name="tips_failed_to_import_keyboard_layout">载入键盘文件失败，文件已损坏！</string>
     <string name="tips_successed_to_import_keyboard_layout">键盘文件载入成功!</string>
     <string name="tips_filename_can_not_be_void">文件名不能为空!</string>
@@ -276,5 +278,7 @@
     <string name="tips_memory_over_total_size">内存上限超过物理内存</string>
     <string name="tips_please_enter_server">默认使用Mojang官方服务器</string>
     <string name="tips_redirecting">正在重定向...</string>
+    <string name="tips_please_download_authlib_injector">找不到authlib-injector库，是否现在下载？</string>
+    <string name="tips_error">发生错误: %s</string>
 
 </resources>

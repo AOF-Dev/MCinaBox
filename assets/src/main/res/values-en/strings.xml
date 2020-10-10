@@ -35,6 +35,7 @@
 	<string name="title_profession_setting">Advanced Settings</string>
 	<string name="title_not_check_jvm_platform">Don\'t check the compatibility of the JVM architecture!</string>
 	<string name="title_not_check_minecraft">Don\'t check the integrity of Minecraft</string>
+	<string name="title_missing_authlib">Missing authlib-injector</string>
 	<string name="title_not_check_tipper">Don\'t check the message manager</string>
 	<string name="title_not_check_forge_config">Don\'t check Forge configuration</string>
 	<string name="title_not_check_options_txt">Don\'t check options.txt</string>
@@ -203,6 +204,7 @@
 	<string name="tips_login_is_demo_account">It seems that this is not a Premium Minecraft Account. Did you purchase Minecraft?</string>
 	<string name="tips_checking_tipper_manager">Checking the tipper manager…</string>
 	<string name="tips_tipper_is_not_void_may_cause_crash">The tipper manager has detected important unprocessed messages. Ignoring these messages may cause abnormal startup. Do you want to continue?</string>
+	<string name="tips_tipper_not_allow_launch">There is error level information, launch is blocked, please handle it in tipper manager.</string>
 	<string name="tips_tipper_is_not_void_and_user_canceled">There are unprocessed messages in the tipper manager, and the user ended the operation.</string>
 	<string name="tips_checking_launcher_setting">Checking the launcher configuration…</string>
 	<string name="tips_have_no_minecraft_please_install">No game detected, please install a Minecraft version first.</string>
@@ -233,7 +235,7 @@
 	<string name="tips_please_select_runtime_manifest">Please select runtime manifest:</string>
 	<string name="tips_user_canceled">User canceled the operation.</string>
 	<string name="tips_making_launch_arg">Generating launch arguments…</string>
-	<string name="tips_failed_to_make_launch_arg">An unknown error occurred and the launch arguments generation failed!</string>
+	<string name="tips_failed_to_make_launch_arg">An unknown error occurred and the launch arguments generation failed!\nError: %s</string>
 	<string name="tips_failed_to_import_keyboard_layout">Failed to load the keyboard file, the file is damaged!</string>
 	<string name="tips_successed_to_import_keyboard_layout">The keyboard file is loaded successfully!</string>
 	<string name="tips_filename_can_not_be_void">The file name cannot be empty!</string>
@@ -276,5 +278,7 @@
 	<string name="tips_memory_over_total_size">Memory limit is over total memory.</string>
 	<string name="tips_please_enter_server">The default is the official Mojang server</string>
 	<string name="tips_redirecting">Redirecting...</string>
+	<string name="tips_please_download_authlib_injector">Missing authlib-injector library. Do you want to download it now?</string>
+	<string name="tips_error">Error: %s</string>
 
 </resources>
