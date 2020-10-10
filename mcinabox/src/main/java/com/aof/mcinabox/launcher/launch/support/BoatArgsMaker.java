@@ -109,7 +109,7 @@ public class BoatArgsMaker {
             mLaunchManager.launchMinecraft(mSetting,LaunchManager.LAUNCH_GAME);
         }catch (Exception e){
             e.printStackTrace();
-            mLaunchManager.brige_exitWithError(mContext.getString(R.string.tips_failed_to_make_launch_arg));
+            mLaunchManager.brige_exitWithError(String.format(mContext.getString(R.string.tips_failed_to_make_launch_arg),e.getMessage()));
         }
     }
 
@@ -291,11 +291,11 @@ public class BoatArgsMaker {
     }
 
     private String getAuthlibInjectorArgs() {
-        StringBuffer args = new StringBuffer();
+        StringBuilder args = new StringBuilder();
         SettingJson.Account account = UserManager.getSelectedAccount(mSetting);
 
         if(account.getType().equals(SettingJson.USER_TYPE_EXTERNAL)) {
-            args.append("-javaagent:" + AppManifest.MINECRAFT_HOME + "/authlib-injector.jar=" + account.getApiUrl());
+            args.append("-javaagent:" + AppManifest.AUTHLIB_INJETOR_JAR + "=" + account.getApiUrl());
             args.append(" -Dauthlibinjector.yggdrasil.prefetched=" + account.getApiMeta());
             return args.toString();
         }
