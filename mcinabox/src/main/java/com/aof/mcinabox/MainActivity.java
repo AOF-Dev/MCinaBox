@@ -205,8 +205,6 @@ public class MainActivity extends AppCompatActivity {
         saveLauncherSettingToFile(Setting);
         // recover Timer Task.
         mTimer.cancel();
-        // 重新创建缓存文件夹
-        removeTmpFloder();
         //首先要关闭SettingManager的自动检查
         switchSettingChecker(false);
     }
@@ -214,6 +212,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onDestroy(){
         super.onDestroy();
+        // 重新创建缓存文件夹
+        removeTmpFloder();
         switchSettingChecker(false);
     }
 
