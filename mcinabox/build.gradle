@@ -26,6 +26,7 @@ android {
         abortOnError false
     }
 	
+ }
 	signingConfigs {
         customDebug {
             storeFile file("debug.keystore")
