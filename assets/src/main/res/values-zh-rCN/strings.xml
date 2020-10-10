@@ -196,7 +196,8 @@
     <string name="tips_downloading_libraries">正在下载依赖库…</string>
     <string name="tips_downloading_assets_index_json">正在下载游戏资源文件信息…</string>
     <string name="tips_downloading_assets_objs">正在下载游戏资源文件…</string>
-    <string name="tips_downloading_forge_objs">正在下载Forge依赖库</string>
+    <string name="tips_downloading_forge_objs">正在下载Forge依赖库…</string>
+    <string name="tips_downloading_authlib_injector">正在下载authlib库…</string>
     <string name="tips_download_finished">下载完成</string>
     <string name="tips_download_failed">下载失败</string>
     <string name="tips_warning_delect_user">你确定要删除当前用户吗？</string>

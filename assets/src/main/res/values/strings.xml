@@ -207,7 +207,8 @@
     <string name="tips_downloading_libraries">Downloading dependent libraries…</string>
     <string name="tips_downloading_assets_index_json">Downloading game resource file information…</string>
     <string name="tips_downloading_assets_objs">Downloading game resource files…</string>
-    <string name="tips_downloading_forge_objs">Downloading Forge dependency library</string>
+    <string name="tips_downloading_forge_objs">Downloading Forge dependency library…</string>
+    <string name="tips_downloading_authlib_injector">Downloading authlib-inject…</string>
     <string name="tips_download_finished">Download completed</string>
     <string name="tips_download_failed">Download failed</string>
     <string name="tips_warning_delect_user">Are you sure that you want to delete the current user?</string>
