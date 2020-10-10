@@ -16,11 +16,13 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+			signingConfig signingConfigs.customDebug
             debuggable = true
             jniDebuggable = false
 
         }
     }
+	
     lintOptions{
         checkReleaseBuilds false
         abortOnError false
