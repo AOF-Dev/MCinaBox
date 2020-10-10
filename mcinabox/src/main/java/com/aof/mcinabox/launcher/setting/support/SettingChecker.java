@@ -119,11 +119,8 @@ public class SettingChecker {
 
     public void checkAuthlibInjector(){
         SettingJson.Account account = UserManager.getSelectedAccount(mSetting);
-        if(account == null || !account.type.equals(SettingJson.USER_TYPE_EXTERNAL)){
-            return;
-        }
         File file = new File(AppManifest.AUTHLIB_INJETOR_JAR);
-        if(!file.exists()){
+        if(!file.exists() && account != null && account.type.equals(SettingJson.USER_TYPE_EXTERNAL)){
             mTipperManager.addTip(TipperManager.createTipBean(mContext, TipperManager.TIPPER_LEVEL_ERROR, mContext.getString(R.string.title_missing_authlib), new TipperRunable() {
                 @Override
                 public void run() {
