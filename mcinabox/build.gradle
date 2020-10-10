@@ -13,7 +13,7 @@ android {
         versionName '0.1.4-p3'
     }
     buildTypes {
-        release {
+		debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 			signingConfig signingConfigs.customDebug
