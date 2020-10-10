@@ -85,6 +85,7 @@ public class SettingManager {
                     sc.checkIfInstallRuntime();
                     sc.checkMenmrySize();
                     sc.checkIfDisableFileCheck();
+                    sc.checkAuthlibInjector();
                 }
             },0,500);
         }

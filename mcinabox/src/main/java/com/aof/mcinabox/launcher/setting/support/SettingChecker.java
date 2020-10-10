@@ -4,6 +4,7 @@ import android.content.Context;
 import com.aof.mcinabox.MainActivity;
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.definitions.manifest.AppManifest;
+import com.aof.mcinabox.launcher.download.authlib.Request;
 import com.aof.mcinabox.launcher.runtime.RuntimeManager;
 import com.aof.mcinabox.launcher.tipper.TipperManager;
 import com.aof.mcinabox.launcher.tipper.support.TipperRunable;
@@ -11,6 +12,9 @@ import com.aof.mcinabox.launcher.user.UserManager;
 import com.aof.utils.FileTool;
 import com.aof.utils.MemoryUtils;
 import com.aof.utils.dialog.DialogUtils;
+import com.aof.utils.dialog.support.DialogSupports;
+
+import java.io.File;
 
 public class SettingChecker {
 
@@ -20,6 +24,7 @@ public class SettingChecker {
     private final static int CHECKER_ID_MEMORY_LOW = 13;
     private final static int CHECKER_ID_MEMORY_OVER = 14;
     private final static int CHECKER_ID_NOT_CHECK_GAME = 15;
+    private final static int CHECKER_ID_MISSING_AUTHLIB = 16;
 
     private Context mContext;
     private SettingJson mSetting;
@@ -109,6 +114,29 @@ public class SettingChecker {
             },CHECKER_ID_NOT_CHECK_GAME));
         }else{
             mTipperManager.removeTip(CHECKER_ID_NOT_CHECK_GAME);
+        }
+    }
+
+    public void checkAuthlibInjector(){
+        SettingJson.Account account = UserManager.getSelectedAccount(mSetting);
+        if(account == null || !account.type.equals(SettingJson.USER_TYPE_EXTERNAL)){
+            return;
+        }
+        File file = new File(AppManifest.AUTHLIB_INJETOR_JAR);
+        if(!file.exists()){
+            mTipperManager.addTip(TipperManager.createTipBean(mContext, TipperManager.TIPPER_LEVEL_ERROR, mContext.getString(R.string.title_missing_authlib), new TipperRunable() {
+                @Override
+                public void run() {
+                    DialogUtils.createBothChoicesDialog(mContext,mContext.getString(R.string.title_error),mContext.getString(R.string.tips_please_download_authlib_injector),mContext.getString(R.string.title_ok),mContext.getString(R.string.title_cancel),new DialogSupports(){
+                        @Override
+                        public void runWhenPositive(){
+                            new Request(mContext).requestLastestVersion();
+                        }
+                    });
+                }
+            },CHECKER_ID_MISSING_AUTHLIB));
+        }else{
+            mTipperManager.removeTip(CHECKER_ID_MISSING_AUTHLIB);
         }
     }
 
