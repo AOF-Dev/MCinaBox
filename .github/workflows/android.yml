@@ -14,10 +14,7 @@ jobs:
       with:
         java-version: 1.8
     - name: Build with Gradle
-      run: |
-        chmod +x gradlew 
-        ./gradlew clean assembleDebug
-        ./gradlew test
+      run: chmod +x gradlew && ./gradlew build
 # should test???
 
     - name: Upload APK
