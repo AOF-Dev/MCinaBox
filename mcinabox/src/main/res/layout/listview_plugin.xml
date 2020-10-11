@@ -34,7 +34,7 @@
                 android:layout_marginTop="3dp"
                 android:layout_marginBottom="5dp"
                 android:text="插件名"
-                android:textColor="@color/puredark" />
+                android:textColor="@color/text_title_main" />
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/puredark"
+                    android:textColor="@color/text_title_main"
                     android:layout_gravity="center"
                     android:text="类型:" />
                 <TextView

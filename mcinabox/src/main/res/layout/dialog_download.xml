@@ -73,7 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textColor="@color/puredark"
+            android:textColor="@color/text_title_main"
             android:typeface="monospace"
             android:textSize="20sp" />
 
@@ -145,7 +145,7 @@
             android:id="@+id/dialog_download_text_progress_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/puredark"/>
+            android:textColor="@color/text_title_main"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -168,7 +168,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:typeface="monospace"
-                android:textColor="@color/puredark"
+                android:textColor="@color/text_title_main"
                 android:textSize="20sp" />
         </LinearLayout>
 
