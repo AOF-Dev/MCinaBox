@@ -179,7 +179,7 @@ public class DialogUtils {
             @Override
             public void selectFinish(ArrayList<String> paths) {
                 if(support != null){
-                    support.runWhenFileSelected(paths.get(0));
+                    support.runWhenItemsSelected(paths.get(0));
                 }
                 fileDialog.dismiss();
             }

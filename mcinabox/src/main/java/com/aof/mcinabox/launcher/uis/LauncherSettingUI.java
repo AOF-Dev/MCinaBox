@@ -196,7 +196,7 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
             if (v == buttonImportRuntime) {
                 DialogUtils.createFileSelectorDialog(mContext,mContext.getString(R.string.title_import_runtime),Environment.getExternalStorageDirectory().getAbsolutePath(),new String[]{"xz"},new DialogSupports(){
                     @Override
-                    public void runWhenFileSelected(String path){
+                    public void runWhenItemsSelected(Object path){
                         if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                             ActivityCompat.requestPermissions(MainActivity.CURRENT_ACTIVITY, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 2048);
                         }
@@ -204,7 +204,7 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
                             DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_error),"Please allow read storage permission to import runtime packs externally.",mContext.getString(R.string.title_ok),null);
                             return;
                         }
-                        RuntimeManager.installRuntimeFromPath(mContext, path);
+                        RuntimeManager.installRuntimeFromPath(mContext, (String) path);
                     }
                 });
             }
