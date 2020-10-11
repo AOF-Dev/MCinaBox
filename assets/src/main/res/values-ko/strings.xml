@@ -255,7 +255,7 @@
     <string name="tips_not_install_runtime_please_do_it">런타임을 설치하지 않았습니다. 왼쪽 내비게이션 바의 런처 설정 탭에서 런타임을 설치해 주세요.</string>
     <string name="tips_please_set_more_memory">너무 낮은 메모리 제한은 자바 가상 머신의 충돌을 일으킬 수 있습니다. 왼쪽 내비게이션 바의 런처 설정 탭에서 메모리 크기를 조절해 주세요.</string>
     <string name="tips_please_set_less_memory">너무 높은 메모리 제한은 자바 가상 머신의 충돌을 일으킬 수 있습니다. 왼쪽 내비게이션 바의 런처 설정 탭에서 메모리 크기를 조절해 주세요.</string>
-    <string name="tips_please_turn_on_minecraft_check">파일 무결성 검사가 꺼져 있습니다. 게임 파일에 결함이 있어도 어떤 안내도 받을 수 없습니다. 게임이 불완전한 채로 시작된다면 Minecraft의 비정상적인 충돌을 일으킬 수 있습니다. 따라서, 파일 무결성 검사를 켜는 것을 추천드립니다.</string>
+    <string name="tips_please_turn_on_minecraft_check">파일 무결성 검사가 꺼져 있습니다. 게임 파일이 불완전해도 어떤 안내도 받을 수 없습니다. 게임에 결함이 있다면 Minecraft가 비정상적인 충돌을 일으킬 수 있습니다. 따라서, 파일 무결성 검사를 켜는 것을 추천드립니다.</string>
     <string name="tips_auto_setting_max_memory">자동으로 메모리 제한 설정하기</string>
     <string name="tips_itembar_warn">*안내: 인벤토리는 게임 내에서만 보입니다</string>
     <string name="tips_pe_keyboard_warn">*안내: 점프 키의 편안한 위치는 직접 조정해야 합니다</string>
