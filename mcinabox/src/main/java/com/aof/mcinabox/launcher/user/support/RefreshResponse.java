@@ -5,6 +5,5 @@ import java.util.UUID;
 public class RefreshResponse {
     public String accessToken;
     public UUID clientToken;
-    public AuthenticateResponse.Profile selectedProfile;
-
+    public Profile selectedProfile;
 }

@@ -164,7 +164,8 @@ public class SettingJson {
 
     //用户列表
     public class Account {
-        String uuid; //唯一用户标识
+        String uuid; //唯一角色标识
+        String userUUID; //唯一用户标识
         String username; //用户名
         String type; //用户类型 "offline"离线模式 "online"线上模式
         String accessToken; //通行令牌
@@ -178,6 +179,15 @@ public class SettingJson {
         }
 
         //Getter and Setter
+        public String getUserUUID() {
+            return userUUID;
+        }
+
+        public Account setUserUuid(String uuid) {
+            this.userUUID = uuid;
+            return this;
+        }
+
         public String getUuid() {
             return uuid;
         }
