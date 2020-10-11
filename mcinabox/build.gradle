@@ -13,21 +13,18 @@ android {
         versionName '0.1.4-p3'
     }
     buildTypes {
-		debug {
+        release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             debuggable = true
             jniDebuggable = false
-
         }
     }
-	
     lintOptions{
         checkReleaseBuilds false
         abortOnError false
     }
-	
- }
+}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.aar','*.jar'])
