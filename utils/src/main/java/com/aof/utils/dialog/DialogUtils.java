@@ -3,14 +3,20 @@ package com.aof.utils.dialog;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-
 import androidx.annotation.NonNull;
-
+import androidx.annotation.Nullable;
 import com.aof.utils.dialog.support.DialogSupports;
 import com.flask.colorpicker.ColorPickerView;
 import com.flask.colorpicker.OnColorSelectedListener;
 import com.flask.colorpicker.builder.ColorPickerClickListener;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
+import java.util.ArrayList;
+
+import zhou.tools.fileselector.FileSelector;
+import zhou.tools.fileselector.FileSelectorAlertDialog;
+import zhou.tools.fileselector.config.FileConfig;
+import zhou.tools.fileselector.config.FileTheme;
+import zhou.tools.fileselector.utils.FileFilter;
 
 public class DialogUtils {
 
@@ -148,6 +154,37 @@ public class DialogUtils {
                 break;
         }
         picker.build().show();
+    }
+
+    public static void createFileSelectorDialog(@NonNull Context context, String title, @NonNull String startPath, String[] filter, @Nullable final DialogSupports support){
+        FileConfig fileConfig = new FileConfig();
+        fileConfig.startPath = startPath;
+        fileConfig.rootPath = "/";
+        fileConfig.theme = FileTheme.THEME_WHITE;
+        if(filter == null){
+            fileConfig.positiveFiter = false;
+        }else{
+            fileConfig.positiveFiter = true;
+            fileConfig.filterModel = FileFilter.FILTER_CUSTOM;
+            fileConfig.filter = filter;
+        }
+        fileConfig.showHiddenFiles = true;
+        fileConfig.multiModel = false;
+        if(title != null){
+            fileConfig.title = title;
+        }
+
+        final FileSelectorAlertDialog fileDialog = new FileSelectorAlertDialog(context,fileConfig);
+        fileDialog.setOnSelectFinishListener(new FileSelectorAlertDialog.OnSelectFinishListener() {
+            @Override
+            public void selectFinish(ArrayList<String> paths) {
+                if(support != null){
+                    support.runWhenFileSelected(paths.get(0));
+                }
+                fileDialog.dismiss();
+            }
+        });
+        fileDialog.show();
     }
 
 }

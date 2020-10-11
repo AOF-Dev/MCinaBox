@@ -7,5 +7,6 @@ public class DialogSupports {
     public void runWhenItemsSelected(int pos){}
     public void runWhenItemsSelected(){}
     public void runWhenColorSelected(int[] colors){}
+    public void runWhenFileSelected(String path){}
 
 }
