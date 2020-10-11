@@ -1,5 +1,7 @@
 package com.aof.mcinabox.launcher.user.support;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -11,6 +13,9 @@ import com.aof.mcinabox.MainActivity;
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.mcinabox.launcher.user.UserManager;
+import com.aof.utils.dialog.DialogUtils;
+import com.aof.utils.dialog.support.DialogSupports;
+import com.aof.utils.dialog.support.TaskDialog;
 import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;
@@ -27,6 +32,8 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class LoginServer {
+    private Context mContext;
+    private final static String TAG = "LoginServer";
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     private static final OkHttpClient client = new OkHttpClient();
     private static final Gson gson = new Gson();
@@ -40,11 +47,16 @@ public class LoginServer {
 
     private SettingJson.Account account;
 
-    public LoginServer(String url) {
-        this(url, new SettingJson().new Account());
+    public LoginServer(String url, Context context){
+        this(url, new SettingJson().new Account(),context);
     }
 
-    public LoginServer(String url, SettingJson.Account account) {
+    public LoginServer(String url) {
+        this(url,MainActivity.CURRENT_ACTIVITY);
+    }
+
+    public LoginServer(String url, SettingJson.Account account, Context context) {
+        this.mContext = context;
         if(url == null || url.equals("")) url = MOJANG_URL;
         else if (!url.startsWith("http")) url = "https://".concat(url);
         this.url = url;
@@ -67,6 +79,7 @@ public class LoginServer {
     }
 
     public void login(String username, String password, UUID clientToken) {
+        whenWaiting(1);
         this.username = username;
         this.password = password;
         this.clientToken = clientToken;
@@ -78,6 +91,25 @@ public class LoginServer {
         else {
             account.setType(SettingJson.USER_TYPE_EXTERNAL);
             verifyServer(url);
+        }
+    }
+
+    TaskDialog mDialog;
+    private void whenWaiting(int i){
+        if(mDialog == null){
+            mDialog = DialogUtils.createTaskDialog(mContext,mContext.getString(R.string.tips_logging),"",false);
+        }
+        switch (i){
+            case 1:
+                if(!mDialog.isShowing()){
+                    mDialog.show();
+                }
+                break;
+            case 2:
+                if(mDialog.isShowing()){
+                    mDialog.dismiss();
+                }
+                break;
         }
     }
 
@@ -166,8 +198,8 @@ public class LoginServer {
         }
     };
 
-    private handler handler = new handler();
-    private class handler extends Handler {
+    @SuppressLint("HandlerLeak")
+    private Handler handler = new  Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -188,16 +220,40 @@ public class LoginServer {
                 if(isLogining) login();
                 break;
             case "Login":
-                AuthenticateResponse authenticateResponse = gson.fromJson(result, AuthenticateResponse.class);
-                account.setAccessToken(authenticateResponse.accessToken);
-                account.setUuid(authenticateResponse.availableProfiles[0].id);
-                account.setUsername(authenticateResponse.availableProfiles[0].name);
-                account.setSelected(false);
-                UserManager.addAccount(MainActivity.Setting, account);
+                final AuthenticateResponse authenticateResponse = gson.fromJson(result, AuthenticateResponse.class);
+                if(authenticateResponse.availableProfiles == null || authenticateResponse.availableProfiles.length == 0){
+                    DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_error),mContext.getString(R.string.tips_no_roles_in_current_account),mContext.getString(R.string.title_ok),null);
+                    return;
+                }
+                if(authenticateResponse.availableProfiles.length != 1){
+                    String[] names = new String[authenticateResponse.availableProfiles.length];
+                    for(int a = 0; a < authenticateResponse.availableProfiles.length; a++){
+                        Log.e("LoginServer",authenticateResponse.availableProfiles[a].name);
+                        names[a] = authenticateResponse.availableProfiles[a].name;
+                    }
+                    DialogUtils.createItemsChoiceDialog(mContext,mContext.getString(R.string.title_choice),null,mContext.getString(R.string.title_cancel),false,names,new DialogSupports(){
+                        @Override
+                        public void runWhenItemsSelected(int pos) {
+                            super.runWhenItemsSelected(pos);
+                            account.setAccessToken(authenticateResponse.accessToken);
+                            account.setUuid(authenticateResponse.availableProfiles[pos].id);
+                            account.setUsername(authenticateResponse.availableProfiles[pos].name);
+                            account.setSelected(false);
+                            UserManager.addAccount(MainActivity.Setting, account);
+                        }
+                    });
+                }else{
+                    account.setAccessToken(authenticateResponse.accessToken);
+                    account.setUuid(authenticateResponse.availableProfiles[0].id);
+                    account.setUsername(authenticateResponse.availableProfiles[0].name);
+                    account.setSelected(false);
+                    UserManager.addAccount(MainActivity.Setting, account);
+                }
                 break;
             case "Error":
-                Toast.makeText(MainActivity.CURRENT_ACTIVITY, result, Toast.LENGTH_SHORT).show();
+                DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_error),String.format(mContext.getString(R.string.tips_error),result),mContext.getString(R.string.title_ok),null);
                 break;
         }
+        whenWaiting(2);
     }
 }

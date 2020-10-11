@@ -293,5 +293,7 @@
     <string name="tips_please_download_authlib_injector">Missing authlib-injector library. Do you want to download it now?</string>
     <string name="tips_error">Error: %s</string>
     <string name="tips_are_you_sure_to_delete_runtime">This operation will clear the runtime you have installed. Are you sure you want to continue?</string>
+    <string name="tips_no_roles_in_current_account">There are no roles available in the current account.</string>
+    <string name="tips_logging">logging…</string>
 
 </resources>
