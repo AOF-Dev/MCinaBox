@@ -281,5 +281,6 @@
     <string name="tips_redirecting">正在重定向...</string>
     <string name="tips_please_download_authlib_injector">找不到authlib-injector库，是否现在下载？</string>
     <string name="tips_error">发生错误: %s</string>
+    <string name="tips_are_you_sure_to_delete_runtime">此操作将清除您已经安装的运行库，确定要就继续吗？</string>
 
 </resources>

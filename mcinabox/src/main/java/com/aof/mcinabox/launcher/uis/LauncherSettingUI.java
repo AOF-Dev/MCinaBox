@@ -3,6 +3,7 @@ package com.aof.mcinabox.launcher.uis;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.os.Environment;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -13,11 +14,11 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.Toast;
+
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import com.aof.mcinabox.FileChooser;
+
 import com.aof.mcinabox.MainActivity;
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.definitions.manifest.AppManifest;
@@ -27,6 +28,7 @@ import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.mcinabox.launcher.uis.support.Utils;
 import com.aof.mcinabox.minecraft.forge.ForgeInstaller;
 import com.aof.utils.dialog.DialogUtils;
+import com.aof.utils.dialog.support.DialogSupports;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -192,20 +194,19 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
         @Override
         public void onClick(View v) {
             if (v == buttonImportRuntime) {
-                if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(MainActivity.CURRENT_ACTIVITY, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 2048);
-                }
-                if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(mContext, "Please allow read storage permission to import runtime packs externally.", Toast.LENGTH_LONG).show();
-                    return;
-                }
-                FileChooser fc = new FileChooser(MainActivity.CURRENT_ACTIVITY).setExtension(".tar.xz").setFileListener(new FileChooser.FileSelectedListener() {
+                DialogUtils.createFileSelectorDialog(mContext,mContext.getString(R.string.title_import_runtime),Environment.getExternalStorageDirectory().getAbsolutePath(),new String[]{"xz"},new DialogSupports(){
                     @Override
-                    public void fileSelected(File file) {
-                        RuntimeManager.installRuntimeFromPath(mContext, file.getPath());
+                    public void runWhenFileSelected(String path){
+                        if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                            ActivityCompat.requestPermissions(MainActivity.CURRENT_ACTIVITY, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 2048);
+                        }
+                        if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                            DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_error),"Please allow read storage permission to import runtime packs externally.",mContext.getString(R.string.title_ok),null);
+                            return;
+                        }
+                        RuntimeManager.installRuntimeFromPath(mContext, path);
                     }
                 });
-                fc.showDialog();
             }
             if (v == buttonInstallForge) {
                 installForgeFromInstaller();
@@ -214,7 +215,12 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
                 new ContributorsDialog(mContext).show();
             }
             if(v == buttonClearRuntime){
-                RuntimeManager.clearRuntime(mContext);
+                DialogUtils.createBothChoicesDialog(mContext,mContext.getString(R.string.title_warn),mContext.getString(R.string.tips_are_you_sure_to_delete_runtime),mContext.getString(R.string.title_continue),mContext.getString(R.string.title_cancel),new DialogSupports(){
+                    @Override
+                    public void runWhenPositive(){
+                        RuntimeManager.clearRuntime(mContext);
+                    }
+                });
             }
         }
     };
