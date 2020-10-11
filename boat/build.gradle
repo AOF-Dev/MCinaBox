@@ -24,7 +24,6 @@ android {
        checkReleaseBuilds false
        abortOnError false
     }
-}
     externalNativeBuild {
         cmake {
             path file('src/main/jni/CMakeLists.txt')
