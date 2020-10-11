@@ -1,7 +1,6 @@
 package com.aof.mcinabox.launcher.uis;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,6 +15,8 @@ import com.aof.mcinabox.R;
 import com.aof.mcinabox.launcher.download.DownloadManager;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.mcinabox.minecraft.json.VersionManifestJson;
+import com.aof.utils.dialog.DialogUtils;
+
 import java.util.ArrayList;
 import static com.aof.mcinabox.definitions.manifest.AppManifest.MCINABOX_TEMP;
 
@@ -63,6 +64,8 @@ public class InstallVersionUI extends BaseUI implements RadioGroup.OnCheckedChan
             }
         });
 
+        groupVersionType.setOnCheckedChangeListener(this);
+
         for (View v : new View[]{buttonBack, buttonRefresh, buttonDownload}) {
             v.setOnClickListener(clickListener);
         }
@@ -97,14 +100,13 @@ public class InstallVersionUI extends BaseUI implements RadioGroup.OnCheckedChan
     private VersionManifestJson.Version[] versionList;
 
     private void DownloadSelectedVersion() {
-        //TODO:修复下载功能
 
         if (versionList == null) {
-            Toast.makeText(mContext, mContext.getString(R.string.tips_please_refresh), Toast.LENGTH_SHORT).show();
+            DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_error),mContext.getString(R.string.tips_please_refresh),mContext.getString(R.string.title_ok),null);
             return;
         }
         if (selectedVersionPos == -1) {
-            Toast.makeText(mContext, mContext.getString(R.string.tips_please_select_version), Toast.LENGTH_SHORT).show();
+            DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_error), mContext.getString(R.string.tips_please_select_version),mContext.getString(R.string.title_ok),null);
             return;
         }
         mDownloadManager.startPresetDownload(DownloadManager.DOWNLOAD_PRESET_VERSION_JSON ,listVersionsOnline.getAdapter().getItem(selectedVersionPos).toString());
@@ -119,12 +121,9 @@ public class InstallVersionUI extends BaseUI implements RadioGroup.OnCheckedChan
         versionList = com.aof.mcinabox.minecraft.JsonUtils.getVersionManifestFromFile(MCINABOX_TEMP + "/version_manifest.json").getVersions();
         String[] nameList;
 
-        ArrayList<VersionManifestJson.Version> version_type_release = new ArrayList<VersionManifestJson.Version>() {
-        };
-        ArrayList<VersionManifestJson.Version> version_type_snapsht = new ArrayList<VersionManifestJson.Version>() {
-        };
-        ArrayList<VersionManifestJson.Version> version_type_old = new ArrayList<VersionManifestJson.Version>() {
-        };
+        ArrayList<VersionManifestJson.Version> version_type_release = new ArrayList<>();
+        ArrayList<VersionManifestJson.Version> version_type_snapshot = new ArrayList<>();
+        ArrayList<VersionManifestJson.Version> version_type_old = new ArrayList<>();
 
         for (VersionManifestJson.Version version : versionList) {
             switch (version.getType()) {
@@ -134,7 +133,7 @@ public class InstallVersionUI extends BaseUI implements RadioGroup.OnCheckedChan
                     version_type_release.add(version);
                     break;
                 case VersionManifestJson.TYPE_SNAPSHOT:
-                    version_type_snapsht.add(version);
+                    version_type_snapshot.add(version);
                     break;
                 case VersionManifestJson.TYPE_OLD_BETA:
                 case VersionManifestJson.TYPE_OLD_ALPHA:
@@ -154,9 +153,9 @@ public class InstallVersionUI extends BaseUI implements RadioGroup.OnCheckedChan
                 }
                 break;
             case R.id.radiobutton_type_snapshot:
-                nameList = new String[version_type_snapsht.size()];
-                for (int i = 0; i < version_type_snapsht.size(); i++) {
-                    nameList[i] = version_type_snapsht.get(i).getId();
+                nameList = new String[version_type_snapshot.size()];
+                for (int i = 0; i < version_type_snapshot.size(); i++) {
+                    nameList[i] = version_type_snapshot.get(i).getId();
                 }
                 break;
             case R.id.radiobutton_type_old:
@@ -166,6 +165,7 @@ public class InstallVersionUI extends BaseUI implements RadioGroup.OnCheckedChan
                 }
                 break;
         }
+
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(mContext, android.R.layout.simple_list_item_1, nameList);
         listVersionsOnline.setAdapter(adapter);
