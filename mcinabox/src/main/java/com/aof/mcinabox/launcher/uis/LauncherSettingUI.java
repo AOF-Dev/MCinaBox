@@ -153,30 +153,26 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
      * 【安装ForgeInstaller】
      **/
     private void installForgeFromInstaller() {
-        if (MainActivity.Setting.getDownloadType().equals(SettingJson.DOWNLOAD_SOURCE_OFFICIAL)) {
-            DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_error),mContext.getString(R.string.tips_please_change_downloadtype),mContext.getString(R.string.title_ok),null);
+        String filename;
+        if (listForgeInstallers.getSelectedItem() != null) {
+            filename = listForgeInstallers.getSelectedItem().toString();
         } else {
-            String filename;
-            if (listForgeInstallers.getSelectedItem() != null) {
-                filename = listForgeInstallers.getSelectedItem().toString();
-            } else {
-                return;
-            }
-            ForgeInstaller installer = new ForgeInstaller(mContext);
-            try {
-                installer.unzipForgeInstaller(filename);
-            } catch (Exception e) {
-                e.printStackTrace();
-                DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_error),mContext.getString(R.string.tips_unzip_failed),mContext.getString(R.string.title_ok),null);
-                return;
-            }
+            return;
+        }
+        ForgeInstaller installer = new ForgeInstaller(mContext);
+        try {
+            installer.unzipForgeInstaller(filename);
+        } catch (Exception e) {
+            e.printStackTrace();
+            DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_error),mContext.getString(R.string.tips_unzip_failed),mContext.getString(R.string.title_ok),null);
+            return;
+        }
 
-            try {
-                installer.startDownloadForge(installer.makeForgeData());
-            }catch (Exception e){
-                e.printStackTrace();
-                DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_error),mContext.getString(R.string.tips_failed_to_install_forge),mContext.getString(R.string.title_ok),null);
-            }
+        try {
+            installer.startDownloadForge(installer.makeForgeData());
+        }catch (Exception e){
+            e.printStackTrace();
+            DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_error),mContext.getString(R.string.tips_failed_to_install_forge),mContext.getString(R.string.title_ok),null);
         }
     }
 
