@@ -167,7 +167,7 @@
     <string name="tips_contributors_list">贡献者名单</string>
     <string name="tips_contributors_full">以Github项目提供的为准</string>
     <string name="tips_unzip_failed">解压失败</string>
-    <string name="tips_user_namehint">用户名或账户</string>
+    <string name="tips_user_namehint">用户名或邮箱</string>
     <string name="tips_please_enter_password">请输入密码</string>
     <string name="tips_downloader_warn">如果长时间未显示列表，请手动点击"刷新"\n请耐心等待下载完成，如果下载较慢请尝试更换其他下载源</string>
     <string name="tips_launcher_path">注意：使用“私有目录”可以不必授予MCinaBox写入权限，但是卸载MCinaBox将会丢失“私有目录”中的全部资料！</string>

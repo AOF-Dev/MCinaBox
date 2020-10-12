@@ -7,10 +7,4 @@ public class AuthenticateResponse {
     public UUID clientToken;
     public Profile[] availableProfiles;
     public Profile selectedProfile;
-    
-    public class Profile {
-        public String id;
-        public String name;
-        public boolean legacy;
-    }
 }

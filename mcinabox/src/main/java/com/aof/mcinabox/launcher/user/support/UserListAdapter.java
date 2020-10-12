@@ -102,7 +102,7 @@ public class UserListAdapter extends BaseAdapter {
                         @Override
                         public void runWhenPositive() {
                             Log.e(TAG, "check validate");
-                            new LoginServer(userlist.get(position).getApiUrl()).refresh(userlist.get(position).getAccessToken());
+                            new LoginServer(userlist.get(position)).verifyToken();
                         }
                     });
                 }

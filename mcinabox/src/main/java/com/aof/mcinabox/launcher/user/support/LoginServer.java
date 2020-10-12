@@ -33,40 +33,40 @@ import java.util.UUID;
 
 public class LoginServer {
     private Context mContext;
-    private final static String TAG = "LoginServer";
+    private static final String TAG = "LoginServer";
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     private static final OkHttpClient client = new OkHttpClient();
     private static final Gson gson = new Gson();
-    public static final String MOJANG_URL = "https://authserver.mojang.com";
+    private static final String MOJANG_URL = "https://authserver.mojang.com";
 
-    private String url;
     private String username;
     private String password;
-    private UUID clientToken;
     private boolean isLogining;
 
     private SettingJson.Account account;
-
-    public LoginServer(String url, Context context){
-        this(url, new SettingJson().new Account(),context);
-    }
 
     public LoginServer(String url) {
         this(url,MainActivity.CURRENT_ACTIVITY);
     }
 
+    public LoginServer(SettingJson.Account account) {
+        this(account.getApiUrl(), account, MainActivity.CURRENT_ACTIVITY);
+    }
+
+    public LoginServer(String url, Context context){
+        this(url, new SettingJson().new Account(),context);
+    }
+
     public LoginServer(String url, SettingJson.Account account, Context context) {
         this.mContext = context;
-        if(url == null || url.equals("")) url = MOJANG_URL;
-        else if (!url.startsWith("http")) url = "https://".concat(url);
-        this.url = url;
+        if(url == null || url.equals("")) account.setApiUrl(MOJANG_URL);
+        else if (!url.startsWith("http")) account.setApiUrl("https://".concat(url));
         this.account = account;
         isLogining = false;
     }
 
-    private void verifyServer(String url) {
-        account.setApiUrl(url);
-        Request request = new Request.Builder().url(url).build();
+    private void verifyServer() {
+        Request request = new Request.Builder().url(account.getApiUrl()).build();
         try {
             client.newCall(request).enqueue(verifyServerResponse);
         }catch (Exception e) {
@@ -74,27 +74,30 @@ public class LoginServer {
         }
     }
 
-    public String refresh(String accessToken) {
-        return null;
-    }
-
-    public void login(String username, String password, UUID clientToken) {
+    public void login(String username, String password) {
         whenWaiting(1);
         this.username = username;
         this.password = password;
-        this.clientToken = clientToken;
+        account.setUserUuid(UserManager.createUUID(username).toString());
         isLogining = true;
-        if(url.equals(MOJANG_URL))  {
+        if(account.getApiUrl().equals(MOJANG_URL))  {
             account.setType(SettingJson.USER_TYPE_ONLINE);
             login();
-        }
-        else {
+        }else {
             account.setType(SettingJson.USER_TYPE_EXTERNAL);
-            verifyServer(url);
+            verifyServer();
         }
     }
 
-    TaskDialog mDialog;
+    public void verifyToken() {
+        httpPost("validate", new ValidateRequest(account.getAccessToken()), verifyTokenResponse);
+    }
+
+    public void refreshToken() {
+        httpPost("refresh", new RefreshRequest(account.getAccessToken(), UUID.fromString(account.getUserUUID()), account.getUuid(), account.getUsername()), loginResponse);
+    }
+
+    private TaskDialog mDialog;
     private void whenWaiting(int i){
         if(mDialog == null){
             mDialog = DialogUtils.createTaskDialog(mContext,mContext.getString(R.string.tips_logging),"",false);
@@ -114,11 +117,14 @@ public class LoginServer {
     }
 
     private void login() {
-        AuthenticateRequest userdata = new AuthenticateRequest(username, password, clientToken, "Minecraft", 1);
-        RequestBody body = RequestBody.create(JSON, gson.toJson(userdata));
-        Request request = new Request.Builder().url(url + (url.equals(MOJANG_URL)?"/authenticate":"/authserver/authenticate")).post(body).build();
+        httpPost("/authenticate", new AuthenticateRequest(username, password, account.getUserUUID(), "Minecraft", 1), loginResponse);
+    }
+
+    private <T> void httpPost(String api, T data, okhttp3.Callback response) {
+        RequestBody body = RequestBody.create(JSON, gson.toJson(data));
+        Request request = new Request.Builder().url(account.getApiUrl() + (account.getApiUrl().equals(MOJANG_URL)?api:"/authserver".concat(api))).post(body).build();
         try {
-            client.newCall(request).enqueue(loginResponse);
+            client.newCall(request).enqueue(response);
         }catch (Exception e) {
             output("Error", e.getMessage());
         }
@@ -142,7 +148,8 @@ public class LoginServer {
 
             try {
                 if(response.toString().contains("x-authlib-injector-api-location")) {
-                    verifyServer(response.request().url().toString());
+                    account.setApiUrl(response.request().url().toString());
+                    verifyServer();
                     data.putString("Type", "VerifyServer");
                     data.putString("Result", MainActivity.CURRENT_ACTIVITY.getResources().getString(R.string.tips_redirecting));
                 }else {
@@ -187,6 +194,40 @@ public class LoginServer {
                     ErrorResponse error = gson.fromJson(result, ErrorResponse.class);
                     data.putString("Type", "Error");
                     data.putString("Result", error.errorMessage);
+                }
+            }catch (Exception e) {
+                data.putString("Type", "Error");
+                data.putString("Result", e.getMessage());
+            }
+
+            msg.setData(data);
+            handler.sendMessage(msg);
+        }
+    };
+
+    private okhttp3.Callback verifyTokenResponse = new okhttp3.Callback() {
+        @Override
+        public void onFailure(@NotNull Call call, @NotNull IOException e) {
+            Message msg = new Message();
+            Bundle data = new Bundle();
+            data.putString("Type", "Error");
+            data.putString("Result", e.getMessage());
+            msg.setData(data);
+            handler.sendMessage(msg);
+        }
+
+        @Override
+        public void onResponse(@NotNull Call call, @NotNull Response response) {
+            isLogining = false;
+            Message msg = new Message();
+            Bundle data = new Bundle();
+
+            try {
+                String result = Objects.requireNonNull(response.body()).string();
+                if(response.code() == 204) {
+
+                }else {
+                    refreshToken();
                 }
             }catch (Exception e) {
                 data.putString("Type", "Error");
@@ -244,8 +285,8 @@ public class LoginServer {
                     });
                 }else{
                     account.setAccessToken(authenticateResponse.accessToken);
-                    account.setUuid(authenticateResponse.availableProfiles[0].id);
-                    account.setUsername(authenticateResponse.availableProfiles[0].name);
+                    account.setUuid(authenticateResponse.selectedProfile.id);
+                    account.setUsername(authenticateResponse.selectedProfile.name);
                     account.setSelected(false);
                     UserManager.addAccount(MainActivity.Setting, account);
                 }

@@ -105,7 +105,7 @@
     <string name="tips_button_combine_two">複合鍵二</string>
     <string name="title_step">操作</string>
     <string name="title_user_name">用戶名</string>
-    <string name="tips_user_namehint">用戶名或帳戶</string>
+    <string name="tips_user_namehint">用戶名或郵箱</string>
     <string name="title_password">密碼</string>
     <string name="tips_please_enter_password">請輸入密碼</string>
     <string name="title_online">正版登入</string>
