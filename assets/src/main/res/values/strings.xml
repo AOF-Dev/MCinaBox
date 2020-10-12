@@ -178,7 +178,7 @@
     <string name="tips_contributors_list">List of Contributors</string>
     <string name="tips_contributors_full">Subject to the Github project provided</string>
     <string name="tips_unzip_failed">Unzip Failed</string>
-    <string name="tips_user_namehint">Username or account</string>
+    <string name="tips_user_namehint">Username or email</string>
     <string name="tips_please_enter_password">Please enter your password</string>
     <string name="tips_downloader_warn">If the list is not displayed for a long time, please manually click "Refresh"\nPlease be patient and wait for the download to complete. If the download is slow, please try to change to another download source.</string>
     <string name="tips_launcher_path">Note: Using "Private Directory" does not need to grant MCinaBox write permissions, but uninstalling MCinaBox will lose all the data in the "Private Directory"!</string>
