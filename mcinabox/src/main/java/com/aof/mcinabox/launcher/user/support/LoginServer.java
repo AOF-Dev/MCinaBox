@@ -6,20 +6,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Base64;
-import android.util.Log;
-import android.widget.Toast;
-
 import com.aof.mcinabox.MainActivity;
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.mcinabox.launcher.user.UserManager;
-import com.aof.utils.dialog.DialogUtils;
-import com.aof.utils.dialog.support.DialogSupports;
-import com.aof.utils.dialog.support.TaskDialog;
 import com.google.gson.Gson;
-
 import org.jetbrains.annotations.NotNull;
-
 import java.io.IOException;
 import okhttp3.Call;
 import okhttp3.MediaType;
@@ -27,17 +19,24 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-
 import java.util.Objects;
 import java.util.UUID;
 
 public class LoginServer {
     private Context mContext;
+    private static final String OUTPUT_RESULT = "Result";
+    private static final String OUTPUT_TYPE = "Type";
+    private static final String TYPE_ERROR = "Error";
+    private static final String TYPE_LOGIN = "Login";
+    private static final String TYPE_VALIDATE = "Validate";
+    private static final String TYPE_VERIFY_SERVER = "VerifyServer";
     private static final String TAG = "LoginServer";
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     private static final OkHttpClient client = new OkHttpClient();
     private static final Gson gson = new Gson();
     private static final String MOJANG_URL = "https://authserver.mojang.com";
+    private Callback mCallback;
+    private boolean callable = false;
 
     private String username;
     private String password;
@@ -45,12 +44,22 @@ public class LoginServer {
 
     private SettingJson.Account account;
 
+    public LoginServer setCallback(Callback call){
+        this.mCallback = call;
+        callable = (call != null);
+        return this;
+    }
+
     public LoginServer(String url) {
         this(url,MainActivity.CURRENT_ACTIVITY);
     }
 
     public LoginServer(SettingJson.Account account) {
-        this(account.getApiUrl(), account, MainActivity.CURRENT_ACTIVITY);
+        this(account, MainActivity.CURRENT_ACTIVITY);
+    }
+
+    public LoginServer(SettingJson.Account account, Context context){
+        this(account.getApiUrl(), account, context);
     }
 
     public LoginServer(String url, Context context){
@@ -70,12 +79,14 @@ public class LoginServer {
         try {
             client.newCall(request).enqueue(verifyServerResponse);
         }catch (Exception e) {
-            output("Error", e.getMessage());
+            output(TYPE_ERROR, e.getMessage());
         }
     }
 
     public void login(String username, String password) {
-        whenWaiting(1);
+        if(callable){
+            mCallback.onStart();
+        }
         this.username = username;
         this.password = password;
         account.setUserUuid(UserManager.createUUID(username).toString());
@@ -90,30 +101,17 @@ public class LoginServer {
     }
 
     public void verifyToken() {
-        httpPost("validate", new ValidateRequest(account.getAccessToken()), verifyTokenResponse);
+        if(callable){
+            mCallback.onStart();
+        }
+        httpPost("/validate", new ValidateRequest(account.getAccessToken()), verifyTokenResponse);
     }
 
     public void refreshToken() {
-        httpPost("refresh", new RefreshRequest(account.getAccessToken(), UUID.fromString(account.getUserUUID()), account.getUuid(), account.getUsername()), loginResponse);
-    }
-
-    private TaskDialog mDialog;
-    private void whenWaiting(int i){
-        if(mDialog == null){
-            mDialog = DialogUtils.createTaskDialog(mContext,mContext.getString(R.string.tips_logging),"",false);
+        if(callable){
+            mCallback.onStart();
         }
-        switch (i){
-            case 1:
-                if(!mDialog.isShowing()){
-                    mDialog.show();
-                }
-                break;
-            case 2:
-                if(mDialog.isShowing()){
-                    mDialog.dismiss();
-                }
-                break;
-        }
+        httpPost("/refresh", new RefreshRequest(account.getAccessToken(), UUID.fromString(account.getUserUUID()), account.getUuid(), account.getUsername()), loginResponse);
     }
 
     private void login() {
@@ -126,7 +124,7 @@ public class LoginServer {
         try {
             client.newCall(request).enqueue(response);
         }catch (Exception e) {
-            output("Error", e.getMessage());
+            output(TYPE_ERROR, e.getMessage());
         }
     }
 
@@ -135,8 +133,8 @@ public class LoginServer {
         public void onFailure(@NotNull Call call, @NotNull IOException e) {
             Message msg = new Message();
             Bundle data = new Bundle();
-            data.putString("Type", "Error");
-            data.putString("Result", e.getMessage());
+            data.putString(OUTPUT_TYPE, TYPE_ERROR);
+            data.putString(OUTPUT_RESULT, gson.toJson(e));
             msg.setData(data);
             handler.sendMessage(msg);
         }
@@ -150,16 +148,16 @@ public class LoginServer {
                 if(response.toString().contains("x-authlib-injector-api-location")) {
                     account.setApiUrl(response.request().url().toString());
                     verifyServer();
-                    data.putString("Type", "VerifyServer");
-                    data.putString("Result", MainActivity.CURRENT_ACTIVITY.getResources().getString(R.string.tips_redirecting));
+                    data.putString(OUTPUT_TYPE, TYPE_VERIFY_SERVER);
+                    data.putString(OUTPUT_RESULT, MainActivity.CURRENT_ACTIVITY.getResources().getString(R.string.tips_redirecting));
                 }else {
-                    if(response.code() == 200) data.putString("Type", "VerifyServer");
-                    else data.putString("Type", "Error");
-                    data.putString("Result", Objects.requireNonNull(response.body()).string());
+                    if(response.code() == 200) data.putString(OUTPUT_TYPE, TYPE_VERIFY_SERVER);
+                    else data.putString(OUTPUT_TYPE, TYPE_ERROR);
+                    data.putString(OUTPUT_RESULT, Objects.requireNonNull(response.body()).string());
                 }
             }catch (Exception e) {
-                data.putString("Type", "Error");
-                data.putString("Result", e.getMessage());
+                data.putString(OUTPUT_TYPE, TYPE_ERROR);
+                data.putString(OUTPUT_RESULT, gson.toJson(e));
             }
 
             msg.setData(data);
@@ -173,8 +171,8 @@ public class LoginServer {
             isLogining = false;
             Message msg = new Message();
             Bundle data = new Bundle();
-            data.putString("Type", "Error");
-            data.putString("Result", e.getMessage());
+            data.putString(OUTPUT_TYPE, TYPE_ERROR);
+            data.putString(OUTPUT_RESULT, gson.toJson(e));
             msg.setData(data);
             handler.sendMessage(msg);
         }
@@ -188,16 +186,16 @@ public class LoginServer {
             try {
                 String result = Objects.requireNonNull(response.body()).string();
                 if(response.code() == 200) {
-                    data.putString("Type", "Login");
-                    data.putString("Result", result);
+                    data.putString(OUTPUT_TYPE, TYPE_LOGIN);
+                    data.putString(OUTPUT_RESULT, result);
                 }else {
                     ErrorResponse error = gson.fromJson(result, ErrorResponse.class);
-                    data.putString("Type", "Error");
-                    data.putString("Result", error.errorMessage);
+                    data.putString(OUTPUT_TYPE, TYPE_ERROR);
+                    data.putString(OUTPUT_RESULT, gson.toJson(new Exception(error.errorMessage)));
                 }
             }catch (Exception e) {
-                data.putString("Type", "Error");
-                data.putString("Result", e.getMessage());
+                data.putString(OUTPUT_TYPE, TYPE_ERROR);
+                data.putString(OUTPUT_RESULT, gson.toJson(e));
             }
 
             msg.setData(data);
@@ -210,8 +208,8 @@ public class LoginServer {
         public void onFailure(@NotNull Call call, @NotNull IOException e) {
             Message msg = new Message();
             Bundle data = new Bundle();
-            data.putString("Type", "Error");
-            data.putString("Result", e.getMessage());
+            data.putString(OUTPUT_TYPE, TYPE_ERROR);
+            data.putString(OUTPUT_RESULT, gson.toJson(e));
             msg.setData(data);
             handler.sendMessage(msg);
         }
@@ -224,16 +222,12 @@ public class LoginServer {
 
             try {
                 String result = Objects.requireNonNull(response.body()).string();
-                if(response.code() == 204) {
-
-                }else {
-                    refreshToken();
-                }
+                data.putString(OUTPUT_TYPE, TYPE_VALIDATE);
+                data.putString(OUTPUT_RESULT, gson.toJson(response.code()));
             }catch (Exception e) {
-                data.putString("Type", "Error");
-                data.putString("Result", e.getMessage());
+                data.putString(OUTPUT_TYPE, TYPE_ERROR);
+                data.putString(OUTPUT_RESULT, gson.toJson(e));
             }
-
             msg.setData(data);
             handler.sendMessage(msg);
         }
@@ -245,8 +239,8 @@ public class LoginServer {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             Bundle data = msg.getData();
-            String type = data.getString("Type");
-            String result = data.getString("Result");
+            String type = data.getString(OUTPUT_TYPE);
+            String result = data.getString(OUTPUT_RESULT);
             output(type, result);
         }
     };
@@ -254,47 +248,51 @@ public class LoginServer {
     private void output(String type, String result) {
         if(result != null)
         switch (type) {
-            case "VerifyServer":
+            case TYPE_VERIFY_SERVER:
                 AuthlibResponse authlibResponse = gson.fromJson(result, AuthlibResponse.class);
                 account.setServerName(authlibResponse.meta.serverName);
                 account.setApiMeta(Base64.encodeToString(result.getBytes(), Base64.DEFAULT));
                 if(isLogining) login();
                 break;
-            case "Login":
-                final AuthenticateResponse authenticateResponse = gson.fromJson(result, AuthenticateResponse.class);
-                if(authenticateResponse.availableProfiles == null || authenticateResponse.availableProfiles.length == 0){
-                    DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_error),mContext.getString(R.string.tips_no_roles_in_current_account),mContext.getString(R.string.title_ok),null);
-                    return;
-                }
-                if(authenticateResponse.availableProfiles.length != 1){
-                    String[] names = new String[authenticateResponse.availableProfiles.length];
-                    for(int a = 0; a < authenticateResponse.availableProfiles.length; a++){
-                        Log.e("LoginServer",authenticateResponse.availableProfiles[a].name);
-                        names[a] = authenticateResponse.availableProfiles[a].name;
-                    }
-                    DialogUtils.createItemsChoiceDialog(mContext,mContext.getString(R.string.title_choice),null,mContext.getString(R.string.title_cancel),false,names,new DialogSupports(){
-                        @Override
-                        public void runWhenItemsSelected(int pos) {
-                            super.runWhenItemsSelected(pos);
-                            account.setAccessToken(authenticateResponse.accessToken);
-                            account.setUuid(authenticateResponse.availableProfiles[pos].id);
-                            account.setUsername(authenticateResponse.availableProfiles[pos].name);
-                            account.setSelected(false);
-                            UserManager.addAccount(MainActivity.Setting, account);
-                        }
-                    });
-                }else{
-                    account.setAccessToken(authenticateResponse.accessToken);
-                    account.setUuid(authenticateResponse.selectedProfile.id);
-                    account.setUsername(authenticateResponse.selectedProfile.name);
-                    account.setSelected(false);
-                    UserManager.addAccount(MainActivity.Setting, account);
+            case TYPE_LOGIN:
+                if(callable){
+                    mCallback.onLoginSuccess(account,gson.fromJson(result, AuthenticateResponse.class));
                 }
                 break;
-            case "Error":
-                DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_error),String.format(mContext.getString(R.string.tips_error),result),mContext.getString(R.string.title_ok),null);
+            case TYPE_ERROR:
+                Exception e = gson.fromJson(result,Exception.class);
+                if(callable){
+                    mCallback.onFailed(e);
+                }
+                break;
+            case TYPE_VALIDATE:
+                Integer code = gson.fromJson(result,Integer.class);
+                if(callable){
+                    switch (code){
+                        case 204:
+                            mCallback.onValidateSuccess(account);
+                            break;
+                        case 403:
+                            mCallback.onValidateFailed(account);
+                            break;
+                        default:
+                            mCallback.onFailed(new Exception(String.format("Unknown status code : %s",code)));
+                    }
+                }
                 break;
         }
-        whenWaiting(2);
+        if(callable){
+            mCallback.onFinish();
+        }
+    }
+
+    public interface Callback{
+        void onStart();
+        void onFailed(Exception e);
+        void onLoginSuccess(SettingJson.Account account, AuthenticateResponse response);
+        void onValidateSuccess(SettingJson.Account account);
+        void onValidateFailed(SettingJson.Account account);
+        void onRefreshSuccess(SettingJson.Account account, AuthenticateResponse response);
+        void onFinish();
     }
 }

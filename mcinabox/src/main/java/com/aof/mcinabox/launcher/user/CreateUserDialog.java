@@ -11,8 +11,13 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import com.aof.mcinabox.MainActivity;
 import com.aof.mcinabox.R;
+import com.aof.mcinabox.launcher.setting.support.SettingJson;
+import com.aof.mcinabox.launcher.user.support.AuthenticateResponse;
 import com.aof.mcinabox.launcher.user.support.LoginServer;
 import com.aof.utils.PromptUtils;
+import com.aof.utils.dialog.DialogUtils;
+import com.aof.utils.dialog.support.DialogSupports;
+import com.aof.utils.dialog.support.TaskDialog;
 
 public class CreateUserDialog extends Dialog implements View.OnClickListener, CheckBox.OnCheckedChangeListener {
 
@@ -35,6 +40,18 @@ public class CreateUserDialog extends Dialog implements View.OnClickListener, Ch
         setContentView(R.layout.dialog_createuser);
     }
 
+    private String pre_username;
+    private String pre_url;
+    private boolean useCustom = false;
+    public CreateUserDialog(Context context, String username, String url){
+        super(context);
+        this.mContext = context;
+        this.pre_username = username;
+        this.pre_url = url;
+        setContentView(R.layout.dialog_createuser);
+        useCustom = true;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         buttonOK = findViewById(R.id.dialog_button_confirm_createuser);
@@ -49,6 +66,14 @@ public class CreateUserDialog extends Dialog implements View.OnClickListener, Ch
 
         for (View v : new View[]{buttonOK, buttonCancel}) {
             v.setOnClickListener(this);
+        }
+
+        if(useCustom){
+            checkboxUsermodel.setChecked(true);
+            checkboxUsermodel.setClickable(false);
+            editUsername.setText(pre_username);
+            editServer.setText(pre_url);
+            editServer.setEnabled(false);
         }
     }
 
@@ -104,7 +129,64 @@ public class CreateUserDialog extends Dialog implements View.OnClickListener, Ch
         }
         //创建用户
         if(enableLegal){
-            new LoginServer(server).login(username, password);
+            new LoginServer(server).setCallback(new LoginServer.Callback() {
+                TaskDialog mDialog = DialogUtils.createTaskDialog(mContext,mContext.getString(R.string.tips_logging),"",false);
+                @Override
+                public void onStart() {
+                    mDialog.show();
+                }
+
+                @Override
+                public void onFailed(Exception e) {
+                    DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_error),String.format(mContext.getString(R.string.tips_error),e.getMessage()),mContext.getString(R.string.title_ok),null);
+                }
+
+                @Override
+                public void onLoginSuccess(final SettingJson.Account account,final AuthenticateResponse response) {
+                    if(response.availableProfiles == null || response.availableProfiles.length == 0){
+                        DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_error),mContext.getString(R.string.tips_no_roles_in_current_account),mContext.getString(R.string.title_ok),null);
+                        return;
+                    }
+                    if(response.availableProfiles.length != 1){
+                        String[] names = new String[response.availableProfiles.length];
+                        for(int a = 0; a < response.availableProfiles.length; a++){
+                            names[a] = response.availableProfiles[a].name;
+                        }
+                        DialogUtils.createItemsChoiceDialog(mContext,mContext.getString(R.string.title_choice),null,mContext.getString(R.string.title_cancel),false,names,new DialogSupports(){
+                            @Override
+                            public void runWhenItemsSelected(int pos) {
+                                super.runWhenItemsSelected(pos);
+                                account.setAccessToken(response.accessToken);
+                                account.setUuid(response.availableProfiles[pos].id);
+                                account.setUsername(response.availableProfiles[pos].name);
+                                account.setSelected(false);
+                                UserManager.addAccount(MainActivity.Setting, account);
+                            }
+                        });
+                    }else{
+                        account.setAccessToken(response.accessToken);
+                        account.setUuid(response.selectedProfile.id);
+                        account.setUsername(response.selectedProfile.name);
+                        account.setSelected(false);
+                        UserManager.addAccount(MainActivity.Setting, account);
+                    }
+                }
+
+                @Override
+                public void onValidateSuccess(SettingJson.Account account) {}
+
+                @Override
+                public void onValidateFailed(SettingJson.Account account) {}
+
+                @Override
+                public void onRefreshSuccess(SettingJson.Account account, AuthenticateResponse response) {}
+
+                @Override
+                public void onFinish() {
+                    mDialog.dismiss();
+                }
+
+            }).login(username, password);
             return true;
         }else{
             UserManager.addAccount(MainActivity.Setting,UserManager.getOfflineAccount(username));

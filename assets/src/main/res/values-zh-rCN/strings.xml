@@ -284,5 +284,9 @@
     <string name="tips_are_you_sure_to_delete_runtime">此操作将清除您已经安装的运行库，确定要就继续吗？</string>
     <string name="tips_no_roles_in_current_account">当前账户中没有可用的角色。</string>
     <string name="tips_logging">正在登录…</string>
+    <string name="tips_account_is_valid">您的账户有效，不需要刷新。</string>
+    <string name="tips_account_is_invalid">您的帐户无效。您想要立即刷新吗？</string>
+    <string name="tips_refreshing_account">正在刷新账户…</string>
+    <string name="tips_verifying_account">正在验证账户…</string>
 
 </resources>
