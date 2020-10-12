@@ -111,7 +111,7 @@ public class LoginServer {
         if(callable){
             mCallback.onStart();
         }
-        httpPost("/refresh", new RefreshRequest(account.getAccessToken(), UUID.fromString(account.getUserUUID()), account.getUuid(), account.getUsername()), loginResponse);
+        httpPost("/refresh", new RefreshRequest(account.getAccessToken(), UUID.fromString(account.getUserUUID())), loginResponse);
     }
 
     private void login() {
