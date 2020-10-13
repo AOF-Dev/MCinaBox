@@ -11,6 +11,9 @@
     <string name="app_about_thanks_info">CosineMath (BoatApp, https://github.com/CosineMath/) 启动器后端支持\nbangbang93 (BMCLAPI, http://bmclapi2.bangbang93.com/)中国国内高速下载源支持\nApp图标提供者 snajdovski\nAOF软件开发团队(AOF-Dev, https://github.com/AOF-Dev)的全体成员的合作与努力\n所有通过 Issues、Pull Requests 等方式参与本项目的贡献者</string>
     <string name="app_about_details_info">Minecraft 版权归 Mojang AB 所有，使用本软件产生的版权问题，软件制作方概不负责。请支持正版。</string>
     <string name="app_about_opensource_info">https://github.com/longjunyu2/MCinaBox\n(本项目的遵循GPLv3许可证进行分发)</string>
+    <string name="app_about_pages">相关页</string>
+    <string name="app_about_donation">捐赠</string>
+    <string name="app_about_donation_info">BMCLAPI为国内提供了一个高速的Minecraft下载源，其本身是一个公益性质的项目，如果您想要支持它继续提供高速的下载服务，可以通过以下网址向它捐赠。\nhttps://afdian.net/@bangbang93</string>
 
     <string name="title_all">所有</string>
     <string name="title_in_game">游戏内</string>

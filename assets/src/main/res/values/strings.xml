@@ -22,6 +22,11 @@
     <string name="app_about_thanks_info">CosineMath (BoatApp, https://github.com/CosineMath/) Launcher backend support\nbangbang93 (BMCLAPI, http://bmclapi2.bangbang93.com/) Chinese domestic high-speed download source support\nApp icon provider snajdovski\nThe cooperation and efforts of all members of the AOF software development team(AOF-Dev, https://github.com/AOF-Dev)\nAll contributors who participated in this project through Issues, Pull Requests, etc.</string>
     <string name="app_about_details_info">The copyright of Minecraft belongs to Mojang AB. The software producer is not responsible for copyright issues arising from the use of this software. Please support genuinely.</string>
     <string name="app_about_opensource_info">https://github.com/longjunyu2/MCinaBox\n(Follow GPLv3 License Distribution)</string>
+    <string name="app_about_pages">Pages</string>
+    <string name="app_about_pages_info" translatable="false">https://mcinabox.top (By 旁白)\nhttps://mcinabox.fredward.xyz (By friendlyfredward)</string>
+    <string name="app_about_donation">Donation</string>
+    <string name="app_about_donation_info">BMCLAPI provides a high-speed minecraft download source. It is a public welfare project. If you want to support the operation of the project, you can donate it through the following website.\nhttps://afdian.net/@bangbang93</string>
+
 
     <string name="title_all">All</string>
     <string name="title_in_game">In-game</string>

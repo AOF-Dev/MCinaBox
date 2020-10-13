@@ -348,6 +348,32 @@
                     <TextView
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/text_title_main"
+                        android:textSize="@dimen/text_small"
+                        android:layout_gravity="center"
+                        android:text="@string/app_about_donation"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:autoLink="all"
+                        android:textColor="@color/text_title_main"
+                        android:textSize="@dimen/text_small"
+                        android:text="@string/app_about_donation_info"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="@string/app_about_dependent"
                         android:textColor="@color/text_title_main"
@@ -360,6 +386,31 @@
                         android:text="@string/app_about_dependent_info"
                         android:textColor="@color/text_title_main"
                         android:textSize="@dimen/text_small" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/app_about_pages"
+                        android:textColor="@color/text_title_main"
+                        android:textSize="@dimen/text_small"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:autoLink="all"
+                        android:text="@string/app_about_pages_info"
+                        android:textColor="@color/text_title_main"
+                        android:textSize="@dimen/text_small"/>
 
                 </LinearLayout>
 
