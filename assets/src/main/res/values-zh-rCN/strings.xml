@@ -288,5 +288,6 @@
     <string name="tips_account_is_invalid">您的帐户无效。您想要立即刷新吗？</string>
     <string name="tips_refreshing_account">正在刷新账户…</string>
     <string name="tips_verifying_account">正在验证账户…</string>
+    <string name="tips_unzipping">解压中…</string>
 
 </resources>

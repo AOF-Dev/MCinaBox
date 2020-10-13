@@ -22,8 +22,8 @@ public class ForgeInstaller {
         this.MINECRAFT_HOME_VERSION = MINECRAFT_HOME + "/versions";
     }
 
-    public void unzipForgeInstaller(String filename) throws Exception {
-        ZipUtils.UnZipFolder(FORGE_HOME + "/" + filename,MCINABOX_TEMP + "/forge");
+    public void unzipForgeInstaller(String path, ZipUtils.Callback call) {
+        new ZipUtils().setCallback(call).UnZipFolder(path, MCINABOX_TEMP + "/forge");
     }
 
     public String makeForgeData(){
