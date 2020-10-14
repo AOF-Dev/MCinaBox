@@ -101,7 +101,7 @@ public class DownloadManager {
                 tasks.addAll(mSupport.createForgeDownloadTask(id));
                 pgName = mContext.getString(R.string.tips_downloading_forge_objs);
                 all = 1;
-                current = 1;
+                current = 0;
                 break;
             default:
                 return;

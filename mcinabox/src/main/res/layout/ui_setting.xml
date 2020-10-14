@@ -116,14 +116,11 @@
                         android:textColor="@color/text_title_main"
                         android:textSize="@dimen/text_mid" />
 
-                    <Spinner
-                        android:id="@+id/launchersetting_spinner_forgeinstaller"
+                    <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginRight="2dp"
                         android:layout_weight="1"
-                        android:textAlignment="gravity" />
+                        android:layout_gravity="center"/>
 
                     <Button
                         android:id="@+id/launchersetting_button_forgeinstaller"
@@ -259,6 +256,7 @@
                         android:textSize="@dimen/text_small" />
 
                     <TextView
+                        android:layout_margin="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/app_about_copyright_info"
@@ -282,6 +280,7 @@
                         android:textSize="@dimen/text_small" />
 
                     <TextView
+                        android:layout_margin="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/app_about_developer_info"
@@ -305,6 +304,7 @@
                         android:textSize="@dimen/text_small" />
 
                     <Button
+                        android:layout_margin="5dp"
                         android:id="@+id/setting_show_contributors"
                         style="@style/LauncherButton_1"
                         android:layout_height="30dp"
@@ -330,11 +330,38 @@
                         android:textSize="@dimen/text_small" />
 
                     <TextView
+                        android:layout_margin="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/app_about_thanks_info"
                         android:textColor="@color/text_title_main"
                         android:textSize="@dimen/text_small" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_title_main"
+                        android:textSize="@dimen/text_small"
+                        android:layout_gravity="center"
+                        android:text="@string/app_about_donation"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:autoLink="all"
+                        android:textColor="@color/text_title_main"
+                        android:textSize="@dimen/text_small"
+                        android:text="@string/app_about_donation_info"/>
 
                 </LinearLayout>
 
@@ -353,6 +380,7 @@
                         android:textSize="@dimen/text_small" />
 
                     <TextView
+                        android:layout_margin="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/app_about_dependent_info"
@@ -371,11 +399,37 @@
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:text="@string/app_about_pages"
+                        android:textColor="@color/text_title_main"
+                        android:textSize="@dimen/text_small"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:autoLink="all"
+                        android:text="@string/app_about_pages_info"
+                        android:textColor="@color/text_title_main"
+                        android:textSize="@dimen/text_small"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:text="@string/app_about_details"
                         android:textColor="@color/text_title_main"
                         android:textSize="@dimen/text_small" />
 
                     <TextView
+                        android:layout_margin="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/app_about_details_info"
@@ -399,6 +453,7 @@
                         android:textSize="@dimen/text_small" />
 
                     <TextView
+                        android:layout_margin="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/app_about_opensource_info"

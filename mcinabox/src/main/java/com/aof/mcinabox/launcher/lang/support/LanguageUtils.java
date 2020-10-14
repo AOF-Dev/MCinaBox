@@ -17,14 +17,15 @@ public class LanguageUtils {
     public final static String TAG_SPANISH_ES = "Español(es)";
     public final static String TAG_PORTUGUESE_RU = "Русский(ru)";
     public final static String TAG_BRAZILIAN_PT_BR = "Brazilian(pt-BR)";
+    public final static String TAG_KOREAN_KO_KR = "한국어(ko-KR)";
 
     /*
-    * if you want to add a new language
-    * create a TAG for the language
-    * and add the TAG to #LANG_TAGS
-    */
+     * if you want to add a new language
+     * create a TAG for the language
+     * and add the TAG to #LANG_TAGS
+     */
     public final static String[] LANG_TAGS = new String[]{TAG_SYSTEM, TAG_ENGLISH_EN, TAG_JAPANESE_JA, TAG_CHINESE_ZH_CN,
-            TAG_CHINESE_ZH_TW, TAG_SPANISH_ES, TAG_PORTUGUESE_RU, TAG_BRAZILIAN_PT_BR};
+            TAG_CHINESE_ZH_TW, TAG_SPANISH_ES, TAG_PORTUGUESE_RU, TAG_BRAZILIAN_PT_BR, TAG_KOREAN_KO_KR};
 
     public static Locale getLocaleFromConfig(String config){
         Locale mLocale;
@@ -52,6 +53,9 @@ public class LanguageUtils {
                 break;
             case TAG_BRAZILIAN_PT_BR:
                 mLocale = Locale.forLanguageTag("pt-rBR");
+                break;
+            case TAG_KOREAN_KO_KR:
+                mLocale = Locale.KOREAN;
                 break;
             default:
                 mLocale = null;

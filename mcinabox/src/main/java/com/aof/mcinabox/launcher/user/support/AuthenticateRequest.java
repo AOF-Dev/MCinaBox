@@ -13,10 +13,10 @@ public class AuthenticateRequest {
         public int version;
     }
 
-    public AuthenticateRequest(String username, String password, UUID clientToken, String clientName, int clientVersion) {
+    public AuthenticateRequest(String username, String password, String clientToken, String clientName, int clientVersion) {
         this.username = username;
         this.password = password;
-        this.clientToken = clientToken;
+        this.clientToken = UUID.fromString(clientToken);
         this.agent = new AgentInfo();
         agent.name = clientName;
         agent.version = clientVersion;

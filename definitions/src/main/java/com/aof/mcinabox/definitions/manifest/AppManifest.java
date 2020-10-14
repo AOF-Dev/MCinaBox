@@ -81,6 +81,6 @@ public class AppManifest {
 
     /**【一个全局目录的数组】**/
     public static String[] getAllPath(){
-        return new String[]{MCINABOX_HOME, MCINABOX_KEYBOARD, MCINABOX_TEMP, BOAT_CACHE_HOME, RUNTIME_HOME ,FORGE_HOME, MCINABOX_BACKGROUND, AUTHLIB_HOME};
+        return new String[]{MCINABOX_HOME, MCINABOX_KEYBOARD, MCINABOX_TEMP, BOAT_CACHE_HOME, RUNTIME_HOME , MCINABOX_BACKGROUND, AUTHLIB_HOME};
     }
 }

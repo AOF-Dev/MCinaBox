@@ -25,6 +25,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.aof.mcinabox.gamecontroller.ckb.achieve.CkbManager;
 import com.aof.mcinabox.gamecontroller.ckb.achieve.CkbManagerDialog;
 import com.aof.mcinabox.gamecontroller.ckb.support.CallCustomizeKeyboard;
+import com.aof.utils.DisplayUtils;
 import com.aof.utils.PicUtils;
 
 public class CustomizeKeyboardEditorActivity extends AppCompatActivity implements View.OnClickListener , DrawerLayout.DrawerListener , CallCustomizeKeyboard {
@@ -36,6 +37,9 @@ public class CustomizeKeyboardEditorActivity extends AppCompatActivity implement
     private CkbManagerDialog mDialog;
     private CkbManager mManager;
 
+    private int screenWidth;
+    private int screenHeight;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -44,6 +48,8 @@ public class CustomizeKeyboardEditorActivity extends AppCompatActivity implement
         setContentView(R.layout.activity_ckbe);
 
         //初始化
+        screenWidth = this.getResources().getDisplayMetrics().widthPixels;
+        screenHeight = this.getResources().getDisplayMetrics().heightPixels;
         initUI();
     }
 
@@ -57,15 +63,16 @@ public class CustomizeKeyboardEditorActivity extends AppCompatActivity implement
         mDialog = new CkbManagerDialog(this,mManager);
 
         //配置悬浮按钮
-        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(DisplayUtils.getPxFromDp(this,30), DisplayUtils.getPxFromDp(this,30));
         this.addContentView(dButton,lp);
-        dButton.setBackground(ContextCompat.getDrawable(this,R.drawable.ic_build_black_24dp));
+        dButton.setBackground(ContextCompat.getDrawable(this,R.drawable.background_floatbutton));
         dButton.setTodo(new ArrangeRule(){
             @Override
             public void run(){
                 mDialog.show();
             }
         });
+        dButton.setY((float) screenHeight / 2);
 
         //设定工具栏
         setSupportActionBar(mToolbar);

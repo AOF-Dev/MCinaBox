@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <string name="app_about_mcinabox">MCinaBox Minecraft Launcher 是一个免费、开源的 Minecraft 启动器，允许玩家在 安卓设备 上方便快捷的安装、管理、运行游戏。启动器更新请查阅项目开源地址的 release 版面.\n当您使用本软件时，就表示您已阅读并同意本软件的版权信息，表示您愿意尊重软件开发者们的劳动成果，表示您愿意遵守本软件的开源协议。\n本软件仍处于测试阶段，如有问题，欢迎到Github进行反馈。</string>
+    <string name="app_about_mcinabox">MCinaBox 是一个免费、开源的 Minecraft 启动器，允许玩家在 安卓设备 上方便快捷的安装、管理、运行游戏。启动器更新请查阅项目开源地址的 release 版面.\n当您使用本软件时，就表示您已阅读并同意本软件的版权信息，表示您愿意遵守本软件的开源协议。\n本软件仍处于测试阶段，如有问题，欢迎到Github进行反馈。</string>
     <string name="app_about_copyright">版权</string>
     <string name="app_about_developer">开发者</string>
     <string name="app_about_contributor">贡献者</string>
@@ -8,9 +8,12 @@
     <string name="app_about_dependent">依赖</string>
     <string name="app_about_details">免责声明</string>
     <string name="app_about_opensource">开源</string>
-    <string name="app_about_thanks_info">CosineMath (BoatApp, https://github.com/CosineMath/) 启动器后端支持\nbangbang93 (BMCLAPI, http://bmclapi2.bangbang93.com/)中国国内高速下载源支持\nApp图标提供者 MC红熊\nAOF软件开发团队的全体成员的合作与努力\n所有通过 Issues、Pull Requests 等方式参与本项目的贡献者</string>
+    <string name="app_about_thanks_info">CosineMath (BoatApp, https://github.com/CosineMath/) 启动器后端支持\nbangbang93 (BMCLAPI, http://bmclapi2.bangbang93.com/)中国国内高速下载源支持\nApp图标提供者 snajdovski\nAOF软件开发团队(AOF-Dev, https://github.com/AOF-Dev)的全体成员的合作与努力\n所有通过 Issues、Pull Requests 等方式参与本项目的贡献者</string>
     <string name="app_about_details_info">Minecraft 版权归 Mojang AB 所有，使用本软件产生的版权问题，软件制作方概不负责。请支持正版。</string>
-    <string name="app_about_opensource_info">https://github.com/longjunyu2/MCinaBox\n(本项目的开源遵守GPLv3协议,请遵守开源协议要求)</string>
+    <string name="app_about_opensource_info">https://github.com/longjunyu2/MCinaBox\n(本项目的遵循GPLv3许可证进行分发)</string>
+    <string name="app_about_pages">相关页</string>
+    <string name="app_about_donation">捐赠</string>
+    <string name="app_about_donation_info">BMCLAPI为国内提供了一个高速的Minecraft下载源，其本身是一个公益性质的项目，如果您想要支持它继续提供高速的下载服务，可以通过以下网址向它捐赠。\nhttps://afdian.net/@bangbang93</string>
 
     <string name="title_all">所有</string>
     <string name="title_in_game">游戏内</string>
@@ -167,7 +170,7 @@
     <string name="tips_contributors_list">贡献者名单</string>
     <string name="tips_contributors_full">以Github项目提供的为准</string>
     <string name="tips_unzip_failed">解压失败</string>
-    <string name="tips_user_namehint">用户名或账户</string>
+    <string name="tips_user_namehint">用户名或邮箱</string>
     <string name="tips_please_enter_password">请输入密码</string>
     <string name="tips_downloader_warn">如果长时间未显示列表，请手动点击"刷新"\n请耐心等待下载完成，如果下载较慢请尝试更换其他下载源</string>
     <string name="tips_launcher_path">注意：使用“私有目录”可以不必授予MCinaBox写入权限，但是卸载MCinaBox将会丢失“私有目录”中的全部资料！</string>
@@ -281,5 +284,14 @@
     <string name="tips_redirecting">正在重定向...</string>
     <string name="tips_please_download_authlib_injector">找不到authlib-injector库，是否现在下载？</string>
     <string name="tips_error">发生错误: %s</string>
+    <string name="tips_are_you_sure_to_delete_runtime">此操作将清除您已经安装的运行库，确定要就继续吗？</string>
+    <string name="tips_no_roles_in_current_account">当前账户中没有可用的角色。</string>
+    <string name="tips_logging">正在登录…</string>
+    <string name="tips_account_is_valid">您的账户有效，不需要刷新。</string>
+    <string name="tips_account_is_invalid">您的帐户无效。您想要立即刷新吗？</string>
+    <string name="tips_refreshing_account">正在刷新账户…</string>
+    <string name="tips_verifying_account">正在验证账户…</string>
+    <string name="tips_unzipping">解压中…</string>
+    <string name="tips_are_you_sure_to_auto_config_layout">你确定要自动配置布局吗？此操作将更改您的控制器，并自动计算可能合适的布局位置。</string>
 
 </resources>

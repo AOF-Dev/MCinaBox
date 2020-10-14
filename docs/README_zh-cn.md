@@ -1,5 +1,5 @@
 # MCinaBox - A Minecraft Java Edition Launcher on Android
-现在是简体中文[Change to English](./README.md)</br>
+[现在是简体中文] [Change to English](./README.md)</br>
 其他语言仍在翻译中。 请耐心等待（软件和某些页面）
 
 ## 面向开发者
@@ -68,9 +68,11 @@
 2. MCinaBox提供了自定义Minecraft工作目录的功能，您可以在 `左侧导航栏` - `游戏目录` 中配置您的Minecraft工作目录。
 3. MCinaBox提供了自定义游戏控制器的功能，您可以在 `左侧导航栏` - `虚拟键盘设置` 中创建您的虚拟键盘布局。
 
-### 正版登录
-1. MCinaBox支持Minecraft的正版验证，您可以在创建用户时，勾选 `正版登录` ，输入您的Mojang账户和密码来进行登录。
-2. MCinaBox不会以任何形式记录您的密码。
+### 服务器验证
+1. MCinaBox支持Minecraft的官方服务器验证，您可以在创建用户时，勾选 `在线登陆` ，输入您的Mojang账户和密码来进行登录。
+2. MCinaBox支持Authlib-Injector的服务器验证，您可以在创建用户时，勾选 `在线登陆` ，输入您的账户和密码和验证服务器的地址来进行登录。
+3. MCinaBox按照规范优先选择https协议进行通信。
+4. MCinaBox不会以任何形式记录您的密码。
 
 ## 预览
 
@@ -83,17 +85,16 @@
 1. Forge的加载动画会导致崩溃。
 2. 在低于1.6的Minecraft版本中启动似乎会出现X11错误。
 3. 无法初始化Minecraft 1.13.x。
-4. Minecraft 1.14.X〜1.15.X出现渲染问题。
 5. 有时候会发生lwjgl崩溃。
 
 ## 维护者
-[@longjunyu2](https://github.com/longjunyu2)
 [@AOF-Dev](https://github.com/AOF-Dev)
+[@longjunyu2](https://github.com/longjunyu2)
 
 ## 须知
 1. 本项目采用GPLv3开源协议，因此本项目所使用的全部开源项目均兼容GPLv3协议。
-2. 本项目所修改的开源项目均依照其开源许可进行源代码分发，例如: OpenJDK8-adopt、BoatApp。 您可以在AOF-Dev所拥有的仓库中找到对应源码
-3. 本项目所使用的被修改过的二进制文件均依照其开源许可进行源代码分发，例如: OpenJDK8-adopt。 您可以在AOF-Dev所拥有的仓库中找到对应源码。
+2. 本项目所修改的开源项目均依照其开源许可进行源代码分发。 您可以在AOF-Dev所拥有的仓库中找到对应源码
+3. 本项目所使用的被修改过的二进制文件均依照其开源许可进行源代码分发。 您可以在AOF-Dev所拥有的仓库中找到对应源码。
 4. 当您使用该项目时(包括二进制文件)，请您务必依据GPL分发您的源代码，否则您无权使用本项目，敬请知悉。
 
 ## 许可
@@ -107,6 +108,7 @@
 
 ### 贡献者列表:
 - [全部](https://github.com/longjunyu2/MCinaBox/graphs/contributors)
+- [补充]:
 - `MCredbear`
 - `TSaltedfishKing`
 - 所有提出Issues的人。
@@ -123,12 +125,14 @@
 * Gson (Google,Apache 2.0)
 * XZ for Java (Lasse Collin,Public Domain)
 * [JNDCrash (ivanarh,Apache-2.0)](https://github.com/ivanarh/jndcrash)
-* [GL4ES (pitiSeb,MIT)](https://github.com/ptitSeb/gl4es)
 * [FileDownloader (lingochamp,Apache-2.0)](https://github.com/lingochamp/FileDownloader)
 * [BubbleLayout (MasayukiSuda,All)](https://github.com/MasayukiSuda/BubbleLayout)
 * [AndroidRocker (kongqw,All)](https://github.com/kongqw/AndroidRocker)
-* [colorpicker (shixiuwen,All)](https://github.com/shixiuwen/colorpicker)
+* [colorpicker (QuadFlask,All)](https://github.com/QuadFlask/colorpicker)
+- `运行库`
+* [GL4ES (ptitSeb,MIT)](https://github.com/ptitSeb/gl4es)
 * [OpenJDK-8 (CosineMath,GPL-2.0)](https://github.com/CosineMath/openjdk-jdk8u-aarch32-android)
+* [OpenJDK-8 (CosineMath,GPL-2.0)](https://github.com/AOF-Dev/openjdk-aarch64-jdk8u-androidport)
 * [lwjgl2.x (CosineMath,All)](https://github.com/CosineMath/lwjgl-boat)
 * [lwjgl3.x (CosineMath,All)](https://github.com/CosineMath/lwjgl3-boat)
 * [glfw (CosineMath,All)](https://github.com/CosineMath/glfw-boat)

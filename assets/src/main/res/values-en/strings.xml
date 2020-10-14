@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-	<string name="app_about_mcinabox">MCinaBox Minecraft Launcher is a free and open source Minecraft launcher that allows players to install, manage, and play Minecraft Java Edition on Android devices conveniently and quickly. For launcher updates, please refer to the release page of the project’s GitHub page.\nWhen you use this software, it means that you have read and agree to the copyright information of this software, that you are willing to respect the work results of software developers, and that you are willing to comply The open source agreement of this software. \nThis software is still in the testing stage. If you have any questions, please send feedback to Github.</string>
+	<string name="app_about_mcinabox">MCinaBox Minecraft Launcher is a free and open source Minecraft launcher that allows players to install, manage, and play Minecraft Java Edition on Android devices conveniently and quickly. For launcher updates, please refer to the release page of the project’s GitHub page.\nWhen you use this software, it means that you have read and agree to the copyright information of this software, and that you are willing to comply The open source agreement of this software. \nThis software is still in the testing stage. If you have any questions, please send feedback to Github.</string>
 	<string name="app_about_copyright">Copyrights</string>
 	<string name="app_about_developer">Developers</string>
 	<string name="app_about_contributor">Contributors</string>
@@ -8,9 +8,13 @@
 	<string name="app_about_dependent">Dependents</string>
 	<string name="app_about_details">Disclaimer</string>
 	<string name="app_about_opensource">Open Source</string>
-	<string name="app_about_thanks_info">CosineMath (BoatApp, https://github.com/CosineMath/) Launcher backend support\nbangbang93 (BMCLAPI, http://bmclapi2.bangbang93.com/) Chinese domestic high-speed download source support\nApp icon provider MCredbear\nThe cooperation and efforts of all members of the AOF software development team\nAll contributors who participated in this project through Issues, Pull Requests, etc.</string>
+	<string name="app_about_thanks_info">CosineMath (BoatApp, https://github.com/CosineMath/) Launcher backend support\nbangbang93 (BMCLAPI, http://bmclapi2.bangbang93.com/) Chinese domestic high-speed download source support\nApp icon provider snajdovski\nThe cooperation and efforts of all members of the AOF software development team(AOF-Dev, https://github.com/AOF-Dev)\nAll contributors who participated in this project through Issues, Pull Requests, etc.</string>
 	<string name="app_about_details_info">The copyright of Minecraft belongs to Mojang AB. The software producer is not responsible for copyright issues arising from the use of this software. Please support genuinely.</string>
-	<string name="app_about_opensource_info">https://github.com/longjunyu2/MCinaBox\n(The source of this project complies with the GPLv3 agreement, please comply with the requirements of the open source agreement.)</string>
+	<string name="app_about_opensource_info">https://github.com/longjunyu2/MCinaBox\n(Follow GPLv3 License Distribution)</string>
+	<string name="app_about_pages">Pages</string>
+	<string name="app_about_donation">Donation</string>
+	<string name="app_about_donation_info">BMCLAPI provides a high-speed minecraft download source. It is a public welfare project. If you want to support the operation of the project, you can donate it through the following website.\nhttps://afdian.net/@bangbang93</string>
+
 
 	<string name="title_all">All</string>
 	<string name="title_in_game">In-game</string>
@@ -167,7 +171,7 @@
 	<string name="tips_contributors_list">List of Contributors</string>
 	<string name="tips_contributors_full">Subject to the Github project provided</string>
 	<string name="tips_unzip_failed">Unzip Failed</string>
-	<string name="tips_user_namehint">Username or account</string>
+	<string name="tips_user_namehint">Username or email</string>
 	<string name="tips_please_enter_password">Please enter your password</string>
 	<string name="tips_downloader_warn">If the list is not displayed for a long time, please manually click "Refresh"\nPlease be patient and wait for the download to complete. If the download is slow, please try to change to another download source.</string>
 	<string name="tips_launcher_path">Note: Using "Private Directory" does not need to grant MCinaBox write permissions, but uninstalling MCinaBox will lose all the data in the "Private Directory"!</string>
@@ -278,8 +282,17 @@
 	<string name="tips_please_change_file_name">Please change the file name!</string>
 	<string name="tips_memory_over_total_size">Memory limit is over total memory.</string>
 	<string name="tips_please_enter_server">The default is the official Mojang server</string>
-	<string name="tips_redirecting">Redirecting...</string>
+	<string name="tips_redirecting">Redirecting…</string>
 	<string name="tips_please_download_authlib_injector">Missing authlib-injector library. Do you want to download it now?</string>
 	<string name="tips_error">Error: %s</string>
+	<string name="tips_are_you_sure_to_delete_runtime">This operation will clear the runtime you have installed. Are you sure you want to continue?</string>
+	<string name="tips_no_roles_in_current_account">There are no roles available in the current account.</string>
+	<string name="tips_logging">logging…</string>
+	<string name="tips_account_is_valid">Your account is valid and does not need to be refreshed.</string>
+	<string name="tips_account_is_invalid">Your account is invalid. Do you want to refresh now?</string>
+	<string name="tips_refreshing_account">Refreshing account…</string>
+	<string name="tips_verifying_account">Verifying account…</string>
+	<string name="tips_unzipping">Unzipping…</string>
+	<string name="tips_are_you_sure_to_auto_config_layout">Are you sure you want to configure the layout automatically? This will change your controller and automatically calculate possible layout locations.</string>
 
 </resources>
