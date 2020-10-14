@@ -70,6 +70,7 @@ public class LoginServer {
         this.mContext = context;
         if(url == null || url.equals("")) account.setApiUrl(MOJANG_URL);
         else if (!url.startsWith("http")) account.setApiUrl("https://".concat(url));
+        else account.setApiUrl(url);
         this.account = account;
         isLogining = false;
     }
