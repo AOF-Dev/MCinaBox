@@ -14,6 +14,10 @@ android {
             }
         }
     }
+      lintOptions {
+          abortOnError false
+      }
+  }
     buildTypes {
         release {
             minifyEnabled false
@@ -26,7 +30,7 @@ android {
         }
     }
 
-    ndkVersion '21.3.6528147'
+    ndkVersion '16.1.4479499'
 }
 
 dependencies {
