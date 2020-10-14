@@ -141,7 +141,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:background="#00ffffff"
-                android:text="主题" />
+                android:text="@string/title_theme" />
 
             <LinearLayout
                 android:layout_width="match_parent"
