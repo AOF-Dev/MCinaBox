@@ -28,9 +28,6 @@ android {
 
     ndkVersion '21.3.6528147'
 }
-    lintOptions{
-        abortOnError false
-    }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
