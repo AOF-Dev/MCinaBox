@@ -13,9 +13,10 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
+    - name: Install NDK
+      run: echo "y" | sudo ${ANDROID_HOME}/tools/bin/sdkmanager --install "ndk;16.1.4479499" --sdk_root=${ANDROID_SDK_ROOT}
     - name: Build with Gradle
       run: chmod +x gradlew && ./gradlew build
-# should test???
 
     - name: Upload APK
       uses: actions/upload-artifact@v2
