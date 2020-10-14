@@ -292,5 +292,6 @@
     <string name="tips_refreshing_account">正在刷新账户…</string>
     <string name="tips_verifying_account">正在验证账户…</string>
     <string name="tips_unzipping">解压中…</string>
+    <string name="tips_are_you_sure_to_auto_config_layout">你确定要自动配置布局吗？此操作将更改您的控制器，并自动计算可能合适的布局位置。</string>
 
 </resources>

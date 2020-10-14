@@ -314,7 +314,7 @@ public class VirtualController extends BaseController implements AppEvent , View
         }
 
         if(v == buttonResetPos){
-            DialogUtils.createBothChoicesDialog(context,"自动配置布局","你确定要自动配置布局吗？此操作将更改您的控制器，并自动计算可能合适的布局位置。","确定","取消",new DialogSupports(){
+            DialogUtils.createBothChoicesDialog(context,mContext.getString(R.string.title_note),mContext.getString(R.string.tips_are_you_sure_to_auto_config_layout),mContext.getString(R.string.title_ok),mContext.getString(R.string.title_cancel),new DialogSupports(){
                 @Override
                 public void runWhenPositive(){
                     resetAllPosOnScreen();

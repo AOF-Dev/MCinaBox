@@ -293,5 +293,6 @@
 	<string name="tips_refreshing_account">Refreshing account…</string>
 	<string name="tips_verifying_account">Verifying account…</string>
 	<string name="tips_unzipping">Unzipping…</string>
+	<string name="tips_are_you_sure_to_auto_config_layout">Are you sure you want to configure the layout automatically? This will change your controller and automatically calculate possible layout locations.</string>
 
 </resources>
