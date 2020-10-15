@@ -27,13 +27,13 @@
             android:layout_margin="5dp"
             android:text="@string/title_global_setting"
             android:textColor="@color/text_info"
-            android:textSize="@dimen/text_mid"/>
+            android:textSize="@dimen/text_mid" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
 
         <Button
             android:id="@+id/virtual_controller_dialog_button_reset_pos"
@@ -41,7 +41,7 @@
             android:layout_height="20dp"
             android:layout_margin="5dp"
             android:layout_gravity="center"
-            android:background="@drawable/ic_refresh_black_24dp"/>
+            android:background="@drawable/ic_refresh_black_24dp" />
 
         <CheckBox
             android:id="@+id/virtual_controller_dialog_checkbox_lock"
@@ -51,7 +51,7 @@
             android:layout_gravity="center"
             android:button="@null"
             android:background="@drawable/checkbox_lock"
-            android:checked="false"/>
+            android:checked="false" />
 
     </LinearLayout>
 

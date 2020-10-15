@@ -55,7 +55,7 @@ public class SettingJson {
         private boolean enableDebug; //启用调试
         private boolean enableAutoMemory; //启用自动内存设定
 
-        public Configurations(){
+        public Configurations() {
             super();
         }
 
@@ -69,11 +69,11 @@ public class SettingJson {
             return this;
         }
 
-        public boolean isEnableDebug(){
+        public boolean isEnableDebug() {
             return enableDebug;
         }
 
-        public Configurations setDebug(boolean b){
+        public Configurations setDebug(boolean b) {
             this.enableDebug = b;
             return this;
         }
@@ -114,48 +114,48 @@ public class SettingJson {
             return this;
         }
 
-        public boolean isNotCheckTipper(){
+        public boolean isNotCheckTipper() {
             return notCheckTipper;
         }
 
-        public Configurations setNotCheckTipper(boolean b){
+        public Configurations setNotCheckTipper(boolean b) {
             this.notCheckTipper = b;
             return this;
         }
 
-        public Configurations setAlwaysChoiceRuntimeMainfest(boolean b){
+        public Configurations setAlwaysChoiceRuntimeMainfest(boolean b) {
             this.alwaysChoiceRuntimeManifest = b;
             return this;
         }
 
-        public boolean isAlwaysChoiceRuntimeManifest(){
+        public boolean isAlwaysChoiceRuntimeManifest() {
             return this.alwaysChoiceRuntimeManifest;
         }
 
-        public Configurations setNotCheckForge(boolean b){
+        public Configurations setNotCheckForge(boolean b) {
             this.notCheckForge = b;
             return this;
         }
 
-        public boolean isNotCheckForge(){
+        public boolean isNotCheckForge() {
             return this.notCheckForge;
         }
 
-        public Configurations setAutoMemory(boolean b){
+        public Configurations setAutoMemory(boolean b) {
             this.enableAutoMemory = b;
             return this;
         }
 
-        public boolean isEnableAutoMemory(){
+        public boolean isEnableAutoMemory() {
             return this.enableAutoMemory;
         }
 
-        public Configurations setNotCheckOptions(boolean b){
+        public Configurations setNotCheckOptions(boolean b) {
             this.notCheckOptions = b;
             return this;
         }
 
-        public boolean isNotCheckOptions(){
+        public boolean isNotCheckOptions() {
             return this.notCheckOptions;
         }
 
@@ -174,7 +174,7 @@ public class SettingJson {
         String serverName;
         boolean selected; //是否被选中
 
-        public Account(){
+        public Account() {
             super();
         }
 
@@ -307,20 +307,20 @@ public class SettingJson {
         return this;
     }
 
-    public boolean isBackgroundAutoSwitch(){
+    public boolean isBackgroundAutoSwitch() {
         return this.backgroundAutoSwitch;
     }
 
-    public SettingJson setBackgroundAutoSwitch(boolean b){
+    public SettingJson setBackgroundAutoSwitch(boolean b) {
         this.backgroundAutoSwitch = b;
         return this;
     }
 
-    public boolean isFullscreen(){
+    public boolean isFullscreen() {
         return this.fullscreen;
     }
 
-    public SettingJson setFullscreen(boolean b){
+    public SettingJson setFullscreen(boolean b) {
         this.fullscreen = b;
         return this;
     }

@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
+
 import com.aof.mcinabox.MainActivity;
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.definitions.manifest.AppManifest;
@@ -18,7 +19,6 @@ import com.aof.utils.FileTool;
 import com.aof.utils.dialog.DialogUtils;
 import com.aof.utils.dialog.support.TaskDialog;
 import com.google.gson.Gson;
-import com.google.gson.JsonIOException;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -38,11 +38,11 @@ public class RuntimeManager {
      **/
     public static void installRuntimeFromPath(final Context context, String globalPath) {
 
-        final TaskDialog mDialog = DialogUtils.createTaskDialog(context,"","",false);
+        final TaskDialog mDialog = DialogUtils.createTaskDialog(context, "", "", false);
         mDialog.show();
-        @SuppressLint("HandlerLeak") final Handler mHandler = new Handler(){
+        @SuppressLint("HandlerLeak") final Handler mHandler = new Handler() {
             @Override
-            public void handleMessage(Message msg){
+            public void handleMessage(Message msg) {
                 switch (msg.what) {
                     case 3:
                         mDialog.setTotalTaskName(context.getString(R.string.tips_installing_runtime));
@@ -80,7 +80,7 @@ public class RuntimeManager {
                     }
                 }
                 File dir = new File(AppManifest.BOAT_RUNTIME_HOME);
-                if(!dir.exists()){
+                if (!dir.exists()) {
                     FileTool.makeFloder(dir.getAbsolutePath());
                 }
                 BoatUtils.extractTarXZ(mpackagePath, AppManifest.BOAT_RUNTIME_HOME);
@@ -91,7 +91,7 @@ public class RuntimeManager {
                 }
             }
 
-            public void sendMsg(int what){
+            public void sendMsg(int what) {
                 Message msg = new Message();
                 msg.what = what;
                 mHandler.sendMessage(msg);
@@ -99,7 +99,7 @@ public class RuntimeManager {
         }.start();
     }
 
-    public static RuntimePackInfo getPackInfo(String path){
+    public static RuntimePackInfo getPackInfo(String path) {
         File file = new File(path);
         try {
             InputStream inputStream = new FileInputStream(file);
@@ -109,62 +109,62 @@ public class RuntimeManager {
             return gson.fromJson(reader, RuntimePackInfo.class);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            Log.e(TAG,"packinfo.json not found.");
-        } catch (Exception e){
+            Log.e(TAG, "packinfo.json not found.");
+        } catch (Exception e) {
             e.printStackTrace();
-            Log.e(TAG,e.getMessage());
+            Log.e(TAG, e.getMessage());
         }
         return null;
     }
 
-    public static RuntimePackInfo getPackInfo(){
+    public static RuntimePackInfo getPackInfo() {
         return getPackInfo(AppManifest.BOAT_RUNTIME_INFO_JSON);
     }
 
-    public static RuntimePackInfo.Manifest[] getRuntinmeInfoManifest(String infoPath, VersionJson version){
+    public static RuntimePackInfo.Manifest[] getRuntinmeInfoManifest(String infoPath, VersionJson version) {
         ArrayList<RuntimePackInfo.Manifest> mabifests = new ArrayList<>();
         RuntimePackInfo info = RuntimeManager.getPackInfo(infoPath);
         RuntimePackInfo.Manifest[] originalManifests = Objects.requireNonNull(info).manifest;
         //默认清单
-        for(RuntimePackInfo.Manifest m : originalManifests){
-            if(m.condition.equals(Definitions.RUNTIME_CONDITION_AS_DEFAULT)){
+        for (RuntimePackInfo.Manifest m : originalManifests) {
+            if (m.condition.equals(Definitions.RUNTIME_CONDITION_AS_DEFAULT)) {
                 mabifests.add(m);
                 break;
             }
         }
 
         //根据启动器版本
-        for(RuntimePackInfo.Manifest m : originalManifests){
-            if(m.condition.equals(Definitions.RUNTIME_CONDITION_AS_LAUNCHER_VERSION) & ConditionResolve.handleConditionWithLauncherVersion(version.getMinimumLauncherVersion(), m.condition_info)){
+        for (RuntimePackInfo.Manifest m : originalManifests) {
+            if (m.condition.equals(Definitions.RUNTIME_CONDITION_AS_LAUNCHER_VERSION) & ConditionResolve.handleConditionWithLauncherVersion(version.getMinimumLauncherVersion(), m.condition_info)) {
                 mabifests.add(m);
             }
         }
 
         //根据游戏版本
-        for(RuntimePackInfo.Manifest m : originalManifests){
-            if(m.condition.equals(Definitions.RUNTIME_CONDITION_AS_MINECRAFT_VERSION)  & ConditionResolve.handleConditionWithMinecraftVersion(version.getId(),m.condition_info)){
+        for (RuntimePackInfo.Manifest m : originalManifests) {
+            if (m.condition.equals(Definitions.RUNTIME_CONDITION_AS_MINECRAFT_VERSION) & ConditionResolve.handleConditionWithMinecraftVersion(version.getId(), m.condition_info)) {
                 mabifests.add(m);
             }
         }
 
         RuntimePackInfo.Manifest[] tmp = new RuntimePackInfo.Manifest[mabifests.size()];
-        for(int a =0; a < tmp.length; a++){
+        for (int a = 0; a < tmp.length; a++) {
             tmp[a] = mabifests.get(a);
         }
         return tmp;
     }
 
-    public static RuntimePackInfo.Manifest[] getRuntinmeInfoManifest(VersionJson version){
+    public static RuntimePackInfo.Manifest[] getRuntinmeInfoManifest(VersionJson version) {
         return getRuntinmeInfoManifest(AppManifest.BOAT_RUNTIME_INFO_JSON, version);
     }
 
-    public static void clearRuntime(final Context context){
+    public static void clearRuntime(final Context context) {
 
-        final TaskDialog mDialog = DialogUtils.createTaskDialog(context,"","",false);
+        final TaskDialog mDialog = DialogUtils.createTaskDialog(context, "", "", false);
         mDialog.show();
-        @SuppressLint("HandlerLeak") final Handler mHandler = new Handler(){
+        @SuppressLint("HandlerLeak") final Handler mHandler = new Handler() {
             @Override
-            public void handleMessage(Message msg){
+            public void handleMessage(Message msg) {
                 switch (msg.what) {
                     case 1:
                         mDialog.setTotalTaskName(context.getString(R.string.tips_installing_runtime));
@@ -177,18 +177,18 @@ public class RuntimeManager {
             }
         };
 
-        new Thread(){
+        new Thread() {
             @Override
-            public void run(){
+            public void run() {
                 sendMsg(1);
                 File file = new File(AppManifest.BOAT_RUNTIME_HOME);
-                if(file.exists()){
+                if (file.exists()) {
                     FileTool.deleteDir(file.getAbsolutePath());
                 }
                 sendMsg(2);
             }
 
-            public void sendMsg(int what){
+            public void sendMsg(int what) {
                 Message msg = new Message();
                 msg.what = what;
                 mHandler.sendMessage(msg);

@@ -10,12 +10,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
+
 import com.aof.mcinabox.MainActivity;
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.mcinabox.launcher.user.UserManager;
-import com.aof.utils.dialog.support.DialogSupports;
 import com.aof.utils.dialog.DialogUtils;
+import com.aof.utils.dialog.support.DialogSupports;
 import com.aof.utils.dialog.support.TaskDialog;
 
 import java.util.ArrayList;
@@ -102,7 +103,8 @@ public class UserListAdapter extends BaseAdapter {
                         @Override
                         public void runWhenPositive() {
                             new LoginServer(userlist.get(position)).setCallback(new LoginServer.Callback() {
-                                TaskDialog mDialog = DialogUtils.createTaskDialog(context,context.getString(R.string.tips_verifying_account),"",false);
+                                TaskDialog mDialog = DialogUtils.createTaskDialog(context, context.getString(R.string.tips_verifying_account), "", false);
+
                                 @Override
                                 public void onStart() {
                                     mDialog.show();
@@ -110,25 +112,27 @@ public class UserListAdapter extends BaseAdapter {
 
                                 @Override
                                 public void onFailed(Exception e) {
-                                    DialogUtils.createSingleChoiceDialog(context,context.getString(R.string.title_error),String.format(context.getString(R.string.tips_error),e.getMessage()),context.getString(R.string.title_ok),null);
+                                    DialogUtils.createSingleChoiceDialog(context, context.getString(R.string.title_error), String.format(context.getString(R.string.tips_error), e.getMessage()), context.getString(R.string.title_ok), null);
                                 }
 
                                 @Override
-                                public void onLoginSuccess(SettingJson.Account account, AuthenticateResponse response) {}
+                                public void onLoginSuccess(SettingJson.Account account, AuthenticateResponse response) {
+                                }
 
                                 @Override
                                 public void onValidateSuccess(SettingJson.Account account) {
-                                    DialogUtils.createSingleChoiceDialog(context,context.getString(R.string.title_note),context.getString(R.string.tips_account_is_valid),context.getString(R.string.title_ok),null);
+                                    DialogUtils.createSingleChoiceDialog(context, context.getString(R.string.title_note), context.getString(R.string.tips_account_is_valid), context.getString(R.string.title_ok), null);
                                 }
 
                                 @Override
                                 public void onValidateFailed(final SettingJson.Account account) {
-                                    DialogUtils.createBothChoicesDialog(context,context.getString(R.string.title_note),context.getString(R.string.tips_account_is_invalid),context.getString(R.string.title_ok),context.getString(R.string.title_cancel),new DialogSupports(){
+                                    DialogUtils.createBothChoicesDialog(context, context.getString(R.string.title_note), context.getString(R.string.tips_account_is_invalid), context.getString(R.string.title_ok), context.getString(R.string.title_cancel), new DialogSupports() {
                                         @Override
                                         public void runWhenPositive() {
                                             super.runWhenPositive();
                                             new LoginServer(account, context).setCallback(new LoginServer.Callback() {
-                                                TaskDialog mDialog = DialogUtils.createTaskDialog(context,context.getString(R.string.tips_refreshing_account),"",false);
+                                                TaskDialog mDialog = DialogUtils.createTaskDialog(context, context.getString(R.string.tips_refreshing_account), "", false);
+
                                                 @Override
                                                 public void onStart() {
                                                     mDialog.show();
@@ -136,25 +140,28 @@ public class UserListAdapter extends BaseAdapter {
 
                                                 @Override
                                                 public void onFailed(Exception e) {
-                                                    DialogUtils.createSingleChoiceDialog(context,context.getString(R.string.title_error),String.format(context.getString(R.string.tips_error),e.getMessage()),context.getString(R.string.title_ok),null);
+                                                    DialogUtils.createSingleChoiceDialog(context, context.getString(R.string.title_error), String.format(context.getString(R.string.tips_error), e.getMessage()), context.getString(R.string.title_ok), null);
                                                 }
 
                                                 @Override
                                                 public void onLoginSuccess(SettingJson.Account account, AuthenticateResponse response) {
-                                                        account.setAccessToken(response.accessToken);
-                                                        account.setUuid(response.selectedProfile.id);
-                                                        account.setUsername(response.selectedProfile.name);
-                                                        account.setSelected(false);
+                                                    account.setAccessToken(response.accessToken);
+                                                    account.setUuid(response.selectedProfile.id);
+                                                    account.setUsername(response.selectedProfile.name);
+                                                    account.setSelected(false);
                                                 }
 
                                                 @Override
-                                                public void onValidateSuccess(SettingJson.Account account) {}
+                                                public void onValidateSuccess(SettingJson.Account account) {
+                                                }
 
                                                 @Override
-                                                public void onValidateFailed(SettingJson.Account account) {}
+                                                public void onValidateFailed(SettingJson.Account account) {
+                                                }
 
                                                 @Override
-                                                public void onRefreshSuccess(SettingJson.Account account, AuthenticateResponse response) {}
+                                                public void onRefreshSuccess(SettingJson.Account account, AuthenticateResponse response) {
+                                                }
 
                                                 @Override
                                                 public void onFinish() {
@@ -166,7 +173,8 @@ public class UserListAdapter extends BaseAdapter {
                                 }
 
                                 @Override
-                                public void onRefreshSuccess(SettingJson.Account account, AuthenticateResponse response) {}
+                                public void onRefreshSuccess(SettingJson.Account account, AuthenticateResponse response) {
+                                }
 
                                 @Override
                                 public void onFinish() {

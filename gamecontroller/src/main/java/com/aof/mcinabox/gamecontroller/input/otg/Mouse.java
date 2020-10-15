@@ -22,18 +22,18 @@ public class Mouse implements HwInput {
 
     @Override
     public boolean onKey(KeyEvent event) {
-        Log.e(TAG,event.toString());
-        Log.e(TAG,event.getDevice().toString());
+        Log.e(TAG, event.toString());
+        Log.e(TAG, event.getDevice().toString());
         return true;
     }
 
     @Override
     public boolean onMotionKey(MotionEvent event) {
-        Log.e(TAG,event.toString());
-        Log.e(TAG,event.getDevice().toString());
-        switch (event.getAction()){
+        Log.e(TAG, event.toString());
+        Log.e(TAG, event.getDevice().toString());
+        switch (event.getAction()) {
             case MotionEvent.ACTION_HOVER_MOVE:
-                sendPointer((int)event.getX(), (int)event.getY());
+                sendPointer((int) event.getX(), (int) event.getY());
                 break;
         }
         return true;

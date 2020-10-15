@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="30dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- ========================================开始游戏栏======================================== -->
 

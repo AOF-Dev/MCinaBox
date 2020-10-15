@@ -21,12 +21,12 @@ import com.aof.mcinabox.gamecontroller.R;
 import com.aof.mcinabox.gamecontroller.controller.Controller;
 import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
 import com.aof.mcinabox.gamecontroller.input.OnscreenInput;
-import com.aof.utils.dialog.support.DialogSupports;
-import com.aof.utils.dialog.DialogUtils;
 import com.aof.utils.DisplayUtils;
+import com.aof.utils.dialog.DialogUtils;
+import com.aof.utils.dialog.support.DialogSupports;
 import com.kongqw.rockerlibrary.view.RockerView;
 
-public class OnscreenJoystick implements OnscreenInput , RockerView.OnShakeListener , KeyMap {
+public class OnscreenJoystick implements OnscreenInput, RockerView.OnShakeListener, KeyMap {
 
     private LinearLayout onscreenJoystick;
     private RockerView joystick;
@@ -59,9 +59,9 @@ public class OnscreenJoystick implements OnscreenInput , RockerView.OnShakeListe
     @Override
     public void setUiMoveable(boolean moveable) {
         this.moveable = moveable;
-        if(moveable){
+        if (moveable) {
             buttonMove.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             buttonMove.setVisibility(View.INVISIBLE);
         }
     }
@@ -73,7 +73,7 @@ public class OnscreenJoystick implements OnscreenInput , RockerView.OnShakeListe
 
     @Override
     public float[] getPos() {
-        return (new float[]{onscreenJoystick.getX(),onscreenJoystick.getY()});
+        return (new float[]{onscreenJoystick.getX(), onscreenJoystick.getY()});
     }
 
     @Override
@@ -84,13 +84,13 @@ public class OnscreenJoystick implements OnscreenInput , RockerView.OnShakeListe
     @Override
     public void setMargins(int left, int top, int right, int bottom) {
         ViewGroup.LayoutParams p = onscreenJoystick.getLayoutParams();
-        ((ViewGroup.MarginLayoutParams)p).setMargins(left,top,0,0);
+        ((ViewGroup.MarginLayoutParams) p).setMargins(left, top, 0, 0);
         onscreenJoystick.setLayoutParams(p);
     }
 
     @Override
     public int[] getSize() {
-        return new int[]{onscreenJoystick.getLayoutParams().width,onscreenJoystick.getLayoutParams().height};
+        return new int[]{onscreenJoystick.getLayoutParams().width, onscreenJoystick.getLayoutParams().height};
 
     }
 
@@ -106,20 +106,21 @@ public class OnscreenJoystick implements OnscreenInput , RockerView.OnShakeListe
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        if(v == buttonMove){
-            if(moveable){
-                moveViewByTouch(onscreenJoystick,event);
+        if (v == buttonMove) {
+            if (moveable) {
+                moveViewByTouch(onscreenJoystick, event);
             }
         }
         return false;
     }
 
     private int[] viewPos = new int[2];
-    private void moveViewByTouch(View v , MotionEvent e){
-        switch(e.getAction()){
+
+    private void moveViewByTouch(View v, MotionEvent e) {
+        switch (e.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                viewPos[0] = (int)e.getRawX();
-                viewPos[1] = (int)e.getRawY();
+                viewPos[0] = (int) e.getRawX();
+                viewPos[1] = (int) e.getRawY();
                 break;
             case MotionEvent.ACTION_MOVE:
                 int dx = (int) e.getRawX() - viewPos[0];
@@ -129,30 +130,30 @@ public class OnscreenJoystick implements OnscreenInput , RockerView.OnShakeListe
                 int r = v.getRight() + dx;
                 int t = v.getTop() + dy;
                 //下面判断移动是否超出屏幕
-                if(l < 0){
+                if (l < 0) {
                     l = 0;
                     r = l + v.getWidth();
                 }
-                if(t < 0){
+                if (t < 0) {
                     t = 0;
-                    b = t+ v.getHeight();
+                    b = t + v.getHeight();
                 }
-                if(r > screenWidth){
+                if (r > screenWidth) {
                     r = screenWidth;
                     l = r - v.getWidth();
                 }
-                if(b > screenHeight){
+                if (b > screenHeight) {
                     b = screenHeight;
                     t = b - v.getHeight();
                 }
-                v.layout(l,t,r,b);
-                viewPos[0] = (int)e.getRawX();
-                viewPos[1] = (int)e.getRawY();
+                v.layout(l, t, r, b);
+                viewPos[0] = (int) e.getRawX();
+                viewPos[1] = (int) e.getRawY();
                 v.postInvalidate();
                 break;
             case MotionEvent.ACTION_UP:
                 ViewGroup.LayoutParams p = v.getLayoutParams();
-                ((ViewGroup.MarginLayoutParams)p).setMargins(v.getLeft(),v.getTop(),0,0);
+                ((ViewGroup.MarginLayoutParams) p).setMargins(v.getLeft(), v.getTop(), 0, 0);
                 v.setLayoutParams(p);
                 break;
             default:
@@ -168,17 +169,17 @@ public class OnscreenJoystick implements OnscreenInput , RockerView.OnShakeListe
         screenHeight = context.getResources().getDisplayMetrics().heightPixels;
 
         onscreenJoystick = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.virtual_joystick, null);
-        mController.addContentView(onscreenJoystick,new ViewGroup.LayoutParams(DisplayUtils.getPxFromDp(mContext,widthDp), DisplayUtils.getPxFromDp(mContext,heightDp)));
+        mController.addContentView(onscreenJoystick, new ViewGroup.LayoutParams(DisplayUtils.getPxFromDp(mContext, widthDp), DisplayUtils.getPxFromDp(mContext, heightDp)));
 
         joystick = onscreenJoystick.findViewById(R.id.joystick_rocker);
         buttonMove = onscreenJoystick.findViewById(R.id.joystick_move);
 
         //设定监听
         buttonMove.setOnTouchListener(this);
-        joystick.setOnShakeListener(RockerView.DirectionMode.DIRECTION_8,this);
+        joystick.setOnShakeListener(RockerView.DirectionMode.DIRECTION_8, this);
 
         //设定配置器
-        configDialog = new OnscreenJoystickConfigDialog(mContext,this);
+        configDialog = new OnscreenJoystickConfigDialog(mContext, this);
 
         return true;
     }
@@ -212,10 +213,11 @@ public class OnscreenJoystick implements OnscreenInput , RockerView.OnShakeListe
     }
 
     private String lastKeyName = "";
+
     @Override
     public void direction(RockerView.Direction direction) {
         String keyName;
-        switch(direction){
+        switch (direction) {
             case DIRECTION_UP:
                 keyName = KEYMAP_KEY_W;
                 break;
@@ -244,10 +246,10 @@ public class OnscreenJoystick implements OnscreenInput , RockerView.OnShakeListe
                 return;
         }
 
-        if(lastKeyName == null || lastKeyName.equals("") || ! lastKeyName.equals(keyName)){
-            this.sendKeyEvent(keyName,true);
-            if( lastKeyName != null && !lastKeyName.equals("")){
-                this.sendKeyEvent(lastKeyName,false);
+        if (lastKeyName == null || lastKeyName.equals("") || !lastKeyName.equals(keyName)) {
+            this.sendKeyEvent(keyName, true);
+            if (lastKeyName != null && !lastKeyName.equals("")) {
+                this.sendKeyEvent(lastKeyName, false);
             }
             this.lastKeyName = keyName;
         }
@@ -261,7 +263,7 @@ public class OnscreenJoystick implements OnscreenInput , RockerView.OnShakeListe
     }
 
     private void updateUI() {
-        if(enable){
+        if (enable) {
             switch (mController.getInputMode()) {
                 case KeyMode.MARK_INPUT_MODE_ALONE:
                     if (show == SHOW_ALL || show == SHOW_OUT_GAME) {
@@ -278,7 +280,7 @@ public class OnscreenJoystick implements OnscreenInput , RockerView.OnShakeListe
                     }
                     break;
             }
-        }else{
+        } else {
             setUiVisibility(View.GONE);
         }
     }
@@ -294,16 +296,16 @@ public class OnscreenJoystick implements OnscreenInput , RockerView.OnShakeListe
 
     @Override
     public void onFinish() {
-        if(lastKeyName != null && !lastKeyName.equals("")){
-            this.sendKeyEvent(lastKeyName,false);
+        if (lastKeyName != null && !lastKeyName.equals("")) {
+            this.sendKeyEvent(lastKeyName, false);
         }
     }
 
-    private void sendKeyEvent(String keyName, boolean pressed){
+    private void sendKeyEvent(String keyName, boolean pressed) {
         mController.sendKey(new BaseKeyEvent(TAG, keyName, pressed, type, null));
     }
 
-    public void setSize(int s){
+    public void setSize(int s) {
         ViewGroup.LayoutParams p = onscreenJoystick.getLayoutParams();
         p.height = s;
         p.width = s;
@@ -314,7 +316,7 @@ public class OnscreenJoystick implements OnscreenInput , RockerView.OnShakeListe
         joystick.invalidate();
     }
 
-    public void setAlpha(float a){
+    public void setAlpha(float a) {
         onscreenJoystick.setAlpha(a);
     }
 
@@ -367,7 +369,7 @@ class OnscreenJoystickConfigDialog extends Dialog implements View.OnClickListene
     private final static String sp_pos_y_name = "pos_y";
     private final static String sp_show_name = "show";
 
-    public OnscreenJoystickConfigDialog(Context context, OnscreenInput input){
+    public OnscreenJoystickConfigDialog(Context context, OnscreenInput input) {
         super(context);
         setContentView(R.layout.dialog_onscreen_joystick_config);
         this.mContext = context;
@@ -375,7 +377,7 @@ class OnscreenJoystickConfigDialog extends Dialog implements View.OnClickListene
         init();
     }
 
-    private void init(){
+    private void init() {
         this.setCanceledOnTouchOutside(false);
         this.setOnCancelListener(this);
 
@@ -391,10 +393,10 @@ class OnscreenJoystickConfigDialog extends Dialog implements View.OnClickListene
         rbtOutGame = this.findViewById(R.id.input_onscreen_joystick_dialog_rbt_out_game);
 
         //设定监听
-        for(View v : new View[]{buttonOK,buttonCancel,buttonRestore}){
+        for (View v : new View[]{buttonOK, buttonCancel, buttonRestore}) {
             v.setOnClickListener(this);
         }
-        for(SeekBar s: new SeekBar[]{seekbarSize,seekbarAlpha}){
+        for (SeekBar s : new SeekBar[]{seekbarSize, seekbarAlpha}) {
             s.setOnSeekBarChangeListener(this);
         }
         for (RadioButton rbt : new RadioButton[]{rbtAll, rbtInGame, rbtOutGame}) {
@@ -415,10 +417,10 @@ class OnscreenJoystickConfigDialog extends Dialog implements View.OnClickListene
 
     @Override
     public void onCancel(DialogInterface dialog) {
-        if(dialog == this){
+        if (dialog == this) {
             seekbarAlpha.setProgress(originalAlphaProgress);
             seekbarSize.setProgress(originalSizeProgress);
-            mInput.setMargins(originalMarginLeft,originalMarginTop,0,0);
+            mInput.setMargins(originalMarginLeft, originalMarginTop, 0, 0);
             switch (originalShow) {
                 case OnscreenJoystick.SHOW_ALL:
                     rbtAll.setChecked(true);
@@ -434,34 +436,34 @@ class OnscreenJoystickConfigDialog extends Dialog implements View.OnClickListene
     }
 
     @Override
-    public void show(){
+    public void show() {
         super.show();
         originalAlphaProgress = seekbarAlpha.getProgress();
         originalSizeProgress = seekbarSize.getProgress();
-        originalMarginLeft = (int)mInput.getPos()[0];
-        originalMarginTop = (int)mInput.getPos()[1];
-        originalShow = ((OnscreenJoystick)mInput).getShowStat();
+        originalMarginLeft = (int) mInput.getPos()[0];
+        originalMarginTop = (int) mInput.getPos()[1];
+        originalShow = ((OnscreenJoystick) mInput).getShowStat();
     }
 
     @Override
-    public void onStop(){
+    public void onStop() {
         super.onStop();
         saveConfigToFile();
     }
 
     @Override
     public void onClick(View v) {
-        if(v == buttonOK){
+        if (v == buttonOK) {
             this.dismiss();
         }
-        if(v == buttonCancel){
+        if (v == buttonCancel) {
             this.cancel();
         }
-        if(v == buttonRestore){
+        if (v == buttonRestore) {
 
-            DialogUtils.createBothChoicesDialog(mContext,mContext.getString(R.string.title_warn),mContext.getString(R.string.tips_are_you_sure_to_restore_setting),mContext.getString(R.string.title_ok),mContext.getString(R.string.title_cancel),new DialogSupports(){
+            DialogUtils.createBothChoicesDialog(mContext, mContext.getString(R.string.title_warn), mContext.getString(R.string.tips_are_you_sure_to_restore_setting), mContext.getString(R.string.title_ok), mContext.getString(R.string.title_cancel), new DialogSupports() {
                 @Override
-                public void runWhenPositive(){
+                public void runWhenPositive() {
                     restoreConfig();
                 }
             });
@@ -471,24 +473,24 @@ class OnscreenJoystickConfigDialog extends Dialog implements View.OnClickListene
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        if(seekBar == seekbarAlpha){
+        if (seekBar == seekbarAlpha) {
             int p = progress + MIN_ALPHA_PROGRESS;
             String str = p + "%";
             textAlpha.setText(str);
             //调整透明度
             float alpha = 1 - p * 0.01f;
-            ((OnscreenJoystick)mInput).setAlpha(alpha);
+            ((OnscreenJoystick) mInput).setAlpha(alpha);
         }
-        if(seekBar == seekbarSize){
+        if (seekBar == seekbarSize) {
             int p = progress + MIN_SIZE_PROGRESS;
             textSize.setText(String.valueOf(p));
             //调整大小
-            int centerX = (int)(mInput.getPos()[0] + mInput.getSize()[0] / 2);
-            int centerY = (int)(mInput.getPos()[1] + mInput.getSize()[1] / 2);
-            int size = (int)( ( 1 + p * 0.01f ) * originalInputSize );
-            ((OnscreenJoystick)mInput).setSize(size);
+            int centerX = (int) (mInput.getPos()[0] + mInput.getSize()[0] / 2);
+            int centerY = (int) (mInput.getPos()[1] + mInput.getSize()[1] / 2);
+            int size = (int) ((1 + p * 0.01f) * originalInputSize);
+            ((OnscreenJoystick) mInput).setSize(size);
             //调整位置
-            adjustPos(centerX,centerY);
+            adjustPos(centerX, centerY);
         }
     }
 
@@ -502,16 +504,16 @@ class OnscreenJoystickConfigDialog extends Dialog implements View.OnClickListene
 
     }
 
-    private void loadConfigFromFile(){
-        SharedPreferences sp = mContext.getSharedPreferences(spFileName,spMode);
+    private void loadConfigFromFile() {
+        SharedPreferences sp = mContext.getSharedPreferences(spFileName, spMode);
 
         //先设定一个最大值，防止Seebar的监听器无法监听到事件
         seekbarAlpha.setProgress(MAX_ALPHA_PROGRESS);
         seekbarSize.setProgress(MAX_SIZE_PROGRESS);
         //设定存储的数据
-        seekbarAlpha.setProgress(sp.getInt(sp_alpha_name,DEFAULT_ALPHA_PROCESS));
-        seekbarSize.setProgress(sp.getInt(sp_size_name,DEFAULT_SIZE_PROGRESS));
-        mInput.setMargins(sp.getInt(sp_pos_x_name,0),sp.getInt(sp_pos_y_name,0),0,0);
+        seekbarAlpha.setProgress(sp.getInt(sp_alpha_name, DEFAULT_ALPHA_PROCESS));
+        seekbarSize.setProgress(sp.getInt(sp_size_name, DEFAULT_SIZE_PROGRESS));
+        mInput.setMargins(sp.getInt(sp_pos_x_name, 0), sp.getInt(sp_pos_y_name, 0), 0, 0);
         switch (sp.getInt(sp_show_name, OnscreenJoystick.SHOW_ALL)) {
             case OnscreenJoystick.SHOW_ALL:
                 rbtAll.setChecked(true);
@@ -525,66 +527,66 @@ class OnscreenJoystickConfigDialog extends Dialog implements View.OnClickListene
         }
     }
 
-    public void saveConfigToFile(){
-        SharedPreferences.Editor editor = mContext.getSharedPreferences(spFileName,spMode).edit();
-        editor.putInt(sp_alpha_name,seekbarAlpha.getProgress());
-        editor.putInt(sp_size_name,seekbarSize.getProgress());
-        if(mInput.getUiVisiability() == View.VISIBLE){
-            editor.putInt(sp_pos_x_name,(int)mInput.getPos()[0]);
-            editor.putInt(sp_pos_y_name,(int)mInput.getPos()[1]);
+    public void saveConfigToFile() {
+        SharedPreferences.Editor editor = mContext.getSharedPreferences(spFileName, spMode).edit();
+        editor.putInt(sp_alpha_name, seekbarAlpha.getProgress());
+        editor.putInt(sp_size_name, seekbarSize.getProgress());
+        if (mInput.getUiVisiability() == View.VISIBLE) {
+            editor.putInt(sp_pos_x_name, (int) mInput.getPos()[0]);
+            editor.putInt(sp_pos_y_name, (int) mInput.getPos()[1]);
         }
-        editor.putInt(sp_show_name, ((OnscreenJoystick)mInput).getShowStat());
+        editor.putInt(sp_show_name, ((OnscreenJoystick) mInput).getShowStat());
         editor.apply();
     }
 
-    private void restoreConfig(){
+    private void restoreConfig() {
         seekbarAlpha.setProgress(DEFAULT_ALPHA_PROCESS);
         seekbarSize.setProgress(DEFAULT_SIZE_PROGRESS);
         rbtAll.setChecked(true);
     }
 
-    private void adjustPos(int originalCenterX,int originalCenterY){
+    private void adjustPos(int originalCenterX, int originalCenterY) {
         int viewWidth = mInput.getSize()[0];
         int viewHeight = mInput.getSize()[1];
         int marginLeft = originalCenterX - viewWidth / 2;
         int margeinTop = originalCenterY - viewHeight / 2;
 
         //左边界检测
-        if(marginLeft < 0){
+        if (marginLeft < 0) {
             marginLeft = 0;
         }
         //上边界检测
-        if(margeinTop < 0){
+        if (margeinTop < 0) {
             margeinTop = 0;
         }
         //右边界检测
-        if(marginLeft + viewWidth > screenWidth){
+        if (marginLeft + viewWidth > screenWidth) {
             marginLeft = screenWidth - viewWidth;
         }
         //下边界检测
-        if(margeinTop + viewHeight > screenHeight){
+        if (margeinTop + viewHeight > screenHeight) {
             margeinTop = screenHeight - viewHeight;
         }
 
-        mInput.setMargins(marginLeft,margeinTop,0,0);
+        mInput.setMargins(marginLeft, margeinTop, 0, 0);
     }
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (buttonView == rbtAll) {
-            if(isChecked){
+            if (isChecked) {
                 ((OnscreenJoystick) mInput).setShowStat(OnscreenJoystick.SHOW_ALL);
             }
         }
 
         if (buttonView == rbtInGame) {
-            if(isChecked){
+            if (isChecked) {
                 ((OnscreenJoystick) mInput).setShowStat(OnscreenJoystick.SHOW_IN_GAME);
             }
         }
 
         if (buttonView == rbtOutGame) {
-            if(isChecked){
+            if (isChecked) {
                 ((OnscreenJoystick) mInput).setShowStat(OnscreenJoystick.SHOW_OUT_GAME);
             }
         }

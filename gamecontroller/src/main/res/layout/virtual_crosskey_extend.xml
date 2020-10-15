@@ -7,11 +7,11 @@
     android:padding="15dp">
 
     <com.aof.mcinabox.gamecontroller.input.screen.Button.CrossButton
-            android:id="@+id/crosskey_bounce"
-            android:layout_gravity="center_horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/ic_crosskey_jump"
-            custom:button_name="SPACE"/>
+        android:id="@+id/crosskey_bounce"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/ic_crosskey_jump"
+        custom:button_name="SPACE" />
 
 </LinearLayout>

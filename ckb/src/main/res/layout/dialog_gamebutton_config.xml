@@ -80,7 +80,7 @@
                     android:textAlignment="gravity"
                     android:textSize="@dimen/text_small"
                     style="?android:attr/buttonBarButtonStyle"
-                    android:text="@string/title_point_left"/>
+                    android:text="@string/title_point_left" />
 
                 <EditText
                     android:id="@+id/gamebutton_config_dialog_edittext_width"
@@ -102,7 +102,7 @@
                     android:textAlignment="gravity"
                     android:textSize="@dimen/text_small"
                     style="?android:attr/buttonBarButtonStyle"
-                    android:text="@string/title_point_right"/>
+                    android:text="@string/title_point_right" />
 
             </LinearLayout>
 
@@ -131,7 +131,7 @@
                     android:textAlignment="gravity"
                     android:textSize="@dimen/text_small"
                     style="?android:attr/buttonBarButtonStyle"
-                    android:text="@string/title_point_left"/>
+                    android:text="@string/title_point_left" />
 
                 <EditText
                     android:id="@+id/gamebutton_config_dialog_edittext_height"
@@ -153,7 +153,7 @@
                     android:textAlignment="gravity"
                     android:textSize="@dimen/text_small"
                     style="?android:attr/buttonBarButtonStyle"
-                    android:text="@string/title_point_right"/>
+                    android:text="@string/title_point_right" />
 
             </LinearLayout>
 
@@ -182,7 +182,7 @@
                     android:textAlignment="gravity"
                     android:textSize="@dimen/text_small"
                     style="?android:attr/buttonBarButtonStyle"
-                    android:text="@string/title_point_left"/>
+                    android:text="@string/title_point_left" />
 
                 <EditText
                     android:id="@+id/gamebutton_config_dialog_edittext_left"
@@ -204,7 +204,7 @@
                     android:textAlignment="gravity"
                     android:textSize="@dimen/text_small"
                     style="?android:attr/buttonBarButtonStyle"
-                    android:text="@string/title_point_right"/>
+                    android:text="@string/title_point_right" />
 
             </LinearLayout>
 
@@ -233,7 +233,7 @@
                     android:textAlignment="gravity"
                     android:textSize="@dimen/text_small"
                     style="?android:attr/buttonBarButtonStyle"
-                    android:text="@string/title_point_left"/>
+                    android:text="@string/title_point_left" />
 
                 <EditText
                     android:id="@+id/gamebutton_config_dialog_edittext_top"
@@ -255,7 +255,7 @@
                     android:textAlignment="gravity"
                     android:textSize="@dimen/text_small"
                     style="?android:attr/buttonBarButtonStyle"
-                    android:text="@string/title_point_right"/>
+                    android:text="@string/title_point_right" />
 
             </LinearLayout>
 
@@ -287,6 +287,7 @@
                         android:layout_weight="3"
                         android:orientation="vertical"
                         android:layout_gravity="center">
+
                         <TextView
                             android:id="@+id/gamebutton_config_dialog_text_map_1"
                             android:layout_width="match_parent"
@@ -295,7 +296,8 @@
                             android:textColor="@color/text_title_main"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:text="3"/>
+                            android:text="3" />
+
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1px"
@@ -310,13 +312,15 @@
                         android:textColor="@color/text_info"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:text="+"/>
+                        android:text="+" />
+
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
                         android:orientation="vertical"
                         android:layout_gravity="center">
+
                         <TextView
                             android:id="@+id/gamebutton_config_dialog_text_map_2"
                             android:layout_width="match_parent"
@@ -325,41 +329,14 @@
                             android:textColor="@color/text_title_main"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:text="3"/>
+                            android:text="3" />
+
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1px"
                             android:background="@android:color/background_dark" />
                     </LinearLayout>
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textSize="@dimen/text_small"
-                        android:textColor="@color/text_info"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="+"/>
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:orientation="vertical"
-                        android:layout_gravity="center">
-                        <TextView
-                            android:id="@+id/gamebutton_config_dialog_text_map_3"
-                            android:layout_width="match_parent"
-                            android:layout_height="35dp"
-                            android:textSize="@dimen/text_small"
-                            android:textColor="@color/text_title_main"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:text="3"/>
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1px"
-                            android:background="@android:color/background_dark" />
-                    </LinearLayout>
+
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -369,12 +346,47 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:text="+" />
+
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
                         android:orientation="vertical"
                         android:layout_gravity="center">
+
+                        <TextView
+                            android:id="@+id/gamebutton_config_dialog_text_map_3"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:textSize="@dimen/text_small"
+                            android:textColor="@color/text_title_main"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="3" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:background="@android:color/background_dark" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="@dimen/text_small"
+                        android:textColor="@color/text_info"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="+" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:orientation="vertical"
+                        android:layout_gravity="center">
+
                         <TextView
                             android:id="@+id/gamebutton_config_dialog_text_map_4"
                             android:layout_width="match_parent"
@@ -383,7 +395,8 @@
                             android:textColor="@color/text_title_main"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:text="3"/>
+                            android:text="3" />
+
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1px"
@@ -448,7 +461,7 @@
                     android:layout_height="match_parent"
                     android:background="@color/text_info"
                     android:layout_margin="10dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
 
 
             </LinearLayout>
@@ -474,7 +487,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
                     android:textSize="@dimen/text_mid"
-                    android:inputType="text"/>
+                    android:inputType="text" />
 
                 <View
                     android:id="@+id/gamebutton_config_dialog_view_textcolor_preview"
@@ -482,7 +495,7 @@
                     android:layout_height="match_parent"
                     android:background="@color/text_info"
                     android:layout_margin="10dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
 
 
             </LinearLayout>
@@ -550,7 +563,7 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:text="0"
-                   android:gravity="center"
+                    android:gravity="center"
                     android:textColor="@color/text_info"
                     android:textSize="@dimen/text_mid" />
 
@@ -710,21 +723,23 @@
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/text_small"
                         android:textColor="@color/text_info"
-                        android:text="@string/title_all"/>
+                        android:text="@string/title_all" />
+
                     <RadioButton
                         android:id="@+id/gamebutton_config_dialog_rb_in_game"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/text_small"
                         android:textColor="@color/text_info"
-                        android:text="@string/title_in_game"/>
+                        android:text="@string/title_in_game" />
+
                     <RadioButton
                         android:id="@+id/gamebutton_config_dialog_rb_out_game"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/text_small"
                         android:textColor="@color/text_info"
-                        android:text="@string/title_out_game"/>
+                        android:text="@string/title_out_game" />
 
 
                 </RadioGroup>

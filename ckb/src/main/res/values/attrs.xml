@@ -3,7 +3,7 @@
 <resources>
 
     <declare-styleable name="SelecterButton">
-        <attr name="button_name" format="string"/>
+        <attr name="button_name" format="string" />
     </declare-styleable>
 
 </resources>

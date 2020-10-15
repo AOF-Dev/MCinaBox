@@ -1,7 +1,6 @@
 package com.aof.mcinabox.launcher.gamedir;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.aof.mcinabox.definitions.manifest.AppManifest;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
@@ -16,28 +15,28 @@ public class GamedirManager {
     public final static String PUBLIC_GAMEDIR = SettingJson.DEFAULT_GAMEDIR;
     public final static String PRIVATE_GAMEDIR = AppManifest.MCINABOX_HOME + "/gamedir";
 
-    public static boolean setGamedir(Context context, SettingJson setting, String gamedir){
-        if(gamedir != null){
+    public static boolean setGamedir(Context context, SettingJson setting, String gamedir) {
+        if (gamedir != null) {
             File file = new File(gamedir);
-            if(file.exists() && !file.isDirectory()){
+            if (file.exists() && !file.isDirectory()) {
                 return false;
-            }else if(!file.exists()){
-                if(!FileTool.makeFloder(file)){
+            } else if (!file.exists()) {
+                if (!FileTool.makeFloder(file)) {
                     return false;
                 }
             }
             setting.setGameDir(gamedir);
-            AppManifest.initManifest(context,gamedir);
+            AppManifest.initManifest(context, gamedir);
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public static String getGamedir(SettingJson setting){
-        if(setting.getGamedir() != null){
+    public static String getGamedir(SettingJson setting) {
+        if (setting.getGamedir() != null) {
             return setting.getGamedir();
-        }else{
+        } else {
             return SettingJson.DEFAULT_GAMEDIR;
         }
     }

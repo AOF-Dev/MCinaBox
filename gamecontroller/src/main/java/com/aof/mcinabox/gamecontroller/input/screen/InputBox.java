@@ -19,15 +19,16 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
 import com.aof.mcinabox.definitions.id.key.KeyMode;
 import com.aof.mcinabox.definitions.map.KeyMap;
+import com.aof.mcinabox.gamecontroller.R;
 import com.aof.mcinabox.gamecontroller.controller.Controller;
 import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
 import com.aof.mcinabox.gamecontroller.input.OnscreenInput;
-import com.aof.mcinabox.gamecontroller.R;
-import com.aof.utils.dialog.support.DialogSupports;
-import com.aof.utils.dialog.DialogUtils;
 import com.aof.utils.DisplayUtils;
+import com.aof.utils.dialog.DialogUtils;
+import com.aof.utils.dialog.support.DialogSupports;
 
 public class InputBox implements OnscreenInput, TextWatcher, TextView.OnEditorActionListener, KeyMap, View.OnClickListener {
 
@@ -67,7 +68,7 @@ public class InputBox implements OnscreenInput, TextWatcher, TextView.OnEditorAc
     }
 
     @Override
-    public void setEnable(boolean e){
+    public void setEnable(boolean e) {
         this.enable = e;
         updateUI();
     }
@@ -196,7 +197,7 @@ public class InputBox implements OnscreenInput, TextWatcher, TextView.OnEditorAc
     }
 
     private void updateUI() {
-        if(enable){
+        if (enable) {
             switch (mController.getInputMode()) {
                 case KeyMode.MARK_INPUT_MODE_ALONE:
                     if (show == SHOW_ALL || show == SHOW_OUT_GAME) {
@@ -213,7 +214,7 @@ public class InputBox implements OnscreenInput, TextWatcher, TextView.OnEditorAc
                     }
                     break;
             }
-        }else{
+        } else {
             setUiVisibility(View.GONE);
         }
     }
@@ -420,7 +421,7 @@ class InputBoxConfigDialog extends Dialog implements View.OnClickListener, Dialo
         originalSizeProgress = seekbarSize.getProgress();
         originalMarginLeft = (int) mInput.getPos()[0];
         originalMarginTop = (int) mInput.getPos()[1];
-        originalShow = ((InputBox)mInput).getShowStat();
+        originalShow = ((InputBox) mInput).getShowStat();
     }
 
     @Override
@@ -628,11 +629,11 @@ class InputBoxConfigDialog extends Dialog implements View.OnClickListener, Dialo
         SharedPreferences.Editor editor = mContext.getSharedPreferences(spFileName, spMode).edit();
         editor.putInt(sp_alpha_name, seekbarAlpha.getProgress());
         editor.putInt(sp_size_name, seekbarSize.getProgress());
-        if(mInput.getUiVisiability() == View.VISIBLE){
+        if (mInput.getUiVisiability() == View.VISIBLE) {
             editor.putInt(sp_pos_x_name, (int) mInput.getPos()[0]);
             editor.putInt(sp_pos_y_name, (int) mInput.getPos()[1]);
         }
-        editor.putInt(sp_show_name, ((InputBox)mInput).getShowStat());
+        editor.putInt(sp_show_name, ((InputBox) mInput).getShowStat());
         editor.apply();
     }
 
@@ -640,19 +641,19 @@ class InputBoxConfigDialog extends Dialog implements View.OnClickListener, Dialo
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
         if (buttonView == rbtAll) {
-            if(isChecked){
+            if (isChecked) {
                 ((InputBox) mInput).setShowStat(InputBox.SHOW_ALL);
             }
         }
 
         if (buttonView == rbtInGame) {
-            if(isChecked){
+            if (isChecked) {
                 ((InputBox) mInput).setShowStat(InputBox.SHOW_IN_GAME);
             }
         }
 
         if (buttonView == rbtOutGame) {
-            if(isChecked){
+            if (isChecked) {
                 ((InputBox) mInput).setShowStat(InputBox.SHOW_OUT_GAME);
             }
         }

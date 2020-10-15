@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1.0"
-        custom:button_name="1"/>
+        custom:button_name="1" />
 
     <com.aof.mcinabox.gamecontroller.input.screen.Button.ItemButton
         android:textSize="20sp"
@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1.0"
-        custom:button_name="2"/>
+        custom:button_name="2" />
 
     <com.aof.mcinabox.gamecontroller.input.screen.Button.ItemButton
         android:textSize="20sp"
@@ -31,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1.0"
-        custom:button_name="3"/>
+        custom:button_name="3" />
 
     <com.aof.mcinabox.gamecontroller.input.screen.Button.ItemButton
         android:textSize="20sp"
@@ -40,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1.0"
-        custom:button_name="4"/>
+        custom:button_name="4" />
 
     <com.aof.mcinabox.gamecontroller.input.screen.Button.ItemButton
         android:textSize="20sp"
@@ -49,7 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1.0"
-        custom:button_name="5"/>
+        custom:button_name="5" />
 
     <com.aof.mcinabox.gamecontroller.input.screen.Button.ItemButton
         android:textSize="20sp"
@@ -58,7 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1.0"
-        custom:button_name="6"/>
+        custom:button_name="6" />
 
     <com.aof.mcinabox.gamecontroller.input.screen.Button.ItemButton
         android:textSize="20sp"
@@ -67,7 +67,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1.0"
-        custom:button_name="7"/>
+        custom:button_name="7" />
 
     <com.aof.mcinabox.gamecontroller.input.screen.Button.ItemButton
         android:textSize="20sp"
@@ -76,7 +76,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1.0"
-        custom:button_name="8"/>
+        custom:button_name="8" />
 
     <com.aof.mcinabox.gamecontroller.input.screen.Button.ItemButton
         android:textSize="20sp"
@@ -85,6 +85,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1.0"
-        custom:button_name="9"/>
+        custom:button_name="9" />
 
 </LinearLayout>

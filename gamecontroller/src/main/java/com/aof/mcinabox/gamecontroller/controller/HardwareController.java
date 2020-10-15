@@ -7,20 +7,22 @@ import android.view.InputDevice;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+
 import com.aof.mcinabox.definitions.id.AppEvent;
 import com.aof.mcinabox.gamecontroller.client.ClientInput;
+import com.aof.mcinabox.gamecontroller.codes.AndroidKeyMap;
+import com.aof.mcinabox.gamecontroller.codes.Translation;
 import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
 import com.aof.mcinabox.gamecontroller.input.HwInput;
 import com.aof.mcinabox.gamecontroller.input.Input;
 import com.aof.mcinabox.gamecontroller.input.otg.JoyStick;
 import com.aof.mcinabox.gamecontroller.input.otg.Keyboard;
-import com.aof.mcinabox.gamecontroller.codes.AndroidKeyMap;
-import com.aof.mcinabox.gamecontroller.codes.Translation;
 import com.aof.mcinabox.gamecontroller.input.otg.Mouse;
 import com.aof.mcinabox.gamecontroller.input.otg.Phone;
+
 import java.util.ArrayList;
 
-public class HardwareController extends BaseController implements AppEvent , View.OnHoverListener, HwController {
+public class HardwareController extends BaseController implements AppEvent, View.OnHoverListener, HwController {
 
     private AndroidKeyMap androidKeyMap = new AndroidKeyMap();
     private HwInput keyboard;
@@ -31,8 +33,8 @@ public class HardwareController extends BaseController implements AppEvent , Vie
     private Translation mTranslation;
     private final static String TAG = "HardwareController";
 
-    public HardwareController(Context context, ClientInput client, int transType){
-        super(context,client);
+    public HardwareController(Context context, ClientInput client, int transType) {
+        super(context, client);
         this.mContext = context;
         checkInputDevices();
 
@@ -46,7 +48,7 @@ public class HardwareController extends BaseController implements AppEvent , Vie
         joystick = new JoyStick();
 
         //添加Input
-        for(Input i : new Input[]{keyboard,phone,mouse,joystick}){
+        for (Input i : new Input[]{keyboard, phone, mouse, joystick}) {
             addInput(i);
             //直接启用
             i.setEnable(true);
@@ -58,13 +60,13 @@ public class HardwareController extends BaseController implements AppEvent , Vie
     @Override
     public void sendKey(BaseKeyEvent event) {
         toLog(event);
-        switch (event.getType()){
+        switch (event.getType()) {
             case KEYBOARD_BUTTON:
             case MOUSE_BUTTON:
                 String KeyName = event.getKeyName();
                 String[] strs = KeyName.split(MARK_KEYNAME_SPLIT);
-                for(String str : strs){
-                    sendKeyEvent(new BaseKeyEvent(event.getTag(),str,event.isPressed(),event.getType(),event.getPointer()));
+                for (String str : strs) {
+                    sendKeyEvent(new BaseKeyEvent(event.getTag(), str, event.isPressed(), event.getType(), event.getPointer()));
                 }
                 break;
             case MOUSE_POINTER:
@@ -78,17 +80,17 @@ public class HardwareController extends BaseController implements AppEvent , Vie
     }
 
     //事件发送
-    private void sendKeyEvent(BaseKeyEvent e){
-        switch (e.getType()){
+    private void sendKeyEvent(BaseKeyEvent e) {
+        switch (e.getType()) {
             case KEYBOARD_BUTTON:
-                client.setKey(mTranslation.trans(e.getKeyName()),e.isPressed());
+                client.setKey(mTranslation.trans(e.getKeyName()), e.isPressed());
                 break;
             case MOUSE_BUTTON:
-                client.setMouseButton(mTranslation.trans(e.getKeyName()),e.isPressed());
+                client.setMouseButton(mTranslation.trans(e.getKeyName()), e.isPressed());
                 break;
             case MOUSE_POINTER:
-                if(e.getPointer() != null){
-                    client.setMousePoniter(e.getPointer()[0],e.getPointer()[1]);
+                if (e.getPointer() != null) {
+                    client.setMousePoniter(e.getPointer()[0], e.getPointer()[1]);
                 }
                 break;
             case TYPE_WORDS:
@@ -107,15 +109,15 @@ public class HardwareController extends BaseController implements AppEvent , Vie
     @Override
     public void dispatchKeyEvent(KeyEvent event) {
         if (event == null) return;
-        if( (event.getDevice().getSources() & InputDevice.SOURCE_MOUSE) == InputDevice.SOURCE_MOUSE){
-            for(HwInput hwi : new HwInput[]{mouse}){
-                if(hwi.isEnable() && hwi.onKey(event)){
+        if ((event.getDevice().getSources() & InputDevice.SOURCE_MOUSE) == InputDevice.SOURCE_MOUSE) {
+            for (HwInput hwi : new HwInput[]{mouse}) {
+                if (hwi.isEnable() && hwi.onKey(event)) {
                     return;
                 }
             }
-        } else if( (event.getDevice().getSources() & InputDevice.SOURCE_KEYBOARD) == InputDevice.SOURCE_KEYBOARD){
-            for(HwInput hwi : new HwInput[]{phone,keyboard}){
-                if(hwi.isEnable() && hwi.onKey(event)){
+        } else if ((event.getDevice().getSources() & InputDevice.SOURCE_KEYBOARD) == InputDevice.SOURCE_KEYBOARD) {
+            for (HwInput hwi : new HwInput[]{phone, keyboard}) {
+                if (hwi.isEnable() && hwi.onKey(event)) {
                     return;
                 }
             }
@@ -124,38 +126,38 @@ public class HardwareController extends BaseController implements AppEvent , Vie
 
     @Override
     public void dispatchMotionKeyEvent(MotionEvent event) {
-        if( (event.getDevice().getSources() & InputDevice.SOURCE_MOUSE) == InputDevice.SOURCE_MOUSE){
-            for(HwInput hwi : new HwInput[]{mouse}){
-                if(hwi.isEnable() && hwi.onMotionKey(event)){
+        if ((event.getDevice().getSources() & InputDevice.SOURCE_MOUSE) == InputDevice.SOURCE_MOUSE) {
+            for (HwInput hwi : new HwInput[]{mouse}) {
+                if (hwi.isEnable() && hwi.onMotionKey(event)) {
                     return;
                 }
             }
-        }else if( (event.getDevice().getSources() & InputDevice.SOURCE_JOYSTICK) == InputDevice.SOURCE_JOYSTICK){
-            for(HwInput hwi : new HwInput[]{joystick}){
-                if(hwi.isEnable() && hwi.onMotionKey(event)){
+        } else if ((event.getDevice().getSources() & InputDevice.SOURCE_JOYSTICK) == InputDevice.SOURCE_JOYSTICK) {
+            for (HwInput hwi : new HwInput[]{joystick}) {
+                if (hwi.isEnable() && hwi.onMotionKey(event)) {
                     return;
                 }
             }
         }
     }
 
-    private void checkInputDevices(){
-        InputManager inputManager = (InputManager)mContext.getSystemService(Context.INPUT_SERVICE);
+    private void checkInputDevices() {
+        InputManager inputManager = (InputManager) mContext.getSystemService(Context.INPUT_SERVICE);
         int[] inputDeviceIds = inputManager.getInputDeviceIds();
         ArrayList<InputDevice> inputDevices = new ArrayList<>();
-        for(int id : inputDeviceIds){
+        for (int id : inputDeviceIds) {
             inputDevices.add(inputManager.getInputDevice(id));
         }
         StringBuilder stb = new StringBuilder("Devices:\n");
-        for(InputDevice i : inputDevices){
-            stb.append(String.format("name: %s \n information: %s \n",i.getName(),i.toString()));
+        for (InputDevice i : inputDevices) {
+            stb.append(String.format("name: %s \n information: %s \n", i.getName(), i.toString()));
         }
-        Log.e(TAG,stb.toString());
+        Log.e(TAG, stb.toString());
     }
 
-    private void toLog(BaseKeyEvent event){
+    private void toLog(BaseKeyEvent event) {
         String info;
-        switch (event.getType()){
+        switch (event.getType()) {
             case KEYBOARD_BUTTON:
                 info = "Type: " + event.getType() + " KeyName: " + event.getKeyName() + " Pressed: " + event.isPressed();
                 break;
@@ -171,6 +173,6 @@ public class HardwareController extends BaseController implements AppEvent , Vie
             default:
                 info = "Unknown Type: ";
         }
-        Log.e(event.getTag(),info);
+        Log.e(event.getTag(), info);
     }
 }

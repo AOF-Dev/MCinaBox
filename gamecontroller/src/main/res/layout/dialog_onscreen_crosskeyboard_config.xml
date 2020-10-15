@@ -4,6 +4,7 @@
     android:layout_width="230dp"
     android:layout_height="wrap_content"
     android:background="@drawable/background_dialog_noalpha">
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -12,6 +13,7 @@
         android:text="@string/title_pe_keyboard_config"
         android:textColor="@color/text_title_main"
         android:textSize="@dimen/text_big" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,7 +31,7 @@
                 android:layout_margin="5dp"
                 android:textSize="@dimen/text_mid"
                 android:textColor="@color/text_title_main"
-                android:text="@string/title_alpha_size"/>
+                android:text="@string/title_alpha_size" />
 
             <SeekBar
                 android:id="@+id/input_onscreen_crosskeyboard_dialog_seekbar_alpha"
@@ -37,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
-                android:layout_margin="5dp"/>
+                android:layout_margin="5dp" />
 
             <LinearLayout
                 android:layout_width="40dp"
@@ -71,7 +73,7 @@
                 android:layout_margin="5dp"
                 android:textSize="@dimen/text_mid"
                 android:textColor="@color/text_title_main"
-                android:text="@string/title_size"/>
+                android:text="@string/title_size" />
 
             <SeekBar
                 android:id="@+id/input_onscreen_crosskeyboard_dialog_seekbar_size"
@@ -112,12 +114,12 @@
                 android:layout_margin="5dp"
                 android:textSize="@dimen/text_mid"
                 android:textColor="@color/text_title_main"
-                android:text="@string/title_button_bounce"/>
+                android:text="@string/title_button_bounce" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/input_onscreen_crosskeyboard_dialog_switch_enable_bounce"
@@ -125,7 +127,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:checked="false"/>
+                android:checked="false" />
 
         </LinearLayout>
 
@@ -195,10 +197,9 @@
                 android:layout_margin="5dp"
                 android:textSize="@dimen/text_small"
                 android:textColor="@color/text_warn"
-                android:text="@string/tips_pe_keyboard_warn"/>
+                android:text="@string/tips_pe_keyboard_warn" />
 
         </LinearLayout>
-
 
 
     </LinearLayout>
@@ -218,6 +219,7 @@
             android:layout_gravity="center"
             style="?android:attr/buttonBarButtonStyle"
             android:text="@string/title_ok" />
+
         <Button
             android:id="@+id/input_onscreen_crosskeyboard_dialog_button_cancel"
             android:layout_width="0dp"
@@ -227,6 +229,7 @@
             android:layout_gravity="center"
             style="?android:attr/buttonBarButtonStyle"
             android:text="@string/title_cancel" />
+
         <Button
             android:id="@+id/input_onscreen_crosskeyboard_dialog_button_restore"
             android:layout_width="0dp"
@@ -235,7 +238,7 @@
             android:layout_margin="5dp"
             android:layout_gravity="center"
             style="?android:attr/buttonBarButtonStyle"
-            android:text="@string/title_restore"/>
+            android:text="@string/title_restore" />
 
     </LinearLayout>
 

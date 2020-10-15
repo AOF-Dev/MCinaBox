@@ -14,27 +14,27 @@ public class ThemeManager {
     private final static String TAG = "ThemeManager";
     private final static String SUPPORTED_PIC_SUFFIX = "png";
 
-    public ThemeManager(Context context){
+    public ThemeManager(Context context) {
         this.mContext = context;
     }
 
-    public boolean autoSetBackground(View v){
+    public boolean autoSetBackground(View v) {
         try {
             String[] result = ThemeUtils.getBackgroundsNames(SUPPORTED_PIC_SUFFIX);
-            if(result.length != 0){
+            if (result.length != 0) {
                 return ThemeUtils.replaceBackGround(mContext, v, AppManifest.MCINABOX_BACKGROUND + "/" + ThemeUtils.randomSelectedBackgroundFileName(result));
             }
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
 
-    public void setFullScreen(Activity activity, boolean full){
-        if(full){
+    public void setFullScreen(Activity activity, boolean full) {
+        if (full) {
             activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        }else{
+        } else {
             activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
     }

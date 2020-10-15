@@ -4,9 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
-
-import androidx.annotation.NonNull;
 
 import com.aof.mcinabox.MainActivity;
 import com.aof.mcinabox.R;
@@ -18,8 +15,11 @@ import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.utils.dialog.DialogUtils;
 import com.google.gson.Gson;
 import com.liulishuo.filedownloader.BaseDownloadTask;
+
 import org.jetbrains.annotations.NotNull;
+
 import java.io.IOException;
+
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -36,21 +36,21 @@ public class Request {
     private SettingJson mSetting;
     private Exception mException;
 
-    public Request(Context context){
+    public Request(Context context) {
         this(context, MainActivity.Setting);
     }
 
-    public Request(Context context, SettingJson setting){
+    public Request(Context context, SettingJson setting) {
         super();
         this.mContext = context;
         this.mSetting = setting;
     }
 
-    public void requestLastestVersion(){
+    public void requestLastestVersion() {
         final Gson gson = new Gson();
         OkHttpClient mOkHttpClient = new OkHttpClient();
         final okhttp3.Request request = new okhttp3.Request.Builder()
-                .url(new UrlSource().getSourceUrl(mSetting.getDownloadType(),UrlSource.TYPE_AUTHLIB_INJECTOR_JAR))
+                .url(new UrlSource().getSourceUrl(mSetting.getDownloadType(), UrlSource.TYPE_AUTHLIB_INJECTOR_JAR))
                 .build();
         Call call = mOkHttpClient.newCall(request);
         call.enqueue(new Callback() {
@@ -60,7 +60,7 @@ public class Request {
                 onFailure(e);
             }
 
-            private void onFailure(Exception e){
+            private void onFailure(Exception e) {
                 Request.this.mException = e;
                 Message msg = new Message();
                 msg.what = REQUEST_FAILED;
@@ -70,7 +70,7 @@ public class Request {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) {
                 try {
-                    mVersionResponse = gson.fromJson(response.body().string(),AuthlibVersionResponse.class);
+                    mVersionResponse = gson.fromJson(response.body().string(), AuthlibVersionResponse.class);
                 } catch (Exception e) {
                     e.printStackTrace();
                     onFailure(e);
@@ -84,24 +84,24 @@ public class Request {
     }
 
     @SuppressLint("HandlerLeak")
-    private Handler mHandler = new Handler(){
+    private Handler mHandler = new Handler() {
         @Override
-        public void handleMessage(Message msg){
+        public void handleMessage(Message msg) {
             switch (msg.what) {
                 case REQUEST_DOWNLOAD:
                     requestDownload(mVersionResponse);
                     break;
                 case REQUEST_FAILED:
-                    DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_error),String.format(mContext.getString(R.string.tips_error),mException.getMessage()),mContext.getString(R.string.title_ok),null);
+                    DialogUtils.createSingleChoiceDialog(mContext, mContext.getString(R.string.title_error), String.format(mContext.getString(R.string.tips_error), mException.getMessage()), mContext.getString(R.string.title_ok), null);
                     break;
             }
             super.handleMessage(msg);
         }
     };
 
-    private void requestDownload(AuthlibVersionResponse response){
-        BaseDownloadTask[] tasks = {DownloadHelper.createDownloadTask(AppManifest.AUTHLIB_INJETOR_JAR,response.download_url,null)};
-        new DownloadManager(mContext).startDownload(AUTHLIB_INJECTOR,"正在下载authlib库",1,0,tasks,null);
+    private void requestDownload(AuthlibVersionResponse response) {
+        BaseDownloadTask[] tasks = {DownloadHelper.createDownloadTask(AppManifest.AUTHLIB_INJETOR_JAR, response.download_url, null)};
+        new DownloadManager(mContext).startDownload(AUTHLIB_INJECTOR, "正在下载authlib库", 1, 0, tasks, null);
     }
 
 }

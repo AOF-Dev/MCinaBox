@@ -2,7 +2,6 @@ package com.aof.mcinabox.gamecontroller.ckb.achieve;
 
 import android.content.Context;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 
@@ -42,7 +41,7 @@ public class CkbManager {
 
     private int buttonMode = GameButton.MODE_MOVEABLE_EDITABLE;
 
-    public CkbManager(@NonNull Context context , @NonNull CallCustomizeKeyboard call , Controller controller) {
+    public CkbManager(@NonNull Context context, @NonNull CallCustomizeKeyboard call, Controller controller) {
         super();
         this.mContext = context;
         this.mCall = call;
@@ -50,7 +49,7 @@ public class CkbManager {
         init();
     }
 
-    private void init(){
+    private void init() {
 
         //初始化按键列表
         buttonList = new GameButtonArray<>();
@@ -59,18 +58,18 @@ public class CkbManager {
 
     }
 
-    public Controller getController(){
+    public Controller getController() {
         return mController;
     }
 
-    public boolean addGameButton(GameButton button){
-        if( this.containGameButton(button) || this.buttonList.size() >= MAX_KEYBOARD_SIZE){
+    public boolean addGameButton(GameButton button) {
+        if (this.containGameButton(button) || this.buttonList.size() >= MAX_KEYBOARD_SIZE) {
             button.unsetFirstAdded();
             return false;
-        }else{
-            if(button == null){
-                button = new GameButton(mContext,mCall,mController,this).setButtonMode(this.buttonMode).setFirstAdded();
-                ( new GameButtonDialog(mContext,button,this) ).show();
+        } else {
+            if (button == null) {
+                button = new GameButton(mContext, mCall, mController, this).setButtonMode(this.buttonMode).setFirstAdded();
+                (new GameButtonDialog(mContext, button, this)).show();
             }
             this.buttonList.add(button);
             this.addView(button);
@@ -78,100 +77,100 @@ public class CkbManager {
         }
     }
 
-    public boolean containGameButton(GameButton g){
+    public boolean containGameButton(GameButton g) {
         return buttonList.contains(g);
     }
 
-    public boolean removeGameButton(GameButton g){
-        if ( this.containGameButton(g) ){
+    public boolean removeGameButton(GameButton g) {
+        if (this.containGameButton(g)) {
             GameButtonArray<GameButton> gl = new GameButtonArray<>();
-            for(GameButton gb : buttonList){
-                if(gb != g){
+            for (GameButton gb : buttonList) {
+                if (gb != g) {
                     gl.add(gb);
                 }
             }
             this.removeView(g);
             this.buttonList = gl;
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    private boolean addView(GameButton g){
+    private boolean addView(GameButton g) {
 
-        if( g != null && g.getParent() == null){
+        if (g != null && g.getParent() == null) {
             mCall.addView(g);
             return true;
-        }else{
+        } else {
             return false;
         }
 
     }
 
-    private boolean removeView(GameButton g){
+    private boolean removeView(GameButton g) {
 
-        if(g != null && g.getParent() != null){
+        if (g != null && g.getParent() != null) {
             ViewGroup vg = (ViewGroup) g.getParent();
             vg.removeView(g);
             return true;
-        }else{
+        } else {
             return false;
         }
 
     }
 
-    public int getButtonCounts(){
+    public int getButtonCounts() {
         return buttonList.size();
     }
 
     public boolean setButtonsMode(int mode) {
-        if(mode == GameButton.MODE_GAME || mode == GameButton.MODE_MOVEABLE_EDITABLE || mode == GameButton.MODE_PREVIEW){
+        if (mode == GameButton.MODE_GAME || mode == GameButton.MODE_MOVEABLE_EDITABLE || mode == GameButton.MODE_PREVIEW) {
             for (GameButton g : buttonList) {
                 g.setButtonMode(mode);
             }
             this.buttonMode = mode;
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public int getButtonsMode(){
+    public int getButtonsMode() {
         return this.buttonMode;
     }
 
-    public GameButton[] getGameButtons(){
+    public GameButton[] getGameButtons() {
         GameButton[] views = new GameButton[getButtonCounts()];
-        for(int i = 0; i < views.length ; i++){
+        for (int i = 0; i < views.length; i++) {
             views[i] = buttonList.get(i);
         }
         return views;
     }
 
-    public GameButton getGameButton(int index){
-        if(index >= 0 && index < buttonList.size()){
+    public GameButton getGameButton(int index) {
+        if (index >= 0 && index < buttonList.size()) {
             return buttonList.get(index);
-        }else{
+        } else {
             return null;
         }
     }
 
-    public void setInputMode(int mode){
-        for(GameButton gb : buttonList){
+    public void setInputMode(int mode) {
+        for (GameButton gb : buttonList) {
             gb.setInputMode(mode);
         }
     }
 
-    public boolean exportKeyboard(String fileName){
+    public boolean exportKeyboard(String fileName) {
         GameButtonRecorder[] gbrs = new GameButtonRecorder[buttonList.size()];
-        for(int a = 0; a < buttonList.size() ; a++){
+        for (int a = 0; a < buttonList.size(); a++) {
             GameButtonRecorder gbr = new GameButtonRecorder();
             gbr.recordData(buttonList.get(a));
             gbrs[a] = gbr;
         }
         KeyboardRecorder kr = new KeyboardRecorder();
-        kr.setScreenArgs(mContext.getResources().getDisplayMetrics().widthPixels,mContext.getResources().getDisplayMetrics().heightPixels);
+        kr.setScreenArgs(mContext.getResources().getDisplayMetrics().widthPixels, mContext.getResources().getDisplayMetrics().heightPixels);
         kr.setRecorderDatas(gbrs);
 
         Gson gson = new Gson();
@@ -188,17 +187,17 @@ public class CkbManager {
         }
     }
 
-    public void autoSaveKeyboard(){
+    public void autoSaveKeyboard() {
         exportKeyboard(LAST_KEYBOARD_LAYOUT_NAME);
     }
 
-    public void autoLoadKeyboard(){
+    public void autoLoadKeyboard() {
         loadKeyboard(LAST_KEYBOARD_LAYOUT_NAME + ".json");
     }
 
-    public boolean loadKeyboard(String fileName){
+    public boolean loadKeyboard(String fileName) {
         File file = new File(AppManifest.MCINABOX_KEYBOARD + "/" + fileName);
-        if( !file.exists()){
+        if (!file.exists()) {
             return false;
         }
         KeyboardRecorder kr;
@@ -206,48 +205,48 @@ public class CkbManager {
             InputStream inputStream = new FileInputStream(file);
             Reader reader = new InputStreamReader(inputStream);
             Gson gson = new Gson();
-            kr =  gson.fromJson(reader, KeyboardRecorder.class);
+            kr = gson.fromJson(reader, KeyboardRecorder.class);
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
         GameButtonRecorder[] gbr;
-        if(kr != null){
+        if (kr != null) {
             gbr = kr.getRecorderDatas();
-        }else{
+        } else {
             return false;
         }
         //清除全部按键
         clearKeyboard();
         //添加新的按键
-        for(GameButtonRecorder tgbr: gbr){
-            addGameButton(tgbr.recoverData(mContext,mCall,mController,this));
+        for (GameButtonRecorder tgbr : gbr) {
+            addGameButton(tgbr.recoverData(mContext, mCall, mController, this));
         }
         return true;
     }
 
-    public void clearKeyboard(){
-        for (GameButton gb : buttonList){
+    public void clearKeyboard() {
+        for (GameButton gb : buttonList) {
             removeView(gb);
         }
         buttonList = new GameButtonArray<>();
     }
 
-    public void showOrHideGameButtons(int i){
+    public void showOrHideGameButtons(int i) {
         // 仅仅只是暂时把GameButton对象从显示层中删除
         // 不要更改按键记录
-        switch(i){
+        switch (i) {
             case SHOW_BUTTON:
-                if(hasHide){
-                    for(GameButton gb : buttonList){
+                if (hasHide) {
+                    for (GameButton gb : buttonList) {
                         this.addView(gb);
                     }
                     hasHide = false;
                 }
                 break;
             case HIDE_BUTTON:
-                if(!hasHide){
-                    for(GameButton gb : buttonList){
+                if (!hasHide) {
+                    for (GameButton gb : buttonList) {
                         this.removeView(gb);
                     }
                     hasHide = true;

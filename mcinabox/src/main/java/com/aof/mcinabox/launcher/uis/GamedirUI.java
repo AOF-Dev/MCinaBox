@@ -7,6 +7,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+
 import com.aof.mcinabox.MainActivity;
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.launcher.gamedir.GamedirManager;
@@ -41,7 +42,7 @@ public class GamedirUI extends BaseUI {
         buttonSave = layout_gamedir.findViewById(R.id.gamedir_button_save);
         editGamedir = layout_gamedir.findViewById(R.id.gamedir_edit_gamedir);
 
-        for(View v : new View[]{buttonSave,layoutPublic,layoutPrivate}){
+        for (View v : new View[]{buttonSave, layoutPublic, layoutPrivate}) {
             v.setOnClickListener(clickListener);
         }
 
@@ -49,7 +50,7 @@ public class GamedirUI extends BaseUI {
 
     }
 
-    private void init(){
+    private void init() {
         editGamedir.setText(GamedirManager.getGamedir(MainActivity.Setting));
     }
 
@@ -65,7 +66,7 @@ public class GamedirUI extends BaseUI {
 
     @Override
     public void setUIVisiability(int visiability) {
-        if(visiability == View.VISIBLE){
+        if (visiability == View.VISIBLE) {
             layout_gamedir.startAnimation(showAnim);
         }
         layout_gamedir.setVisibility(visiability);
@@ -79,12 +80,12 @@ public class GamedirUI extends BaseUI {
     private View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if(v == buttonSave){
+            if (v == buttonSave) {
                 String t = editGamedir.getText().toString();
                 //过滤掉最后一个反斜杠
-                if(t.charAt(t.length() - 1) == '/'){
+                if (t.charAt(t.length() - 1) == '/') {
                     StringBuilder tmp = new StringBuilder();
-                    for(int a = 0; a < t.length() - 1; a++){
+                    for (int a = 0; a < t.length() - 1; a++) {
                         tmp.append(t.charAt(a));
                     }
                     t = tmp.toString();
@@ -92,33 +93,33 @@ public class GamedirUI extends BaseUI {
                 }
 
                 final File dir = new File(t);
-                if(dir.exists() && !dir.isDirectory()){
-                    DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_error),mContext.getString(R.string.tips_target_dir_is_file),mContext.getString(R.string.title_ok),null);
-                }else if(!dir.exists()){
-                    DialogUtils.createBothChoicesDialog(mContext,mContext.getString(R.string.title_warn),mContext.getString(R.string.tips_target_dir_is_not_exist),mContext.getString(R.string.title_ok),mContext.getString(R.string.title_cancel),new DialogSupports(){
+                if (dir.exists() && !dir.isDirectory()) {
+                    DialogUtils.createSingleChoiceDialog(mContext, mContext.getString(R.string.title_error), mContext.getString(R.string.tips_target_dir_is_file), mContext.getString(R.string.title_ok), null);
+                } else if (!dir.exists()) {
+                    DialogUtils.createBothChoicesDialog(mContext, mContext.getString(R.string.title_warn), mContext.getString(R.string.tips_target_dir_is_not_exist), mContext.getString(R.string.title_ok), mContext.getString(R.string.title_cancel), new DialogSupports() {
                         @Override
                         public void runWhenPositive() {
-                            if(!GamedirManager.setGamedir(mContext, MainActivity.Setting, dir.getAbsolutePath())){
-                                DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_error),mContext.getString(R.string.tips_failed_to_revise_game_dir),mContext.getString(R.string.title_ok),null);
-                            }else{
-                                DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_note),mContext.getString(R.string.tips_successed_to_revise_game_dir),mContext.getString(R.string.title_ok),null);
+                            if (!GamedirManager.setGamedir(mContext, MainActivity.Setting, dir.getAbsolutePath())) {
+                                DialogUtils.createSingleChoiceDialog(mContext, mContext.getString(R.string.title_error), mContext.getString(R.string.tips_failed_to_revise_game_dir), mContext.getString(R.string.title_ok), null);
+                            } else {
+                                DialogUtils.createSingleChoiceDialog(mContext, mContext.getString(R.string.title_note), mContext.getString(R.string.tips_successed_to_revise_game_dir), mContext.getString(R.string.title_ok), null);
                             }
                         }
                     });
-                }else{
-                    if(!GamedirManager.setGamedir(mContext, MainActivity.Setting, dir.getAbsolutePath())){
-                        DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_error),mContext.getString(R.string.tips_failed_to_revise_game_dir),mContext.getString(R.string.title_ok),null);
-                    }else{
-                        DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_note),mContext.getString(R.string.tips_successed_to_revise_game_dir),mContext.getString(R.string.title_ok),null);
+                } else {
+                    if (!GamedirManager.setGamedir(mContext, MainActivity.Setting, dir.getAbsolutePath())) {
+                        DialogUtils.createSingleChoiceDialog(mContext, mContext.getString(R.string.title_error), mContext.getString(R.string.tips_failed_to_revise_game_dir), mContext.getString(R.string.title_ok), null);
+                    } else {
+                        DialogUtils.createSingleChoiceDialog(mContext, mContext.getString(R.string.title_note), mContext.getString(R.string.tips_successed_to_revise_game_dir), mContext.getString(R.string.title_ok), null);
                     }
                 }
             }
 
-            if(v == layoutPublic){
+            if (v == layoutPublic) {
                 editGamedir.setText(GamedirManager.PUBLIC_GAMEDIR);
             }
 
-            if(v == layoutPrivate){
+            if (v == layoutPrivate) {
                 editGamedir.setText(GamedirManager.PRIVATE_GAMEDIR);
             }
         }

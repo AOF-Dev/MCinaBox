@@ -12,13 +12,13 @@
         android:text="@string/title_language"
         android:textColor="@color/text_title_main"
         android:textSize="@dimen/text_big"
-        android:layout_margin="5dp"/>
+        android:layout_margin="5dp" />
 
     <ListView
         android:id="@+id/dialog_listview_languages"
         android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/NormalListview"/>
+        style="@style/NormalListview" />
 
 </LinearLayout>

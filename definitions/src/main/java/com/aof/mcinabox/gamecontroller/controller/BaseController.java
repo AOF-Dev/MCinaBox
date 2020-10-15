@@ -3,8 +3,10 @@ package com.aof.mcinabox.gamecontroller.controller;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
-import com.aof.mcinabox.gamecontroller.input.Input;
+
 import com.aof.mcinabox.gamecontroller.client.ClientInput;
+import com.aof.mcinabox.gamecontroller.input.Input;
+
 import java.util.ArrayList;
 
 import static com.aof.mcinabox.definitions.id.key.KeyMode.MARK_INPUT_MODE_ALONE;
@@ -16,16 +18,16 @@ public abstract class BaseController implements Controller {
     private int inputMode = MARK_INPUT_MODE_ALONE;
     private final static String TAG = "BaseController";
 
-    public BaseController(Context context, ClientInput client){
+    public BaseController(Context context, ClientInput client) {
         this.context = context;
         this.client = client;
         inputs = new ArrayList<>();
     }
 
     @Override
-    public boolean containInput(Input input){
-        for(Input i : inputs){
-            if(i == input){
+    public boolean containInput(Input input) {
+        for (Input i : inputs) {
+            if (i == input) {
                 return true;
             }
         }
@@ -33,49 +35,49 @@ public abstract class BaseController implements Controller {
     }
 
     @Override
-    public boolean addInput(Input input){
-        if(containInput(input) || input == null){
+    public boolean addInput(Input input) {
+        if (containInput(input) || input == null) {
             return false;
-        }else{
-            if(input.load(context,this)){
+        } else {
+            if (input.load(context, this)) {
                 inputs.add(input);
                 return true;
-            }else{
+            } else {
                 return false;
             }
         }
     }
 
     @Override
-    public boolean removeInput(Input input){
-        if(!containInput(input) || input == null){
+    public boolean removeInput(Input input) {
+        if (!containInput(input) || input == null) {
             return false;
-        }else{
-            if(input.unload()){
+        } else {
+            if (input.unload()) {
                 ArrayList<Input> tmp = new ArrayList<>();
-                for(Input i : inputs){
-                    if(input != i){
+                for (Input i : inputs) {
+                    if (input != i) {
                         tmp.add(i);
                     }
                 }
                 inputs = tmp;
                 return true;
-            }else{
+            } else {
                 return false;
             }
         }
     }
 
     @Override
-    public int getInputCounts(){
+    public int getInputCounts() {
         return inputs.size();
     }
 
     @Override
-    public boolean removeAllInputs(){
+    public boolean removeAllInputs() {
         boolean success = true;
-        for(Input i : inputs){
-            if(!removeInput(i)){
+        for (Input i : inputs) {
+            if (!removeInput(i)) {
                 success = false;
             }
         }
@@ -83,50 +85,51 @@ public abstract class BaseController implements Controller {
     }
 
     @Override
-    public ArrayList<Input> getAllInputs(){
+    public ArrayList<Input> getAllInputs() {
         return inputs;
     }
 
     @Override
-    public void setInputMode(int mode){
+    public void setInputMode(int mode) {
         this.inputMode = mode;
-        for(Input i : inputs){
+        for (Input i : inputs) {
             i.setInputMode(mode);
         }
     }
 
     @Override
-    public void addContentView(View view, ViewGroup.LayoutParams params){
-        client.addContentView(view,params);
+    public void addContentView(View view, ViewGroup.LayoutParams params) {
+        client.addContentView(view, params);
     }
 
     @Override
-    public void addView(View view){
+    public void addView(View view) {
         client.addView(view);
     }
 
     @Override
-    public void typeWords(String str){
+    public void typeWords(String str) {
         client.typeWords(str);
     }
 
     @Override
-    public void onStop(){
+    public void onStop() {
         this.saveConfig();
     }
+
     @Override
-    public int getInputMode(){
+    public int getInputMode() {
         return this.inputMode;
     }
 
     @Override
-    public int[] getPointer(){
+    public int[] getPointer() {
         return client.getPointer();
     }
 
     @Override
-    public void saveConfig(){
-        for(Input i : inputs){
+    public void saveConfig() {
+        for (Input i : inputs) {
             i.saveConfig();
         }
     }

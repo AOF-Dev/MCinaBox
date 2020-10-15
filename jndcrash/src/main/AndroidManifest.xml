@@ -1,5 +1,4 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="ru.ivanarh.jndcrash">
+<manifest package="ru.ivanarh.jndcrash">
 
     /
 </manifest>

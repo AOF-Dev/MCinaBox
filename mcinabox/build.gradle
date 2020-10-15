@@ -21,14 +21,14 @@ android {
 
         }
     }
-    lintOptions{
+    lintOptions {
         checkReleaseBuilds false
         abortOnError false
     }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.aar','*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.aar', '*.jar'])
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
     implementation 'com.google.code.gson:gson:2.8.6'

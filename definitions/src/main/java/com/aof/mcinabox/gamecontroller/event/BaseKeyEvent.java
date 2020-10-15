@@ -1,7 +1,6 @@
 package com.aof.mcinabox.gamecontroller.event;
 
 import com.aof.mcinabox.definitions.id.AppEvent;
-import com.aof.mcinabox.gamecontroller.controller.BaseController;
 
 public class BaseKeyEvent implements AppEvent {
     private String tag;
@@ -11,7 +10,7 @@ public class BaseKeyEvent implements AppEvent {
     private int[] mPointer;
     private String chars;
 
-    public BaseKeyEvent(String tag, String keyName, boolean pressed, int type, int[] mPointer){
+    public BaseKeyEvent(String tag, String keyName, boolean pressed, int type, int[] mPointer) {
         this.tag = tag;
         this.keyName = keyName;
         this.pressed = pressed;
@@ -39,11 +38,11 @@ public class BaseKeyEvent implements AppEvent {
         return mPointer;
     }
 
-    public String getChars(){
+    public String getChars() {
         return chars;
     }
 
-    public BaseKeyEvent setChars(String str){
+    public BaseKeyEvent setChars(String str) {
         this.chars = str;
         return this;
     }

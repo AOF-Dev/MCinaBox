@@ -2,12 +2,14 @@ package com.aof.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.renderscript.*;
+import android.renderscript.Allocation;
+import android.renderscript.RenderScript;
+import android.renderscript.ScriptIntrinsicBlur;
 
 public class PicUtils {
 
     //高斯模糊
-    public static Bitmap blur(Context context, int radius, final Bitmap bitmap){
+    public static Bitmap blur(Context context, int radius, final Bitmap bitmap) {
 
         RenderScript rs = RenderScript.create(context);
         Bitmap bitmap1 = bitmap.copy(Bitmap.Config.ARGB_8888, true);

@@ -13,17 +13,9 @@ import com.google.gson.Gson;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.Enumeration;
 import java.util.Objects;
 import java.util.zip.ZipEntry;
-import java.util.zip.ZipException;
-import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
-
-import static android.content.ContentValues.TAG;
 
 public class ZipUtils {
 
@@ -37,14 +29,14 @@ public class ZipUtils {
 
 
     @SuppressLint("HandlerLeak")
-    private Handler mHandler = new Handler(){
+    private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if(callable) {
+            if (callable) {
                 switch (Objects.requireNonNull(msg.getData().getString(TYPE))) {
                     case TYPE_ERROR:
-                        mCallback.onFailed(gson.fromJson(msg.getData().getString(RESULT),Exception.class));
+                        mCallback.onFailed(gson.fromJson(msg.getData().getString(RESULT), Exception.class));
                         break;
                     case TYPE_SUCCESS:
                         mCallback.onSuccess();
@@ -57,19 +49,20 @@ public class ZipUtils {
 
     private Callback mCallback;
     private boolean callable = false;
-    public ZipUtils setCallback(@NonNull Callback call){
+
+    public ZipUtils setCallback(@NonNull Callback call) {
         this.mCallback = call;
         this.callable = true;
         return this;
     }
 
     public void UnZipFolder(final String zipFileString, final String outPathString) {
-        if(callable){
+        if (callable) {
             mCallback.onStart();
         }
-        new Thread(){
+        new Thread() {
             @Override
-            public void run(){
+            public void run() {
                 super.run();
                 Message msg = new Message();
                 Bundle bundle = new Bundle();
@@ -106,12 +99,12 @@ public class ZipUtils {
                         }
                     }
                     inZip.close();
-                    bundle.putString(TYPE,TYPE_SUCCESS);
-                    bundle.putString(RESULT,null);
-                }catch (Exception e){
+                    bundle.putString(TYPE, TYPE_SUCCESS);
+                    bundle.putString(RESULT, null);
+                } catch (Exception e) {
                     e.printStackTrace();
-                    bundle.putString(TYPE,TYPE_ERROR);
-                    bundle.putString(RESULT,gson.toJson(e));
+                    bundle.putString(TYPE, TYPE_ERROR);
+                    bundle.putString(RESULT, gson.toJson(e));
                 }
                 msg.setData(bundle);
                 mHandler.sendMessage(msg);
@@ -119,10 +112,13 @@ public class ZipUtils {
         }.start();
     }
 
-    public interface Callback{
+    public interface Callback {
         void onStart();
+
         void onFailed(Exception e);
+
         void onSuccess();
+
         void onFinish();
     }
 }

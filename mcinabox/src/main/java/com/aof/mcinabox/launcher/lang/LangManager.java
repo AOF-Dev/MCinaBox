@@ -1,10 +1,11 @@
 package com.aof.mcinabox.launcher.lang;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
+
 import androidx.annotation.NonNull;
+
 import com.aof.mcinabox.MainActivity;
 import com.aof.mcinabox.launcher.lang.support.LanguageUtils;
 
@@ -17,43 +18,43 @@ public class LangManager {
 
     private Context mContext;
 
-    public LangManager(Context context){
+    public LangManager(Context context) {
         super();
         this.mContext = context;
     }
 
-    public boolean fitSystemLang(){
-        if(hasFitted){
+    public boolean fitSystemLang() {
+        if (hasFitted) {
             hasFitted = false;
             return true;
         }
-        SharedPreferences sp = mContext.getSharedPreferences(spFileName,spMode);
+        SharedPreferences sp = mContext.getSharedPreferences(spFileName, spMode);
         String langData = sp.getString(sp_lang_tag, LanguageUtils.TAG_SYSTEM);
-        LanguageUtils.switchLang( mContext,LanguageUtils.getLocaleFromConfig(langData));
+        LanguageUtils.switchLang(mContext, LanguageUtils.getLocaleFromConfig(langData));
         hasFitted = true;
         Log.e(TAG, "fitted");
         restartActivity();
         return false;
     }
 
-    public void switchLang(@NonNull String tag){
+    public void switchLang(@NonNull String tag) {
         boolean included = false;
-        for(String str : LanguageUtils.LANG_TAGS){
-            if(str.equals(tag)){
+        for (String str : LanguageUtils.LANG_TAGS) {
+            if (str.equals(tag)) {
                 included = true;
             }
         }
-        if(!included){
+        if (!included) {
             return;
         }
-        LanguageUtils.switchLang(mContext,LanguageUtils.getLocaleFromConfig(tag));
-        SharedPreferences.Editor editor = mContext.getSharedPreferences(spFileName,spMode).edit();
-        editor.putString(sp_lang_tag,tag);
+        LanguageUtils.switchLang(mContext, LanguageUtils.getLocaleFromConfig(tag));
+        SharedPreferences.Editor editor = mContext.getSharedPreferences(spFileName, spMode).edit();
+        editor.putString(sp_lang_tag, tag);
         editor.apply();
         restartActivity();
     }
 
-    private void restartActivity(){
+    private void restartActivity() {
         MainActivity.CURRENT_ACTIVITY.restarter();
     }
 }

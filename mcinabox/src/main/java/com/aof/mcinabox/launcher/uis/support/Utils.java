@@ -1,7 +1,5 @@
 package com.aof.mcinabox.launcher.uis.support;
 
-import android.util.Log;
-import android.widget.ListView;
 import android.widget.Spinner;
 
 public class Utils {

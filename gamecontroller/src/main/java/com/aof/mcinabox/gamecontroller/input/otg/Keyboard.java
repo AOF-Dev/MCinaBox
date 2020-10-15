@@ -4,13 +4,14 @@ import android.content.Context;
 import android.view.InputDevice;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
+
 import com.aof.mcinabox.definitions.id.AppEvent;
+import com.aof.mcinabox.gamecontroller.codes.AndroidKeyMap;
 import com.aof.mcinabox.gamecontroller.controller.Controller;
 import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
 import com.aof.mcinabox.gamecontroller.input.HwInput;
-import com.aof.mcinabox.gamecontroller.codes.AndroidKeyMap;
 
-public class Keyboard implements HwInput, AppEvent{
+public class Keyboard implements HwInput, AppEvent {
 
     private Context mContext;
     private Controller mController;
@@ -61,23 +62,23 @@ public class Keyboard implements HwInput, AppEvent{
         this.enable = enable;
     }
 
-    private void sendKeyEvent(String keyName , boolean pressed){
-        mController.sendKey(new BaseKeyEvent(TAG,keyName,pressed,type,null));
+    private void sendKeyEvent(String keyName, boolean pressed) {
+        mController.sendKey(new BaseKeyEvent(TAG, keyName, pressed, type, null));
     }
 
     @Override
     public boolean onKey(KeyEvent event) {
-        if(event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_UP || event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_DOWN || event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_MUTE){
+        if (event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_UP || event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_DOWN || event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_MUTE) {
             return false;
         }
-        switch (event.getAction()){
+        switch (event.getAction()) {
             case KeyEvent.ACTION_DOWN:
-                if(event.getRepeatCount() == 0){
-                    this.sendKeyEvent(androidKeyMap.translate(event.getKeyCode()),true);
+                if (event.getRepeatCount() == 0) {
+                    this.sendKeyEvent(androidKeyMap.translate(event.getKeyCode()), true);
                 }
                 break;
             case KeyEvent.ACTION_UP:
-                this.sendKeyEvent(androidKeyMap.translate(event.getKeyCode()),false);
+                this.sendKeyEvent(androidKeyMap.translate(event.getKeyCode()), false);
                 break;
         }
         return true;

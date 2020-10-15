@@ -164,6 +164,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.5" />
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -178,13 +179,13 @@
                 android:textColor="@color/text_title_main"
                 android:layout_gravity="center"
                 android:textSize="6sp"
-                android:text="Caps Lock"/>
+                android:text="Caps Lock" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
             <TextView
                 android:id="@+id/virtual_keyboard_signal_enable_type"
@@ -194,7 +195,7 @@
                 android:textColor="@color/text_title_main"
                 android:layout_gravity="center"
                 android:textSize="6sp"
-                android:text="Enable Type"/>
+                android:text="Enable Type" />
 
         </LinearLayout>
 
@@ -220,7 +221,7 @@
             custom:button_name="`"
             custom:char_none="`"
             custom:char_shift="~"
-            custom:char_capslock="`"/>
+            custom:char_capslock="`" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -231,7 +232,7 @@
             custom:button_name="1"
             custom:char_none="1"
             custom:char_shift="&#033;"
-            custom:char_capslock="1"/>
+            custom:char_capslock="1" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -242,7 +243,7 @@
             custom:button_name="2"
             custom:char_none="2"
             custom:char_shift="&#064;"
-            custom:char_capslock="2"/>
+            custom:char_capslock="2" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -253,7 +254,7 @@
             custom:button_name="3"
             custom:char_none="3"
             custom:char_shift="&#035;"
-            custom:char_capslock="3"/>
+            custom:char_capslock="3" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -275,7 +276,7 @@
             custom:button_name="5"
             custom:char_none="5"
             custom:char_shift="&#037;"
-            custom:char_capslock="5"/>
+            custom:char_capslock="5" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -286,7 +287,7 @@
             custom:button_name="6"
             custom:char_none="6"
             custom:char_shift="&#094;"
-            custom:char_capslock="6"/>
+            custom:char_capslock="6" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -297,7 +298,7 @@
             custom:button_name="7"
             custom:char_none="7"
             custom:char_shift="&#110;"
-            custom:char_capslock="7"/>
+            custom:char_capslock="7" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -308,7 +309,7 @@
             custom:button_name="8"
             custom:char_none="8"
             custom:char_shift="&#042;"
-            custom:char_capslock="8"/>
+            custom:char_capslock="8" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -319,7 +320,7 @@
             custom:button_name="9"
             custom:char_none="9"
             custom:char_shift="&#040;"
-            custom:char_capslock="9"/>
+            custom:char_capslock="9" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -330,7 +331,7 @@
             custom:button_name="0"
             custom:char_none="0"
             custom:char_shift="&#041;"
-            custom:char_capslock="0"/>
+            custom:char_capslock="0" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -341,7 +342,7 @@
             custom:button_name="-"
             custom:char_none="-"
             custom:char_shift="_"
-            custom:char_capslock="-"/>
+            custom:char_capslock="-" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -352,7 +353,7 @@
             custom:button_name="="
             custom:char_none="="
             custom:char_shift="+"
-            custom:char_capslock="="/>
+            custom:char_capslock="=" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -363,7 +364,7 @@
             custom:button_name="\"
             custom:char_none="\"
             custom:char_shift="|"
-            custom:char_capslock="\"/>
+            custom:char_capslock="\" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -405,7 +406,7 @@
         <View
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.5"/>
+            android:layout_weight="0.5" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -465,7 +466,7 @@
             custom:button_name="Q"
             custom:char_none="q"
             custom:char_shift="Q"
-            custom:char_capslock="Q"/>
+            custom:char_capslock="Q" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -476,7 +477,7 @@
             custom:button_name="W"
             custom:char_none="w"
             custom:char_capslock="W"
-            custom:char_shift="W"/>
+            custom:char_shift="W" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -487,7 +488,7 @@
             custom:button_name="E"
             custom:char_none="e"
             custom:char_shift="E"
-            custom:char_capslock="E"/>
+            custom:char_capslock="E" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -498,7 +499,7 @@
             custom:button_name="R"
             custom:char_none="r"
             custom:char_capslock="R"
-            custom:char_shift="R"/>
+            custom:char_shift="R" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -509,7 +510,7 @@
             custom:button_name="T"
             custom:char_none="t"
             custom:char_shift="T"
-            custom:char_capslock="T"/>
+            custom:char_capslock="T" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -520,7 +521,7 @@
             custom:button_name="Y"
             custom:char_none="y"
             custom:char_capslock="Y"
-            custom:char_shift="Y"/>
+            custom:char_shift="Y" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -531,7 +532,7 @@
             custom:button_name="U"
             custom:char_none="u"
             custom:char_shift="U"
-            custom:char_capslock="U"/>
+            custom:char_capslock="U" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -542,7 +543,7 @@
             custom:button_name="I"
             custom:char_none="i"
             custom:char_capslock="I"
-            custom:char_shift="I"/>
+            custom:char_shift="I" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -553,7 +554,7 @@
             custom:button_name="O"
             custom:char_none="o"
             custom:char_shift="O"
-            custom:char_capslock="O"/>
+            custom:char_capslock="O" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -564,7 +565,7 @@
             custom:button_name="P"
             custom:char_none="p"
             custom:char_capslock="P"
-            custom:char_shift="P"/>
+            custom:char_shift="P" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -575,7 +576,7 @@
             custom:button_name="["
             custom:char_none="["
             custom:char_shift="{"
-            custom:char_capslock="["/>
+            custom:char_capslock="[" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -586,7 +587,7 @@
             custom:button_name="]"
             custom:char_none="]"
             custom:char_shift="}"
-            custom:char_capslock="]"/>
+            custom:char_capslock="]" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -599,7 +600,7 @@
         <View
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.5"/>
+            android:layout_weight="0.5" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -628,7 +629,7 @@
         <View
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.5"/>
+            android:layout_weight="0.5" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -688,7 +689,7 @@
             custom:button_name="A"
             custom:char_none="a"
             custom:char_shift="A"
-            custom:char_capslock="A"/>
+            custom:char_capslock="A" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -699,7 +700,7 @@
             custom:button_name="S"
             custom:char_none="s"
             custom:char_capslock="S"
-            custom:char_shift="S"/>
+            custom:char_shift="S" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -710,7 +711,7 @@
             custom:button_name="D"
             custom:char_none="d"
             custom:char_shift="D"
-            custom:char_capslock="D"/>
+            custom:char_capslock="D" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -721,7 +722,7 @@
             custom:button_name="F"
             custom:char_none="f"
             custom:char_capslock="F"
-            custom:char_shift="F"/>
+            custom:char_shift="F" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -732,7 +733,7 @@
             custom:button_name="G"
             custom:char_none="g"
             custom:char_shift="G"
-            custom:char_capslock="G"/>
+            custom:char_capslock="G" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -743,7 +744,7 @@
             custom:button_name="H"
             custom:char_none="h"
             custom:char_capslock="H"
-            custom:char_shift="H"/>
+            custom:char_shift="H" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -754,7 +755,7 @@
             custom:button_name="J"
             custom:char_capslock="J"
             custom:char_shift="J"
-            custom:char_none="j"/>
+            custom:char_none="j" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -765,7 +766,7 @@
             custom:button_name="K"
             custom:char_shift="K"
             custom:char_none="k"
-            custom:char_capslock="K"/>
+            custom:char_capslock="K" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -776,7 +777,7 @@
             custom:button_name="L"
             custom:char_none="l"
             custom:char_capslock="L"
-            custom:char_shift="L"/>
+            custom:char_shift="L" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -787,7 +788,7 @@
             custom:button_name=";"
             custom:char_none=";"
             custom:char_shift=":"
-            custom:char_capslock=";"/>
+            custom:char_capslock=";" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -798,7 +799,7 @@
             custom:button_name="'"
             custom:char_none="'"
             custom:char_capslock="'"
-            custom:char_shift="&quot;"/>
+            custom:char_shift="&quot;" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -811,7 +812,7 @@
         <View
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="4"/>
+            android:layout_weight="4" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -871,7 +872,7 @@
             custom:button_name="Z"
             custom:char_none="z"
             custom:char_shift="Z"
-            custom:char_capslock="Z"/>
+            custom:char_capslock="Z" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -882,7 +883,7 @@
             custom:button_name="X"
             custom:char_none="x"
             custom:char_capslock="X"
-            custom:char_shift="X"/>
+            custom:char_shift="X" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -893,7 +894,7 @@
             custom:button_name="C"
             custom:char_none="c"
             custom:char_shift="C"
-            custom:char_capslock="C"/>
+            custom:char_capslock="C" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -904,7 +905,7 @@
             custom:button_name="V"
             custom:char_none="v"
             custom:char_capslock="V"
-            custom:char_shift="V"/>
+            custom:char_shift="V" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -915,7 +916,7 @@
             custom:button_name="B"
             custom:char_none="b"
             custom:char_shift="B"
-            custom:char_capslock="B"/>
+            custom:char_capslock="B" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -926,7 +927,7 @@
             custom:button_name="N"
             custom:char_none="n"
             custom:char_capslock="N"
-            custom:char_shift="N"/>
+            custom:char_shift="N" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -937,7 +938,7 @@
             custom:button_name="M"
             custom:char_none="m"
             custom:char_shift="M"
-            custom:char_capslock="M"/>
+            custom:char_capslock="M" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -948,7 +949,7 @@
             custom:button_name=","
             custom:char_none=","
             custom:char_shift="&lt;"
-            custom:char_capslock=","/>
+            custom:char_capslock="," />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -959,7 +960,7 @@
             custom:button_name="."
             custom:char_none="."
             custom:char_capslock="."
-            custom:char_shift="&gt;"/>
+            custom:char_shift="&gt;" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -970,7 +971,7 @@
             custom:button_name="/"
             custom:char_none="/"
             custom:char_shift="&#063;"
-            custom:char_capslock="/"/>
+            custom:char_capslock="/" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             android:id="@+id/virtual_keyboard_button_Rshift"
@@ -984,7 +985,7 @@
         <View
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1.5"/>
+            android:layout_weight="1.5" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -997,7 +998,7 @@
         <View
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1.5"/>
+            android:layout_weight="1.5" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -1072,7 +1073,7 @@
             custom:button_name="SPACE"
             custom:char_capslock=" "
             custom:char_shift=" "
-            custom:char_none=" "/>
+            custom:char_none=" " />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -1109,7 +1110,7 @@
         <View
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.5"/>
+            android:layout_weight="0.5" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -1138,7 +1139,7 @@
         <View
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.5"/>
+            android:layout_weight="0.5" />
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"

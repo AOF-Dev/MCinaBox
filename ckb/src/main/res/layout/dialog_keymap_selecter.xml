@@ -23,7 +23,7 @@
                 android:layout_gravity="center"
                 android:textSize="@dimen/text_small"
                 android:textColor="@color/text_info"
-                android:text="@string/tips_stand_keyboard_buttons"/>
+                android:text="@string/tips_stand_keyboard_buttons" />
 
 
         </LinearLayout>
@@ -39,7 +39,7 @@
                 android:layout_height="130dp"
                 android:layout_width="460dp"
                 android:layout_gravity="center"
-                layout="@layout/selecter_keyboard"/>
+                layout="@layout/selecter_keyboard" />
 
         </LinearLayout>
 
@@ -55,7 +55,7 @@
                 android:layout_gravity="center"
                 android:textSize="@dimen/text_small"
                 android:textColor="@color/text_info"
-                android:text="@string/tips_stand_mouse_button"/>
+                android:text="@string/tips_stand_mouse_button" />
 
         </LinearLayout>
 
@@ -72,7 +72,7 @@
                 android:layout_margin="5dp"
                 android:layout_gravity="center"
                 android:text="@string/title_mouse_lb"
-                custom:button_name="MOUSE_BUTTON_LEFT"/>
+                custom:button_name="MOUSE_BUTTON_LEFT" />
 
             <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
                 style="@style/selecterButtonStyle"
@@ -81,7 +81,7 @@
                 android:layout_margin="5dp"
                 android:layout_gravity="center"
                 android:text="@string/title_mouse_cb"
-                custom:button_name="MOUSE_BUTTON_MIDDLE"/>
+                custom:button_name="MOUSE_BUTTON_MIDDLE" />
 
             <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
                 style="@style/selecterButtonStyle"
@@ -90,7 +90,7 @@
                 android:layout_margin="5dp"
                 android:layout_gravity="center"
                 android:text="@string/title_mouse_rb"
-                custom:button_name="MOUSE_BUTTON_RIGHT"/>
+                custom:button_name="MOUSE_BUTTON_RIGHT" />
 
             <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
                 style="@style/selecterButtonStyle"
@@ -99,7 +99,7 @@
                 android:layout_margin="5dp"
                 android:layout_gravity="center"
                 android:text="@string/title_wheel_up"
-                custom:button_name="MOUSE_WHEEL_UP"/>
+                custom:button_name="MOUSE_WHEEL_UP" />
 
             <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
                 style="@style/selecterButtonStyle"
@@ -108,7 +108,7 @@
                 android:layout_margin="5dp"
                 android:layout_gravity="center"
                 android:text="@string/title_wheel_down"
-                custom:button_name="MOUSE_WHEEL_DOWN"/>
+                custom:button_name="MOUSE_WHEEL_DOWN" />
 
         </LinearLayout>
 
@@ -127,7 +127,7 @@
             android:layout_margin="5dp"
             android:textSize="@dimen/text_small"
             android:textColor="@color/text_info"
-            android:text="@string/tips_selected"/>
+            android:text="@string/tips_selected" />
 
         <TextView
             android:id="@+id/dialog_keymap_selecter_text_keyname"
@@ -144,7 +144,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_gravity="center"
-            android:text="@string/title_ok"/>
+            android:text="@string/title_ok" />
 
         <Button
             android:id="@+id/dialog_keymap_selecter_button_cancel"
@@ -152,7 +152,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_gravity="center"
-            android:text="@string/title_cancel"/>
+            android:text="@string/title_cancel" />
 
         <Button
             android:id="@+id/dialog_keymap_selecter_button_clear"
@@ -160,7 +160,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_gravity="center"
-            android:text="@string/title_clear"/>
+            android:text="@string/title_clear" />
 
 
     </LinearLayout>

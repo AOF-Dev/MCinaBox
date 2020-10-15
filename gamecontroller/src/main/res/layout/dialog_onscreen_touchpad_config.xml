@@ -4,6 +4,7 @@
     android:layout_width="230dp"
     android:layout_height="wrap_content"
     android:background="@drawable/background_dialog_noalpha">
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -12,6 +13,7 @@
         android:text="@string/title_screen_touchpad_config"
         android:textColor="@color/text_title_main"
         android:textSize="@dimen/text_big" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,7 +31,7 @@
                 android:layout_margin="5dp"
                 android:textSize="@dimen/text_mid"
                 android:textColor="@color/text_title_main"
-                android:text="@string/title_sensitivity"/>
+                android:text="@string/title_sensitivity" />
 
             <SeekBar
                 android:id="@+id/input_onscreen_touchpad_dialog_seekbar_speed"
@@ -37,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
-                android:layout_margin="5dp"/>
+                android:layout_margin="5dp" />
 
             <LinearLayout
                 android:layout_width="40dp"
@@ -69,7 +71,7 @@
                 android:layout_margin="5dp"
                 android:textSize="@dimen/text_mid"
                 android:textColor="@color/text_title_main"
-                android:text="@string/title_trigger"/>
+                android:text="@string/title_trigger" />
 
             <SeekBar
                 android:id="@+id/input_onscreen_touchpad_dialog_seekbar_delay"
@@ -77,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
-                android:layout_margin="5dp"/>
+                android:layout_margin="5dp" />
 
             <LinearLayout
                 android:layout_width="40dp"
@@ -109,7 +111,7 @@
                 android:layout_margin="5dp"
                 android:textSize="@dimen/text_mid"
                 android:textColor="@color/text_title_main"
-                android:text="@string/title_mode"/>
+                android:text="@string/title_mode" />
 
             <RadioGroup
                 android:layout_width="match_parent"
@@ -125,7 +127,7 @@
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:checked="true"
-                    android:text="@string/title_point"/>
+                    android:text="@string/title_point" />
 
                 <RadioButton
                     android:id="@+id/input_onscreen_touchpad_dialog_radio_slide"
@@ -155,6 +157,7 @@
             android:layout_margin="5dp"
             android:layout_gravity="center"
             android:text="确定" />
+
         <Button
             android:id="@+id/input_onscreen_touchpad_dialog_button_cancel"
             android:layout_width="0dp"
@@ -163,13 +166,14 @@
             android:layout_margin="5dp"
             android:layout_gravity="center"
             android:text="取消" />
+
         <Button
             android:id="@+id/input_onscreen_touchpad_dialog_button_restore"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:layout_margin="5dp"
-            android:text="还原"/>
+            android:text="还原" />
 
     </LinearLayout>
 

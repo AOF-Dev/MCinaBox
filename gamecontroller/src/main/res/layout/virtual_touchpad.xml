@@ -9,7 +9,7 @@
         android:id="@+id/touchpad_button"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:alpha="0.0"/>
+        android:alpha="0.0" />
 
     <ImageView
         android:id="@+id/mouse_cursor"

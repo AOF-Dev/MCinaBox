@@ -10,16 +10,16 @@ public class BoatArgs implements Serializable {
     private String gamedir; //游戏目录
     private boolean debug; //调试
 
-    public boolean getDebug(){
+    public boolean getDebug() {
         return debug;
     }
 
-    public BoatArgs setDebug(boolean b){
+    public BoatArgs setDebug(boolean b) {
         this.debug = b;
         return this;
     }
 
-    public String getJava_home(){
+    public String getJava_home() {
         return java_home;
     }
 
@@ -28,11 +28,11 @@ public class BoatArgs implements Serializable {
         return this;
     }
 
-    public String getGamedir(){
+    public String getGamedir() {
         return gamedir;
     }
 
-    public BoatArgs setGamedir(String dir){
+    public BoatArgs setGamedir(String dir) {
         this.gamedir = dir;
         return this;
     }
@@ -46,12 +46,12 @@ public class BoatArgs implements Serializable {
         return this;
     }
 
-    public BoatArgs setShared_libraries(String[] libraries){
+    public BoatArgs setShared_libraries(String[] libraries) {
         this.shared_libraries = libraries;
         return this;
     }
 
-    public String[] getShared_libraries(){
+    public String[] getShared_libraries() {
         return shared_libraries;
     }
 }

@@ -1,8 +1,5 @@
 package com.aof.mcinabox;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -12,15 +9,21 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.KeyEvent;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import com.aof.mcinabox.definitions.manifest.AppManifest;
+import com.aof.mcinabox.launcher.lang.LangManager;
 import com.aof.mcinabox.launcher.setting.SettingManager;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
-import com.aof.mcinabox.launcher.lang.LangManager;
 import com.aof.mcinabox.launcher.theme.ThemeManager;
 import com.aof.mcinabox.launcher.tipper.TipperManager;
 import com.aof.mcinabox.launcher.uis.BaseUI;
 import com.aof.mcinabox.launcher.uis.achieve.UiManager;
 import com.aof.utils.FileTool;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Timer;
@@ -50,17 +53,17 @@ public class MainActivity extends AppCompatActivity {
         //请求权限
         requestPermission();
         //使用语言管理器切换语言
-        if(!new LangManager(this).fitSystemLang()){
+        if (!new LangManager(this).fitSystemLang()) {
             return;
         }
         //初始化配置管理器
         mSettingManager = new SettingManager(this);
         //检查配置文件
-        if(Setting == null){
+        if (Setting == null) {
             Setting = checkLauncherSettingFile();
         }
         //初始化清单
-        AppManifest.initManifest(this,Setting.getGamedir());
+        AppManifest.initManifest(this, Setting.getGamedir());
         //检查目录
         CheckMcinaBoxDir();
         //初始化主题管理器
@@ -68,13 +71,13 @@ public class MainActivity extends AppCompatActivity {
         //初始化消息管理器
         mTipperManager = new TipperManager(this);
         //初始化界面管理器
-        mUiManager = new UiManager(this,Setting);
+        mUiManager = new UiManager(this, Setting);
         //Life Circle
         mUiManager.onCreate();
     }
 
     @Override
-    protected void onStart(){
+    protected void onStart() {
         super.onStart();
         //执行自动刷新
         this.mTimer = new Timer();
@@ -137,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * 【检查MCinaBox的目录结构是否正常】
      **/
-    private void updateSettingFromUis(){
+    private void updateSettingFromUis() {
         mUiManager.saveConfigToSetting();
     }
 
@@ -210,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
         // 重新创建缓存文件夹
         removeTmpFloder();
@@ -218,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRestart(){
+    public void onRestart() {
         super.onRestart();
         mUiManager.onRestart();
         // stat Timer Task
@@ -228,8 +231,8 @@ public class MainActivity extends AppCompatActivity {
         switchSettingChecker(true);
     }
 
-    private TimerTask createTimerTask(){
-        return  new TimerTask() {
+    private TimerTask createTimerTask() {
+        return new TimerTask() {
             @Override
             public void run() {
                 Message msg = new Message();
@@ -239,7 +242,7 @@ public class MainActivity extends AppCompatActivity {
         };
     }
 
-    public void restarter(){
+    public void restarter() {
         //首先要关闭SettingManager的自动检查
         switchSettingChecker(false);
         //重启Activity
@@ -249,12 +252,12 @@ public class MainActivity extends AppCompatActivity {
         MainActivity.CURRENT_ACTIVITY.finish();
     }
 
-    private void switchSettingChecker(boolean enable){
-        if(mSettingManager != null){
-            if(enable && !enableSettingChecker){
+    private void switchSettingChecker(boolean enable) {
+        if (mSettingManager != null) {
+            if (enable && !enableSettingChecker) {
                 mSettingManager.startChecking();
                 enableSettingChecker = true;
-            }else if(!enable && enableSettingChecker){
+            } else if (!enable && enableSettingChecker) {
                 mSettingManager.stopChecking();
                 enableSettingChecker = false;
             }

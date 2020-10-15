@@ -11,6 +11,7 @@ import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloadListener;
 import com.liulishuo.filedownloader.FileDownloadQueueSet;
 import com.liulishuo.filedownloader.FileDownloader;
+
 import java.util.ArrayList;
 
 public class DownloadManager {
@@ -50,7 +51,7 @@ public class DownloadManager {
     private ArrayList<BaseDownloadTask> tasks = new ArrayList<>();
 
     public void startPresetDownload(int presetId, String id) {
-        if(! this.enablePreset) {
+        if (!this.enablePreset) {
             this.enablePreset = true;
         }
         this.currentPresetId = presetId;
@@ -67,11 +68,11 @@ public class DownloadManager {
                 current = 1;
                 break;
             case DOWNLOAD_PRESET_VERSION_JSON:
-                this.mDialog = new DownloaderDialog(mContext,this);
+                this.mDialog = new DownloaderDialog(mContext, this);
                 tasks.add(mSupport.createVersionJsonDownloadTask(id));
                 pgName = mContext.getString(R.string.tips_downloading_version_json);
                 all = 5;
-                current =1;
+                current = 1;
                 break;
             case DOWNLOAD_PRESET_VERSION_LIBS:
                 tasks.addAll(mSupport.createLibrariesDownloadTask(id));
@@ -110,7 +111,7 @@ public class DownloadManager {
         mQueueSet = new FileDownloadQueueSet(mFileDownloadListener);
         mQueueSet.downloadSequentially(tasks);
         mQueueSet.start();
-        updateDialogUi(id,pgName,all,current);
+        updateDialogUi(id, pgName, all, current);
     }
 
     private void updateDialogUi(String versionId, String title, int all, int current) {
@@ -119,26 +120,26 @@ public class DownloadManager {
         }
         mDialog.setId(versionId)
                 .setTitle(title)
-                .setTotalProgress(all,current);
+                .setTotalProgress(all, current);
     }
 
-    private void updateDialogUi(boolean success){
-        if(success){
+    private void updateDialogUi(boolean success) {
+        if (success) {
             mDialog.setFinished();
-        }else{
+        } else {
             mDialog.setFailed();
             this.cancelDownload();
         }
     }
 
-    public void startDownload(String title, String pgName, int all, int current, BaseDownloadTask[] tasks, Runable runable){
+    public void startDownload(String title, String pgName, int all, int current, BaseDownloadTask[] tasks, Runable runable) {
         this.taskFinished = 0;
         this.mRunable = runable;
         this.taskCounts = tasks.length;
         mQueueSet = new FileDownloadQueueSet(mFileDownloadListener);
         mQueueSet.downloadSequentially(tasks);
         mQueueSet.start();
-        updateDialogUi(title,pgName,all,current);
+        updateDialogUi(title, pgName, all, current);
     }
 
     private FileDownloadListener mFileDownloadListener = new FileDownloadListener() {
@@ -151,12 +152,12 @@ public class DownloadManager {
         @Override
         protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
             //反馈下载速度
-            if(!enablePreset || currentPresetId == DOWNLOAD_PRESET_VERSION_JSON || currentPresetId == DOWNLOAD_PRESET_VERSION_JAR || currentPresetId == DOWNLOAD_PRESET_ASSETS_INDEX){
-                mDialog.setCurrentProgress(soFarBytes *100 / totalBytes);
-                mDialog.setSpeed(FormatUtils.formatDataTransferSpeed(task.getSpeed(),FormatUtils.CAPACITY_TYPE_KBYTE,FormatUtils.DTS_TYPE_S));
+            if (!enablePreset || currentPresetId == DOWNLOAD_PRESET_VERSION_JSON || currentPresetId == DOWNLOAD_PRESET_VERSION_JAR || currentPresetId == DOWNLOAD_PRESET_ASSETS_INDEX) {
+                mDialog.setCurrentProgress(soFarBytes * 100 / totalBytes);
+                mDialog.setSpeed(FormatUtils.formatDataTransferSpeed(task.getSpeed(), FormatUtils.CAPACITY_TYPE_KBYTE, FormatUtils.DTS_TYPE_S));
             }
             //反馈文件名称
-            if(!enablePreset || currentPresetId != DOWNLOAD_PRESET_MANIFEST){
+            if (!enablePreset || currentPresetId != DOWNLOAD_PRESET_MANIFEST) {
                 mDialog.setFileName(task.getFilename());
             }
         }
@@ -164,24 +165,24 @@ public class DownloadManager {
         @Override
         protected void completed(BaseDownloadTask task) {
             taskFinished++;
-            if(enablePreset){
-                if(currentPresetId == DOWNLOAD_FORGE_LIBS || currentPresetId == DOWNLOAD_PRESET_VERSION_LIBS || currentPresetId == DOWNLOAD_PRESET_ASSETS_OBJS){
-                    mDialog.setSpeed(FormatUtils.formatDataTransferSpeed(task.getSpeed(),FormatUtils.CAPACITY_TYPE_KBYTE,FormatUtils.DTS_TYPE_S));
+            if (enablePreset) {
+                if (currentPresetId == DOWNLOAD_FORGE_LIBS || currentPresetId == DOWNLOAD_PRESET_VERSION_LIBS || currentPresetId == DOWNLOAD_PRESET_ASSETS_OBJS) {
+                    mDialog.setSpeed(FormatUtils.formatDataTransferSpeed(task.getSpeed(), FormatUtils.CAPACITY_TYPE_KBYTE, FormatUtils.DTS_TYPE_S));
                 }
                 mDialog.setCurrentProgress(taskFinished * 100 / taskCounts);
-                if(taskCounts == taskFinished){
+                if (taskCounts == taskFinished) {
                     taskFinished = 0;
-                    if(currentPresetId != DOWNLOAD_PRESET_ASSETS_OBJS && currentPresetId != DOWNLOAD_FORGE_LIBS){
+                    if (currentPresetId != DOWNLOAD_PRESET_ASSETS_OBJS && currentPresetId != DOWNLOAD_FORGE_LIBS) {
                         startPresetDownload(currentPresetId + 1, currentVersionId);
-                    }else{
+                    } else {
                         updateDialogUi(true);
                     }
                 }
-            }else{
-                if(taskCounts == taskFinished){
+            } else {
+                if (taskCounts == taskFinished) {
                     updateDialogUi(true);
                 }
-                if(mRunable != null){
+                if (mRunable != null) {
                     mRunable.run();
                 }
             }
@@ -195,8 +196,8 @@ public class DownloadManager {
         @Override
         protected void error(BaseDownloadTask task, Throwable e) {
             updateDialogUi(false);
-            Log.e(TAG,"failed：" + task.getFilename());
-            Log.e(TAG,"message: " + e.getMessage() + " cause: " + e.getCause());
+            Log.e(TAG, "failed：" + task.getFilename());
+            Log.e(TAG, "message: " + e.getMessage() + " cause: " + e.getCause());
         }
 
         @Override
@@ -206,18 +207,20 @@ public class DownloadManager {
     };
 
     private Runable mRunable;
-    public void downloadManifestAndUpdateGameListUi(Runable r){
+
+    public void downloadManifestAndUpdateGameListUi(Runable r) {
         mQueueSet = new FileDownloadQueueSet(mFileDownloadListener);
         mQueueSet.downloadSequentially(mSupport.createVersionManifestDownloadTask());
         mQueueSet.start();
         this.mRunable = r;
     }
 
-    public class Runable{
-        public void run(){}
+    public class Runable {
+        public void run() {
+        }
     }
 
-    public void cancelDownload(){
+    public void cancelDownload() {
         new FileDownloader().pauseAll();
     }
 

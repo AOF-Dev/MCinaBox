@@ -10,6 +10,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.aof.mcinabox.MainActivity;
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.launcher.download.DownloadManager;
@@ -18,6 +19,7 @@ import com.aof.mcinabox.minecraft.json.VersionManifestJson;
 import com.aof.utils.dialog.DialogUtils;
 
 import java.util.ArrayList;
+
 import static com.aof.mcinabox.definitions.manifest.AppManifest.MCINABOX_TEMP;
 
 public class InstallVersionUI extends BaseUI implements RadioGroup.OnCheckedChangeListener {
@@ -102,14 +104,14 @@ public class InstallVersionUI extends BaseUI implements RadioGroup.OnCheckedChan
     private void DownloadSelectedVersion() {
 
         if (versionList == null) {
-            DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_error),mContext.getString(R.string.tips_please_refresh),mContext.getString(R.string.title_ok),null);
+            DialogUtils.createSingleChoiceDialog(mContext, mContext.getString(R.string.title_error), mContext.getString(R.string.tips_please_refresh), mContext.getString(R.string.title_ok), null);
             return;
         }
         if (selectedVersionPos == -1) {
-            DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_error), mContext.getString(R.string.tips_please_select_version),mContext.getString(R.string.title_ok),null);
+            DialogUtils.createSingleChoiceDialog(mContext, mContext.getString(R.string.title_error), mContext.getString(R.string.tips_please_select_version), mContext.getString(R.string.title_ok), null);
             return;
         }
-        mDownloadManager.startPresetDownload(DownloadManager.DOWNLOAD_PRESET_VERSION_JSON ,listVersionsOnline.getAdapter().getItem(selectedVersionPos).toString());
+        mDownloadManager.startPresetDownload(DownloadManager.DOWNLOAD_PRESET_VERSION_JSON, listVersionsOnline.getAdapter().getItem(selectedVersionPos).toString());
 
     }
 

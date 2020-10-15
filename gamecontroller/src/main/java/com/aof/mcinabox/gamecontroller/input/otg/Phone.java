@@ -62,22 +62,22 @@ public class Phone implements HwInput {
 
     @Override
     public boolean onKey(KeyEvent event) {
-        switch (event.getKeyCode()){
+        switch (event.getKeyCode()) {
             case KeyEvent.KEYCODE_VOLUME_UP:
-                if(event.getAction() == KeyEvent.ACTION_UP){
+                if (event.getAction() == KeyEvent.ACTION_UP) {
                     adjustAudio(AudioManager.ADJUST_RAISE);
                 }
                 return true;
-            case  KeyEvent.KEYCODE_VOLUME_DOWN:
-                if(event.getAction() == KeyEvent.ACTION_UP) {
+            case KeyEvent.KEYCODE_VOLUME_DOWN:
+                if (event.getAction() == KeyEvent.ACTION_UP) {
                     adjustAudio(AudioManager.ADJUST_LOWER);
                 }
                 return true;
             case KeyEvent.KEYCODE_BACK:
-                if (!event.getDevice().isVirtual()){
+                if (!event.getDevice().isVirtual()) {
                     return false;
                 }
-                sendKeyEvent(KeyMap.KEYMAP_KEY_ESC,event);
+                sendKeyEvent(KeyMap.KEYMAP_KEY_ESC, event);
                 return true;
             default:
                 return false;
@@ -94,13 +94,13 @@ public class Phone implements HwInput {
         return InputDevice.SOURCE_KEYBOARD;
     }
 
-    private void sendKeyEvent(KeyEvent event){
-        sendKeyEvent(mTrans.trans(event.getKeyCode()),event);
+    private void sendKeyEvent(KeyEvent event) {
+        sendKeyEvent(mTrans.trans(event.getKeyCode()), event);
     }
 
-    private void sendKeyEvent(String keyName, KeyEvent event){
+    private void sendKeyEvent(String keyName, KeyEvent event) {
         boolean pressed;
-        switch (event.getAction()){
+        switch (event.getAction()) {
             case KeyEvent.ACTION_UP:
                 pressed = false;
                 break;
@@ -111,11 +111,11 @@ public class Phone implements HwInput {
                 return;
 
         }
-        mController.sendKey(new BaseKeyEvent(TAG,keyName,pressed,type,null));
+        mController.sendKey(new BaseKeyEvent(TAG, keyName, pressed, type, null));
     }
 
-    private void adjustAudio(int direction){
-        AudioManager audioManager =  (AudioManager)mContext.getSystemService(Service.AUDIO_SERVICE);
-        audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC,direction,AudioManager.FLAG_SHOW_UI);
+    private void adjustAudio(int direction) {
+        AudioManager audioManager = (AudioManager) mContext.getSystemService(Service.AUDIO_SERVICE);
+        audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, direction, AudioManager.FLAG_SHOW_UI);
     }
 }

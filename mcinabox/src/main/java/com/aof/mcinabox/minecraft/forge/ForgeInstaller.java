@@ -5,10 +5,12 @@ import android.content.Context;
 import com.aof.mcinabox.definitions.manifest.AppManifest;
 import com.aof.mcinabox.launcher.download.DownloadManager;
 import com.aof.mcinabox.minecraft.json.VersionJson;
-import com.aof.utils.FileTool;
 import com.aof.mcinabox.utils.ZipUtils;
+import com.aof.utils.FileTool;
+
 import java.io.File;
-import static com.aof.mcinabox.definitions.manifest.AppManifest.*;
+
+import static com.aof.mcinabox.definitions.manifest.AppManifest.MCINABOX_TEMP;
 
 public class ForgeInstaller {
 
@@ -16,7 +18,7 @@ public class ForgeInstaller {
     private String MINECRAFT_HOME;
     private String MINECRAFT_HOME_VERSION;
 
-    public ForgeInstaller(Context context){
+    public ForgeInstaller(Context context) {
         this.context = context;
         this.MINECRAFT_HOME = AppManifest.MINECRAFT_HOME;
         this.MINECRAFT_HOME_VERSION = MINECRAFT_HOME + "/versions";
@@ -26,29 +28,29 @@ public class ForgeInstaller {
         new ZipUtils().setCallback(call).UnZipFolder(path, MCINABOX_TEMP + "/forge");
     }
 
-    public String makeForgeData(){
+    public String makeForgeData() {
         File forgeFile = new File(MCINABOX_TEMP + "/forge/version.json");
         VersionJson forgeJson;
-        if(forgeFile.exists()){
+        if (forgeFile.exists()) {
             forgeJson = com.aof.mcinabox.minecraft.JsonUtils.getVersionFromFile(forgeFile);
-            if(forgeJson != null) {
-                FileTool.checkFilePath(new File(MINECRAFT_HOME_VERSION + "/" + forgeJson.getId()),true);
-                FileTool.copyFile(MCINABOX_TEMP + "/forge/version.json",MINECRAFT_HOME_VERSION + "/" + forgeJson.getId() + "/" + forgeJson.getId() + ".json", true);
+            if (forgeJson != null) {
+                FileTool.checkFilePath(new File(MINECRAFT_HOME_VERSION + "/" + forgeJson.getId()), true);
+                FileTool.copyFile(MCINABOX_TEMP + "/forge/version.json", MINECRAFT_HOME_VERSION + "/" + forgeJson.getId() + "/" + forgeJson.getId() + ".json", true);
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 return forgeJson.getId();
-            }else{
+            } else {
                 return null;
             }
         }
         return null;
     }
 
-    public void startDownloadForge(String id){
-        new DownloadManager(context).startPresetDownload(DownloadManager.DOWNLOAD_FORGE_LIBS,id);
+    public void startDownloadForge(String id) {
+        new DownloadManager(context).startPresetDownload(DownloadManager.DOWNLOAD_FORGE_LIBS, id);
     }
 
 

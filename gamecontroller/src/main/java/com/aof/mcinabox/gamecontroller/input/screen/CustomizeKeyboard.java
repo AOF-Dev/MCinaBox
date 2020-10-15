@@ -1,18 +1,19 @@
 package com.aof.mcinabox.gamecontroller.input.screen;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.aof.mcinabox.definitions.id.AppEvent;
-import com.aof.mcinabox.gamecontroller.ckb.achieve.CkbManagerDialog;
 import com.aof.mcinabox.gamecontroller.ckb.achieve.CkbManager;
+import com.aof.mcinabox.gamecontroller.ckb.achieve.CkbManagerDialog;
 import com.aof.mcinabox.gamecontroller.ckb.support.CallCustomizeKeyboard;
 import com.aof.mcinabox.gamecontroller.controller.Controller;
 import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
 import com.aof.mcinabox.gamecontroller.input.Input;
 import com.aof.mcinabox.gamecontroller.input.OnscreenInput;
+
 import java.util.ArrayList;
 
 public class CustomizeKeyboard implements OnscreenInput, AppEvent, Controller, CallCustomizeKeyboard {
@@ -120,9 +121,9 @@ public class CustomizeKeyboard implements OnscreenInput, AppEvent, Controller, C
 
     @Override
     public void setEnable(boolean enable) {
-        if(enable){
+        if (enable) {
             mManager.showOrHideGameButtons(CkbManager.SHOW_BUTTON);
-        }else{
+        } else {
             mManager.showOrHideGameButtons(CkbManager.HIDE_BUTTON);
         }
     }

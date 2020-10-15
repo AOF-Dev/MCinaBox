@@ -4,7 +4,9 @@ import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
 import androidx.appcompat.widget.Toolbar;
+
 import com.aof.mcinabox.MainActivity;
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.launcher.lang.LanguageDialog;
@@ -48,9 +50,9 @@ public class MainToolbarUI extends BaseUI {
 
     @Override
     public void refreshUI() {
-        if(MainActivity.CURRENT_ACTIVITY.mTipperManager != null && MainActivity.CURRENT_ACTIVITY.mTipperManager.getTipCounts() != 0){
+        if (MainActivity.CURRENT_ACTIVITY.mTipperManager != null && MainActivity.CURRENT_ACTIVITY.mTipperManager.getTipCounts() != 0) {
             buttonInfo.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             buttonInfo.setVisibility(View.GONE);
         }
     }
@@ -79,9 +81,9 @@ public class MainToolbarUI extends BaseUI {
         @Override
         public void onClick(View v) {
             if (v == buttonRefresh) {
-                DialogUtils.createBothChoicesDialog(mContext,mContext.getString(R.string.title_warn),mContext.getString(R.string.tips_going_to_restart_app),mContext.getString(R.string.title_continue),mContext.getString(R.string.title_cancel),new DialogSupports(){
+                DialogUtils.createBothChoicesDialog(mContext, mContext.getString(R.string.title_warn), mContext.getString(R.string.tips_going_to_restart_app), mContext.getString(R.string.title_continue), mContext.getString(R.string.title_cancel), new DialogSupports() {
                     @Override
-                    public void runWhenPositive(){
+                    public void runWhenPositive() {
                         MainActivity.CURRENT_ACTIVITY.restarter();
                     }
                 });
@@ -95,7 +97,7 @@ public class MainToolbarUI extends BaseUI {
             if (v == buttonLanguage) {
                 new LanguageDialog(mContext).show();
             }
-            if(v == buttonInfo){
+            if (v == buttonInfo) {
                 MainActivity.CURRENT_ACTIVITY.mTipperManager.showTipper(buttonInfo);
             }
         }

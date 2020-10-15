@@ -4,14 +4,14 @@ import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.IBinder;
-//import android.support.annotation.CallSuper;
 import android.util.Log;
+
+//import android.support.annotation.CallSuper;
 
 /**
  * Service for out-of-process crash handling daemon. Should be run from a separate process.
  */
-public class NDCrashService extends Service implements NDCrash.OnCrashCallback
-{
+public class NDCrashService extends Service implements NDCrash.OnCrashCallback {
     /**
      * Log tag.
      */
@@ -88,7 +88,7 @@ public class NDCrashService extends Service implements NDCrash.OnCrashCallback
 
     @Override //@CallSuper
     public void onDestroy() {
-		
+
         if (mDaemonStarted) {
             mDaemonStarted = false;
             final boolean stoppedSuccessfully = NDCrash.stopOutOfProcessDaemon();
@@ -110,9 +110,9 @@ public class NDCrashService extends Service implements NDCrash.OnCrashCallback
     /**
      * Called on daemon start attempt, both on success and failed.
      *
-     * @param unwinder Unwinder that is used.
+     * @param unwinder   Unwinder that is used.
      * @param reportPath Path to crash report file.
-     * @param result Start result.
+     * @param result     Start result.
      */
     protected void onDaemonStart(NDCrashUnwinder unwinder, String reportPath, NDCrashError result) {
     }

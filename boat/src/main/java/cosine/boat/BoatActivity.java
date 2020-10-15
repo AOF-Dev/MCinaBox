@@ -1,22 +1,23 @@
 package cosine.boat;
 
 import android.app.Activity;
-import android.graphics.Color;
-import android.util.Log;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
-import android.os.Bundle;
 import android.app.NativeActivity;
-import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.PopupWindow;
-import android.view.Gravity;
-import android.view.WindowManager.LayoutParams;
-import android.view.View;
+import android.graphics.Color;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.widget.RelativeLayout;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.WindowManager.LayoutParams;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
+
 import com.aof.mcinabox.definitions.id.AppEvent;
 import com.aof.mcinabox.definitions.models.BoatArgs;
 import com.aof.mcinabox.gamecontroller.client.ClientInput;
@@ -25,6 +26,7 @@ import com.aof.mcinabox.gamecontroller.controller.Controller;
 import com.aof.mcinabox.gamecontroller.controller.HardwareController;
 import com.aof.mcinabox.gamecontroller.controller.HwController;
 import com.aof.mcinabox.gamecontroller.controller.VirtualController;
+
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -55,11 +57,11 @@ public class BoatActivity extends NativeActivity implements View.OnClickListener
         popupWindow.setHeight(LayoutParams.MATCH_PARENT);
         popupWindow.setFocusable(false);
         popupWindow.setInputMethodMode(PopupWindow.INPUT_METHOD_NOT_NEEDED);
-        baseLayout = new RelativeLayout(this){
+        baseLayout = new RelativeLayout(this) {
             @Override
-            public boolean dispatchGenericMotionEvent(MotionEvent event){
-                Log.e(TAG,event.toString());
-                Log.e(TAG,event.getDevice().toString());
+            public boolean dispatchGenericMotionEvent(MotionEvent event) {
+                Log.e(TAG, event.toString());
+                Log.e(TAG, event.getDevice().toString());
                 return BoatActivity.this.dispatchGenericMotionEvent(event);
             }
         };
@@ -69,8 +71,8 @@ public class BoatActivity extends NativeActivity implements View.OnClickListener
         popupWindow.setContentView(baseLayout);
 
         //添加控制器
-        virtualController = new VirtualController(this,this, KEYMAP_TO_X);
-        hardwareController = new HardwareController(this,this, KEYMAP_TO_X);
+        virtualController = new VirtualController(this, this, KEYMAP_TO_X);
+        hardwareController = new HardwareController(this, this, KEYMAP_TO_X);
         //设定当前Activity
         BoatInput.mActivity = this;
 
@@ -79,15 +81,15 @@ public class BoatActivity extends NativeActivity implements View.OnClickListener
 
         //启动定时器
         mTimer = new Timer();
-        mTimer.schedule(createTimerTask(),REFRESH_P,REFRESH_P);
+        mTimer.schedule(createTimerTask(), REFRESH_P, REFRESH_P);
 
     }
 
-    private TimerTask createTimerTask(){
+    private TimerTask createTimerTask() {
         return new TimerTask() {
             @Override
             public void run() {
-                for (Controller c : new Controller[]{virtualController,hardwareController}){
+                for (Controller c : new Controller[]{virtualController, hardwareController}) {
                     c.saveConfig();
                 }
             }
@@ -112,18 +114,18 @@ public class BoatActivity extends NativeActivity implements View.OnClickListener
     }
 
     @Override
-    public void onStop(){
+    public void onStop() {
         super.onStop();
         //取消定时器
         mTimer.cancel();
     }
 
     @Override
-    public void onRestart(){
+    public void onRestart() {
         super.onRestart();
         //启动定时器
         mTimer = new Timer();
-        mTimer.schedule(createTimerTask(),REFRESH_P,REFRESH_P);
+        mTimer.schedule(createTimerTask(), REFRESH_P, REFRESH_P);
     }
 
     @Override
@@ -223,9 +225,9 @@ public class BoatActivity extends NativeActivity implements View.OnClickListener
         return BoatInput.getPointer();
     }
 
-    public void bringControllerToFront(){
-        for(View v : cvs){
-           v.bringToFront();
+    public void bringControllerToFront() {
+        for (View v : cvs) {
+            v.bringToFront();
         }
     }
 
@@ -275,20 +277,20 @@ public class BoatActivity extends NativeActivity implements View.OnClickListener
     }
 
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
     }
 
     @Override
-    public boolean dispatchKeyEvent(KeyEvent event){
-        ((HwController)hardwareController).dispatchKeyEvent(event);
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        ((HwController) hardwareController).dispatchKeyEvent(event);
         return true;
     }
 
 
     @Override
-    public boolean dispatchGenericMotionEvent(MotionEvent ev){
-        ((HwController)hardwareController).dispatchMotionKeyEvent(ev);
+    public boolean dispatchGenericMotionEvent(MotionEvent ev) {
+        ((HwController) hardwareController).dispatchMotionKeyEvent(ev);
         return true;
     }
 }

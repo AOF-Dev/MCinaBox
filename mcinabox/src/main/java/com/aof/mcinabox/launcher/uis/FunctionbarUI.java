@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.aof.mcinabox.MainActivity;
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.gamecontroller.ckb.CustomizeKeyboardEditorActivity;
@@ -43,7 +44,7 @@ public class FunctionbarUI extends BaseUI {
         textUserName = layout_functionbar.findViewById(R.id.functionbar_username);
         textUserType = layout_functionbar.findViewById(R.id.functionbar_usertype);
 
-        for(View v : new View[]{buttonUser,buttonPlugin,buttonGamelist,buttonGamedir,buttonSetting,buttonKeyboard,buttonHome}){
+        for (View v : new View[]{buttonUser, buttonPlugin, buttonGamelist, buttonGamedir, buttonSetting, buttonKeyboard, buttonHome}) {
             v.setOnClickListener(clickListener);
         }
         refreshUI();
@@ -70,45 +71,45 @@ public class FunctionbarUI extends BaseUI {
         return layout_functionbar.getVisibility();
     }
 
-    private View.OnClickListener clickListener = new View.OnClickListener(){
+    private View.OnClickListener clickListener = new View.OnClickListener() {
 
         @Override
         public void onClick(View v) {
-            if(v == buttonUser){
-                MainActivity.CURRENT_ACTIVITY.switchUIs(MainActivity.CURRENT_ACTIVITY.mUiManager.uiUser,mContext.getString(R.string.title_user));
+            if (v == buttonUser) {
+                MainActivity.CURRENT_ACTIVITY.switchUIs(MainActivity.CURRENT_ACTIVITY.mUiManager.uiUser, mContext.getString(R.string.title_user));
             }
-            if(v == buttonPlugin){
-                MainActivity.CURRENT_ACTIVITY.switchUIs(MainActivity.CURRENT_ACTIVITY.mUiManager.uiPlugin,mContext.getString(R.string.title_plugin));
+            if (v == buttonPlugin) {
+                MainActivity.CURRENT_ACTIVITY.switchUIs(MainActivity.CURRENT_ACTIVITY.mUiManager.uiPlugin, mContext.getString(R.string.title_plugin));
             }
-            if(v == buttonGamelist){
-                MainActivity.CURRENT_ACTIVITY.switchUIs(MainActivity.CURRENT_ACTIVITY.mUiManager.uiGamelist,mContext.getString(R.string.title_game_list));
+            if (v == buttonGamelist) {
+                MainActivity.CURRENT_ACTIVITY.switchUIs(MainActivity.CURRENT_ACTIVITY.mUiManager.uiGamelist, mContext.getString(R.string.title_game_list));
             }
-            if(v == buttonGamedir){
-                MainActivity.CURRENT_ACTIVITY.switchUIs(MainActivity.CURRENT_ACTIVITY.mUiManager.uiGamedir,mContext.getString(R.string.title_game_dir));
+            if (v == buttonGamedir) {
+                MainActivity.CURRENT_ACTIVITY.switchUIs(MainActivity.CURRENT_ACTIVITY.mUiManager.uiGamedir, mContext.getString(R.string.title_game_dir));
             }
-            if(v == buttonSetting){
-                MainActivity.CURRENT_ACTIVITY.switchUIs(MainActivity.CURRENT_ACTIVITY.mUiManager.uiLauncherSetting,mContext.getString(R.string.title_launcher_setting));
+            if (v == buttonSetting) {
+                MainActivity.CURRENT_ACTIVITY.switchUIs(MainActivity.CURRENT_ACTIVITY.mUiManager.uiLauncherSetting, mContext.getString(R.string.title_launcher_setting));
             }
-            if(v == buttonKeyboard){
+            if (v == buttonKeyboard) {
                 Intent intent = new Intent(mContext, CustomizeKeyboardEditorActivity.class);
                 mContext.startActivity(intent);
             }
-            if(v == buttonHome){
-                MainActivity.CURRENT_ACTIVITY.switchUIs(MainActivity.CURRENT_ACTIVITY.mUiManager.uiStartGame,mContext.getString(R.string.title_home));
+            if (v == buttonHome) {
+                MainActivity.CURRENT_ACTIVITY.switchUIs(MainActivity.CURRENT_ACTIVITY.mUiManager.uiStartGame, mContext.getString(R.string.title_home));
             }
         }
     };
 
-    private void refreshUserInfo(){
+    private void refreshUserInfo() {
         boolean selected = false;
         SettingJson.Account[] accounts = setting.getAccounts();
-        if(accounts != null && accounts.length != 0){
-            for(SettingJson.Account a : accounts){
-                if(a.isSelected()){
+        if (accounts != null && accounts.length != 0) {
+            for (SettingJson.Account a : accounts) {
+                if (a.isSelected()) {
                     selected = true;
                     textUserName.setText(a.getUsername());
                     String type;
-                    switch(a.getType()){
+                    switch (a.getType()) {
                         case SettingJson.USER_TYPE_OFFLINE:
                             type = mContext.getString(R.string.title_offline);
                             break;
@@ -127,7 +128,7 @@ public class FunctionbarUI extends BaseUI {
                 }
             }
         }
-        if(!selected){
+        if (!selected) {
             textUserName.setText(mContext.getString(R.string.title_user));
             textUserType.setText("");
         }

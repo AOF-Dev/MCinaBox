@@ -15,12 +15,15 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.content.ContextCompat;
+
 import com.aof.mcinabox.definitions.id.AppEvent;
 import com.aof.mcinabox.gamecontroller.R;
 import com.aof.mcinabox.gamecontroller.client.ClientInput;
+import com.aof.mcinabox.gamecontroller.codes.Translation;
 import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
 import com.aof.mcinabox.gamecontroller.input.Input;
 import com.aof.mcinabox.gamecontroller.input.OnscreenInput;
@@ -32,15 +35,15 @@ import com.aof.mcinabox.gamecontroller.input.screen.OnscreenJoystick;
 import com.aof.mcinabox.gamecontroller.input.screen.OnscreenKeyboard;
 import com.aof.mcinabox.gamecontroller.input.screen.OnscreenMouse;
 import com.aof.mcinabox.gamecontroller.input.screen.OnscreenTouchpad;
-import com.aof.mcinabox.gamecontroller.codes.Translation;
 import com.aof.utils.DisplayUtils;
 import com.aof.utils.dialog.DialogUtils;
 import com.aof.utils.dialog.support.DialogSupports;
+
 import java.util.HashMap;
 import java.util.Objects;
 
 
-public class VirtualController extends BaseController implements AppEvent , View.OnClickListener , CompoundButton.OnCheckedChangeListener {
+public class VirtualController extends BaseController implements AppEvent, View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
     private String TAG = "VirtualController";
     private Translation mTranslation;
@@ -109,8 +112,8 @@ public class VirtualController extends BaseController implements AppEvent , View
     int screenWidth;
     int screenHeight;
 
-    public VirtualController(Context context , ClientInput client, int transType) {
-        super(context,client);
+    public VirtualController(Context context, ClientInput client, int transType) {
+        super(context, client);
         mContext = context;
 
         //初始化键值翻译器
@@ -125,12 +128,12 @@ public class VirtualController extends BaseController implements AppEvent , View
     }
 
     @Override
-    public void saveConfig(){
+    public void saveConfig() {
         super.saveConfig();
         this.saveConfigToFile();
     }
 
-    private void init(){
+    private void init() {
         //初始化Setting对话框
         settingDialog = new VirtualControllerSetting(context);
         settingDialog.create();
@@ -156,17 +159,17 @@ public class VirtualController extends BaseController implements AppEvent , View
         this.addInput(inputBox);
 
         //全部隐藏
-        for(Input i : inputs){
+        for (Input i : inputs) {
             i.setEnable(false);
         }
 
         //添加悬浮配置按钮
         dButton = new DragFloatActionButton(context);
-        dButton.setLayoutParams(new ViewGroup.LayoutParams(DisplayUtils.getPxFromDp(mContext,30), DisplayUtils.getPxFromDp(mContext,30)));
-        dButton.setBackground(ContextCompat.getDrawable(mContext,R.drawable.background_floatbutton));
-        dButton.setTodo(new ArrangeRule(){
+        dButton.setLayoutParams(new ViewGroup.LayoutParams(DisplayUtils.getPxFromDp(mContext, 30), DisplayUtils.getPxFromDp(mContext, 30)));
+        dButton.setBackground(ContextCompat.getDrawable(mContext, R.drawable.background_floatbutton));
+        dButton.setTodo(new ArrangeRule() {
             @Override
-            public void run(){
+            public void run() {
                 settingDialog.show();
             }
         });
@@ -199,11 +202,11 @@ public class VirtualController extends BaseController implements AppEvent , View
 
         //给Dialog布局添加监听
 
-        for(View v : new View[]{buttonCustomizeKeyboard,buttonOK,buttonResetPos,buttonPCKeyboard , buttonPCMouse , buttonPEKeyboard , buttonPEJoystick , buttonPEItembar ,buttonTouchpad, buttonInputBox}){
+        for (View v : new View[]{buttonCustomizeKeyboard, buttonOK, buttonResetPos, buttonPCKeyboard, buttonPCMouse, buttonPEKeyboard, buttonPEJoystick, buttonPEItembar, buttonTouchpad, buttonInputBox}) {
             v.setOnClickListener(this);
         }
 
-        for(SwitchCompat s : new SwitchCompat[]{switchCustomizeKeyboard,switchPCKeyboard , switchPCMouse , switchPEKeyboard , switchPEJoystick , switchPEItembar , switchTouchpad, switchInputBox}){
+        for (SwitchCompat s : new SwitchCompat[]{switchCustomizeKeyboard, switchPCKeyboard, switchPCMouse, switchPEKeyboard, switchPEJoystick, switchPEItembar, switchTouchpad, switchInputBox}) {
             s.setOnCheckedChangeListener(this);
         }
 
@@ -211,22 +214,22 @@ public class VirtualController extends BaseController implements AppEvent , View
 
         //绑定Input对象与ImageButton和Switch
         bindingViews = new HashMap<>();
-        bindingViews.put(buttonCustomizeKeyboard,custmoizeKeyboard);
-        bindingViews.put(switchCustomizeKeyboard,custmoizeKeyboard);
-        bindingViews.put(buttonPCKeyboard,onscreenKeyboard);
-        bindingViews.put(switchPCKeyboard,onscreenKeyboard);
-        bindingViews.put(buttonPCMouse,onscreenMouse);
-        bindingViews.put(switchPCMouse,onscreenMouse);
-        bindingViews.put(buttonPEKeyboard,crossKeyboard);
-        bindingViews.put(switchPEKeyboard,crossKeyboard);
-        bindingViews.put(buttonPEJoystick,onscreenJoystick);
-        bindingViews.put(switchPEJoystick,onscreenJoystick);
-        bindingViews.put(buttonPEItembar,itemBar);
-        bindingViews.put(switchPEItembar,itemBar);
-        bindingViews.put(buttonTouchpad,onscreenTouchpad);
-        bindingViews.put(switchTouchpad,onscreenTouchpad);
-        bindingViews.put(buttonInputBox,inputBox);
-        bindingViews.put(switchInputBox,inputBox);
+        bindingViews.put(buttonCustomizeKeyboard, custmoizeKeyboard);
+        bindingViews.put(switchCustomizeKeyboard, custmoizeKeyboard);
+        bindingViews.put(buttonPCKeyboard, onscreenKeyboard);
+        bindingViews.put(switchPCKeyboard, onscreenKeyboard);
+        bindingViews.put(buttonPCMouse, onscreenMouse);
+        bindingViews.put(switchPCMouse, onscreenMouse);
+        bindingViews.put(buttonPEKeyboard, crossKeyboard);
+        bindingViews.put(switchPEKeyboard, crossKeyboard);
+        bindingViews.put(buttonPEJoystick, onscreenJoystick);
+        bindingViews.put(switchPEJoystick, onscreenJoystick);
+        bindingViews.put(buttonPEItembar, itemBar);
+        bindingViews.put(switchPEItembar, itemBar);
+        bindingViews.put(buttonTouchpad, onscreenTouchpad);
+        bindingViews.put(switchTouchpad, onscreenTouchpad);
+        bindingViews.put(buttonInputBox, inputBox);
+        bindingViews.put(switchInputBox, inputBox);
 
         //加载配置文件
         loadConfigFromFile();
@@ -237,14 +240,14 @@ public class VirtualController extends BaseController implements AppEvent , View
         //日志输出
         toLog(e);
         //事件分配
-        switch (e.getType()){
+        switch (e.getType()) {
             case KEYBOARD_BUTTON:
             case MOUSE_BUTTON:
                 String KeyName = e.getKeyName();
                 String[] strs = KeyName.split(MARK_KEYNAME_SPLIT);
-                for(String str : strs){
+                for (String str : strs) {
                     //Log.e(e.getTag(),"切分: " + str + " 总大小: " + strs.length );
-                    sendKeyEvent(new BaseKeyEvent(e.getTag(),str,e.isPressed(),e.getType(),e.getPointer()));
+                    sendKeyEvent(new BaseKeyEvent(e.getTag(), str, e.isPressed(), e.getType(), e.getPointer()));
                 }
                 break;
             case MOUSE_POINTER:
@@ -258,9 +261,9 @@ public class VirtualController extends BaseController implements AppEvent , View
 
     }
 
-    private void toLog(BaseKeyEvent event){
+    private void toLog(BaseKeyEvent event) {
         String info;
-        switch (event.getType()){
+        switch (event.getType()) {
             case KEYBOARD_BUTTON:
                 info = "Type: " + event.getType() + " KeyName: " + event.getKeyName() + " Pressed: " + event.isPressed();
                 break;
@@ -276,21 +279,21 @@ public class VirtualController extends BaseController implements AppEvent , View
             default:
                 info = "Unknown Type: ";
         }
-        Log.e(event.getTag(),info);
+        Log.e(event.getTag(), info);
     }
 
     //事件发送
-    private void sendKeyEvent(BaseKeyEvent e){
-        switch (e.getType()){
+    private void sendKeyEvent(BaseKeyEvent e) {
+        switch (e.getType()) {
             case KEYBOARD_BUTTON:
-                client.setKey(mTranslation.trans(e.getKeyName()),e.isPressed());
+                client.setKey(mTranslation.trans(e.getKeyName()), e.isPressed());
                 break;
             case MOUSE_BUTTON:
-                client.setMouseButton(mTranslation.trans(e.getKeyName()),e.isPressed());
+                client.setMouseButton(mTranslation.trans(e.getKeyName()), e.isPressed());
                 break;
             case MOUSE_POINTER:
-                if(e.getPointer() != null){
-                    client.setMousePoniter(e.getPointer()[0],e.getPointer()[1]);
+                if (e.getPointer() != null) {
+                    client.setMousePoniter(e.getPointer()[0], e.getPointer()[1]);
                 }
                 break;
             case TYPE_WORDS:
@@ -302,21 +305,21 @@ public class VirtualController extends BaseController implements AppEvent , View
     @Override
     public void onClick(View v) {
 
-        if(v instanceof ImageButton && bindingViews.containsKey(v)){
+        if (v instanceof ImageButton && bindingViews.containsKey(v)) {
             Objects.requireNonNull(bindingViews.get(v)).runConfigure();
             return;
         }
 
-        if(v == buttonOK){
+        if (v == buttonOK) {
             saveConfigToFile();
             settingDialog.dismiss();
             return;
         }
 
-        if(v == buttonResetPos){
-            DialogUtils.createBothChoicesDialog(context,mContext.getString(R.string.title_note),mContext.getString(R.string.tips_are_you_sure_to_auto_config_layout),mContext.getString(R.string.title_ok),mContext.getString(R.string.title_cancel),new DialogSupports(){
+        if (v == buttonResetPos) {
+            DialogUtils.createBothChoicesDialog(context, mContext.getString(R.string.title_note), mContext.getString(R.string.tips_are_you_sure_to_auto_config_layout), mContext.getString(R.string.title_ok), mContext.getString(R.string.title_cancel), new DialogSupports() {
                 @Override
-                public void runWhenPositive(){
+                public void runWhenPositive() {
                     resetAllPosOnScreen();
                 }
             });
@@ -326,21 +329,21 @@ public class VirtualController extends BaseController implements AppEvent , View
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-        if(buttonView instanceof SwitchCompat && bindingViews.containsKey(buttonView)){
-            if(isChecked){
+        if (buttonView instanceof SwitchCompat && bindingViews.containsKey(buttonView)) {
+            if (isChecked) {
                 (Objects.requireNonNull(bindingViews.get(buttonView))).setEnable(true);
-            }else{
+            } else {
                 (Objects.requireNonNull(bindingViews.get(buttonView))).setEnable(false);
             }
         }
-        if(buttonView == checkboxLock){
-            if(isChecked){
-                for(Input i : inputs){
-                    ((OnscreenInput)i).setUiMoveable(true);
+        if (buttonView == checkboxLock) {
+            if (isChecked) {
+                for (Input i : inputs) {
+                    ((OnscreenInput) i).setUiMoveable(true);
                 }
-            }else{
-                for(Input i : inputs){
-                    ((OnscreenInput)i).setUiMoveable(false);
+            } else {
+                for (Input i : inputs) {
+                    ((OnscreenInput) i).setUiMoveable(false);
                 }
             }
         }
@@ -348,91 +351,91 @@ public class VirtualController extends BaseController implements AppEvent , View
     }
 
     //根据X,Y的比例，计算Input主控件中心位置在Activity的主View中的位置
-    private int[] calculateMarginsOnScreen(OnscreenInput i, float leftScale , float topScale){
+    private int[] calculateMarginsOnScreen(OnscreenInput i, float leftScale, float topScale) {
         int viewWidth;
         int viewHeight;
         int leftMargin;
         int topMargin;
 
-        if(i.getSize() == null){
+        if (i.getSize() == null) {
             return null;
-        }else{
+        } else {
             viewWidth = i.getSize()[0];
             viewHeight = i.getSize()[1];
         }
 
-        leftMargin = (int)(screenWidth * leftScale - viewWidth / 2);
-        topMargin = (int)(screenHeight * topScale - viewHeight / 2);
+        leftMargin = (int) (screenWidth * leftScale - viewWidth / 2);
+        topMargin = (int) (screenHeight * topScale - viewHeight / 2);
 
         //超出右边界
-        if(leftMargin + viewWidth > screenWidth){
+        if (leftMargin + viewWidth > screenWidth) {
             leftMargin = screenWidth - viewWidth;
         }
         //超出下边界
-        if(topMargin + viewHeight > screenHeight){
+        if (topMargin + viewHeight > screenHeight) {
             topMargin = screenHeight - viewHeight;
         }
         //超出左边界
-        if(leftMargin < 0){
+        if (leftMargin < 0) {
             leftMargin = 0;
         }
         //超出上边界
-        if(topMargin < 0){
+        if (topMargin < 0) {
             topMargin = 0;
         }
 
         //Log.e(TAG,"屏幕宽度 " + screenWidth + " 屏幕高度 " + screenHeight + '\n' + "左侧比例 " + leftScale + " 顶部比例 " + topScale + '\n' + "左侧边距大小 " + leftMargin + " 顶部边距大小 " +topMargin);
 
-        return new int[]{leftMargin , topMargin};
+        return new int[]{leftMargin, topMargin};
     }
 
-    private void resetAllPosOnScreen(){
+    private void resetAllPosOnScreen() {
         int[] i;
 
-        i = calculateMarginsOnScreen(onscreenKeyboard, 0.5f , 0.5f);
-        onscreenKeyboard.setMargins(i[0],i[1],0,0);
-        i = calculateMarginsOnScreen(onscreenMouse, 0.8f,0.7f);
-        onscreenMouse.setMargins(i[0],i[1],0,0);
-        i = calculateMarginsOnScreen(crossKeyboard,0.2f,0.7f);
-        crossKeyboard.setMargins(i[0],i[1],0,0);
-        i = calculateMarginsOnScreen(itemBar, 0.5f , 1);
-        itemBar.setMargins(i[0],i[1],0,0);
+        i = calculateMarginsOnScreen(onscreenKeyboard, 0.5f, 0.5f);
+        onscreenKeyboard.setMargins(i[0], i[1], 0, 0);
+        i = calculateMarginsOnScreen(onscreenMouse, 0.8f, 0.7f);
+        onscreenMouse.setMargins(i[0], i[1], 0, 0);
+        i = calculateMarginsOnScreen(crossKeyboard, 0.2f, 0.7f);
+        crossKeyboard.setMargins(i[0], i[1], 0, 0);
+        i = calculateMarginsOnScreen(itemBar, 0.5f, 1);
+        itemBar.setMargins(i[0], i[1], 0, 0);
     }
 
-    private void saveConfigToFile(){
-        SharedPreferences.Editor editor = mContext.getSharedPreferences(spFileName,spMode).edit();
-        editor.putBoolean(sp_enable_ckb,switchCustomizeKeyboard.isChecked());
-        editor.putBoolean(sp_enable_onscreenkeyboard,switchPCKeyboard.isChecked());
-        editor.putBoolean(sp_enable_onscreenmouse,switchPCMouse.isChecked());
-        editor.putBoolean(sp_enable_itembar,switchPEItembar.isChecked());
-        editor.putBoolean(sp_enable_joystick,switchPEJoystick.isChecked());
-        editor.putBoolean(sp_enable_onscreentouchpad,switchTouchpad.isChecked());
-        editor.putBoolean(sp_enable_crosskeyboard,switchPEKeyboard.isChecked());
-        editor.putBoolean(sp_enable_inputbox,switchInputBox.isChecked());
-        if(!mContext.getSharedPreferences(spFileName,spMode).contains(sp_first_loadder)){
-            editor.putBoolean(sp_first_loadder,false);
+    private void saveConfigToFile() {
+        SharedPreferences.Editor editor = mContext.getSharedPreferences(spFileName, spMode).edit();
+        editor.putBoolean(sp_enable_ckb, switchCustomizeKeyboard.isChecked());
+        editor.putBoolean(sp_enable_onscreenkeyboard, switchPCKeyboard.isChecked());
+        editor.putBoolean(sp_enable_onscreenmouse, switchPCMouse.isChecked());
+        editor.putBoolean(sp_enable_itembar, switchPEItembar.isChecked());
+        editor.putBoolean(sp_enable_joystick, switchPEJoystick.isChecked());
+        editor.putBoolean(sp_enable_onscreentouchpad, switchTouchpad.isChecked());
+        editor.putBoolean(sp_enable_crosskeyboard, switchPEKeyboard.isChecked());
+        editor.putBoolean(sp_enable_inputbox, switchInputBox.isChecked());
+        if (!mContext.getSharedPreferences(spFileName, spMode).contains(sp_first_loadder)) {
+            editor.putBoolean(sp_first_loadder, false);
         }
         editor.apply();
 
     }
 
-    private void loadConfigFromFile(){
-        SharedPreferences sp = mContext.getSharedPreferences(spFileName,spMode);
-        switchCustomizeKeyboard.setChecked(sp.getBoolean(sp_enable_ckb,true));
-        switchPCKeyboard.setChecked(sp.getBoolean(sp_enable_onscreenkeyboard,false));
-        switchPCMouse.setChecked(sp.getBoolean(sp_enable_onscreenmouse,false));
-        switchPEKeyboard.setChecked(sp.getBoolean(sp_enable_crosskeyboard,true));
-        switchPEItembar.setChecked(sp.getBoolean(sp_enable_itembar,true));
-        switchPEJoystick.setChecked(sp.getBoolean(sp_enable_joystick,false));
-        switchTouchpad.setChecked(sp.getBoolean(sp_enable_onscreentouchpad,true));
-        switchInputBox.setChecked(sp.getBoolean(sp_enable_inputbox,false));
-        if(!sp.contains(sp_first_loadder)){
+    private void loadConfigFromFile() {
+        SharedPreferences sp = mContext.getSharedPreferences(spFileName, spMode);
+        switchCustomizeKeyboard.setChecked(sp.getBoolean(sp_enable_ckb, true));
+        switchPCKeyboard.setChecked(sp.getBoolean(sp_enable_onscreenkeyboard, false));
+        switchPCMouse.setChecked(sp.getBoolean(sp_enable_onscreenmouse, false));
+        switchPEKeyboard.setChecked(sp.getBoolean(sp_enable_crosskeyboard, true));
+        switchPEItembar.setChecked(sp.getBoolean(sp_enable_itembar, true));
+        switchPEJoystick.setChecked(sp.getBoolean(sp_enable_joystick, false));
+        switchTouchpad.setChecked(sp.getBoolean(sp_enable_onscreentouchpad, true));
+        switchInputBox.setChecked(sp.getBoolean(sp_enable_inputbox, false));
+        if (!sp.contains(sp_first_loadder)) {
             buttonResetPos.performClick();
         }
     }
 
     @Override
-    public void onStop(){
+    public void onStop() {
         super.onStop();
         saveConfigToFile();
     }
@@ -468,7 +471,7 @@ class DragFloatActionButton extends LinearLayout implements ViewGroup.OnTouchLis
     }
 
     @Override
-    public boolean performClick(){
+    public boolean performClick() {
         super.performClick();
         return false;
     }
@@ -482,17 +485,17 @@ class DragFloatActionButton extends LinearLayout implements ViewGroup.OnTouchLis
     }
 
 
-    public void behave(MotionEvent event){
+    public void behave(MotionEvent event) {
         int rawX = (int) event.getRawX();
         int rawY = (int) event.getRawY();
-        switch(event.getAction()){
+        switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 isDrag = false;
                 this.setAlpha(0.9f);
                 getParent().requestDisallowInterceptTouchEvent(true);
                 lastX = rawX;
                 lastY = rawY;
-                if(getParent() != null){
+                if (getParent() != null) {
                     parent = (ViewGroup) getParent();
                     parentHeight = parent.getHeight();
                     parentWidth = parent.getWidth();
@@ -502,8 +505,8 @@ class DragFloatActionButton extends LinearLayout implements ViewGroup.OnTouchLis
                 this.setAlpha(0.9f);
                 int dx = rawX - lastX;
                 int dy = rawY - lastY;
-                int distance = (int) Math.sqrt(dx *dx + dy*dy);
-                if(distance > 2 && !isDrag){
+                int distance = (int) Math.sqrt(dx * dx + dy * dy);
+                if (distance > 2 && !isDrag) {
                     isDrag = true;
                 }
 
@@ -518,11 +521,11 @@ class DragFloatActionButton extends LinearLayout implements ViewGroup.OnTouchLis
                 lastY = rawY;
                 break;
             case MotionEvent.ACTION_UP:
-                if(isDrag){
+                if (isDrag) {
                     //恢复按压效果
                     setPressed(false);
                     moveHide(rawX);
-                }else{
+                } else {
                     //执行点击操作
                     startTodo();
                 }
@@ -530,16 +533,16 @@ class DragFloatActionButton extends LinearLayout implements ViewGroup.OnTouchLis
         }
     }
 
-    private void moveHide(int rawX){
-        if(rawX >= parentWidth / 2){
+    private void moveHide(int rawX) {
+        if (rawX >= parentWidth / 2) {
             //靠右吸附
-            ObjectAnimator oa = ObjectAnimator.ofFloat(this,"x",getX(),parentWidth - getWidth());
+            ObjectAnimator oa = ObjectAnimator.ofFloat(this, "x", getX(), parentWidth - getWidth());
             oa.setInterpolator(new DecelerateInterpolator());
             oa.setDuration(500);
             oa.start();
-        }else{
+        } else {
             //靠左吸附
-            ObjectAnimator oa = ObjectAnimator.ofFloat(this,"x",getX(),0);
+            ObjectAnimator oa = ObjectAnimator.ofFloat(this, "x", getX(), 0);
             oa.setInterpolator(new DecelerateInterpolator());
             oa.setDuration(500);
             oa.start();
@@ -548,26 +551,26 @@ class DragFloatActionButton extends LinearLayout implements ViewGroup.OnTouchLis
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        if(v == this){
+        if (v == this) {
             this.behave(event);
             return true;
         }
         return false;
     }
 
-    public void setTodo(ArrangeRule ar){
+    public void setTodo(ArrangeRule ar) {
         this.aRule = ar;
     }
 
-    public void startTodo(){
-        if(aRule != null){
+    public void startTodo() {
+        if (aRule != null) {
             aRule.run();
         }
     }
 }
 
-class ArrangeRule{
-    public void run(){
+class ArrangeRule {
+    public void run() {
         // Override this method.
     }
 }

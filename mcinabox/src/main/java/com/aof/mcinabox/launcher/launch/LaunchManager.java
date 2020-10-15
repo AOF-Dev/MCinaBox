@@ -2,6 +2,7 @@ package com.aof.mcinabox.launcher.launch;
 
 import android.content.Context;
 import android.content.Intent;
+
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.definitions.models.BoatArgs;
 import com.aof.mcinabox.launcher.launch.support.AsyncManager;
@@ -22,35 +23,35 @@ public class LaunchManager {
     private TaskDialog fbDialog;
     private BoatArgsMaker maker;
 
-    public LaunchManager(Context context){
+    public LaunchManager(Context context) {
         this.mContext = context;
-        fbDialog = DialogUtils.createTaskDialog(mContext,mContext.getString(R.string.tips_launching),"",false);
+        fbDialog = DialogUtils.createTaskDialog(mContext, mContext.getString(R.string.tips_launching), "", false);
     }
 
-    public void brige_setProgressText(String des){
+    public void brige_setProgressText(String des) {
         fbDialog.setCurrentTaskName(des);
     }
 
-    public void brige_exitWithSuccess(){
+    public void brige_exitWithSuccess() {
         fbDialog.dismiss();
     }
 
-    public void brige_exitWithError(String des){
-        if(des != null && ! des.equals("")){
-            DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_error),des,mContext.getString(R.string.title_ok),null);
+    public void brige_exitWithError(String des) {
+        if (des != null && !des.equals("")) {
+            DialogUtils.createSingleChoiceDialog(mContext, mContext.getString(R.string.title_error), des, mContext.getString(R.string.title_ok), null);
         }
         fbDialog.dismiss();
     }
 
-    public void launchMinecraft(SettingJson setting, int i){
+    public void launchMinecraft(SettingJson setting, int i) {
 
-        switch (i){
+        switch (i) {
             case LAUNCH_PRECHECK:
                 fbDialog.show();
-                new AsyncManager(mContext,this,setting).start();
+                new AsyncManager(mContext, this, setting).start();
                 break;
             case LAUNCH_PARM_SETUP:
-                maker = new BoatArgsMaker(mContext,setting,this);
+                maker = new BoatArgsMaker(mContext, setting, this);
                 maker.setup(setting.getLastVersion());
                 break;
             case LAUNCH_PARM_MAKE:
@@ -61,7 +62,7 @@ public class LaunchManager {
                 BoatArgs args = maker.getBoatArgs();
 
                 brige_exitWithSuccess();
-                mContext.startActivity(new Intent(mContext, cosine.boat.LauncherActivity.class).putExtra("LauncherConfig",maker.getBoatArgs()).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                mContext.startActivity(new Intent(mContext, cosine.boat.LauncherActivity.class).putExtra("LauncherConfig", maker.getBoatArgs()).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                 break;
         }
 

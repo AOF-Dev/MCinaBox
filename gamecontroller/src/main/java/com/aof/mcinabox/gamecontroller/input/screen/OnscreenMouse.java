@@ -27,9 +27,9 @@ import com.aof.mcinabox.gamecontroller.controller.Controller;
 import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
 import com.aof.mcinabox.gamecontroller.input.OnscreenInput;
 import com.aof.mcinabox.gamecontroller.input.screen.Button.MouseButton;
+import com.aof.utils.DisplayUtils;
 import com.aof.utils.dialog.DialogUtils;
 import com.aof.utils.dialog.support.DialogSupports;
-import com.aof.utils.DisplayUtils;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -329,7 +329,7 @@ public class OnscreenMouse implements OnscreenInput, AppEvent {
     }
 
     private void updateUI() {
-        if(enable){
+        if (enable) {
             switch (mController.getInputMode()) {
                 case KeyMode.MARK_INPUT_MODE_ALONE:
                     if (show == SHOW_ALL || show == SHOW_OUT_GAME) {
@@ -346,7 +346,7 @@ public class OnscreenMouse implements OnscreenInput, AppEvent {
                     }
                     break;
             }
-        }else{
+        } else {
             setUiVisibility(View.GONE);
         }
     }
@@ -446,7 +446,7 @@ class OnscreenMouseConfigDialog extends Dialog implements View.OnClickListener, 
         for (SeekBar s : new SeekBar[]{seekbarAlpha, seekbarSize, seekbarWheelSpeed}) {
             s.setOnSeekBarChangeListener(this);
         }
-        for(RadioButton rbt : new RadioButton[]{rbtAll, rbtInGame, rbtOutGame}){
+        for (RadioButton rbt : new RadioButton[]{rbtAll, rbtInGame, rbtOutGame}) {
             rbt.setOnCheckedChangeListener(this);
         }
 
@@ -500,9 +500,9 @@ class OnscreenMouseConfigDialog extends Dialog implements View.OnClickListener, 
 
         if (v == buttonRestore) {
 
-            DialogUtils.createBothChoicesDialog(mContext,mContext.getString(R.string.title_warn),mContext.getString(R.string.tips_are_you_sure_to_restore_setting),mContext.getString(R.string.title_ok),mContext.getString(R.string.title_cancel),new DialogSupports(){
+            DialogUtils.createBothChoicesDialog(mContext, mContext.getString(R.string.title_warn), mContext.getString(R.string.tips_are_you_sure_to_restore_setting), mContext.getString(R.string.title_ok), mContext.getString(R.string.title_cancel), new DialogSupports() {
                 @Override
-                public void runWhenPositive(){
+                public void runWhenPositive() {
                     restoreConfig();
                 }
             });
@@ -528,7 +528,7 @@ class OnscreenMouseConfigDialog extends Dialog implements View.OnClickListener, 
         originalWheelSpeedProgress = seekbarWheelSpeed.getProgress();
         originalMarginLeft = (int) mInput.getPos()[0];
         originalMarginTop = (int) mInput.getPos()[1];
-        originalShow = ((OnscreenMouse)mInput).getShowStat();
+        originalShow = ((OnscreenMouse) mInput).getShowStat();
     }
 
     @Override
@@ -632,30 +632,30 @@ class OnscreenMouseConfigDialog extends Dialog implements View.OnClickListener, 
         editor.putInt(sp_alpha_name, seekbarAlpha.getProgress());
         editor.putInt(sp_size_name, seekbarSize.getProgress());
         editor.putInt(sp_wheel_speed_name, seekbarWheelSpeed.getProgress());
-        if(mInput.getUiVisiability() == View.VISIBLE){
-            editor.putInt(sp_pos_x_name,(int)mInput.getPos()[0]);
-            editor.putInt(sp_pos_y_name,(int)mInput.getPos()[1]);
+        if (mInput.getUiVisiability() == View.VISIBLE) {
+            editor.putInt(sp_pos_x_name, (int) mInput.getPos()[0]);
+            editor.putInt(sp_pos_y_name, (int) mInput.getPos()[1]);
         }
-        editor.putInt(sp_show_name, ((OnscreenMouse)mInput).getShowStat());
+        editor.putInt(sp_show_name, ((OnscreenMouse) mInput).getShowStat());
         editor.apply();
     }
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (buttonView == rbtAll) {
-            if(isChecked){
+            if (isChecked) {
                 ((OnscreenMouse) mInput).setShowStat(OnscreenMouse.SHOW_ALL);
             }
         }
 
         if (buttonView == rbtInGame) {
-            if(isChecked){
+            if (isChecked) {
                 ((OnscreenMouse) mInput).setShowStat(OnscreenMouse.SHOW_IN_GAME);
             }
         }
 
         if (buttonView == rbtOutGame) {
-            if(isChecked){
+            if (isChecked) {
                 ((OnscreenMouse) mInput).setShowStat(OnscreenMouse.SHOW_OUT_GAME);
             }
         }

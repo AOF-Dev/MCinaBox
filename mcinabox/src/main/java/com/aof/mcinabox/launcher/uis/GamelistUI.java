@@ -7,6 +7,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+
 import com.aof.mcinabox.MainActivity;
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 
 public class GamelistUI extends BaseUI {
 
-    public GamelistUI(Context context){
+    public GamelistUI(Context context) {
         super(context);
     }
 
@@ -41,7 +42,7 @@ public class GamelistUI extends BaseUI {
         buttonGameSetting = layout_gamelist.findViewById(R.id.gamelist_button_setting);
         listLocalVersions = layout_gamelist.findViewById(R.id.list_local_version);
 
-        for(View v : new View[]{buttonGameSetting,buttonInstallGame,buttonRefreshList}){
+        for (View v : new View[]{buttonGameSetting, buttonInstallGame, buttonRefreshList}) {
             v.setOnClickListener(clickListener);
         }
         refreshUI();
@@ -59,7 +60,7 @@ public class GamelistUI extends BaseUI {
 
     @Override
     public void setUIVisiability(int visiability) {
-        if(visiability == View.VISIBLE){
+        if (visiability == View.VISIBLE) {
             layout_gamelist.startAnimation(showAnim);
         }
         layout_gamelist.setVisibility(visiability);
@@ -70,17 +71,17 @@ public class GamelistUI extends BaseUI {
         return layout_gamelist.getVisibility();
     }
 
-    private View.OnClickListener clickListener = new View.OnClickListener(){
+    private View.OnClickListener clickListener = new View.OnClickListener() {
 
         @Override
         public void onClick(View v) {
-            if(v == buttonGameSetting) {
+            if (v == buttonGameSetting) {
                 MainActivity.CURRENT_ACTIVITY.switchUIs(MainActivity.CURRENT_ACTIVITY.mUiManager.uiGameSetting, mContext.getString(R.string.title_game_global_setting) + " - " + mContext.getString(R.string.title_game_list));
             }
-            if(v == buttonInstallGame){
-                MainActivity.CURRENT_ACTIVITY.switchUIs(MainActivity.CURRENT_ACTIVITY.mUiManager.uiInstallVersion,mContext.getString(R.string.title_install_new_version) + " - " + mContext.getString(R.string.title_game_list));
+            if (v == buttonInstallGame) {
+                MainActivity.CURRENT_ACTIVITY.switchUIs(MainActivity.CURRENT_ACTIVITY.mUiManager.uiInstallVersion, mContext.getString(R.string.title_install_new_version) + " - " + mContext.getString(R.string.title_game_list));
             }
-            if(v == buttonRefreshList){
+            if (v == buttonRefreshList) {
                 refreshLocalVersionList();
             }
         }
@@ -91,15 +92,16 @@ public class GamelistUI extends BaseUI {
      * 【刷新本地游戏列表】
      **/
     private ArrayList<LocalVersionListBean> beans;
+
     public void refreshLocalVersionList() {
-        if(beans == null){
+        if (beans == null) {
             beans = new ArrayList<>();
             beans.addAll(VersionManager.getVersionBeansList());
             listLocalVersions.setAdapter(new LocalVersionListAdapter(mContext, beans));
-        }else{
+        } else {
             beans.clear();
             beans.addAll(VersionManager.getVersionBeansList());
-            ((BaseAdapter)listLocalVersions.getAdapter()).notifyDataSetChanged();
+            ((BaseAdapter) listLocalVersions.getAdapter()).notifyDataSetChanged();
         }
     }
 

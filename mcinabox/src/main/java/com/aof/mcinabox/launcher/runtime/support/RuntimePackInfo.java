@@ -79,7 +79,7 @@ public class RuntimePackInfo {
             return this;
         }
 
-        public Manifest setConditionInfo(String info){
+        public Manifest setConditionInfo(String info) {
             this.condition_info = info;
             return this;
         }

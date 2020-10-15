@@ -9,6 +9,7 @@ import com.aof.mcinabox.launcher.tipper.TipperManager;
 import com.aof.mcinabox.minecraft.JsonUtils;
 import com.aof.utils.AppUtils;
 import com.aof.utils.FileTool;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -147,9 +148,9 @@ public class CheckManifest {
             e.printStackTrace();
             return true;
         }
-        if(f.contains("touchscreen:true") && f.contains("touchscreen:false")){
+        if (f.contains("touchscreen:true") && f.contains("touchscreen:false")) {
             return true;
-        }else{
+        } else {
             return f.contains("touchscreen:false");
         }
     }

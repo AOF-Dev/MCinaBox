@@ -7,15 +7,12 @@ import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+
 import com.aof.mcinabox.MainActivity;
 import com.aof.mcinabox.R;
-import com.aof.mcinabox.launcher.tipper.TipperManager;
-import com.aof.mcinabox.launcher.tipper.support.TipperRunable;
-import com.aof.mcinabox.launcher.user.CreateUserDialog;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
-import com.aof.mcinabox.launcher.user.UserManager;
+import com.aof.mcinabox.launcher.user.CreateUserDialog;
 import com.aof.mcinabox.launcher.user.support.UserListAdapter;
-import com.aof.utils.dialog.DialogUtils;
 
 import java.util.ArrayList;
 
@@ -60,7 +57,7 @@ public class UserUI extends BaseUI {
 
     @Override
     public void setUIVisiability(int visiability) {
-        if(visiability == View.VISIBLE){
+        if (visiability == View.VISIBLE) {
             layout_user.startAnimation(showAnim);
         }
         layout_user.setVisibility(visiability);
@@ -84,39 +81,40 @@ public class UserUI extends BaseUI {
         }
     };
 
-    public void reloadListView(){
-        for(SettingJson.Account account : MainActivity.Setting.getAccounts()){
-            if(account != null){
+    public void reloadListView() {
+        for (SettingJson.Account account : MainActivity.Setting.getAccounts()) {
+            if (account != null) {
                 usersList.add(account);
             }
         }
-        this.listUsers.setAdapter(new UserListAdapter(mContext,usersList));
+        this.listUsers.setAdapter(new UserListAdapter(mContext, usersList));
         refreshList();
     }
 
     private ArrayList<SettingJson.Account> usersList;
-    public void refreshList(){
-        if(usersList == null){
+
+    public void refreshList() {
+        if (usersList == null) {
             usersList = new ArrayList<>();
-            listUsers.setAdapter(new UserListAdapter(mContext,usersList));
-        }else{
+            listUsers.setAdapter(new UserListAdapter(mContext, usersList));
+        } else {
             usersList.clear();
         }
-        for(SettingJson.Account account : MainActivity.Setting.getAccounts()){
-            if(account != null){
+        for (SettingJson.Account account : MainActivity.Setting.getAccounts()) {
+            if (account != null) {
                 usersList.add(account);
             }
         }
-        ((BaseAdapter)listUsers.getAdapter()).notifyDataSetChanged();
+        ((BaseAdapter) listUsers.getAdapter()).notifyDataSetChanged();
     }
 
-    public boolean addFormatedUser(SettingJson.Account account){
-        if(account == null){
+    public boolean addFormatedUser(SettingJson.Account account) {
+        if (account == null) {
             return false;
-        }else{
+        } else {
             SettingJson.Account tmp = account;
-            for(SettingJson.Account bean : usersList){
-                if(bean.equals(tmp)){
+            for (SettingJson.Account bean : usersList) {
+                if (bean.equals(tmp)) {
                     return false;
                 }
             }

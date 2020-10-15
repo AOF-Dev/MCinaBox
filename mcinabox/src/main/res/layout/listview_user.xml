@@ -25,7 +25,7 @@
             android:layout_margin="10dp"
             android:layout_gravity="center"
             android:src="@drawable/steve_pic"
-            android:padding="5dp"/>
+            android:padding="5dp" />
 
         <LinearLayout
             android:id="@+id/small_layout_aboutuser"

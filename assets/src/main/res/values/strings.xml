@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <string name="app_name" translatable="false">MCinaBox</string>
     <string name="app_version" translatable="false">v0.1.4-p4</string>

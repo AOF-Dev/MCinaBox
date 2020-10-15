@@ -25,8 +25,8 @@ import com.aof.mcinabox.gamecontroller.R;
 import com.aof.mcinabox.gamecontroller.controller.Controller;
 import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
 import com.aof.mcinabox.gamecontroller.input.OnscreenInput;
-import com.aof.utils.dialog.support.DialogSupports;
 import com.aof.utils.dialog.DialogUtils;
+import com.aof.utils.dialog.support.DialogSupports;
 
 public class OnscreenTouchpad implements OnscreenInput, AppEvent, KeyMap, MouseMap {
 
@@ -500,9 +500,9 @@ class OnscreenTouchpadConfigDialog extends Dialog implements View.OnClickListene
         }
 
         if (v == buttonRestore) {
-            DialogUtils.createBothChoicesDialog(mContext,mContext.getString(R.string.title_warn),mContext.getString(R.string.tips_are_you_sure_to_restore_setting),mContext.getString(R.string.title_ok),mContext.getString(R.string.title_cancel),new DialogSupports(){
+            DialogUtils.createBothChoicesDialog(mContext, mContext.getString(R.string.title_warn), mContext.getString(R.string.tips_are_you_sure_to_restore_setting), mContext.getString(R.string.title_ok), mContext.getString(R.string.title_cancel), new DialogSupports() {
                 @Override
-                public void runWhenPositive(){
+                public void runWhenPositive() {
                     restoreConfig();
                 }
             });

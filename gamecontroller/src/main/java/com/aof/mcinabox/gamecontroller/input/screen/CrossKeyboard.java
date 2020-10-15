@@ -15,20 +15,23 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SwitchCompat;
+
 import com.aof.mcinabox.definitions.id.key.KeyMode;
 import com.aof.mcinabox.definitions.map.KeyMap;
+import com.aof.mcinabox.gamecontroller.R;
 import com.aof.mcinabox.gamecontroller.controller.Controller;
-import com.aof.mcinabox.gamecontroller.input.OnscreenInput;
 import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
+import com.aof.mcinabox.gamecontroller.input.OnscreenInput;
 import com.aof.mcinabox.gamecontroller.input.screen.Button.BaseButton;
 import com.aof.mcinabox.gamecontroller.input.screen.Button.CrossButton;
-import java.util.Arrays;
-import com.aof.mcinabox.gamecontroller.R;
+import com.aof.utils.DisplayUtils;
 import com.aof.utils.dialog.DialogUtils;
 import com.aof.utils.dialog.support.DialogSupports;
-import com.aof.utils.DisplayUtils;
+
+import java.util.Arrays;
 
 public class CrossKeyboard implements OnscreenInput, KeyMap {
     private Context mContext;
@@ -493,7 +496,7 @@ public class CrossKeyboard implements OnscreenInput, KeyMap {
     }
 
     private void updateUI() {
-        if(enable){
+        if (enable) {
             switch (mController.getInputMode()) {
                 case KeyMode.MARK_INPUT_MODE_ALONE:
                     if (show == SHOW_ALL || show == SHOW_OUT_GAME) {
@@ -510,7 +513,7 @@ public class CrossKeyboard implements OnscreenInput, KeyMap {
                     }
                     break;
             }
-        }else{
+        } else {
             setUiVisibility(View.GONE);
         }
     }
@@ -781,7 +784,7 @@ class CrossKeyboardConfigDialog extends Dialog implements View.OnClickListener, 
         editor.putInt(sp_alpha_name, seekbarAlpha.getProgress());
         editor.putInt(sp_size_name, seekbarSize.getProgress());
         editor.putBoolean(sp_switch_bounce_name, switchBounce.isChecked());
-        if(mInput.getUiVisiability() == View.VISIBLE){
+        if (mInput.getUiVisiability() == View.VISIBLE) {
             editor.putInt(sp_pos_x_name, (int) mInput.getPos()[0]);
             editor.putInt(sp_pos_y_name, (int) mInput.getPos()[1]);
         }

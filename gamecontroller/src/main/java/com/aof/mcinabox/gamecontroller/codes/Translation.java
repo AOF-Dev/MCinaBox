@@ -10,7 +10,7 @@ public class Translation implements AppEvent {
     private AndroidKeyMap aKeyMap;
     private int mode;
 
-    public Translation(int mode){
+    public Translation(int mode) {
         lwjglKeyTrans = new LwjglKeyMap();
         glfwKeyTrans = new GlfwKeyMap();
         xKeyMap = new XKeyMap();
@@ -18,8 +18,8 @@ public class Translation implements AppEvent {
         this.mode = mode;
     }
 
-    public int trans(String s){
-        switch (mode){
+    public int trans(String s) {
+        switch (mode) {
             case KEYMAP_TO_LWJGL:
                 return lwjglKeyTrans.translate(s);
             case KEYMAP_TO_GLFW:
@@ -31,8 +31,8 @@ public class Translation implements AppEvent {
         }
     }
 
-    public String trans(int i){
-        switch (mode){
+    public String trans(int i) {
+        switch (mode) {
             case ANDROID_TO_KEYMAP:
                 return aKeyMap.translate(i);
             default:
@@ -40,7 +40,7 @@ public class Translation implements AppEvent {
         }
     }
 
-    public Translation setMode(int mode){
+    public Translation setMode(int mode) {
         this.mode = mode;
         return this;
     }

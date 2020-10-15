@@ -49,7 +49,7 @@
                             android:layout_gravity="center"
                             android:textColor="@color/text_title_main"
                             android:textSize="@dimen/text_big"
-                            android:text="@string/title_world_name"/>
+                            android:text="@string/title_world_name" />
 
                         <TextView
                             android:id="@+id/world_text_name"
@@ -74,7 +74,7 @@
                         android:layout_gravity="center"
                         android:textColor="@color/text_title_main"
                         android:textSize="@dimen/text_big"
-                        android:text="@string/title_edit_date"/>
+                        android:text="@string/title_edit_date" />
 
                     <TextView
                         android:id="@+id/world_text_time"

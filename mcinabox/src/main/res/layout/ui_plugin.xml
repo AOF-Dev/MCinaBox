@@ -21,17 +21,19 @@
             android:layout_marginStart="5dp"
             android:layout_marginEnd="10dp"
             android:orientation="horizontal">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_add_black_24dp"/>
+                android:src="@drawable/ic_add_black_24dp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_mid"
                 android:textColor="@color/text_title_main"
                 android:text="@string/title_add_plugin"
-                android:paddingTop="3dp"/>
+                android:paddingTop="3dp" />
 
         </LinearLayout>
 
@@ -68,7 +70,7 @@
         <ListView
             android:id="@+id/listview_plugins"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 

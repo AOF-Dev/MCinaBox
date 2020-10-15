@@ -11,9 +11,11 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
 import com.aof.mcinabox.MainActivity;
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.definitions.manifest.AppManifest;
@@ -65,7 +67,7 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
         for (View v : new View[]{buttonInstallForge, buttonImportRuntime, buttonShowControbutors, buttonClearRuntime}) {
             v.setOnClickListener(clickListener);
         }
-        for(SwitchCompat sc : new SwitchCompat[]{switchAutoBackground,switchFullscreen}){
+        for (SwitchCompat sc : new SwitchCompat[]{switchAutoBackground, switchFullscreen}) {
             sc.setOnCheckedChangeListener(this);
         }
         listDownloaderSources.setOnItemSelectedListener(this);
@@ -73,14 +75,14 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
         setConfigureToDownloadtype(setting.getDownloadType(), listDownloaderSources);
 
         //调用主题管理器设定主题
-        if(setting.isBackgroundAutoSwitch()){
-            if(!MainActivity.CURRENT_ACTIVITY.mThemeManager.autoSetBackground(MainActivity.CURRENT_ACTIVITY.findViewById(R.id.layout_main))){
-                DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_error), mContext.getString(R.string.tips_failed_to_change_backfround_pic_is_broken),mContext.getString(R.string.title_ok),null);
+        if (setting.isBackgroundAutoSwitch()) {
+            if (!MainActivity.CURRENT_ACTIVITY.mThemeManager.autoSetBackground(MainActivity.CURRENT_ACTIVITY.findViewById(R.id.layout_main))) {
+                DialogUtils.createSingleChoiceDialog(mContext, mContext.getString(R.string.title_error), mContext.getString(R.string.tips_failed_to_change_backfround_pic_is_broken), mContext.getString(R.string.title_ok), null);
             }
         }
 
-        if(setting.isFullscreen()){
-            MainActivity.CURRENT_ACTIVITY.mThemeManager.setFullScreen(MainActivity.CURRENT_ACTIVITY,true);
+        if (setting.isFullscreen()) {
+            MainActivity.CURRENT_ACTIVITY.mThemeManager.setFullScreen(MainActivity.CURRENT_ACTIVITY, true);
         }
 
     }
@@ -122,14 +124,14 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
         @Override
         public void onClick(View v) {
             if (v == buttonImportRuntime) {
-                DialogUtils.createFileSelectorDialog(mContext,mContext.getString(R.string.title_import_runtime),AppManifest.SDCARD_HOME,new String[]{"xz"},new DialogSupports(){
+                DialogUtils.createFileSelectorDialog(mContext, mContext.getString(R.string.title_import_runtime), AppManifest.SDCARD_HOME, new String[]{"xz"}, new DialogSupports() {
                     @Override
-                    public void runWhenItemsSelected(Object path){
+                    public void runWhenItemsSelected(Object path) {
                         if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                             ActivityCompat.requestPermissions(MainActivity.CURRENT_ACTIVITY, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 2048);
                         }
                         if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                            DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_error),"Please allow read storage permission to import runtime packs externally.",mContext.getString(R.string.title_ok),null);
+                            DialogUtils.createSingleChoiceDialog(mContext, mContext.getString(R.string.title_error), "Please allow read storage permission to import runtime packs externally.", mContext.getString(R.string.title_ok), null);
                             return;
                         }
                         RuntimeManager.installRuntimeFromPath(mContext, (String) path);
@@ -137,13 +139,14 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
                 });
             }
             if (v == buttonInstallForge) {
-                DialogUtils.createFileSelectorDialog(mContext,mContext.getString(R.string.title_forge_installer), AppManifest.SDCARD_HOME, new String[]{"jar"}, new DialogSupports(){
+                DialogUtils.createFileSelectorDialog(mContext, mContext.getString(R.string.title_forge_installer), AppManifest.SDCARD_HOME, new String[]{"jar"}, new DialogSupports() {
                     @Override
                     public void runWhenItemsSelected(Object filePath) {
                         super.runWhenItemsSelected(filePath);
                         final ForgeInstaller installer = new ForgeInstaller(mContext);
                         installer.unzipForgeInstaller((String) filePath, new ZipUtils.Callback() {
-                            TaskDialog mDialog = DialogUtils.createTaskDialog(mContext,mContext.getString(R.string.tips_unzipping),"",false);
+                            TaskDialog mDialog = DialogUtils.createTaskDialog(mContext, mContext.getString(R.string.tips_unzipping), "", false);
+
                             @Override
                             public void onStart() {
                                 mDialog.show();
@@ -151,16 +154,16 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
 
                             @Override
                             public void onFailed(Exception e) {
-                                DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_error),mContext.getString(R.string.tips_unzip_failed).concat(" : ").concat(e.getMessage()),mContext.getString(R.string.title_ok),null);
+                                DialogUtils.createSingleChoiceDialog(mContext, mContext.getString(R.string.title_error), mContext.getString(R.string.tips_unzip_failed).concat(" : ").concat(e.getMessage()), mContext.getString(R.string.title_ok), null);
                             }
 
                             @Override
                             public void onSuccess() {
                                 try {
                                     installer.startDownloadForge(installer.makeForgeData());
-                                }catch (Exception e){
+                                } catch (Exception e) {
                                     e.printStackTrace();
-                                    DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_error),String.format(mContext.getString(R.string.tips_error),e.getMessage()),mContext.getString(R.string.title_ok),null);
+                                    DialogUtils.createSingleChoiceDialog(mContext, mContext.getString(R.string.title_error), String.format(mContext.getString(R.string.tips_error), e.getMessage()), mContext.getString(R.string.title_ok), null);
                                 }
                             }
 
@@ -175,10 +178,10 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
             if (v == buttonShowControbutors) {
                 new ContributorsDialog(mContext).show();
             }
-            if(v == buttonClearRuntime){
-                DialogUtils.createBothChoicesDialog(mContext,mContext.getString(R.string.title_warn),mContext.getString(R.string.tips_are_you_sure_to_delete_runtime),mContext.getString(R.string.title_continue),mContext.getString(R.string.title_cancel),new DialogSupports(){
+            if (v == buttonClearRuntime) {
+                DialogUtils.createBothChoicesDialog(mContext, mContext.getString(R.string.title_warn), mContext.getString(R.string.tips_are_you_sure_to_delete_runtime), mContext.getString(R.string.title_continue), mContext.getString(R.string.title_cancel), new DialogSupports() {
                     @Override
-                    public void runWhenPositive(){
+                    public void runWhenPositive() {
                         RuntimeManager.clearRuntime(mContext);
                     }
                 });
@@ -195,23 +198,24 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> parent) { }
+    public void onNothingSelected(AdapterView<?> parent) {
+    }
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if(buttonView == switchAutoBackground){
-            if(isChecked){
-                DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_note),String.format(mContext.getString(R.string.tips_please_put_pic_to_background_dir),AppManifest.MCINABOX_BACKGROUND),mContext.getString(R.string.title_ok),null);
+        if (buttonView == switchAutoBackground) {
+            if (isChecked) {
+                DialogUtils.createSingleChoiceDialog(mContext, mContext.getString(R.string.title_note), String.format(mContext.getString(R.string.tips_please_put_pic_to_background_dir), AppManifest.MCINABOX_BACKGROUND), mContext.getString(R.string.title_ok), null);
             }
             setting.setBackgroundAutoSwitch(isChecked);
         }
 
-        if(buttonView == switchFullscreen){
-            if(isChecked){
-                MainActivity.CURRENT_ACTIVITY.mThemeManager.setFullScreen(MainActivity.CURRENT_ACTIVITY,true);
-            }else{
-                MainActivity.CURRENT_ACTIVITY.mThemeManager.setFullScreen(MainActivity.CURRENT_ACTIVITY,false);
-                DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_note),mContext.getString(R.string.tips_successed_to_disable_hide_stat_bar),mContext.getString(R.string.title_ok),null);
+        if (buttonView == switchFullscreen) {
+            if (isChecked) {
+                MainActivity.CURRENT_ACTIVITY.mThemeManager.setFullScreen(MainActivity.CURRENT_ACTIVITY, true);
+            } else {
+                MainActivity.CURRENT_ACTIVITY.mThemeManager.setFullScreen(MainActivity.CURRENT_ACTIVITY, false);
+                DialogUtils.createSingleChoiceDialog(mContext, mContext.getString(R.string.title_note), mContext.getString(R.string.tips_successed_to_disable_hide_stat_bar), mContext.getString(R.string.title_ok), null);
             }
             setting.setFullscreen(isChecked);
         }

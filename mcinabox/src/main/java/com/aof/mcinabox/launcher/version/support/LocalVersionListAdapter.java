@@ -8,7 +8,6 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.aof.mcinabox.R;
@@ -17,7 +16,6 @@ import com.aof.utils.dialog.DialogUtils;
 import com.aof.utils.dialog.support.DialogSupports;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class LocalVersionListAdapter extends BaseAdapter {
 
@@ -25,15 +23,17 @@ public class LocalVersionListAdapter extends BaseAdapter {
     private Context mContext;
 
     @Override
-    public int getCount(){
+    public int getCount() {
         return versionlist.size();
     }
+
     @Override
-    public Object getItem(int position){
+    public Object getItem(int position) {
         return versionlist.get(position);
     }
+
     @Override
-    public long getItemId(int position){
+    public long getItemId(int position) {
         return position;
     }
 
@@ -46,24 +46,24 @@ public class LocalVersionListAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         LocalVersionListAdapter.ViewHolder viewHolder;
-        if(convertView == null){
+        if (convertView == null) {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.listview_version, null);
             viewHolder = new LocalVersionListAdapter.ViewHolder();
             viewHolder.versionimage = convertView.findViewById(R.id.version_image);
             viewHolder.versionId = convertView.findViewById(R.id.versionlist_text_versionId);
             viewHolder.removeversion = convertView.findViewById(R.id.gamelist_button_removeversion);
             convertView.setTag(viewHolder);
-        }else{
-            viewHolder = (LocalVersionListAdapter.ViewHolder)convertView.getTag();
+        } else {
+            viewHolder = (LocalVersionListAdapter.ViewHolder) convertView.getTag();
         }
         viewHolder.versionId.setText(versionlist.get(position).getVersion_Id());
-        viewHolder.removeversion.setOnClickListener(new View.OnClickListener(){
+        viewHolder.removeversion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogUtils.createBothChoicesDialog(mContext,mContext.getString(R.string.title_warn),String.format(mContext.getString(R.string.tips_are_you_sure_to_delete_version),versionlist.get(position).getVersion_Id()),mContext.getString(R.string.title_ok),mContext.getString(R.string.title_cancel),new DialogSupports(){
+                DialogUtils.createBothChoicesDialog(mContext, mContext.getString(R.string.title_warn), String.format(mContext.getString(R.string.tips_are_you_sure_to_delete_version), versionlist.get(position).getVersion_Id()), mContext.getString(R.string.title_ok), mContext.getString(R.string.title_cancel), new DialogSupports() {
                     @Override
-                    public void runWhenPositive(){
-                        VersionManager.removeVersion(versionlist.get(position).getVersion_Id(),VersionManager.REMOVE_VERSION_ONLY);
+                    public void runWhenPositive() {
+                        VersionManager.removeVersion(versionlist.get(position).getVersion_Id(), VersionManager.REMOVE_VERSION_ONLY);
                     }
                 });
             }
@@ -72,7 +72,7 @@ public class LocalVersionListAdapter extends BaseAdapter {
         return convertView;
     }
 
-    class ViewHolder{
+    class ViewHolder {
         public ImageView versionimage;
         public TextView versionId;
         Button removeversion;

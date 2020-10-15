@@ -100,7 +100,7 @@
             android:textColor="@color/text_info"
             android:textSize="@dimen/text_small"
             android:layout_gravity="start"
-            android:text="@string/title_download_speed"/>
+            android:text="@string/title_download_speed" />
 
         <TextView
             android:id="@+id/dialog_download_text_speed"
@@ -109,7 +109,7 @@
             android:layout_margin="2dp"
             android:layout_gravity="start"
             android:textColor="@color/text_info"
-            android:textSize="@dimen/text_small"/>
+            android:textSize="@dimen/text_small" />
 
     </LinearLayout>
 
@@ -145,7 +145,7 @@
             android:id="@+id/dialog_download_text_progress_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/text_title_main"/>
+            android:textColor="@color/text_title_main" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -178,7 +178,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="2dp"
             android:textSize="@dimen/text_small"
-            android:textColor="@color/text_info"/>
+            android:textColor="@color/text_info" />
 
     </LinearLayout>
 
@@ -195,6 +195,7 @@
             android:text="@string/title_step"
             android:textColor="@color/text_title_main"
             android:textSize="@dimen/text_small" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
@@ -222,7 +223,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
 
 
         <Button

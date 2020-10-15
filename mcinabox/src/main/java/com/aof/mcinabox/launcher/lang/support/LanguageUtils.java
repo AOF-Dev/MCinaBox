@@ -1,11 +1,11 @@
 package com.aof.mcinabox.launcher.lang.support;
 
 import android.content.Context;
-
-import java.util.Locale;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
+
+import java.util.Locale;
 
 public class LanguageUtils {
 
@@ -27,9 +27,9 @@ public class LanguageUtils {
     public final static String[] LANG_TAGS = new String[]{TAG_SYSTEM, TAG_ENGLISH_EN, TAG_JAPANESE_JA, TAG_CHINESE_ZH_CN,
             TAG_CHINESE_ZH_TW, TAG_SPANISH_ES, TAG_PORTUGUESE_RU, TAG_BRAZILIAN_PT_BR, TAG_KOREAN_KO_KR};
 
-    public static Locale getLocaleFromConfig(String config){
+    public static Locale getLocaleFromConfig(String config) {
         Locale mLocale;
-        switch (config){
+        switch (config) {
             case TAG_SYSTEM:
                 mLocale = Locale.getDefault();
                 break;
@@ -64,8 +64,8 @@ public class LanguageUtils {
         return mLocale;
     }
 
-    public static void switchLang(Context context, Locale locale){
-        if(locale == null){
+    public static void switchLang(Context context, Locale locale) {
+        if (locale == null) {
             return;
         }
         Resources resources = context.getResources();

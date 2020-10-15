@@ -4,6 +4,7 @@
     android:layout_width="230dp"
     android:layout_height="wrap_content"
     android:background="@drawable/background_dialog_noalpha">
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -12,6 +13,7 @@
         android:text="@string/title_pc_mouse_config"
         android:textColor="@color/text_title_main"
         android:textSize="@dimen/text_big" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,7 +31,7 @@
                 android:layout_margin="5dp"
                 android:textSize="@dimen/text_mid"
                 android:textColor="@color/text_title_main"
-                android:text="@string/title_alpha_size"/>
+                android:text="@string/title_alpha_size" />
 
             <SeekBar
                 android:id="@+id/input_onscreen_mouse_dialog_seekbar_alpha"
@@ -71,7 +73,7 @@
                 android:layout_margin="5dp"
                 android:textSize="@dimen/text_mid"
                 android:textColor="@color/text_title_main"
-                android:text="@string/title_size"/>
+                android:text="@string/title_size" />
 
             <SeekBar
                 android:id="@+id/input_onscreen_mouse_dialog_seekbar_size"
@@ -113,7 +115,7 @@
                 android:layout_margin="5dp"
                 android:textSize="@dimen/text_mid"
                 android:textColor="@color/text_title_main"
-                android:text="@string/title_mouse_wheel_speed"/>
+                android:text="@string/title_mouse_wheel_speed" />
 
             <SeekBar
                 android:id="@+id/input_onscreen_mouse_dialog_seekbar_wheelspeed"
@@ -121,7 +123,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
-                android:layout_margin="5dp"/>
+                android:layout_margin="5dp" />
 
             <LinearLayout
                 android:layout_width="40dp"
@@ -213,6 +215,7 @@
             android:layout_gravity="center"
             style="?android:attr/buttonBarButtonStyle"
             android:text="@string/title_ok" />
+
         <Button
             android:id="@+id/input_onscreen_mouse_dialog_button_cancel"
             android:layout_width="0dp"
@@ -222,6 +225,7 @@
             android:layout_gravity="center"
             style="?android:attr/buttonBarButtonStyle"
             android:text="@string/title_cancel" />
+
         <Button
             android:id="@+id/input_onscreen_mouse_dialog_button_restore"
             android:layout_width="0dp"
@@ -230,7 +234,7 @@
             android:layout_margin="5dp"
             android:layout_gravity="center"
             style="?android:attr/buttonBarButtonStyle"
-            android:text="@string/title_restore"/>
+            android:text="@string/title_restore" />
 
     </LinearLayout>
 

@@ -274,5 +274,4 @@
     <string name="tips_filename_can_not_be_void">파일 이름은 비워둘 수 없습니다!</string>
     <string name="tips_please_put_pic_to_background_dir">png 확장자 파일을 %s 폴더에 넣으면 런처가 무작위로 하나를 배경화면으로 선택할 것이며, 이 작업은 재시작 후에 적용됩니다.</string>
     <string name="tips_not_selected_version_please_do_it">설치된 게임 버전이 없습니다. 왼쪽 내비게이션 바의 게임 목록 탭에서 새 버전 설치를 선택해 게임 버전을 설치해 주세요</string>
-</resources>
-    <!-- Create by jooya0203 -->
+</resources><!-- Create by jooya0203 -->

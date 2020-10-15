@@ -14,15 +14,18 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.aof.mcinabox.definitions.manifest.AppManifest;
 import com.aof.mcinabox.gamecontroller.ckb.R;
 import com.aof.mcinabox.gamecontroller.ckb.button.GameButton;
-import com.aof.utils.dialog.support.DialogSupports;
-import com.aof.utils.dialog.DialogUtils;
 import com.aof.utils.FileTool;
 import com.aof.utils.PromptUtils;
+import com.aof.utils.dialog.DialogUtils;
+import com.aof.utils.dialog.support.DialogSupports;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Timer;
@@ -46,7 +49,6 @@ public class CkbManagerDialog extends Dialog implements View.OnClickListener, Co
     private KeyboardFileListener fileListener;
 
 
-
     private final static String TAG = "CkbConfigDialog";
 
     public CkbManagerDialog(@NonNull Context context, CkbManager manager) {
@@ -57,7 +59,7 @@ public class CkbManagerDialog extends Dialog implements View.OnClickListener, Co
         initUI();
 
         //当进入游戏的时候自动设定客制化键盘模式为生效，如果是编辑界面，则不自动设置
-        if(manager.getController() != null){
+        if (manager.getController() != null) {
             radioGame.setChecked(true);
         }
 
@@ -87,8 +89,8 @@ public class CkbManagerDialog extends Dialog implements View.OnClickListener, Co
         this.setOnCancelListener(this);
 
         //是否显示模式选项
-        if(mManager.getController() == null){
-            ((LinearLayout)findViewById(R.id.input_customize_keyboard_dialog_layout_mode)).setVisibility(View.GONE);
+        if (mManager.getController() == null) {
+            ((LinearLayout) findViewById(R.id.input_customize_keyboard_dialog_layout_mode)).setVisibility(View.GONE);
         }
 
     }
@@ -118,17 +120,17 @@ public class CkbManagerDialog extends Dialog implements View.OnClickListener, Co
 
     }
 
-    private void removeSelectedFile(){
+    private void removeSelectedFile() {
         String filePath = AppManifest.MCINABOX_KEYBOARD + "/" + spinnerSelected.getSelectedItem().toString();
         FileTool.deleteFile(new File(filePath));
     }
 
-    private void loadSelectedFile(){
+    private void loadSelectedFile() {
         String fileName = spinnerSelected.getSelectedItem().toString();
-        if(! mManager.loadKeyboard(fileName)){
+        if (!mManager.loadKeyboard(fileName)) {
             DialogUtils.createSingleChoiceDialog(mContext, mContext.getString(R.string.title_error), mContext.getString(R.string.tips_failed_to_import_keyboard_layout), mContext.getString(R.string.title_ok), null);
-        }else{
-            PromptUtils.createPrompt(mContext,mContext.getString(R.string.tips_successed_to_import_keyboard_layout));
+        } else {
+            PromptUtils.createPrompt(mContext, mContext.getString(R.string.tips_successed_to_import_keyboard_layout));
         }
     }
 
@@ -145,7 +147,7 @@ public class CkbManagerDialog extends Dialog implements View.OnClickListener, Co
                 PromptUtils.createPrompt(mContext, mContext.getString(R.string.tips_filename_can_not_be_void));
                 return;
             }
-            if (editFileName.getText().toString().equals(CkbManager.LAST_KEYBOARD_LAYOUT_NAME)){
+            if (editFileName.getText().toString().equals(CkbManager.LAST_KEYBOARD_LAYOUT_NAME)) {
                 PromptUtils.createPrompt(mContext, mContext.getString(R.string.tips_please_change_file_name));
                 return;
             }
@@ -177,9 +179,9 @@ public class CkbManagerDialog extends Dialog implements View.OnClickListener, Co
             if (spinnerSelected.getSelectedItem() != null) {
                 String str = spinnerSelected.getSelectedItem().toString();
                 if (!str.equals("")) {
-                    DialogUtils.createBothChoicesDialog(mContext, mContext.getString(R.string.title_warn),String.format(mContext.getString(R.string.tips_are_you_sure_to_delete_file),str), mContext.getString(R.string.title_delete), mContext.getString(R.string.title_cancel), new DialogSupports(){
+                    DialogUtils.createBothChoicesDialog(mContext, mContext.getString(R.string.title_warn), String.format(mContext.getString(R.string.tips_are_you_sure_to_delete_file), str), mContext.getString(R.string.title_delete), mContext.getString(R.string.title_cancel), new DialogSupports() {
                         @Override
-                        public void runWhenPositive(){
+                        public void runWhenPositive() {
                             removeSelectedFile();
                         }
                     });
@@ -187,13 +189,13 @@ public class CkbManagerDialog extends Dialog implements View.OnClickListener, Co
             }
         }
 
-        if(v == buttonLoad){
-            if(spinnerSelected.getSelectedItem() != null){
+        if (v == buttonLoad) {
+            if (spinnerSelected.getSelectedItem() != null) {
                 String str = spinnerSelected.getSelectedItem().toString();
-                if(!str.equals("")){
-                    DialogUtils.createBothChoicesDialog(mContext, mContext.getString(R.string.title_warn),String.format(mContext.getString(R.string.tips_are_you_sure_to_import_keyboard_layout),str), mContext.getString(R.string.title_import), mContext.getString(R.string.title_cancel), new DialogSupports(){
+                if (!str.equals("")) {
+                    DialogUtils.createBothChoicesDialog(mContext, mContext.getString(R.string.title_warn), String.format(mContext.getString(R.string.tips_are_you_sure_to_import_keyboard_layout), str), mContext.getString(R.string.title_import), mContext.getString(R.string.title_cancel), new DialogSupports() {
                         @Override
-                        public void runWhenPositive(){
+                        public void runWhenPositive() {
                             loadSelectedFile();
                         }
                     });
@@ -201,10 +203,10 @@ public class CkbManagerDialog extends Dialog implements View.OnClickListener, Co
             }
         }
 
-        if(v == buttonClear){
-            DialogUtils.createBothChoicesDialog(mContext,mContext.getString(R.string.title_warn), mContext.getString(R.string.tips_are_you_sure_to_clear_all_buttons),mContext.getString(R.string.title_ok),mContext.getString(R.string.title_cancel),new DialogSupports(){
+        if (v == buttonClear) {
+            DialogUtils.createBothChoicesDialog(mContext, mContext.getString(R.string.title_warn), mContext.getString(R.string.tips_are_you_sure_to_clear_all_buttons), mContext.getString(R.string.title_ok), mContext.getString(R.string.title_cancel), new DialogSupports() {
                 @Override
-                public void runWhenPositive(){
+                public void runWhenPositive() {
                     mManager.clearKeyboard();
                 }
             });
@@ -230,19 +232,20 @@ public class CkbManagerDialog extends Dialog implements View.OnClickListener, Co
     }
 
     private ArrayList<String> data;
+
     public void updataUI() {
-        if(data == null){
+        if (data == null) {
             data = new ArrayList<>();
             data.addAll(FileTool.listChildFilesFromTargetDir(AppManifest.MCINABOX_KEYBOARD));
             spinnerSelected.setAdapter(new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_dropdown_item, data));
-        }else{
+        } else {
             data.clear();
             data.addAll(FileTool.listChildFilesFromTargetDir(AppManifest.MCINABOX_KEYBOARD));
-            ( (BaseAdapter) spinnerSelected.getAdapter()).notifyDataSetChanged();
+            ((BaseAdapter) spinnerSelected.getAdapter()).notifyDataSetChanged();
         }
     }
 
-    public void setButtonCounts(final int counts){
+    public void setButtonCounts(final int counts) {
         this.textButtonSum.post(new Runnable() {
             @Override
             public void run() {
@@ -252,17 +255,18 @@ public class CkbManagerDialog extends Dialog implements View.OnClickListener, Co
     }
 
     private Timer mTimer;
-    public void setCountsRefresh(boolean able){
-        if(able){
+
+    public void setCountsRefresh(boolean able) {
+        if (able) {
             mTimer = new Timer();
             mTimer.schedule(new TimerTask() {
                 @Override
                 public void run() {
                     setButtonCounts(mManager.getButtonCounts());
                 }
-            },500,500);
-        }else{
-            if(mTimer != null){
+            }, 500, 500);
+        } else {
+            if (mTimer != null) {
                 mTimer.cancel();
             }
         }

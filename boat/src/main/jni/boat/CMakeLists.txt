@@ -6,7 +6,7 @@ elseif (${ANDROID_ABI} STREQUAL "arm64-v8a")
     include_directories(${ANDROID_SYSROOT}/usr/include/aarch64-linux-android)
 elseif (${ANDROID_ABI} STREQUAL "armeabi-v7a")
     include_directories(${ANDROID_SYSROOT}/usr/include/arm-linux-androideabi)
-endif()
+endif ()
 
 add_library(boat SHARED boat.c loadme.c boat_activity.c)
 find_library(log-lib log)

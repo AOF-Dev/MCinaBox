@@ -9,34 +9,34 @@ import java.io.InputStreamReader;
 
 public class AppUtils {
 
-    public static String getAppVersionName(Context context){
+    public static String getAppVersionName(Context context) {
         String appVersionName = "";
         try {
             PackageInfo packageInfo = context.getApplicationContext()
                     .getPackageManager()
                     .getPackageInfo(context.getPackageName(), 0);
             appVersionName = packageInfo.versionName;
-        }catch (PackageManager.NameNotFoundException e){
+        } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
         return appVersionName;
     }
 
-    public static String getCpuAbi(){
+    public static String getCpuAbi() {
         String abi = null;
         try {
             return new BufferedReader(new InputStreamReader(Runtime.getRuntime().exec("getprop ro.product.cpu.abi").getInputStream())).readLine();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public static String formatCpuAbi(String abi){
-        if (abi == null){
+    public static String formatCpuAbi(String abi) {
+        if (abi == null) {
             return null;
         }
-        switch (abi){
+        switch (abi) {
             case "armeabi-v7a":
             case "armeabi":
                 return "aarch32";

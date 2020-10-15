@@ -7,6 +7,7 @@ import com.aof.mcinabox.minecraft.json.VersionJson;
 import com.aof.mcinabox.minecraft.json.VersionManifestJson;
 import com.aof.mcinabox.utils.ErrorUtils;
 import com.google.gson.Gson;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -15,10 +16,12 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 
 public class JsonUtils {
-    /**【读入version_manifest.json】**/
-    public static VersionManifestJson getVersionManifestFromFile(File file){
-        if(file == null){
-            Log.e("JsonUtils","Json File is null.");
+    /**
+     * 【读入version_manifest.json】
+     **/
+    public static VersionManifestJson getVersionManifestFromFile(File file) {
+        if (file == null) {
+            Log.e("JsonUtils", "Json File is null.");
             ErrorUtils.FileNotFound(file);
             return null;
         }
@@ -31,19 +34,22 @@ public class JsonUtils {
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            Log.e("JsonUtils","Json File not found.");
+            Log.e("JsonUtils", "Json File not found.");
             ErrorUtils.FileNotFound(file);
             return null;
         }
     }
-    public static VersionManifestJson getVersionManifestFromFile(String filepath){
+
+    public static VersionManifestJson getVersionManifestFromFile(String filepath) {
         return getVersionManifestFromFile(new File(filepath));
     }
 
-    /**【读入version.json】**/
-    public static VersionJson getVersionFromFile(File file){
-        if(file == null){
-            Log.e("JsonUtils","Json File is null.");
+    /**
+     * 【读入version.json】
+     **/
+    public static VersionJson getVersionFromFile(File file) {
+        if (file == null) {
+            Log.e("JsonUtils", "Json File is null.");
             ErrorUtils.FileNotFound(file);
             return null;
         }
@@ -56,19 +62,22 @@ public class JsonUtils {
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            Log.e("JsonUtils","Json File not found.");
+            Log.e("JsonUtils", "Json File not found.");
             ErrorUtils.FileNotFound(file);
             return null;
         }
     }
-    public static VersionJson getVersionFromFile(String filepath){
+
+    public static VersionJson getVersionFromFile(String filepath) {
         return getVersionFromFile(new File(filepath));
     }
 
-    /**【读入assets.json】**/
-    public static AssetsJson getAssetsFromFile(File file){
-        if(file == null){
-            Log.e("JsonUtils","Json File is null.");
+    /**
+     * 【读入assets.json】
+     **/
+    public static AssetsJson getAssetsFromFile(File file) {
+        if (file == null) {
+            Log.e("JsonUtils", "Json File is null.");
             ErrorUtils.FileNotFound(file);
             return null;
         }
@@ -81,12 +90,13 @@ public class JsonUtils {
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            Log.e("JsonUtils","Json File not found.");
+            Log.e("JsonUtils", "Json File not found.");
             ErrorUtils.FileNotFound(file);
             return null;
         }
     }
-    public static AssetsJson getAssetsFromFile(String filepath){
+
+    public static AssetsJson getAssetsFromFile(String filepath) {
         return getAssetsFromFile(new File(filepath));
     }
 }

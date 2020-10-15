@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <string name="title_game_list">遊戲清單</string>
     <string name="title_game_dir">遊戲目錄</string>

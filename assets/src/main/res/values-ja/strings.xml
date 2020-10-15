@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <string name="title_game_list">起動構成</string>　<!--采用MClauncher官方翻译-->
     <string name="title_launcher_setting">ランチャ設定</string>
@@ -44,7 +44,7 @@
     <string name="title_account">アカウント</string>
     <string name="title_user">ユーザー</string>
     <string name="title_manager">マネージャー</string>
-    <string name="title_select_version">バージョン</string> 	<!--请选择游戏版本 翻译为 版本-->
+    <string name="title_select_version">バージョン</string>    <!--请选择游戏版本 翻译为 版本-->
     <string name="title_launch_game">プレイ</string>　<!--启动游戏 翻译为 play(官方翻译)-->
     <string name="title_download_source">Minecraftダウンロードミラーサイト</string>
     <string name="title_import_runtime">ランタイムパッケージを導入</string>
@@ -114,25 +114,25 @@
     <string name="tips_user_namehint">ユーザー名またはアカウント</string>
     <string name="title_password">パスワード</string>
     <string name="tips_please_enter_password">パスワードを入力してください</string>
-    <string name="title_online">オンライン認証</string>	 <!--正版登录 翻译为 线上认证（官方日文翻译）-->
+    <string name="title_online">オンライン認証</string>     <!--正版登录 翻译为 线上认证（官方日文翻译）-->
     <string name="title_load">ロード  </string>
-    <string name="title_model">セット</string>		<!--这里直接将 配置 翻译为 设置（setup）-->
+    <string name="title_model">セット</string>        <!--这里直接将 配置 翻译为 设置（setup）-->
     <string name="tips_keybard_choose">キーボード配列を選んでください: </string>
     <string name="tips_keyboard_path">キーボード配列のバス: </string>
     <string name="title_filename">ファイルの名前</string>
     <string name="title_output">導出</string>
 
-    <string name="tips_keyboard_config_name_notfound">ポインタの名前を入力してください</string>		<!--按键名不能为空 翻译为 请输入按键名-->
-    <string name="tips_keyboard_config_size_toosmall">ポインタのサイズは20dpi以上でなければなりません</string> 		<!--按键的尺寸不能小于20 翻译为 按键的大小必须在20dpi以上-->
-    <string name="tips_keyboard_config_color_notfound">色を入力してください</string>		<!-- 颜色不能为空 翻译为 颜色为必填 -->
-    <string name="tips_keyboard_config_filename_notfound">ファイル名を入力してください</string> 	<!-- 文件名不能为空 翻译为 请输入文件名 -->
+    <string name="tips_keyboard_config_name_notfound">ポインタの名前を入力してください</string>        <!--按键名不能为空 翻译为 请输入按键名-->
+    <string name="tips_keyboard_config_size_toosmall">ポインタのサイズは20dpi以上でなければなりません</string>        <!--按键的尺寸不能小于20 翻译为 按键的大小必须在20dpi以上-->
+    <string name="tips_keyboard_config_color_notfound">色を入力してください</string>        <!-- 颜色不能为空 翻译为 颜色为必填 -->
+    <string name="tips_keyboard_config_filename_notfound">ファイル名を入力してください</string>    <!-- 文件名不能为空 翻译为 请输入文件名 -->
     <string name="tips_output_successed">導出しました</string>
     <string name="tips_import_successed">導入しました</string>
     <string name="tips_import_failed">導入失败しました</string>
     <string name="tips_keyboard_model_notfound">キーボード配列が見つかりません</string>
-    <string name="tips_keyboard_config_location_notfound">座標データは必ず入力してください</string>		<!-- 坐标值不能为空 翻译为 坐标数据为必填 -->
-    <string name="tips_keyboard_config_size_notfound">長さと幅は必ず入力してください</string>		<!-- 长宽不能为空 翻译为 长宽为必填 -->
-    <string name="tips_keyboard_button_notfound">キーボード配列は必ず導入してください</string>		<!-- 模板不能为空 翻译为　键盘模板必须导入  -->
+    <string name="tips_keyboard_config_location_notfound">座標データは必ず入力してください</string>        <!-- 坐标值不能为空 翻译为 坐标数据为必填 -->
+    <string name="tips_keyboard_config_size_notfound">長さと幅は必ず入力してください</string>        <!-- 长宽不能为空 翻译为 长宽为必填 -->
+    <string name="tips_keyboard_button_notfound">キーボード配列は必ず導入してください</string>        <!-- 模板不能为空 翻译为　键盘模板必须导入  -->
     <string name="tips_gamecheck_file_notfull">ファイルの完全性チェックが失敗しました。縂起動構成で完全性を無視するまたはこのバージョンを再ダウンロードしてください。</string>
     <string name="tips_gamecheck_platform_uncorrect">このランタイムパッケージは互換性がありません。縂起動構成でJVMの互換性を無視するまたは正しいランタイムパッケージを導入してください。</string>
     <string name="tips_keyboard_config">ヒント1：クリックしてドラッグするとボタンを指の方向に移動させます。\nヒント2：ボタンを長押ししてドラッグしないと、選択ボタンを編集または削除できます。</string>
@@ -143,7 +143,8 @@
     <string name="tips_not_selected_user">まだユーザーを作成または選んでない</string>
     <string name="tips_not_select_version">まだゲームバージョンをダウンロードまたは選んでない</string>
     <string name="tipper_warn_keyboard_notselected">まだキーボード配列を作成または選んでない</string>
-    <string name="tips_available_memory_low">このメモリーサイズはクラッシュの可能性が高いです</string>　　<!--当前内存大小易引发崩溃 翻译为 此内存大小有很高的可能性引发崩溃-->
+    <string name="tips_available_memory_low">このメモリーサイズはクラッシュの可能性が高いです</string>
+    　　<!--当前内存大小易引发崩溃 翻译为 此内存大小有很高的可能性引发崩溃-->
 
     <string name="tips_download_version_json">メインファイルリストをダウンロードしています…</string>
     <string name="tips_download_version_libraries">メインファイルとlibrariesをダウンロードしています…</string>

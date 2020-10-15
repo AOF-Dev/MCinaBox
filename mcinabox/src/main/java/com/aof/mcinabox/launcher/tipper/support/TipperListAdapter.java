@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.launcher.tipper.TipperManager;
 
@@ -17,20 +18,23 @@ public class TipperListAdapter extends BaseAdapter {
 
     private List<TipperListBean> tipperList;
     private LayoutInflater mLayoutInflater;
-    public TipperListAdapter(List<TipperListBean> list){
+
+    public TipperListAdapter(List<TipperListBean> list) {
         tipperList = list;
     }
 
     @Override
-    public int getCount(){
+    public int getCount() {
         return tipperList.size();
     }
+
     @Override
-    public Object getItem(int position){
+    public Object getItem(int position) {
         return tipperList.get(position);
     }
+
     @Override
-    public long getItemId(int position){
+    public long getItemId(int position) {
         return position;
     }
 
@@ -43,14 +47,14 @@ public class TipperListAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         final ViewHolder viewHolder;
-        if(convertView == null){
+        if (convertView == null) {
             convertView = mLayoutInflater.inflate(R.layout.listview_tipper, null);
             viewHolder = new ViewHolder();
             viewHolder.tip = convertView.findViewById(R.id.tipper_info);
             viewHolder.help = convertView.findViewById(R.id.tipper_help);
             viewHolder.level = convertView.findViewById(R.id.tipper_level);
 
-            switch (tipperList.get(position).getTipper_level()){
+            switch (tipperList.get(position).getTipper_level()) {
                 case TipperManager.TIPPER_LEVEL_NOTE:
                     viewHolder.level.setText("N");
                     viewHolder.level.setTextColor(Color.BLUE);
@@ -66,8 +70,8 @@ public class TipperListAdapter extends BaseAdapter {
             }
 
             convertView.setTag(viewHolder);
-        }else{
-            viewHolder = (ViewHolder)convertView.getTag();
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
         }
 
         viewHolder.context = tipperList.get(position).getContext();
@@ -75,15 +79,16 @@ public class TipperListAdapter extends BaseAdapter {
         viewHolder.help.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(tipperList.get(position).getTipper_runable() != null){
+                if (tipperList.get(position).getTipper_runable() != null) {
                     tipperList.get(position).getTipper_runable().run();
                 }
-            }});
+            }
+        });
         return convertView;
 
     }
 
-    class ViewHolder{
+    class ViewHolder {
         public TextView tip;
         public TextView level;
         public ImageButton help;

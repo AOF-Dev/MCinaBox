@@ -27,8 +27,8 @@ public class JoyStick implements HwInput {
 
     @Override
     public boolean onMotionKey(MotionEvent event) {
-        Log.e(TAG,event.toString());
-        Log.e(TAG,event.getDevice().toString());
+        Log.e(TAG, event.toString());
+        Log.e(TAG, event.getDevice().toString());
         return true;
     }
 

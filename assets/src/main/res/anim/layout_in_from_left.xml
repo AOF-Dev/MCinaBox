@@ -6,6 +6,5 @@
         android:fromYDelta="0"
         android:toXDelta="100%"
         android:toYDelta="100%"
-        android:fillAfter="true"
-        />
+        android:fillAfter="true" />
 </set>

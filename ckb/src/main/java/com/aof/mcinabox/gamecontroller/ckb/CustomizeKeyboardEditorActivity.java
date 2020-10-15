@@ -3,8 +3,6 @@ package com.aof.mcinabox.gamecontroller.ckb;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
-import android.hardware.SensorManager;
-import android.opengl.Matrix;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -12,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
@@ -28,7 +25,7 @@ import com.aof.mcinabox.gamecontroller.ckb.support.CallCustomizeKeyboard;
 import com.aof.utils.DisplayUtils;
 import com.aof.utils.PicUtils;
 
-public class CustomizeKeyboardEditorActivity extends AppCompatActivity implements View.OnClickListener , DrawerLayout.DrawerListener , CallCustomizeKeyboard {
+public class CustomizeKeyboardEditorActivity extends AppCompatActivity implements View.OnClickListener, DrawerLayout.DrawerListener, CallCustomizeKeyboard {
 
     private Toolbar mToolbar;
     private ViewGroup mLayout_main;
@@ -41,7 +38,7 @@ public class CustomizeKeyboardEditorActivity extends AppCompatActivity implement
     private int screenHeight;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //隐藏系统状态栏
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -53,22 +50,22 @@ public class CustomizeKeyboardEditorActivity extends AppCompatActivity implement
         initUI();
     }
 
-    private void initUI(){
+    private void initUI() {
 
         mToolbar = findViewById(R.id.ckbe_toolbar);
         mLayout_main = findViewById(R.id.ckbe_layout_main);
         mDrawerLayout = findViewById(R.id.ckbe_drawerlayout);
         dButton = new DragFloatActionButton(this);
-        mManager = new CkbManager(this,this,null);
-        mDialog = new CkbManagerDialog(this,mManager);
+        mManager = new CkbManager(this, this, null);
+        mDialog = new CkbManagerDialog(this, mManager);
 
         //配置悬浮按钮
-        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(DisplayUtils.getPxFromDp(this,30), DisplayUtils.getPxFromDp(this,30));
-        this.addContentView(dButton,lp);
-        dButton.setBackground(ContextCompat.getDrawable(this,R.drawable.background_floatbutton));
-        dButton.setTodo(new ArrangeRule(){
+        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(DisplayUtils.getPxFromDp(this, 30), DisplayUtils.getPxFromDp(this, 30));
+        this.addContentView(dButton, lp);
+        dButton.setBackground(ContextCompat.getDrawable(this, R.drawable.background_floatbutton));
+        dButton.setTodo(new ArrangeRule() {
             @Override
-            public void run(){
+            public void run() {
                 mDialog.show();
             }
         });
@@ -82,21 +79,22 @@ public class CustomizeKeyboardEditorActivity extends AppCompatActivity implement
         mDrawerLayout.addDrawerListener(this);
 
         //设置背景
-        mLayout_main.setBackground(new BitmapDrawable(getResources(),PicUtils.blur(this,10,((BitmapDrawable)ContextCompat.getDrawable(this,R.drawable.background)).getBitmap())));
+        mLayout_main.setBackground(new BitmapDrawable(getResources(), PicUtils.blur(this, 10, ((BitmapDrawable) ContextCompat.getDrawable(this, R.drawable.background)).getBitmap())));
     }
 
 
     @Override
     public void onClick(View v) {
-        if(v == mLayout_main){
+        if (v == mLayout_main) {
             switchToolbar();
         }
     }
 
     private Float viewPosY;
+
     @Override
     public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
-        if(viewPosY == null){
+        if (viewPosY == null) {
             viewPosY = mToolbar.getY();
         }
         int viewHeight = mToolbar.getHeight();
@@ -120,9 +118,9 @@ public class CustomizeKeyboardEditorActivity extends AppCompatActivity implement
 
     }
 
-    private void switchToolbar(){
+    private void switchToolbar() {
         int v = View.VISIBLE;
-        switch(mToolbar.getVisibility()){
+        switch (mToolbar.getVisibility()) {
             case View.INVISIBLE:
             case View.GONE:
                 v = View.VISIBLE;
@@ -138,25 +136,24 @@ public class CustomizeKeyboardEditorActivity extends AppCompatActivity implement
 
     @Override
     public void addView(View view) {
-        if(view.getLayoutParams() == null){
+        if (view.getLayoutParams() == null) {
             return;
         }
-        if(view.getLayoutParams() instanceof RelativeLayout.LayoutParams){
+        if (view.getLayoutParams() instanceof RelativeLayout.LayoutParams) {
             this.mLayout_main.addView(view);
-        }else{
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(view.getLayoutParams().width,view.getLayoutParams().height);
+        } else {
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(view.getLayoutParams().width, view.getLayoutParams().height);
             view.setLayoutParams(params);
             this.mLayout_main.addView(view);
         }
     }
 
     @Override
-    public void onStop(){
+    public void onStop() {
         super.onStop();
         //当Activity停止的时候自动保存键盘配置
         mManager.autoSaveKeyboard();
     }
-
 
 
 }
@@ -182,7 +179,7 @@ class DragFloatActionButton extends LinearLayout implements ViewGroup.OnTouchLis
     }
 
     @Override
-    public boolean performClick(){
+    public boolean performClick() {
         super.performClick();
         return false;
     }
@@ -196,17 +193,17 @@ class DragFloatActionButton extends LinearLayout implements ViewGroup.OnTouchLis
     }
 
 
-    public void behave(MotionEvent event){
+    public void behave(MotionEvent event) {
         int rawX = (int) event.getRawX();
         int rawY = (int) event.getRawY();
-        switch(event.getAction()){
+        switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 isDrag = false;
                 this.setAlpha(0.9f);
                 getParent().requestDisallowInterceptTouchEvent(true);
                 lastX = rawX;
                 lastY = rawY;
-                if(getParent() != null){
+                if (getParent() != null) {
                     parent = (ViewGroup) getParent();
                     parentHeight = parent.getHeight();
                     parentWidth = parent.getWidth();
@@ -216,8 +213,8 @@ class DragFloatActionButton extends LinearLayout implements ViewGroup.OnTouchLis
                 this.setAlpha(0.9f);
                 int dx = rawX - lastX;
                 int dy = rawY - lastY;
-                int distance = (int) Math.sqrt(dx *dx + dy*dy);
-                if(distance > 2 && !isDrag){
+                int distance = (int) Math.sqrt(dx * dx + dy * dy);
+                if (distance > 2 && !isDrag) {
                     isDrag = true;
                 }
 
@@ -232,11 +229,11 @@ class DragFloatActionButton extends LinearLayout implements ViewGroup.OnTouchLis
                 lastY = rawY;
                 break;
             case MotionEvent.ACTION_UP:
-                if(isDrag){
+                if (isDrag) {
                     //恢复按压效果
                     setPressed(false);
                     moveHide(rawX);
-                }else{
+                } else {
                     //执行点击操作
                     startTodo();
                 }
@@ -244,16 +241,16 @@ class DragFloatActionButton extends LinearLayout implements ViewGroup.OnTouchLis
         }
     }
 
-    private void moveHide(int rawX){
-        if(rawX >= parentWidth / 2){
+    private void moveHide(int rawX) {
+        if (rawX >= parentWidth / 2) {
             //靠右吸附
-            ObjectAnimator oa = ObjectAnimator.ofFloat(this,"x",getX(),parentWidth - getWidth());
+            ObjectAnimator oa = ObjectAnimator.ofFloat(this, "x", getX(), parentWidth - getWidth());
             oa.setInterpolator(new DecelerateInterpolator());
             oa.setDuration(500);
             oa.start();
-        }else{
+        } else {
             //靠左吸附
-            ObjectAnimator oa = ObjectAnimator.ofFloat(this,"x",getX(),0);
+            ObjectAnimator oa = ObjectAnimator.ofFloat(this, "x", getX(), 0);
             oa.setInterpolator(new DecelerateInterpolator());
             oa.setDuration(500);
             oa.start();
@@ -262,26 +259,26 @@ class DragFloatActionButton extends LinearLayout implements ViewGroup.OnTouchLis
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        if(v == this){
+        if (v == this) {
             this.behave(event);
             return true;
         }
         return false;
     }
 
-    public void setTodo(ArrangeRule ar){
+    public void setTodo(ArrangeRule ar) {
         this.aRule = ar;
     }
 
-    public void startTodo(){
-        if(aRule != null){
+    public void startTodo() {
+        if (aRule != null) {
             aRule.run();
         }
     }
 }
 
-class ArrangeRule{
-    public void run(){
+class ArrangeRule {
+    public void run() {
         // Override this method.
     }
 }
