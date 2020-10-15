@@ -3,6 +3,8 @@ apply plugin: 'com.android.library'
 android {
     compileSdkVersion 28
     buildToolsVersion '30.0.2'
+    ndkVersion '16.1.4479499'
+
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 21
@@ -10,7 +12,7 @@ android {
         versionName "1.0"
         externalNativeBuild {
             cmake {
-                abiFilters "armeabi-v7a","arm64-v8a"
+                abiFilters "armeabi-v7a", "arm64-v8a"
             }
         }
     }
@@ -24,23 +26,19 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     externalNativeBuild {
         cmake {
             path file('src/main/jni/CMakeLists.txt')
         }
     }
-
-    ndkVersion '16.1.4479499'
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.code.gson:gson:2.8.6'
     implementation project(path: ':gamecontroller')
     implementation project(path: ':jndcrash')
-    implementation project(path: ':assets')
     implementation project(path: ':definitions')
-    implementation 'com.google.code.gson:gson:2.8.6'
-    implementation project(path: ':plugin')
-    implementation project(path: ':utils')
 }
