@@ -16,7 +16,7 @@ jobs:
     - name: Install NDK
       run: echo "y" | sudo ${ANDROID_HOME}/tools/bin/sdkmanager --install "ndk;16.1.4479499" --sdk_root=${ANDROID_SDK_ROOT}
     - name: Build with Gradle
-      run: chmod +x gradlew && ./gradlew build
+      run: chmod +x gradlew && ./gradlew clean assembleDebug
 
     - name: Upload APK
       uses: actions/upload-artifact@v2
