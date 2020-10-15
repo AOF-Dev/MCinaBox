@@ -94,7 +94,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="5dp"
-            android:text="保存"/>
+            android:text="@string/title_save"/>
 
     </LinearLayout>
 

@@ -13,10 +13,11 @@ android {
                 abiFilters "armeabi-v7a","arm64-v8a"
             }
         }
-      lintOptions {
-          abortOnError false
-      }
-   }
+    }
+    lintOptions{
+        checkReleaseBuilds false
+        abortOnError false
+    }
     buildTypes {
         release {
             minifyEnabled false
