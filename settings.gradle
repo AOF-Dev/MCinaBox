@@ -1,3 +1,4 @@
+include ':fileSelector'
 include ':utils'
 include ':ckb'
 include ':definitions'

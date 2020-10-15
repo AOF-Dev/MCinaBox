@@ -15,6 +15,7 @@
             <option value="$PROJECT_DIR$/boat" />
             <option value="$PROJECT_DIR$/ckb" />
             <option value="$PROJECT_DIR$/definitions" />
+            <option value="$PROJECT_DIR$/fileSelector" />
             <option value="$PROJECT_DIR$/gamecontroller" />
             <option value="$PROJECT_DIR$/jndcrash" />
             <option value="$PROJECT_DIR$/lwjgl" />
