@@ -1,18 +1,21 @@
 package cosine.boat;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+
 import com.aof.mcinabox.definitions.models.BoatArgs;
+
 import cosine.boat.logcat.Logcat;
 import cosine.boat.logcat.LogcatService;
 import ru.ivanarh.jndcrash.NDCrash;
 import ru.ivanarh.jndcrash.NDCrashError;
 import ru.ivanarh.jndcrash.NDCrashService;
 import ru.ivanarh.jndcrash.NDCrashUnwinder;
-import android.content.Intent;
-import static com.aof.mcinabox.definitions.manifest.AppManifest.*;
 
-public class LauncherActivity extends Activity{
+import static com.aof.mcinabox.definitions.manifest.AppManifest.BOAT_CACHE_HOME;
+
+public class LauncherActivity extends Activity {
     public BoatArgs boatArgs;
 
     public void onCreate(Bundle savedInstance) {
@@ -21,7 +24,7 @@ public class LauncherActivity extends Activity{
         //从序列化中取出参数对象
         boatArgs = (BoatArgs) getIntent().getSerializableExtra("LauncherConfig");
 
-        if(boatArgs.getDebug()){
+        if (boatArgs.getDebug()) {
             final String logPath = BOAT_CACHE_HOME + "/log.txt";
             Logcat.initializeOutOfProcess(this, logPath, LogcatService.class);
 
