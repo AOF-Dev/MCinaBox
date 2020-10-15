@@ -14,6 +14,11 @@ android {
             }
         }
     }
+    lintOptions{
+        checkReleaseBuilds false
+        abortOnError false
+    }
+}
     buildTypes {
         release {
             minifyEnabled false
