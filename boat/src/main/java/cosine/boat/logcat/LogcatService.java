@@ -1,17 +1,17 @@
 package cosine.boat.logcat;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.IBinder;
-import android.content.Context;
+
 import java.io.IOException;
 
 /**
  * Service for out-of-process crash handling daemon. Should be run from a separate process.
  */
-public class LogcatService extends Service
-{
+public class LogcatService extends Service {
 
     /**
      * Indicates if a daemon was started.
@@ -28,7 +28,8 @@ public class LogcatService extends Service
      */
     public static final String EXTRA_REPORT_FILE = "report_file";
 
-	private static Process mLogcatProcess;
+    private static Process mLogcatProcess;
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         final SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
@@ -47,15 +48,15 @@ public class LogcatService extends Service
             reportPath = preferences.getString(EXTRA_REPORT_FILE, null);
         }
         if (!mDaemonStarted) {
-			mDaemonStarted = true;
-			final int initResult = startOutOfProcessDaemon(this, reportPath);
-			if (initResult != 0) {
-				//Log.e(TAG, "Couldn't start NDCrash out-of-process daemon with unwinder: " + unwinder + ", error: " + initResult);
-			} else {
-				//Log.i(TAG, "Out-of-process unwinding daemon is started with unwinder: " + unwinder + " report path: " +
-				//	  (reportPath != null ? reportPath : "null"));
-				
-			}
+            mDaemonStarted = true;
+            final int initResult = startOutOfProcessDaemon(this, reportPath);
+            if (initResult != 0) {
+                //Log.e(TAG, "Couldn't start NDCrash out-of-process daemon with unwinder: " + unwinder + ", error: " + initResult);
+            } else {
+                //Log.i(TAG, "Out-of-process unwinding daemon is started with unwinder: " + unwinder + " report path: " +
+                //	  (reportPath != null ? reportPath : "null"));
+
+            }
         } else {
             //Log.i(TAG, "NDCrash out-of-process daemon is already started.");
         }
@@ -68,7 +69,7 @@ public class LogcatService extends Service
 
     @Override //@CallSuper
     public void onDestroy() {
-		
+
         if (mDaemonStarted) {
             mDaemonStarted = false;
             final boolean stoppedSuccessfully = stopOutOfProcessDaemon();
@@ -82,8 +83,8 @@ public class LogcatService extends Service
         // Service doesn't support to be bound.
         return null;
     }
-	
-	/**
+
+    /**
      * Starts NDCrash out-of-process unwinding daemon. This is necessary for out of process crash
      * handling. This method is run from a service that works in separate process.
      *
@@ -94,17 +95,15 @@ public class LogcatService extends Service
      * @return Error status.
      */
     static int startOutOfProcessDaemon(
-		/*@NonNull */Context context,
-		/*@Nullable */String crashReportPath) {
+            /*@NonNull */Context context,
+            /*@Nullable */String crashReportPath) {
         if (LogcatUtils.isMainProcess(context)) {
             return 1;
         }
-		try
-		{
-			mLogcatProcess = new ProcessBuilder("logcat", "-v", "long", "-f", crashReportPath).start();
-		}
-		catch (IOException e)
-		{}
+        try {
+            mLogcatProcess = new ProcessBuilder("logcat", "-v", "long", "-f", crashReportPath).start();
+        } catch (IOException e) {
+        }
         return 0;
     }
 
@@ -117,5 +116,5 @@ public class LogcatService extends Service
         mLogcatProcess.destroy();
         return true;
     }
-	
+
 }
