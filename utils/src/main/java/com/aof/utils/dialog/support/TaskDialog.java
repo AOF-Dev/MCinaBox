@@ -21,12 +21,12 @@ public class TaskDialog extends Dialog {
         setCancelable(cancelable);
     }
 
-    public com.aof.utils.dialog.support.TaskDialog setTotalTaskName(String taskname){
+    public TaskDialog setTotalTaskName(String taskname){
         textTotalTaskName.setText(taskname);
         return this;
     }
 
-    public com.aof.utils.dialog.support.TaskDialog setCurrentTaskName(String taskname){
+    public TaskDialog setCurrentTaskName(String taskname){
         textCurrentTaskName.setText(taskname);
         return this;
     }
