@@ -12,6 +12,10 @@ android {
 
         consumerProguardFiles "consumer-rules.pro"
     }
+      lintOptions {
+          checkReleaseBuilds false
+          abortOnError false
+      }
 
     buildTypes {
         release {
