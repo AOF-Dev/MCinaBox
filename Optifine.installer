@@ -1,0 +1,186 @@
+if 
+{
+package com.aof.mcinabox.launcher.json;
+
+public class RuntimeJson {
+private String PackName; //运行库包名
+    private String ReleaseTime; //发行日期
+    private String Platform; //架构
+    private String JavaVersion; //Java版本
+    private String OpenGLVersion; //OpenGL版本
+    private String OpenALVersion; //OpenAL版本
+    private String Lwjgl2Version; //Lwjgl2版本
+    private String Lwjgl3Version; //Lwjgl3版本
+
+    public String getPackName() {
+        return PackName;
+    }
+    public void setPackName(String packName) {
+        PackName = packName;
+    }
+    public String getReleaseTime() {
+        return ReleaseTime;
+    }
+    public void setReleaseTime(String releaseTime) {
+        ReleaseTime = releaseTime;
+    }
+    public String getPlatform() {
+        return Platform;
+    }
+    public void setPlatform(String platform) {
+        Platform = platform;
+    }
+    public String getJavaVersion() {
+        return JavaVersion;
+    }
+    public void setJavaVersion(String javaVersion) {
+        JavaVersion = javaVersion;
+    }
+    public String getOpenGLVersion() {
+        return OpenGLVersion;
+    }
+    public void setOpenGLVersion(String openGLVersion) {
+        OpenGLVersion = openGLVersion;
+    }
+
+    public String getOpenALVersion() {    }
+    public void setReleaseTime(String releaseTime) {
+        ReleaseTime = releaseTime;
+    }
+    public String getPlatform() {
+        return Platform;
+    }
+    public void setPlatform(String platform) {
+        Platform = platform;
+    }
+    public String getJavaVersion() {
+        return JavaVersion;
+    }
+    public void setJavaVersion(String javaVersion) {
+        JavaVersion = javaVersion;
+    }
+    public String getOpenGLVersion() {
+        return OpenGLVersion;
+    }
+    public void setOpenGLVersion(String openGLVersion) {
+        OpenGLVersion = openGLVersion;
+    }
+
+    public String getOpenALVersion() {
+        return OpenALVersion;
+    }
+
+    public void setOpenALVersion(String openALVersion) {
+        OpenALVersion = openALVersion;
+    }
+
+    public String getLwjgl2Version() {
+        return Lwjgl2Version;
+    }
+
+    public void setLwjgl2Version(String lwjgl2Version) {
+        Lwjgl2Version = lwjgl2Version;
+    }
+
+    public String getLwjgl3Version() {
+        return Lwjgl3Version;
+    }
+
+    public void setLwjgl3Version(String lwjgl3Version) {
+        Lwjgl3Version = lwjgl3Version;
+    }
+}
+
+
+}
+        return OpenALVersion;
+    }
+
+    public void setOpenALVersion(String openALVersion) {
+        OpenALVersion = openALVersion;
+    }
+
+    public String getLwjgl2Version() {
+        return Lwjgl2Version;
+    }
+
+    public void setLwjgl2Version(String lwjgl2Version) {
+        Lwjgl2Version = lwjgl2Version;
+    }
+
+    public String getLwjgl3Version() {
+        return Lwjgl3Version;
+    }
+
+    public void setLwjgl3Version(String lwjgl3Version) {
+        Lwjgl3Version = lwjgl3Version;
+ if (forgeFile.exists=true()){ 
+ 
+ import file/20tu5i2iwiduyyb/BetterFps-1.4.8.jar/file
+ }
+ import file/5ya36v9261ym00c/OptiFine_1.12.2_HD_U_F5.jar/file
+ 
+ }
+ if (forgeFile.exists=false()){
+ }
+ package com.aof.mcinabox.minecraft;
+
+import android.content.Context;
+import android.util.Log;
+
+import com.aof.mcinabox.minecraft.json.VersionJson;
+import com.aof.mcinabox.utils.FileTool;
+import com.aof.mcinabox.utils.ZipUtils;
+
+import java.io.File;
+
+
+import static com.aof.sharedmodule.Data.DataPathManifest.*;
+
+public class ForgeInstaller {
+
+    public ForgeInstaller(Context context){
+        this.context = context;
+    }
+    private Context context;
+    private String MINECRAFT_HOME = getMinecraftHomePath();
+    private String MINECRAFT_HOME_VERSION = MINECRAFT_HOME + "/versions";
+
+    private String getMinecraftHomePath(){
+        switch(com.aof.mcinabox.launcher.JsonUtils.getSettingFromFile(MCINABOX_FILE_JSON).getLocalization()){
+            case "private":
+                return MINECRAFT_DATA_PRIVATE;
+            case "public":
+                return MINECRAFT_DATA_PUBLIC;
+            default:
+                Log.e("DownloadMinecraft","Can't get minecraft home path.");
+                return null;
+        }
+    }
+
+    public void unzipForgeInstaller(String filename) throws Exception {
+        ZipUtils.UnZipFolder(FORGEINSTALLER_HOME + "/" + filename,MCINABOX_TEMP + "/forge");
+    }
+    public String makeForgeData(){
+        File forgeFile = new File(MCINABOX_TEMP + "/forge/version.json");
+        VersionJson forgeJson;
+        if(forgeFile.exists()){
+            forgeJson = com.aof.mcinabox.minecraft.JsonUtils.getVersionFromFile(forgeFile);
+            if(forgeJson != null) {
+                FileTool.checkFilePath(new File(MINECRAFT_HOME_VERSION + "/" + forgeJson.getId()),true);
+                FileTool.copyFile(MCINABOX_TEMP + "/forge/version.json",MINECRAFT_HOME_VERSION + "/" + forgeJson.getId() + "/" + forgeJson.getId() + ".json", true);
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                return forgeJson.getId();
+            }else{
+                return null;
+            }
+        }
+        return null;
+    }
+
+}
+
