@@ -181,7 +181,6 @@ public class DialogUtils {
                 if(support != null){
                     support.runWhenItemsSelected(paths.get(0));
                 }
-                fileDialog.dismiss();
             }
         });
         fileDialog.show();
