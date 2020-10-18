@@ -22,4 +22,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
           name: mcinabox-debug
-          path: mcinabox/build/output/apk/debug/mcinabox-debug
+          path: mcinabox/build/output/apk/debug/mcinabox-debug.apk
