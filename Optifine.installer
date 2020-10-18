@@ -1,4 +1,4 @@
-"version name 1.1"
+"version name 1.2"
 if
 {
 package com.aof.mcinabox.launcher.json;
@@ -123,7 +123,7 @@ private String PackName; //运行库包名
  
  }
  if (forgeFile.exists=false()){
- }
+  
  package com.aof.mcinabox.minecraft;
 
 import android.content.Context;
@@ -138,16 +138,16 @@ import java.io.File;
 
 import static com.aof.sharedmodule.Data.DataPathManifest.*;
 
-public class ForgeInstaller {
+public class ForgeInstaller 
 
-    public ForgeInstaller(Context context){
+    public ForgeInstaller(Context context)
         this.context = context;
     
     private Context context;
     private String MINECRAFT_HOME = getMinecraftHomePath();
     private String MINECRAFT_HOME_VERSION = MINECRAFT_HOME + "/versions";
 
-    private String getMinecraftHomePath(){
+    private String getMinecraftHomePath()
         switch(com.aof.mcinabox.launcher.JsonUtils.getSettingFromFile(MCINABOX_FILE_JSON).getLocalization()){
             case "private":
                 return MINECRAFT_DATA_PRIVATE;
@@ -161,7 +161,7 @@ public class ForgeInstaller {
 
     public void unzipForgeInstaller(String filename) throws Exception {
         ZipUtils.UnZipFolder(FORGEINSTALLER_HOME + "/" + filename,MCINABOX_TEMP + "/forge");
-    }
+    
     public String makeForgeData(){
         File forgeFile = new File(MCINABOX_TEMP + "/forge/version.json");
         VersionJson forgeJson;
@@ -172,14 +172,14 @@ public class ForgeInstaller {
                 FileTool.copyFile(MCINABOX_TEMP + "/forge/version.json",MINECRAFT_HOME_VERSION + "/" + forgeJson.getId() + "/" + forgeJson.getId() + ".json", true);
                 try {
                     Thread.sleep(100);
-                } catch (InterruptedException e) {
+                 catch (InterruptedException e) 
                     e.printStackTrace();
-                }
+                
                 return forgeJson.getId();
-            }else{
+            else
                 return null;
-            }
-        }
+            
+        
         return null;
     }
 
