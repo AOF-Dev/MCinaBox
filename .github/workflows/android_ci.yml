@@ -13,7 +13,7 @@ jobs:
       - name: Build MCinaBox APK with Gradle
         run: |
           chmod +x gradlew
-          ./gradlew clean assembleDebug
+          ./gradlew clean :mcinabox:assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v2
