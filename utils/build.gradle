@@ -27,6 +27,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.aar', '*.jar'])
+	implementation 'com.github.AOF-Dev:Android-FileSelector:master-SNAPSHOT'
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.github.QuadFlask:colorpicker:0.0.15'
     implementation 'org.apache.commons:commons-compress:1.20'
