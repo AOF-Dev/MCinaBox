@@ -14,19 +14,19 @@ jobs:
         java-version: 1.8
     - name: Install NDK
       run: echo "y" | sudo ${ANDROID_HOME}/tools/bin/sdkmanager --install "ndk;16.1.4479499" --sdk_root=${ANDROID_SDK_ROOT}
-    - name: Build 64-bit APK with Gradle
+    - name: Build aarch64 APK with Gradle
       run: |
         mkdir -p out
         chmod +x gradlew 
         ./gradlew clean assembleDebug
-        mv mcinabox/build/outputs/apk/debug/mcinabox-debug.apk out/MCinaBox-debug-64bit.apk
+        mv mcinabox/build/outputs/apk/debug/mcinabox-debug.apk out/MCinaBox-debug-aarch64.apk
         # find . -name "*.so"
-    - name: Build 32-bit APK with Gradle
+    - name: Build aarch32 APK with Gradle
       run: | 
         replace="\, \"arm64-v8a\""
         sed -i "s/$replace//g" boat/build.gradle
         ./gradlew assembleDebug
-        mv mcinabox/build/outputs/apk/debug/mcinabox-debug.apk out/MCinaBox-debug-32bit.apk
+        mv mcinabox/build/outputs/apk/debug/mcinabox-debug.apk out/MCinaBox-debug-aarch32.apk
 
     - name: Upload APK
       uses: actions/upload-artifact@v2
