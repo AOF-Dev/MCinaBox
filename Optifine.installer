@@ -1,8 +1,9 @@
-if 
+"version name 1.1"
+if
 {
 package com.aof.mcinabox.launcher.json;
 
-public class RuntimeJson {
+public class RuntimeJson 
 private String PackName; //运行库包名
     private String ReleaseTime; //发行日期
     private String Platform; //架构
@@ -12,113 +13,113 @@ private String PackName; //运行库包名
     private String Lwjgl2Version; //Lwjgl2版本
     private String Lwjgl3Version; //Lwjgl3版本
 
-    public String getPackName() {
+    public String getPackName() 
         return PackName;
-    }
-    public void setPackName(String packName) {
+    
+    public void setPackName(String packName) 
         PackName = packName;
-    }
-    public String getReleaseTime() {
+    
+    public String getReleaseTime() 
         return ReleaseTime;
-    }
-    public void setReleaseTime(String releaseTime) {
+    
+    public void setReleaseTime(String releaseTime) 
         ReleaseTime = releaseTime;
-    }
-    public String getPlatform() {
+    
+    public String getPlatform() 
         return Platform;
-    }
-    public void setPlatform(String platform) {
+    
+    public void setPlatform(String platform) 
         Platform = platform;
-    }
-    public String getJavaVersion() {
+    
+    public String getJavaVersion() 
         return JavaVersion;
-    }
-    public void setJavaVersion(String javaVersion) {
+    
+    public void setJavaVersion(String javaVersion) 
         JavaVersion = javaVersion;
-    }
-    public String getOpenGLVersion() {
+    
+    public String getOpenGLVersion() 
         return OpenGLVersion;
-    }
-    public void setOpenGLVersion(String openGLVersion) {
+    
+    public void setOpenGLVersion(String openGLVersion) 
         OpenGLVersion = openGLVersion;
-    }
+    
 
     public String getOpenALVersion() {    }
-    public void setReleaseTime(String releaseTime) {
+    public void setReleaseTime(String releaseTime) 
         ReleaseTime = releaseTime;
-    }
-    public String getPlatform() {
+    
+    public String getPlatform() 
         return Platform;
-    }
-    public void setPlatform(String platform) {
+    
+    public void setPlatform(String platform) 
         Platform = platform;
-    }
-    public String getJavaVersion() {
+    
+    public String getJavaVersion() 
         return JavaVersion;
-    }
-    public void setJavaVersion(String javaVersion) {
+    
+    public void setJavaVersion(String javaVersion) 
         JavaVersion = javaVersion;
-    }
-    public String getOpenGLVersion() {
+    
+    public String getOpenGLVersion() 
         return OpenGLVersion;
-    }
-    public void setOpenGLVersion(String openGLVersion) {
+    
+    public void setOpenGLVersion(String openGLVersion) 
         OpenGLVersion = openGLVersion;
-    }
+    
 
-    public String getOpenALVersion() {
+    public String getOpenALVersion() 
         return OpenALVersion;
-    }
+    
 
-    public void setOpenALVersion(String openALVersion) {
+    public void setOpenALVersion(String openALVersion) 
         OpenALVersion = openALVersion;
-    }
+    
 
-    public String getLwjgl2Version() {
+    public String getLwjgl2Version() 
         return Lwjgl2Version;
-    }
+    
 
-    public void setLwjgl2Version(String lwjgl2Version) {
+    public void setLwjgl2Version(String lwjgl2Version) 
         Lwjgl2Version = lwjgl2Version;
-    }
+    
 
-    public String getLwjgl3Version() {
+    public String getLwjgl3Version() 
         return Lwjgl3Version;
-    }
+    
 
-    public void setLwjgl3Version(String lwjgl3Version) {
+    public void setLwjgl3Version(String lwjgl3Version) 
         Lwjgl3Version = lwjgl3Version;
-    }
-}
+    
 
 
-}
+
+
         return OpenALVersion;
-    }
+    
 
-    public void setOpenALVersion(String openALVersion) {
+    public void setOpenALVersion(String openALVersion) 
         OpenALVersion = openALVersion;
-    }
+    
 
-    public String getLwjgl2Version() {
+    public String getLwjgl2Version() 
         return Lwjgl2Version;
-    }
+    
 
-    public void setLwjgl2Version(String lwjgl2Version) {
+    public void setLwjgl2Version(String lwjgl2Version) 
         Lwjgl2Version = lwjgl2Version;
-    }
+    
 
-    public String getLwjgl3Version() {
+    public String getLwjgl3Version() 
         return Lwjgl3Version;
-    }
+    
 
-    public void setLwjgl3Version(String lwjgl3Version) {
+    public void setLwjgl3Version(String lwjgl3Version)
         Lwjgl3Version = lwjgl3Version;
  if (forgeFile.exists=true()){ 
  
- import file/20tu5i2iwiduyyb/BetterFps-1.4.8.jar/file
- }
- import file/5ya36v9261ym00c/OptiFine_1.12.2_HD_U_F5.jar/file
+ import file/20tu5i2iwiduyyb/BetterFps-1.4.8.java/file
+ 
+ import file/5ya36v9261ym00c/OptiFine_1.12.2_HD_U_F5.java/file
  
  }
  if (forgeFile.exists=false()){
@@ -141,7 +142,7 @@ public class ForgeInstaller {
 
     public ForgeInstaller(Context context){
         this.context = context;
-    }
+    
     private Context context;
     private String MINECRAFT_HOME = getMinecraftHomePath();
     private String MINECRAFT_HOME_VERSION = MINECRAFT_HOME + "/versions";
@@ -155,8 +156,8 @@ public class ForgeInstaller {
             default:
                 Log.e("DownloadMinecraft","Can't get minecraft home path.");
                 return null;
-        }
-    }
+        
+    
 
     public void unzipForgeInstaller(String filename) throws Exception {
         ZipUtils.UnZipFolder(FORGEINSTALLER_HOME + "/" + filename,MCINABOX_TEMP + "/forge");
