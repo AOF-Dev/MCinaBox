@@ -21,7 +21,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
-                android:text="主页"
+                android:text="@string/title_home"
                 android:textColor="@color/text_info"
                 android:textSize="@dimen/text_small" />
 
