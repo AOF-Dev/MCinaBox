@@ -130,6 +130,11 @@ public abstract class BaseController implements Controller {
             i.saveConfig();
         }
     }
+
+    @Override
+    public ViewGroup getViewsParent() {
+        return client.getViewsParent();
+    }
 }
 
 

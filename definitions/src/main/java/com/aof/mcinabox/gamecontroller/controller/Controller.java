@@ -24,5 +24,6 @@ public interface Controller{
     int getInputMode();
     int[] getPointer();
     void saveConfig();
+    ViewGroup getViewsParent();
 }
 

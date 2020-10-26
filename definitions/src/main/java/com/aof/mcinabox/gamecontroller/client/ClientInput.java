@@ -16,4 +16,5 @@ public interface ClientInput extends KeyEvent {
     void typeWords(String str);
     void addControllerView(View v);
     int[] getPointer();
+    ViewGroup getViewsParent();
 }

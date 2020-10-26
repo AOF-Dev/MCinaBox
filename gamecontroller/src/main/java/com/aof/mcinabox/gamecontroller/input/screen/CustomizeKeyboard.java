@@ -1,6 +1,5 @@
 package com.aof.mcinabox.gamecontroller.input.screen;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.MotionEvent;
 import android.view.View;
@@ -94,7 +93,7 @@ public class CustomizeKeyboard implements OnscreenInput, AppEvent, Controller, C
 
     @Override
     public void onStop() {
-        //to do nothing.
+
     }
 
     @Override
@@ -114,8 +113,12 @@ public class CustomizeKeyboard implements OnscreenInput, AppEvent, Controller, C
 
     @Override
     public void saveConfig() {
-        //当调用保存方法时通过管理器自动保存键盘文件
         mManager.autoSaveKeyboard();
+    }
+
+    @Override
+    public ViewGroup getViewsParent() {
+        return mController.getViewsParent();
     }
 
     @Override
@@ -134,12 +137,12 @@ public class CustomizeKeyboard implements OnscreenInput, AppEvent, Controller, C
 
     @Override
     public void setUiMoveable(boolean moveable) {
-        // to do nothing.
+
     }
 
     @Override
     public void setUiVisibility(int visiablity) {
-        // to do nothing
+
     }
 
     @Override
@@ -149,7 +152,7 @@ public class CustomizeKeyboard implements OnscreenInput, AppEvent, Controller, C
 
     @Override
     public void setMargins(int left, int top, int right, int bottom) {
-        //to do nothing
+
     }
 
     @Override
@@ -159,7 +162,6 @@ public class CustomizeKeyboard implements OnscreenInput, AppEvent, Controller, C
 
     @Override
     public boolean unload() {
-        //TODO: 接入自带的控制器
         return true;
     }
 

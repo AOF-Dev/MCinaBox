@@ -1,5 +1,6 @@
 package cosine.boat;
 
+import android.util.Log;
 import android.view.KeyEvent;
 
 public class BoatInput {

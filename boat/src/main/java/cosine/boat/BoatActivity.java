@@ -293,6 +293,11 @@ public class BoatActivity extends NativeActivity implements View.OnClickListener
         ((HwController) hardwareController).dispatchMotionKeyEvent(ev);
         return true;
     }
+
+    @Override
+    public ViewGroup getViewsParent(){
+        return this.baseLayout;
+    }
 }
 
 
