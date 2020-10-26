@@ -1,9 +1,7 @@
 #ifndef BOAT_H
 #define BOAT_H
 
-#include <android/native_window.h>
-#include <android/native_activity.h>
-#include <jni.h>
+#include <EGL/egl.h>
 
 #define KeyPress              2
 #define KeyRelease            3
@@ -22,7 +20,6 @@
 #define CursorEnabled         1
 #define CursorDisabled        0
 
-
 typedef struct {
     long long time;
     char type;
@@ -33,26 +30,11 @@ typedef struct {
 
     int keycode;
     int keychar;
-
 } BoatInputEvent;
 
-typedef struct {
-    ANativeWindow *window;
-    void *display;
+EGLNativeWindowType boatGetNativeWindow();
 
-    JavaVM *android_jvm;
-    jclass class_BoatInput;
-
-    void (*current_event_processor)();
-
-    BoatInputEvent current_event;
-} Boat;
-
-Boat mBoat;
-
-ANativeWindow *boatGetNativeWindow();
-
-void *boatGetNativeDisplay();
+EGLNativeDisplayType boatGetNativeDisplay();
 
 void boatSetCurrentEventProcessor(void (*)());
 
@@ -60,7 +42,6 @@ void boatGetCurrentEvent(BoatInputEvent *);
 
 void boatSetCursorMode(int);
 
-void sendKeyEvent(AInputEvent *);
 //void boatSetCursorPos(int, int);
 
 #endif

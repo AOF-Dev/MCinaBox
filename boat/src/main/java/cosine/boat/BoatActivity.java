@@ -32,6 +32,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class BoatActivity extends NativeActivity implements View.OnClickListener, View.OnTouchListener, ClientInput, AppEvent {
+    private final static String TAG = "BoatActivity";
 
     private BoatArgs boatArgs;
     private PopupWindow popupWindow;
@@ -39,14 +40,14 @@ public class BoatActivity extends NativeActivity implements View.OnClickListener
     private BaseController virtualController;
     private BaseController hardwareController;
     private BoatHandler mHandler;
-    private final static String TAG = "BoatActivity";
     private Timer mTimer;
     private final static int REFRESH_P = 5000; //ms
+    private boolean paused;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
+
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().setCallback(this);
         boatArgs = (BoatArgs) getIntent().getSerializableExtra("LauncherConfig");
@@ -57,6 +58,14 @@ public class BoatActivity extends NativeActivity implements View.OnClickListener
         popupWindow.setHeight(LayoutParams.MATCH_PARENT);
         popupWindow.setFocusable(false);
         popupWindow.setInputMethodMode(PopupWindow.INPUT_METHOD_NOT_NEEDED);
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                if (!paused) {
+                    popupWindow.showAtLocation(BoatActivity.this.getWindow().getDecorView(), Gravity.TOP | Gravity.LEFT, 0, 0);
+                }
+            }
+        });
         baseLayout = new RelativeLayout(this) {
             @Override
             public boolean dispatchGenericMotionEvent(MotionEvent event) {
@@ -82,7 +91,15 @@ public class BoatActivity extends NativeActivity implements View.OnClickListener
         //启动定时器
         mTimer = new Timer();
         mTimer.schedule(createTimerTask(), REFRESH_P, REFRESH_P);
+    }
 
+    private native boolean isLoaded();
+
+    public void onInputEvent(long downTime, long eventTime, int action,
+                             int code, int repeat, int metaState,
+                             int deviceId, int scancode, int flags, int source) {
+        KeyEvent event = new KeyEvent(downTime, eventTime, action, code, repeat, metaState, deviceId, scancode, flags, source);
+        dispatchKeyEvent(event);
     }
 
     private TimerTask createTimerTask() {
@@ -97,20 +114,24 @@ public class BoatActivity extends NativeActivity implements View.OnClickListener
     }
 
     @Override
-    protected void onPause() {
+    protected void onResume() {
+        super.onResume();
+        paused = false;
+    }
 
+    @Override
+    protected void onPause() {
         super.onPause();
+        paused = true;
         popupWindow.dismiss();
     }
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
-
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus) {
             popupWindow.showAtLocation(BoatActivity.this.getWindow().getDecorView(), Gravity.TOP | Gravity.LEFT, 0, 0);
         }
-
     }
 
     @Override
@@ -130,31 +151,25 @@ public class BoatActivity extends NativeActivity implements View.OnClickListener
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-
         super.surfaceCreated(holder);
-        System.out.println("Surface is created!");
 
-        new Thread() {
-            @Override
-            public void run() {
-                BoatArgs boatArgs = (BoatArgs) getIntent().getSerializableExtra("LauncherConfig");
-                LoadMe.exec(boatArgs);
-                Message msg = new Message();
-                msg.what = -1;
-                mHandler.sendMessage(msg);
-            }
-        }.start();
+        if (isLoaded()) {
+            new Thread() {
+                @Override
+                public void run() {
+                    BoatArgs boatArgs = (BoatArgs) getIntent().getSerializableExtra("LauncherConfig");
+                    LoadMe.exec(boatArgs);
+                }
+            }.start();
+        } else {
+            // TODO: Something went wrong during initialization. Alert the user.
+        }
     }
 
     public void setCursorMode(int mode) {
         Message msg = new Message();
         msg.what = mode;
         mHandler.sendMessage(msg);
-    }
-
-    @Override
-    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-        super.surfaceChanged(holder, format, width, height);
     }
 
     private class BoatHandler extends Handler {
@@ -277,11 +292,6 @@ public class BoatActivity extends NativeActivity implements View.OnClickListener
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         ((HwController) hardwareController).dispatchKeyEvent(event);
         return true;
@@ -293,6 +303,8 @@ public class BoatActivity extends NativeActivity implements View.OnClickListener
         ((HwController) hardwareController).dispatchMotionKeyEvent(ev);
         return true;
     }
+
+    static {
+        System.loadLibrary("boat");
+    }
 }
-
-

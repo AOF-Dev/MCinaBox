@@ -30,14 +30,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name="cosine.boat.BoatActivity"
-            android:theme="@style/AppTheme"
+        <activity
+            android:name="cosine.boat.BoatActivity"
+            android:alwaysRetainTaskState="true"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="sensorLandscape"
             android:excludeFromRecents="false"
             android:launchMode="singleInstance"
-            android:alwaysRetainTaskState="true">
+            android:screenOrientation="sensorLandscape"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.app.func_name"
+                android:value="BoatActivity_onCreate" />
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="boat" />
