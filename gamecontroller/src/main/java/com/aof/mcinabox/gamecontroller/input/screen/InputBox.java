@@ -4,21 +4,25 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+
+import com.aof.mcinabox.definitions.id.key.KeyEvent;
 import com.aof.mcinabox.definitions.id.key.KeyMode;
 import com.aof.mcinabox.definitions.map.KeyMap;
 import com.aof.mcinabox.gamecontroller.controller.Controller;
@@ -29,12 +33,17 @@ import com.aof.utils.dialog.support.DialogSupports;
 import com.aof.utils.dialog.DialogUtils;
 import com.aof.utils.DisplayUtils;
 
-public class InputBox implements OnscreenInput, TextWatcher, TextView.OnEditorActionListener, KeyMap, View.OnClickListener {
+import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
+
+public class InputBox implements OnscreenInput, KeyMap, View.OnClickListener {
 
     private Context mContext;
     private Controller mController;
     private LinearLayout inputBox;
-    private EditText editScanner;
+    private Button buttonFromSoft;
+    private Button buttonFromPre;
 
     private int screenWidth;
     private int screenHeight;
@@ -43,13 +52,15 @@ public class InputBox implements OnscreenInput, TextWatcher, TextView.OnEditorAc
     private final static int type_2 = KEYBOARD_BUTTON;
     private final static String TAG = "InputBox";
 
+    private final static String[] ORDERS = new String[]{"/gamemode 0","/gamemode 1", "/time set 0","/time set 13000"};
+
     public final static int SHOW_ALL = 0;
     public final static int SHOW_IN_GAME = 1;
     public final static int SHOW_OUT_GAME = 2;
     private int show;
 
-    private final static int widthDp = 100; //dp
-    private final static int heightDp = 20; //dp
+    private final static int widthDp = 110; //dp
+    private final static int heightDp = 50; //dp
 
     private InputBoxConfigDialog configDialog;
 
@@ -58,7 +69,7 @@ public class InputBox implements OnscreenInput, TextWatcher, TextView.OnEditorAc
 
     @Override
     public void setUiMoveable(boolean moveable) {
-        //to do nothing.
+
     }
 
     @Override
@@ -163,17 +174,15 @@ public class InputBox implements OnscreenInput, TextWatcher, TextView.OnEditorAc
         screenWidth = context.getResources().getDisplayMetrics().widthPixels;
         screenHeight = context.getResources().getDisplayMetrics().heightPixels;
 
-        inputBox = (LinearLayout) LayoutInflater.from(context).inflate(com.aof.mcinabox.gamecontroller.R.layout.char_input_scanner, null);
+        inputBox = (LinearLayout) LayoutInflater.from(context).inflate(com.aof.mcinabox.gamecontroller.R.layout.virtual_inputbox, null);
         controller.addContentView(inputBox, new ViewGroup.LayoutParams(DisplayUtils.getPxFromDp(mContext, widthDp), DisplayUtils.getPxFromDp(mContext, heightDp)));
-        editScanner = inputBox.findViewById(R.id.input_scanner);
 
-        //设定监听
-        editScanner.setFocusable(true);
-        editScanner.addTextChangedListener(this);
-        editScanner.setOnEditorActionListener(this);
-        editScanner.setOnClickListener(this);
-        editScanner.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI | EditorInfo.IME_FLAG_NO_FULLSCREEN | EditorInfo.IME_ACTION_DONE);
-        editScanner.setSelection(1);
+        buttonFromSoft = inputBox.findViewById(R.id.onscreen_inputbox_button_input);
+        buttonFromPre = inputBox.findViewById(R.id.onscreen_inputbox_button_quick);
+
+        for(View v : new View[]{buttonFromSoft,buttonFromPre}){
+            v.setOnClickListener(this);
+        }
 
         //设定配置器
         this.configDialog = new InputBoxConfigDialog(mContext, this);
@@ -228,58 +237,6 @@ public class InputBox implements OnscreenInput, TextWatcher, TextView.OnEditorAc
         configDialog.saveConfigToFile();
     }
 
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-    }
-
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-    }
-
-    @Override
-    public void afterTextChanged(Editable s) {
-        String newText = s.toString();
-        if (newText.length() < 1) {
-            this.sendKey(KEYMAP_KEY_BACKSPACE, true);
-            this.sendKey(KEYMAP_KEY_BACKSPACE, false);
-        }
-        if (newText.length() > 1) {
-            for (int i = 1; i < newText.length(); i++) {
-                sendChars(String.valueOf(newText.charAt(i)));
-            }
-        }
-        if (newText.length() != 1) {
-            editScanner.setText(">");
-            editScanner.setSelection(1);
-        }
-
-    }
-
-    private void sendKey(String keyName, boolean pressed) {
-        mController.sendKey(new BaseKeyEvent(TAG, keyName, pressed, type_2, null));
-    }
-
-    private void sendChars(String str) {
-        mController.sendKey(new BaseKeyEvent(TAG, null, false, type_1, null).setChars(str));
-    }
-
-    @Override
-    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-        sendKey(KEYMAP_KEY_ENTER, true);
-        sendChars(String.valueOf('\n'));
-        sendKey(KEYMAP_KEY_ENTER, false);
-        return false;
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (v == editScanner) {
-            editScanner.setSelection(1);
-        }
-    }
-
     public void setAlpha(float a) {
         inputBox.setAlpha(a);
     }
@@ -298,13 +255,133 @@ public class InputBox implements OnscreenInput, TextWatcher, TextView.OnEditorAc
         updateUI();
     }
 
+    private void sendKey(String keyName){
+        mController.sendKey(new BaseKeyEvent(TAG,keyName,true, KeyEvent.KEYBOARD_BUTTON,null));
+        mController.sendKey(new BaseKeyEvent(TAG,keyName,false, KeyEvent.KEYBOARD_BUTTON,null));
+    }
+
     public int getShowStat() {
         return this.show;
     }
 
+    @Override
+    public void onClick(View v) {
+        if(v == buttonFromSoft){
+            new InputDialog(mContext,mController).show();
+        }
+
+        if(v == buttonFromPre){
+            DialogUtils.createItemsChoiceDialog(mContext,mContext.getString(R.string.title_order),null,mContext.getString(R.string.title_cancel),null,true,ORDERS,new DialogSupports(){
+                @Override
+                public void runWhenItemsSelected(int pos) {
+                    super.runWhenItemsSelected(pos);
+                    sendKey(KeyMap.KEYMAP_KEY_T);
+                    sleep();
+                    mController.typeWords(ORDERS[pos]);
+                    sendKey(KeyMap.KEYMAP_KEY_ENTER);
+                }
+            });
+        }
+    }
+
+    private void sleep(){
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    class InputDialog extends Dialog implements View.OnClickListener{
+
+        private Context mContext;
+        private Controller mController;
+
+        private EditText editBox;
+        private Button buttonNone;
+        private Button buttonEnter;
+        private Button buttonTEnter;
+        private Button buttonCancel;
+        private boolean multi_line;
+
+        private static final String TAG = "InputDialog";
+
+        public InputDialog(@NonNull Context context, Controller controller) {
+            super(context);
+            setContentView(R.layout.dialog_input);
+            setCanceledOnTouchOutside(true);
+            Objects.requireNonNull(getWindow()).getAttributes().dimAmount = 0f;
+            this.mContext = context;
+            this.mController = controller;
+
+            this.editBox = findViewById(R.id.dialog_input_edit_box);
+            this.buttonNone = findViewById(R.id.dialog_input_button_none);
+            this.buttonEnter = findViewById(R.id.dialog_input_button_enter);
+            this.buttonTEnter = findViewById(R.id.dialog_input_button_t_enter);
+            this.buttonCancel = findViewById(R.id.dialog_input_button_cancel);
+            this.multi_line =  mContext.getSharedPreferences(InputBoxConfigDialog.spFileName, InputBoxConfigDialog.spMode).getBoolean(InputBoxConfigDialog.sp_multi_line_name,true);
+
+
+            for(View v : new View[]{buttonNone,buttonCancel,buttonTEnter,buttonEnter}){
+                v.setOnClickListener(this);
+            }
+
+        }
+
+        @Override
+        public void onClick(View v) {
+
+            if(v == buttonCancel){
+                this.cancel();
+            }
+
+            if(v == buttonNone){
+                if(editBox.getText() != null && !editBox.getText().toString().equals("")){
+                    mController.typeWords(editBox.getText().toString());
+                    if(!multi_line) dismiss(); else editBox.setText("");
+                }
+            }
+
+            if(v == buttonEnter){
+                if(editBox.getText() != null){
+                    if(!editBox.getText().toString().equals("")) mController.typeWords(editBox.getText().toString());
+                    sendKey(KeyMap.KEYMAP_KEY_ENTER);
+                    if(!multi_line) dismiss(); else editBox.setText("");
+                }
+            }
+
+            if(v == buttonTEnter){
+                if(editBox.getText() != null){
+                    sendKey(KeyMap.KEYMAP_KEY_T);
+                    sleep();
+                    if(!editBox.getText().toString().equals("")) mController.typeWords(editBox.getText().toString());
+                    sendKey(KeyMap.KEYMAP_KEY_ENTER);
+                    if(!multi_line) dismiss(); else editBox.setText("");
+                }
+            }
+        }
+
+        private void showKeyboard(){
+
+        }
+
+        @Override
+        public void show(){
+            super.show();
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    InputMethodManager inputManager = (InputMethodManager) editBox.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputManager.showSoftInput(editBox, 0);
+                }
+            }, 100);
+        }
+    }
+
 }
 
-class InputBoxConfigDialog extends Dialog implements View.OnClickListener, Dialog.OnCancelListener, SeekBar.OnSeekBarChangeListener, RadioButton.OnCheckedChangeListener {
+class InputBoxConfigDialog extends Dialog implements View.OnClickListener, Dialog.OnCancelListener, SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener {
 
     private OnscreenInput mInput;
     private Context mContext;
@@ -323,6 +400,7 @@ class InputBoxConfigDialog extends Dialog implements View.OnClickListener, Dialo
     private RadioButton rbtAll;
     private RadioButton rbtInGame;
     private RadioButton rbtOutGame;
+    private CheckBox cbMultiLine;
 
     private int originalAlphaProgress;
     private int originalSizeProgress;
@@ -349,13 +427,14 @@ class InputBoxConfigDialog extends Dialog implements View.OnClickListener, Dialo
     private final static int MAX_SIZE_PROGRESS = 100;
     private final static int MIN_SIZE_PROGRESS = -50;
 
-    private final static String spFileName = "input_inputbox_config";
-    private final static int spMode = Context.MODE_PRIVATE;
+    public final static String spFileName = "input_inputbox_config";
+    public final static int spMode = Context.MODE_PRIVATE;
     private final static String sp_alpha_name = "alpha";
     private final static String sp_size_name = "size";
     private final static String sp_pos_x_name = "pos_x";
     private final static String sp_pos_y_name = "pos_y";
     private final static String sp_show_name = "show";
+    public final static String sp_multi_line_name = "multi_line";
 
     private final static String TAG = "InputBoxConfigDialog";
 
@@ -383,6 +462,7 @@ class InputBoxConfigDialog extends Dialog implements View.OnClickListener, Dialo
         buttonMoveRight = this.findViewById(R.id.input_inputbox_dialog_button_move_right);
         buttonMoveUp = this.findViewById(R.id.input_inputbox_dialog_button_move_up);
         buttonMoveDown = this.findViewById(R.id.input_inputbox_dialog_button_move_down);
+        cbMultiLine = this.findViewById(R.id.input_inputbox_dialog_cb_multi_line);
         rbtAll = this.findViewById(R.id.input_inputbox_dialog_rbt_all);
         rbtInGame = this.findViewById(R.id.input_inputbox_dialog_rbt_in_game);
         rbtOutGame = this.findViewById(R.id.input_inputbox_dialog_rbt_out_game);
@@ -394,7 +474,7 @@ class InputBoxConfigDialog extends Dialog implements View.OnClickListener, Dialo
         for (SeekBar s : new SeekBar[]{seekbarAlpha, seekbarSize}) {
             s.setOnSeekBarChangeListener(this);
         }
-        for (RadioButton rbt : new RadioButton[]{rbtAll, rbtInGame, rbtOutGame}) {
+        for (CompoundButton rbt : new CompoundButton[]{rbtAll, rbtInGame, rbtOutGame,cbMultiLine}) {
             rbt.setOnCheckedChangeListener(this);
         }
 
@@ -446,6 +526,7 @@ class InputBoxConfigDialog extends Dialog implements View.OnClickListener, Dialo
     private void restoreConfig() {
         seekbarAlpha.setProgress(DEFAULT_ALPHA_PROGRESS);
         seekbarSize.setProgress(DEFAULT_SIZE_PROGRESS);
+        cbMultiLine.setChecked(true);
         rbtAll.setChecked(true);
     }
 
@@ -622,6 +703,7 @@ class InputBoxConfigDialog extends Dialog implements View.OnClickListener, Dialo
                 rbtOutGame.setChecked(true);
                 break;
         }
+        cbMultiLine.setChecked(sp.getBoolean(sp_multi_line_name,true));
     }
 
     public void saveConfigToFile() {
@@ -633,6 +715,7 @@ class InputBoxConfigDialog extends Dialog implements View.OnClickListener, Dialo
             editor.putInt(sp_pos_y_name, (int) mInput.getPos()[1]);
         }
         editor.putInt(sp_show_name, ((InputBox)mInput).getShowStat());
+        editor.putBoolean(sp_multi_line_name, cbMultiLine.isChecked());
         editor.apply();
     }
 

@@ -6,13 +6,13 @@
         android:topRightRadius="2dp"
         android:bottomLeftRadius="2dp"
         android:bottomRightRadius="2dp" />
-    <solid android:color="#DD7F7F7F" />
+    <solid android:color="#00FFFFFF" />
     <size
         android:height="30dp"
         android:width="80dp" />
     <stroke
         android:width="2dp"
         android:alpha="130"
-        android:color="#50BBBBBB" />
+        android:color="#FFFFFF" />
 </shape>
 
