@@ -1,10 +1,6 @@
 package cosine.boat;
 
-import android.util.Log;
-import android.view.KeyEvent;
-
 public class BoatInput {
-
     private final static String TAG = "BoatInput";
     public static final int KeyPress = 2;
     public static final int KeyRelease = 3;
@@ -22,10 +18,6 @@ public class BoatInput {
 
     public static final int CursorEnabled = 1;
     public static final int CursorDisabled = 0;
-
-    static {
-        System.loadLibrary("boat");
-    }
 
     public static void setMouseButton(int button, boolean press) {
         send(System.nanoTime(), press ? ButtonPress : ButtonRelease, button, 0);
@@ -56,12 +48,7 @@ public class BoatInput {
         }
     }
 
-    //实现按键事件分发
-    public static void dispatchKeyEvent(long downTime, long eventTime, int action,
-                                        int code, int repeat, int metaState,
-                                        int deviceId, int scancode, int flags, int source) {
-        KeyEvent event = new KeyEvent(downTime, eventTime, action, code, repeat, metaState, deviceId, scancode, flags, source);
-        mActivity.dispatchKeyEvent(event);
+    static {
+        System.loadLibrary("boat");
     }
-
 }
