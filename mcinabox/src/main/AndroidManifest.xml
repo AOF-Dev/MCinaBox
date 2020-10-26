@@ -19,10 +19,11 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".gamecontroller.ckb.CustomizeKeyboardEditorActivity"
-            android:configChanges="orientation|keyboardHidden"
+            android:configChanges="orientation|keyboardHidden|keyboard|navigation"
             android:screenOrientation="sensorLandscape" />
 
         <activity android:name=".MainActivity"
+            android:configChanges="screenSize|keyboard|navigation|orientation|keyboardHidden"
             android:screenOrientation="sensorLandscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,7 +34,7 @@
 
         <activity android:name="cosine.boat.BoatActivity"
             android:theme="@style/AppTheme"
-            android:configChanges="orientation|keyboardHidden"
+            android:configChanges="screenSize|keyboard|navigation|orientation|keyboardHidden"
             android:screenOrientation="sensorLandscape"
             android:excludeFromRecents="false"
             android:launchMode="singleInstance"
