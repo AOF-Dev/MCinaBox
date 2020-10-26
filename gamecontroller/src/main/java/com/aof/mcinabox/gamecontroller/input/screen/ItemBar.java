@@ -129,7 +129,6 @@ public class ItemBar implements OnscreenInput, AppEvent {
         ViewGroup.LayoutParams p = itemBar.getLayoutParams();
         ((ViewGroup.MarginLayoutParams)p).setMargins(left,top,0,0);
         itemBar.setLayoutParams(p);
-        Log.e(TAG,String.format("已设置物品栏位置: %d %d ",left,top));
     }
 
     @Override
