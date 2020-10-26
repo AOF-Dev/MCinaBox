@@ -1,8 +1,6 @@
 package com.aof.mcinabox.launcher.uis;
 
-import android.Manifest;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -12,8 +10,6 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import androidx.appcompat.widget.SwitchCompat;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import com.aof.mcinabox.MainActivity;
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.definitions.manifest.AppManifest;
@@ -23,9 +19,13 @@ import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.mcinabox.launcher.uis.support.Utils;
 import com.aof.mcinabox.minecraft.forge.ForgeInstaller;
 import com.aof.mcinabox.utils.ZipUtils;
+import com.aof.utils.FileTool;
 import com.aof.utils.dialog.DialogUtils;
 import com.aof.utils.dialog.support.DialogSupports;
 import com.aof.utils.dialog.support.TaskDialog;
+
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedListener, CompoundButton.OnCheckedChangeListener {
 
@@ -122,19 +122,35 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
         @Override
         public void onClick(View v) {
             if (v == buttonImportRuntime) {
-                DialogUtils.createFileSelectorDialog(mContext,mContext.getString(R.string.title_import_runtime),AppManifest.SDCARD_HOME,new String[]{"xz"},new DialogSupports(){
+                ArrayList<String> tmp = FileTool.listChildFilesFromTargetDir(AppManifest.MCINABOX_RUNTIME);
+                String[] files;
+                final String[] tmp2;
+                if(tmp.size() != 0){
+                    files = tmp.toArray(new String[tmp.size()]);
+                    tmp2 = new String[Objects.requireNonNull(files).length + 1];
+                    System.arraycopy(files,0,tmp2,1,files.length);
+                }else{
+                    tmp2 = new String[1];
+                }
+                tmp2[0] = mContext.getString(R.string.tips_select_from_storage);
+                DialogUtils.createItemsChoiceDialog(mContext,mContext.getString(R.string.title_import_runtime),null,mContext.getString(R.string.title_cancel),null,false,tmp2,new DialogSupports(){
                     @Override
-                    public void runWhenItemsSelected(Object path){
-                        if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                            ActivityCompat.requestPermissions(MainActivity.CURRENT_ACTIVITY, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 2048);
+                    public void runWhenItemsSelected(int pos) {
+                        super.runWhenItemsSelected(pos);
+                        if(pos == 0){
+                            DialogUtils.createFileSelectorDialog(mContext,mContext.getString(R.string.title_import_runtime),AppManifest.SDCARD_HOME,new String[]{"xz"},new DialogSupports(){
+                                @Override
+                                public void runWhenItemsSelected(Object path){
+                                    RuntimeManager.installRuntimeFromPath(mContext, (String) path);
+                                }
+                            });
+                        }else{
+                            RuntimeManager.installRuntimeFromPath(mContext, AppManifest.MCINABOX_RUNTIME+ "/" + tmp2[pos]);
                         }
-                        if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                            DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_error),"Please allow read storage permission to import runtime packs externally.",mContext.getString(R.string.title_ok),null);
-                            return;
-                        }
-                        RuntimeManager.installRuntimeFromPath(mContext, (String) path);
+
                     }
                 });
+
             }
             if (v == buttonInstallForge) {
                 DialogUtils.createFileSelectorDialog(mContext,mContext.getString(R.string.title_forge_installer), AppManifest.SDCARD_HOME, new String[]{"jar"}, new DialogSupports(){

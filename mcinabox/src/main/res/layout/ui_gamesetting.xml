@@ -68,7 +68,7 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
-                        android:layout_width="100dp"
+                        android:layout_width="120dp"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
@@ -96,7 +96,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/text_info"
-                                android:textSize="@dimen/text_mid" />
+                                android:textSize="@dimen/text_small" />
                         </LinearLayout>
 
                     </LinearLayout>
