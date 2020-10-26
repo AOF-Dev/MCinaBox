@@ -77,7 +77,7 @@ public class BoatArgsMaker {
         for(int a = 0; a < items.length ; a++){
             items[a] = manifests[a].name;
         }
-        DialogUtils.createItemsChoiceDialog(mContext,mContext.getString(R.string.tips_please_select_runtime_manifest),null,mContext.getString(R.string.title_cancel),false,items,new DialogSupports(){
+        DialogUtils.createItemsChoiceDialog(mContext,mContext.getString(R.string.tips_please_select_runtime_manifest),null,null,mContext.getString(R.string.title_cancel),false,items,new DialogSupports(){
             @Override
             public void runWhenItemsSelected(int pos){
                 onManifestSelected(pos);

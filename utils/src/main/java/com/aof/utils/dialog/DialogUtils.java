@@ -67,7 +67,7 @@ public class DialogUtils {
         builder.show();
     }
 
-    public static void createItemsChoiceDialog(Context context, String title, String positiveButtonName, String negativeButtonName, boolean cancelable, @NonNull String[] items, final DialogSupports support) {
+    public static void createItemsChoiceDialog(Context context, String title, String positiveButtonName, String negativeButtonName, String neutralButtonName, boolean cancelable, @NonNull String[] items, final DialogSupports support) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         if (title != null) {
             builder.setTitle(title);
@@ -89,6 +89,17 @@ public class DialogUtils {
                 public void onClick(DialogInterface dialog, int which) {
                     if (support != null) {
                         support.runWhenNegative();
+                    }
+                    dialog.dismiss();
+                }
+            });
+        }
+        if (neutralButtonName != null) {
+            builder.setNegativeButton(neutralButtonName, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    if (support != null) {
+                        support.runWhenNeutral();
                     }
                     dialog.dismiss();
                 }

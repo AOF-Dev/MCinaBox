@@ -152,7 +152,7 @@ public class CreateUserDialog extends Dialog implements View.OnClickListener, Ch
                         for(int a = 0; a < response.availableProfiles.length; a++){
                             names[a] = response.availableProfiles[a].name;
                         }
-                        DialogUtils.createItemsChoiceDialog(mContext,mContext.getString(R.string.title_choice),null,mContext.getString(R.string.title_cancel),false,names,new DialogSupports(){
+                        DialogUtils.createItemsChoiceDialog(mContext,mContext.getString(R.string.title_choice),null,null,mContext.getString(R.string.title_cancel),false,names,new DialogSupports(){
                             @Override
                             public void runWhenItemsSelected(int pos) {
                                 super.runWhenItemsSelected(pos);
