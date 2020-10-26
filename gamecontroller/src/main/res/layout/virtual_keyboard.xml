@@ -420,8 +420,11 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="\"
-            custom:button_name="NUMPAD/" />
+            android:text="/"
+            custom:button_name="NUMPAD/"
+            custom:char_none="/"
+            custom:char_capslock="/"
+            custom:char_shift="/"/>
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -429,7 +432,10 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="*"
-            custom:button_name="NUMPAD*" />
+            custom:button_name="NUMPAD*"
+            custom:char_none="*"
+            custom:char_capslock="*"
+            custom:char_shift="*"/>
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -437,7 +443,10 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="-"
-            custom:button_name="NUMPAD-" />
+            custom:button_name="NUMPAD-"
+            custom:char_none="-"
+            custom:char_capslock="-"
+            custom:char_shift="-"/>
 
     </LinearLayout>
 
@@ -636,7 +645,10 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="7"
-            custom:button_name="NUMPAD7" />
+            custom:button_name="NUMPAD7"
+            custom:char_none="7"
+            custom:char_capslock="7"
+            custom:char_shift="7"/>
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -644,7 +656,10 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="8"
-            custom:button_name="NUMPAD8" />
+            custom:button_name="NUMPAD8"
+            custom:char_none="8"
+            custom:char_capslock="8"
+            custom:char_shift="8"/>
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -652,7 +667,10 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="9"
-            custom:button_name="NUMPAD9" />
+            custom:button_name="NUMPAD9"
+            custom:char_none="9"
+            custom:char_capslock="9"
+            custom:char_shift="9"/>
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -660,7 +678,10 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="+"
-            custom:button_name="NUMPAD+" />
+            custom:button_name="NUMPAD+"
+            custom:char_none="+"
+            custom:char_capslock="+"
+            custom:char_shift="+"/>
 
     </LinearLayout>
 
@@ -819,7 +840,10 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="4"
-            custom:button_name="NUMPAD4" />
+            custom:button_name="NUMPAD4"
+            custom:char_none="4"
+            custom:char_capslock="4"
+            custom:char_shift="4"/>
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -827,7 +851,10 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="5"
-            custom:button_name="NUMPAD5" />
+            custom:button_name="NUMPAD5"
+            custom:char_none="5"
+            custom:char_capslock="5"
+            custom:char_shift="5"/>
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -835,7 +862,10 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="6"
-            custom:button_name="NUMPAD6" />
+            custom:button_name="NUMPAD6"
+            custom:char_none="6"
+            custom:char_capslock="6"
+            custom:char_shift="6"/>
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -1005,7 +1035,10 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="1"
-            custom:button_name="NUMPAD1" />
+            custom:button_name="NUMPAD1"
+            custom:char_none="1"
+            custom:char_capslock="1"
+            custom:char_shift="1"/>
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -1013,7 +1046,10 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="2"
-            custom:button_name="NUMPAD2" />
+            custom:button_name="NUMPAD2"
+            custom:char_none="2"
+            custom:char_capslock="2"
+            custom:char_shift="2"/>
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -1021,7 +1057,10 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="3"
-            custom:button_name="NUMPAD3" />
+            custom:button_name="NUMPAD3"
+            custom:char_none="3"
+            custom:char_capslock="3"
+            custom:char_shift="3"/>
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -1146,7 +1185,10 @@
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:text="0"
-            custom:button_name="NUMPAD0" />
+            custom:button_name="NUMPAD0"
+            custom:char_none="0"
+            custom:char_capslock="0"
+            custom:char_shift="0"/>
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
@@ -1154,7 +1196,10 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="."
-            custom:button_name="NUMPAD." />
+            custom:button_name="NUMPAD."
+            custom:char_none="."
+            custom:char_capslock="."
+            custom:char_shift="."/>
 
         <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
             style="@style/OnscreenKeyboard_normal"
