@@ -166,6 +166,9 @@
     <string name="title_colorpicker">颜色选择器</string>
     <string name="title_server">服务器</string>
     <string name="title_online_login">在线登录</string>
+    <string name="title_order">命令</string>
+    <string name="title_input">输入</string>
+    <string name="title_shortcut">快捷</string>
 
     <string name="tips_contributors_list">贡献者名单</string>
     <string name="tips_contributors_full">以Github项目提供的为准</string>
@@ -293,5 +296,6 @@
     <string name="tips_verifying_account">正在验证账户…</string>
     <string name="tips_unzipping">解压中…</string>
     <string name="tips_are_you_sure_to_auto_config_layout">你确定要自动配置布局吗？此操作将更改您的控制器，并自动计算可能合适的布局位置。</string>
+    <string name="tips_select_from_storage">从本地文件选择…</string>
 
 </resources>

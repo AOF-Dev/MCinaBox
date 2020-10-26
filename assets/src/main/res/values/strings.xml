@@ -179,6 +179,10 @@
     <string name="title_colorpicker">Color picker</string>
     <string name="title_server">Server</string>
     <string name="title_online_login">Online login</string>
+    <string name="title_multi_line">Multi line</string>
+    <string name="title_order">Order</string>
+    <string name="title_input">Input</string>
+    <string name="title_shortcut">Shortcut</string>
 
     <string name="tips_contributors_list">List of Contributors</string>
     <string name="tips_contributors_full">Subject to the Github project provided</string>
@@ -306,5 +310,6 @@
     <string name="tips_verifying_account">Verifying account…</string>
     <string name="tips_unzipping">Unzipping…</string>
     <string name="tips_are_you_sure_to_auto_config_layout">Are you sure you want to configure the layout automatically? This will change your controller and automatically calculate possible layout locations.</string>
+    <string name="tips_select_from_storage">Select from storage…</string>
 
 </resources>
