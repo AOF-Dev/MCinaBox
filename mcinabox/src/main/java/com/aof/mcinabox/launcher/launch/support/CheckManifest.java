@@ -7,6 +7,7 @@ import com.aof.mcinabox.launcher.runtime.support.RuntimePackInfo;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.mcinabox.launcher.tipper.TipperManager;
 import com.aof.mcinabox.minecraft.JsonUtils;
+import com.aof.mcinabox.minecraft.json.VersionJson;
 import com.aof.utils.AppUtils;
 import com.aof.utils.FileTool;
 import java.io.File;
@@ -87,14 +88,23 @@ public class CheckManifest {
     }
 
     public static boolean checkMinecraftAssetsIndex(SettingJson settingJson) {
-        return new File(Utils.getAssetsJsonAbsPath(JsonUtils.getVersionFromFile(Utils.getJsonAbsPath(settingJson.getLastVersion())))).exists();
+        VersionJson json = JsonUtils.getVersionFromFile(Utils.getJsonAbsPath(settingJson.getLastVersion()));
+        if(json.getInheritsFrom() == null)
+            return new File(Utils.getAssetsJsonAbsPath(JsonUtils.getVersionFromFile(Utils.getJsonAbsPath(settingJson.getLastVersion())))).exists();
+        else
+            return new File(Utils.getAssetsJsonAbsPath(JsonUtils.getVersionFromFile(Utils.getJsonAbsPath(settingJson.getLastVersion())).getInheritsFrom())).exists();
     }
 
     public static String[] checkMinecraftAssetsObjects(SettingJson settingJson) {
         if (!checkMinecraftAssetsIndex(settingJson)) {
             return null;
         }
-        String[] paths = Utils.getAssetsPaths(JsonUtils.getVersionFromFile(Utils.getJsonAbsPath(settingJson.getLastVersion())));
+        String[] paths;
+        VersionJson json = JsonUtils.getVersionFromFile(Utils.getJsonAbsPath(settingJson.getLastVersion()));
+        if(json.getInheritsFrom() == null)
+            paths = Utils.getAssetsPaths(JsonUtils.getVersionFromFile(Utils.getJsonAbsPath(settingJson.getLastVersion())));
+        else
+            paths = Utils.getAssetsPaths(JsonUtils.getVersionFromFile(Utils.getJsonAbsPath(settingJson.getLastVersion())).getInheritsFrom());
         ArrayList<String> result = new ArrayList<>();
         for (String path : paths) {
             File file = new File(path);
