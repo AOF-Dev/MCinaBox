@@ -1,65 +1,66 @@
+#include "boat_activity.h"
 #include <fcntl.h>
 #include <jni.h>
 #include <dlfcn.h>
-#include <android/log.h>
 #include <unistd.h>
 #include <stdlib.h>
-
-#define TAG "loadme"
+#include <pthread.h>
 
 JNIEXPORT void JNICALL
-Java_cosine_boat_LoadMe_redirectStdio(JNIEnv *env, jclass clazz, jstring path) {
-    char const *file = (*env)->GetStringUTFChars(env, path, 0);
+Java_cosine_boat_LoadMe_redirectStdio(JNIEnv *env, jclass clazz, jstring filepath) {
+    char const *file = (*env)->GetStringUTFChars(env, filepath, NULL);
 
     int fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0666);
     dup2(fd, STDOUT_FILENO);
     dup2(fd, STDERR_FILENO);
+    close(fd);
 
-    (*env)->ReleaseStringUTFChars(env, path, file);
-}
-
-JNIEXPORT jint JNICALL Java_cosine_boat_LoadMe_chdir(JNIEnv *env, jclass clazz, jstring path) {
-    char const *dir = (*env)->GetStringUTFChars(env, path, 0);
-    int b = chdir(dir);
-    (*env)->ReleaseStringUTFChars(env, path, dir);
-    return b;
+    (*env)->ReleaseStringUTFChars(env, filepath, file);
 }
 
 JNIEXPORT void JNICALL
-Java_cosine_boat_LoadMe_setenv(JNIEnv *env, jclass clazz, jstring str1, jstring str2) {
-    char const *name = (*env)->GetStringUTFChars(env, str1, 0);
-    char const *value = (*env)->GetStringUTFChars(env, str2, 0);
+Java_cosine_boat_LoadMe_chdir(JNIEnv *env, jclass clazz, jstring sDir) {
+    char const *dir = (*env)->GetStringUTFChars(env, sDir, NULL);
+
+    chdir(dir);
+
+    (*env)->ReleaseStringUTFChars(env, sDir, dir);
+}
+
+JNIEXPORT void JNICALL
+Java_cosine_boat_LoadMe_setenv(JNIEnv *env, jclass clazz, jstring sName, jstring sValue) {
+    char const *name = (*env)->GetStringUTFChars(env, sName, NULL);
+    char const *value = (*env)->GetStringUTFChars(env, sValue, NULL);
 
     setenv(name, value, 1);
 
-    (*env)->ReleaseStringUTFChars(env, str1, name);
-    (*env)->ReleaseStringUTFChars(env, str2, value);
+    (*env)->ReleaseStringUTFChars(env, sName, name);
+    (*env)->ReleaseStringUTFChars(env, sValue, value);
 }
 
-JNIEXPORT jint JNICALL Java_cosine_boat_LoadMe_dlopen(JNIEnv *env, jclass clazz, jstring str1) {
-    int ret = 0;
-    char const *lib_name = (*env)->GetStringUTFChars(env, str1, 0);
-    void *handle;
+JNIEXPORT void JNICALL
+Java_cosine_boat_LoadMe_dlopen(JNIEnv *env, jclass clazz, jstring str1) {
+    char const *lib_name = (*env)->GetStringUTFChars(env, str1, NULL);
 
-    handle = dlopen(lib_name, RTLD_LAZY);
+    void *handle = dlopen(lib_name, RTLD_LAZY);
     if (handle == NULL) {
-        __android_log_print(ANDROID_LOG_ERROR, TAG, "Error whlie loading %s: %s.", lib_name, dlerror());
-        ret = 1;
+        BOAT_LOGE("Error while loading %s: %s.", lib_name, dlerror());
     } else {
-        __android_log_print(ANDROID_LOG_DEBUG, TAG, "%s loaded successfully.", lib_name);
+        BOAT_LOGE("%s loaded successfully.", lib_name);
     }
 
     (*env)->ReleaseStringUTFChars(env, str1, lib_name);
-    return ret;
 }
 
-// copy from java.c
-#define FULL_VERSION "1.8.0-internal-cosine_2019_12_31_15_53-b00"
+#define FULL_VERSION "1.8.0-unknown"
 #define DOT_VERSION "1.8"
 #define PROGNAME "java"
 #define LAUNCHER_NAME "openjdk"
 
-static char *const_progname = PROGNAME;
+// Copied from java.h
+static const char *const_full_version = FULL_VERSION;
+static const char *const_dot_version = DOT_VERSION;
+static const char *const_progname = PROGNAME;
 static const char *const_launcher = LAUNCHER_NAME;
 static const char **const_jargs = NULL;
 static const char **const_appclasspath = NULL;
@@ -82,8 +83,7 @@ int
 );
 
 JNIEXPORT void JNICALL Java_cosine_boat_LoadMe_setupJLI(JNIEnv *env, jclass clazz) {
-    void *handle;
-    handle = dlopen("libjli.so", RTLD_LAZY);
+    void *handle = dlopen("libjli.so", RTLD_LAZY);
     JLI_Launch = (int (*)(int, char **, int, const char **, int, const char **, const char *,
                           const char *, const char *, const char *, jboolean, jboolean, jboolean,
                           jint)) dlsym(handle, "JLI_Launch");
@@ -92,22 +92,18 @@ JNIEXPORT void JNICALL Java_cosine_boat_LoadMe_setupJLI(JNIEnv *env, jclass claz
 JNIEXPORT jint JNICALL
 Java_cosine_boat_LoadMe_jliLaunch(JNIEnv *env, jclass clazz, jobjectArray argsArray) {
     int argc = (*env)->GetArrayLength(env, argsArray);
-    char *argv[argc];
+    char **argv = (char **) malloc(sizeof(char *) * argc); // Should this be freed?
+
     for (int i = 0; i < argc; i++) {
-        jstring str = (*env)->GetObjectArrayElement(env, argsArray, i);
-        int len = (*env)->GetStringUTFLength(env, str);
-        char *buf = malloc(len + 1);
-        int characterLen = (*env)->GetStringLength(env, str);
-        (*env)->GetStringUTFRegion(env, str, 0, characterLen, buf);
-        buf[len] = 0;
-        argv[i] = buf;
+        jstring str = (jstring) (*env)->GetObjectArrayElement(env, argsArray, i); // Should this be freed?
+        argv[i] = (char *) (*env)->GetStringUTFChars(env, str, NULL);
     }
 
     return JLI_Launch(argc, argv,
                       sizeof(const_jargs) / sizeof(char *), const_jargs,
                       sizeof(const_appclasspath) / sizeof(char *), const_appclasspath,
-                      FULL_VERSION,
-                      DOT_VERSION,
+                      (const_full_version != NULL) ? const_full_version : FULL_VERSION,
+                      (const_dot_version != NULL) ? const_dot_version : DOT_VERSION,
                       (const_progname != NULL) ? const_progname : *argv,
                       (const_launcher != NULL) ? const_launcher : *argv,
                       (const_jargs != NULL) ? JNI_TRUE : JNI_FALSE,

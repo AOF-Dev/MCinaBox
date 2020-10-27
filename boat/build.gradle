@@ -1,13 +1,13 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 30
     buildToolsVersion '30.0.2'
-    ndkVersion '16.1.4479499'
+    ndkVersion '21.3.6528147'
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 21
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
         externalNativeBuild {
@@ -16,14 +16,17 @@ android {
             }
         }
     }
-    lintOptions{
-        checkReleaseBuilds false
-        abortOnError false
-    }  
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs file('src/main/jniLibs')
         }
     }
 
