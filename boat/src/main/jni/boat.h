@@ -32,6 +32,28 @@ typedef struct {
     int keychar;
 } BoatInputEvent;
 
+typedef struct {
+    unsigned long time;
+    unsigned int state;
+    unsigned int keycode;
+} BoatKeyEvent;
+
+typedef struct {
+    unsigned long time;
+    int x, y;
+    int x_root, y_root;
+    unsigned int state;
+    unsigned int button;
+} BoatButtonEvent;
+
+typedef struct {
+    int type;
+    union {
+        BoatKeyEvent key;
+        BoatButtonEvent button;
+    };
+} BoatEvent;
+
 EGLNativeWindowType boatGetNativeWindow();
 
 EGLNativeDisplayType boatGetNativeDisplay();
