@@ -46,7 +46,7 @@ Java_cosine_boat_LoadMe_dlopen(JNIEnv *env, jclass clazz, jstring str1) {
     if (handle == NULL) {
         BOAT_LOGE("Error while loading %s: %s.", lib_name, dlerror());
     } else {
-        BOAT_LOGE("%s loaded successfully.", lib_name);
+        BOAT_LOGD("%s loaded successfully.", lib_name);
     }
 
     (*env)->ReleaseStringUTFChars(env, str1, lib_name);
@@ -95,7 +95,8 @@ Java_cosine_boat_LoadMe_jliLaunch(JNIEnv *env, jclass clazz, jobjectArray argsAr
     char **argv = (char **) malloc(sizeof(char *) * argc); // Should this be freed?
 
     for (int i = 0; i < argc; i++) {
-        jstring str = (jstring) (*env)->GetObjectArrayElement(env, argsArray, i); // Should this be freed?
+        jstring str = (jstring) (*env)->GetObjectArrayElement(env, argsArray,
+                                                              i); // Should this be freed?
         argv[i] = (char *) (*env)->GetStringUTFChars(env, str, NULL);
     }
 
