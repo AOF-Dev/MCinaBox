@@ -11,7 +11,6 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name=".MCinaBox"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -28,25 +27,6 @@
         <activity
             android:name=".MainActivity"
             android:configChanges="screenSize|keyboard|navigation|orientation|keyboardHidden"
-            android:screenOrientation="sensorLandscape">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".LoginActivity"
-            android:screenOrientation="sensorLandscape" />
-
-        <activity
-            android:name=".LauncherActivity"
-            android:screenOrientation="sensorLandscape" />
-
-        <activity
-            android:name=".SplashActivity"
-            android:label="MCinaBox2"
             android:screenOrientation="sensorLandscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
