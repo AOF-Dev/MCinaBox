@@ -3,7 +3,6 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     buildToolsVersion '30.0.2'
-    ndkVersion '16.1.4479499'
 
     defaultConfig {
         applicationId "com.aof.mcinabox"

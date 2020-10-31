@@ -1,6 +1,6 @@
 name: Android CI
 
-on: [push]
+on: push
 
 jobs:
   build:
@@ -8,13 +8,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Install NDK v16.1.4479499
-        run: ${ANDROID_SDK_ROOT}/tools/bin/sdkmanager --install "ndk;16.1.4479499"
       - name: Build MCinaBox APK with Gradle
         run: |
           chmod +x gradlew
           ./gradlew clean :mcinabox:assembleDebug
-
       - name: Upload APK
         uses: actions/upload-artifact@v2
         with:
