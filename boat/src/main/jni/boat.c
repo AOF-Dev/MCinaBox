@@ -4,6 +4,7 @@
 #include <stdlib.h>
 
 void (*current_event_processor)();
+
 BoatInputEvent current_event;
 
 EGLNativeWindowType boatGetNativeWindow() {
@@ -25,20 +26,26 @@ void boatSetCurrentEventProcessor(void (*processor)()) {
 void boatSetCursorMode(int mode) {
     JNIEnv *env;
 
-    jint result = (*boat.boatActivity->vm)->AttachCurrentThread(boat.boatActivity->vm, &env, 0);
+    if (!boat.isLoaded) {
+        BOAT_LOGE("Boat is not loaded yet!");
+        return;
+    }
+
+    jint result = (*boat.vm)->AttachCurrentThread(boat.vm, &env, 0);
     if (result != JNI_OK) {
         BOAT_LOGE("Failed to attach thread to JavaVM.");
         abort();
     }
 
-    jmethodID setCursorModeId = (*env)->GetStaticMethodID(env, boat.boatInputClass, "setCursorMode", "(I)V");
+    jmethodID setCursorModeId = (*env)->GetStaticMethodID(env, boat.boatInputClass, "setCursorMode",
+                                                          "(I)V");
     if (setCursorModeId == NULL) {
         BOAT_LOGE("Failed to get static method BoatInput::setCursorMode");
         abort();
     }
     (*env)->CallStaticVoidMethod(env, boat.boatInputClass, setCursorModeId, mode);
 
-    (*boat.boatActivity->vm)->DetachCurrentThread(boat.boatActivity->vm);
+    (*boat.vm)->DetachCurrentThread(boat.vm);
 }
 
 JNIEXPORT jintArray JNICALL
@@ -50,7 +57,8 @@ Java_cosine_boat_BoatInput_get(JNIEnv *env, jclass clazz) {
 }
 
 JNIEXPORT void JNICALL
-Java_cosine_boat_BoatInput_send(JNIEnv *env, jclass clazz, jlong time, jint type, jint p1, jint p2) {
+Java_cosine_boat_BoatInput_send(JNIEnv *env, jclass clazz, jlong time, jint type, jint p1,
+                                jint p2) {
     current_event.time = time;
     current_event.type = type;
 

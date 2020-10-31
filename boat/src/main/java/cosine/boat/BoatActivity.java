@@ -1,83 +1,58 @@
 package cosine.boat;
 
 import android.app.Activity;
-import android.app.NativeActivity;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
+import android.view.Surface;
 import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.view.WindowManager.LayoutParams;
-import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
-import com.aof.mcinabox.definitions.id.AppEvent;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.aof.mcinabox.definitions.models.BoatArgs;
 import com.aof.mcinabox.gamecontroller.client.ClientInput;
-import com.aof.mcinabox.gamecontroller.controller.BaseController;
 import com.aof.mcinabox.gamecontroller.controller.Controller;
 import com.aof.mcinabox.gamecontroller.controller.HardwareController;
-import com.aof.mcinabox.gamecontroller.controller.HwController;
 import com.aof.mcinabox.gamecontroller.controller.VirtualController;
 
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class BoatActivity extends NativeActivity implements View.OnClickListener, View.OnTouchListener, ClientInput, AppEvent {
+import static com.aof.mcinabox.definitions.id.key.KeyMode.MARK_INPUT_MODE_ALONE;
+import static com.aof.mcinabox.definitions.id.key.KeyMode.MARK_INPUT_MODE_CATCH;
+
+public class BoatActivity extends AppCompatActivity implements SurfaceHolder.Callback, ClientInput {
     private final static String TAG = "BoatActivity";
 
+    private SurfaceView surfaceView;
     private BoatArgs boatArgs;
-    private PopupWindow popupWindow;
     private RelativeLayout baseLayout;
-    private BaseController virtualController;
-    private BaseController hardwareController;
+    private VirtualController virtualController;
+    private HardwareController hardwareController;
     private BoatHandler mHandler;
     private Timer mTimer;
     private final static int REFRESH_P = 5000; //ms
-    private boolean paused;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        nOnCreate();
+        setContentView(R.layout.activity_boat);
 
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        getWindow().setCallback(this);
+        surfaceView = findViewById(R.id.surface_view);
+        baseLayout = findViewById(R.id.base_layout);
+        surfaceView.getHolder().addCallback(this);
+
         boatArgs = (BoatArgs) getIntent().getSerializableExtra("LauncherConfig");
-
-        //设置悬浮窗口以及基本LinearLayout
-        popupWindow = new PopupWindow();
-        popupWindow.setWidth(LayoutParams.MATCH_PARENT);
-        popupWindow.setHeight(LayoutParams.MATCH_PARENT);
-        popupWindow.setFocusable(false);
-        popupWindow.setInputMethodMode(PopupWindow.INPUT_METHOD_NOT_NEEDED);
-        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-            @Override
-            public void onDismiss() {
-                if (!paused) {
-                    popupWindow.showAtLocation(BoatActivity.this.getWindow().getDecorView(), Gravity.TOP | Gravity.LEFT, 0, 0);
-                }
-            }
-        });
-        baseLayout = new RelativeLayout(this) {
-            @Override
-            public boolean dispatchGenericMotionEvent(MotionEvent event) {
-                Log.e(TAG, event.toString());
-                Log.e(TAG, event.getDevice().toString());
-                return BoatActivity.this.dispatchGenericMotionEvent(event);
-            }
-        };
-        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        baseLayout.setLayoutParams(layoutParams);
-        baseLayout.setBackgroundColor(Color.parseColor("#00FFFFFF"));
-        popupWindow.setContentView(baseLayout);
 
         //添加控制器
         virtualController = new VirtualController(this, this, KEYMAP_TO_X);
@@ -93,13 +68,36 @@ public class BoatActivity extends NativeActivity implements View.OnClickListener
         mTimer.schedule(createTimerTask(), REFRESH_P, REFRESH_P);
     }
 
-    private native boolean isLoaded();
+    private native void nOnCreate();
 
-    public void onInputEvent(long downTime, long eventTime, int action,
-                             int code, int repeat, int metaState,
-                             int deviceId, int scancode, int flags, int source) {
-        KeyEvent event = new KeyEvent(downTime, eventTime, action, code, repeat, metaState, deviceId, scancode, flags, source);
-        dispatchKeyEvent(event);
+    @Override
+    protected void onDestroy() {
+        nOnDestroy();
+        super.onDestroy();
+    }
+
+    private native void nOnDestroy();
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            hideSystemUI();
+        }
+    }
+
+    private void hideSystemUI() {
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_IMMERSIVE
+                        // Set the content to appear under the system bars so that the
+                        // content doesn't resize when the system bars hide and show.
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        // Hide the nav bar and status bar
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN);
     }
 
     private TimerTask createTimerTask() {
@@ -111,27 +109,6 @@ public class BoatActivity extends NativeActivity implements View.OnClickListener
                 }
             }
         };
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        paused = false;
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        paused = true;
-        popupWindow.dismiss();
-    }
-
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        if (hasFocus) {
-            popupWindow.showAtLocation(BoatActivity.this.getWindow().getDecorView(), Gravity.TOP | Gravity.LEFT, 0, 0);
-        }
     }
 
     @Override
@@ -151,9 +128,8 @@ public class BoatActivity extends NativeActivity implements View.OnClickListener
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-        super.surfaceCreated(holder);
-
-        if (isLoaded()) {
+        nSurfaceCreated(holder.getSurface());
+        if (nIsLoaded()) {
             new Thread() {
                 @Override
                 public void run() {
@@ -165,6 +141,23 @@ public class BoatActivity extends NativeActivity implements View.OnClickListener
             // TODO: Something went wrong during initialization. Alert the user.
         }
     }
+
+    private native void nSurfaceCreated(Surface surface);
+
+    private native boolean nIsLoaded();
+
+    @Override
+    public void surfaceChanged(@NonNull SurfaceHolder holder, int format, int width, int height) {
+        Log.d(TAG, "surfaceChanged: format = " + format + ", width = " + width + ", height = " + height);
+    }
+
+    @Override
+    public void surfaceDestroyed(@NonNull SurfaceHolder holder) {
+        nSurfaceCreated(holder.getSurface());
+        stopControllers();
+    }
+
+    private native void nSurfaceDestroyed(Surface surface);
 
     public void setCursorMode(int mode) {
         Message msg = new Message();
@@ -191,16 +184,6 @@ public class BoatActivity extends NativeActivity implements View.OnClickListener
                     break;
             }
         }
-    }
-
-    @Override
-    public void onClick(View p1) {
-
-    }
-
-    @Override
-    public boolean onTouch(View p1, MotionEvent p2) {
-        return false;
     }
 
     //重写 addContentView(View, ViewGroup.MarginLayoutParams) 方法实现NativeActivity动态添加View的功能
@@ -286,26 +269,20 @@ public class BoatActivity extends NativeActivity implements View.OnClickListener
     }
 
     @Override
-    public void surfaceDestroyed(SurfaceHolder holder) {
-        super.surfaceDestroyed(holder);
-        stopControllers();
-    }
-
-    @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
-        ((HwController) hardwareController).dispatchKeyEvent(event);
+        hardwareController.dispatchKeyEvent(event);
         return true;
     }
 
 
     @Override
-    public boolean dispatchGenericMotionEvent(MotionEvent ev) {
-        ((HwController) hardwareController).dispatchMotionKeyEvent(ev);
+    public boolean dispatchGenericMotionEvent(MotionEvent event) {
+        hardwareController.dispatchMotionKeyEvent(event);
         return true;
     }
 
     @Override
-    public ViewGroup getViewsParent(){
+    public ViewGroup getViewsParent() {
         return this.baseLayout;
     }
 
