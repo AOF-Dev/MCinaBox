@@ -24,12 +24,6 @@ android {
         }
     }
 
-    sourceSets {
-        main {
-            jniLibs.srcDirs file('src/main/jniLibs')
-        }
-    }
-
     externalNativeBuild {
         cmake {
             path file('src/main/jni/CMakeLists.txt')
@@ -42,6 +36,5 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation project(path: ':gamecontroller')
-    implementation project(path: ':jndcrash')
     implementation project(path: ':definitions')
 }

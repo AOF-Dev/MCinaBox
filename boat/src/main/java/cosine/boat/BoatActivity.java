@@ -3,6 +3,7 @@ package cosine.boat;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.aof.mcinabox.definitions.models.BoatArgs;
@@ -59,7 +61,7 @@ public class BoatActivity extends AppCompatActivity implements SurfaceHolder.Cal
         hardwareController = new HardwareController(this, this, KEYMAP_TO_X);
 
         //初始化Handler
-        mHandler = new BoatHandler();
+        mHandler = new BoatHandler(getMainLooper());
 
         //启动定时器
         mTimer = new Timer();
@@ -163,6 +165,14 @@ public class BoatActivity extends AppCompatActivity implements SurfaceHolder.Cal
     }
 
     private class BoatHandler extends Handler {
+        public BoatHandler(@NonNull Looper looper) {
+            super(looper);
+        }
+
+        public BoatHandler(@NonNull Looper looper, @Nullable Callback callback) {
+            super(looper, callback);
+        }
+
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {

@@ -8,22 +8,16 @@ android {
     defaultConfig {
         applicationId "com.aof.mcinabox"
         minSdkVersion 21
-        targetSdkVersion 21
+        targetSdkVersion 22
         versionCode 7
         versionName '0.1.4-p4'
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            debuggable = true
-            jniDebuggable = false
-
         }
-    }
-    lintOptions{
-        checkReleaseBuilds false
-        abortOnError false
     }
 }
 
@@ -39,6 +33,5 @@ dependencies {
     implementation project(path: ':assets')
     implementation project(path: ':definitions')
     implementation project(path: ':ckb')
-    implementation project(path: ':jndcrash')
     implementation project(path: ':utils')
 }
