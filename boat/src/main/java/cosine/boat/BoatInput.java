@@ -2,33 +2,34 @@ package cosine.boat;
 
 public class BoatInput {
     private final static String TAG = "BoatInput";
-    public static final int KeyPress = 2;
-    public static final int KeyRelease = 3;
-    public static final int ButtonPress = 4;
-    public static final int ButtonRelease = 5;
-    public static final int MotionNotify = 6;
 
-    public static final int Button1 = 1;
-    public static final int Button2 = 2;
-    public static final int Button3 = 3;
-    public static final int Button4 = 4;
-    public static final int Button5 = 5;
-    public static final int Button6 = 6;
-    public static final int Button7 = 7;
+    public static final int KEY_PRESS = 2;
+    public static final int KEY_RELEASE = 3;
+    public static final int BUTTON_PRESS = 4;
+    public static final int BUTTON_RELEASE = 5;
+    public static final int MOTION_NOTIFY = 6;
 
-    public static final int CursorEnabled = 1;
-    public static final int CursorDisabled = 0;
+    public static final int BUTTON_1 = 1;
+    public static final int BUTTON_2 = 2;
+    public static final int BUTTON_3 = 3;
+    public static final int BUTTON_4 = 4;
+    public static final int BUTTON_5 = 5;
+    public static final int BUTTON_6 = 6;
+    public static final int BUTTON_7 = 7;
+
+    public static final int CURSOR_ENABLED = 1;
+    public static final int CURSOR_DISABLED = 0;
 
     public static void setMouseButton(int button, boolean press) {
-        send(System.nanoTime(), press ? ButtonPress : ButtonRelease, button, 0);
+        send(System.nanoTime(), press ? BUTTON_PRESS : BUTTON_RELEASE, button, 0);
     }
 
     public static void setPointer(int x, int y) {
-        send(System.nanoTime(), MotionNotify, x, y);
+        send(System.nanoTime(), MOTION_NOTIFY, x, y);
     }
 
     public static void setKey(int keyCode, int keyChar, boolean press) {
-        send(System.nanoTime(), press ? KeyPress : KeyRelease, keyCode, keyChar);
+        send(System.nanoTime(), press ? KEY_PRESS : KEY_RELEASE, keyCode, keyChar);
     }
 
     public static int[] getPointer() {
@@ -38,15 +39,6 @@ public class BoatInput {
     public static native int[] get();
 
     public static native void send(long time, int type, int p1, int p2);
-
-    // To be called by lwjgl/glfw.
-    public static BoatActivity mActivity;
-
-    public static void setCursorMode(int mode) {
-        if (mActivity != null) {
-            mActivity.setCursorMode(mode);
-        }
-    }
 
     static {
         System.loadLibrary("boat");

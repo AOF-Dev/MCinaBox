@@ -26,10 +26,8 @@ void boatSetCurrentEventProcessor(void (*processor)()) {
 void boatSetCursorMode(int mode) {
     JNIEnv *env;
 
-    if (!boat.isLoaded) {
-        BOAT_LOGE("Boat is not loaded yet!");
+    if (!boat.isLoaded)
         return;
-    }
 
     jint result = (*boat.vm)->AttachCurrentThread(boat.vm, &env, 0);
     if (result != JNI_OK) {
@@ -37,13 +35,7 @@ void boatSetCursorMode(int mode) {
         abort();
     }
 
-    jmethodID setCursorModeId = (*env)->GetStaticMethodID(env, boat.boatInputClass, "setCursorMode",
-                                                          "(I)V");
-    if (setCursorModeId == NULL) {
-        BOAT_LOGE("Failed to get static method BoatInput::setCursorMode");
-        abort();
-    }
-    (*env)->CallStaticVoidMethod(env, boat.boatInputClass, setCursorModeId, mode);
+    (*env)->CallVoidMethod(env, boat.boatActivity, boat.setCursorModeId, mode);
 
     (*boat.vm)->DetachCurrentThread(boat.vm);
 }

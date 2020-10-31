@@ -19,25 +19,14 @@ Java_cosine_boat_BoatActivity_nOnCreate(JNIEnv *env, jobject thiz) {
     jclass localBoatActivityClass = (*env)->GetObjectClass(env, thiz);
     boat.boatActivityClass = (*env)->NewGlobalRef(env, localBoatActivityClass);
 
-    // Get the loadClass function from NativeActivity's ClassLoader instance
-    jmethodID getClassLoaderId = (*env)->GetMethodID(env,
-                                                     boat.boatActivityClass, "getClassLoader",
-                                                     "()Ljava/lang/ClassLoader;");
-    jobject classLoader = (*env)->CallObjectMethod(env, thiz, getClassLoaderId);
-    jclass classLoaderClass = (*env)->GetObjectClass(env, classLoader);
-    jmethodID loadClassId = (*env)->GetMethodID(env,
-                                                classLoaderClass, "loadClass",
-                                                "(Ljava/lang/String;)Ljava/lang/Class;");
-
-    // Get the BoatInput class
-    jstring boatInputClassName = (*env)->NewStringUTF(env, "cosine/boat/BoatInput");
-    jclass localBoatInputClass = (*env)->CallObjectMethod(env, classLoader, loadClassId,
-                                                          boatInputClassName);
-    if (localBoatInputClass == NULL) {
-        BOAT_LOGE("Failed to find class: cosine/boat/BoatInput.");
+    // Get the setCursorMode function from the BoatActivity class
+    boat.setCursorModeId = (*env)->GetMethodID(env,
+                                               boat.boatActivityClass, "setCursorMode",
+                                               "(I)V");
+    if (boat.setCursorModeId == NULL) {
+        BOAT_LOGE("Failed to find method: BoatActivity::setCursorMode");
         abort();
     }
-    boat.boatInputClass = (*env)->NewGlobalRef(env, localBoatInputClass);
 
     boat.boatActivity = (*env)->NewGlobalRef(env, thiz);
 
@@ -50,10 +39,6 @@ Java_cosine_boat_BoatActivity_nOnDestroy(JNIEnv *env, jobject thiz) {
 
     if (boat.boatActivityClass != NULL) {
         (*env)->DeleteGlobalRef(env, boat.boatActivityClass);
-    }
-
-    if (boat.boatInputClass != NULL) {
-        (*env)->DeleteGlobalRef(env, boat.boatInputClass);
     }
 
     if (boat.boatActivity != NULL) {
