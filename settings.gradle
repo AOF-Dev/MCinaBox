@@ -1,7 +1,6 @@
 include ':utils'
 include ':ckb'
 include ':definitions'
-include ':jndcrash'
 include ':lwjgl'
 include ':assets'
 include ':gamecontroller'

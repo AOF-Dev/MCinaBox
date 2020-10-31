@@ -1,21 +1,17 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 30
     buildToolsVersion '30.0.2'
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 21
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
         consumerProguardFiles "consumer-rules.pro"
     }
-      lintOptions {
-          abortOnError false
-          checkReleaseBuilds false
-      }
 
     buildTypes {
         release {
@@ -33,5 +29,4 @@ dependencies {
     implementation project(path: ':assets')
     implementation project(path: ':definitions')
     implementation project(path: ':utils')
-
 }
