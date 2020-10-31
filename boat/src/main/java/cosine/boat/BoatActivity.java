@@ -19,11 +19,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.aof.mcinabox.definitions.models.BoatArgs;
 import com.aof.mcinabox.gamecontroller.client.ClientInput;
-import com.aof.mcinabox.gamecontroller.controller.Controller;
 import com.aof.mcinabox.gamecontroller.controller.HardwareController;
 import com.aof.mcinabox.gamecontroller.controller.VirtualController;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -57,8 +57,6 @@ public class BoatActivity extends AppCompatActivity implements SurfaceHolder.Cal
         //添加控制器
         virtualController = new VirtualController(this, this, KEYMAP_TO_X);
         hardwareController = new HardwareController(this, this, KEYMAP_TO_X);
-        //设定当前Activity
-        BoatInput.mActivity = this;
 
         //初始化Handler
         mHandler = new BoatHandler();
@@ -104,9 +102,8 @@ public class BoatActivity extends AppCompatActivity implements SurfaceHolder.Cal
         return new TimerTask() {
             @Override
             public void run() {
-                for (Controller c : new Controller[]{virtualController, hardwareController}) {
-                    c.saveConfig();
-                }
+                virtualController.saveConfig();
+                hardwareController.saveConfig();
             }
         };
     }
@@ -169,15 +166,13 @@ public class BoatActivity extends AppCompatActivity implements SurfaceHolder.Cal
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
-                case BoatInput.CursorDisabled:
-                    for (Controller c : new Controller[]{hardwareController, virtualController}) {
-                        c.setInputMode(MARK_INPUT_MODE_CATCH);
-                    }
+                case BoatInput.CURSOR_DISABLED:
+                    hardwareController.setInputMode(MARK_INPUT_MODE_CATCH);
+                    virtualController.setInputMode(MARK_INPUT_MODE_CATCH);
                     break;
-                case BoatInput.CursorEnabled:
-                    for (Controller c : new Controller[]{hardwareController, virtualController}) {
-                        c.setInputMode(MARK_INPUT_MODE_ALONE);
-                    }
+                case BoatInput.CURSOR_ENABLED:
+                    hardwareController.setInputMode(MARK_INPUT_MODE_ALONE);
+                    virtualController.setInputMode(MARK_INPUT_MODE_ALONE);
                     break;
                 default:
                     BoatActivity.this.finish();
@@ -200,7 +195,7 @@ public class BoatActivity extends AppCompatActivity implements SurfaceHolder.Cal
 
     @Override
     public void typeWords(String str) {
-        //TODO:根据字符串输入字符
+        // TODO:根据字符串输入字符
         char[] cs = str.toCharArray();
         for (char c : cs) {
             BoatInput.setKey(0, c, true);
@@ -208,7 +203,7 @@ public class BoatActivity extends AppCompatActivity implements SurfaceHolder.Cal
         }
     }
 
-    private ArrayList<View> cvs = new ArrayList<>();
+    private List<View> cvs = new ArrayList<>();
 
     @Override
     public void addControllerView(View v) {
@@ -263,9 +258,8 @@ public class BoatActivity extends AppCompatActivity implements SurfaceHolder.Cal
     }
 
     private void stopControllers() {
-        for (Controller c : new Controller[]{hardwareController, virtualController}) {
-            c.onStop();
-        }
+        hardwareController.onStop();
+        virtualController.onStop();
     }
 
     @Override
