@@ -2,7 +2,6 @@
 <resources>
 
     <declare-styleable name="BubbleLayout">
-
         <attr name="background_color" format="color" />
         <attr name="shadow_color" format="color" />
         <attr name="shadow_size" format="dimension" />
