@@ -6,7 +6,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/background"
-    tools:context=".MainActivity">
+    tools:context=".activity.MainActivity">
 
     <!--  =====================================以下是顶部工具栏===================================== -->
 

@@ -8,6 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="SplashTheme" parent="AppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">@drawable/background</item>
+    </style>
+
     <style name="NormalDialog" parent="Theme.AppCompat.Light.Dialog">
         <!-- 背景颜色及透明程度 -->
         <item name="android:windowBackground">@android:color/transparent</item>

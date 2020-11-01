@@ -1,5 +1,6 @@
 package com.aof.mcinabox.launcher.uis;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.view.View;
 import android.view.animation.Animation;
@@ -10,10 +11,9 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import androidx.appcompat.widget.SwitchCompat;
-import com.aof.mcinabox.MainActivity;
+import com.aof.mcinabox.activity.MainActivity;
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.definitions.manifest.AppManifest;
-import com.aof.mcinabox.launcher.dialogs.ContributorsDialog;
 import com.aof.mcinabox.launcher.runtime.RuntimeManager;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.mcinabox.launcher.uis.support.Utils;
@@ -189,7 +189,10 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
                 });
             }
             if (v == buttonShowControbutors) {
-                new ContributorsDialog(mContext).show();
+                new AlertDialog.Builder(mContext)
+                        .setView(R.layout.dialog_contributors)
+                        .setCancelable(true)
+                        .show();
             }
             if(v == buttonClearRuntime){
                 DialogUtils.createBothChoicesDialog(mContext,mContext.getString(R.string.title_warn),mContext.getString(R.string.tips_are_you_sure_to_delete_runtime),mContext.getString(R.string.title_continue),mContext.getString(R.string.title_cancel),new DialogSupports(){

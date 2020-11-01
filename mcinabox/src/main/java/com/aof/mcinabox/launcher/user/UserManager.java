@@ -1,9 +1,8 @@
 package com.aof.mcinabox.launcher.user;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 
-import com.aof.mcinabox.MainActivity;
+import com.aof.mcinabox.activity.MainActivity;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.utils.FileTool;
 import java.io.File;

@@ -7,15 +7,11 @@ import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import com.aof.mcinabox.MainActivity;
+import com.aof.mcinabox.activity.MainActivity;
 import com.aof.mcinabox.R;
-import com.aof.mcinabox.launcher.tipper.TipperManager;
-import com.aof.mcinabox.launcher.tipper.support.TipperRunable;
 import com.aof.mcinabox.launcher.user.CreateUserDialog;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
-import com.aof.mcinabox.launcher.user.UserManager;
 import com.aof.mcinabox.launcher.user.support.UserListAdapter;
-import com.aof.utils.dialog.DialogUtils;
 
 import java.util.ArrayList;
 

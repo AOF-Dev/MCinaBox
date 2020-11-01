@@ -1,7 +1,7 @@
 package com.aof.mcinabox.launcher.download.support;
 
 import android.util.Log;
-import com.aof.mcinabox.MainActivity;
+import com.aof.mcinabox.activity.MainActivity;
 import com.aof.mcinabox.definitions.manifest.AppManifest;
 import com.aof.mcinabox.launcher.launch.support.Utils;
 import com.aof.mcinabox.minecraft.json.AssetsJson;

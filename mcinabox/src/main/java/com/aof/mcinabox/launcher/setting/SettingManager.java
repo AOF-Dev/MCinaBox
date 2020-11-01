@@ -2,7 +2,7 @@ package com.aof.mcinabox.launcher.setting;
 
 import android.content.Context;
 import android.util.Log;
-import com.aof.mcinabox.MainActivity;
+import com.aof.mcinabox.activity.MainActivity;
 import com.aof.mcinabox.launcher.setting.support.SettingChecker;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.google.gson.Gson;

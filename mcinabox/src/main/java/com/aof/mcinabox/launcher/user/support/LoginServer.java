@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Base64;
-import com.aof.mcinabox.MainActivity;
+import com.aof.mcinabox.activity.MainActivity;
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.mcinabox.launcher.user.UserManager;

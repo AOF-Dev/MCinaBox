@@ -1,6 +1,6 @@
 package com.aof.mcinabox.launcher.launch.support;
 
-import com.aof.mcinabox.MainActivity;
+import com.aof.mcinabox.activity.MainActivity;
 import com.aof.mcinabox.definitions.manifest.AppManifest;
 import com.aof.mcinabox.launcher.runtime.RuntimeManager;
 import com.aof.mcinabox.launcher.runtime.support.RuntimePackInfo;

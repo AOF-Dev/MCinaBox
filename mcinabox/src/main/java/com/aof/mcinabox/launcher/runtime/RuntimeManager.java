@@ -6,7 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
-import com.aof.mcinabox.MainActivity;
+import com.aof.mcinabox.activity.MainActivity;
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.definitions.manifest.AppManifest;
 import com.aof.mcinabox.launcher.runtime.support.ConditionResolve;
@@ -18,7 +18,6 @@ import com.aof.utils.FileTool;
 import com.aof.utils.dialog.DialogUtils;
 import com.aof.utils.dialog.support.TaskDialog;
 import com.google.gson.Gson;
-import com.google.gson.JsonIOException;
 
 import java.io.File;
 import java.io.FileInputStream;

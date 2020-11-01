@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.aof.mcinabox.MainActivity;
+import com.aof.mcinabox.activity.MainActivity;
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.gamecontroller.ckb.CustomizeKeyboardEditorActivity;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;

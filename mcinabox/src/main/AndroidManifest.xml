@@ -19,15 +19,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity
-            android:name=".gamecontroller.ckb.CustomizeKeyboardEditorActivity"
-            android:configChanges="orientation|keyboardHidden|keyboard|navigation"
-            android:screenOrientation="sensorLandscape" />
-
-        <activity
-            android:name=".MainActivity"
-            android:configChanges="screenSize|keyboard|navigation|orientation|keyboardHidden"
+        <activity android:name=".activity.SplashActivity"
+            android:theme="@style/SplashTheme"
             android:screenOrientation="sensorLandscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,16 +28,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity
+            android:name=".gamecontroller.ckb.CustomizeKeyboardEditorActivity"
+            android:configChanges="orientation|keyboardHidden|keyboard|navigation"
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".activity.MainActivity"
+            android:configChanges="screenSize|keyboard|navigation|orientation|keyboardHidden"
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name="cosine.boat.BoatActivity"
             android:alwaysRetainTaskState="true"
             android:configChanges="screenSize|keyboard|navigation|orientation|keyboardHidden"
-            android:screenOrientation="sensorLandscape"
             android:excludeFromRecents="false"
             android:launchMode="singleInstance"
+            android:screenOrientation="sensorLandscape"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name="cosine.boat.LauncherActivity"
             android:configChanges="keyboardHidden|orientation" />

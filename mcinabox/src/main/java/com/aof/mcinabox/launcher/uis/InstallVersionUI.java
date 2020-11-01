@@ -10,7 +10,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.aof.mcinabox.MainActivity;
+import com.aof.mcinabox.activity.MainActivity;
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.launcher.download.DownloadManager;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;

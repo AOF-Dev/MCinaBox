@@ -1,7 +1,7 @@
 package com.aof.mcinabox.launcher.setting.support;
 
 import android.content.Context;
-import com.aof.mcinabox.MainActivity;
+import com.aof.mcinabox.activity.MainActivity;
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.definitions.manifest.AppManifest;
 import com.aof.mcinabox.launcher.download.authlib.Request;

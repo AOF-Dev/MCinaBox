@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.widget.SwitchCompat;
 
-import com.aof.mcinabox.MainActivity;
+import com.aof.mcinabox.activity.MainActivity;
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.utils.MemoryUtils;

@@ -1,18 +1,15 @@
-package com.aof.mcinabox;
+package com.aof.mcinabox.activity;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.KeyEvent;
 
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
+import com.aof.mcinabox.BaseActivity;
+import com.aof.mcinabox.R;
 import com.aof.mcinabox.definitions.manifest.AppManifest;
 import com.aof.mcinabox.launcher.lang.LangManager;
 import com.aof.mcinabox.launcher.setting.SettingManager;
@@ -49,8 +46,6 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         //静态对象
         CURRENT_ACTIVITY = this;
-        //请求权限
-        requestPermission();
         //使用语言管理器切换语言
         if(!new LangManager(this).fitSystemLang()){
             return;
@@ -85,22 +80,6 @@ public class MainActivity extends BaseActivity {
         switchSettingChecker(true);
         //添加无媒体文件标签
         setMCinaBoxNoMedia();
-    }
-
-    /**
-     * 【请求权限】
-     **/
-    private void requestPermission() {
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            if (!ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
-            }
-        }
     }
 
     /**
