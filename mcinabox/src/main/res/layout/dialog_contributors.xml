@@ -18,7 +18,7 @@
         android:layout_height="230dp"
         android:layout_margin="5dp"
         style="@style/NormalListview"
-        android:entries="@array/controbutors"/>
+        android:entries="@array/contributors"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
