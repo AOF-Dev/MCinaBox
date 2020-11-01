@@ -1,8 +1,5 @@
 package com.aof.mcinabox;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -12,21 +9,26 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.KeyEvent;
+
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import com.aof.mcinabox.definitions.manifest.AppManifest;
+import com.aof.mcinabox.launcher.lang.LangManager;
 import com.aof.mcinabox.launcher.setting.SettingManager;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
-import com.aof.mcinabox.launcher.lang.LangManager;
 import com.aof.mcinabox.launcher.theme.ThemeManager;
 import com.aof.mcinabox.launcher.tipper.TipperManager;
 import com.aof.mcinabox.launcher.uis.BaseUI;
 import com.aof.mcinabox.launcher.uis.achieve.UiManager;
 import com.aof.utils.FileTool;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     public static final int LAUNCHER_IMPT_RTPACK = 127;
     public static MainActivity CURRENT_ACTIVITY;
