@@ -1,16 +1,24 @@
 package com.aof.mcinabox.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
-import com.aof.mcinabox.R;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.aof.mcinabox.adapter.AccountAdapter;
+import com.aof.mcinabox.adapter.VersionAdapter;
+import com.aof.mcinabox.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
+
+    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        binding.bottomBar.versionSpinner.setAdapter(new VersionAdapter(this, null));
+        binding.bottomBar.accountSpinner.setAdapter(new AccountAdapter(this, null));
     }
 }

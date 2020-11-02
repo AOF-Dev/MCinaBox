@@ -10,7 +10,6 @@ import android.view.KeyEvent;
 
 import com.aof.mcinabox.BaseActivity;
 import com.aof.mcinabox.R;
-import cosine.boat.definitions.manifest.AppManifest;
 import com.aof.mcinabox.launcher.lang.LangManager;
 import com.aof.mcinabox.launcher.setting.SettingManager;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
@@ -24,6 +23,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import cosine.boat.definitions.manifest.AppManifest;
 
 public class OldMainActivity extends BaseActivity {
 
@@ -68,6 +69,11 @@ public class OldMainActivity extends BaseActivity {
         mUiManager = new UiManager(this,Setting);
         //Life Circle
         mUiManager.onCreate();
+
+        findViewById(R.id.new_ui).setOnClickListener(v -> {
+            Intent i = new Intent(OldMainActivity.this, MainActivity.class);
+            startActivity(i);
+        });
     }
 
     @Override
