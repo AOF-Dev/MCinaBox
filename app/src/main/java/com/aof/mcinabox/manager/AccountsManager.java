@@ -3,6 +3,7 @@ package com.aof.mcinabox.manager;
 import android.util.Log;
 
 import com.aof.mcinabox.MCinaBox;
+import com.aof.mcinabox.model.Account;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializer;
@@ -13,11 +14,53 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AccountsManager {
     private static final String TAG = "AccountsManager";
 
     private static final String ACCOUNTS_FILENAME = "accounts.json";
+
+    private List<Account> accounts;
+    private transient List<OnAccountsChangedListener> accountsChangedListeners;
+
+    private AccountsManager() {
+        this.accounts = new ArrayList<>();
+        this.accountsChangedListeners = new ArrayList<>();
+    }
+
+    public void addAccount(Account account) {
+        accounts.add(account);
+        onAccountsChanged();
+    }
+
+    public void removeAccount(Account account) {
+        accounts.remove(account);
+        onAccountsChanged();
+    }
+
+    public List<Account> getAccounts() {
+        return accounts;
+    }
+
+    public void addOnAccountsChangedListener(OnAccountsChangedListener listener) {
+        accountsChangedListeners.add(listener);
+    }
+
+    public void removeOnAccountsChangedListener(OnAccountsChangedListener listener) {
+        accountsChangedListeners.remove(listener);
+    }
+
+    private void onAccountsChanged() {
+        for (OnAccountsChangedListener listener : accountsChangedListeners) {
+            listener.onAccountsChanged(accounts);
+        }
+    }
+
+    public interface OnAccountsChangedListener {
+        void onAccountsChanged(List<Account> accounts);
+    }
 
     private boolean isValid() {
         return true;

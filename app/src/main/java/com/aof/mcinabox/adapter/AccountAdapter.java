@@ -20,11 +20,6 @@ public class AccountAdapter extends ArrayAdapter<Account> {
         super(context, 0, accounts);
     }
 
-    @Override
-    public int getCount() {
-        return 1;
-    }
-
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -36,7 +31,9 @@ public class AccountAdapter extends ArrayAdapter<Account> {
             binding = AccountRowBinding.bind(convertView);
         }
 
-        //final Account account = getItem(position);
+        final Account account = getItem(position);
+        binding.name.setText(account.getName());
+        binding.description.setText(account.getDescription());
 
         return binding.getRoot();
     }

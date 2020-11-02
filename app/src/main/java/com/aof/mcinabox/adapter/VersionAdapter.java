@@ -19,11 +19,6 @@ public class VersionAdapter extends ArrayAdapter<Version> {
         super(context, 0, versions);
     }
 
-    @Override
-    public int getCount() {
-        return 1;
-    }
-
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -35,7 +30,9 @@ public class VersionAdapter extends ArrayAdapter<Version> {
             binding = VersionRowBinding.bind(convertView);
         }
 
-        //final Version version = getItem(position);
+        final Version version = getItem(position);
+        binding.name.setText(version.getName());
+        binding.description.setText(version.getDescription());
 
         return binding.getRoot();
     }
