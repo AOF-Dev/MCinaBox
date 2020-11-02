@@ -1,8 +1,6 @@
 package cosine.boat;
 
-import com.aof.mcinabox.definitions.models.BoatArgs;
-
-import static com.aof.mcinabox.definitions.manifest.AppManifest.BOAT_CACHE_HOME;
+import static cosine.boat.definitions.manifest.AppManifest.BOAT_CACHE_HOME;
 
 public class LoadMe {
 

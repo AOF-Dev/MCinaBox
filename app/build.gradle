@@ -1,0 +1,37 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion '30.0.2'
+
+    defaultConfig {
+        applicationId "com.aof.mcinabox"
+        minSdkVersion 21
+        targetSdkVersion 22
+        versionCode 7
+        versionName '0.1.4-p4'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.aar','*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.github.MasayukiSuda:BubbleLayout:v1.2.1'
+    implementation 'com.squareup.okhttp3:okhttp:4.9.0'
+    implementation 'com.github.kongqw:AndroidRocker:1.0.1'
+    implementation 'com.github.AOF-Dev:Android-FileSelector:master-SNAPSHOT'
+    implementation 'com.github.QuadFlask:colorpicker:0.0.15'
+    implementation 'org.apache.commons:commons-compress:1.20'
+    implementation 'org.tukaani:xz:1.8'
+    implementation project(path: ':boat')
+    implementation project(path: ':lwjgl')
+}

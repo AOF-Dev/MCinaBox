@@ -19,16 +19,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.aof.mcinabox.definitions.models.BoatArgs;
-import com.aof.mcinabox.gamecontroller.client.ClientInput;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static com.aof.mcinabox.definitions.id.key.KeyMode.MARK_INPUT_MODE_ALONE;
-import static com.aof.mcinabox.definitions.id.key.KeyMode.MARK_INPUT_MODE_CATCH;
+import static cosine.boat.definitions.id.key.KeyMode.MARK_INPUT_MODE_ALONE;
+import static cosine.boat.definitions.id.key.KeyMode.MARK_INPUT_MODE_CATCH;
 
 public class BoatActivity extends AppCompatActivity implements SurfaceHolder.Callback, ClientInput {
     private final static String TAG = "BoatActivity";

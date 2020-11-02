@@ -1,5 +1,3 @@
-include ':utils'
-include ':definitions'
 include ':lwjgl'
-include ':mcinabox', ':boat'
+include ':app', ':boat'
 rootProject.name='MCinaBox'
