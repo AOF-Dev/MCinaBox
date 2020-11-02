@@ -4,9 +4,11 @@ import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
 import androidx.appcompat.widget.Toolbar;
-import com.aof.mcinabox.activity.MainActivity;
+
 import com.aof.mcinabox.R;
+import com.aof.mcinabox.activity.MainActivity;
 import com.aof.mcinabox.launcher.lang.LanguageDialog;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.utils.dialog.DialogUtils;

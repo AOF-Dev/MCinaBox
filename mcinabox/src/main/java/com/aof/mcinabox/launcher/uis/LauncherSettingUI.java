@@ -10,9 +10,11 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+
 import androidx.appcompat.widget.SwitchCompat;
-import com.aof.mcinabox.activity.MainActivity;
+
 import com.aof.mcinabox.R;
+import com.aof.mcinabox.activity.MainActivity;
 import com.aof.mcinabox.definitions.manifest.AppManifest;
 import com.aof.mcinabox.launcher.runtime.RuntimeManager;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;

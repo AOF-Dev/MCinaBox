@@ -1,6 +1,7 @@
 package com.aof.mcinabox.launcher.download.support;
 
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
+
 import java.util.HashMap;
 import java.util.Objects;
 

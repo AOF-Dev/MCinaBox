@@ -7,6 +7,7 @@ import com.aof.mcinabox.minecraft.json.VersionJson;
 import com.aof.mcinabox.minecraft.json.VersionManifestJson;
 import com.aof.mcinabox.utils.ErrorUtils;
 import com.google.gson.Gson;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

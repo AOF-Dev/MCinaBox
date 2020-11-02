@@ -10,12 +10,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
-import com.aof.mcinabox.activity.MainActivity;
+
 import com.aof.mcinabox.R;
+import com.aof.mcinabox.activity.MainActivity;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.mcinabox.launcher.user.UserManager;
-import com.aof.utils.dialog.support.DialogSupports;
 import com.aof.utils.dialog.DialogUtils;
+import com.aof.utils.dialog.support.DialogSupports;
 import com.aof.utils.dialog.support.TaskDialog;
 
 import java.util.ArrayList;

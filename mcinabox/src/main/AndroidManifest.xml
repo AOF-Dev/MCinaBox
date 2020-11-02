@@ -44,9 +44,6 @@
             android:launchMode="singleInstance"
             android:screenOrientation="sensorLandscape"
             android:theme="@style/AppTheme" />
-        <activity
-            android:name="cosine.boat.LauncherActivity"
-            android:configChanges="keyboardHidden|orientation" />
     </application>
 
 </manifest>

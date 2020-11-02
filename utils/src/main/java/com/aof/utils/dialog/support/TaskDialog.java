@@ -3,7 +3,9 @@ package com.aof.utils.dialog.support;
 import android.app.Dialog;
 import android.content.Context;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
+
 import com.aof.utils.R;
 
 public class TaskDialog extends Dialog {

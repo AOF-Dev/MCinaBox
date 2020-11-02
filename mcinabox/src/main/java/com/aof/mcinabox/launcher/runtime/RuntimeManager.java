@@ -6,8 +6,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
-import com.aof.mcinabox.activity.MainActivity;
+
 import com.aof.mcinabox.R;
+import com.aof.mcinabox.activity.MainActivity;
 import com.aof.mcinabox.definitions.manifest.AppManifest;
 import com.aof.mcinabox.launcher.runtime.support.ConditionResolve;
 import com.aof.mcinabox.launcher.runtime.support.Definitions;

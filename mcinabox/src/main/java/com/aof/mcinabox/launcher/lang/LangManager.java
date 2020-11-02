@@ -3,7 +3,9 @@ package com.aof.mcinabox.launcher.lang;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+
 import androidx.annotation.NonNull;
+
 import com.aof.mcinabox.activity.MainActivity;
 import com.aof.mcinabox.launcher.lang.support.LanguageUtils;
 

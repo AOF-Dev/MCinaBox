@@ -1,12 +1,10 @@
 package com.aof.mcinabox.launcher.launch.support;
 
 import com.aof.mcinabox.definitions.manifest.AppManifest;
-import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.mcinabox.minecraft.JsonUtils;
 import com.aof.mcinabox.minecraft.json.AssetsJson;
 import com.aof.mcinabox.minecraft.json.VersionJson;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Objects;

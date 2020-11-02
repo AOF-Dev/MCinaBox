@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.launcher.tipper.TipperManager;
 

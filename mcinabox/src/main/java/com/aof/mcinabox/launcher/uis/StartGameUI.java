@@ -7,12 +7,14 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import com.aof.mcinabox.activity.MainActivity;
+
 import com.aof.mcinabox.R;
+import com.aof.mcinabox.activity.MainActivity;
 import com.aof.mcinabox.launcher.launch.LaunchManager;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.mcinabox.launcher.uis.support.Utils;
 import com.aof.mcinabox.launcher.version.VersionManager;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 

@@ -6,21 +6,25 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Base64;
-import com.aof.mcinabox.activity.MainActivity;
+
 import com.aof.mcinabox.R;
+import com.aof.mcinabox.activity.MainActivity;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.mcinabox.launcher.user.UserManager;
 import com.google.gson.Gson;
+
 import org.jetbrains.annotations.NotNull;
+
 import java.io.IOException;
+import java.util.Objects;
+import java.util.UUID;
+
 import okhttp3.Call;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import java.util.Objects;
-import java.util.UUID;
 
 public class LoginServer {
     private Context mContext;

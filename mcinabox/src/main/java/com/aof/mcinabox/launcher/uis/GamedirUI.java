@@ -7,8 +7,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import com.aof.mcinabox.activity.MainActivity;
+
 import com.aof.mcinabox.R;
+import com.aof.mcinabox.activity.MainActivity;
 import com.aof.mcinabox.launcher.gamedir.GamedirManager;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.utils.dialog.DialogUtils;

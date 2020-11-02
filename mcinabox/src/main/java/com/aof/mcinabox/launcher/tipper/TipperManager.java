@@ -1,11 +1,11 @@
 package com.aof.mcinabox.launcher.tipper;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 
 import com.aof.mcinabox.launcher.tipper.support.TipperListBean;
 import com.aof.mcinabox.launcher.tipper.support.TipperRunable;
+
 import java.util.ArrayList;
 
 public class TipperManager {

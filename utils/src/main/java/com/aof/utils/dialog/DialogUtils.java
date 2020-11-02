@@ -3,16 +3,18 @@ package com.aof.utils.dialog;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.aof.utils.dialog.support.DialogSupports;
 import com.flask.colorpicker.ColorPickerView;
 import com.flask.colorpicker.OnColorSelectedListener;
 import com.flask.colorpicker.builder.ColorPickerClickListener;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
+
 import java.util.ArrayList;
 
-import zhou.tools.fileselector.FileSelector;
 import zhou.tools.fileselector.FileSelectorAlertDialog;
 import zhou.tools.fileselector.config.FileConfig;
 import zhou.tools.fileselector.config.FileTheme;

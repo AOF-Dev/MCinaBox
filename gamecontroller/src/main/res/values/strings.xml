@@ -1,6 +1,0 @@
-<resources>
-    <string name="title_gt" translatable="false"><![CDATA[>]]></string>
-    <string name="title_enter" translatable="false">Enter</string>
-    <string name="title_t_enter" translatable="false">T + Enter</string>
-    <string name="title_done" translatable="false">Done</string>
-</resources>

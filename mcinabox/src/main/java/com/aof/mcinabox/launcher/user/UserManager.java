@@ -5,6 +5,7 @@ import android.content.Context;
 import com.aof.mcinabox.activity.MainActivity;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.utils.FileTool;
+
 import java.io.File;
 import java.util.UUID;
 

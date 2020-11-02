@@ -5,10 +5,12 @@ import android.content.Context;
 import com.aof.mcinabox.definitions.manifest.AppManifest;
 import com.aof.mcinabox.launcher.download.DownloadManager;
 import com.aof.mcinabox.minecraft.json.VersionJson;
-import com.aof.utils.FileTool;
 import com.aof.mcinabox.utils.ZipUtils;
+import com.aof.utils.FileTool;
+
 import java.io.File;
-import static com.aof.mcinabox.definitions.manifest.AppManifest.*;
+
+import static com.aof.mcinabox.definitions.manifest.AppManifest.MCINABOX_TEMP;
 
 public class ForgeInstaller {
 

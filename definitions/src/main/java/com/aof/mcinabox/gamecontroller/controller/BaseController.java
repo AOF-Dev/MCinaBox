@@ -3,8 +3,10 @@ package com.aof.mcinabox.gamecontroller.controller;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
-import com.aof.mcinabox.gamecontroller.input.Input;
+
 import com.aof.mcinabox.gamecontroller.client.ClientInput;
+import com.aof.mcinabox.gamecontroller.input.Input;
+
 import java.util.ArrayList;
 
 import static com.aof.mcinabox.definitions.id.key.KeyMode.MARK_INPUT_MODE_ALONE;

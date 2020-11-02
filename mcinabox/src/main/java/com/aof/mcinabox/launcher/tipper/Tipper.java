@@ -6,12 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.launcher.tipper.support.TipperListAdapter;
 import com.aof.mcinabox.launcher.tipper.support.TipperListBean;
 import com.daasuu.bl.ArrowDirection;
 import com.daasuu.bl.BubbleLayout;
 import com.daasuu.bl.BubblePopupHelper;
+
 import java.util.List;
 
 public class Tipper {

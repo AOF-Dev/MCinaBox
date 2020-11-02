@@ -1,7 +1,6 @@
 package com.aof.mcinabox.gamecontroller.event;
 
 import com.aof.mcinabox.definitions.id.AppEvent;
-import com.aof.mcinabox.gamecontroller.controller.BaseController;
 
 public class BaseKeyEvent implements AppEvent {
     private String tag;

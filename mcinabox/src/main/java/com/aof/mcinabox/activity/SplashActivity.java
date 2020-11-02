@@ -10,7 +10,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.aof.mcinabox.BaseActivity;
-import com.aof.mcinabox.R;
 
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 

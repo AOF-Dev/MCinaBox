@@ -1,6 +1,7 @@
 package com.aof.mcinabox.gamecontroller.input;
 
 import android.content.Context;
+
 import com.aof.mcinabox.definitions.id.key.KeyEvent;
 import com.aof.mcinabox.gamecontroller.controller.Controller;
 

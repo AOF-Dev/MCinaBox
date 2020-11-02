@@ -1,7 +1,6 @@
 package com.aof.mcinabox.launcher.gamedir;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.aof.mcinabox.definitions.manifest.AppManifest;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;

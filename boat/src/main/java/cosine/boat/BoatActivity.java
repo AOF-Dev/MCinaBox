@@ -21,8 +21,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.aof.mcinabox.definitions.models.BoatArgs;
 import com.aof.mcinabox.gamecontroller.client.ClientInput;
-import com.aof.mcinabox.gamecontroller.controller.HardwareController;
-import com.aof.mcinabox.gamecontroller.controller.VirtualController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,8 +36,7 @@ public class BoatActivity extends AppCompatActivity implements SurfaceHolder.Cal
     private SurfaceView surfaceView;
     private BoatArgs boatArgs;
     private RelativeLayout baseLayout;
-    private VirtualController virtualController;
-    private HardwareController hardwareController;
+    public static IController controllerInterface;
     private BoatHandler mHandler;
     private Timer mTimer;
     private final static int REFRESH_P = 5000; //ms
@@ -56,16 +53,14 @@ public class BoatActivity extends AppCompatActivity implements SurfaceHolder.Cal
 
         boatArgs = (BoatArgs) getIntent().getSerializableExtra("LauncherConfig");
 
-        //添加控制器
-        virtualController = new VirtualController(this, this, KEYMAP_TO_X);
-        hardwareController = new HardwareController(this, this, KEYMAP_TO_X);
-
         //初始化Handler
         mHandler = new BoatHandler(getMainLooper());
 
         //启动定时器
         mTimer = new Timer();
         mTimer.schedule(createTimerTask(), REFRESH_P, REFRESH_P);
+
+        controllerInterface.onActivityCreate(this);
     }
 
     private native void nOnCreate();
@@ -104,8 +99,7 @@ public class BoatActivity extends AppCompatActivity implements SurfaceHolder.Cal
         return new TimerTask() {
             @Override
             public void run() {
-                virtualController.saveConfig();
-                hardwareController.saveConfig();
+                controllerInterface.saveConfig();
             }
         };
     }
@@ -177,12 +171,10 @@ public class BoatActivity extends AppCompatActivity implements SurfaceHolder.Cal
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case BoatInput.CURSOR_DISABLED:
-                    hardwareController.setInputMode(MARK_INPUT_MODE_CATCH);
-                    virtualController.setInputMode(MARK_INPUT_MODE_CATCH);
+                    controllerInterface.setInputMode(MARK_INPUT_MODE_CATCH);
                     break;
                 case BoatInput.CURSOR_ENABLED:
-                    hardwareController.setInputMode(MARK_INPUT_MODE_ALONE);
-                    virtualController.setInputMode(MARK_INPUT_MODE_ALONE);
+                    controllerInterface.setInputMode(MARK_INPUT_MODE_ALONE);
                     break;
                 default:
                     BoatActivity.this.finish();
@@ -268,20 +260,19 @@ public class BoatActivity extends AppCompatActivity implements SurfaceHolder.Cal
     }
 
     private void stopControllers() {
-        hardwareController.onStop();
-        virtualController.onStop();
+        controllerInterface.onStop();
     }
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
-        hardwareController.dispatchKeyEvent(event);
+        controllerInterface.dispatchKeyEvent(event);
         return true;
     }
 
 
     @Override
     public boolean dispatchGenericMotionEvent(MotionEvent event) {
-        hardwareController.dispatchMotionKeyEvent(event);
+        controllerInterface.dispatchMotionKeyEvent(event);
         return true;
     }
 
@@ -292,5 +283,14 @@ public class BoatActivity extends AppCompatActivity implements SurfaceHolder.Cal
 
     static {
         System.loadLibrary("boat");
+    }
+
+    public interface IController {
+        void onActivityCreate(BoatActivity boatActivity);
+        void saveConfig();
+        void setInputMode(int inputMode);
+        void onStop();
+        void dispatchKeyEvent(KeyEvent event);
+        void dispatchMotionKeyEvent(MotionEvent event);
     }
 }

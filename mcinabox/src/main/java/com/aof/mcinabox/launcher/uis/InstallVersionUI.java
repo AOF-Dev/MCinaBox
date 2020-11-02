@@ -10,14 +10,16 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.aof.mcinabox.activity.MainActivity;
+
 import com.aof.mcinabox.R;
+import com.aof.mcinabox.activity.MainActivity;
 import com.aof.mcinabox.launcher.download.DownloadManager;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.mcinabox.minecraft.json.VersionManifestJson;
 import com.aof.utils.dialog.DialogUtils;
 
 import java.util.ArrayList;
+
 import static com.aof.mcinabox.definitions.manifest.AppManifest.MCINABOX_TEMP;
 
 public class InstallVersionUI extends BaseUI implements RadioGroup.OnCheckedChangeListener {

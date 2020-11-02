@@ -8,7 +8,6 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.aof.mcinabox.R;
@@ -17,7 +16,6 @@ import com.aof.utils.dialog.DialogUtils;
 import com.aof.utils.dialog.support.DialogSupports;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class LocalVersionListAdapter extends BaseAdapter {
 

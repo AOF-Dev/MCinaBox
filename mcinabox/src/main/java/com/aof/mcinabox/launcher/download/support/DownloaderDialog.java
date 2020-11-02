@@ -8,11 +8,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
+
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.launcher.download.DownloadManager;
-import com.aof.utils.dialog.support.DialogSupports;
 import com.aof.utils.dialog.DialogUtils;
+import com.aof.utils.dialog.support.DialogSupports;
 
 public class DownloaderDialog extends Dialog implements Dialog.OnCancelListener, View.OnClickListener{
 

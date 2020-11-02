@@ -10,6 +10,7 @@ import com.aof.mcinabox.minecraft.JsonUtils;
 import com.aof.mcinabox.minecraft.json.VersionJson;
 import com.aof.utils.AppUtils;
 import com.aof.utils.FileTool;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;

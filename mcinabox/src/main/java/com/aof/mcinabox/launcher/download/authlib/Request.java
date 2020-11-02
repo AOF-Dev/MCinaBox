@@ -5,8 +5,8 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 
-import com.aof.mcinabox.activity.MainActivity;
 import com.aof.mcinabox.R;
+import com.aof.mcinabox.activity.MainActivity;
 import com.aof.mcinabox.definitions.manifest.AppManifest;
 import com.aof.mcinabox.launcher.download.DownloadManager;
 import com.aof.mcinabox.launcher.download.support.DownloadHelper;
@@ -15,8 +15,11 @@ import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.utils.dialog.DialogUtils;
 import com.google.gson.Gson;
 import com.liulishuo.filedownloader.BaseDownloadTask;
+
 import org.jetbrains.annotations.NotNull;
+
 import java.io.IOException;
+
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;

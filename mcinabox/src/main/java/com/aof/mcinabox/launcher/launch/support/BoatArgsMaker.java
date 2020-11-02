@@ -1,6 +1,7 @@
 package com.aof.mcinabox.launcher.launch.support;
 
 import android.content.Context;
+
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.definitions.manifest.AppManifest;
 import com.aof.mcinabox.definitions.models.BoatArgs;
@@ -12,8 +13,9 @@ import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.mcinabox.launcher.user.UserManager;
 import com.aof.mcinabox.minecraft.JsonUtils;
 import com.aof.mcinabox.minecraft.json.VersionJson;
-import com.aof.utils.dialog.support.DialogSupports;
 import com.aof.utils.dialog.DialogUtils;
+import com.aof.utils.dialog.support.DialogSupports;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;

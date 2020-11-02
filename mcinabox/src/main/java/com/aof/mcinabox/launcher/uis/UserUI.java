@@ -7,10 +7,11 @@ import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import com.aof.mcinabox.activity.MainActivity;
+
 import com.aof.mcinabox.R;
-import com.aof.mcinabox.launcher.user.CreateUserDialog;
+import com.aof.mcinabox.activity.MainActivity;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
+import com.aof.mcinabox.launcher.user.CreateUserDialog;
 import com.aof.mcinabox.launcher.user.support.UserListAdapter;
 
 import java.util.ArrayList;

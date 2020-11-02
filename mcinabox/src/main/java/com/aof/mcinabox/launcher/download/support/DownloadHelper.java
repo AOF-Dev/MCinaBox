@@ -1,6 +1,7 @@
 package com.aof.mcinabox.launcher.download.support;
 
 import androidx.annotation.Nullable;
+
 import com.aof.mcinabox.definitions.manifest.AppManifest;
 import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloader;

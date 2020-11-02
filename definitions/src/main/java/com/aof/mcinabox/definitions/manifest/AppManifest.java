@@ -3,6 +3,7 @@ package com.aof.mcinabox.definitions.manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Environment;
+
 import java.util.Objects;
 
 public class AppManifest {

@@ -1,13 +1,12 @@
 package com.aof.mcinabox.launcher.version;
 
-import android.util.Log;
-
 import com.aof.mcinabox.definitions.manifest.AppManifest;
 import com.aof.mcinabox.launcher.launch.support.Utils;
 import com.aof.mcinabox.launcher.version.support.LocalVersionListBean;
 import com.aof.mcinabox.minecraft.JsonUtils;
 import com.aof.mcinabox.minecraft.json.VersionJson;
 import com.aof.utils.FileTool;
+
 import java.io.File;
 import java.util.ArrayList;
 

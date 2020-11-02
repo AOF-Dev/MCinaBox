@@ -6,8 +6,10 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.Log;
 import android.view.View;
+
 import com.aof.mcinabox.definitions.manifest.AppManifest;
 import com.aof.utils.FileTool;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

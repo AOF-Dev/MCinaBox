@@ -27,10 +27,9 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.github.MasayukiSuda:BubbleLayout:v1.2.1'
     implementation 'com.squareup.okhttp3:okhttp:4.9.0'
+    implementation 'com.github.kongqw:AndroidRocker:1.0.1'
     implementation project(path: ':boat')
-    implementation project(path: ':plugin')
-    implementation project(path: ':assets')
     implementation project(path: ':definitions')
-    implementation project(path: ':ckb')
     implementation project(path: ':utils')
+    implementation project(path: ':lwjgl')
 }

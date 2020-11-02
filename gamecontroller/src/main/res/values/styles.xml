@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <style name="OnscreenKeyboard_normal" parent="Widget.AppCompat.Button">
-        <item name="android:background">@drawable/control_button</item>
-        <item name="android:textSize">@dimen/qwert_text_size</item>
-        <item name="android:textAllCaps">false</item>
-    </style>
-
-</resources>

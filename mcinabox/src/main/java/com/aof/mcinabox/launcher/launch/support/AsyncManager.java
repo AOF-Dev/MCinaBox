@@ -11,8 +11,8 @@ import com.aof.mcinabox.launcher.launch.LaunchManager;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.mcinabox.minecraft.JsonUtils;
 import com.aof.utils.FileTool;
-import com.aof.utils.dialog.support.DialogSupports;
 import com.aof.utils.dialog.DialogUtils;
+import com.aof.utils.dialog.support.DialogSupports;
 
 import java.io.File;
 
