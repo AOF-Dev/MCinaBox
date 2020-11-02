@@ -41,7 +41,7 @@ void boatSetCursorMode(int mode) {
 }
 
 JNIEXPORT jintArray JNICALL
-Java_cosine_boat_BoatInput_get(JNIEnv *env, jclass clazz) {
+Java_cosine_boat_BoatInput_getPointer(JNIEnv *env, jclass clazz) {
     jintArray ja = (*env)->NewIntArray(env, 2);
     int arr[2] = {current_event.x, current_event.y};
     (*env)->SetIntArrayRegion(env, ja, 0, 2, arr);

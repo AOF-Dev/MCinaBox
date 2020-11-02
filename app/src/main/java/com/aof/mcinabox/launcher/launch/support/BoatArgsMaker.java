@@ -104,10 +104,10 @@ public class BoatArgsMaker {
         try {
             this.mArgs =  new BoatArgs()
                     .setArgs(getArgs())
-                    .setJava_home(AppManifest.BOAT_RUNTIME_HOME + "/" + runtimeManifest.jre_home)
-                    .setGamedir(AppManifest.MINECRAFT_HOME)
+                    .setJavaHome(AppManifest.BOAT_RUNTIME_HOME + "/" + runtimeManifest.jre_home)
+                    .setGameDir(AppManifest.MINECRAFT_HOME)
                     .setDebug(mSetting.getConfigurations().isEnableDebug())
-                    .setShared_libraries(this.getSharedLibrariesPaths());
+                    .setSharedLibraries(this.getSharedLibrariesPaths());
             mLaunchManager.launchMinecraft(mSetting,LaunchManager.LAUNCH_GAME);
         }catch (Exception e){
             e.printStackTrace();

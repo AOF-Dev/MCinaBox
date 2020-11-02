@@ -32,11 +32,7 @@ public class BoatInput {
         send(System.nanoTime(), press ? KEY_PRESS : KEY_RELEASE, keyCode, keyChar);
     }
 
-    public static int[] getPointer() {
-        return get();
-    }
-
-    public static native int[] get();
+    public static native int[] getPointer();
 
     public static native void send(long time, int type, int p1, int p2);
 

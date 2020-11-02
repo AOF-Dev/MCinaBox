@@ -16,26 +16,26 @@ public class LoadMe {
 
     public static native void dlopen(String name);
 
-    static {
-        System.loadLibrary("boat");
-    }
-
     public static void exec(BoatArgs args) {
         try {
-            setenv("HOME", args.getGamedir());
-            setenv("JAVA_HOME", args.getJava_home());
+            setenv("HOME", args.getGameDir());
+            setenv("JAVA_HOME", args.getJavaHome());
             setenv("LIBGL_MIPMAP", "3");
 
-            for (String str : args.getShared_libraries()) {
+            for (String str : args.getSharedLibraries()) {
                 dlopen(str);
             }
 
             setupJLI();
             redirectStdio(BOAT_CACHE_HOME + "/boat_output.txt");
-            chdir(args.getGamedir());
+            chdir(args.getGameDir());
             jliLaunch(args.getArgs());
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    static {
+        System.loadLibrary("boat");
     }
 }

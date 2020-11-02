@@ -4,11 +4,11 @@ import java.io.Serializable;
 
 public class BoatArgs implements Serializable {
 
-    private String[] args; //启动参数
-    private String java_home; //jre环境
-    private String[] shared_libraries; //动态链接库
-    private String gamedir; //游戏目录
-    private boolean debug; //调试
+    private String[] args;
+    private String javaHome;
+    private String[] sharedLibraries;
+    private String gameDir;
+    private boolean debug;
 
     public boolean getDebug(){
         return debug;
@@ -19,21 +19,21 @@ public class BoatArgs implements Serializable {
         return this;
     }
 
-    public String getJava_home(){
-        return java_home;
+    public String getJavaHome(){
+        return javaHome;
     }
 
-    public BoatArgs setJava_home(String path) {
-        this.java_home = path;
+    public BoatArgs setJavaHome(String path) {
+        this.javaHome = path;
         return this;
     }
 
-    public String getGamedir(){
-        return gamedir;
+    public String getGameDir(){
+        return gameDir;
     }
 
-    public BoatArgs setGamedir(String dir){
-        this.gamedir = dir;
+    public BoatArgs setGameDir(String dir){
+        this.gameDir = dir;
         return this;
     }
 
@@ -46,12 +46,12 @@ public class BoatArgs implements Serializable {
         return this;
     }
 
-    public BoatArgs setShared_libraries(String[] libraries){
-        this.shared_libraries = libraries;
+    public BoatArgs setSharedLibraries(String[] libraries){
+        this.sharedLibraries = libraries;
         return this;
     }
 
-    public String[] getShared_libraries(){
-        return shared_libraries;
+    public String[] getSharedLibraries(){
+        return sharedLibraries;
     }
 }
