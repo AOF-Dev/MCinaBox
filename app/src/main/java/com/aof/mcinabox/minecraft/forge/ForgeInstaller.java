@@ -4,6 +4,7 @@ import android.content.Context;
 
 import cosine.boat.definitions.manifest.AppManifest;
 import com.aof.mcinabox.launcher.download.DownloadManager;
+import com.aof.mcinabox.minecraft.JsonUtils;
 import com.aof.mcinabox.minecraft.json.VersionJson;
 import com.aof.mcinabox.utils.ZipUtils;
 import com.aof.mcinabox.utils.FileTool;
@@ -32,7 +33,7 @@ public class ForgeInstaller {
         File forgeFile = new File(MCINABOX_TEMP + "/forge/version.json");
         VersionJson forgeJson;
         if(forgeFile.exists()){
-            forgeJson = com.aof.mcinabox.minecraft.JsonUtils.getVersionFromFile(forgeFile);
+            forgeJson = JsonUtils.getVersionFromFile(forgeFile);
             if(forgeJson != null) {
                 FileTool.checkFilePath(new File(MINECRAFT_HOME_VERSION + "/" + forgeJson.getId()),true);
                 FileTool.copyFile(MCINABOX_TEMP + "/forge/version.json",MINECRAFT_HOME_VERSION + "/" + forgeJson.getId() + "/" + forgeJson.getId() + ".json", true);

@@ -1,6 +1,5 @@
 package com.aof.mcinabox.utils;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -25,18 +24,16 @@ public class ZipUtils {
     private final static String TYPE_ERROR = "Error";
     private final static String TYPE_SUCCESS = "Success";
 
-    private Gson gson = new Gson();
+    private final Gson gson = new Gson();
 
-
-    @SuppressLint("HandlerLeak")
-    private Handler mHandler = new Handler(){
+    private final Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if(callable) {
+            if (callable) {
                 switch (Objects.requireNonNull(msg.getData().getString(TYPE))) {
                     case TYPE_ERROR:
-                        mCallback.onFailed(gson.fromJson(msg.getData().getString(RESULT),Exception.class));
+                        mCallback.onFailed(gson.fromJson(msg.getData().getString(RESULT), Exception.class));
                         break;
                     case TYPE_SUCCESS:
                         mCallback.onSuccess();
@@ -49,24 +46,24 @@ public class ZipUtils {
 
     private Callback mCallback;
     private boolean callable = false;
-    public ZipUtils setCallback(@NonNull Callback call){
+
+    public ZipUtils setCallback(@NonNull Callback call) {
         this.mCallback = call;
         this.callable = true;
         return this;
     }
 
     public void UnZipFolder(final String zipFileString, final String outPathString) {
-        if(callable){
+        if (callable) {
             mCallback.onStart();
         }
-        new Thread(){
+        new Thread() {
             @Override
-            public void run(){
+            public void run() {
                 super.run();
                 Message msg = new Message();
                 Bundle bundle = new Bundle();
-                try {
-                    ZipInputStream inZip = new ZipInputStream(new FileInputStream(zipFileString));
+                try (ZipInputStream inZip = new ZipInputStream(new FileInputStream(zipFileString))) {
                     ZipEntry zipEntry;
                     String szName;
                     while ((zipEntry = inZip.getNextEntry()) != null) {
@@ -85,25 +82,24 @@ public class ZipUtils {
                                 file.createNewFile();
                             }
                             // 获取文件的输出流
-                            FileOutputStream out = new FileOutputStream(file);
-                            int len;
-                            byte[] buffer = new byte[1024];
-                            // 读取（字节）字节到缓冲区
-                            while ((len = inZip.read(buffer)) != -1) {
-                                // 从缓冲区（0）位置写入（字节）字节
-                                out.write(buffer, 0, len);
-                                out.flush();
+                            try (FileOutputStream out = new FileOutputStream(file)) {
+                                int len;
+                                byte[] buffer = new byte[1024];
+                                // 读取（字节）字节到缓冲区
+                                while ((len = inZip.read(buffer)) != -1) {
+                                    // 从缓冲区（0）位置写入（字节）字节
+                                    out.write(buffer, 0, len);
+                                    out.flush();
+                                }
                             }
-                            out.close();
                         }
                     }
-                    inZip.close();
-                    bundle.putString(TYPE,TYPE_SUCCESS);
-                    bundle.putString(RESULT,null);
-                }catch (Exception e){
+                    bundle.putString(TYPE, TYPE_SUCCESS);
+                    bundle.putString(RESULT, null);
+                } catch (Exception e) {
                     e.printStackTrace();
-                    bundle.putString(TYPE,TYPE_ERROR);
-                    bundle.putString(RESULT,gson.toJson(e));
+                    bundle.putString(TYPE, TYPE_ERROR);
+                    bundle.putString(RESULT, gson.toJson(e));
                 }
                 msg.setData(bundle);
                 mHandler.sendMessage(msg);
@@ -111,10 +107,13 @@ public class ZipUtils {
         }.start();
     }
 
-    public interface Callback{
+    public interface Callback {
         void onStart();
+
         void onFailed(Exception e);
+
         void onSuccess();
+
         void onFinish();
     }
 }

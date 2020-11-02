@@ -10,84 +10,83 @@ import com.google.gson.Gson;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 
 public class JsonUtils {
-    /**【读入version_manifest.json】**/
-    public static VersionManifestJson getVersionManifestFromFile(File file){
-        if(file == null){
-            Log.e("JsonUtils","Json File is null.");
+    private static final String TAG = "JsonUtils";
+
+    /**
+     * 【读入version_manifest.json】
+     **/
+    public static VersionManifestJson getVersionManifestFromFile(File file) {
+        if (file == null) {
+            Log.e(TAG, "Json File is null.");
             ErrorUtils.FileNotFound(file);
             return null;
         }
-        try {
-            InputStream inputStream = new FileInputStream(file);
-            Reader reader = new InputStreamReader(inputStream);
-            Gson gson = new Gson();
-            //使用Gson将ListVersionManifestJson实例化
-            return gson.fromJson(reader, VersionManifestJson.class);
-
-        } catch (FileNotFoundException e) {
+        try (InputStream inputStream = new FileInputStream(file);
+             Reader reader = new InputStreamReader(inputStream)) {
+            return new Gson().fromJson(reader, VersionManifestJson.class);
+        } catch (IOException e) {
             e.printStackTrace();
-            Log.e("JsonUtils","Json File not found.");
+            Log.e(TAG, "Json File not found.");
             ErrorUtils.FileNotFound(file);
             return null;
         }
     }
-    public static VersionManifestJson getVersionManifestFromFile(String filepath){
+
+    public static VersionManifestJson getVersionManifestFromFile(String filepath) {
         return getVersionManifestFromFile(new File(filepath));
     }
 
-    /**【读入version.json】**/
-    public static VersionJson getVersionFromFile(File file){
-        if(file == null){
-            Log.e("JsonUtils","Json File is null.");
+    /**
+     * 【读入version.json】
+     **/
+    public static VersionJson getVersionFromFile(File file) {
+        if (file == null) {
+            Log.e(TAG, "Json File is null.");
             ErrorUtils.FileNotFound(file);
             return null;
         }
-        try {
-            InputStream inputStream = new FileInputStream(file);
-            Reader reader = new InputStreamReader(inputStream);
-            Gson gson = new Gson();
-            //使用Gson将ListVersionManifestJson实例化
-            return gson.fromJson(reader, VersionJson.class);
-
-        } catch (FileNotFoundException e) {
+        try (InputStream inputStream = new FileInputStream(file);
+             Reader reader = new InputStreamReader(inputStream)) {
+            return new Gson().fromJson(reader, VersionJson.class);
+        } catch (IOException e) {
             e.printStackTrace();
-            Log.e("JsonUtils","Json File not found.");
+            Log.e(TAG, "Json File not found.");
             ErrorUtils.FileNotFound(file);
             return null;
         }
     }
-    public static VersionJson getVersionFromFile(String filepath){
+
+    public static VersionJson getVersionFromFile(String filepath) {
         return getVersionFromFile(new File(filepath));
     }
 
-    /**【读入assets.json】**/
-    public static AssetsJson getAssetsFromFile(File file){
-        if(file == null){
-            Log.e("JsonUtils","Json File is null.");
+    /**
+     * 【读入assets.json】
+     **/
+    public static AssetsJson getAssetsFromFile(File file) {
+        if (file == null) {
+            Log.e(TAG, "Json File is null.");
             ErrorUtils.FileNotFound(file);
             return null;
         }
-        try {
-            InputStream inputStream = new FileInputStream(file);
-            Reader reader = new InputStreamReader(inputStream);
-            Gson gson = new Gson();
-            //使用Gson将ListVersionManifestJson实例化
-            return gson.fromJson(reader, AssetsJson.class);
-
-        } catch (FileNotFoundException e) {
+        try (InputStream inputStream = new FileInputStream(file);
+             Reader reader = new InputStreamReader(inputStream)) {
+            return new Gson().fromJson(reader, AssetsJson.class);
+        } catch (IOException e) {
             e.printStackTrace();
-            Log.e("JsonUtils","Json File not found.");
+            Log.e(TAG, "Json File not found.");
             ErrorUtils.FileNotFound(file);
             return null;
         }
     }
-    public static AssetsJson getAssetsFromFile(String filepath){
+
+    public static AssetsJson getAssetsFromFile(String filepath) {
         return getAssetsFromFile(new File(filepath));
     }
 }

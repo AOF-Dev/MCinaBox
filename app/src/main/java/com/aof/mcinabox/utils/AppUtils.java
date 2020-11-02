@@ -3,24 +3,24 @@ package com.aof.mcinabox.utils;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class AppUtils {
+    private static final String TAG = "AppUtils";
 
     public static String getAppVersionName(Context context) {
-        String appVersionName = "";
         try {
-            PackageInfo packageInfo = context.getApplicationContext()
-                    .getPackageManager()
+            final PackageInfo packageInfo = context.getPackageManager()
                     .getPackageInfo(context.getPackageName(), 0);
-            appVersionName = packageInfo.versionName;
+            return packageInfo.versionName;
         } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
+            Log.e(TAG, "getAppVersionName: Failed to get app version name.", e);
+            return "Unknown";
         }
-        return appVersionName;
     }
 
     public static String getCpuAbi() {
@@ -28,7 +28,7 @@ public class AppUtils {
                 Runtime.getRuntime().exec("getprop ro.product.cpu.abi").getInputStream()))) {
             return reader.readLine();
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e(TAG, "getCpuAbi: Failed to get CPU ABI.", e);
             return null;
         }
     }
