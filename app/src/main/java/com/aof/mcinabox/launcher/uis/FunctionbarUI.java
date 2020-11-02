@@ -7,7 +7,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aof.mcinabox.R;
-import com.aof.mcinabox.activity.MainActivity;
+import com.aof.mcinabox.activity.OldMainActivity;
 import com.aof.mcinabox.gamecontroller.ckb.CustomizeKeyboardEditorActivity;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
 
@@ -32,8 +32,8 @@ public class FunctionbarUI extends BaseUI {
     @Override
     public void onCreate() {
         super.onCreate();
-        setting = MainActivity.Setting;
-        layout_functionbar = MainActivity.CURRENT_ACTIVITY.findViewById(R.id.layout_functions);
+        setting = OldMainActivity.Setting;
+        layout_functionbar = OldMainActivity.CURRENT_ACTIVITY.findViewById(R.id.layout_functions);
         buttonUser = layout_functionbar.findViewById(R.id.main_button_user);
         buttonPlugin = layout_functionbar.findViewById(R.id.main_button_plugin);
         buttonGamelist = layout_functionbar.findViewById(R.id.main_button_gamelist);
@@ -76,26 +76,26 @@ public class FunctionbarUI extends BaseUI {
         @Override
         public void onClick(View v) {
             if(v == buttonUser){
-                MainActivity.CURRENT_ACTIVITY.switchUIs(MainActivity.CURRENT_ACTIVITY.mUiManager.uiUser,mContext.getString(R.string.title_user));
+                OldMainActivity.CURRENT_ACTIVITY.switchUIs(OldMainActivity.CURRENT_ACTIVITY.mUiManager.uiUser,mContext.getString(R.string.title_user));
             }
             if(v == buttonPlugin){
-                MainActivity.CURRENT_ACTIVITY.switchUIs(MainActivity.CURRENT_ACTIVITY.mUiManager.uiPlugin,mContext.getString(R.string.title_plugin));
+                OldMainActivity.CURRENT_ACTIVITY.switchUIs(OldMainActivity.CURRENT_ACTIVITY.mUiManager.uiPlugin,mContext.getString(R.string.title_plugin));
             }
             if(v == buttonGamelist){
-                MainActivity.CURRENT_ACTIVITY.switchUIs(MainActivity.CURRENT_ACTIVITY.mUiManager.uiGamelist,mContext.getString(R.string.title_game_list));
+                OldMainActivity.CURRENT_ACTIVITY.switchUIs(OldMainActivity.CURRENT_ACTIVITY.mUiManager.uiGamelist,mContext.getString(R.string.title_game_list));
             }
             if(v == buttonGamedir){
-                MainActivity.CURRENT_ACTIVITY.switchUIs(MainActivity.CURRENT_ACTIVITY.mUiManager.uiGamedir,mContext.getString(R.string.title_game_dir));
+                OldMainActivity.CURRENT_ACTIVITY.switchUIs(OldMainActivity.CURRENT_ACTIVITY.mUiManager.uiGamedir,mContext.getString(R.string.title_game_dir));
             }
             if(v == buttonSetting){
-                MainActivity.CURRENT_ACTIVITY.switchUIs(MainActivity.CURRENT_ACTIVITY.mUiManager.uiLauncherSetting,mContext.getString(R.string.title_launcher_setting));
+                OldMainActivity.CURRENT_ACTIVITY.switchUIs(OldMainActivity.CURRENT_ACTIVITY.mUiManager.uiLauncherSetting,mContext.getString(R.string.title_launcher_setting));
             }
             if(v == buttonKeyboard){
                 Intent intent = new Intent(mContext, CustomizeKeyboardEditorActivity.class);
                 mContext.startActivity(intent);
             }
             if(v == buttonHome){
-                MainActivity.CURRENT_ACTIVITY.switchUIs(MainActivity.CURRENT_ACTIVITY.mUiManager.uiStartGame,mContext.getString(R.string.title_home));
+                OldMainActivity.CURRENT_ACTIVITY.switchUIs(OldMainActivity.CURRENT_ACTIVITY.mUiManager.uiStartGame,mContext.getString(R.string.title_home));
             }
         }
     };

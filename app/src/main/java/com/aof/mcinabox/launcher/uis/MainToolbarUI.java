@@ -8,7 +8,7 @@ import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 
 import com.aof.mcinabox.R;
-import com.aof.mcinabox.activity.MainActivity;
+import com.aof.mcinabox.activity.OldMainActivity;
 import com.aof.mcinabox.launcher.lang.LanguageDialog;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.mcinabox.utils.dialog.DialogUtils;
@@ -32,8 +32,8 @@ public class MainToolbarUI extends BaseUI {
     @Override
     public void onCreate() {
         super.onCreate();
-        setting = MainActivity.Setting;
-        layout_toolbar = MainActivity.CURRENT_ACTIVITY.findViewById(R.id.layout_toolbar_main);
+        setting = OldMainActivity.Setting;
+        layout_toolbar = OldMainActivity.CURRENT_ACTIVITY.findViewById(R.id.layout_toolbar_main);
         buttonBack = layout_toolbar.findViewById(R.id.toolbar_button_backfromhere);
         textPosition = layout_toolbar.findViewById(R.id.main_text_showstate);
         buttonHome = layout_toolbar.findViewById(R.id.toolbar_button_backhome);
@@ -50,7 +50,7 @@ public class MainToolbarUI extends BaseUI {
 
     @Override
     public void refreshUI() {
-        if(MainActivity.CURRENT_ACTIVITY.mTipperManager != null && MainActivity.CURRENT_ACTIVITY.mTipperManager.getTipCounts() != 0){
+        if(OldMainActivity.CURRENT_ACTIVITY.mTipperManager != null && OldMainActivity.CURRENT_ACTIVITY.mTipperManager.getTipCounts() != 0){
             buttonInfo.setVisibility(View.VISIBLE);
         }else{
             buttonInfo.setVisibility(View.GONE);
@@ -84,26 +84,26 @@ public class MainToolbarUI extends BaseUI {
                 DialogUtils.createBothChoicesDialog(mContext,mContext.getString(R.string.title_warn),mContext.getString(R.string.tips_going_to_restart_app),mContext.getString(R.string.title_continue),mContext.getString(R.string.title_cancel),new DialogSupports(){
                     @Override
                     public void runWhenPositive(){
-                        MainActivity.CURRENT_ACTIVITY.restarter();
+                        OldMainActivity.CURRENT_ACTIVITY.restarter();
                     }
                 });
             }
             if (v == buttonBack) {
-                MainActivity.CURRENT_ACTIVITY.backFromHere();
+                OldMainActivity.CURRENT_ACTIVITY.backFromHere();
             }
             if (v == buttonHome) {
-                MainActivity.CURRENT_ACTIVITY.switchUIs(MainActivity.CURRENT_ACTIVITY.mUiManager.uiStartGame, mContext.getString(R.string.title_home));
+                OldMainActivity.CURRENT_ACTIVITY.switchUIs(OldMainActivity.CURRENT_ACTIVITY.mUiManager.uiStartGame, mContext.getString(R.string.title_home));
             }
             if (v == buttonLanguage) {
                 new LanguageDialog(mContext).show();
             }
             if(v == buttonInfo){
-                MainActivity.CURRENT_ACTIVITY.mTipperManager.showTipper(buttonInfo);
+                OldMainActivity.CURRENT_ACTIVITY.mTipperManager.showTipper(buttonInfo);
             }
         }
     };
 
     private void setToolbarAsActionbar() {
-        MainActivity.CURRENT_ACTIVITY.setSupportActionBar(layout_toolbar);
+        OldMainActivity.CURRENT_ACTIVITY.setSupportActionBar(layout_toolbar);
     }
 }

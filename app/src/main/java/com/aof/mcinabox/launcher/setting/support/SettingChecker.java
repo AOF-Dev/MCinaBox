@@ -3,7 +3,7 @@ package com.aof.mcinabox.launcher.setting.support;
 import android.content.Context;
 
 import com.aof.mcinabox.R;
-import com.aof.mcinabox.activity.MainActivity;
+import com.aof.mcinabox.activity.OldMainActivity;
 import cosine.boat.definitions.manifest.AppManifest;
 import com.aof.mcinabox.launcher.download.authlib.Request;
 import com.aof.mcinabox.launcher.runtime.RuntimeManager;
@@ -33,12 +33,12 @@ public class SettingChecker {
     public SettingChecker(Context context, SettingJson setting, TipperManager manager){
         this.mContext = context;
         if(setting == null){
-            mSetting = MainActivity.Setting;
+            mSetting = OldMainActivity.Setting;
         }else{
             mSetting = setting;
         }
         if(manager == null){
-            mTipperManager = MainActivity.CURRENT_ACTIVITY.mTipperManager;
+            mTipperManager = OldMainActivity.CURRENT_ACTIVITY.mTipperManager;
         }else{
             mTipperManager = manager;
         }

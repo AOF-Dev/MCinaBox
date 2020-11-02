@@ -34,7 +34,7 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void startApp() {
-        Intent i = new Intent(this, MainActivity.class);
+        Intent i = new Intent(this, OldMainActivity.class);
         startActivity(i);
         finishAffinity();
     }

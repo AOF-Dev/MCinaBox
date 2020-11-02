@@ -2,7 +2,7 @@ package com.aof.mcinabox.launcher.download.support;
 
 import android.util.Log;
 
-import com.aof.mcinabox.activity.MainActivity;
+import com.aof.mcinabox.activity.OldMainActivity;
 import cosine.boat.definitions.manifest.AppManifest;
 import com.aof.mcinabox.launcher.launch.support.Utils;
 import com.aof.mcinabox.minecraft.json.AssetsJson;
@@ -33,7 +33,7 @@ public class DownloadSupport {
     }
 
     private String getSourceName(){
-        return MainActivity.Setting.getDownloadType();
+        return OldMainActivity.Setting.getDownloadType();
     }
 
     /**【创建version_manifest.json下载任务】**/

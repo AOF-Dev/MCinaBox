@@ -12,7 +12,7 @@ import android.widget.TextView;
 import androidx.appcompat.widget.SwitchCompat;
 
 import com.aof.mcinabox.R;
-import com.aof.mcinabox.activity.MainActivity;
+import com.aof.mcinabox.activity.OldMainActivity;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.mcinabox.utils.MemoryUtils;
 
@@ -49,8 +49,8 @@ public class GameSettingUI extends BaseUI implements SwitchCompat.OnCheckedChang
     @Override
     public void onCreate() {
         super.onCreate();
-        setting = MainActivity.Setting;
-        layout_gamesetting = MainActivity.CURRENT_ACTIVITY.findViewById(R.id.layout_gamelist_setting);
+        setting = OldMainActivity.Setting;
+        layout_gamesetting = OldMainActivity.CURRENT_ACTIVITY.findViewById(R.id.layout_gamelist_setting);
         textPhysicalMem = layout_gamesetting.findViewById(R.id.game_setting_text_memory);
         editMaxMem = layout_gamesetting.findViewById(R.id.setting_edit_maxmemory);
         editJavaExtArgs = layout_gamesetting.findViewById(R.id.setting_edit_javaargs);

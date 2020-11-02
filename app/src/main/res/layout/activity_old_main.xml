@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_main"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background"
+    tools:context=".activity.OldMainActivity">
+
+    <!--  =====================================以下是顶部工具栏===================================== -->
+
+    <include
+        android:id="@+id/layout_toolbar_main"
+        layout="@layout/ui_toolbar_main"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <!-- ========================================开始游戏栏======================================== -->
+
+    <include
+        android:id="@+id/layout_startgame"
+        layout="@layout/ui_startgame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="40dp"
+        android:visibility="visible"
+        android:elevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!--  ========================================左侧功能栏===================================== -->
+
+    <include
+        android:id="@+id/layout_functions"
+        layout="@layout/ui_functionbar"
+        android:layout_width="180dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="30dp"
+        android:elevation="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_toolbar_main" />
+
+    <!--  ===============================以下是用户界面 and 它的功能区===================================== -->
+    <!-- 用户界面 -->
+
+    <include
+        android:id="@+id/layout_user"
+        layout="@layout/ui_user"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/layout_functions"
+        app:layout_constraintTop_toBottomOf="@id/layout_toolbar_main" />
+
+    <!--  ===============================插件界面===================================== -->
+    <!--插件界面-->
+
+    <include
+        android:id="@+id/layout_plugin"
+        layout="@layout/ui_plugin"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/layout_functions"
+        app:layout_constraintTop_toBottomOf="@id/layout_toolbar_main" />
+
+    <!--  ===============================以下是游戏列表界面 and 它的功能区================================= -->
+    <!-- 游戏列表界面 -->
+
+    <include
+        android:id="@+id/layout_gamelist"
+        layout="@layout/ui_gamelist"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/layout_functions"
+        app:layout_constraintTop_toBottomOf="@id/layout_toolbar_main" />
+
+    <!-- 游戏列表-安装新游戏版本-->
+
+    <include
+        android:id="@+id/layout_gamelist_install"
+        layout="@layout/ui_install_version"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/layout_functions"
+        app:layout_constraintTop_toBottomOf="@id/layout_toolbar_main" />
+
+    <!-- 游戏列表-全局游戏设置-->
+
+    <include
+        android:id="@+id/layout_gamelist_setting"
+        layout="@layout/ui_gamesetting"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/layout_functions"
+        app:layout_constraintTop_toBottomOf="@id/layout_toolbar_main" />
+
+    <!--  ===============================游戏目录界面===================================== -->
+    <!-- 游戏目录界面 -->
+
+    <include
+        android:id="@+id/layout_gamedir"
+        layout="@layout/ui_gamedir"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/layout_functions"
+        app:layout_constraintTop_toBottomOf="@id/layout_toolbar_main" />
+
+    <!--  ===============================启动器设置界面===================================== -->
+    <!-- 启动器设置界面 -->
+
+    <include
+        android:id="@+id/layout_launchersetting"
+        layout="@layout/ui_setting"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/layout_functions"
+        app:layout_constraintTop_toBottomOf="@id/layout_toolbar_main" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

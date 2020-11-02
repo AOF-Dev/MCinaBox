@@ -6,7 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 
 import com.aof.mcinabox.R;
-import com.aof.mcinabox.activity.MainActivity;
+import com.aof.mcinabox.activity.OldMainActivity;
 import cosine.boat.definitions.manifest.AppManifest;
 import com.aof.mcinabox.launcher.download.DownloadManager;
 import com.aof.mcinabox.launcher.download.support.DownloadHelper;
@@ -37,7 +37,7 @@ public class Request {
     private Exception mException;
 
     public Request(Context context){
-        this(context, MainActivity.Setting);
+        this(context, OldMainActivity.Setting);
     }
 
     public Request(Context context, SettingJson setting){

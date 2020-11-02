@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.aof.mcinabox.R;
-import com.aof.mcinabox.activity.MainActivity;
+import com.aof.mcinabox.activity.OldMainActivity;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.mcinabox.launcher.user.CreateUserDialog;
 import com.aof.mcinabox.launcher.user.support.UserListAdapter;
@@ -32,9 +32,9 @@ public class UserUI extends BaseUI {
     @Override
     public void onCreate() {
         super.onCreate();
-        setting = MainActivity.Setting;
+        setting = OldMainActivity.Setting;
         showAnim = AnimationUtils.loadAnimation(mContext, R.anim.layout_show);
-        layout_user = MainActivity.CURRENT_ACTIVITY.findViewById(R.id.layout_user);
+        layout_user = OldMainActivity.CURRENT_ACTIVITY.findViewById(R.id.layout_user);
         buttonCreateUser = layout_user.findViewById(R.id.layout_user_adduser);
         buttonRefreshUserList = layout_user.findViewById(R.id.layout_user_reflash_userlist);
         listUsers = layout_user.findViewById(R.id.list_user);
@@ -82,7 +82,7 @@ public class UserUI extends BaseUI {
     };
 
     public void reloadListView(){
-        for(SettingJson.Account account : MainActivity.Setting.getAccounts()){
+        for(SettingJson.Account account : OldMainActivity.Setting.getAccounts()){
             if(account != null){
                 usersList.add(account);
             }
@@ -99,7 +99,7 @@ public class UserUI extends BaseUI {
         }else{
             usersList.clear();
         }
-        for(SettingJson.Account account : MainActivity.Setting.getAccounts()){
+        for(SettingJson.Account account : OldMainActivity.Setting.getAccounts()){
             if(account != null){
                 usersList.add(account);
             }

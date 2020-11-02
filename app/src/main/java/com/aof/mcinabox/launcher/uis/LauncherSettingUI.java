@@ -14,7 +14,7 @@ import android.widget.Spinner;
 import androidx.appcompat.widget.SwitchCompat;
 
 import com.aof.mcinabox.R;
-import com.aof.mcinabox.activity.MainActivity;
+import com.aof.mcinabox.activity.OldMainActivity;
 import cosine.boat.definitions.manifest.AppManifest;
 import com.aof.mcinabox.launcher.runtime.RuntimeManager;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
@@ -49,9 +49,9 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
     @Override
     public void onCreate() {
         super.onCreate();
-        setting = MainActivity.Setting;
+        setting = OldMainActivity.Setting;
         showAnim = AnimationUtils.loadAnimation(mContext, R.anim.layout_show);
-        layout_setting = MainActivity.CURRENT_ACTIVITY.findViewById(R.id.layout_launchersetting);
+        layout_setting = OldMainActivity.CURRENT_ACTIVITY.findViewById(R.id.layout_launchersetting);
         listDownloaderSources = layout_setting.findViewById(R.id.setting_spinner_downloadtype);
         buttonImportRuntime = layout_setting.findViewById(R.id.launchersetting_button_import);
         buttonInstallForge = layout_setting.findViewById(R.id.launchersetting_button_forgeinstaller);
@@ -76,13 +76,13 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
 
         //调用主题管理器设定主题
         if(setting.isBackgroundAutoSwitch()){
-            if(!MainActivity.CURRENT_ACTIVITY.mThemeManager.autoSetBackground(MainActivity.CURRENT_ACTIVITY.findViewById(R.id.layout_main))){
+            if(!OldMainActivity.CURRENT_ACTIVITY.mThemeManager.autoSetBackground(OldMainActivity.CURRENT_ACTIVITY.findViewById(R.id.layout_main))){
                 DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_error), mContext.getString(R.string.tips_failed_to_change_backfround_pic_is_broken),mContext.getString(R.string.title_ok),null);
             }
         }
 
         if(setting.isFullscreen()){
-            MainActivity.CURRENT_ACTIVITY.mThemeManager.setFullScreen(MainActivity.CURRENT_ACTIVITY,true);
+            OldMainActivity.CURRENT_ACTIVITY.mThemeManager.setFullScreen(OldMainActivity.CURRENT_ACTIVITY,true);
         }
 
     }
@@ -229,9 +229,9 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
 
         if(buttonView == switchFullscreen){
             if(isChecked){
-                MainActivity.CURRENT_ACTIVITY.mThemeManager.setFullScreen(MainActivity.CURRENT_ACTIVITY,true);
+                OldMainActivity.CURRENT_ACTIVITY.mThemeManager.setFullScreen(OldMainActivity.CURRENT_ACTIVITY,true);
             }else{
-                MainActivity.CURRENT_ACTIVITY.mThemeManager.setFullScreen(MainActivity.CURRENT_ACTIVITY,false);
+                OldMainActivity.CURRENT_ACTIVITY.mThemeManager.setFullScreen(OldMainActivity.CURRENT_ACTIVITY,false);
                 DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_note),mContext.getString(R.string.tips_successed_to_disable_hide_stat_bar),mContext.getString(R.string.title_ok),null);
             }
             setting.setFullscreen(isChecked);

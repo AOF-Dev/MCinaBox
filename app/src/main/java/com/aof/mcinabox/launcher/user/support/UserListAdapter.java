@@ -12,7 +12,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.aof.mcinabox.R;
-import com.aof.mcinabox.activity.MainActivity;
+import com.aof.mcinabox.activity.OldMainActivity;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.mcinabox.launcher.user.UserManager;
 import com.aof.mcinabox.utils.dialog.DialogUtils;
@@ -200,9 +200,9 @@ public class UserListAdapter extends BaseAdapter {
         holder.buttonDel.setOnClickListener(v -> DialogUtils.createBothChoicesDialog(context, context.getString(R.string.title_warn), context.getString(R.string.tips_warning_delect_user), context.getString(R.string.title_ok), context.getString(R.string.title_cancel), new DialogSupports() {
             @Override
             public void runWhenPositive() {
-                UserManager.removeAccount(MainActivity.Setting, userlist.get(position).getUsername());
+                UserManager.removeAccount(OldMainActivity.Setting, userlist.get(position).getUsername());
                 //删除后重置用户列表
-                MainActivity.CURRENT_ACTIVITY.mUiManager.uiUser.reloadListView();
+                OldMainActivity.CURRENT_ACTIVITY.mUiManager.uiUser.reloadListView();
             }
         }));
 

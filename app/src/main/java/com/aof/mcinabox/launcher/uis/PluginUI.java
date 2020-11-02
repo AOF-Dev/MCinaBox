@@ -8,7 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.aof.mcinabox.R;
-import com.aof.mcinabox.activity.MainActivity;
+import com.aof.mcinabox.activity.OldMainActivity;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
 
 public class PluginUI extends BaseUI {
@@ -27,9 +27,9 @@ public class PluginUI extends BaseUI {
     @Override
     public void onCreate( ) {
         super.onCreate();
-        setting = MainActivity.Setting;
+        setting = OldMainActivity.Setting;
         showAnim = AnimationUtils.loadAnimation(mContext, R.anim.layout_show);
-        lagout_plugin = MainActivity.CURRENT_ACTIVITY.findViewById(R.id.layout_plugin);
+        lagout_plugin = OldMainActivity.CURRENT_ACTIVITY.findViewById(R.id.layout_plugin);
         buttonAddPlugin = lagout_plugin.findViewById(R.id.plugin_button_addplugin);
         buttonRefresh = lagout_plugin.findViewById(R.id.plugin_button_refresh);
         listPlugins = lagout_plugin.findViewById(R.id.listview_plugins);

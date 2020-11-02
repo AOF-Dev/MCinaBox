@@ -4,7 +4,7 @@ import android.content.Context;
 import android.view.View;
 
 import com.aof.mcinabox.R;
-import com.aof.mcinabox.activity.MainActivity;
+import com.aof.mcinabox.activity.OldMainActivity;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.mcinabox.launcher.uis.BaseUI;
 import com.aof.mcinabox.launcher.uis.FunctionbarUI;
@@ -65,7 +65,7 @@ public class UiManager {
 
     public void backFromHere() {
         if (currentUI == uiStartGame || currentUI == null) {
-            MainActivity.CURRENT_ACTIVITY.finish();
+            OldMainActivity.CURRENT_ACTIVITY.finish();
         }
 
         if (currentUI == uiGamedir ||

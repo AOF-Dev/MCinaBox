@@ -12,6 +12,10 @@ android {
         versionName '0.1.4-p4'
     }
 
+    buildFeatures {
+        viewBinding true
+    }
+
     buildTypes {
         release {
             minifyEnabled false

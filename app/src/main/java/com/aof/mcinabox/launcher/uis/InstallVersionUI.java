@@ -11,7 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aof.mcinabox.R;
-import com.aof.mcinabox.activity.MainActivity;
+import com.aof.mcinabox.activity.OldMainActivity;
 import com.aof.mcinabox.launcher.download.DownloadManager;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.mcinabox.minecraft.json.VersionManifestJson;
@@ -46,8 +46,8 @@ public class InstallVersionUI extends BaseUI implements RadioGroup.OnCheckedChan
     @Override
     public void onCreate() {
         super.onCreate();
-        setting = MainActivity.Setting;
-        layout_installversion = MainActivity.CURRENT_ACTIVITY.findViewById(R.id.layout_gamelist_install);
+        setting = OldMainActivity.Setting;
+        layout_installversion = OldMainActivity.CURRENT_ACTIVITY.findViewById(R.id.layout_gamelist_install);
         buttonBack = layout_installversion.findViewById(R.id.gamelist_button_backfrom_installnewversion);
         buttonRefresh = layout_installversion.findViewById(R.id.gamelist_button_refresh);
         textSelectedVersion = layout_installversion.findViewById(R.id.gamelist_text_show_selectedversion);
@@ -185,7 +185,7 @@ public class InstallVersionUI extends BaseUI implements RadioGroup.OnCheckedChan
         @Override
         public void onClick(View v) {
             if (v == buttonBack) {
-                MainActivity.CURRENT_ACTIVITY.backFromHere();
+                OldMainActivity.CURRENT_ACTIVITY.backFromHere();
             }
             if (v == buttonRefresh) {
                 mDownloadManager.downloadManifestAndUpdateGameListUi(mDownloadManager.new Runable() {

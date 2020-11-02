@@ -2,7 +2,7 @@ package com.aof.mcinabox.launcher.user;
 
 import android.content.Context;
 
-import com.aof.mcinabox.activity.MainActivity;
+import com.aof.mcinabox.activity.OldMainActivity;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.mcinabox.utils.FileTool;
 
@@ -60,7 +60,7 @@ public class UserManager {
 
         accounts[a] = account;
         setting.setAccounts(accounts);
-        MainActivity.CURRENT_ACTIVITY.mUiManager.uiUser.reloadListView();
+        OldMainActivity.CURRENT_ACTIVITY.mUiManager.uiUser.reloadListView();
         return true;
     }
 
@@ -146,8 +146,8 @@ public class UserManager {
     }
 
     public static void setAccountSelected(String username){
-        SettingJson.Account a = getAccountByUsername(MainActivity.Setting,username);
-        for(SettingJson.Account account : MainActivity.Setting.getAccounts()){
+        SettingJson.Account a = getAccountByUsername(OldMainActivity.Setting,username);
+        for(SettingJson.Account account : OldMainActivity.Setting.getAccounts()){
             account.setSelected(account == a);
         }
     }

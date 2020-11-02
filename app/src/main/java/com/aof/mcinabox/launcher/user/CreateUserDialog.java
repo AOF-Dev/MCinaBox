@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.aof.mcinabox.R;
-import com.aof.mcinabox.activity.MainActivity;
+import com.aof.mcinabox.activity.OldMainActivity;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.mcinabox.launcher.user.support.AuthenticateResponse;
 import com.aof.mcinabox.launcher.user.support.LoginServer;
@@ -111,7 +111,7 @@ public class CreateUserDialog extends Dialog implements View.OnClickListener, Ch
         String username = editUsername.getText().toString();
         String server = editServer.getText().toString();
         //检查用户名
-        for(String str : UserManager.getUsersName(MainActivity.Setting)){
+        for(String str : UserManager.getUsersName(OldMainActivity.Setting)){
             if (str.equals(username)){
                 PromptUtils.createPrompt(mContext, mContext.getString(R.string.tips_the_user_has_been_created));
                 return false;
@@ -161,7 +161,7 @@ public class CreateUserDialog extends Dialog implements View.OnClickListener, Ch
                                 account.setUuid(response.availableProfiles[pos].id);
                                 account.setUsername(response.availableProfiles[pos].name);
                                 account.setSelected(false);
-                                UserManager.addAccount(MainActivity.Setting, account);
+                                UserManager.addAccount(OldMainActivity.Setting, account);
                             }
                         });
                     }else{
@@ -169,7 +169,7 @@ public class CreateUserDialog extends Dialog implements View.OnClickListener, Ch
                         account.setUuid(response.selectedProfile.id);
                         account.setUsername(response.selectedProfile.name);
                         account.setSelected(false);
-                        UserManager.addAccount(MainActivity.Setting, account);
+                        UserManager.addAccount(OldMainActivity.Setting, account);
                     }
                 }
 
@@ -190,7 +190,7 @@ public class CreateUserDialog extends Dialog implements View.OnClickListener, Ch
             }).login(username, password);
             return true;
         }else{
-            UserManager.addAccount(MainActivity.Setting,UserManager.getOfflineAccount(username));
+            UserManager.addAccount(OldMainActivity.Setting,UserManager.getOfflineAccount(username));
         }
         return true;
     }

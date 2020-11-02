@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.aof.mcinabox.R;
-import com.aof.mcinabox.activity.MainActivity;
+import com.aof.mcinabox.activity.OldMainActivity;
 import com.aof.mcinabox.launcher.launch.LaunchManager;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.mcinabox.launcher.uis.support.Utils;
@@ -32,8 +32,8 @@ public class StartGameUI extends BaseUI implements Spinner.OnItemSelectedListene
     @Override
     public void onCreate() {
         super.onCreate();
-        setting = MainActivity.Setting;
-        layout_startgame = MainActivity.CURRENT_ACTIVITY.findViewById(R.id.layout_startgame);
+        setting = OldMainActivity.Setting;
+        layout_startgame = OldMainActivity.CURRENT_ACTIVITY.findViewById(R.id.layout_startgame);
         buttonStartGame = layout_startgame.findViewById(R.id.main_button_startgame);
         listVersions = layout_startgame.findViewById(R.id.spinner_choice_version);
 
@@ -101,7 +101,7 @@ public class StartGameUI extends BaseUI implements Spinner.OnItemSelectedListene
      * 【启动Minecraft】
      **/
     private void startMinecraft() {
-        new LaunchManager(mContext).launchMinecraft(MainActivity.Setting ,LaunchManager.LAUNCH_PRECHECK);
+        new LaunchManager(mContext).launchMinecraft(OldMainActivity.Setting ,LaunchManager.LAUNCH_PRECHECK);
     }
 
     /**

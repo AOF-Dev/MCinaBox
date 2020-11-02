@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.aof.mcinabox.R;
-import com.aof.mcinabox.activity.MainActivity;
+import com.aof.mcinabox.activity.OldMainActivity;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.mcinabox.launcher.version.VersionManager;
 import com.aof.mcinabox.launcher.version.support.LocalVersionListAdapter;
@@ -34,9 +34,9 @@ public class GamelistUI extends BaseUI {
     @Override
     public void onCreate() {
         super.onCreate();
-        setting = MainActivity.Setting;
+        setting = OldMainActivity.Setting;
         showAnim = AnimationUtils.loadAnimation(mContext, R.anim.layout_show);
-        layout_gamelist = MainActivity.CURRENT_ACTIVITY.findViewById(R.id.layout_gamelist);
+        layout_gamelist = OldMainActivity.CURRENT_ACTIVITY.findViewById(R.id.layout_gamelist);
         buttonInstallGame = layout_gamelist.findViewById(R.id.gamelist_button_installnewgame);
         buttonRefreshList = layout_gamelist.findViewById(R.id.gamelist_button_reflash_locallist);
         buttonGameSetting = layout_gamelist.findViewById(R.id.gamelist_button_setting);
@@ -76,10 +76,10 @@ public class GamelistUI extends BaseUI {
         @Override
         public void onClick(View v) {
             if(v == buttonGameSetting) {
-                MainActivity.CURRENT_ACTIVITY.switchUIs(MainActivity.CURRENT_ACTIVITY.mUiManager.uiGameSetting, mContext.getString(R.string.title_game_global_setting) + " - " + mContext.getString(R.string.title_game_list));
+                OldMainActivity.CURRENT_ACTIVITY.switchUIs(OldMainActivity.CURRENT_ACTIVITY.mUiManager.uiGameSetting, mContext.getString(R.string.title_game_global_setting) + " - " + mContext.getString(R.string.title_game_list));
             }
             if(v == buttonInstallGame){
-                MainActivity.CURRENT_ACTIVITY.switchUIs(MainActivity.CURRENT_ACTIVITY.mUiManager.uiInstallVersion,mContext.getString(R.string.title_install_new_version) + " - " + mContext.getString(R.string.title_game_list));
+                OldMainActivity.CURRENT_ACTIVITY.switchUIs(OldMainActivity.CURRENT_ACTIVITY.mUiManager.uiInstallVersion,mContext.getString(R.string.title_install_new_version) + " - " + mContext.getString(R.string.title_game_list));
             }
             if(v == buttonRefreshList){
                 refreshLocalVersionList();

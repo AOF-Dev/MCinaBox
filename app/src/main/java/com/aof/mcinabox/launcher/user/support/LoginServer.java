@@ -8,7 +8,7 @@ import android.os.Message;
 import android.util.Base64;
 
 import com.aof.mcinabox.R;
-import com.aof.mcinabox.activity.MainActivity;
+import com.aof.mcinabox.activity.OldMainActivity;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.mcinabox.launcher.user.UserManager;
 import com.google.gson.Gson;
@@ -55,11 +55,11 @@ public class LoginServer {
     }
 
     public LoginServer(String url) {
-        this(url,MainActivity.CURRENT_ACTIVITY);
+        this(url, OldMainActivity.CURRENT_ACTIVITY);
     }
 
     public LoginServer(SettingJson.Account account) {
-        this(account, MainActivity.CURRENT_ACTIVITY);
+        this(account, OldMainActivity.CURRENT_ACTIVITY);
     }
 
     public LoginServer(SettingJson.Account account, Context context){
@@ -154,7 +154,7 @@ public class LoginServer {
                     account.setApiUrl(response.request().url().toString());
                     verifyServer();
                     data.putString(OUTPUT_TYPE, TYPE_VERIFY_SERVER);
-                    data.putString(OUTPUT_RESULT, MainActivity.CURRENT_ACTIVITY.getResources().getString(R.string.tips_redirecting));
+                    data.putString(OUTPUT_RESULT, OldMainActivity.CURRENT_ACTIVITY.getResources().getString(R.string.tips_redirecting));
                 }else {
                     if(response.code() == 200) data.putString(OUTPUT_TYPE, TYPE_VERIFY_SERVER);
                     else data.putString(OUTPUT_TYPE, TYPE_ERROR);

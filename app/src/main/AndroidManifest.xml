@@ -19,9 +19,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.SplashActivity"
-            android:theme="@style/SplashTheme"
-            android:screenOrientation="sensorLandscape">
+        <activity android:name=".activity.MainActivity"></activity>
+        <activity
+            android:name=".activity.SplashActivity"
+            android:screenOrientation="sensorLandscape"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,7 +35,7 @@
             android:configChanges="orientation|keyboardHidden|keyboard|navigation"
             android:screenOrientation="sensorLandscape" />
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.OldMainActivity"
             android:configChanges="screenSize|keyboard|navigation|orientation|keyboardHidden"
             android:screenOrientation="sensorLandscape" />
         <activity

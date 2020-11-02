@@ -6,7 +6,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.aof.mcinabox.activity.MainActivity;
+import com.aof.mcinabox.activity.OldMainActivity;
 import com.aof.mcinabox.launcher.lang.support.LanguageUtils;
 
 public class LangManager {
@@ -56,6 +56,6 @@ public class LangManager {
     }
 
     private void restartActivity(){
-        MainActivity.CURRENT_ACTIVITY.restarter();
+        OldMainActivity.CURRENT_ACTIVITY.restarter();
     }
 }

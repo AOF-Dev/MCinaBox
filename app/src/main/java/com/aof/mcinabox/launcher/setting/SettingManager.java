@@ -3,7 +3,7 @@ package com.aof.mcinabox.launcher.setting;
 import android.content.Context;
 import android.util.Log;
 
-import com.aof.mcinabox.activity.MainActivity;
+import com.aof.mcinabox.activity.OldMainActivity;
 import com.aof.mcinabox.launcher.setting.support.SettingChecker;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.google.gson.Gson;
@@ -63,7 +63,7 @@ public class SettingManager {
     /**【保存mcinabox.json文件】**/
     public void saveSettingToFile(){
         Gson gson = new Gson();
-        String jsonString = gson.toJson(MainActivity.Setting);
+        String jsonString = gson.toJson(OldMainActivity.Setting);
         try {
             FileWriter jsonWriter = new FileWriter(settingFile);
             BufferedWriter out = new BufferedWriter(jsonWriter);
