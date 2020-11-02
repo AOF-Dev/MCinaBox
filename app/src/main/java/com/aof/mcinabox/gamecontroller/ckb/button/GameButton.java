@@ -284,7 +284,7 @@ public class GameButton extends androidx.appcompat.widget.AppCompatButton implem
     public boolean setKeyName(String str){
         if(str != null){
             this.setText(str);
-            this.keyName = new String(str);
+            this.keyName = str;
             return true;
         }else{
             return false;

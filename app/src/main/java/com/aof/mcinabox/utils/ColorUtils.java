@@ -14,8 +14,8 @@ public class ColorUtils {
      * return Color的16进制颜色值——#3FE2C5
      * */
     public static String int2Hex(int colorInt){
-        String hexCode = "";
-        hexCode = String.format("#%06X", Integer.valueOf(16777215 & colorInt));
+        String hexCode;
+        hexCode = String.format("#%06X", 16777215 & colorInt);
         return hexCode;
     }
 
@@ -24,20 +24,19 @@ public class ColorUtils {
      * return Color的16进制颜色值——#3FE2C5
      * */
     public static String int2Hex2(int colorInt){
-        String hexCode = "";
+        String hexCode;
         int[] rgb = int2Rgb(colorInt);
         hexCode = rgb2Hex(rgb);
         return hexCode;
     }
 
     public static String int2Hex3(int colorInt){
-        StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append("#");
-        stringBuffer.append(intToHex(Color.alpha(colorInt),2));
-        stringBuffer.append(intToHex(Color.red(colorInt),2));
-        stringBuffer.append(intToHex(Color.green(colorInt),2));
-        stringBuffer.append(intToHex(Color.blue(colorInt),2));
-        return stringBuffer.toString();
+        String stringBuffer = "#" +
+                intToHex(Color.alpha(colorInt), 2) +
+                intToHex(Color.red(colorInt), 2) +
+                intToHex(Color.green(colorInt), 2) +
+                intToHex(Color.blue(colorInt), 2);
+        return stringBuffer;
     }
 
     private static String intToHex(int n,int size) {
@@ -85,20 +84,20 @@ public class ColorUtils {
      * return Color的16进制颜色值——#3FE2C5
      * */
     public static String rgb2Hex(int[] rgb){
-        String hexCode="#";
-        for(int i=0;i<rgb.length;i++){
-            int rgbItem = rgb[i];
-            if(rgbItem < 0){
+        StringBuilder hexCode= new StringBuilder("#");
+        for (int value : rgb) {
+            int rgbItem = value;
+            if (rgbItem < 0) {
                 rgbItem = 0;
-            }else if(rgbItem > 255){
+            } else if (rgbItem > 255) {
                 rgbItem = 255;
             }
-            String[] code = {"0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F"};
+            String[] code = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"};
             int lCode = rgbItem / 16;//先获取商，例如，255 / 16 == 15
             int rCode = rgbItem % 16;//再获取余数，例如，255 % 16 == 15
-            hexCode += code[lCode] + code[rCode];//FF
+            hexCode.append(code[lCode]).append(code[rCode]);//FF
         }
-        return hexCode;
+        return hexCode.toString();
     }
     /**Color的16进制颜色值 转 Color的Int整型
      * colorHex - Color的16进制颜色值——#3FE2C5
@@ -129,7 +128,7 @@ public class ColorUtils {
      * return colorInt - -12590395
      * */
     public static int rgb2Int(int[] rgb){
-        int colorInt = 0;
+        int colorInt;
         colorInt = Color.rgb(rgb[0],rgb[1],rgb[2]);
         return colorInt;
     }

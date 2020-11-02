@@ -68,7 +68,7 @@ public class ZipUtils {
                 try {
                     ZipInputStream inZip = new ZipInputStream(new FileInputStream(zipFileString));
                     ZipEntry zipEntry;
-                    String szName = "";
+                    String szName;
                     while ((zipEntry = inZip.getNextEntry()) != null) {
                         szName = zipEntry.getName();
                         if (zipEntry.isDirectory()) {

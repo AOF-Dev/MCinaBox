@@ -559,7 +559,7 @@ class OnscreenMouseConfigDialog extends Dialog implements View.OnClickListener, 
             int p = progress + MIN_SHEEL_SPEED_PROGRESS;
             textWheelSpeed.setText(String.valueOf(p));
             //设置滚轮速度
-            ((OnscreenMouse) mInput).setWheelSpeed((int) (OnscreenMouse.DEFAULT_WHEEL_SPEED / p));
+            ((OnscreenMouse) mInput).setWheelSpeed(OnscreenMouse.DEFAULT_WHEEL_SPEED / p);
         }
     }
 

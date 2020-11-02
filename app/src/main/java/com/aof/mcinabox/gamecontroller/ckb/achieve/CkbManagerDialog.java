@@ -91,7 +91,7 @@ public class CkbManagerDialog extends Dialog implements View.OnClickListener, Co
 
         //是否显示模式选项
         if(mManager.getController() == null){
-            ((LinearLayout)findViewById(R.id.input_customize_keyboard_dialog_layout_mode)).setVisibility(View.GONE);
+            findViewById(R.id.input_customize_keyboard_dialog_layout_mode).setVisibility(View.GONE);
         }
 
     }
@@ -246,12 +246,7 @@ public class CkbManagerDialog extends Dialog implements View.OnClickListener, Co
     }
 
     public void setButtonCounts(final int counts){
-        this.textButtonSum.post(new Runnable() {
-            @Override
-            public void run() {
-                textButtonSum.setText(String.valueOf(counts));
-            }
-        });
+        this.textButtonSum.post(() -> textButtonSum.setText(String.valueOf(counts)));
     }
 
     private Timer mTimer;

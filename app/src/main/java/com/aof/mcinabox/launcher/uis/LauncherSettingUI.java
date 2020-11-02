@@ -128,7 +128,7 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
                 String[] files;
                 final String[] tmp2;
                 if(tmp.size() != 0){
-                    files = tmp.toArray(new String[tmp.size()]);
+                    files = tmp.toArray(new String[0]);
                     tmp2 = new String[Objects.requireNonNull(files).length + 1];
                     System.arraycopy(files,0,tmp2,1,files.length);
                 }else{

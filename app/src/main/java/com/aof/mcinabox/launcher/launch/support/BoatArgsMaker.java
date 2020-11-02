@@ -297,8 +297,8 @@ public class BoatArgsMaker {
         SettingJson.Account account = UserManager.getSelectedAccount(mSetting);
 
         if(account.getType().equals(SettingJson.USER_TYPE_EXTERNAL)) {
-            args.append("-javaagent:" + AppManifest.AUTHLIB_INJETOR_JAR + "=" + account.getApiUrl());
-            args.append(" -Dauthlibinjector.yggdrasil.prefetched=" + account.getApiMeta());
+            args.append("-javaagent:").append(AppManifest.AUTHLIB_INJETOR_JAR).append("=").append(account.getApiUrl());
+            args.append(" -Dauthlibinjector.yggdrasil.prefetched=").append(account.getApiMeta());
             return args.toString();
         }
         return null;

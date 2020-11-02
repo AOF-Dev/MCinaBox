@@ -68,7 +68,7 @@ public final class BoatUtils {
     }
 
     public static boolean writeFile(File file, String str) {
-        boolean retval = false;
+        boolean retval;
         retval = BoatUtils.writeFile(file, str.getBytes(StandardCharsets.UTF_8));
         return retval;
     }
@@ -83,7 +83,7 @@ public final class BoatUtils {
         try (FileOutputStream fos = new FileOutputStream(targetFile);
              InputStream is = am.open(src)) {
             byte[] buf = new byte[1024];
-            int count = 0;
+            int count;
             while ((count = is.read(buf)) != -1) {
                 fos.write(buf, 0, count);
             }

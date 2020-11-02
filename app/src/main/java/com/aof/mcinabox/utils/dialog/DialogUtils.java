@@ -2,18 +2,13 @@ package com.aof.mcinabox.utils.dialog;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.aof.mcinabox.utils.dialog.support.DialogSupports;
 import com.flask.colorpicker.ColorPickerView;
-import com.flask.colorpicker.OnColorSelectedListener;
-import com.flask.colorpicker.builder.ColorPickerClickListener;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
-
-import java.util.ArrayList;
 
 import zhou.tools.fileselector.FileSelectorAlertDialog;
 import zhou.tools.fileselector.config.FileConfig;
@@ -30,23 +25,17 @@ public class DialogUtils {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(title);
         builder.setMessage(message);
-        builder.setPositiveButton(positiveButtonName, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (support != null) {
-                    support.runWhenPositive();
-                }
-                dialog.dismiss();
+        builder.setPositiveButton(positiveButtonName, (dialog, which) -> {
+            if (support != null) {
+                support.runWhenPositive();
             }
+            dialog.dismiss();
         });
-        builder.setNegativeButton(negativeButtonName, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (support != null) {
-                    support.runWhenNegative();
-                }
-                dialog.cancel();
+        builder.setNegativeButton(negativeButtonName, (dialog, which) -> {
+            if (support != null) {
+                support.runWhenNegative();
             }
+            dialog.cancel();
         });
         builder.setCancelable(false);
         builder.show();
@@ -56,14 +45,11 @@ public class DialogUtils {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(title);
         builder.setMessage(message);
-        builder.setPositiveButton(buttonName, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (support != null) {
-                    support.runWhenPositive();
-                }
-                dialog.dismiss();
+        builder.setPositiveButton(buttonName, (dialog, which) -> {
+            if (support != null) {
+                support.runWhenPositive();
             }
+            dialog.dismiss();
         });
         builder.setCancelable(false);
         builder.show();
@@ -75,45 +61,33 @@ public class DialogUtils {
             builder.setTitle(title);
         }
         if (positiveButtonName != null) {
-            builder.setPositiveButton(positiveButtonName, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    if (support != null) {
-                        support.runWhenPositive();
-                    }
-                    dialog.dismiss();
+            builder.setPositiveButton(positiveButtonName, (dialog, which) -> {
+                if (support != null) {
+                    support.runWhenPositive();
                 }
+                dialog.dismiss();
             });
         }
         if (negativeButtonName != null) {
-            builder.setNegativeButton(negativeButtonName, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    if (support != null) {
-                        support.runWhenNegative();
-                    }
-                    dialog.dismiss();
+            builder.setNegativeButton(negativeButtonName, (dialog, which) -> {
+                if (support != null) {
+                    support.runWhenNegative();
                 }
+                dialog.dismiss();
             });
         }
         if (neutralButtonName != null) {
-            builder.setNegativeButton(neutralButtonName, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    if (support != null) {
-                        support.runWhenNeutral();
-                    }
-                    dialog.dismiss();
+            builder.setNegativeButton(neutralButtonName, (dialog, which) -> {
+                if (support != null) {
+                    support.runWhenNeutral();
                 }
+                dialog.dismiss();
             });
         }
         builder.setCancelable(cancelable);
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (support != null) {
-                    support.runWhenItemsSelected(which);
-                }
+        builder.setItems(items, (dialog, which) -> {
+            if (support != null) {
+                support.runWhenItemsSelected(which);
             }
         });
         builder.show();
@@ -132,28 +106,19 @@ public class DialogUtils {
                 .initialColor(initColor)
                 .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
                 .density(12)
-                .setOnColorSelectedListener(new OnColorSelectedListener() {
-                    @Override
-                    public void onColorSelected(int selectedColor) {
-                        if (support != null) {
-                            support.runWhenItemsSelected();
-                        }
+                .setOnColorSelectedListener(selectedColor -> {
+                    if (support != null) {
+                        support.runWhenItemsSelected();
                     }
                 })
-                .setPositiveButton(pName, new ColorPickerClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
-                        if (support != null) {
-                            support.runWhenColorSelected(new int[]{selectedColor});
-                        }
+                .setPositiveButton(pName, (dialog, selectedColor, allColors) -> {
+                    if (support != null) {
+                        support.runWhenColorSelected(new int[]{selectedColor});
                     }
                 })
-                .setNegativeButton(nName, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (support != null) {
-                            support.runWhenNegative();
-                        }
+                .setNegativeButton(nName, (dialog, which) -> {
+                    if (support != null) {
+                        support.runWhenNegative();
                     }
                 });
         switch (type) {
@@ -188,14 +153,11 @@ public class DialogUtils {
         }
 
         final FileSelectorAlertDialog fileDialog = new FileSelectorAlertDialog(context,fileConfig);
-        fileDialog.setOnSelectFinishListener(new FileSelectorAlertDialog.OnSelectFinishListener() {
-            @Override
-            public void selectFinish(ArrayList<String> paths) {
-                if(support != null){
-                    support.runWhenItemsSelected(paths.get(0));
-                }
-      //          fileDialog.dismiss();
+        fileDialog.setOnSelectFinishListener(paths -> {
+            if(support != null){
+                support.runWhenItemsSelected(paths.get(0));
             }
+  //          fileDialog.dismiss();
         });
         fileDialog.show();
     }

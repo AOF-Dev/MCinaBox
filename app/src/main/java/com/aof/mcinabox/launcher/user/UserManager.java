@@ -148,11 +148,7 @@ public class UserManager {
     public static void setAccountSelected(String username){
         SettingJson.Account a = getAccountByUsername(MainActivity.Setting,username);
         for(SettingJson.Account account : MainActivity.Setting.getAccounts()){
-            if(account == a){
-                account.setSelected(true);
-            }else{
-                account.setSelected(false);
-            }
+            account.setSelected(account == a);
         }
     }
 

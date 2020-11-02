@@ -206,7 +206,7 @@ public class CrossKeyboard implements OnscreenInput, KeyMap {
          *  |7|8|9|
          * --------
          */
-        int location = 0; //九宫格位置标志 失去焦点时为 0
+        int location; //九宫格位置标志 失去焦点时为 0
         //自左向右，第一列
         if (shiftPos[0] < buttonWidth && shiftPos[0] >= 0) {
 
@@ -339,7 +339,7 @@ public class CrossKeyboard implements OnscreenInput, KeyMap {
 
     private void makeKeyEvent(int location, MotionEvent e) {
 
-        String keyName = "";
+        String keyName;
 
         switch (location) {
             case 1:
@@ -466,7 +466,6 @@ public class CrossKeyboard implements OnscreenInput, KeyMap {
         p.width = s / 2;
         p.height = s / 2;
         crossKeyBoardExtend.requestLayout();
-        ;
         crossKeyBoardExtend.invalidate();
     }
 

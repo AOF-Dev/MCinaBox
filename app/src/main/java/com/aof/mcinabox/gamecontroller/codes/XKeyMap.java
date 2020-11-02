@@ -18,7 +18,7 @@ public class XKeyMap implements KeyMap , AppEvent , MouseMap {
     private HashMap<String,Integer> xKeyMap;
 
     public XKeyMap(){
-        xKeyMap = new HashMap<String, Integer>();
+        xKeyMap = new HashMap<>();
         init();
     }
 

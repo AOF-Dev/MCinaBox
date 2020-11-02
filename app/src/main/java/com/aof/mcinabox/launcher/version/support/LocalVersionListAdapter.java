@@ -55,17 +55,12 @@ public class LocalVersionListAdapter extends BaseAdapter {
             viewHolder = (LocalVersionListAdapter.ViewHolder)convertView.getTag();
         }
         viewHolder.versionId.setText(versionlist.get(position).getVersion_Id());
-        viewHolder.removeversion.setOnClickListener(new View.OnClickListener(){
+        viewHolder.removeversion.setOnClickListener(v -> DialogUtils.createBothChoicesDialog(mContext,mContext.getString(R.string.title_warn),String.format(mContext.getString(R.string.tips_are_you_sure_to_delete_version),versionlist.get(position).getVersion_Id()),mContext.getString(R.string.title_ok),mContext.getString(R.string.title_cancel),new DialogSupports(){
             @Override
-            public void onClick(View v) {
-                DialogUtils.createBothChoicesDialog(mContext,mContext.getString(R.string.title_warn),String.format(mContext.getString(R.string.tips_are_you_sure_to_delete_version),versionlist.get(position).getVersion_Id()),mContext.getString(R.string.title_ok),mContext.getString(R.string.title_cancel),new DialogSupports(){
-                    @Override
-                    public void runWhenPositive(){
-                        VersionManager.removeVersion(versionlist.get(position).getVersion_Id(),VersionManager.REMOVE_VERSION_ONLY);
-                    }
-                });
+            public void runWhenPositive(){
+                VersionManager.removeVersion(versionlist.get(position).getVersion_Id(),VersionManager.REMOVE_VERSION_ONLY);
             }
-        });
+        }));
 
         return convertView;
     }

@@ -73,13 +73,11 @@ public class TipperListAdapter extends BaseAdapter {
 
         viewHolder.context = tipperList.get(position).getContext();
         viewHolder.tip.setText(tipperList.get(position).getTipper_info());
-        viewHolder.help.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(tipperList.get(position).getTipper_runable() != null){
-                    tipperList.get(position).getTipper_runable().run();
-                }
-            }});
+        viewHolder.help.setOnClickListener(v -> {
+            if(tipperList.get(position).getTipper_runable() != null){
+                tipperList.get(position).getTipper_runable().run();
+            }
+        });
         return convertView;
 
     }

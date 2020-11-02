@@ -2,7 +2,6 @@ package com.aof.mcinabox.launcher.uis;
 
 import android.content.Context;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -58,12 +57,9 @@ public class InstallVersionUI extends BaseUI implements RadioGroup.OnCheckedChan
         buttonSnapshot = layout_installversion.findViewById(R.id.radiobutton_type_snapshot);
         buttonOld = layout_installversion.findViewById(R.id.radiobutton_type_old);
         listVersionsOnline = layout_installversion.findViewById(R.id.list_minecraft_manifest);
-        listVersionsOnline.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
-                selectedVersionPos = pos;
-                textSelectedVersion.setText(listVersionsOnline.getAdapter().getItem(pos).toString());
-            }
+        listVersionsOnline.setOnItemClickListener((adapterView, view, pos, l) -> {
+            selectedVersionPos = pos;
+            textSelectedVersion.setText(listVersionsOnline.getAdapter().getItem(pos).toString());
         });
 
         groupVersionType.setOnCheckedChangeListener(this);

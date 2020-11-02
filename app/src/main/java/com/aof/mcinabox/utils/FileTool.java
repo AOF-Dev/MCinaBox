@@ -43,8 +43,8 @@ public class FileTool {
                 boolean isSucess = file.delete();
             } else if (file.isDirectory()) {
                 File[] files = file.listFiles();
-                for (int i = 0; i < files.length; i++) {
-                    deleteFile(files[i]);
+                for (File value : files) {
+                    deleteFile(value);
                 }
                 boolean isSucess = file.delete();
             }
@@ -98,8 +98,8 @@ public class FileTool {
                 byte[] buffer = new byte[32 * 1024];
 
                 try (FileInputStream fis = new FileInputStream(file)) {
-                    StringBuffer sb = new StringBuffer();
-                    int len = 0;
+                    StringBuilder sb = new StringBuilder();
+                    int len;
                     while ((len = fis.read(buffer)) > 0) {
                         sb.append(new String(buffer, 0, len));
                     }
@@ -231,11 +231,11 @@ public class FileTool {
         if (!targetDir.exists()) {
             targetDir.mkdirs();
         }
-        for (int i = 0; i < currentFiles.length; i++) {
-            if (currentFiles[i].isDirectory()) {
-                copyDir(currentFiles[i].getPath() + "/", currentFiles[i].getName() + "/");
+        for (File currentFile : currentFiles) {
+            if (currentFile.isDirectory()) {
+                copyDir(currentFile.getPath() + "/", currentFile.getName() + "/");
             } else {
-                copyFile(currentFiles[i].getPath(), toFolder + currentFiles[i].getName());
+                copyFile(currentFile.getPath(), toFolder + currentFile.getName());
             }
         }
         return 0;
@@ -249,7 +249,7 @@ public class FileTool {
         if (!folder.exists()) {
             return new ArrayList<>();
         }
-        ArrayList<String> dirsname = new ArrayList<String>();
+        ArrayList<String> dirsname = new ArrayList<>();
         File[] dirs = folder.listFiles();
         for (File file : dirs) {
             if (!file.isFile()) {
@@ -264,7 +264,7 @@ public class FileTool {
      **/
     public static ArrayList<String> listChildFilesFromTargetDir(String targetFolder) {
         File folder = new File(targetFolder);
-        ArrayList<String> filesname = new ArrayList<String>();
+        ArrayList<String> filesname = new ArrayList<>();
         File[] files = folder.listFiles();
         for (File file : files) {
             if (file.isFile()) {
@@ -286,8 +286,8 @@ public class FileTool {
             if (files == null) {
                 file.delete();
             } else {
-                for (int i = 0; i < files.length; i++) {
-                    deleteDir(files[i].getAbsolutePath());
+                for (File value : files) {
+                    deleteDir(value.getAbsolutePath());
                 }
                 file.delete();
             }

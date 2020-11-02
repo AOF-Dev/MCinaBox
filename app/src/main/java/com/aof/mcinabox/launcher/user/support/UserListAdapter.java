@@ -197,29 +197,22 @@ public class UserListAdapter extends BaseAdapter {
         }
 
         //添加删除键监听
-        holder.buttonDel.setOnClickListener(new View.OnClickListener() {
+        holder.buttonDel.setOnClickListener(v -> DialogUtils.createBothChoicesDialog(context, context.getString(R.string.title_warn), context.getString(R.string.tips_warning_delect_user), context.getString(R.string.title_ok), context.getString(R.string.title_cancel), new DialogSupports() {
             @Override
-            public void onClick(View v) {
-                DialogUtils.createBothChoicesDialog(context, context.getString(R.string.title_warn), context.getString(R.string.tips_warning_delect_user), context.getString(R.string.title_ok), context.getString(R.string.title_cancel), new DialogSupports() {
-                    @Override
-                    public void runWhenPositive() {
-                        UserManager.removeAccount(MainActivity.Setting, userlist.get(position).getUsername());
-                        //删除后重置用户列表
-                        MainActivity.CURRENT_ACTIVITY.mUiManager.uiUser.reloadListView();
-                    }
-                });
+            public void runWhenPositive() {
+                UserManager.removeAccount(MainActivity.Setting, userlist.get(position).getUsername());
+                //删除后重置用户列表
+                MainActivity.CURRENT_ACTIVITY.mUiManager.uiUser.reloadListView();
             }
-        });
+        }));
 
         //当RadioButton被选中时，将其状态记录进States中，并更新其他RadioButton的状态使它们不被选中
-        holder.radioSelecter.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                for (RadioButton p1 : recorder) {
-                    p1.setChecked(false);
-                }
-                holder.radioSelecter.setChecked(true);
-                UserManager.setAccountSelected(userlist.get(position).getUsername());
+        holder.radioSelecter.setOnClickListener(v -> {
+            for (RadioButton p1 : recorder) {
+                p1.setChecked(false);
             }
+            holder.radioSelecter.setChecked(true);
+            UserManager.setAccountSelected(userlist.get(position).getUsername());
         });
 
         return convertView;

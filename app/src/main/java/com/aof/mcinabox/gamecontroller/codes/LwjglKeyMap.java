@@ -11,7 +11,7 @@ public class LwjglKeyMap implements KeyMap {
     private HashMap<String,Integer> lwjglMap;
 
     public LwjglKeyMap(){
-        lwjglMap = new HashMap<String, Integer>();
+        lwjglMap = new HashMap<>();
         init();
     }
 

@@ -330,11 +330,7 @@ public class VirtualController extends BaseController implements AppEvent , View
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
         if(buttonView instanceof SwitchCompat && bindingViews.containsKey(buttonView)){
-            if(isChecked){
-                (Objects.requireNonNull(bindingViews.get(buttonView))).setEnable(true);
-            }else{
-                (Objects.requireNonNull(bindingViews.get(buttonView))).setEnable(false);
-            }
+            (Objects.requireNonNull(bindingViews.get(buttonView))).setEnable(isChecked);
         }
         if(buttonView == checkboxLock){
             if(isChecked){

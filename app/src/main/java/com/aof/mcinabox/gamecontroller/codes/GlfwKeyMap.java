@@ -11,7 +11,7 @@ public class GlfwKeyMap implements KeyMap {
     private HashMap<String,Integer> glfwKeyMap;
 
     public GlfwKeyMap(){
-        glfwKeyMap = new HashMap<String, Integer>();
+        glfwKeyMap = new HashMap<>();
         init();
     }
 

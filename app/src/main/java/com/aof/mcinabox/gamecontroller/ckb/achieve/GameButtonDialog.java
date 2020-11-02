@@ -164,7 +164,7 @@ public class GameButtonDialog extends Dialog implements View.OnClickListener, Se
         seekbarAlpha.setMax(GameButton.MAX_ALPHA_SIZE_PT);
         seekbarCornerSize.setMax(GameButton.MAX_CORNOR_SIZE_PT);
         seekbarTextSize.setMax(GameButton.MAX_TEXT_SIZE_SP);
-        spinnerDesign.setAdapter(new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_item, Arrays.asList(CkbThemeMarker.DESIGNS)));
+        spinnerDesign.setAdapter(new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_item, Arrays.asList(CkbThemeMarker.DESIGNS)));
 
 
         //设定监听
@@ -347,7 +347,7 @@ public class GameButtonDialog extends Dialog implements View.OnClickListener, Se
 
         if (v == textMap1 || v == textMap2 || v == textMap3 || v == textMap4) {
             int i = 0;
-            String n = "";
+            String n;
             if (v == textMap1) {
                 n = textMap1.getText().toString();
             } else if (v == textMap2) {

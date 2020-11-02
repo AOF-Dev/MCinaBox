@@ -29,14 +29,14 @@ public class GameButtonRecorder {
         System.arraycopy(gb.getKeyTypes(),0,this.keyTypes,0,GameButton.MAX_KEYMAP_SIZE);
         this.designIndex = gb.getDesignIndex();
         this.cornerRadius = gb.getCornerRadius();
-        this.textColor = new String(gb.getTextColorHex());
+        this.textColor = gb.getTextColorHex();
         System.arraycopy(gb.getColorHexs(),0,this.themeColors,0,CkbThemeRecorder.COLOR_INDEX_LENGTH);
         this.isKeep = gb.isKeep();
         this.isHide = gb.isHide();
         System.arraycopy(gb.getKeyPos(),0,this.keyPos,0, 2);
         System.arraycopy(gb.getKeySize(),0,this.keySize,0, 2);
         this.alphaSize = gb.getAlphaSize();
-        this.keyName = new String(gb.getKeyName());
+        this.keyName = gb.getKeyName();
         this.isViewerFollow = gb.isViewerFollow();
         this.show = gb.getShow();
         this.textSize = gb.getTextProgress();

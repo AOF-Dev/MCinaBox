@@ -2,8 +2,6 @@ package com.aof.mcinabox.launcher.lang;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -29,13 +27,10 @@ public class LanguageDialog extends Dialog {
 
     private void initUI(){
         listLanguages = findViewById(R.id.dialog_listview_languages);
-        listLanguages.setAdapter(new ArrayAdapter<String>(mContext, android.R.layout.simple_list_item_1, Arrays.asList(LanguageUtils.LANG_TAGS)));
-        listLanguages.setOnItemClickListener(new ListView.OnItemClickListener(){
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
-                ChangeLauncherLanguage(listLanguages.getAdapter().getItem(pos).toString());
-                dismiss();
-            }
+        listLanguages.setAdapter(new ArrayAdapter<>(mContext, android.R.layout.simple_list_item_1, Arrays.asList(LanguageUtils.LANG_TAGS)));
+        listLanguages.setOnItemClickListener((adapterView, view, pos, l) -> {
+            ChangeLauncherLanguage(listLanguages.getAdapter().getItem(pos).toString());
+            dismiss();
         });
     }
 
