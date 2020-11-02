@@ -31,12 +31,11 @@ public class ColorUtils {
     }
 
     public static String int2Hex3(int colorInt){
-        String stringBuffer = "#" +
+        return "#" +
                 intToHex(Color.alpha(colorInt), 2) +
                 intToHex(Color.red(colorInt), 2) +
                 intToHex(Color.green(colorInt), 2) +
                 intToHex(Color.blue(colorInt), 2);
-        return stringBuffer;
     }
 
     private static String intToHex(int n,int size) {

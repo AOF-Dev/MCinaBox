@@ -26,7 +26,7 @@ import cosine.boat.definitions.id.key.KeyMode;
 import com.aof.mcinabox.gamecontroller.controller.Controller;
 import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
 import com.aof.mcinabox.gamecontroller.input.OnscreenInput;
-import com.aof.mcinabox.gamecontroller.input.screen.Button.MouseButton;
+import com.aof.mcinabox.gamecontroller.input.screen.button.MouseButton;
 import com.aof.mcinabox.utils.DisplayUtils;
 import com.aof.mcinabox.utils.dialog.DialogUtils;
 import com.aof.mcinabox.utils.dialog.support.DialogSupports;

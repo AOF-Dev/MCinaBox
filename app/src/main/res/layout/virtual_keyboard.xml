@@ -12,7 +12,7 @@
         android:layout_weight="1"
         android:orientation="horizontal">
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -25,7 +25,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1" />
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -33,7 +33,7 @@
             android:text="F1"
             custom:button_name="F1" />
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -41,7 +41,7 @@
             android:text="F2"
             custom:button_name="F2" />
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -49,7 +49,7 @@
             android:text="F3"
             custom:button_name="F3" />
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -62,7 +62,7 @@
             android:layout_height="match_parent"
             android:layout_weight="0.5" />
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -70,7 +70,7 @@
             android:text="F5"
             custom:button_name="F5" />
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -78,7 +78,7 @@
             android:text="F6"
             custom:button_name="F6" />
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -86,7 +86,7 @@
             android:text="F7"
             custom:button_name="F7" />
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -99,7 +99,7 @@
             android:layout_height="match_parent"
             android:layout_weight="0.5" />
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -107,7 +107,7 @@
             android:text="F9"
             custom:button_name="F9" />
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -115,7 +115,7 @@
             android:text="F10"
             custom:button_name="F10" />
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -123,7 +123,7 @@
             android:text="F11"
             custom:button_name="F11" />
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -136,7 +136,7 @@
             android:layout_height="match_parent"
             android:layout_weight="0.5" />
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -144,7 +144,7 @@
             android:text="Prt"
             custom:button_name="PRINT" />
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -152,7 +152,7 @@
             android:text="Scr"
             custom:button_name="SCROLL" />
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -211,7 +211,7 @@
         android:layout_weight="1"
         android:orientation="horizontal">
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -222,7 +222,7 @@
             custom:char_shift="~"
             custom:char_capslock="`"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -233,7 +233,7 @@
             custom:char_shift="&#033;"
             custom:char_capslock="1"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -244,7 +244,7 @@
             custom:char_shift="&#064;"
             custom:char_capslock="2"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -255,7 +255,7 @@
             custom:char_shift="&#035;"
             custom:char_capslock="3"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -266,7 +266,7 @@
             custom:char_shift="&#036;"
             custom:char_capslock="4" />
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -277,7 +277,7 @@
             custom:char_shift="&#037;"
             custom:char_capslock="5"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -288,7 +288,7 @@
             custom:char_shift="&#094;"
             custom:char_capslock="6"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -299,7 +299,7 @@
             custom:char_shift="&#110;"
             custom:char_capslock="7"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -310,7 +310,7 @@
             custom:char_shift="&#042;"
             custom:char_capslock="8"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -321,7 +321,7 @@
             custom:char_shift="&#040;"
             custom:char_capslock="9"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -332,7 +332,7 @@
             custom:char_shift="&#041;"
             custom:char_capslock="0"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -343,7 +343,7 @@
             custom:char_shift="_"
             custom:char_capslock="-"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -354,7 +354,7 @@
             custom:char_shift="+"
             custom:char_capslock="="/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -365,7 +365,7 @@
             custom:char_shift="|"
             custom:char_capslock="\"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -378,7 +378,7 @@
             android:layout_height="match_parent"
             android:layout_weight="0.5" />
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -386,7 +386,7 @@
             android:text="Ins"
             custom:button_name="INSERT" />
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -394,7 +394,7 @@
             android:text="Hom"
             custom:button_name="HOME" />
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -407,7 +407,7 @@
             android:layout_height="match_parent"
             android:layout_weight="0.5"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -415,7 +415,7 @@
             android:text="Num"
             custom:button_name="NUMLOCK" />
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -426,7 +426,7 @@
             custom:char_capslock="/"
             custom:char_shift="/"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -437,7 +437,7 @@
             custom:char_capslock="*"
             custom:char_shift="*"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -457,7 +457,7 @@
         android:layout_weight="1"
         android:orientation="horizontal">
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -465,7 +465,7 @@
             android:text="TAB"
             custom:button_name="TAB" />
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -476,7 +476,7 @@
             custom:char_shift="Q"
             custom:char_capslock="Q"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -487,7 +487,7 @@
             custom:char_capslock="W"
             custom:char_shift="W"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -498,7 +498,7 @@
             custom:char_shift="E"
             custom:char_capslock="E"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -509,7 +509,7 @@
             custom:char_capslock="R"
             custom:char_shift="R"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -520,7 +520,7 @@
             custom:char_shift="T"
             custom:char_capslock="T"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -531,7 +531,7 @@
             custom:char_capslock="Y"
             custom:char_shift="Y"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -542,7 +542,7 @@
             custom:char_shift="U"
             custom:char_capslock="U"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -553,7 +553,7 @@
             custom:char_capslock="I"
             custom:char_shift="I"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -564,7 +564,7 @@
             custom:char_shift="O"
             custom:char_capslock="O"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -575,7 +575,7 @@
             custom:char_capslock="P"
             custom:char_shift="P"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -586,7 +586,7 @@
             custom:char_shift="{"
             custom:char_capslock="["/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -597,7 +597,7 @@
             custom:char_shift="}"
             custom:char_capslock="]"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -610,7 +610,7 @@
             android:layout_height="match_parent"
             android:layout_weight="0.5"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -618,7 +618,7 @@
             android:text="Del"
             custom:button_name="DELETE" />
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -626,7 +626,7 @@
             android:text="End"
             custom:button_name="END" />
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -639,7 +639,7 @@
             android:layout_height="match_parent"
             android:layout_weight="0.5"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -650,7 +650,7 @@
             custom:char_capslock="7"
             custom:char_shift="7"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -661,7 +661,7 @@
             custom:char_capslock="8"
             custom:char_shift="8"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -672,7 +672,7 @@
             custom:char_capslock="9"
             custom:char_shift="9"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -691,7 +691,7 @@
         android:layout_weight="1"
         android:orientation="horizontal">
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             android:id="@+id/virtual_keyboard_button_caps"
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
@@ -700,7 +700,7 @@
             android:text="Caps L"
             custom:button_name="CAPITAL" />
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -711,7 +711,7 @@
             custom:char_shift="A"
             custom:char_capslock="A"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -722,7 +722,7 @@
             custom:char_capslock="S"
             custom:char_shift="S"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -733,7 +733,7 @@
             custom:char_shift="D"
             custom:char_capslock="D"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -744,7 +744,7 @@
             custom:char_capslock="F"
             custom:char_shift="F"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -755,7 +755,7 @@
             custom:char_shift="G"
             custom:char_capslock="G"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -766,7 +766,7 @@
             custom:char_capslock="H"
             custom:char_shift="H"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -777,7 +777,7 @@
             custom:char_shift="J"
             custom:char_none="j"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -788,7 +788,7 @@
             custom:char_none="k"
             custom:char_capslock="K"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -799,7 +799,7 @@
             custom:char_capslock="L"
             custom:char_shift="L"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -810,7 +810,7 @@
             custom:char_shift=":"
             custom:char_capslock=";"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -821,7 +821,7 @@
             custom:char_capslock="'"
             custom:char_shift="&quot;"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -834,7 +834,7 @@
             android:layout_height="match_parent"
             android:layout_weight="4"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -845,7 +845,7 @@
             custom:char_capslock="4"
             custom:char_shift="4"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -856,7 +856,7 @@
             custom:char_capslock="5"
             custom:char_shift="5"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -867,7 +867,7 @@
             custom:char_capslock="6"
             custom:char_shift="6"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -883,7 +883,7 @@
         android:layout_weight="1"
         android:orientation="horizontal">
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             android:id="@+id/virtual_keyboard_button_lshift"
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
@@ -892,7 +892,7 @@
             android:text="Shift"
             custom:button_name="LSHIFT" />
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -903,7 +903,7 @@
             custom:char_shift="Z"
             custom:char_capslock="Z"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -914,7 +914,7 @@
             custom:char_capslock="X"
             custom:char_shift="X"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -925,7 +925,7 @@
             custom:char_shift="C"
             custom:char_capslock="C"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -936,7 +936,7 @@
             custom:char_capslock="V"
             custom:char_shift="V"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -947,7 +947,7 @@
             custom:char_shift="B"
             custom:char_capslock="B"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -958,7 +958,7 @@
             custom:char_capslock="N"
             custom:char_shift="N"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -969,7 +969,7 @@
             custom:char_shift="M"
             custom:char_capslock="M"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -980,7 +980,7 @@
             custom:char_shift="&lt;"
             custom:char_capslock=","/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -991,7 +991,7 @@
             custom:char_capslock="."
             custom:char_shift="&gt;"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -1002,7 +1002,7 @@
             custom:char_shift="&#063;"
             custom:char_capslock="/"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             android:id="@+id/virtual_keyboard_button_Rshift"
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
@@ -1016,7 +1016,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1.5"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -1029,7 +1029,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1.5"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -1040,7 +1040,7 @@
             custom:char_capslock="1"
             custom:char_shift="1"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -1051,7 +1051,7 @@
             custom:char_capslock="2"
             custom:char_shift="2"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -1062,7 +1062,7 @@
             custom:char_capslock="3"
             custom:char_shift="3"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -1078,7 +1078,7 @@
         android:layout_weight="1"
         android:orientation="horizontal">
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -1086,7 +1086,7 @@
             android:text="Ctrl"
             custom:button_name="LCTRL" />
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -1094,7 +1094,7 @@
             android:text="Win"
             custom:button_name="LWIN" />
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -1102,7 +1102,7 @@
             android:text="Alt"
             custom:button_name="LALT" />
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -1113,7 +1113,7 @@
             custom:char_shift=" "
             custom:char_none=" "/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -1121,7 +1121,7 @@
             android:text="Alt"
             custom:button_name="RALT" />
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -1129,7 +1129,7 @@
             android:text="Win"
             custom:button_name="RWIN" />
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -1137,7 +1137,7 @@
             android:text="RightK"
             custom:button_name="RIGHTK" />
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -1150,7 +1150,7 @@
             android:layout_height="match_parent"
             android:layout_weight="0.5"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -1158,7 +1158,7 @@
             android:text="←"
             custom:button_name="LEFT" />
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -1166,7 +1166,7 @@
             android:text="↓"
             custom:button_name="DOWN" />
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -1179,7 +1179,7 @@
             android:layout_height="match_parent"
             android:layout_weight="0.5"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -1190,7 +1190,7 @@
             custom:char_capslock="0"
             custom:char_shift="0"/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -1201,7 +1201,7 @@
             custom:char_capslock="."
             custom:char_shift="."/>
 
-        <com.aof.mcinabox.gamecontroller.input.screen.Button.QwertButton
+        <com.aof.mcinabox.gamecontroller.input.screen.button.QwertButton
             style="@style/OnscreenKeyboard_normal"
             android:layout_width="0dp"
             android:layout_height="match_parent"

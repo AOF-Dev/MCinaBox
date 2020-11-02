@@ -46,9 +46,8 @@ public class CkbThemeMarker {
         shapeDrawable.getPaint().setColor(mainColor);
 
         Drawable[] layers = new Drawable[]{shapeDrawable};
-        LayerDrawable layerDrawable =  new LayerDrawable(layers);
 
-        return layerDrawable;
+        return new LayerDrawable(layers);
     }
 
     private static LayerDrawable getDesign_signle_ring(CkbThemeRecorder recorder){
@@ -64,9 +63,8 @@ public class CkbThemeMarker {
         drawable1.setSize(drawableSize,drawableSize);
 
         Drawable[] layers = new Drawable[]{drawable1};
-        LayerDrawable mainDrawable = new LayerDrawable(layers);
 
-        return mainDrawable;
+        return new LayerDrawable(layers);
 
     }
 

@@ -1,4 +1,4 @@
-package com.aof.mcinabox.gamecontroller.input.screen.Button;
+package com.aof.mcinabox.gamecontroller.input.screen.button;
 
 import android.content.Context;
 import android.content.res.TypedArray;

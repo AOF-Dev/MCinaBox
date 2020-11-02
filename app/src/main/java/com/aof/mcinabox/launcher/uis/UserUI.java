@@ -111,13 +111,12 @@ public class UserUI extends BaseUI {
         if(account == null){
             return false;
         }else{
-            SettingJson.Account tmp = account;
             for(SettingJson.Account bean : usersList){
-                if(bean.equals(tmp)){
+                if(bean.equals(account)){
                     return false;
                 }
             }
-            usersList.add(tmp);
+            usersList.add(account);
             refreshList();
             return true;
         }

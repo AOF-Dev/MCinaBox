@@ -6,7 +6,7 @@
     android:layout_height="65dp"
     android:padding="15dp">
 
-    <com.aof.mcinabox.gamecontroller.input.screen.Button.CrossButton
+    <com.aof.mcinabox.gamecontroller.input.screen.button.CrossButton
             android:id="@+id/crosskey_bounce"
             android:layout_gravity="center_horizontal"
             android:layout_width="match_parent"

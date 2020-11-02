@@ -20,8 +20,8 @@ import cosine.boat.definitions.id.AppEvent;
 import com.aof.mcinabox.gamecontroller.controller.Controller;
 import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
 import com.aof.mcinabox.gamecontroller.input.OnscreenInput;
-import com.aof.mcinabox.gamecontroller.input.screen.Button.BaseButton;
-import com.aof.mcinabox.gamecontroller.input.screen.Button.ItemButton;
+import com.aof.mcinabox.gamecontroller.input.screen.button.BaseButton;
+import com.aof.mcinabox.gamecontroller.input.screen.button.ItemButton;
 import com.aof.mcinabox.utils.dialog.DialogUtils;
 import com.aof.mcinabox.utils.dialog.support.DialogSupports;
 
