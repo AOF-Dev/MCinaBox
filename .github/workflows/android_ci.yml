@@ -1,11 +1,8 @@
 name: Android CI
-
 on: push
-
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
       - name: Build MCinaBox APK with Gradle
@@ -15,5 +12,5 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v2
         with:
-          name: mcinabox-debug
-          path: mcinabox/build/outputs/apk/debug/mcinabox-debug.apk
+          name: app-debug
+          path: app/build/outputs/apk/debug/app-debug.apk
