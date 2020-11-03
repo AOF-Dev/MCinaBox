@@ -27,7 +27,7 @@ import java.util.TimerTask;
 import static cosine.boat.definitions.id.key.KeyMode.MARK_INPUT_MODE_ALONE;
 import static cosine.boat.definitions.id.key.KeyMode.MARK_INPUT_MODE_CATCH;
 
-public class BoatActivity extends AppCompatActivity implements SurfaceHolder.Callback, ClientInput {
+public class BoatActivity extends AppCompatActivity implements SurfaceHolder.Callback, ClientInput, View.OnSystemUiVisibilityChangeListener {
     private final static String TAG = "BoatActivity";
 
     private SurfaceView surfaceView;
@@ -37,6 +37,9 @@ public class BoatActivity extends AppCompatActivity implements SurfaceHolder.Cal
     private BoatHandler mHandler;
     private Timer mTimer;
     private final static int REFRESH_P = 5000; //ms
+
+    private static final int SYSTEM_UI_HIDE_DELAY_MS = 3000;
+    private TimerTask systemUiTimerTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +61,8 @@ public class BoatActivity extends AppCompatActivity implements SurfaceHolder.Cal
         mTimer.schedule(createTimerTask(), REFRESH_P, REFRESH_P);
 
         controllerInterface.onActivityCreate(this);
+
+        systemUiTimerTask = null;
     }
 
     private native void nOnCreate();
@@ -74,22 +79,39 @@ public class BoatActivity extends AppCompatActivity implements SurfaceHolder.Cal
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus) {
-            hideSystemUI();
+            View decorView = getWindow().getDecorView();
+            decorView.setOnSystemUiVisibilityChangeListener(this);
+            hideSystemUI(decorView);
+        } else {
+            View decorView = getWindow().getDecorView();
+            decorView.setOnSystemUiVisibilityChangeListener(null);
         }
     }
 
-    private void hideSystemUI() {
-        View decorView = getWindow().getDecorView();
-        decorView.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_IMMERSIVE
-                        // Set the content to appear under the system bars so that the
-                        // content doesn't resize when the system bars hide and show.
-                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        // Hide the nav bar and status bar
-                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN);
+    @Override
+    public void onSystemUiVisibilityChange(int visibility) {
+        if ((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) {
+            if (systemUiTimerTask != null) systemUiTimerTask.cancel();
+            systemUiTimerTask = new TimerTask() {
+                @Override
+                public void run() {
+                    runOnUiThread(() -> hideSystemUI(getWindow().getDecorView()));
+                }
+            };
+            mTimer.schedule(systemUiTimerTask, SYSTEM_UI_HIDE_DELAY_MS);
+        }
+    }
+
+    private void hideSystemUI(View decorView) {
+        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_IMMERSIVE
+                // Set the content to appear under the system bars so that the
+                // content doesn't resize when the system bars hide and show.
+                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                // Hide the nav bar and status bar
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_FULLSCREEN);
     }
 
     private TimerTask createTimerTask() {
@@ -202,7 +224,7 @@ public class BoatActivity extends AppCompatActivity implements SurfaceHolder.Cal
         }
     }
 
-    private List<View> cvs = new ArrayList<>();
+    private final List<View> cvs = new ArrayList<>();
 
     @Override
     public void addControllerView(View v) {
@@ -284,10 +306,15 @@ public class BoatActivity extends AppCompatActivity implements SurfaceHolder.Cal
 
     public interface IController {
         void onActivityCreate(BoatActivity boatActivity);
+
         void saveConfig();
+
         void setInputMode(int inputMode);
+
         void onStop();
+
         void dispatchKeyEvent(KeyEvent event);
+
         void dispatchMotionKeyEvent(MotionEvent event);
     }
 }
