@@ -85,6 +85,7 @@ public class BoatActivity extends AppCompatActivity implements SurfaceHolder.Cal
         } else {
             View decorView = getWindow().getDecorView();
             decorView.setOnSystemUiVisibilityChangeListener(null);
+            if (systemUiTimerTask != null) systemUiTimerTask.cancel();
         }
     }
 
