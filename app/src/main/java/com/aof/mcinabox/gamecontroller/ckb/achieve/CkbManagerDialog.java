@@ -18,7 +18,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.aof.mcinabox.R;
-import cosine.boat.definitions.manifest.AppManifest;
 import com.aof.mcinabox.gamecontroller.ckb.button.GameButton;
 import com.aof.mcinabox.utils.FileTool;
 import com.aof.mcinabox.utils.PromptUtils;
@@ -30,10 +29,12 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import cosine.boat.definitions.manifest.AppManifest;
+
 public class CkbManagerDialog extends Dialog implements View.OnClickListener, CompoundButton.OnCheckedChangeListener, Dialog.OnCancelListener {
 
-    private Context mContext;
-    private CkbManager mManager;
+    private final Context mContext;
+    private final CkbManager mManager;
     private RadioButton radioEditable;
     private RadioButton radioGame;
     private TextView textButtonSum;
@@ -264,26 +265,26 @@ public class CkbManagerDialog extends Dialog implements View.OnClickListener, Co
             }
         }
     }
-}
 
-class KeyboardFileListener extends FileObserver {
+    private static class KeyboardFileListener extends FileObserver {
 
-    private CkbManagerDialog mDialog;
+        private final CkbManagerDialog mDialog;
 
-    public KeyboardFileListener(CkbManagerDialog dialog) {
-        super(AppManifest.MCINABOX_KEYBOARD);
-        this.mDialog = dialog;
-    }
+        public KeyboardFileListener(CkbManagerDialog dialog) {
+            super(AppManifest.MCINABOX_KEYBOARD);
+            this.mDialog = dialog;
+        }
 
-    @Override
-    public void onEvent(int event, @Nullable String path) {
-        switch (event) {
-            case FileObserver.CREATE:
-            case FileObserver.DELETE:
-                mDialog.updataUI();
-                break;
-            default:
-                break;
+        @Override
+        public void onEvent(int event, @Nullable String path) {
+            switch (event) {
+                case FileObserver.CREATE:
+                case FileObserver.DELETE:
+                    mDialog.updataUI();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

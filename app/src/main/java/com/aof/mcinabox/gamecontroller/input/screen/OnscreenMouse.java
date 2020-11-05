@@ -352,111 +352,251 @@ public class OnscreenMouse implements OnscreenInput {
         updateUI();
     }
 
-}
+    private static class OnscreenMouseConfigDialog extends Dialog implements View.OnClickListener, SeekBar.OnSeekBarChangeListener, Dialog.OnCancelListener, CompoundButton.OnCheckedChangeListener {
 
-class OnscreenMouseConfigDialog extends Dialog implements View.OnClickListener, SeekBar.OnSeekBarChangeListener, Dialog.OnCancelListener, CompoundButton.OnCheckedChangeListener {
+        private final static String TAG = "OnscreenMouseConfigDialog";
+        private final static int DEFAULT_ALPHA_PROGRESS = 40;
+        private final static int DEFAULT_SIZE_PROGRESS = 50;
+        private final static int DEFAULT_WHEEL_SPEED_PROGRESS = 0;
+        private final static int MAX_ALPHA_PROGRESS = 100;
+        private final static int MIN_ALPHA_PROGRESS = 0;
+        private final static int MAX_SIZE_PROGRESS = 100;
+        private final static int MIN_SIZE_PROGRESS = -50;
+        private final static int MAX_WHEEL_SPEED_PROGRESS = 9;
+        private final static int MIN_SHEEL_SPEED_PROGRESS = 1;
+        private final static String spFileName = "input_onscreenmouse_config";
+        private final static int spMode = Context.MODE_PRIVATE;
+        private final static String sp_alpha_name = "alpha";
+        private final static String sp_size_name = "size";
+        private final static String sp_wheel_speed_name = "wheel_speed";
+        private final static String sp_pos_x_name = "pos_x";
+        private final static String sp_pos_y_name = "pos_y";
+        private final static String sp_show_name = "show";
+        private final Context mContext;
+        private final OnscreenInput mInput;
+        private Button buttonOK;
+        private Button buttonCancel;
+        private Button buttonRestore;
+        private SeekBar seekbarAlpha;
+        private SeekBar seekbarSize;
+        private SeekBar seekbarWheelSpeed;
+        private TextView textAlpha;
+        private TextView textSize;
+        private TextView textWheelSpeed;
+        private RadioButton rbtAll;
+        private RadioButton rbtInGame;
+        private RadioButton rbtOutGame;
+        private int originalAlphaProgress;
+        private int originalSizeProgress;
+        private int originalWheelSpeedProgress;
+        private int originalMarginLeft;
+        private int originalMarginTop;
+        private int originalShow;
+        private int originalInputWidth;
+        private int originalInputHeight;
+        private int screenWidth;
+        private int screenHeight;
 
-    private final static String TAG = "OnscreenMouseConfigDialog";
-    private final static int DEFAULT_ALPHA_PROGRESS = 40;
-    private final static int DEFAULT_SIZE_PROGRESS = 50;
-    private final static int DEFAULT_WHEEL_SPEED_PROGRESS = 0;
-    private final static int MAX_ALPHA_PROGRESS = 100;
-    private final static int MIN_ALPHA_PROGRESS = 0;
-    private final static int MAX_SIZE_PROGRESS = 100;
-    private final static int MIN_SIZE_PROGRESS = -50;
-    private final static int MAX_WHEEL_SPEED_PROGRESS = 9;
-    private final static int MIN_SHEEL_SPEED_PROGRESS = 1;
-    private final static String spFileName = "input_onscreenmouse_config";
-    private final static int spMode = Context.MODE_PRIVATE;
-    private final static String sp_alpha_name = "alpha";
-    private final static String sp_size_name = "size";
-    private final static String sp_wheel_speed_name = "wheel_speed";
-    private final static String sp_pos_x_name = "pos_x";
-    private final static String sp_pos_y_name = "pos_y";
-    private final static String sp_show_name = "show";
-    private final Context mContext;
-    private final OnscreenInput mInput;
-    private Button buttonOK;
-    private Button buttonCancel;
-    private Button buttonRestore;
-    private SeekBar seekbarAlpha;
-    private SeekBar seekbarSize;
-    private SeekBar seekbarWheelSpeed;
-    private TextView textAlpha;
-    private TextView textSize;
-    private TextView textWheelSpeed;
-    private RadioButton rbtAll;
-    private RadioButton rbtInGame;
-    private RadioButton rbtOutGame;
-    private int originalAlphaProgress;
-    private int originalSizeProgress;
-    private int originalWheelSpeedProgress;
-    private int originalMarginLeft;
-    private int originalMarginTop;
-    private int originalShow;
-    private int originalInputWidth;
-    private int originalInputHeight;
-    private int screenWidth;
-    private int screenHeight;
-
-    public OnscreenMouseConfigDialog(@NonNull Context context, OnscreenInput input) {
-        super(context);
-        setContentView(R.layout.dialog_onscreen_mouse_config);
-        mContext = context;
-        mInput = input;
-        init();
-    }
-
-    private void init() {
-        this.setCanceledOnTouchOutside(false);
-        this.setOnCancelListener(this);
-
-        buttonOK = this.findViewById(R.id.input_onscreen_mouse_dialog_button_ok);
-        buttonCancel = this.findViewById(R.id.input_onscreen_mouse_dialog_button_cancel);
-        buttonRestore = this.findViewById(R.id.input_onscreen_mouse_dialog_button_restore);
-        seekbarAlpha = this.findViewById(R.id.input_onscreen_mouse_dialog_seekbar_alpha);
-        seekbarSize = this.findViewById(R.id.input_onscreen_mouse_dialog_seekbar_size);
-        seekbarWheelSpeed = this.findViewById(R.id.input_onscreen_mouse_dialog_seekbar_wheelspeed);
-        textAlpha = this.findViewById(R.id.input_onscreen_mouse_dialog_text_alpha);
-        textSize = this.findViewById(R.id.input_onscreen_mouse_dialog_text_size);
-        textWheelSpeed = this.findViewById(R.id.input_onscreen_mouse_dialog_text_wheelspeed);
-        rbtAll = this.findViewById(R.id.input_onscreen_mouse_dialog_rbt_all);
-        rbtInGame = this.findViewById(R.id.input_onscreen_mouse_dialog_rbt_in_game);
-        rbtOutGame = this.findViewById(R.id.input_onscreen_mouse_dialog_rbt_out_game);
-
-        for (View v : new View[]{buttonOK, buttonCancel, buttonRestore}) {
-            v.setOnClickListener(this);
-        }
-        for (SeekBar s : new SeekBar[]{seekbarAlpha, seekbarSize, seekbarWheelSpeed}) {
-            s.setOnSeekBarChangeListener(this);
-        }
-        for (RadioButton rbt : new RadioButton[]{rbtAll, rbtInGame, rbtOutGame}) {
-            rbt.setOnCheckedChangeListener(this);
+        public OnscreenMouseConfigDialog(@NonNull Context context, OnscreenInput input) {
+            super(context);
+            setContentView(R.layout.dialog_onscreen_mouse_config);
+            mContext = context;
+            mInput = input;
+            init();
         }
 
-        originalInputWidth = mInput.getSize()[0];
-        originalInputHeight = mInput.getSize()[1];
-        screenWidth = mContext.getResources().getDisplayMetrics().widthPixels;
-        screenHeight = mContext.getResources().getDisplayMetrics().heightPixels;
+        private void init() {
+            this.setCanceledOnTouchOutside(false);
+            this.setOnCancelListener(this);
 
-        //初始化控件属性
-        this.seekbarAlpha.setMax(MAX_ALPHA_PROGRESS);
-        this.seekbarSize.setMax(MAX_SIZE_PROGRESS);
-        this.seekbarWheelSpeed.setMax(MAX_WHEEL_SPEED_PROGRESS);
+            buttonOK = this.findViewById(R.id.input_onscreen_mouse_dialog_button_ok);
+            buttonCancel = this.findViewById(R.id.input_onscreen_mouse_dialog_button_cancel);
+            buttonRestore = this.findViewById(R.id.input_onscreen_mouse_dialog_button_restore);
+            seekbarAlpha = this.findViewById(R.id.input_onscreen_mouse_dialog_seekbar_alpha);
+            seekbarSize = this.findViewById(R.id.input_onscreen_mouse_dialog_seekbar_size);
+            seekbarWheelSpeed = this.findViewById(R.id.input_onscreen_mouse_dialog_seekbar_wheelspeed);
+            textAlpha = this.findViewById(R.id.input_onscreen_mouse_dialog_text_alpha);
+            textSize = this.findViewById(R.id.input_onscreen_mouse_dialog_text_size);
+            textWheelSpeed = this.findViewById(R.id.input_onscreen_mouse_dialog_text_wheelspeed);
+            rbtAll = this.findViewById(R.id.input_onscreen_mouse_dialog_rbt_all);
+            rbtInGame = this.findViewById(R.id.input_onscreen_mouse_dialog_rbt_in_game);
+            rbtOutGame = this.findViewById(R.id.input_onscreen_mouse_dialog_rbt_out_game);
 
-        loadConfigFromFile();
+            for (View v : new View[]{buttonOK, buttonCancel, buttonRestore}) {
+                v.setOnClickListener(this);
+            }
+            for (SeekBar s : new SeekBar[]{seekbarAlpha, seekbarSize, seekbarWheelSpeed}) {
+                s.setOnSeekBarChangeListener(this);
+            }
+            for (RadioButton rbt : new RadioButton[]{rbtAll, rbtInGame, rbtOutGame}) {
+                rbt.setOnCheckedChangeListener(this);
+            }
 
-    }
+            originalInputWidth = mInput.getSize()[0];
+            originalInputHeight = mInput.getSize()[1];
+            screenWidth = mContext.getResources().getDisplayMetrics().widthPixels;
+            screenHeight = mContext.getResources().getDisplayMetrics().heightPixels;
 
-    @Override
-    public void onCancel(DialogInterface dialog) {
+            //初始化控件属性
+            this.seekbarAlpha.setMax(MAX_ALPHA_PROGRESS);
+            this.seekbarSize.setMax(MAX_SIZE_PROGRESS);
+            this.seekbarWheelSpeed.setMax(MAX_WHEEL_SPEED_PROGRESS);
 
-        if (dialog == this) {
-            seekbarAlpha.setProgress(originalAlphaProgress);
-            seekbarSize.setProgress(originalSizeProgress);
-            seekbarWheelSpeed.setProgress(originalWheelSpeedProgress);
-            mInput.setMargins(originalMarginLeft, originalMarginTop, 0, 0);
-            switch (originalShow) {
+            loadConfigFromFile();
+
+        }
+
+        @Override
+        public void onCancel(DialogInterface dialog) {
+
+            if (dialog == this) {
+                seekbarAlpha.setProgress(originalAlphaProgress);
+                seekbarSize.setProgress(originalSizeProgress);
+                seekbarWheelSpeed.setProgress(originalWheelSpeedProgress);
+                mInput.setMargins(originalMarginLeft, originalMarginTop, 0, 0);
+                switch (originalShow) {
+                    case OnscreenMouse.SHOW_ALL:
+                        rbtAll.setChecked(true);
+                        break;
+                    case OnscreenMouse.SHOW_IN_GAME:
+                        rbtInGame.setChecked(true);
+                        break;
+                    case OnscreenMouse.SHOW_OUT_GAME:
+                        rbtOutGame.setChecked(true);
+                        break;
+                }
+            }
+
+        }
+
+        @Override
+        public void onClick(View v) {
+
+            if (v == buttonCancel) {
+                this.cancel();
+            }
+
+            if (v == buttonOK) {
+                this.dismiss();
+            }
+
+            if (v == buttonRestore) {
+
+                DialogUtils.createBothChoicesDialog(mContext, mContext.getString(R.string.title_warn), mContext.getString(R.string.tips_are_you_sure_to_restore_setting), mContext.getString(R.string.title_ok), mContext.getString(R.string.title_cancel), new DialogSupports() {
+                    @Override
+                    public void runWhenPositive() {
+                        restoreConfig();
+                    }
+                });
+
+            }
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+
+        }
+
+        @Override
+        public void show() {
+            super.show();
+            originalAlphaProgress = seekbarAlpha.getProgress();
+            originalSizeProgress = seekbarSize.getProgress();
+            originalWheelSpeedProgress = seekbarWheelSpeed.getProgress();
+            originalMarginLeft = (int) mInput.getPos()[0];
+            originalMarginTop = (int) mInput.getPos()[1];
+            originalShow = ((OnscreenMouse) mInput).getShowStat();
+        }
+
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            if (seekBar == seekbarAlpha) {
+                int p = progress + MIN_ALPHA_PROGRESS;
+                String str = p + "%";
+                textAlpha.setText(str);
+                //设置透明度
+                float alpha = 1 - p * 0.01f;
+                ((OnscreenMouse) mInput).setAlpha(alpha);
+            }
+
+            if (seekBar == seekbarSize) {
+                int p = progress + MIN_SIZE_PROGRESS;
+                textSize.setText(String.valueOf(p));
+                //设置大小
+                int centerX = (int) (mInput.getPos()[0] + mInput.getSize()[0] / 2);
+                int centerY = (int) (mInput.getPos()[1] + mInput.getSize()[1] / 2);
+                int tmpWidth = (int) ((1 + p * 0.01f) * originalInputWidth);
+                int tmpHeight = (int) ((1 + p * 0.01f) * originalInputHeight);
+                ((OnscreenMouse) mInput).setSize(tmpWidth, tmpHeight);
+                //调整位置
+                adjustPos(centerX, centerY);
+            }
+
+            if (seekBar == seekbarWheelSpeed) {
+                int p = progress + MIN_SHEEL_SPEED_PROGRESS;
+                textWheelSpeed.setText(String.valueOf(p));
+                //设置滚轮速度
+                ((OnscreenMouse) mInput).setWheelSpeed(OnscreenMouse.DEFAULT_WHEEL_SPEED / p);
+            }
+        }
+
+        @Override
+        public void onStop() {
+            super.onStop();
+            saveConfigToFile();
+        }
+
+        private void restoreConfig() {
+            seekbarAlpha.setProgress(DEFAULT_ALPHA_PROGRESS);
+            seekbarSize.setProgress(DEFAULT_SIZE_PROGRESS);
+            seekbarWheelSpeed.setProgress(DEFAULT_WHEEL_SPEED_PROGRESS);
+            rbtAll.setChecked(true);
+        }
+
+        private void adjustPos(int originalCenterX, int originalCenterY) {
+            int viewWidth = mInput.getSize()[0];
+            int viewHeight = mInput.getSize()[1];
+            int marginLeft = originalCenterX - viewWidth / 2;
+            int margeinTop = originalCenterY - viewHeight / 2;
+
+            //左边界检测
+            if (marginLeft < 0) {
+                marginLeft = 0;
+            }
+            //上边界检测
+            if (margeinTop < 0) {
+                margeinTop = 0;
+            }
+            //右边界检测
+            if (marginLeft + viewWidth > screenWidth) {
+                marginLeft = screenWidth - viewWidth;
+            }
+            //下边界检测
+            if (margeinTop + viewHeight > screenHeight) {
+                margeinTop = screenHeight - viewHeight;
+            }
+
+            mInput.setMargins(marginLeft, margeinTop, 0, 0);
+        }
+
+        private void loadConfigFromFile() {
+            SharedPreferences sp = mContext.getSharedPreferences(spFileName, spMode);
+
+            //先设定一个最大值，防止Seebar的监听器无法监听到事件
+            seekbarAlpha.setProgress(MAX_ALPHA_PROGRESS);
+            seekbarSize.setProgress(MAX_SIZE_PROGRESS);
+            seekbarWheelSpeed.setProgress(MAX_WHEEL_SPEED_PROGRESS);
+            //设定存储的数据
+            seekbarAlpha.setProgress(sp.getInt(sp_alpha_name, DEFAULT_ALPHA_PROGRESS));
+            seekbarSize.setProgress(sp.getInt(sp_size_name, DEFAULT_SIZE_PROGRESS));
+            seekbarWheelSpeed.setProgress(sp.getInt(sp_wheel_speed_name, DEFAULT_WHEEL_SPEED_PROGRESS));
+            mInput.setMargins(sp.getInt(sp_pos_x_name, 0), sp.getInt(sp_pos_y_name, 0), 0, 0);
+            switch (sp.getInt(sp_show_name, OnscreenMouse.SHOW_ALL)) {
                 case OnscreenMouse.SHOW_ALL:
                     rbtAll.setChecked(true);
                     break;
@@ -469,179 +609,40 @@ class OnscreenMouseConfigDialog extends Dialog implements View.OnClickListener, 
             }
         }
 
-    }
-
-    @Override
-    public void onClick(View v) {
-
-        if (v == buttonCancel) {
-            this.cancel();
+        public void saveConfigToFile() {
+            SharedPreferences.Editor editor = mContext.getSharedPreferences(spFileName, spMode).edit();
+            editor.putInt(sp_alpha_name, seekbarAlpha.getProgress());
+            editor.putInt(sp_size_name, seekbarSize.getProgress());
+            editor.putInt(sp_wheel_speed_name, seekbarWheelSpeed.getProgress());
+            if (mInput.getUiVisiability() == View.VISIBLE) {
+                editor.putInt(sp_pos_x_name, (int) mInput.getPos()[0]);
+                editor.putInt(sp_pos_y_name, (int) mInput.getPos()[1]);
+            }
+            editor.putInt(sp_show_name, ((OnscreenMouse) mInput).getShowStat());
+            editor.apply();
         }
 
-        if (v == buttonOK) {
-            this.dismiss();
-        }
-
-        if (v == buttonRestore) {
-
-            DialogUtils.createBothChoicesDialog(mContext, mContext.getString(R.string.title_warn), mContext.getString(R.string.tips_are_you_sure_to_restore_setting), mContext.getString(R.string.title_ok), mContext.getString(R.string.title_cancel), new DialogSupports() {
-                @Override
-                public void runWhenPositive() {
-                    restoreConfig();
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if (buttonView == rbtAll) {
+                if (isChecked) {
+                    ((OnscreenMouse) mInput).setShowStat(OnscreenMouse.SHOW_ALL);
                 }
-            });
-
-        }
-    }
-
-    @Override
-    public void onStartTrackingTouch(SeekBar seekBar) {
-
-    }
-
-    @Override
-    public void onStopTrackingTouch(SeekBar seekBar) {
-
-    }
-
-    @Override
-    public void show() {
-        super.show();
-        originalAlphaProgress = seekbarAlpha.getProgress();
-        originalSizeProgress = seekbarSize.getProgress();
-        originalWheelSpeedProgress = seekbarWheelSpeed.getProgress();
-        originalMarginLeft = (int) mInput.getPos()[0];
-        originalMarginTop = (int) mInput.getPos()[1];
-        originalShow = ((OnscreenMouse) mInput).getShowStat();
-    }
-
-    @Override
-    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        if (seekBar == seekbarAlpha) {
-            int p = progress + MIN_ALPHA_PROGRESS;
-            String str = p + "%";
-            textAlpha.setText(str);
-            //设置透明度
-            float alpha = 1 - p * 0.01f;
-            ((OnscreenMouse) mInput).setAlpha(alpha);
-        }
-
-        if (seekBar == seekbarSize) {
-            int p = progress + MIN_SIZE_PROGRESS;
-            textSize.setText(String.valueOf(p));
-            //设置大小
-            int centerX = (int) (mInput.getPos()[0] + mInput.getSize()[0] / 2);
-            int centerY = (int) (mInput.getPos()[1] + mInput.getSize()[1] / 2);
-            int tmpWidth = (int) ((1 + p * 0.01f) * originalInputWidth);
-            int tmpHeight = (int) ((1 + p * 0.01f) * originalInputHeight);
-            ((OnscreenMouse) mInput).setSize(tmpWidth, tmpHeight);
-            //调整位置
-            adjustPos(centerX, centerY);
-        }
-
-        if (seekBar == seekbarWheelSpeed) {
-            int p = progress + MIN_SHEEL_SPEED_PROGRESS;
-            textWheelSpeed.setText(String.valueOf(p));
-            //设置滚轮速度
-            ((OnscreenMouse) mInput).setWheelSpeed(OnscreenMouse.DEFAULT_WHEEL_SPEED / p);
-        }
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        saveConfigToFile();
-    }
-
-    private void restoreConfig() {
-        seekbarAlpha.setProgress(DEFAULT_ALPHA_PROGRESS);
-        seekbarSize.setProgress(DEFAULT_SIZE_PROGRESS);
-        seekbarWheelSpeed.setProgress(DEFAULT_WHEEL_SPEED_PROGRESS);
-        rbtAll.setChecked(true);
-    }
-
-    private void adjustPos(int originalCenterX, int originalCenterY) {
-        int viewWidth = mInput.getSize()[0];
-        int viewHeight = mInput.getSize()[1];
-        int marginLeft = originalCenterX - viewWidth / 2;
-        int margeinTop = originalCenterY - viewHeight / 2;
-
-        //左边界检测
-        if (marginLeft < 0) {
-            marginLeft = 0;
-        }
-        //上边界检测
-        if (margeinTop < 0) {
-            margeinTop = 0;
-        }
-        //右边界检测
-        if (marginLeft + viewWidth > screenWidth) {
-            marginLeft = screenWidth - viewWidth;
-        }
-        //下边界检测
-        if (margeinTop + viewHeight > screenHeight) {
-            margeinTop = screenHeight - viewHeight;
-        }
-
-        mInput.setMargins(marginLeft, margeinTop, 0, 0);
-    }
-
-    private void loadConfigFromFile() {
-        SharedPreferences sp = mContext.getSharedPreferences(spFileName, spMode);
-
-        //先设定一个最大值，防止Seebar的监听器无法监听到事件
-        seekbarAlpha.setProgress(MAX_ALPHA_PROGRESS);
-        seekbarSize.setProgress(MAX_SIZE_PROGRESS);
-        seekbarWheelSpeed.setProgress(MAX_WHEEL_SPEED_PROGRESS);
-        //设定存储的数据
-        seekbarAlpha.setProgress(sp.getInt(sp_alpha_name, DEFAULT_ALPHA_PROGRESS));
-        seekbarSize.setProgress(sp.getInt(sp_size_name, DEFAULT_SIZE_PROGRESS));
-        seekbarWheelSpeed.setProgress(sp.getInt(sp_wheel_speed_name, DEFAULT_WHEEL_SPEED_PROGRESS));
-        mInput.setMargins(sp.getInt(sp_pos_x_name, 0), sp.getInt(sp_pos_y_name, 0), 0, 0);
-        switch (sp.getInt(sp_show_name, OnscreenMouse.SHOW_ALL)) {
-            case OnscreenMouse.SHOW_ALL:
-                rbtAll.setChecked(true);
-                break;
-            case OnscreenMouse.SHOW_IN_GAME:
-                rbtInGame.setChecked(true);
-                break;
-            case OnscreenMouse.SHOW_OUT_GAME:
-                rbtOutGame.setChecked(true);
-                break;
-        }
-    }
-
-    public void saveConfigToFile() {
-        SharedPreferences.Editor editor = mContext.getSharedPreferences(spFileName, spMode).edit();
-        editor.putInt(sp_alpha_name, seekbarAlpha.getProgress());
-        editor.putInt(sp_size_name, seekbarSize.getProgress());
-        editor.putInt(sp_wheel_speed_name, seekbarWheelSpeed.getProgress());
-        if (mInput.getUiVisiability() == View.VISIBLE) {
-            editor.putInt(sp_pos_x_name, (int) mInput.getPos()[0]);
-            editor.putInt(sp_pos_y_name, (int) mInput.getPos()[1]);
-        }
-        editor.putInt(sp_show_name, ((OnscreenMouse) mInput).getShowStat());
-        editor.apply();
-    }
-
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if (buttonView == rbtAll) {
-            if (isChecked) {
-                ((OnscreenMouse) mInput).setShowStat(OnscreenMouse.SHOW_ALL);
             }
-        }
 
-        if (buttonView == rbtInGame) {
-            if (isChecked) {
-                ((OnscreenMouse) mInput).setShowStat(OnscreenMouse.SHOW_IN_GAME);
+            if (buttonView == rbtInGame) {
+                if (isChecked) {
+                    ((OnscreenMouse) mInput).setShowStat(OnscreenMouse.SHOW_IN_GAME);
+                }
             }
-        }
 
-        if (buttonView == rbtOutGame) {
-            if (isChecked) {
-                ((OnscreenMouse) mInput).setShowStat(OnscreenMouse.SHOW_OUT_GAME);
+            if (buttonView == rbtOutGame) {
+                if (isChecked) {
+                    ((OnscreenMouse) mInput).setShowStat(OnscreenMouse.SHOW_OUT_GAME);
+                }
             }
         }
     }
+
 }
+

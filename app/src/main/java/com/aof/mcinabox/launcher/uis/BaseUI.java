@@ -50,13 +50,3 @@ public abstract class BaseUI implements UILifecycleCallbacks {
     @Override
     public void onRestart(){}
 }
-
-interface UILifecycleCallbacks{
-    void onCreate();
-    void onStart();
-    void onResume();
-    void onRestart();
-    void onPause();
-    void onStop();
-    void onDestory();
-}

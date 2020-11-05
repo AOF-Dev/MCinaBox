@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
 
 import com.aof.mcinabox.gamecontroller.ckb.achieve.CkbManager;
 import com.aof.mcinabox.gamecontroller.ckb.achieve.GameButtonDialog;
@@ -29,7 +30,7 @@ import static cosine.boat.definitions.id.key.KeyMode.MARK_INPUT_MODE_ALONE;
 import static cosine.boat.definitions.id.key.KeyMode.MARK_INPUT_MODE_CATCH;
 
 @SuppressLint("ViewConstructor")
-public class GameButton extends androidx.appcompat.widget.AppCompatButton implements View.OnTouchListener {
+public class GameButton extends AppCompatButton implements View.OnTouchListener {
 
     private final CallCustomizeKeyboard mCall;
     private final Controller mController;

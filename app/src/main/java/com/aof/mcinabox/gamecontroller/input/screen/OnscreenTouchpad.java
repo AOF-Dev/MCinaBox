@@ -392,219 +392,220 @@ public class OnscreenTouchpad implements OnscreenInput, KeyMap, MouseMap {
             setUiVisibility(View.GONE);
         }
     }
-}
 
-class OnscreenTouchpadConfigDialog extends Dialog implements View.OnClickListener, SeekBar.OnSeekBarChangeListener, Dialog.OnCancelListener, RadioButton.OnCheckedChangeListener {
+    private static class OnscreenTouchpadConfigDialog extends Dialog implements View.OnClickListener, SeekBar.OnSeekBarChangeListener, Dialog.OnCancelListener, RadioButton.OnCheckedChangeListener {
 
 
-    private final static String TAG = "OnscreenTouchConfigDialog";
-    private final static int DEFAULT_SPEED_PROGRESS = 5;
-    private final static int MAX_SPEED_PROGRESS = 15;
-    private final static int MIN_SPEED_PROGRESS = -5;
-    private final static int MAX_DELAY_PROGRESS = 900;
-    private final static int MIN_DELAY_PROGRESS = 100;
-    private final static int DEFAULT_DELAY_PROGRESS = OnscreenTouchpad.DEFAULT_HOLDING_DELAY - MIN_DELAY_PROGRESS;
-    private final static String spFileName = "input_onscreentouchpad_config";
-    private final static int spMode = Context.MODE_PRIVATE;
-    private final static String sp_speed_name = "speed";
-    private final static String sp_touchpad_mode = "touchpad_mode";
-    private final static String sp_delay_name = "delay";
-    private final Context mContext;
-    private final OnscreenInput mInput;
-    private SeekBar seekbarSpeed;
-    private SeekBar seekbarDelay;
-    private TextView textSpeed;
-    private TextView textDelay;
-    private RadioButton radioSlide;
-    private RadioButton radioPoint;
-    private Button buttonOK;
-    private Button buttonCancel;
-    private Button buttonRestore;
-    private int originalSpeedProgress;
-    private int originalTouchpadMode;
-    private int originalDelayProgress;
+        private final static String TAG = "OnscreenTouchConfigDialog";
+        private final static int DEFAULT_SPEED_PROGRESS = 5;
+        private final static int MAX_SPEED_PROGRESS = 15;
+        private final static int MIN_SPEED_PROGRESS = -5;
+        private final static int MAX_DELAY_PROGRESS = 900;
+        private final static int MIN_DELAY_PROGRESS = 100;
+        private final static int DEFAULT_DELAY_PROGRESS = OnscreenTouchpad.DEFAULT_HOLDING_DELAY - MIN_DELAY_PROGRESS;
+        private final static String spFileName = "input_onscreentouchpad_config";
+        private final static int spMode = Context.MODE_PRIVATE;
+        private final static String sp_speed_name = "speed";
+        private final static String sp_touchpad_mode = "touchpad_mode";
+        private final static String sp_delay_name = "delay";
+        private final Context mContext;
+        private final OnscreenInput mInput;
+        private SeekBar seekbarSpeed;
+        private SeekBar seekbarDelay;
+        private TextView textSpeed;
+        private TextView textDelay;
+        private RadioButton radioSlide;
+        private RadioButton radioPoint;
+        private Button buttonOK;
+        private Button buttonCancel;
+        private Button buttonRestore;
+        private int originalSpeedProgress;
+        private int originalTouchpadMode;
+        private int originalDelayProgress;
 
-    public OnscreenTouchpadConfigDialog(@NonNull Context context, OnscreenInput input) {
-        super(context);
-        this.setContentView(R.layout.dialog_onscreen_touchpad_config);
-        this.mContext = context;
-        this.mInput = input;
-        init();
-    }
-
-    private void init() {
-        this.setCanceledOnTouchOutside(false);
-        this.setOnCancelListener(this);
-
-        this.seekbarSpeed = this.findViewById(R.id.input_onscreen_touchpad_dialog_seekbar_speed);
-        this.seekbarDelay = this.findViewById(R.id.input_onscreen_touchpad_dialog_seekbar_delay);
-        this.textSpeed = this.findViewById(R.id.input_onscreen_touchpad_dialog_text_speed);
-        this.textDelay = this.findViewById(R.id.input_onscreen_touchpad_dialog_text_delay);
-        this.radioSlide = this.findViewById(R.id.input_onscreen_touchpad_dialog_radio_slide);
-        this.radioPoint = this.findViewById(R.id.input_onscreen_touchpad_dialog_radio_point);
-        this.buttonOK = this.findViewById(R.id.input_onscreen_touchpad_dialog_button_ok);
-        this.buttonCancel = this.findViewById(R.id.input_onscreen_touchpad_dialog_button_cancel);
-        this.buttonRestore = this.findViewById(R.id.input_onscreen_touchpad_dialog_button_restore);
-
-        for (View v : new View[]{buttonOK, buttonCancel, buttonRestore}) {
-            v.setOnClickListener(this);
+        public OnscreenTouchpadConfigDialog(@NonNull Context context, OnscreenInput input) {
+            super(context);
+            this.setContentView(R.layout.dialog_onscreen_touchpad_config);
+            this.mContext = context;
+            this.mInput = input;
+            init();
         }
-        for (RadioButton r : new RadioButton[]{radioPoint, radioSlide}) {
-            r.setOnCheckedChangeListener(this);
+
+        private void init() {
+            this.setCanceledOnTouchOutside(false);
+            this.setOnCancelListener(this);
+
+            this.seekbarSpeed = this.findViewById(R.id.input_onscreen_touchpad_dialog_seekbar_speed);
+            this.seekbarDelay = this.findViewById(R.id.input_onscreen_touchpad_dialog_seekbar_delay);
+            this.textSpeed = this.findViewById(R.id.input_onscreen_touchpad_dialog_text_speed);
+            this.textDelay = this.findViewById(R.id.input_onscreen_touchpad_dialog_text_delay);
+            this.radioSlide = this.findViewById(R.id.input_onscreen_touchpad_dialog_radio_slide);
+            this.radioPoint = this.findViewById(R.id.input_onscreen_touchpad_dialog_radio_point);
+            this.buttonOK = this.findViewById(R.id.input_onscreen_touchpad_dialog_button_ok);
+            this.buttonCancel = this.findViewById(R.id.input_onscreen_touchpad_dialog_button_cancel);
+            this.buttonRestore = this.findViewById(R.id.input_onscreen_touchpad_dialog_button_restore);
+
+            for (View v : new View[]{buttonOK, buttonCancel, buttonRestore}) {
+                v.setOnClickListener(this);
+            }
+            for (RadioButton r : new RadioButton[]{radioPoint, radioSlide}) {
+                r.setOnCheckedChangeListener(this);
+            }
+            for (SeekBar s : new SeekBar[]{seekbarSpeed, seekbarDelay}) {
+                s.setOnSeekBarChangeListener(this);
+            }
+            //初始化控件属性
+            this.seekbarSpeed.setMax(MAX_SPEED_PROGRESS);
+            this.seekbarDelay.setMax(MAX_DELAY_PROGRESS);
+
+            loadConfigFromFile();
+
         }
-        for (SeekBar s : new SeekBar[]{seekbarSpeed, seekbarDelay}) {
-            s.setOnSeekBarChangeListener(this);
+
+        @Override
+        public void onCancel(DialogInterface dialog) {
+
+            if (dialog == this) {
+                seekbarSpeed.setProgress(originalSpeedProgress);
+                seekbarDelay.setProgress(originalDelayProgress);
+                switch (originalSpeedProgress) {
+                    case OnscreenTouchpad.TOUCHPAD_MODE_POINT:
+                        radioPoint.setChecked(true);
+                        break;
+                    case OnscreenTouchpad.TOUCHPAD_MODE_SLIDE:
+                        radioSlide.setChecked(true);
+                        break;
+                }
+            }
+
         }
-        //初始化控件属性
-        this.seekbarSpeed.setMax(MAX_SPEED_PROGRESS);
-        this.seekbarDelay.setMax(MAX_DELAY_PROGRESS);
 
-        loadConfigFromFile();
+        @Override
+        public void onClick(View v) {
 
-    }
+            if (v == buttonOK) {
+                this.dismiss();
+            }
 
-    @Override
-    public void onCancel(DialogInterface dialog) {
+            if (v == buttonCancel) {
+                this.cancel();
+            }
 
-        if (dialog == this) {
-            seekbarSpeed.setProgress(originalSpeedProgress);
-            seekbarDelay.setProgress(originalDelayProgress);
-            switch (originalSpeedProgress) {
+            if (v == buttonRestore) {
+                DialogUtils.createBothChoicesDialog(mContext, mContext.getString(R.string.title_warn), mContext.getString(R.string.tips_are_you_sure_to_restore_setting), mContext.getString(R.string.title_ok), mContext.getString(R.string.title_cancel), new DialogSupports() {
+                    @Override
+                    public void runWhenPositive() {
+                        restoreConfig();
+                    }
+                });
+            }
+
+        }
+
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+            if (seekBar == seekbarSpeed) {
+                int p = progress + MIN_SPEED_PROGRESS;
+                String str = String.valueOf(p);
+                textSpeed.setText(str);
+                //设置速度等级
+                ((OnscreenTouchpad) mInput).setInputSpeedLevel(p);
+            }
+
+            if (seekBar == seekbarDelay) {
+                int p = progress + MIN_DELAY_PROGRESS;
+                String str = p + "ms";
+                textDelay.setText(str);
+                //设置延迟
+                ((OnscreenTouchpad) mInput).setHoldingDelay(p);
+            }
+
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+
+        }
+
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+            if (buttonView == radioPoint) {
+                if (isChecked) {
+                    ((OnscreenTouchpad) mInput).setTouchpadMode(OnscreenTouchpad.TOUCHPAD_MODE_POINT);
+                }
+            }
+
+            if (buttonView == radioSlide) {
+                if (isChecked) {
+                    ((OnscreenTouchpad) mInput).setTouchpadMode(OnscreenTouchpad.TOUCHPAD_MODE_SLIDE);
+                }
+            }
+
+        }
+
+        @Override
+        public void onStop() {
+            super.onStop();
+            saveConfigToFile();
+        }
+
+        @Override
+        public void show() {
+            super.show();
+            originalSpeedProgress = seekbarSpeed.getProgress();
+            originalDelayProgress = seekbarDelay.getProgress();
+            if (radioSlide.isChecked()) {
+                originalTouchpadMode = OnscreenTouchpad.TOUCHPAD_MODE_SLIDE;
+            } else if (radioPoint.isChecked()) {
+                originalTouchpadMode = OnscreenTouchpad.TOUCHPAD_MODE_POINT;
+            }
+        }
+
+        private void restoreConfig() {
+            seekbarSpeed.setProgress(DEFAULT_SPEED_PROGRESS);
+            seekbarDelay.setProgress(DEFAULT_DELAY_PROGRESS);
+            radioPoint.setChecked(true);
+        }
+
+        private void loadConfigFromFile() {
+            SharedPreferences sp = mContext.getSharedPreferences(spFileName, spMode);
+
+            //先设定一个最大值，防止Seebar的监听器无法监听到事件
+            seekbarSpeed.setProgress(MAX_SPEED_PROGRESS);
+            seekbarDelay.setProgress(MAX_DELAY_PROGRESS);
+            //设定存储的数据
+            seekbarSpeed.setProgress(sp.getInt(sp_speed_name, DEFAULT_SPEED_PROGRESS));
+            switch (sp.getInt(sp_touchpad_mode, OnscreenTouchpad.TOUCHPAD_MODE_POINT)) {
                 case OnscreenTouchpad.TOUCHPAD_MODE_POINT:
-                    radioPoint.setChecked(true);
+                    ((OnscreenTouchpad) mInput).setTouchpadMode(OnscreenTouchpad.TOUCHPAD_MODE_POINT);
+                    this.radioPoint.setChecked(true);
                     break;
                 case OnscreenTouchpad.TOUCHPAD_MODE_SLIDE:
-                    radioSlide.setChecked(true);
+                    ((OnscreenTouchpad) mInput).setTouchpadMode(OnscreenTouchpad.TOUCHPAD_MODE_SLIDE);
+                    this.radioSlide.setChecked(true);
                     break;
             }
+            seekbarDelay.setProgress(sp.getInt(sp_delay_name, DEFAULT_DELAY_PROGRESS));
         }
 
-    }
-
-    @Override
-    public void onClick(View v) {
-
-        if (v == buttonOK) {
-            this.dismiss();
-        }
-
-        if (v == buttonCancel) {
-            this.cancel();
-        }
-
-        if (v == buttonRestore) {
-            DialogUtils.createBothChoicesDialog(mContext, mContext.getString(R.string.title_warn), mContext.getString(R.string.tips_are_you_sure_to_restore_setting), mContext.getString(R.string.title_ok), mContext.getString(R.string.title_cancel), new DialogSupports() {
-                @Override
-                public void runWhenPositive() {
-                    restoreConfig();
-                }
-            });
-        }
-
-    }
-
-    @Override
-    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
-        if (seekBar == seekbarSpeed) {
-            int p = progress + MIN_SPEED_PROGRESS;
-            String str = String.valueOf(p);
-            textSpeed.setText(str);
-            //设置速度等级
-            ((OnscreenTouchpad) mInput).setInputSpeedLevel(p);
-        }
-
-        if (seekBar == seekbarDelay) {
-            int p = progress + MIN_DELAY_PROGRESS;
-            String str = p + "ms";
-            textDelay.setText(str);
-            //设置延迟
-            ((OnscreenTouchpad) mInput).setHoldingDelay(p);
-        }
-
-    }
-
-    @Override
-    public void onStartTrackingTouch(SeekBar seekBar) {
-
-    }
-
-    @Override
-    public void onStopTrackingTouch(SeekBar seekBar) {
-
-    }
-
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-        if (buttonView == radioPoint) {
-            if (isChecked) {
-                ((OnscreenTouchpad) mInput).setTouchpadMode(OnscreenTouchpad.TOUCHPAD_MODE_POINT);
+        private void saveConfigToFile() {
+            SharedPreferences.Editor editor = mContext.getSharedPreferences(spFileName, spMode).edit();
+            editor.putInt(sp_speed_name, seekbarSpeed.getProgress());
+            if (this.radioSlide.isChecked()) {
+                editor.putInt(sp_touchpad_mode, OnscreenTouchpad.TOUCHPAD_MODE_SLIDE);
+            } else if (this.radioPoint.isChecked()) {
+                editor.putInt(sp_touchpad_mode, OnscreenTouchpad.TOUCHPAD_MODE_POINT);
             }
-        }
-
-        if (buttonView == radioSlide) {
-            if (isChecked) {
-                ((OnscreenTouchpad) mInput).setTouchpadMode(OnscreenTouchpad.TOUCHPAD_MODE_SLIDE);
-            }
-        }
-
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        saveConfigToFile();
-    }
-
-    @Override
-    public void show() {
-        super.show();
-        originalSpeedProgress = seekbarSpeed.getProgress();
-        originalDelayProgress = seekbarDelay.getProgress();
-        if (radioSlide.isChecked()) {
-            originalTouchpadMode = OnscreenTouchpad.TOUCHPAD_MODE_SLIDE;
-        } else if (radioPoint.isChecked()) {
-            originalTouchpadMode = OnscreenTouchpad.TOUCHPAD_MODE_POINT;
+            editor.putInt(sp_delay_name, seekbarDelay.getProgress());
+            editor.apply();
         }
     }
 
-    private void restoreConfig() {
-        seekbarSpeed.setProgress(DEFAULT_SPEED_PROGRESS);
-        seekbarDelay.setProgress(DEFAULT_DELAY_PROGRESS);
-        radioPoint.setChecked(true);
-    }
-
-    private void loadConfigFromFile() {
-        SharedPreferences sp = mContext.getSharedPreferences(spFileName, spMode);
-
-        //先设定一个最大值，防止Seebar的监听器无法监听到事件
-        seekbarSpeed.setProgress(MAX_SPEED_PROGRESS);
-        seekbarDelay.setProgress(MAX_DELAY_PROGRESS);
-        //设定存储的数据
-        seekbarSpeed.setProgress(sp.getInt(sp_speed_name, DEFAULT_SPEED_PROGRESS));
-        switch (sp.getInt(sp_touchpad_mode, OnscreenTouchpad.TOUCHPAD_MODE_POINT)) {
-            case OnscreenTouchpad.TOUCHPAD_MODE_POINT:
-                ((OnscreenTouchpad) mInput).setTouchpadMode(OnscreenTouchpad.TOUCHPAD_MODE_POINT);
-                this.radioPoint.setChecked(true);
-                break;
-            case OnscreenTouchpad.TOUCHPAD_MODE_SLIDE:
-                ((OnscreenTouchpad) mInput).setTouchpadMode(OnscreenTouchpad.TOUCHPAD_MODE_SLIDE);
-                this.radioSlide.setChecked(true);
-                break;
-        }
-        seekbarDelay.setProgress(sp.getInt(sp_delay_name, DEFAULT_DELAY_PROGRESS));
-    }
-
-    private void saveConfigToFile() {
-        SharedPreferences.Editor editor = mContext.getSharedPreferences(spFileName, spMode).edit();
-        editor.putInt(sp_speed_name, seekbarSpeed.getProgress());
-        if (this.radioSlide.isChecked()) {
-            editor.putInt(sp_touchpad_mode, OnscreenTouchpad.TOUCHPAD_MODE_SLIDE);
-        } else if (this.radioPoint.isChecked()) {
-            editor.putInt(sp_touchpad_mode, OnscreenTouchpad.TOUCHPAD_MODE_POINT);
-        }
-        editor.putInt(sp_delay_name, seekbarDelay.getProgress());
-        editor.apply();
-    }
 }

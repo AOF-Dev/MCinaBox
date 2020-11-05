@@ -155,131 +155,127 @@ public class CustomizeKeyboardEditorActivity extends AppCompatActivity implement
         mManager.autoSaveKeyboard();
     }
 
+    private static class DragFloatActionButton extends LinearLayout implements ViewGroup.OnTouchListener {
+
+        private static final String TAG = "DragButton";
+        private int parentHeight;
+        private int parentWidth;
+
+        private int lastX;
+        private int lastY;
+
+        private boolean isDrag;
+        private ViewGroup parent;
+
+        private ArrangeRule aRule;
 
 
-}
+        public DragFloatActionButton(Context context) {
+            super(context);
+            this.setOnTouchListener(this);
+        }
 
-class DragFloatActionButton extends LinearLayout implements ViewGroup.OnTouchListener {
+        public DragFloatActionButton(Context context, AttributeSet attrs) {
+            super(context, attrs);
+        }
 
-    private static final String TAG = "DragButton";
-    private int parentHeight;
-    private int parentWidth;
+        public DragFloatActionButton(Context context, AttributeSet attrs, int defStyleAttr) {
+            super(context, attrs, defStyleAttr);
+        }
 
-    private int lastX;
-    private int lastY;
+        @Override
+        public boolean performClick() {
+            super.performClick();
+            return false;
+        }
 
-    private boolean isDrag;
-    private ViewGroup parent;
+        public void behave(MotionEvent event) {
+            int rawX = (int) event.getRawX();
+            int rawY = (int) event.getRawY();
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    isDrag = false;
+                    this.setAlpha(0.9f);
+                    getParent().requestDisallowInterceptTouchEvent(true);
+                    lastX = rawX;
+                    lastY = rawY;
+                    if (getParent() != null) {
+                        parent = (ViewGroup) getParent();
+                        parentHeight = parent.getHeight();
+                        parentWidth = parent.getWidth();
+                    }
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    this.setAlpha(0.9f);
+                    int dx = rawX - lastX;
+                    int dy = rawY - lastY;
+                    int distance = (int) Math.sqrt(dx * dx + dy * dy);
+                    if (distance > 2 && !isDrag) {
+                        isDrag = true;
+                    }
 
-    private ArrangeRule aRule;
+                    float x = getX() + dx;
+                    float y = getY() + dy;
+                    //检测是否到达边缘 左上右下
+                    x = x < 0 ? 0 : x > parentWidth - getWidth() ? parentWidth - getWidth() : x;
+                    y = getY() < 0 ? 0 : getY() + getHeight() > parentHeight ? parentHeight - getHeight() : y;
+                    setX(x);
+                    setY(y);
+                    lastX = rawX;
+                    lastY = rawY;
+                    break;
+                case MotionEvent.ACTION_UP:
+                    if (isDrag) {
+                        //恢复按压效果
+                        setPressed(false);
+                        moveHide(rawX);
+                    } else {
+                        //执行点击操作
+                        startTodo();
+                    }
+                    break;
+            }
+        }
 
+        private void moveHide(int rawX) {
+            if (rawX >= parentWidth / 2) {
+                //靠右吸附
+                ObjectAnimator oa = ObjectAnimator.ofFloat(this, "x", getX(), parentWidth - getWidth());
+                oa.setInterpolator(new DecelerateInterpolator());
+                oa.setDuration(500);
+                oa.start();
+            } else {
+                //靠左吸附
+                ObjectAnimator oa = ObjectAnimator.ofFloat(this, "x", getX(), 0);
+                oa.setInterpolator(new DecelerateInterpolator());
+                oa.setDuration(500);
+                oa.start();
+            }
+        }
 
-    public DragFloatActionButton(Context context) {
-        super(context);
-        this.setOnTouchListener(this);
-    }
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            if (v == this) {
+                this.behave(event);
+                return true;
+            }
+            return false;
+        }
 
-    @Override
-    public boolean performClick(){
-        super.performClick();
-        return false;
-    }
+        public void setTodo(ArrangeRule ar) {
+            this.aRule = ar;
+        }
 
-    public DragFloatActionButton(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
-
-    public DragFloatActionButton(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-    }
-
-
-    public void behave(MotionEvent event){
-        int rawX = (int) event.getRawX();
-        int rawY = (int) event.getRawY();
-        switch(event.getAction()){
-            case MotionEvent.ACTION_DOWN:
-                isDrag = false;
-                this.setAlpha(0.9f);
-                getParent().requestDisallowInterceptTouchEvent(true);
-                lastX = rawX;
-                lastY = rawY;
-                if(getParent() != null){
-                    parent = (ViewGroup) getParent();
-                    parentHeight = parent.getHeight();
-                    parentWidth = parent.getWidth();
-                }
-                break;
-            case MotionEvent.ACTION_MOVE:
-                this.setAlpha(0.9f);
-                int dx = rawX - lastX;
-                int dy = rawY - lastY;
-                int distance = (int) Math.sqrt(dx *dx + dy*dy);
-                if(distance > 2 && !isDrag){
-                    isDrag = true;
-                }
-
-                float x = getX() + dx;
-                float y = getY() + dy;
-                //检测是否到达边缘 左上右下
-                x = x < 0 ? 0 : x > parentWidth - getWidth() ? parentWidth - getWidth() : x;
-                y = getY() < 0 ? 0 : getY() + getHeight() > parentHeight ? parentHeight - getHeight() : y;
-                setX(x);
-                setY(y);
-                lastX = rawX;
-                lastY = rawY;
-                break;
-            case MotionEvent.ACTION_UP:
-                if(isDrag){
-                    //恢复按压效果
-                    setPressed(false);
-                    moveHide(rawX);
-                }else{
-                    //执行点击操作
-                    startTodo();
-                }
-                break;
+        public void startTodo() {
+            if (aRule != null) {
+                aRule.run();
+            }
         }
     }
 
-    private void moveHide(int rawX){
-        if(rawX >= parentWidth / 2){
-            //靠右吸附
-            ObjectAnimator oa = ObjectAnimator.ofFloat(this,"x",getX(),parentWidth - getWidth());
-            oa.setInterpolator(new DecelerateInterpolator());
-            oa.setDuration(500);
-            oa.start();
-        }else{
-            //靠左吸附
-            ObjectAnimator oa = ObjectAnimator.ofFloat(this,"x",getX(),0);
-            oa.setInterpolator(new DecelerateInterpolator());
-            oa.setDuration(500);
-            oa.start();
+    private static class ArrangeRule {
+        public void run() {
+            // Override this method.
         }
-    }
-
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        if(v == this){
-            this.behave(event);
-            return true;
-        }
-        return false;
-    }
-
-    public void setTodo(ArrangeRule ar){
-        this.aRule = ar;
-    }
-
-    public void startTodo(){
-        if(aRule != null){
-            aRule.run();
-        }
-    }
-}
-
-class ArrangeRule{
-    public void run(){
-        // Override this method.
     }
 }

@@ -20,7 +20,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SwitchCompat;
 
 import com.aof.mcinabox.R;
-import cosine.boat.definitions.id.key.KeyEvent;
 import com.aof.mcinabox.gamecontroller.ckb.button.GameButton;
 import com.aof.mcinabox.gamecontroller.ckb.support.CkbThemeMarker;
 import com.aof.mcinabox.gamecontroller.ckb.support.QwertButton;
@@ -30,11 +29,13 @@ import com.aof.mcinabox.utils.dialog.support.DialogSupports;
 
 import java.util.Arrays;
 
+import cosine.boat.definitions.id.key.KeyEvent;
+
 public class GameButtonDialog extends Dialog implements View.OnClickListener, SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener, Dialog.OnCancelListener, View.OnFocusChangeListener, Spinner.OnItemSelectedListener {
 
-    private Context mContext;
-    private GameButton mGameButton;
-    private CkbManager mManager;
+    private final Context mContext;
+    private final GameButton mGameButton;
+    private final CkbManager mManager;
 
     private EditText editKeyName;
 
@@ -618,102 +619,99 @@ public class GameButtonDialog extends Dialog implements View.OnClickListener, Se
         });
     }
 
+    private static class CkbKeyMapSelecterDialog extends Dialog implements View.OnClickListener, Dialog.OnCancelListener {
 
-}
+        private final static String TAG = "CkbKMSDialog";
+        private final Context mContext;
+        private final GameButtonDialog mDialog;
+        private final int index;
+        private LinearLayout keyboardLayer;
+        private LinearLayout mouseLayer;
+        private TextView textKeyName;
+        private Button buttonOK;
+        private Button buttonCancel;
+        private Button buttonClear;
+        private String selectedData;
+        private int type = KeyEvent.KEYBOARD_BUTTON;
 
-class CkbKeyMapSelecterDialog extends Dialog implements View.OnClickListener, Dialog.OnCancelListener {
+        public CkbKeyMapSelecterDialog(@NonNull Context context, GameButtonDialog dialog, int index, String data) {
+            super(context);
+            this.mContext = context;
+            this.mDialog = dialog;
+            this.index = index;
+            selectedData = data;
+            this.setContentView(R.layout.dialog_keymap_selecter);
+            init();
+        }
 
-    private Context mContext;
-    private GameButtonDialog mDialog;
-    private final static String TAG = "CkbKMSDialog";
+        private void init() {
+            this.setOnCancelListener(this);
 
-    private LinearLayout keyboardLayer;
-    private LinearLayout mouseLayer;
-    private TextView textKeyName;
-    private Button buttonOK;
-    private Button buttonCancel;
-    private Button buttonClear;
+            keyboardLayer = findViewById(R.id.dialog_keymap_selecter_keyboard_layout);
+            mouseLayer = findViewById(R.id.dialog_keymap_selecter_mouse_layout);
+            textKeyName = findViewById(R.id.dialog_keymap_selecter_text_keyname);
+            buttonOK = findViewById(R.id.dialog_keymap_selecter_button_ok);
+            buttonCancel = findViewById(R.id.dialog_keymap_selecter_button_cancel);
+            buttonClear = findViewById(R.id.dialog_keymap_selecter_button_clear);
 
-    private String selectedData;
-    private int index;
-    private int type = KeyEvent.KEYBOARD_BUTTON;
-
-    public CkbKeyMapSelecterDialog(@NonNull Context context, GameButtonDialog dialog, int index, String data) {
-        super(context);
-        this.mContext = context;
-        this.mDialog = dialog;
-        this.index = index;
-        selectedData = data;
-        this.setContentView(R.layout.dialog_keymap_selecter);
-        init();
-    }
-
-    private void init() {
-        this.setOnCancelListener(this);
-
-        keyboardLayer = findViewById(R.id.dialog_keymap_selecter_keyboard_layout);
-        mouseLayer = findViewById(R.id.dialog_keymap_selecter_mouse_layout);
-        textKeyName = findViewById(R.id.dialog_keymap_selecter_text_keyname);
-        buttonOK = findViewById(R.id.dialog_keymap_selecter_button_ok);
-        buttonCancel = findViewById(R.id.dialog_keymap_selecter_button_cancel);
-        buttonClear = findViewById(R.id.dialog_keymap_selecter_button_clear);
-
-        //设置监听
-        //keyboardlayer
-        for (int a = 0; a < keyboardLayer.getChildCount(); a++) {
-            if (keyboardLayer.getChildAt(a) instanceof LinearLayout) {
-                for (int b = 0; b < ((LinearLayout) keyboardLayer.getChildAt(a)).getChildCount(); b++) {
-                    ((LinearLayout) keyboardLayer.getChildAt(a)).getChildAt(b).setOnClickListener(this);
+            //设置监听
+            //keyboardlayer
+            for (int a = 0; a < keyboardLayer.getChildCount(); a++) {
+                if (keyboardLayer.getChildAt(a) instanceof LinearLayout) {
+                    for (int b = 0; b < ((LinearLayout) keyboardLayer.getChildAt(a)).getChildCount(); b++) {
+                        ((LinearLayout) keyboardLayer.getChildAt(a)).getChildAt(b).setOnClickListener(this);
+                    }
                 }
             }
-        }
-        //mouselayer
-        for (int a = 0; a < mouseLayer.getChildCount(); a++) {
-            mouseLayer.getChildAt(a).setOnClickListener(this);
-        }
-
-        for (View v : new View[]{buttonOK, buttonCancel, buttonClear}) {
-            v.setOnClickListener(this);
-        }
-        //设置属性
-        textKeyName.setText(selectedData);
-
-    }
-
-    @Override
-    public void onCancel(DialogInterface dialog) {
-
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (v instanceof QwertButton) {
-            this.selectedData = ((QwertButton) v).getButtonName();
-            if (v.getParent() == mouseLayer) {
-                this.type = KeyEvent.MOUSE_BUTTON;
-            } else {
-                this.type = KeyEvent.KEYBOARD_BUTTON;
+            //mouselayer
+            for (int a = 0; a < mouseLayer.getChildCount(); a++) {
+                mouseLayer.getChildAt(a).setOnClickListener(this);
             }
-            updateUI();
-        }
-        if (v == buttonOK) {
-            mDialog.setKeyMap(index, selectedData, type);
-            dismiss();
-        }
-        if (v == buttonCancel) {
-            cancel();
-        }
-        if (v == buttonClear) {
-            this.selectedData = "";
-            updateUI();
-        }
-    }
 
-    private void updateUI() {
-        if (selectedData != null) {
-            this.textKeyName.setText(selectedData);
-        } else {
-            this.textKeyName.setText("");
+            for (View v : new View[]{buttonOK, buttonCancel, buttonClear}) {
+                v.setOnClickListener(this);
+            }
+            //设置属性
+            textKeyName.setText(selectedData);
+
+        }
+
+        @Override
+        public void onCancel(DialogInterface dialog) {
+
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (v instanceof QwertButton) {
+                this.selectedData = ((QwertButton) v).getButtonName();
+                if (v.getParent() == mouseLayer) {
+                    this.type = KeyEvent.MOUSE_BUTTON;
+                } else {
+                    this.type = KeyEvent.KEYBOARD_BUTTON;
+                }
+                updateUI();
+            }
+            if (v == buttonOK) {
+                mDialog.setKeyMap(index, selectedData, type);
+                dismiss();
+            }
+            if (v == buttonCancel) {
+                cancel();
+            }
+            if (v == buttonClear) {
+                this.selectedData = "";
+                updateUI();
+            }
+        }
+
+        private void updateUI() {
+            if (selectedData != null) {
+                this.textKeyName.setText(selectedData);
+            } else {
+                this.textKeyName.setText("");
+            }
         }
     }
 }
+

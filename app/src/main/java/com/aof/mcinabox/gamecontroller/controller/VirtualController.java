@@ -425,136 +425,134 @@ public class VirtualController extends BaseController implements View.OnClickLis
         saveConfigToFile();
     }
 
-}
-
-class VirtualControllerSetting extends Dialog {
-
-    public VirtualControllerSetting(@NonNull Context context) {
-        super(context);
-        setContentView(R.layout.dialog_controller_functions);
-    }
-}
-
-class DragFloatActionButton extends LinearLayout implements ViewGroup.OnTouchListener {
-
-    private static final String TAG = "DragButton";
-    private int parentHeight;
-    private int parentWidth;
-
-    private int lastX;
-    private int lastY;
-
-    private boolean isDrag;
-    private ViewGroup parent;
-
-    private ArrangeRule aRule;
-
-
-    public DragFloatActionButton(Context context) {
-        super(context);
-        this.setOnTouchListener(this);
-    }
-
-    public DragFloatActionButton(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
-
-    public DragFloatActionButton(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-    }
-
-    @Override
-    public boolean performClick() {
-        super.performClick();
-        return false;
-    }
-
-    public void behave(MotionEvent event) {
-        int rawX = (int) event.getRawX();
-        int rawY = (int) event.getRawY();
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                isDrag = false;
-                this.setAlpha(0.9f);
-                getParent().requestDisallowInterceptTouchEvent(true);
-                lastX = rawX;
-                lastY = rawY;
-                if (getParent() != null) {
-                    parent = (ViewGroup) getParent();
-                    parentHeight = parent.getHeight();
-                    parentWidth = parent.getWidth();
-                }
-                break;
-            case MotionEvent.ACTION_MOVE:
-                this.setAlpha(0.9f);
-                int dx = rawX - lastX;
-                int dy = rawY - lastY;
-                int distance = (int) Math.sqrt(dx * dx + dy * dy);
-                if (distance > 2 && !isDrag) {
-                    isDrag = true;
-                }
-
-                float x = getX() + dx;
-                float y = getY() + dy;
-                //检测是否到达边缘 左上右下
-                x = x < 0 ? 0 : x > parentWidth - getWidth() ? parentWidth - getWidth() : x;
-                y = getY() < 0 ? 0 : getY() + getHeight() > parentHeight ? parentHeight - getHeight() : y;
-                setX(x);
-                setY(y);
-                lastX = rawX;
-                lastY = rawY;
-                break;
-            case MotionEvent.ACTION_UP:
-                if (isDrag) {
-                    //恢复按压效果
-                    setPressed(false);
-                    moveHide(rawX);
-                } else {
-                    //执行点击操作
-                    startTodo();
-                }
-                break;
+    private static class VirtualControllerSetting extends Dialog {
+        public VirtualControllerSetting(@NonNull Context context) {
+            super(context);
+            setContentView(R.layout.dialog_controller_functions);
         }
     }
 
-    private void moveHide(int rawX) {
-        if (rawX >= parentWidth / 2) {
-            //靠右吸附
-            ObjectAnimator oa = ObjectAnimator.ofFloat(this, "x", getX(), parentWidth - getWidth());
-            oa.setInterpolator(new DecelerateInterpolator());
-            oa.setDuration(500);
-            oa.start();
-        } else {
-            //靠左吸附
-            ObjectAnimator oa = ObjectAnimator.ofFloat(this, "x", getX(), 0);
-            oa.setInterpolator(new DecelerateInterpolator());
-            oa.setDuration(500);
-            oa.start();
+    private static class DragFloatActionButton extends LinearLayout implements ViewGroup.OnTouchListener {
+
+        private static final String TAG = "DragButton";
+        private int parentHeight;
+        private int parentWidth;
+
+        private int lastX;
+        private int lastY;
+
+        private boolean isDrag;
+        private ViewGroup parent;
+
+        private ArrangeRule aRule;
+
+
+        public DragFloatActionButton(Context context) {
+            super(context);
+            this.setOnTouchListener(this);
+        }
+
+        public DragFloatActionButton(Context context, AttributeSet attrs) {
+            super(context, attrs);
+        }
+
+        public DragFloatActionButton(Context context, AttributeSet attrs, int defStyleAttr) {
+            super(context, attrs, defStyleAttr);
+        }
+
+        @Override
+        public boolean performClick() {
+            super.performClick();
+            return false;
+        }
+
+        public void behave(MotionEvent event) {
+            int rawX = (int) event.getRawX();
+            int rawY = (int) event.getRawY();
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    isDrag = false;
+                    this.setAlpha(0.9f);
+                    getParent().requestDisallowInterceptTouchEvent(true);
+                    lastX = rawX;
+                    lastY = rawY;
+                    if (getParent() != null) {
+                        parent = (ViewGroup) getParent();
+                        parentHeight = parent.getHeight();
+                        parentWidth = parent.getWidth();
+                    }
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    this.setAlpha(0.9f);
+                    int dx = rawX - lastX;
+                    int dy = rawY - lastY;
+                    int distance = (int) Math.sqrt(dx * dx + dy * dy);
+                    if (distance > 2 && !isDrag) {
+                        isDrag = true;
+                    }
+
+                    float x = getX() + dx;
+                    float y = getY() + dy;
+                    //检测是否到达边缘 左上右下
+                    x = x < 0 ? 0 : x > parentWidth - getWidth() ? parentWidth - getWidth() : x;
+                    y = getY() < 0 ? 0 : getY() + getHeight() > parentHeight ? parentHeight - getHeight() : y;
+                    setX(x);
+                    setY(y);
+                    lastX = rawX;
+                    lastY = rawY;
+                    break;
+                case MotionEvent.ACTION_UP:
+                    if (isDrag) {
+                        //恢复按压效果
+                        setPressed(false);
+                        moveHide(rawX);
+                    } else {
+                        //执行点击操作
+                        startTodo();
+                    }
+                    break;
+            }
+        }
+
+        private void moveHide(int rawX) {
+            if (rawX >= parentWidth / 2) {
+                //靠右吸附
+                ObjectAnimator oa = ObjectAnimator.ofFloat(this, "x", getX(), parentWidth - getWidth());
+                oa.setInterpolator(new DecelerateInterpolator());
+                oa.setDuration(500);
+                oa.start();
+            } else {
+                //靠左吸附
+                ObjectAnimator oa = ObjectAnimator.ofFloat(this, "x", getX(), 0);
+                oa.setInterpolator(new DecelerateInterpolator());
+                oa.setDuration(500);
+                oa.start();
+            }
+        }
+
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            if (v == this) {
+                this.behave(event);
+                return true;
+            }
+            return false;
+        }
+
+        public void setTodo(ArrangeRule ar) {
+            this.aRule = ar;
+        }
+
+        public void startTodo() {
+            if (aRule != null) {
+                aRule.run();
+            }
         }
     }
 
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        if (v == this) {
-            this.behave(event);
-            return true;
+    private static class ArrangeRule {
+        public void run() {
+            // Override this method.
         }
-        return false;
-    }
-
-    public void setTodo(ArrangeRule ar) {
-        this.aRule = ar;
-    }
-
-    public void startTodo() {
-        if (aRule != null) {
-            aRule.run();
-        }
-    }
-}
-
-class ArrangeRule {
-    public void run() {
-        // Override this method.
     }
 }
