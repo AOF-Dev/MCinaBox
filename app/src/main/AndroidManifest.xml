@@ -19,15 +19,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity"
-            android:screenOrientation="sensorLandscape"></activity>
+        <activity
+            android:name=".activity.SettingsActivity"
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".activity.MainActivity"
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".activity.SplashActivity"
             android:screenOrientation="sensorLandscape"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
