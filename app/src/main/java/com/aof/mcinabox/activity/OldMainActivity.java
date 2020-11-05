@@ -21,6 +21,7 @@ import com.aof.mcinabox.utils.FileTool;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -29,7 +30,7 @@ import cosine.boat.definitions.manifest.AppManifest;
 public class OldMainActivity extends BaseActivity {
 
     public static final int LAUNCHER_IMPT_RTPACK = 127;
-    public static OldMainActivity CURRENT_ACTIVITY;
+    public static WeakReference<OldMainActivity> CURRENT_ACTIVITY;
     public Timer mTimer;
     public UiManager mUiManager;
     public TipperManager mTipperManager;
@@ -46,7 +47,7 @@ public class OldMainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_old_main);
         //静态对象
-        CURRENT_ACTIVITY = this;
+        CURRENT_ACTIVITY = new WeakReference<>(this);
         //使用语言管理器切换语言
         if(!new LangManager(this).fitSystemLang()){
             return;
@@ -233,7 +234,7 @@ public class OldMainActivity extends BaseActivity {
         Intent i = new Intent(this, OldMainActivity.class);
         this.startActivity(i);
 
-        OldMainActivity.CURRENT_ACTIVITY.finish();
+        finish();
     }
 
     private void switchSettingChecker(boolean enable){

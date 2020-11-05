@@ -24,21 +24,17 @@ public class PluginUI extends BaseUI {
     private Animation showAnim;
     private SettingJson setting;
 
-    @Override
-    public void onCreate( ) {
-        super.onCreate();
-        setting = OldMainActivity.Setting;
-        showAnim = AnimationUtils.loadAnimation(mContext, R.anim.layout_show);
-        lagout_plugin = OldMainActivity.CURRENT_ACTIVITY.findViewById(R.id.layout_plugin);
-        buttonAddPlugin = lagout_plugin.findViewById(R.id.plugin_button_addplugin);
-        buttonRefresh = lagout_plugin.findViewById(R.id.plugin_button_refresh);
-        listPlugins = lagout_plugin.findViewById(R.id.listview_plugins);
-
-        for(View v : new View[]{buttonAddPlugin, buttonRefresh}){
-            v.setOnClickListener(clickListener);
+    private final View.OnClickListener clickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (v == buttonAddPlugin) {
+                //TODO:添加插件功能
+            }
+            if (v == buttonRefresh) {
+                //TODO:刷新插件列表
+            }
         }
-        refreshUI();
-    }
+    };
 
     @Override
     public void refreshUI() {
@@ -62,19 +58,23 @@ public class PluginUI extends BaseUI {
         return lagout_plugin.getVisibility();
     }
 
-    private View.OnClickListener clickListener = new View.OnClickListener(){
-        @Override
-        public void onClick(View v){
-            if(v == buttonAddPlugin){
-                //TODO:添加插件功能
-            }
-            if(v == buttonRefresh){
-                //TODO:刷新插件列表
-            }
-        }
-    };
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        setting = OldMainActivity.Setting;
+        showAnim = AnimationUtils.loadAnimation(mContext, R.anim.layout_show);
+        lagout_plugin = OldMainActivity.CURRENT_ACTIVITY.get().findViewById(R.id.layout_plugin);
+        buttonAddPlugin = lagout_plugin.findViewById(R.id.plugin_button_addplugin);
+        buttonRefresh = lagout_plugin.findViewById(R.id.plugin_button_refresh);
+        listPlugins = lagout_plugin.findViewById(R.id.listview_plugins);
 
-    private void refreshPluginList(){
+        for (View v : new View[]{buttonAddPlugin, buttonRefresh}) {
+            v.setOnClickListener(clickListener);
+        }
+        refreshUI();
+    }
+
+    private void refreshPluginList() {
         //TODO:刷新插件列表功能
     }
 }

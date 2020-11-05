@@ -16,7 +16,7 @@ public class LangManager {
     private final static String sp_lang_tag = "lang";
     private static boolean hasFitted = false;
 
-    private Context mContext;
+    private final Context mContext;
 
     public LangManager(Context context){
         super();
@@ -56,6 +56,6 @@ public class LangManager {
     }
 
     private void restartActivity(){
-        OldMainActivity.CURRENT_ACTIVITY.restarter();
+        OldMainActivity.CURRENT_ACTIVITY.get().restarter();
     }
 }

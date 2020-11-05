@@ -33,7 +33,7 @@ public class UiManager {
 
     public BaseUI[] Uis;
 
-    private Context mContext;
+    private final Context mContext;
 
     public UiManager(Context context, SettingJson setting){
         this.mContext = context;
@@ -65,7 +65,7 @@ public class UiManager {
 
     public void backFromHere() {
         if (currentUI == uiStartGame || currentUI == null) {
-            OldMainActivity.CURRENT_ACTIVITY.finish();
+            OldMainActivity.CURRENT_ACTIVITY.get().finish();
         }
 
         if (currentUI == uiGamedir ||

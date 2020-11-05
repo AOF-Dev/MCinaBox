@@ -29,22 +29,18 @@ public class UserUI extends BaseUI {
     private Animation showAnim;
     private SettingJson setting;
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        setting = OldMainActivity.Setting;
-        showAnim = AnimationUtils.loadAnimation(mContext, R.anim.layout_show);
-        layout_user = OldMainActivity.CURRENT_ACTIVITY.findViewById(R.id.layout_user);
-        buttonCreateUser = layout_user.findViewById(R.id.layout_user_adduser);
-        buttonRefreshUserList = layout_user.findViewById(R.id.layout_user_reflash_userlist);
-        listUsers = layout_user.findViewById(R.id.list_user);
+    private final View.OnClickListener clickListener = new View.OnClickListener() {
 
-        for (View v : new View[]{buttonCreateUser, buttonRefreshUserList}) {
-            v.setOnClickListener(clickListener);
+        @Override
+        public void onClick(View v) {
+            if (v == buttonCreateUser) {
+                new CreateUserDialog(mContext).show();
+            }
+            if (v == buttonRefreshUserList) {
+                refreshList();
+            }
         }
-
-        refreshList();
-    }
+    };
 
     @Override
     public void refreshUI() {
@@ -68,26 +64,30 @@ public class UserUI extends BaseUI {
         return layout_user.getVisibility();
     }
 
-    private View.OnClickListener clickListener = new View.OnClickListener() {
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        setting = OldMainActivity.Setting;
+        showAnim = AnimationUtils.loadAnimation(mContext, R.anim.layout_show);
+        layout_user = OldMainActivity.CURRENT_ACTIVITY.get().findViewById(R.id.layout_user);
+        buttonCreateUser = layout_user.findViewById(R.id.layout_user_adduser);
+        buttonRefreshUserList = layout_user.findViewById(R.id.layout_user_reflash_userlist);
+        listUsers = layout_user.findViewById(R.id.list_user);
 
-        @Override
-        public void onClick(View v) {
-            if (v == buttonCreateUser) {
-                new CreateUserDialog(mContext).show();
-            }
-            if (v == buttonRefreshUserList) {
-                refreshList();
-            }
+        for (View v : new View[]{buttonCreateUser, buttonRefreshUserList}) {
+            v.setOnClickListener(clickListener);
         }
-    };
 
-    public void reloadListView(){
-        for(SettingJson.Account account : OldMainActivity.Setting.getAccounts()){
-            if(account != null){
+        refreshList();
+    }
+
+    public void reloadListView() {
+        for (SettingJson.Account account : OldMainActivity.Setting.getAccounts()) {
+            if (account != null) {
                 usersList.add(account);
             }
         }
-        this.listUsers.setAdapter(new UserListAdapter(mContext,usersList));
+        this.listUsers.setAdapter(new UserListAdapter(mContext, usersList));
         refreshList();
     }
 

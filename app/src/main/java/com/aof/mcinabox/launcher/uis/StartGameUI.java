@@ -29,27 +29,15 @@ public class StartGameUI extends BaseUI implements Spinner.OnItemSelectedListene
     private Spinner listVersions;
     private SettingJson setting;
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        setting = OldMainActivity.Setting;
-        layout_startgame = OldMainActivity.CURRENT_ACTIVITY.findViewById(R.id.layout_startgame);
-        buttonStartGame = layout_startgame.findViewById(R.id.main_button_startgame);
-        listVersions = layout_startgame.findViewById(R.id.spinner_choice_version);
+    private final View.OnClickListener clickListener = new View.OnClickListener() {
 
-        //设定属性
-        refreshLocalVersionList();
-        if(setting.getLastVersion() != null &&  !setting.getLastVersion().equals("")){
-            setConfigureToVersionlist(setting.getLastVersion(), listVersions);
+        @Override
+        public void onClick(View v) {
+            if (v == buttonStartGame) {
+                startMinecraft();
+            }
         }
-
-        //设定监听器
-        for (View v : new View[]{buttonStartGame}) {
-            v.setOnClickListener(clickListener);
-        }
-        listVersions.setOnItemSelectedListener(this);
-
-    }
+    };
 
     @Override
     public void refreshUI() {
@@ -70,15 +58,27 @@ public class StartGameUI extends BaseUI implements Spinner.OnItemSelectedListene
         return layout_startgame.getVisibility();
     }
 
-    private View.OnClickListener clickListener = new View.OnClickListener() {
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        setting = OldMainActivity.Setting;
+        layout_startgame = OldMainActivity.CURRENT_ACTIVITY.get().findViewById(R.id.layout_startgame);
+        buttonStartGame = layout_startgame.findViewById(R.id.main_button_startgame);
+        listVersions = layout_startgame.findViewById(R.id.spinner_choice_version);
 
-        @Override
-        public void onClick(View v) {
-            if (v == buttonStartGame) {
-                startMinecraft();
-            }
+        //设定属性
+        refreshLocalVersionList();
+        if(setting.getLastVersion() != null &&  !setting.getLastVersion().equals("")){
+            setConfigureToVersionlist(setting.getLastVersion(), listVersions);
         }
-    };
+
+        //设定监听器
+        for (View v : new View[]{buttonStartGame}) {
+            v.setOnClickListener(clickListener);
+        }
+        listVersions.setOnItemSelectedListener(this);
+
+    }
 
 
     /**

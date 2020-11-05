@@ -23,9 +23,9 @@ import java.util.ArrayList;
 
 public class UserListAdapter extends BaseAdapter {
 
-    private ArrayList<SettingJson.Account> userlist;
+    private final ArrayList<SettingJson.Account> userlist;
     private Context context;
-    private ArrayList<RadioButton> recorder = new ArrayList<RadioButton>() {
+    private final ArrayList<RadioButton> recorder = new ArrayList<RadioButton>() {
     };
     private final static String TAG = "UserListAdapter";
 
@@ -103,7 +103,7 @@ public class UserListAdapter extends BaseAdapter {
                         @Override
                         public void runWhenPositive() {
                             new LoginServer(userlist.get(position)).setCallback(new LoginServer.Callback() {
-                                TaskDialog mDialog = DialogUtils.createTaskDialog(context,context.getString(R.string.tips_verifying_account),"",false);
+                                final TaskDialog mDialog = DialogUtils.createTaskDialog(context, context.getString(R.string.tips_verifying_account), "", false);
                                 @Override
                                 public void onStart() {
                                     mDialog.show();
@@ -129,7 +129,7 @@ public class UserListAdapter extends BaseAdapter {
                                         public void runWhenPositive() {
                                             super.runWhenPositive();
                                             new LoginServer(account, context).setCallback(new LoginServer.Callback() {
-                                                TaskDialog mDialog = DialogUtils.createTaskDialog(context,context.getString(R.string.tips_refreshing_account),"",false);
+                                                final TaskDialog mDialog = DialogUtils.createTaskDialog(context, context.getString(R.string.tips_refreshing_account), "", false);
                                                 @Override
                                                 public void onStart() {
                                                     mDialog.show();
@@ -202,7 +202,7 @@ public class UserListAdapter extends BaseAdapter {
             public void runWhenPositive() {
                 UserManager.removeAccount(OldMainActivity.Setting, userlist.get(position).getUsername());
                 //删除后重置用户列表
-                OldMainActivity.CURRENT_ACTIVITY.mUiManager.uiUser.reloadListView();
+                OldMainActivity.CURRENT_ACTIVITY.get().mUiManager.uiUser.reloadListView();
             }
         }));
 

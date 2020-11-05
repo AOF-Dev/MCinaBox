@@ -43,33 +43,26 @@ public class InstallVersionUI extends BaseUI implements RadioGroup.OnCheckedChan
 
     private final static String TAG = "InstallVersionUI";
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        setting = OldMainActivity.Setting;
-        layout_installversion = OldMainActivity.CURRENT_ACTIVITY.findViewById(R.id.layout_gamelist_install);
-        buttonBack = layout_installversion.findViewById(R.id.gamelist_button_backfrom_installnewversion);
-        buttonRefresh = layout_installversion.findViewById(R.id.gamelist_button_refresh);
-        textSelectedVersion = layout_installversion.findViewById(R.id.gamelist_text_show_selectedversion);
-        buttonDownload = layout_installversion.findViewById(R.id.gamelist_button_download);
-        groupVersionType = layout_installversion.findViewById(R.id.radiogroup_version_type);
-        buttonRelease = layout_installversion.findViewById(R.id.radiobutton_type_release);
-        buttonSnapshot = layout_installversion.findViewById(R.id.radiobutton_type_snapshot);
-        buttonOld = layout_installversion.findViewById(R.id.radiobutton_type_old);
-        listVersionsOnline = layout_installversion.findViewById(R.id.list_minecraft_manifest);
-        listVersionsOnline.setOnItemClickListener((adapterView, view, pos, l) -> {
-            selectedVersionPos = pos;
-            textSelectedVersion.setText(listVersionsOnline.getAdapter().getItem(pos).toString());
-        });
+    private final View.OnClickListener clickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (v == buttonBack) {
+                OldMainActivity.CURRENT_ACTIVITY.get().backFromHere();
+            }
+            if (v == buttonRefresh) {
+                mDownloadManager.downloadManifestAndUpdateGameListUi(mDownloadManager.new Runable() {
+                    @Override
+                    public void run() {
+                        refreshOnlineVersionList();
+                    }
+                });
 
-        groupVersionType.setOnCheckedChangeListener(this);
-
-        for (View v : new View[]{buttonBack, buttonRefresh, buttonDownload}) {
-            v.setOnClickListener(clickListener);
+            }
+            if (v == buttonDownload) {
+                DownloadSelectedVersion();
+            }
         }
-        //初始化下载管理器
-        mDownloadManager = new DownloadManager(mContext);
-    }
+    };
 
     @Override
     public void refreshUI() {
@@ -181,24 +174,31 @@ public class InstallVersionUI extends BaseUI implements RadioGroup.OnCheckedChan
         }
     }
 
-    private View.OnClickListener clickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if (v == buttonBack) {
-                OldMainActivity.CURRENT_ACTIVITY.backFromHere();
-            }
-            if (v == buttonRefresh) {
-                mDownloadManager.downloadManifestAndUpdateGameListUi(mDownloadManager.new Runable() {
-                    @Override
-                    public void run() {
-                        refreshOnlineVersionList();
-                    }
-                });
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        setting = OldMainActivity.Setting;
+        layout_installversion = OldMainActivity.CURRENT_ACTIVITY.get().findViewById(R.id.layout_gamelist_install);
+        buttonBack = layout_installversion.findViewById(R.id.gamelist_button_backfrom_installnewversion);
+        buttonRefresh = layout_installversion.findViewById(R.id.gamelist_button_refresh);
+        textSelectedVersion = layout_installversion.findViewById(R.id.gamelist_text_show_selectedversion);
+        buttonDownload = layout_installversion.findViewById(R.id.gamelist_button_download);
+        groupVersionType = layout_installversion.findViewById(R.id.radiogroup_version_type);
+        buttonRelease = layout_installversion.findViewById(R.id.radiobutton_type_release);
+        buttonSnapshot = layout_installversion.findViewById(R.id.radiobutton_type_snapshot);
+        buttonOld = layout_installversion.findViewById(R.id.radiobutton_type_old);
+        listVersionsOnline = layout_installversion.findViewById(R.id.list_minecraft_manifest);
+        listVersionsOnline.setOnItemClickListener((adapterView, view, pos, l) -> {
+            selectedVersionPos = pos;
+            textSelectedVersion.setText(listVersionsOnline.getAdapter().getItem(pos).toString());
+        });
 
-            }
-            if (v == buttonDownload) {
-                DownloadSelectedVersion();
-            }
+        groupVersionType.setOnCheckedChangeListener(this);
+
+        for (View v : new View[]{buttonBack, buttonRefresh, buttonDownload}) {
+            v.setOnClickListener(clickListener);
         }
-    };
+        //初始化下载管理器
+        mDownloadManager = new DownloadManager(mContext);
+    }
 }

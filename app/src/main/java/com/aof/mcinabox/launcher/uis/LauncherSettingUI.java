@@ -15,19 +15,20 @@ import androidx.appcompat.widget.SwitchCompat;
 
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.activity.OldMainActivity;
-import cosine.boat.definitions.manifest.AppManifest;
 import com.aof.mcinabox.launcher.runtime.RuntimeManager;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.mcinabox.launcher.uis.support.Utils;
 import com.aof.mcinabox.minecraft.forge.ForgeInstaller;
-import com.aof.mcinabox.utils.ZipUtils;
 import com.aof.mcinabox.utils.FileTool;
+import com.aof.mcinabox.utils.ZipUtils;
 import com.aof.mcinabox.utils.dialog.DialogUtils;
 import com.aof.mcinabox.utils.dialog.support.DialogSupports;
 import com.aof.mcinabox.utils.dialog.support.TaskDialog;
 
 import java.util.ArrayList;
 import java.util.Objects;
+
+import cosine.boat.definitions.manifest.AppManifest;
 
 public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedListener, CompoundButton.OnCheckedChangeListener {
 
@@ -46,91 +47,17 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
     private Animation showAnim;
     private SettingJson setting;
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        setting = OldMainActivity.Setting;
-        showAnim = AnimationUtils.loadAnimation(mContext, R.anim.layout_show);
-        layout_setting = OldMainActivity.CURRENT_ACTIVITY.findViewById(R.id.layout_launchersetting);
-        listDownloaderSources = layout_setting.findViewById(R.id.setting_spinner_downloadtype);
-        buttonImportRuntime = layout_setting.findViewById(R.id.launchersetting_button_import);
-        buttonInstallForge = layout_setting.findViewById(R.id.launchersetting_button_forgeinstaller);
-        buttonShowControbutors = layout_setting.findViewById(R.id.setting_show_contributors);
-        buttonClearRuntime = layout_setting.findViewById(R.id.launchersetting_button_clear_runtime);
-        switchAutoBackground = layout_setting.findViewById(R.id.launchersetting_switch_auto_background);
-        switchFullscreen = layout_setting.findViewById(R.id.launchersetting_switch_fullscreen);
-
-        switchAutoBackground.setChecked(setting.isBackgroundAutoSwitch());
-        switchFullscreen.setChecked(setting.isFullscreen());
-
-        //设定监听器
-        for (View v : new View[]{buttonInstallForge, buttonImportRuntime, buttonShowControbutors, buttonClearRuntime}) {
-            v.setOnClickListener(clickListener);
-        }
-        for(SwitchCompat sc : new SwitchCompat[]{switchAutoBackground,switchFullscreen}){
-            sc.setOnCheckedChangeListener(this);
-        }
-        listDownloaderSources.setOnItemSelectedListener(this);
-
-        setConfigureToDownloadtype(setting.getDownloadType(), listDownloaderSources);
-
-        //调用主题管理器设定主题
-        if(setting.isBackgroundAutoSwitch()){
-            if(!OldMainActivity.CURRENT_ACTIVITY.mThemeManager.autoSetBackground(OldMainActivity.CURRENT_ACTIVITY.findViewById(R.id.layout_main))){
-                DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_error), mContext.getString(R.string.tips_failed_to_change_backfround_pic_is_broken),mContext.getString(R.string.title_ok),null);
-            }
-        }
-
-        if(setting.isFullscreen()){
-            OldMainActivity.CURRENT_ACTIVITY.mThemeManager.setFullScreen(OldMainActivity.CURRENT_ACTIVITY,true);
-        }
-
-    }
-
-    @Override
-    public void refreshUI() {
-
-    }
-
-    @Override
-    public void saveUIConfig() {
-        setting.setDownloadType(listDownloaderSources.getSelectedItem().toString());
-    }
-
-    @Override
-    public void setUIVisiability(int visiability) {
-        if (visiability == View.VISIBLE) {
-            layout_setting.startAnimation(showAnim);
-        }
-        layout_setting.setVisibility(visiability);
-    }
-
-    @Override
-    public int getUIVisiability() {
-        return layout_setting.getVisibility();
-    }
-
-    /**
-     * 【匹配下载源】
-     **/
-    private void setConfigureToDownloadtype(String type, Spinner list) {
-        int pos = Utils.getItemPosByString(type, list);
-        if (pos != -1) {
-            list.setSelection(pos);
-        }
-    }
-
-    private View.OnClickListener clickListener = new View.OnClickListener() {
+    private final View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             if (v == buttonImportRuntime) {
                 ArrayList<String> tmp = FileTool.listChildFilesFromTargetDir(AppManifest.MCINABOX_RUNTIME);
                 String[] files;
                 final String[] tmp2;
-                if(tmp.size() != 0){
+                if (tmp.size() != 0) {
                     files = tmp.toArray(new String[0]);
                     tmp2 = new String[Objects.requireNonNull(files).length + 1];
-                    System.arraycopy(files,0,tmp2,1,files.length);
+                    System.arraycopy(files, 0, tmp2, 1, files.length);
                 }else{
                     tmp2 = new String[1];
                 }
@@ -161,7 +88,7 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
                         super.runWhenItemsSelected(filePath);
                         final ForgeInstaller installer = new ForgeInstaller(mContext);
                         installer.unzipForgeInstaller((String) filePath, new ZipUtils.Callback() {
-                            TaskDialog mDialog = DialogUtils.createTaskDialog(mContext,mContext.getString(R.string.tips_unzipping),"",false);
+                            final TaskDialog mDialog = DialogUtils.createTaskDialog(mContext, mContext.getString(R.string.tips_unzipping), "", false);
                             @Override
                             public void onStart() {
                                 mDialog.show();
@@ -197,15 +124,89 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
                         .show();
             }
             if(v == buttonClearRuntime){
-                DialogUtils.createBothChoicesDialog(mContext,mContext.getString(R.string.title_warn),mContext.getString(R.string.tips_are_you_sure_to_delete_runtime),mContext.getString(R.string.title_continue),mContext.getString(R.string.title_cancel),new DialogSupports(){
+                DialogUtils.createBothChoicesDialog(mContext, mContext.getString(R.string.title_warn), mContext.getString(R.string.tips_are_you_sure_to_delete_runtime), mContext.getString(R.string.title_continue), mContext.getString(R.string.title_cancel), new DialogSupports() {
                     @Override
-                    public void runWhenPositive(){
+                    public void runWhenPositive() {
                         RuntimeManager.clearRuntime(mContext);
                     }
                 });
             }
         }
     };
+
+    @Override
+    public void refreshUI() {
+
+    }
+
+    @Override
+    public void saveUIConfig() {
+        setting.setDownloadType(listDownloaderSources.getSelectedItem().toString());
+    }
+
+    @Override
+    public void setUIVisiability(int visiability) {
+        if (visiability == View.VISIBLE) {
+            layout_setting.startAnimation(showAnim);
+        }
+        layout_setting.setVisibility(visiability);
+    }
+
+    @Override
+    public int getUIVisiability() {
+        return layout_setting.getVisibility();
+    }
+
+    /**
+     * 【匹配下载源】
+     **/
+    private void setConfigureToDownloadtype(String type, Spinner list) {
+        int pos = Utils.getItemPosByString(type, list);
+        if (pos != -1) {
+            list.setSelection(pos);
+        }
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        setting = OldMainActivity.Setting;
+        showAnim = AnimationUtils.loadAnimation(mContext, R.anim.layout_show);
+        layout_setting = OldMainActivity.CURRENT_ACTIVITY.get().findViewById(R.id.layout_launchersetting);
+        listDownloaderSources = layout_setting.findViewById(R.id.setting_spinner_downloadtype);
+        buttonImportRuntime = layout_setting.findViewById(R.id.launchersetting_button_import);
+        buttonInstallForge = layout_setting.findViewById(R.id.launchersetting_button_forgeinstaller);
+        buttonShowControbutors = layout_setting.findViewById(R.id.setting_show_contributors);
+        buttonClearRuntime = layout_setting.findViewById(R.id.launchersetting_button_clear_runtime);
+        switchAutoBackground = layout_setting.findViewById(R.id.launchersetting_switch_auto_background);
+        switchFullscreen = layout_setting.findViewById(R.id.launchersetting_switch_fullscreen);
+
+        switchAutoBackground.setChecked(setting.isBackgroundAutoSwitch());
+        switchFullscreen.setChecked(setting.isFullscreen());
+
+        //设定监听器
+        for (View v : new View[]{buttonInstallForge, buttonImportRuntime, buttonShowControbutors, buttonClearRuntime}) {
+            v.setOnClickListener(clickListener);
+        }
+        for (SwitchCompat sc : new SwitchCompat[]{switchAutoBackground, switchFullscreen}) {
+            sc.setOnCheckedChangeListener(this);
+        }
+        listDownloaderSources.setOnItemSelectedListener(this);
+
+        setConfigureToDownloadtype(setting.getDownloadType(), listDownloaderSources);
+
+        //调用主题管理器设定主题
+        if (setting.isBackgroundAutoSwitch()) {
+            if (!OldMainActivity.CURRENT_ACTIVITY.get().mThemeManager.autoSetBackground(OldMainActivity.CURRENT_ACTIVITY.get().findViewById(R.id.layout_main))) {
+                DialogUtils.createSingleChoiceDialog(mContext, mContext.getString(R.string.title_error), mContext.getString(R.string.tips_failed_to_change_backfround_pic_is_broken), mContext.getString(R.string.title_ok), null);
+            }
+        }
+
+        if (setting.isFullscreen()) {
+            OldMainActivity.CURRENT_ACTIVITY.get().mThemeManager.setFullScreen(OldMainActivity.CURRENT_ACTIVITY.get(), true);
+        }
+
+    }
 
 
     @Override
@@ -229,10 +230,10 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
 
         if(buttonView == switchFullscreen){
             if(isChecked){
-                OldMainActivity.CURRENT_ACTIVITY.mThemeManager.setFullScreen(OldMainActivity.CURRENT_ACTIVITY,true);
+                OldMainActivity.CURRENT_ACTIVITY.get().mThemeManager.setFullScreen(OldMainActivity.CURRENT_ACTIVITY.get(), true);
             }else{
-                OldMainActivity.CURRENT_ACTIVITY.mThemeManager.setFullScreen(OldMainActivity.CURRENT_ACTIVITY,false);
-                DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_note),mContext.getString(R.string.tips_successed_to_disable_hide_stat_bar),mContext.getString(R.string.title_ok),null);
+                OldMainActivity.CURRENT_ACTIVITY.get().mThemeManager.setFullScreen(OldMainActivity.CURRENT_ACTIVITY.get(), false);
+                DialogUtils.createSingleChoiceDialog(mContext, mContext.getString(R.string.title_note), mContext.getString(R.string.tips_successed_to_disable_hide_stat_bar), mContext.getString(R.string.title_ok), null);
             }
             setting.setFullscreen(isChecked);
         }

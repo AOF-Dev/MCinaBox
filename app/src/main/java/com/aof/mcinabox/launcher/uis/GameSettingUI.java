@@ -46,47 +46,11 @@ public class GameSettingUI extends BaseUI implements SwitchCompat.OnCheckedChang
     private final static String TAG = "GameSettingUI";
 
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        setting = OldMainActivity.Setting;
-        layout_gamesetting = OldMainActivity.CURRENT_ACTIVITY.findViewById(R.id.layout_gamelist_setting);
-        textPhysicalMem = layout_gamesetting.findViewById(R.id.game_setting_text_memory);
-        editMaxMem = layout_gamesetting.findViewById(R.id.setting_edit_maxmemory);
-        editJavaExtArgs = layout_gamesetting.findViewById(R.id.setting_edit_javaargs);
-        editMCExtArgs = layout_gamesetting.findViewById(R.id.setting_edit_minecraftargs);
-        switchDisJVMCheck = layout_gamesetting.findViewById(R.id.setting_switch_notcheckjvm);
-        switchDisMCCheck = layout_gamesetting.findViewById(R.id.setting_switch_notcheckminecraft);
-        switchDisTipperCheck = layout_gamesetting.findViewById(R.id.setting_switch_notchecktipper);
-        switchEnableDebug = layout_gamesetting.findViewById(R.id.setting_switch_debug);
-        switchAlwaysChoiceManifest = layout_gamesetting.findViewById(R.id.setting_switch_always_choice_runtime_manifest);
-        switchDisForgeCheck = layout_gamesetting.findViewById(R.id.setting_switch_notcheckforge);
-        switchAutoMenmory = layout_gamesetting.findViewById(R.id.setting_swith_auto_memory);
-        switchDisOptCheck = layout_gamesetting.findViewById(R.id.setting_switch_notcheckoptions);
-        listKeyboards = layout_gamesetting.findViewById(R.id.setting_spinner_keyboard);
-
-        //设定属性
-        refreshLocalKeyboardList();
-        refreshAvailableMemories();
-        editJavaExtArgs.setText(setting.getConfigurations().getJavaArgs());
-        editMaxMem.setText(String.valueOf(setting.getConfigurations().getMaxMemory()));
-        editMCExtArgs.setText(setting.getConfigurations().getMinecraftArgs());
-        switchDisJVMCheck.setChecked(setting.getConfigurations().isNotCheckPlatform());
-        switchDisMCCheck.setChecked(setting.getConfigurations().isNotCheckGame());
-        switchDisTipperCheck.setChecked(setting.getConfigurations().isNotCheckTipper());
-        switchEnableDebug.setChecked(setting.getConfigurations().isEnableDebug());
-        switchAlwaysChoiceManifest.setChecked(setting.getConfigurations().isAlwaysChoiceRuntimeManifest());
-        switchDisForgeCheck.setChecked(setting.getConfigurations().isNotCheckForge());
-        switchDisOptCheck.setChecked(setting.getConfigurations().isNotCheckOptions());
-
-        //设定监听
-        for (SwitchCompat s : new SwitchCompat[]{switchDisMCCheck, switchDisJVMCheck, switchDisTipperCheck, switchEnableDebug, switchAlwaysChoiceManifest, switchDisForgeCheck, switchAutoMenmory, switchDisOptCheck}) {
-            s.setOnCheckedChangeListener(this);
-        }
-
-        switchAutoMenmory.setChecked(setting.getConfigurations().isEnableAutoMemory());
-
-    }
+    /**
+     * 【刷新键盘模板列表】
+     * Refresh the Keyboard layout list.
+     **/
+    private final ArrayList<String> KeyboardList = new ArrayList<>();
 
     @Override
     public void refreshUI() {
@@ -126,11 +90,47 @@ public class GameSettingUI extends BaseUI implements SwitchCompat.OnCheckedChang
         textPhysicalMem.setText(MemoryUtils.getTotalMemory(mContext));
     }
 
-    /**
-     * 【刷新键盘模板列表】
-     * Refresh the Keyboard layout list.
-     **/
-    private ArrayList<String> KeyboardList = new ArrayList<>();
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        setting = OldMainActivity.Setting;
+        layout_gamesetting = OldMainActivity.CURRENT_ACTIVITY.get().findViewById(R.id.layout_gamelist_setting);
+        textPhysicalMem = layout_gamesetting.findViewById(R.id.game_setting_text_memory);
+        editMaxMem = layout_gamesetting.findViewById(R.id.setting_edit_maxmemory);
+        editJavaExtArgs = layout_gamesetting.findViewById(R.id.setting_edit_javaargs);
+        editMCExtArgs = layout_gamesetting.findViewById(R.id.setting_edit_minecraftargs);
+        switchDisJVMCheck = layout_gamesetting.findViewById(R.id.setting_switch_notcheckjvm);
+        switchDisMCCheck = layout_gamesetting.findViewById(R.id.setting_switch_notcheckminecraft);
+        switchDisTipperCheck = layout_gamesetting.findViewById(R.id.setting_switch_notchecktipper);
+        switchEnableDebug = layout_gamesetting.findViewById(R.id.setting_switch_debug);
+        switchAlwaysChoiceManifest = layout_gamesetting.findViewById(R.id.setting_switch_always_choice_runtime_manifest);
+        switchDisForgeCheck = layout_gamesetting.findViewById(R.id.setting_switch_notcheckforge);
+        switchAutoMenmory = layout_gamesetting.findViewById(R.id.setting_swith_auto_memory);
+        switchDisOptCheck = layout_gamesetting.findViewById(R.id.setting_switch_notcheckoptions);
+        listKeyboards = layout_gamesetting.findViewById(R.id.setting_spinner_keyboard);
+
+        //设定属性
+        refreshLocalKeyboardList();
+        refreshAvailableMemories();
+        editJavaExtArgs.setText(setting.getConfigurations().getJavaArgs());
+        editMaxMem.setText(String.valueOf(setting.getConfigurations().getMaxMemory()));
+        editMCExtArgs.setText(setting.getConfigurations().getMinecraftArgs());
+        switchDisJVMCheck.setChecked(setting.getConfigurations().isNotCheckPlatform());
+        switchDisMCCheck.setChecked(setting.getConfigurations().isNotCheckGame());
+        switchDisTipperCheck.setChecked(setting.getConfigurations().isNotCheckTipper());
+        switchEnableDebug.setChecked(setting.getConfigurations().isEnableDebug());
+        switchAlwaysChoiceManifest.setChecked(setting.getConfigurations().isAlwaysChoiceRuntimeManifest());
+        switchDisForgeCheck.setChecked(setting.getConfigurations().isNotCheckForge());
+        switchDisOptCheck.setChecked(setting.getConfigurations().isNotCheckOptions());
+
+        //设定监听
+        for (SwitchCompat s : new SwitchCompat[]{switchDisMCCheck, switchDisJVMCheck, switchDisTipperCheck, switchEnableDebug, switchAlwaysChoiceManifest, switchDisForgeCheck, switchAutoMenmory, switchDisOptCheck}) {
+            s.setOnCheckedChangeListener(this);
+        }
+
+        switchAutoMenmory.setChecked(setting.getConfigurations().isEnableAutoMemory());
+
+    }
 
     private void refreshLocalKeyboardList() {
         ArrayList<String> keyboardList = new ArrayList<>();

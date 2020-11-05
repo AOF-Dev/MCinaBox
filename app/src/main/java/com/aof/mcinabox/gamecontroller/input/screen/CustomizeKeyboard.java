@@ -13,8 +13,6 @@ import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
 import com.aof.mcinabox.gamecontroller.input.Input;
 import com.aof.mcinabox.gamecontroller.input.OnscreenInput;
 
-import java.util.ArrayList;
-
 import static cosine.boat.definitions.id.key.KeyEvent.KEYBOARD_BUTTON;
 
 public class CustomizeKeyboard implements OnscreenInput, Controller, CallCustomizeKeyboard {
@@ -83,11 +81,6 @@ public class CustomizeKeyboard implements OnscreenInput, Controller, CallCustomi
     }
 
     @Override
-    public ArrayList<Input> getAllInputs() {
-        return null;
-    }
-
-    @Override
     public void addContentView(View view, ViewGroup.LayoutParams params) {
         mController.addContentView(view, params);
     }
@@ -130,11 +123,6 @@ public class CustomizeKeyboard implements OnscreenInput, Controller, CallCustomi
     @Override
     public void saveConfig() {
         mManager.autoSaveKeyboard();
-    }
-
-    @Override
-    public ViewGroup getViewsParent() {
-        return mController.getViewsParent();
     }
 
     @Override

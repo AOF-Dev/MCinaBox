@@ -29,11 +29,38 @@ public class MainToolbarUI extends BaseUI {
     private Button buttonInfo;
     private SettingJson setting;
 
+    private final View.OnClickListener clickListener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            if (v == buttonRefresh) {
+                DialogUtils.createBothChoicesDialog(mContext, mContext.getString(R.string.title_warn), mContext.getString(R.string.tips_going_to_restart_app), mContext.getString(R.string.title_continue), mContext.getString(R.string.title_cancel), new DialogSupports() {
+                    @Override
+                    public void runWhenPositive() {
+                        OldMainActivity.CURRENT_ACTIVITY.get().restarter();
+                    }
+                });
+            }
+            if (v == buttonBack) {
+                OldMainActivity.CURRENT_ACTIVITY.get().backFromHere();
+            }
+            if (v == buttonHome) {
+                OldMainActivity.CURRENT_ACTIVITY.get().switchUIs(OldMainActivity.CURRENT_ACTIVITY.get().mUiManager.uiStartGame, mContext.getString(R.string.title_home));
+            }
+            if (v == buttonLanguage) {
+                new LanguageDialog(mContext).show();
+            }
+            if (v == buttonInfo) {
+                OldMainActivity.CURRENT_ACTIVITY.get().mTipperManager.showTipper(buttonInfo);
+            }
+        }
+    };
+
     @Override
     public void onCreate() {
         super.onCreate();
         setting = OldMainActivity.Setting;
-        layout_toolbar = OldMainActivity.CURRENT_ACTIVITY.findViewById(R.id.layout_toolbar_main);
+        layout_toolbar = OldMainActivity.CURRENT_ACTIVITY.get().findViewById(R.id.layout_toolbar_main);
         buttonBack = layout_toolbar.findViewById(R.id.toolbar_button_backfromhere);
         textPosition = layout_toolbar.findViewById(R.id.main_text_showstate);
         buttonHome = layout_toolbar.findViewById(R.id.toolbar_button_backhome);
@@ -46,15 +73,6 @@ public class MainToolbarUI extends BaseUI {
             v.setOnClickListener(clickListener);
         }
         refreshUI();
-    }
-
-    @Override
-    public void refreshUI() {
-        if(OldMainActivity.CURRENT_ACTIVITY.mTipperManager != null && OldMainActivity.CURRENT_ACTIVITY.mTipperManager.getTipCounts() != 0){
-            buttonInfo.setVisibility(View.VISIBLE);
-        }else{
-            buttonInfo.setVisibility(View.GONE);
-        }
     }
 
     @Override
@@ -76,34 +94,16 @@ public class MainToolbarUI extends BaseUI {
         textPosition.setText(position);
     }
 
-    private View.OnClickListener clickListener = new View.OnClickListener() {
-
-        @Override
-        public void onClick(View v) {
-            if (v == buttonRefresh) {
-                DialogUtils.createBothChoicesDialog(mContext,mContext.getString(R.string.title_warn),mContext.getString(R.string.tips_going_to_restart_app),mContext.getString(R.string.title_continue),mContext.getString(R.string.title_cancel),new DialogSupports(){
-                    @Override
-                    public void runWhenPositive(){
-                        OldMainActivity.CURRENT_ACTIVITY.restarter();
-                    }
-                });
-            }
-            if (v == buttonBack) {
-                OldMainActivity.CURRENT_ACTIVITY.backFromHere();
-            }
-            if (v == buttonHome) {
-                OldMainActivity.CURRENT_ACTIVITY.switchUIs(OldMainActivity.CURRENT_ACTIVITY.mUiManager.uiStartGame, mContext.getString(R.string.title_home));
-            }
-            if (v == buttonLanguage) {
-                new LanguageDialog(mContext).show();
-            }
-            if(v == buttonInfo){
-                OldMainActivity.CURRENT_ACTIVITY.mTipperManager.showTipper(buttonInfo);
-            }
+    @Override
+    public void refreshUI() {
+        if (OldMainActivity.CURRENT_ACTIVITY.get().mTipperManager != null && OldMainActivity.CURRENT_ACTIVITY.get().mTipperManager.getTipCounts() != 0) {
+            buttonInfo.setVisibility(View.VISIBLE);
+        } else {
+            buttonInfo.setVisibility(View.GONE);
         }
-    };
+    }
 
     private void setToolbarAsActionbar() {
-        OldMainActivity.CURRENT_ACTIVITY.setSupportActionBar(layout_toolbar);
+        OldMainActivity.CURRENT_ACTIVITY.get().setSupportActionBar(layout_toolbar);
     }
 }

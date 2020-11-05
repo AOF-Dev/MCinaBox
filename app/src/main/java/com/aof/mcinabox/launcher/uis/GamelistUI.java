@@ -31,22 +31,22 @@ public class GamelistUI extends BaseUI {
     private Animation showAnim;
     private SettingJson setting;
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        setting = OldMainActivity.Setting;
-        showAnim = AnimationUtils.loadAnimation(mContext, R.anim.layout_show);
-        layout_gamelist = OldMainActivity.CURRENT_ACTIVITY.findViewById(R.id.layout_gamelist);
-        buttonInstallGame = layout_gamelist.findViewById(R.id.gamelist_button_installnewgame);
-        buttonRefreshList = layout_gamelist.findViewById(R.id.gamelist_button_reflash_locallist);
-        buttonGameSetting = layout_gamelist.findViewById(R.id.gamelist_button_setting);
-        listLocalVersions = layout_gamelist.findViewById(R.id.list_local_version);
+    private final View.OnClickListener clickListener = new View.OnClickListener() {
 
-        for(View v : new View[]{buttonGameSetting,buttonInstallGame,buttonRefreshList}){
-            v.setOnClickListener(clickListener);
+        @Override
+        public void onClick(View v) {
+            if (v == buttonGameSetting) {
+                OldMainActivity.CURRENT_ACTIVITY.get().switchUIs(OldMainActivity.CURRENT_ACTIVITY.get().mUiManager.uiGameSetting, mContext.getString(R.string.title_game_global_setting) + " - " + mContext.getString(R.string.title_game_list));
+            }
+            if (v == buttonInstallGame) {
+                OldMainActivity.CURRENT_ACTIVITY.get().switchUIs(OldMainActivity.CURRENT_ACTIVITY.get().mUiManager.uiInstallVersion, mContext.getString(R.string.title_install_new_version) + " - " + mContext.getString(R.string.title_game_list));
+            }
+            if (v == buttonRefreshList) {
+                refreshLocalVersionList();
+            }
         }
-        refreshUI();
-    }
+
+    };
 
     @Override
     public void refreshUI() {
@@ -71,29 +71,30 @@ public class GamelistUI extends BaseUI {
         return layout_gamelist.getVisibility();
     }
 
-    private View.OnClickListener clickListener = new View.OnClickListener(){
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        setting = OldMainActivity.Setting;
+        showAnim = AnimationUtils.loadAnimation(mContext, R.anim.layout_show);
+        layout_gamelist = OldMainActivity.CURRENT_ACTIVITY.get().findViewById(R.id.layout_gamelist);
+        buttonInstallGame = layout_gamelist.findViewById(R.id.gamelist_button_installnewgame);
+        buttonRefreshList = layout_gamelist.findViewById(R.id.gamelist_button_reflash_locallist);
+        buttonGameSetting = layout_gamelist.findViewById(R.id.gamelist_button_setting);
+        listLocalVersions = layout_gamelist.findViewById(R.id.list_local_version);
 
-        @Override
-        public void onClick(View v) {
-            if(v == buttonGameSetting) {
-                OldMainActivity.CURRENT_ACTIVITY.switchUIs(OldMainActivity.CURRENT_ACTIVITY.mUiManager.uiGameSetting, mContext.getString(R.string.title_game_global_setting) + " - " + mContext.getString(R.string.title_game_list));
-            }
-            if(v == buttonInstallGame){
-                OldMainActivity.CURRENT_ACTIVITY.switchUIs(OldMainActivity.CURRENT_ACTIVITY.mUiManager.uiInstallVersion,mContext.getString(R.string.title_install_new_version) + " - " + mContext.getString(R.string.title_game_list));
-            }
-            if(v == buttonRefreshList){
-                refreshLocalVersionList();
-            }
+        for (View v : new View[]{buttonGameSetting, buttonInstallGame, buttonRefreshList}) {
+            v.setOnClickListener(clickListener);
         }
-
-    };
+        refreshUI();
+    }
 
     /**
      * 【刷新本地游戏列表】
      **/
     private ArrayList<LocalVersionListBean> beans;
+
     public void refreshLocalVersionList() {
-        if(beans == null){
+        if (beans == null) {
             beans = new ArrayList<>();
             beans.addAll(VersionManager.getVersionBeansList());
             listLocalVersions.setAdapter(new LocalVersionListAdapter(mContext, beans));

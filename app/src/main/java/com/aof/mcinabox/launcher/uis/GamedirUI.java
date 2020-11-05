@@ -31,61 +31,15 @@ public class GamedirUI extends BaseUI {
     private Animation showAnim;
     private SettingJson setting;
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        setting = OldMainActivity.Setting;
-        showAnim = AnimationUtils.loadAnimation(mContext, R.anim.layout_show);
-        layout_gamedir = OldMainActivity.CURRENT_ACTIVITY.findViewById(R.id.layout_gamedir);
-        layoutPrivate = layout_gamedir.findViewById(R.id.gamedir_select_private);
-        layoutPublic = layout_gamedir.findViewById(R.id.gamedir_select_public);
-        buttonSave = layout_gamedir.findViewById(R.id.gamedir_button_save);
-        editGamedir = layout_gamedir.findViewById(R.id.gamedir_edit_gamedir);
-
-        for(View v : new View[]{buttonSave,layoutPublic,layoutPrivate}){
-            v.setOnClickListener(clickListener);
-        }
-
-        init();
-
-    }
-
-    private void init(){
-        editGamedir.setText(GamedirManager.getGamedir(OldMainActivity.Setting));
-    }
-
-    @Override
-    public void refreshUI() {
-
-    }
-
-    @Override
-    public void saveUIConfig() {
-
-    }
-
-    @Override
-    public void setUIVisiability(int visiability) {
-        if(visiability == View.VISIBLE){
-            layout_gamedir.startAnimation(showAnim);
-        }
-        layout_gamedir.setVisibility(visiability);
-    }
-
-    @Override
-    public int getUIVisiability() {
-        return layout_gamedir.getVisibility();
-    }
-
-    private View.OnClickListener clickListener = new View.OnClickListener() {
+    private final View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if(v == buttonSave){
+            if (v == buttonSave) {
                 String t = editGamedir.getText().toString();
                 //过滤掉最后一个反斜杠
-                if(t.charAt(t.length() - 1) == '/'){
+                if (t.charAt(t.length() - 1) == '/') {
                     StringBuilder tmp = new StringBuilder();
-                    for(int a = 0; a < t.length() - 1; a++){
+                    for (int a = 0; a < t.length() - 1; a++) {
                         tmp.append(t.charAt(a));
                     }
                     t = tmp.toString();
@@ -115,13 +69,59 @@ public class GamedirUI extends BaseUI {
                 }
             }
 
-            if(v == layoutPublic){
+            if (v == layoutPublic) {
                 editGamedir.setText(GamedirManager.PUBLIC_GAMEDIR);
             }
 
-            if(v == layoutPrivate){
+            if (v == layoutPrivate) {
                 editGamedir.setText(GamedirManager.PRIVATE_GAMEDIR);
             }
         }
     };
+
+    private void init() {
+        editGamedir.setText(GamedirManager.getGamedir(OldMainActivity.Setting));
+    }
+
+    @Override
+    public void refreshUI() {
+
+    }
+
+    @Override
+    public void saveUIConfig() {
+
+    }
+
+    @Override
+    public void setUIVisiability(int visiability) {
+        if (visiability == View.VISIBLE) {
+            layout_gamedir.startAnimation(showAnim);
+        }
+        layout_gamedir.setVisibility(visiability);
+    }
+
+    @Override
+    public int getUIVisiability() {
+        return layout_gamedir.getVisibility();
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        setting = OldMainActivity.Setting;
+        showAnim = AnimationUtils.loadAnimation(mContext, R.anim.layout_show);
+        layout_gamedir = OldMainActivity.CURRENT_ACTIVITY.get().findViewById(R.id.layout_gamedir);
+        layoutPrivate = layout_gamedir.findViewById(R.id.gamedir_select_private);
+        layoutPublic = layout_gamedir.findViewById(R.id.gamedir_select_public);
+        buttonSave = layout_gamedir.findViewById(R.id.gamedir_button_save);
+        editGamedir = layout_gamedir.findViewById(R.id.gamedir_edit_gamedir);
+
+        for (View v : new View[]{buttonSave, layoutPublic, layoutPrivate}) {
+            v.setOnClickListener(clickListener);
+        }
+
+        init();
+
+    }
 }

@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.activity.OldMainActivity;
-import cosine.boat.definitions.manifest.AppManifest;
 import com.aof.mcinabox.launcher.download.authlib.Request;
 import com.aof.mcinabox.launcher.runtime.RuntimeManager;
 import com.aof.mcinabox.launcher.tipper.TipperManager;
@@ -16,6 +15,8 @@ import com.aof.mcinabox.utils.dialog.support.DialogSupports;
 
 import java.io.File;
 
+import cosine.boat.definitions.manifest.AppManifest;
+
 public class SettingChecker {
 
     private final static int CHECKER_ID_NOT_CHOOSE_USER = 10;
@@ -26,19 +27,19 @@ public class SettingChecker {
     private final static int CHECKER_ID_NOT_CHECK_GAME = 15;
     private final static int CHECKER_ID_MISSING_AUTHLIB = 16;
 
-    private Context mContext;
-    private SettingJson mSetting;
-    private TipperManager mTipperManager;
+    private final Context mContext;
+    private final SettingJson mSetting;
+    private final TipperManager mTipperManager;
 
-    public SettingChecker(Context context, SettingJson setting, TipperManager manager){
+    public SettingChecker(Context context, SettingJson setting, TipperManager manager) {
         this.mContext = context;
-        if(setting == null){
+        if (setting == null) {
             mSetting = OldMainActivity.Setting;
-        }else{
+        } else {
             mSetting = setting;
         }
-        if(manager == null){
-            mTipperManager = OldMainActivity.CURRENT_ACTIVITY.mTipperManager;
+        if (manager == null) {
+            mTipperManager = OldMainActivity.CURRENT_ACTIVITY.get().mTipperManager;
         }else{
             mTipperManager = manager;
         }

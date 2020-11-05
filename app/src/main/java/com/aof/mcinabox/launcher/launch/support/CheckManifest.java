@@ -1,7 +1,6 @@
 package com.aof.mcinabox.launcher.launch.support;
 
 import com.aof.mcinabox.activity.OldMainActivity;
-import cosine.boat.definitions.manifest.AppManifest;
 import com.aof.mcinabox.launcher.runtime.RuntimeManager;
 import com.aof.mcinabox.launcher.runtime.support.RuntimePackInfo;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
@@ -15,16 +14,18 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import cosine.boat.definitions.manifest.AppManifest;
+
 public class CheckManifest {
 
     private final static String TAG = "CheckManifest";
 
     public static boolean checkTipperLow() {
-        return OldMainActivity.CURRENT_ACTIVITY.mTipperManager.getTipCounts(TipperManager.TIPPER_LEVEL_WARN) + OldMainActivity.CURRENT_ACTIVITY.mTipperManager.getTipCounts(TipperManager.TIPPER_LEVEL_ERROR) == 0;
+        return OldMainActivity.CURRENT_ACTIVITY.get().mTipperManager.getTipCounts(TipperManager.TIPPER_LEVEL_WARN) + OldMainActivity.CURRENT_ACTIVITY.get().mTipperManager.getTipCounts(TipperManager.TIPPER_LEVEL_ERROR) == 0;
     }
 
     public static boolean checkTipperHigh() {
-        return OldMainActivity.CURRENT_ACTIVITY.mTipperManager.getTipCounts(TipperManager.TIPPER_LEVEL_ERROR) == 0;
+        return OldMainActivity.CURRENT_ACTIVITY.get().mTipperManager.getTipCounts(TipperManager.TIPPER_LEVEL_ERROR) == 0;
     }
 
     public static boolean checkVersionThatSelected(SettingJson settingJson) {

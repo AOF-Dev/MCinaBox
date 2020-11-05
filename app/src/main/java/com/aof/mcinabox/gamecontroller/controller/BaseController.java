@@ -4,10 +4,11 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 
-import cosine.boat.ClientInput;
 import com.aof.mcinabox.gamecontroller.input.Input;
 
 import java.util.ArrayList;
+
+import cosine.boat.ClientInput;
 
 import static cosine.boat.definitions.id.key.KeyMode.MARK_INPUT_MODE_ALONE;
 
@@ -85,11 +86,6 @@ public abstract class BaseController implements Controller {
     }
 
     @Override
-    public ArrayList<Input> getAllInputs(){
-        return inputs;
-    }
-
-    @Override
     public void setInputMode(int mode){
         this.inputMode = mode;
         for(Input i : inputs){
@@ -131,11 +127,6 @@ public abstract class BaseController implements Controller {
         for(Input i : inputs){
             i.saveConfig();
         }
-    }
-
-    @Override
-    public ViewGroup getViewsParent() {
-        return client.getViewsParent();
     }
 }
 

@@ -27,7 +27,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class LoginServer {
-    private Context mContext;
+    private final Context mContext;
     private static final String OUTPUT_RESULT = "Result";
     private static final String OUTPUT_TYPE = "Type";
     private static final String TYPE_ERROR = "Error";
@@ -46,21 +46,62 @@ public class LoginServer {
     private String password;
     private boolean isLogining;
 
-    private SettingJson.Account account;
+    private final SettingJson.Account account;
 
-    public LoginServer setCallback(Callback call){
+    public LoginServer setCallback(Callback call) {
         this.mCallback = call;
         callable = (call != null);
         return this;
     }
 
-    public LoginServer(String url) {
-        this(url, OldMainActivity.CURRENT_ACTIVITY);
-    }
+    @SuppressLint("HandlerLeak")
+    private final Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            Bundle data = msg.getData();
+            String type = data.getString(OUTPUT_TYPE);
+            String result = data.getString(OUTPUT_RESULT);
+            output(type, result);
+        }
+    };
+    private final okhttp3.Callback loginResponse = new okhttp3.Callback() {
+        @Override
+        public void onFailure(@NotNull Call call, @NotNull IOException e) {
+            isLogining = false;
+            Message msg = new Message();
+            Bundle data = new Bundle();
+            data.putString(OUTPUT_TYPE, TYPE_ERROR);
+            data.putString(OUTPUT_RESULT, gson.toJson(e));
+            msg.setData(data);
+            handler.sendMessage(msg);
+        }
 
-    public LoginServer(SettingJson.Account account) {
-        this(account, OldMainActivity.CURRENT_ACTIVITY);
-    }
+        @Override
+        public void onResponse(@NotNull Call call, @NotNull Response response) {
+            isLogining = false;
+            Message msg = new Message();
+            Bundle data = new Bundle();
+
+            try {
+                String result = Objects.requireNonNull(response.body()).string();
+                if (response.code() == 200) {
+                    data.putString(OUTPUT_TYPE, TYPE_LOGIN);
+                    data.putString(OUTPUT_RESULT, result);
+                } else {
+                    ErrorResponse error = gson.fromJson(result, ErrorResponse.class);
+                    data.putString(OUTPUT_TYPE, TYPE_ERROR);
+                    data.putString(OUTPUT_RESULT, gson.toJson(new Exception(error.errorMessage)));
+                }
+            } catch (Exception e) {
+                data.putString(OUTPUT_TYPE, TYPE_ERROR);
+                data.putString(OUTPUT_RESULT, gson.toJson(e));
+            }
+
+            msg.setData(data);
+            handler.sendMessage(msg);
+        }
+    };
 
     public LoginServer(SettingJson.Account account, Context context){
         this(account.getApiUrl(), account, context);
@@ -133,7 +174,7 @@ public class LoginServer {
         }
     }
 
-    private okhttp3.Callback verifyServerResponse = new okhttp3.Callback() {
+    private final okhttp3.Callback verifyServerResponse = new okhttp3.Callback() {
         @Override
         public void onFailure(@NotNull Call call, @NotNull IOException e) {
             Message msg = new Message();
@@ -154,13 +195,13 @@ public class LoginServer {
                     account.setApiUrl(response.request().url().toString());
                     verifyServer();
                     data.putString(OUTPUT_TYPE, TYPE_VERIFY_SERVER);
-                    data.putString(OUTPUT_RESULT, OldMainActivity.CURRENT_ACTIVITY.getResources().getString(R.string.tips_redirecting));
+                    data.putString(OUTPUT_RESULT, OldMainActivity.CURRENT_ACTIVITY.get().getResources().getString(R.string.tips_redirecting));
                 }else {
                     if(response.code() == 200) data.putString(OUTPUT_TYPE, TYPE_VERIFY_SERVER);
                     else data.putString(OUTPUT_TYPE, TYPE_ERROR);
                     data.putString(OUTPUT_RESULT, Objects.requireNonNull(response.body()).string());
                 }
-            }catch (Exception e) {
+            } catch (Exception e) {
                 data.putString(OUTPUT_TYPE, TYPE_ERROR);
                 data.putString(OUTPUT_RESULT, gson.toJson(e));
             }
@@ -169,46 +210,7 @@ public class LoginServer {
             handler.sendMessage(msg);
         }
     };
-
-    private okhttp3.Callback loginResponse = new okhttp3.Callback() {
-        @Override
-        public void onFailure(@NotNull Call call, @NotNull IOException e) {
-            isLogining = false;
-            Message msg = new Message();
-            Bundle data = new Bundle();
-            data.putString(OUTPUT_TYPE, TYPE_ERROR);
-            data.putString(OUTPUT_RESULT, gson.toJson(e));
-            msg.setData(data);
-            handler.sendMessage(msg);
-        }
-
-        @Override
-        public void onResponse(@NotNull Call call, @NotNull Response response) {
-            isLogining = false;
-            Message msg = new Message();
-            Bundle data = new Bundle();
-
-            try {
-                String result = Objects.requireNonNull(response.body()).string();
-                if(response.code() == 200) {
-                    data.putString(OUTPUT_TYPE, TYPE_LOGIN);
-                    data.putString(OUTPUT_RESULT, result);
-                }else {
-                    ErrorResponse error = gson.fromJson(result, ErrorResponse.class);
-                    data.putString(OUTPUT_TYPE, TYPE_ERROR);
-                    data.putString(OUTPUT_RESULT, gson.toJson(new Exception(error.errorMessage)));
-                }
-            }catch (Exception e) {
-                data.putString(OUTPUT_TYPE, TYPE_ERROR);
-                data.putString(OUTPUT_RESULT, gson.toJson(e));
-            }
-
-            msg.setData(data);
-            handler.sendMessage(msg);
-        }
-    };
-
-    private okhttp3.Callback verifyTokenResponse = new okhttp3.Callback() {
+    private final okhttp3.Callback verifyTokenResponse = new okhttp3.Callback() {
         @Override
         public void onFailure(@NotNull Call call, @NotNull IOException e) {
             Message msg = new Message();
@@ -229,7 +231,7 @@ public class LoginServer {
                 String result = Objects.requireNonNull(response.body()).string();
                 data.putString(OUTPUT_TYPE, TYPE_VALIDATE);
                 data.putString(OUTPUT_RESULT, gson.toJson(response.code()));
-            }catch (Exception e) {
+            } catch (Exception e) {
                 data.putString(OUTPUT_TYPE, TYPE_ERROR);
                 data.putString(OUTPUT_RESULT, gson.toJson(e));
             }
@@ -238,27 +240,23 @@ public class LoginServer {
         }
     };
 
-    @SuppressLint("HandlerLeak")
-    private Handler handler = new  Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            Bundle data = msg.getData();
-            String type = data.getString(OUTPUT_TYPE);
-            String result = data.getString(OUTPUT_RESULT);
-            output(type, result);
-        }
-    };
+    public LoginServer(String url) {
+        this(url, OldMainActivity.CURRENT_ACTIVITY.get());
+    }
+
+    public LoginServer(SettingJson.Account account) {
+        this(account, OldMainActivity.CURRENT_ACTIVITY.get());
+    }
 
     private void output(String type, String result) {
-        if(result != null)
-        switch (type) {
-            case TYPE_VERIFY_SERVER:
-                AuthlibResponse authlibResponse = gson.fromJson(result, AuthlibResponse.class);
-                account.setServerName(authlibResponse.meta.serverName);
-                account.setApiMeta(Base64.encodeToString(result.getBytes(), Base64.DEFAULT));
-                if(isLogining) login();
-                break;
+        if (result != null)
+            switch (type) {
+                case TYPE_VERIFY_SERVER:
+                    AuthlibResponse authlibResponse = gson.fromJson(result, AuthlibResponse.class);
+                    account.setServerName(authlibResponse.meta.serverName);
+                    account.setApiMeta(Base64.encodeToString(result.getBytes(), Base64.DEFAULT));
+                    if (isLogining) login();
+                    break;
             case TYPE_LOGIN:
                 if(callable){
                     mCallback.onLoginSuccess(account,gson.fromJson(result, AuthenticateResponse.class));

@@ -9,7 +9,6 @@ import android.widget.Toast;
 
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.activity.OldMainActivity;
-import cosine.boat.definitions.manifest.AppManifest;
 import com.aof.mcinabox.launcher.runtime.support.ConditionResolve;
 import com.aof.mcinabox.launcher.runtime.support.Definitions;
 import com.aof.mcinabox.launcher.runtime.support.RuntimePackInfo;
@@ -28,6 +27,8 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Objects;
+
+import cosine.boat.definitions.manifest.AppManifest;
 
 public class RuntimeManager {
 
@@ -48,15 +49,15 @@ public class RuntimeManager {
                         mDialog.setTotalTaskName(context.getString(R.string.tips_installing_runtime));
                         break;
                     case 4:
-                        Toast.makeText(OldMainActivity.CURRENT_ACTIVITY, OldMainActivity.CURRENT_ACTIVITY.getString(R.string.tips_runtime_notfound), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(OldMainActivity.CURRENT_ACTIVITY.get(), OldMainActivity.CURRENT_ACTIVITY.get().getString(R.string.tips_runtime_notfound), Toast.LENGTH_SHORT).show();
                         mDialog.dismiss();
                         break;
                     case 6:
-                        Toast.makeText(OldMainActivity.CURRENT_ACTIVITY, OldMainActivity.CURRENT_ACTIVITY.getString(R.string.tips_runtime_install_successed), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(OldMainActivity.CURRENT_ACTIVITY.get(), OldMainActivity.CURRENT_ACTIVITY.get().getString(R.string.tips_runtime_install_successed), Toast.LENGTH_SHORT).show();
                         mDialog.dismiss();
                         break;
                     case 7:
-                        Toast.makeText(OldMainActivity.CURRENT_ACTIVITY, OldMainActivity.CURRENT_ACTIVITY.getString(R.string.tips_runtime_install_failed) + " " + OldMainActivity.CURRENT_ACTIVITY.getString(R.string.tips_runtime_install_fail_exeable), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(OldMainActivity.CURRENT_ACTIVITY.get(), OldMainActivity.CURRENT_ACTIVITY.get().getString(R.string.tips_runtime_install_failed) + " " + OldMainActivity.CURRENT_ACTIVITY.get().getString(R.string.tips_runtime_install_fail_exeable), Toast.LENGTH_SHORT).show();
                         mDialog.dismiss();
                         break;
                 }

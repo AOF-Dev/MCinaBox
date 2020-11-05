@@ -60,7 +60,7 @@ public class UserManager {
 
         accounts[a] = account;
         setting.setAccounts(accounts);
-        OldMainActivity.CURRENT_ACTIVITY.mUiManager.uiUser.reloadListView();
+        OldMainActivity.CURRENT_ACTIVITY.get().mUiManager.uiUser.reloadListView();
         return true;
     }
 
