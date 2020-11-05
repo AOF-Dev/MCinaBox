@@ -9,14 +9,6 @@ public class BoatInput {
     public static final int BUTTON_RELEASE = 5;
     public static final int MOTION_NOTIFY = 6;
 
-    public static final int BUTTON_1 = 1;
-    public static final int BUTTON_2 = 2;
-    public static final int BUTTON_3 = 3;
-    public static final int BUTTON_4 = 4;
-    public static final int BUTTON_5 = 5;
-    public static final int BUTTON_6 = 6;
-    public static final int BUTTON_7 = 7;
-
     public static final int CURSOR_ENABLED = 1;
     public static final int CURSOR_DISABLED = 0;
 
@@ -34,7 +26,7 @@ public class BoatInput {
 
     public static native int[] getPointer();
 
-    public static native void send(long time, int type, int p1, int p2);
+    public static native void send(long time, int type, int param1, int param2);
 
     static {
         System.loadLibrary("boat");

@@ -41,7 +41,7 @@ void boatSetCursorMode(int mode) {
 }
 
 JNIEXPORT jintArray JNICALL
-Java_cosine_boat_BoatInput_getPointer(JNIEnv *env, jclass clazz) {
+Java_cosine_boat_BoatInput_getPointer(JNIEnv *env, jclass thiz) {
     jintArray ja = (*env)->NewIntArray(env, 2);
     int arr[2] = {current_event.x, current_event.y};
     (*env)->SetIntArrayRegion(env, ja, 0, 2, arr);
@@ -49,19 +49,19 @@ Java_cosine_boat_BoatInput_getPointer(JNIEnv *env, jclass clazz) {
 }
 
 JNIEXPORT void JNICALL
-Java_cosine_boat_BoatInput_send(JNIEnv *env, jclass clazz, jlong time, jint type, jint p1,
-                                jint p2) {
+Java_cosine_boat_BoatInput_send(JNIEnv *env, jclass thiz, jlong time, jint type, jint param_1,
+                                jint param_2) {
     current_event.time = time;
     current_event.type = type;
 
     if (type == ButtonPress || type == ButtonRelease) {
-        current_event.mouse_button = p1;
+        current_event.mouse_button = param_1;
     } else if (type == KeyPress || type == KeyRelease) {
-        current_event.keycode = p1;
-        current_event.keychar = p2;
+        current_event.keycode = param_1;
+        current_event.keychar = param_2;
     } else if (type == MotionNotify) {
-        current_event.x = p1;
-        current_event.y = p2;
+        current_event.x = param_1;
+        current_event.y = param_2;
     }
 
     if (current_event_processor != NULL) {

@@ -1,6 +1,5 @@
 package cosine.boat;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -218,8 +217,7 @@ public class BoatActivity extends AppCompatActivity implements SurfaceHolder.Cal
     @Override
     public void typeWords(String str) {
         // TODO:根据字符串输入字符
-        char[] cs = str.toCharArray();
-        for (char c : cs) {
+        for (char c : str.toCharArray()) {
             BoatInput.setKey(0, c, true);
             BoatInput.setKey(0, c, false);
         }
@@ -262,11 +260,6 @@ public class BoatActivity extends AppCompatActivity implements SurfaceHolder.Cal
     }
 
     @Override
-    public Activity getActivity() {
-        return this;
-    }
-
-    @Override
     public void addView(View v) {
         if (v.getLayoutParams() == null) {
             return;
@@ -294,11 +287,6 @@ public class BoatActivity extends AppCompatActivity implements SurfaceHolder.Cal
     public boolean dispatchGenericMotionEvent(MotionEvent event) {
         controllerInterface.dispatchMotionKeyEvent(event);
         return true;
-    }
-
-    @Override
-    public ViewGroup getViewsParent() {
-        return this.baseLayout;
     }
 
     static {
