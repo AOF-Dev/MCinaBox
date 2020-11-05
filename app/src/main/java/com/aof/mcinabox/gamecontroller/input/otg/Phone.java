@@ -7,18 +7,22 @@ import android.view.InputDevice;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 
-import cosine.boat.definitions.map.KeyMap;
 import com.aof.mcinabox.gamecontroller.codes.Translation;
 import com.aof.mcinabox.gamecontroller.controller.Controller;
 import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
 import com.aof.mcinabox.gamecontroller.input.HwInput;
+
+import cosine.boat.definitions.map.KeyMap;
+
+import static cosine.boat.definitions.id.key.KeyEvent.ANDROID_TO_KEYMAP;
+import static cosine.boat.definitions.id.key.KeyEvent.KEYBOARD_BUTTON;
 
 public class Phone implements HwInput {
 
     private final static String TAG = "Phone";
     private Translation mTrans;
     private Controller mController;
-    private int type = KEYBOARD_BUTTON;
+    private final int type = KEYBOARD_BUTTON;
     private Context mContext;
     private boolean enable = false;
 

@@ -19,40 +19,53 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.aof.mcinabox.R;
-import cosine.boat.definitions.id.AppEvent;
-import cosine.boat.definitions.map.KeyMap;
-import cosine.boat.definitions.map.MouseMap;
 import com.aof.mcinabox.gamecontroller.controller.Controller;
 import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
 import com.aof.mcinabox.gamecontroller.input.OnscreenInput;
 import com.aof.mcinabox.utils.dialog.DialogUtils;
 import com.aof.mcinabox.utils.dialog.support.DialogSupports;
 
-public class OnscreenTouchpad implements OnscreenInput, AppEvent, KeyMap, MouseMap {
+import cosine.boat.definitions.map.KeyMap;
+import cosine.boat.definitions.map.MouseMap;
 
+import static cosine.boat.definitions.id.key.KeyEvent.MOUSE_BUTTON;
+import static cosine.boat.definitions.id.key.KeyEvent.MOUSE_POINTER;
+import static cosine.boat.definitions.id.key.KeyMode.MARK_INPUT_MODE_ALONE;
+import static cosine.boat.definitions.id.key.KeyMode.MARK_INPUT_MODE_CATCH;
+
+public class OnscreenTouchpad implements OnscreenInput, KeyMap, MouseMap {
+
+    public final static int TOUCHPAD_MODE_SLIDE = 1;
+    public final static int TOUCHPAD_MODE_POINT = 2;
+    public final static int DEFAULT_HOLDING_DELAY = 500;
+    private final static String TAG = "OnscreenTouchpad";
+    private final static int type_1 = MOUSE_BUTTON;
+    private final static int type_2 = MOUSE_POINTER;
+    private final static int CURSOR_MARGIN = 15;
+    private final static int MAX_MOVE_DISTANCE = 5;
+    private final static long MIN_SHLDING_TIME = 100;
     private Context mContext;
     private Controller mController;
     private LinearLayout onscreenTouchpad;
     private Button touchpad;
     private ImageView cursor;
     private int inputMode = MARK_INPUT_MODE_ALONE;
-
-    private final static String TAG = "OnscreenTouchpad";
-    private final static int type_1 = MOUSE_BUTTON;
-    private final static int type_2 = MOUSE_POINTER;
-
-    public final static int TOUCHPAD_MODE_SLIDE = 1;
-    public final static int TOUCHPAD_MODE_POINT = 2;
     private int touchpadMode = TOUCHPAD_MODE_POINT;
-
     private int inputSpeedLevel = 0; //-5 ~ 10 || 减少50% ~  增加100%
     private int screenWidth;
     private int screenHeight;
-    private final static int CURSOR_MARGIN = 15;
-
     private OnscreenTouchpadConfigDialog configDialog;
-
     private boolean enable;
+    private int initialX = 0;
+    private int initialY = 0;
+    private int baseX = 0;
+    private int baseY = 0;
+    private int cursorDownPosX;
+    private int cursorDownPosY;
+    private long MIN_HOLDING_TIME = 500;
+    private boolean performClick;
+    private boolean hasPerformLeftClick;
+    private long cursorDownTime;
 
     @Override
     public boolean load(Context context, Controller controller) {
@@ -100,11 +113,6 @@ public class OnscreenTouchpad implements OnscreenInput, AppEvent, KeyMap, MouseM
         }
         return false;
     }
-
-    private int initialX = 0;
-    private int initialY = 0;
-    private int baseX = 0;
-    private int baseY = 0;
 
     private void locateCursor(MotionEvent event) {
         switch (this.inputMode) {
@@ -198,16 +206,6 @@ public class OnscreenTouchpad implements OnscreenInput, AppEvent, KeyMap, MouseM
                 break;
         }
     }
-
-    private int cursorDownPosX;
-    private int cursorDownPosY;
-    private final static int MAX_MOVE_DISTANCE = 5;
-    private long MIN_HOLDING_TIME = 500;
-    public final static int DEFAULT_HOLDING_DELAY = 500;
-    private final static long MIN_SHLDING_TIME = 100;
-    private boolean performClick;
-    private boolean hasPerformLeftClick;
-    private long cursorDownTime;
 
     public void performMouseClick(MotionEvent event) {
         switch (this.inputMode) {
@@ -351,12 +349,12 @@ public class OnscreenTouchpad implements OnscreenInput, AppEvent, KeyMap, MouseM
         this.inputSpeedLevel = level;
     }
 
-    public void setTouchpadMode(int mode) {
-        this.touchpadMode = mode;
-    }
-
     public int getTouchpadMode() {
         return this.touchpadMode;
+    }
+
+    public void setTouchpadMode(int mode) {
+        this.touchpadMode = mode;
     }
 
     private void sendPointer(int x, int y) {
@@ -377,14 +375,14 @@ public class OnscreenTouchpad implements OnscreenInput, AppEvent, KeyMap, MouseM
     }
 
     @Override
-    public void setEnable(boolean enable) {
-        this.enable = enable;
-        updateUI();
+    public boolean isEnable() {
+        return this.enable;
     }
 
     @Override
-    public boolean isEnable() {
-        return this.enable;
+    public void setEnable(boolean enable) {
+        this.enable = enable;
+        updateUI();
     }
 
     private void updateUI() {
@@ -399,9 +397,20 @@ public class OnscreenTouchpad implements OnscreenInput, AppEvent, KeyMap, MouseM
 class OnscreenTouchpadConfigDialog extends Dialog implements View.OnClickListener, SeekBar.OnSeekBarChangeListener, Dialog.OnCancelListener, RadioButton.OnCheckedChangeListener {
 
 
-    private Context mContext;
-    private OnscreenInput mInput;
-
+    private final static String TAG = "OnscreenTouchConfigDialog";
+    private final static int DEFAULT_SPEED_PROGRESS = 5;
+    private final static int MAX_SPEED_PROGRESS = 15;
+    private final static int MIN_SPEED_PROGRESS = -5;
+    private final static int MAX_DELAY_PROGRESS = 900;
+    private final static int MIN_DELAY_PROGRESS = 100;
+    private final static int DEFAULT_DELAY_PROGRESS = OnscreenTouchpad.DEFAULT_HOLDING_DELAY - MIN_DELAY_PROGRESS;
+    private final static String spFileName = "input_onscreentouchpad_config";
+    private final static int spMode = Context.MODE_PRIVATE;
+    private final static String sp_speed_name = "speed";
+    private final static String sp_touchpad_mode = "touchpad_mode";
+    private final static String sp_delay_name = "delay";
+    private final Context mContext;
+    private final OnscreenInput mInput;
     private SeekBar seekbarSpeed;
     private SeekBar seekbarDelay;
     private TextView textSpeed;
@@ -411,25 +420,9 @@ class OnscreenTouchpadConfigDialog extends Dialog implements View.OnClickListene
     private Button buttonOK;
     private Button buttonCancel;
     private Button buttonRestore;
-
     private int originalSpeedProgress;
     private int originalTouchpadMode;
     private int originalDelayProgress;
-
-    private final static String TAG = "OnscreenTouchConfigDialog";
-
-    private final static int DEFAULT_SPEED_PROGRESS = 5;
-    private final static int MAX_SPEED_PROGRESS = 15;
-    private final static int MIN_SPEED_PROGRESS = -5;
-    private final static int MAX_DELAY_PROGRESS = 900;
-    private final static int MIN_DELAY_PROGRESS = 100;
-    private final static int DEFAULT_DELAY_PROGRESS = OnscreenTouchpad.DEFAULT_HOLDING_DELAY - MIN_DELAY_PROGRESS;
-
-    private final static String spFileName = "input_onscreentouchpad_config";
-    private final static int spMode = Context.MODE_PRIVATE;
-    private final static String sp_speed_name = "speed";
-    private final static String sp_touchpad_mode = "touchpad_mode";
-    private final static String sp_delay_name = "delay";
 
     public OnscreenTouchpadConfigDialog(@NonNull Context context, OnscreenInput input) {
         super(context);
@@ -500,9 +493,9 @@ class OnscreenTouchpadConfigDialog extends Dialog implements View.OnClickListene
         }
 
         if (v == buttonRestore) {
-            DialogUtils.createBothChoicesDialog(mContext,mContext.getString(R.string.title_warn),mContext.getString(R.string.tips_are_you_sure_to_restore_setting),mContext.getString(R.string.title_ok),mContext.getString(R.string.title_cancel),new DialogSupports(){
+            DialogUtils.createBothChoicesDialog(mContext, mContext.getString(R.string.title_warn), mContext.getString(R.string.tips_are_you_sure_to_restore_setting), mContext.getString(R.string.title_ok), mContext.getString(R.string.title_cancel), new DialogSupports() {
                 @Override
-                public void runWhenPositive(){
+                public void runWhenPositive() {
                     restoreConfig();
                 }
             });

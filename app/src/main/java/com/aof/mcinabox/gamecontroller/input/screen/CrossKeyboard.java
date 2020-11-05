@@ -20,8 +20,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SwitchCompat;
 
 import com.aof.mcinabox.R;
-import cosine.boat.definitions.id.key.KeyMode;
-import cosine.boat.definitions.map.KeyMap;
 import com.aof.mcinabox.gamecontroller.controller.Controller;
 import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
 import com.aof.mcinabox.gamecontroller.input.OnscreenInput;
@@ -32,6 +30,12 @@ import com.aof.mcinabox.utils.dialog.DialogUtils;
 import com.aof.mcinabox.utils.dialog.support.DialogSupports;
 
 import java.util.Arrays;
+
+import cosine.boat.definitions.id.key.KeyMode;
+import cosine.boat.definitions.map.KeyMap;
+
+import static cosine.boat.definitions.id.key.KeyEvent.KEYBOARD_BUTTON;
+import static cosine.boat.definitions.id.key.KeyEvent.MARK_KEYNAME_SPLIT_STRING;
 
 public class CrossKeyboard implements OnscreenInput, KeyMap {
     private Context mContext;
@@ -402,7 +406,7 @@ public class CrossKeyboard implements OnscreenInput, KeyMap {
 
     private int screenWidth;
     private int screenHeight;
-    private int[] viewPos = new int[2];
+    private final int[] viewPos = new int[2];
 
     private void moveViewByTouch(View v, MotionEvent e) {
         switch (e.getAction()) {
@@ -530,7 +534,7 @@ public class CrossKeyboard implements OnscreenInput, KeyMap {
 
 class CrossKeyboardConfigDialog extends Dialog implements View.OnClickListener, SeekBar.OnSeekBarChangeListener, Dialog.OnCancelListener, CompoundButton.OnCheckedChangeListener {
 
-    private OnscreenInput mInput;
+    private final OnscreenInput mInput;
     private Button buttonOK;
     private Button buttonCancel;
     private Button buttonRestore;
@@ -567,7 +571,7 @@ class CrossKeyboardConfigDialog extends Dialog implements View.OnClickListener, 
     private int screenWidth;
     private int screenHeight;
 
-    private Context mContext;
+    private final Context mContext;
 
     private final static String spFileName = "input_crosskeyboard_config";
     private final static int spMode = Context.MODE_PRIVATE;

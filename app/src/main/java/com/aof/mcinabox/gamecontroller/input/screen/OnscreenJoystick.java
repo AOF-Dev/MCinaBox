@@ -16,8 +16,6 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.aof.mcinabox.R;
-import cosine.boat.definitions.id.key.KeyMode;
-import cosine.boat.definitions.map.KeyMap;
 import com.aof.mcinabox.gamecontroller.controller.Controller;
 import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
 import com.aof.mcinabox.gamecontroller.input.OnscreenInput;
@@ -26,7 +24,16 @@ import com.aof.mcinabox.utils.dialog.DialogUtils;
 import com.aof.mcinabox.utils.dialog.support.DialogSupports;
 import com.kongqw.rockerlibrary.view.RockerView;
 
-public class OnscreenJoystick implements OnscreenInput , RockerView.OnShakeListener , KeyMap {
+import cosine.boat.definitions.id.key.KeyMode;
+
+import static cosine.boat.definitions.id.key.KeyEvent.KEYBOARD_BUTTON;
+import static cosine.boat.definitions.id.key.KeyEvent.MARK_KEYNAME_SPLIT_STRING;
+import static cosine.boat.definitions.map.KeyMap.KEYMAP_KEY_A;
+import static cosine.boat.definitions.map.KeyMap.KEYMAP_KEY_D;
+import static cosine.boat.definitions.map.KeyMap.KEYMAP_KEY_S;
+import static cosine.boat.definitions.map.KeyMap.KEYMAP_KEY_W;
+
+public class OnscreenJoystick implements OnscreenInput, RockerView.OnShakeListener {
 
     private LinearLayout onscreenJoystick;
     private RockerView joystick;
@@ -114,7 +121,7 @@ public class OnscreenJoystick implements OnscreenInput , RockerView.OnShakeListe
         return false;
     }
 
-    private int[] viewPos = new int[2];
+    private final int[] viewPos = new int[2];
     private void moveViewByTouch(View v , MotionEvent e){
         switch(e.getAction()){
             case MotionEvent.ACTION_DOWN:
@@ -322,8 +329,8 @@ public class OnscreenJoystick implements OnscreenInput , RockerView.OnShakeListe
 
 class OnscreenJoystickConfigDialog extends Dialog implements View.OnClickListener, Dialog.OnCancelListener, SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener {
 
-    private Context mContext;
-    private OnscreenInput mInput;
+    private final Context mContext;
+    private final OnscreenInput mInput;
 
     private Button buttonOK;
     private Button buttonCancel;

@@ -10,6 +10,9 @@ import com.aof.mcinabox.gamecontroller.controller.Controller;
 import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
 import com.aof.mcinabox.gamecontroller.input.HwInput;
 
+import static cosine.boat.definitions.id.key.KeyEvent.MOUSE_BUTTON;
+import static cosine.boat.definitions.id.key.KeyEvent.MOUSE_POINTER;
+
 public class Mouse implements HwInput {
 
     private final static String TAG = "Mouse";

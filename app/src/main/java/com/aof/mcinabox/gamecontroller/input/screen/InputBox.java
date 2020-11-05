@@ -21,9 +21,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.aof.mcinabox.R;
-import cosine.boat.definitions.id.key.KeyEvent;
-import cosine.boat.definitions.id.key.KeyMode;
-import cosine.boat.definitions.map.KeyMap;
 import com.aof.mcinabox.gamecontroller.controller.Controller;
 import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
 import com.aof.mcinabox.gamecontroller.input.OnscreenInput;
@@ -34,6 +31,13 @@ import com.aof.mcinabox.utils.dialog.support.DialogSupports;
 import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import cosine.boat.definitions.id.key.KeyEvent;
+import cosine.boat.definitions.id.key.KeyMode;
+import cosine.boat.definitions.map.KeyMap;
+
+import static cosine.boat.definitions.id.key.KeyEvent.KEYBOARD_BUTTON;
+import static cosine.boat.definitions.id.key.KeyEvent.TYPE_WORDS;
 
 public class InputBox implements OnscreenInput, KeyMap, View.OnClickListener {
 
@@ -118,7 +122,7 @@ public class InputBox implements OnscreenInput, KeyMap, View.OnClickListener {
         return false;
     }
 
-    private int[] pos = new int[2];
+    private final int[] pos = new int[2];
 
     private void moveViewByTouch(View v, MotionEvent e) {
         switch (e.getAction()) {
@@ -290,17 +294,17 @@ public class InputBox implements OnscreenInput, KeyMap, View.OnClickListener {
         }
     }
 
-    class InputDialog extends Dialog implements View.OnClickListener{
+    class InputDialog extends Dialog implements View.OnClickListener {
 
-        private Context mContext;
-        private Controller mController;
+        private final Context mContext;
+        private final Controller mController;
 
-        private EditText editBox;
-        private Button buttonNone;
-        private Button buttonEnter;
-        private Button buttonTEnter;
-        private Button buttonCancel;
-        private boolean multi_line;
+        private final EditText editBox;
+        private final Button buttonNone;
+        private final Button buttonEnter;
+        private final Button buttonTEnter;
+        private final Button buttonCancel;
+        private final boolean multi_line;
 
         private static final String TAG = "InputDialog";
 
@@ -381,8 +385,8 @@ public class InputBox implements OnscreenInput, KeyMap, View.OnClickListener {
 
 class InputBoxConfigDialog extends Dialog implements View.OnClickListener, Dialog.OnCancelListener, SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener {
 
-    private OnscreenInput mInput;
-    private Context mContext;
+    private final OnscreenInput mInput;
+    private final Context mContext;
 
     private SeekBar seekbarSize;
     private SeekBar seekbarAlpha;

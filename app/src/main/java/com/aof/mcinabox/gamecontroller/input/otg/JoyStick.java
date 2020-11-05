@@ -9,6 +9,9 @@ import android.view.MotionEvent;
 import com.aof.mcinabox.gamecontroller.controller.Controller;
 import com.aof.mcinabox.gamecontroller.input.HwInput;
 
+import static cosine.boat.definitions.id.key.KeyEvent.KEYBOARD_BUTTON;
+import static cosine.boat.definitions.id.key.KeyEvent.MOUSE_POINTER;
+
 public class JoyStick implements HwInput {
 
     private final static String TAG = "JoyStick";

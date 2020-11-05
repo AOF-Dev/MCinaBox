@@ -5,13 +5,14 @@ import android.view.InputDevice;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 
-import cosine.boat.definitions.id.AppEvent;
 import com.aof.mcinabox.gamecontroller.codes.AndroidKeyMap;
 import com.aof.mcinabox.gamecontroller.controller.Controller;
 import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
 import com.aof.mcinabox.gamecontroller.input.HwInput;
 
-public class Keyboard implements HwInput, AppEvent{
+import static cosine.boat.definitions.id.key.KeyEvent.KEYBOARD_BUTTON;
+
+public class Keyboard implements HwInput {
 
     private Context mContext;
     private Controller mController;

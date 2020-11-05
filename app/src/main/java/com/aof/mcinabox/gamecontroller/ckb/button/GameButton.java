@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import cosine.boat.definitions.id.AppEvent;
 import com.aof.mcinabox.gamecontroller.ckb.achieve.CkbManager;
 import com.aof.mcinabox.gamecontroller.ckb.achieve.GameButtonDialog;
 import com.aof.mcinabox.gamecontroller.ckb.support.CallCustomizeKeyboard;
@@ -23,14 +22,20 @@ import com.aof.mcinabox.utils.DisplayUtils;
 
 import java.util.HashMap;
 
-@SuppressLint("ViewConstructor")
-public class GameButton extends androidx.appcompat.widget.AppCompatButton implements View.OnTouchListener , AppEvent {
+import static cosine.boat.definitions.id.key.KeyEvent.KEYBOARD_BUTTON;
+import static cosine.boat.definitions.id.key.KeyEvent.MOUSE_BUTTON;
+import static cosine.boat.definitions.id.key.KeyEvent.MOUSE_POINTER;
+import static cosine.boat.definitions.id.key.KeyMode.MARK_INPUT_MODE_ALONE;
+import static cosine.boat.definitions.id.key.KeyMode.MARK_INPUT_MODE_CATCH;
 
-    private CallCustomizeKeyboard mCall;
-    private Controller mController;
-    private Context mContext;
-    private CkbManager mManager;
-    private Activity mActivity;
+@SuppressLint("ViewConstructor")
+public class GameButton extends androidx.appcompat.widget.AppCompatButton implements View.OnTouchListener {
+
+    private final CallCustomizeKeyboard mCall;
+    private final Controller mController;
+    private final Context mContext;
+    private final CkbManager mManager;
+    private final Activity mActivity;
 
     private int buttonMode;
     private int screenWidth;

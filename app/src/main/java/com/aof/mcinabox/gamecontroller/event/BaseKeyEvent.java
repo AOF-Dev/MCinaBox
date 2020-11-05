@@ -1,16 +1,14 @@
 package com.aof.mcinabox.gamecontroller.event;
 
-import cosine.boat.definitions.id.AppEvent;
-
-public class BaseKeyEvent implements AppEvent {
-    private String tag;
-    private String keyName;
-    private boolean pressed;
-    private int type;
-    private int[] mPointer;
+public class BaseKeyEvent {
+    private final String tag;
+    private final String keyName;
+    private final boolean pressed;
+    private final int type;
+    private final int[] mPointer;
     private String chars;
 
-    public BaseKeyEvent(String tag, String keyName, boolean pressed, int type, int[] mPointer){
+    public BaseKeyEvent(String tag, String keyName, boolean pressed, int type, int[] mPointer) {
         this.tag = tag;
         this.keyName = keyName;
         this.pressed = pressed;

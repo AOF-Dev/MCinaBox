@@ -1,16 +1,19 @@
 package com.aof.mcinabox.gamecontroller.codes;
 
-import cosine.boat.definitions.id.AppEvent;
+import static cosine.boat.definitions.id.key.KeyEvent.ANDROID_TO_KEYMAP;
+import static cosine.boat.definitions.id.key.KeyEvent.KEYMAP_TO_GLFW;
+import static cosine.boat.definitions.id.key.KeyEvent.KEYMAP_TO_LWJGL;
+import static cosine.boat.definitions.id.key.KeyEvent.KEYMAP_TO_X;
 
-public class Translation implements AppEvent {
+public class Translation {
 
-    private LwjglKeyMap lwjglKeyTrans;
-    private GlfwKeyMap glfwKeyTrans;
-    private XKeyMap xKeyMap;
-    private AndroidKeyMap aKeyMap;
+    private final LwjglKeyMap lwjglKeyTrans;
+    private final GlfwKeyMap glfwKeyTrans;
+    private final XKeyMap xKeyMap;
+    private final AndroidKeyMap aKeyMap;
     private int mode;
 
-    public Translation(int mode){
+    public Translation(int mode) {
         lwjglKeyTrans = new LwjglKeyMap();
         glfwKeyTrans = new GlfwKeyMap();
         xKeyMap = new XKeyMap();
@@ -18,8 +21,8 @@ public class Translation implements AppEvent {
         this.mode = mode;
     }
 
-    public int trans(String s){
-        switch (mode){
+    public int trans(String s) {
+        switch (mode) {
             case KEYMAP_TO_LWJGL:
                 return lwjglKeyTrans.translate(s);
             case KEYMAP_TO_GLFW:
@@ -31,8 +34,8 @@ public class Translation implements AppEvent {
         }
     }
 
-    public String trans(int i){
-        switch (mode){
+    public String trans(int i) {
+        switch (mode) {
             case ANDROID_TO_KEYMAP:
                 return aKeyMap.translate(i);
             default:
@@ -40,7 +43,7 @@ public class Translation implements AppEvent {
         }
     }
 
-    public Translation setMode(int mode){
+    public Translation setMode(int mode) {
         this.mode = mode;
         return this;
     }

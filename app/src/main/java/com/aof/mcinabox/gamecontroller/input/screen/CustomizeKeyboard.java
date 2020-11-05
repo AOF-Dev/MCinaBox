@@ -5,7 +5,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
-import cosine.boat.definitions.id.AppEvent;
 import com.aof.mcinabox.gamecontroller.ckb.achieve.CkbManager;
 import com.aof.mcinabox.gamecontroller.ckb.achieve.CkbManagerDialog;
 import com.aof.mcinabox.gamecontroller.ckb.support.CallCustomizeKeyboard;
@@ -16,12 +15,14 @@ import com.aof.mcinabox.gamecontroller.input.OnscreenInput;
 
 import java.util.ArrayList;
 
-public class CustomizeKeyboard implements OnscreenInput, AppEvent, Controller, CallCustomizeKeyboard {
+import static cosine.boat.definitions.id.key.KeyEvent.KEYBOARD_BUTTON;
+
+public class CustomizeKeyboard implements OnscreenInput, Controller, CallCustomizeKeyboard {
 
     private Context mContext;
     private Controller mController;
-    private String TAG = "CustomKeyboard";
-    private int type = KEYBOARD_BUTTON;
+    private final String TAG = "CustomKeyboard";
+    private final int type = KEYBOARD_BUTTON;
 
     private CkbManager mManager;
     private CkbManagerDialog mDialog;
@@ -40,6 +41,15 @@ public class CustomizeKeyboard implements OnscreenInput, AppEvent, Controller, C
     @Override
     public boolean isEnable() {
         return false;
+    }
+
+    @Override
+    public void setEnable(boolean enable) {
+        if (enable) {
+            mManager.showOrHideGameButtons(CkbManager.SHOW_BUTTON);
+        } else {
+            mManager.showOrHideGameButtons(CkbManager.HIDE_BUTTON);
+        }
     }
 
     @Override
@@ -77,7 +87,6 @@ public class CustomizeKeyboard implements OnscreenInput, AppEvent, Controller, C
         return null;
     }
 
-
     @Override
     public void addContentView(View view, ViewGroup.LayoutParams params) {
         mController.addContentView(view, params);
@@ -104,6 +113,11 @@ public class CustomizeKeyboard implements OnscreenInput, AppEvent, Controller, C
     }
 
     @Override
+    public void setInputMode(int inputMode) {
+        mManager.setInputMode(inputMode);
+    }
+
+    @Override
     public int[] getPointer() {
         return mController.getPointer();
     }
@@ -121,15 +135,6 @@ public class CustomizeKeyboard implements OnscreenInput, AppEvent, Controller, C
     @Override
     public ViewGroup getViewsParent() {
         return mController.getViewsParent();
-    }
-
-    @Override
-    public void setEnable(boolean enable) {
-        if(enable){
-            mManager.showOrHideGameButtons(CkbManager.SHOW_BUTTON);
-        }else{
-            mManager.showOrHideGameButtons(CkbManager.HIDE_BUTTON);
-        }
     }
 
     @Override
@@ -165,11 +170,6 @@ public class CustomizeKeyboard implements OnscreenInput, AppEvent, Controller, C
     @Override
     public boolean unload() {
         return true;
-    }
-
-    @Override
-    public void setInputMode(int inputMode) {
-        mManager.setInputMode(inputMode);
     }
 
     @Override
