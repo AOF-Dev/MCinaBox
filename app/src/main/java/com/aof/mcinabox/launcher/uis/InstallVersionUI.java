@@ -19,7 +19,7 @@ import com.aof.mcinabox.utils.dialog.DialogUtils;
 
 import java.util.ArrayList;
 
-import static cosine.boat.definitions.manifest.AppManifest.MCINABOX_TEMP;
+import static com.aof.mcinabox.gamecontroller.definitions.manifest.AppManifest.MCINABOX_TEMP;
 
 public class InstallVersionUI extends BaseUI implements RadioGroup.OnCheckedChangeListener {
 
@@ -93,14 +93,14 @@ public class InstallVersionUI extends BaseUI implements RadioGroup.OnCheckedChan
     private void DownloadSelectedVersion() {
 
         if (versionList == null) {
-            DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_error),mContext.getString(R.string.tips_please_refresh),mContext.getString(R.string.title_ok),null);
+            DialogUtils.createSingleChoiceDialog(mContext, mContext.getString(R.string.title_error), mContext.getString(R.string.tips_please_refresh), mContext.getString(R.string.title_ok), null);
             return;
         }
         if (selectedVersionPos == -1) {
-            DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_error), mContext.getString(R.string.tips_please_select_version),mContext.getString(R.string.title_ok),null);
+            DialogUtils.createSingleChoiceDialog(mContext, mContext.getString(R.string.title_error), mContext.getString(R.string.tips_please_select_version), mContext.getString(R.string.title_ok), null);
             return;
         }
-        mDownloadManager.startPresetDownload(DownloadManager.DOWNLOAD_PRESET_VERSION_JSON ,listVersionsOnline.getAdapter().getItem(selectedVersionPos).toString());
+        mDownloadManager.startPresetDownload(DownloadManager.DOWNLOAD_PRESET_VERSION_JSON, listVersionsOnline.getAdapter().getItem(selectedVersionPos).toString());
 
     }
 

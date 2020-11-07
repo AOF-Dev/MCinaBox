@@ -15,6 +15,7 @@ import androidx.appcompat.widget.SwitchCompat;
 
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.activity.OldMainActivity;
+import com.aof.mcinabox.gamecontroller.definitions.manifest.AppManifest;
 import com.aof.mcinabox.launcher.runtime.RuntimeManager;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.mcinabox.launcher.uis.support.Utils;
@@ -27,8 +28,6 @@ import com.aof.mcinabox.utils.dialog.support.TaskDialog;
 
 import java.util.ArrayList;
 import java.util.Objects;
-
-import cosine.boat.definitions.manifest.AppManifest;
 
 public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedListener, CompoundButton.OnCheckedChangeListener {
 
@@ -58,23 +57,23 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
                     files = tmp.toArray(new String[0]);
                     tmp2 = new String[Objects.requireNonNull(files).length + 1];
                     System.arraycopy(files, 0, tmp2, 1, files.length);
-                }else{
+                } else {
                     tmp2 = new String[1];
                 }
                 tmp2[0] = mContext.getString(R.string.tips_select_from_storage);
-                DialogUtils.createItemsChoiceDialog(mContext,mContext.getString(R.string.title_import_runtime),null,mContext.getString(R.string.title_cancel),null,false,tmp2,new DialogSupports(){
+                DialogUtils.createItemsChoiceDialog(mContext, mContext.getString(R.string.title_import_runtime), null, mContext.getString(R.string.title_cancel), null, false, tmp2, new DialogSupports() {
                     @Override
                     public void runWhenItemsSelected(int pos) {
                         super.runWhenItemsSelected(pos);
-                        if(pos == 0){
-                            DialogUtils.createFileSelectorDialog(mContext,mContext.getString(R.string.title_import_runtime),AppManifest.SDCARD_HOME,new String[]{"xz"},new DialogSupports(){
+                        if (pos == 0) {
+                            DialogUtils.createFileSelectorDialog(mContext, mContext.getString(R.string.title_import_runtime), AppManifest.SDCARD_HOME, new String[]{"xz"}, new DialogSupports() {
                                 @Override
-                                public void runWhenItemsSelected(Object path){
+                                public void runWhenItemsSelected(Object path) {
                                     RuntimeManager.installRuntimeFromPath(mContext, (String) path);
                                 }
                             });
-                        }else{
-                            RuntimeManager.installRuntimeFromPath(mContext, AppManifest.MCINABOX_RUNTIME+ "/" + tmp2[pos]);
+                        } else {
+                            RuntimeManager.installRuntimeFromPath(mContext, AppManifest.MCINABOX_RUNTIME + "/" + tmp2[pos]);
                         }
 
                     }
@@ -82,13 +81,14 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
 
             }
             if (v == buttonInstallForge) {
-                DialogUtils.createFileSelectorDialog(mContext,mContext.getString(R.string.title_forge_installer), AppManifest.SDCARD_HOME, new String[]{"jar"}, new DialogSupports(){
+                DialogUtils.createFileSelectorDialog(mContext, mContext.getString(R.string.title_forge_installer), AppManifest.SDCARD_HOME, new String[]{"jar"}, new DialogSupports() {
                     @Override
                     public void runWhenItemsSelected(Object filePath) {
                         super.runWhenItemsSelected(filePath);
                         final ForgeInstaller installer = new ForgeInstaller(mContext);
                         installer.unzipForgeInstaller((String) filePath, new ZipUtils.Callback() {
                             final TaskDialog mDialog = DialogUtils.createTaskDialog(mContext, mContext.getString(R.string.tips_unzipping), "", false);
+
                             @Override
                             public void onStart() {
                                 mDialog.show();
@@ -96,16 +96,16 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
 
                             @Override
                             public void onFailed(Exception e) {
-                                DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_error),mContext.getString(R.string.tips_unzip_failed).concat(" : ").concat(e.getMessage()),mContext.getString(R.string.title_ok),null);
+                                DialogUtils.createSingleChoiceDialog(mContext, mContext.getString(R.string.title_error), mContext.getString(R.string.tips_unzip_failed).concat(" : ").concat(e.getMessage()), mContext.getString(R.string.title_ok), null);
                             }
 
                             @Override
                             public void onSuccess() {
                                 try {
                                     installer.startDownloadForge(installer.makeForgeData());
-                                }catch (Exception e){
+                                } catch (Exception e) {
                                     e.printStackTrace();
-                                    DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_error),String.format(mContext.getString(R.string.tips_error),e.getMessage()),mContext.getString(R.string.title_ok),null);
+                                    DialogUtils.createSingleChoiceDialog(mContext, mContext.getString(R.string.title_error), String.format(mContext.getString(R.string.tips_error), e.getMessage()), mContext.getString(R.string.title_ok), null);
                                 }
                             }
 
@@ -123,7 +123,7 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
                         .setCancelable(true)
                         .show();
             }
-            if(v == buttonClearRuntime){
+            if (v == buttonClearRuntime) {
                 DialogUtils.createBothChoicesDialog(mContext, mContext.getString(R.string.title_warn), mContext.getString(R.string.tips_are_you_sure_to_delete_runtime), mContext.getString(R.string.title_continue), mContext.getString(R.string.title_cancel), new DialogSupports() {
                     @Override
                     public void runWhenPositive() {
@@ -217,21 +217,22 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> parent) { }
+    public void onNothingSelected(AdapterView<?> parent) {
+    }
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if(buttonView == switchAutoBackground){
-            if(isChecked){
-                DialogUtils.createSingleChoiceDialog(mContext,mContext.getString(R.string.title_note),String.format(mContext.getString(R.string.tips_please_put_pic_to_background_dir),AppManifest.MCINABOX_BACKGROUND),mContext.getString(R.string.title_ok),null);
+        if (buttonView == switchAutoBackground) {
+            if (isChecked) {
+                DialogUtils.createSingleChoiceDialog(mContext, mContext.getString(R.string.title_note), String.format(mContext.getString(R.string.tips_please_put_pic_to_background_dir), AppManifest.MCINABOX_BACKGROUND), mContext.getString(R.string.title_ok), null);
             }
             setting.setBackgroundAutoSwitch(isChecked);
         }
 
-        if(buttonView == switchFullscreen){
-            if(isChecked){
+        if (buttonView == switchFullscreen) {
+            if (isChecked) {
                 OldMainActivity.CURRENT_ACTIVITY.get().mThemeManager.setFullScreen(OldMainActivity.CURRENT_ACTIVITY.get(), true);
-            }else{
+            } else {
                 OldMainActivity.CURRENT_ACTIVITY.get().mThemeManager.setFullScreen(OldMainActivity.CURRENT_ACTIVITY.get(), false);
                 DialogUtils.createSingleChoiceDialog(mContext, mContext.getString(R.string.title_note), mContext.getString(R.string.tips_successed_to_disable_hide_stat_bar), mContext.getString(R.string.title_ok), null);
             }

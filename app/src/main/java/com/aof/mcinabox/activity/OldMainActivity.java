@@ -10,6 +10,7 @@ import android.view.KeyEvent;
 
 import com.aof.mcinabox.BaseActivity;
 import com.aof.mcinabox.R;
+import com.aof.mcinabox.gamecontroller.definitions.manifest.AppManifest;
 import com.aof.mcinabox.launcher.lang.LangManager;
 import com.aof.mcinabox.launcher.setting.SettingManager;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
@@ -24,8 +25,6 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import cosine.boat.definitions.manifest.AppManifest;
 
 public class OldMainActivity extends BaseActivity {
 
@@ -49,17 +48,17 @@ public class OldMainActivity extends BaseActivity {
         //静态对象
         CURRENT_ACTIVITY = new WeakReference<>(this);
         //使用语言管理器切换语言
-        if(!new LangManager(this).fitSystemLang()){
+        if (!new LangManager(this).fitSystemLang()) {
             return;
         }
         //初始化配置管理器
         mSettingManager = new SettingManager(this);
         //检查配置文件
-        if(Setting == null){
+        if (Setting == null) {
             Setting = checkLauncherSettingFile();
         }
         //初始化清单
-        AppManifest.initManifest(this,Setting.getGamedir());
+        AppManifest.initManifest(this, Setting.getGamedir());
         //检查目录
         CheckMcinaBoxDir();
         //初始化主题管理器
@@ -67,7 +66,7 @@ public class OldMainActivity extends BaseActivity {
         //初始化消息管理器
         mTipperManager = new TipperManager(this);
         //初始化界面管理器
-        mUiManager = new UiManager(this,Setting);
+        mUiManager = new UiManager(this, Setting);
         //Life Circle
         mUiManager.onCreate();
 
@@ -78,7 +77,7 @@ public class OldMainActivity extends BaseActivity {
     }
 
     @Override
-    protected void onStart(){
+    protected void onStart() {
         super.onStart();
         //执行自动刷新
         this.mTimer = new Timer();
@@ -125,7 +124,7 @@ public class OldMainActivity extends BaseActivity {
     /**
      * 【检查MCinaBox的目录结构是否正常】
      **/
-    private void updateSettingFromUis(){
+    private void updateSettingFromUis() {
         mUiManager.saveConfigToSetting();
     }
 
@@ -198,7 +197,7 @@ public class OldMainActivity extends BaseActivity {
     }
 
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
         // 重新创建缓存文件夹
         removeTmpFloder();
@@ -206,7 +205,7 @@ public class OldMainActivity extends BaseActivity {
     }
 
     @Override
-    public void onRestart(){
+    public void onRestart() {
         super.onRestart();
         mUiManager.onRestart();
         // stat Timer Task
@@ -216,8 +215,8 @@ public class OldMainActivity extends BaseActivity {
         switchSettingChecker(true);
     }
 
-    private TimerTask createTimerTask(){
-        return  new TimerTask() {
+    private TimerTask createTimerTask() {
+        return new TimerTask() {
             @Override
             public void run() {
                 Message msg = new Message();
@@ -227,7 +226,7 @@ public class OldMainActivity extends BaseActivity {
         };
     }
 
-    public void restarter(){
+    public void restarter() {
         //首先要关闭SettingManager的自动检查
         switchSettingChecker(false);
         //重启Activity
@@ -237,12 +236,12 @@ public class OldMainActivity extends BaseActivity {
         finish();
     }
 
-    private void switchSettingChecker(boolean enable){
-        if(mSettingManager != null){
-            if(enable && !enableSettingChecker){
+    private void switchSettingChecker(boolean enable) {
+        if (mSettingManager != null) {
+            if (enable && !enableSettingChecker) {
                 mSettingManager.startChecking();
                 enableSettingChecker = true;
-            }else if(!enable && enableSettingChecker){
+            } else if (!enable && enableSettingChecker) {
                 mSettingManager.stopChecking();
                 enableSettingChecker = false;
             }

@@ -19,7 +19,7 @@ import com.aof.mcinabox.utils.MemoryUtils;
 import java.io.File;
 import java.util.ArrayList;
 
-import static cosine.boat.definitions.manifest.AppManifest.MCINABOX_KEYBOARD;
+import static com.aof.mcinabox.gamecontroller.definitions.manifest.AppManifest.MCINABOX_KEYBOARD;
 
 public class GameSettingUI extends BaseUI implements SwitchCompat.OnCheckedChangeListener {
 
