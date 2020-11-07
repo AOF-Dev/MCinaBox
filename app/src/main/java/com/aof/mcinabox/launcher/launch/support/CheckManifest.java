@@ -1,6 +1,7 @@
 package com.aof.mcinabox.launcher.launch.support;
 
 import com.aof.mcinabox.activity.OldMainActivity;
+import com.aof.mcinabox.gamecontroller.definitions.manifest.AppManifest;
 import com.aof.mcinabox.launcher.runtime.RuntimeManager;
 import com.aof.mcinabox.launcher.runtime.support.RuntimePackInfo;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
@@ -13,8 +14,6 @@ import com.aof.mcinabox.utils.FileTool;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-
-import cosine.boat.definitions.manifest.AppManifest;
 
 public class CheckManifest {
 
@@ -91,7 +90,7 @@ public class CheckManifest {
 
     public static boolean checkMinecraftAssetsIndex(SettingJson settingJson) {
         VersionJson json = JsonUtils.getVersionFromFile(Utils.getJsonAbsPath(settingJson.getLastVersion()));
-        if(json.getInheritsFrom() == null)
+        if (json.getInheritsFrom() == null)
             return new File(Utils.getAssetsJsonAbsPath(JsonUtils.getVersionFromFile(Utils.getJsonAbsPath(settingJson.getLastVersion())))).exists();
         else
             return new File(Utils.getAssetsJsonAbsPath(JsonUtils.getVersionFromFile(Utils.getJsonAbsPath(settingJson.getLastVersion())).getInheritsFrom())).exists();
@@ -103,7 +102,7 @@ public class CheckManifest {
         }
         String[] paths;
         VersionJson json = JsonUtils.getVersionFromFile(Utils.getJsonAbsPath(settingJson.getLastVersion()));
-        if(json.getInheritsFrom() == null)
+        if (json.getInheritsFrom() == null)
             paths = Utils.getAssetsPaths(JsonUtils.getVersionFromFile(Utils.getJsonAbsPath(settingJson.getLastVersion())));
         else
             paths = Utils.getAssetsPaths(JsonUtils.getVersionFromFile(Utils.getJsonAbsPath(settingJson.getLastVersion())).getInheritsFrom());
@@ -159,9 +158,9 @@ public class CheckManifest {
             e.printStackTrace();
             return true;
         }
-        if(f.contains("touchscreen:true") && f.contains("touchscreen:false")){
+        if (f.contains("touchscreen:true") && f.contains("touchscreen:false")) {
             return true;
-        }else{
+        } else {
             return f.contains("touchscreen:false");
         }
     }

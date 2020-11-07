@@ -24,9 +24,7 @@ import com.aof.mcinabox.gamecontroller.input.screen.button.ItemButton;
 import com.aof.mcinabox.utils.dialog.DialogUtils;
 import com.aof.mcinabox.utils.dialog.support.DialogSupports;
 
-import static cosine.boat.definitions.id.key.KeyEvent.KEYBOARD_BUTTON;
-import static cosine.boat.definitions.id.key.KeyMode.MARK_INPUT_MODE_ALONE;
-import static cosine.boat.definitions.id.key.KeyMode.MARK_INPUT_MODE_CATCH;
+import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.KEYBOARD_BUTTON;
 
 public class ItemBar implements OnscreenInput {
 
@@ -39,7 +37,7 @@ public class ItemBar implements OnscreenInput {
     private int screenWidth;
     private int screenHeight;
     private final ItemButton[] itemButtons = new ItemButton[9];
-    private int inputMode = MARK_INPUT_MODE_ALONE;
+    private boolean isGrabbed = false;
     private boolean enable;
     private ItembarConfigDialog configDialog;
 
@@ -110,7 +108,7 @@ public class ItemBar implements OnscreenInput {
         switch (visiablity) {
             case View.VISIBLE:
                 enable = true;
-                if (this.inputMode == MARK_INPUT_MODE_CATCH) {
+                if (this.isGrabbed) {
                     itemBar.setVisibility(visiablity);
                 }
                 break;
@@ -143,20 +141,15 @@ public class ItemBar implements OnscreenInput {
     }
 
     @Override
-    public void setInputMode(int inputMode) {
-        switch (inputMode) {
-            case MARK_INPUT_MODE_CATCH:
-                if (enable) {
-                    itemBar.setVisibility(View.VISIBLE);
-                }
-                break;
-            case MARK_INPUT_MODE_ALONE:
-                itemBar.setVisibility(View.INVISIBLE);
-                break;
-            default:
-                break;
+    public void setGrabCursor(boolean isGrabbed) {
+        if (isGrabbed) {
+            if (enable) {
+                itemBar.setVisibility(View.VISIBLE);
+            }
+        } else {
+            itemBar.setVisibility(View.INVISIBLE);
         }
-        this.inputMode = inputMode;
+        this.isGrabbed = isGrabbed;
     }
 
     @Override

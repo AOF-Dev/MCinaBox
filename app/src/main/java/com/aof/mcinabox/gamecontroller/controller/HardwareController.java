@@ -20,13 +20,13 @@ import com.aof.mcinabox.gamecontroller.input.otg.Phone;
 
 import java.util.ArrayList;
 
-import cosine.boat.ClientInput;
+import cosine.boat.BoatActivity;
 
-import static cosine.boat.definitions.id.key.KeyEvent.KEYBOARD_BUTTON;
-import static cosine.boat.definitions.id.key.KeyEvent.MARK_KEYNAME_SPLIT;
-import static cosine.boat.definitions.id.key.KeyEvent.MOUSE_BUTTON;
-import static cosine.boat.definitions.id.key.KeyEvent.MOUSE_POINTER;
-import static cosine.boat.definitions.id.key.KeyEvent.TYPE_WORDS;
+import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.KEYBOARD_BUTTON;
+import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.MARK_KEYNAME_SPLIT;
+import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.MOUSE_BUTTON;
+import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.MOUSE_POINTER;
+import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.TYPE_WORDS;
 
 public class HardwareController extends BaseController implements View.OnHoverListener, HwController {
 
@@ -36,12 +36,10 @@ public class HardwareController extends BaseController implements View.OnHoverLi
     private final HwInput phone;
     private final HwInput mouse;
     private final HwInput joystick;
-    private final Context mContext;
     private final Translation mTranslation;
 
-    public HardwareController(Context context, ClientInput client, int transType) {
-        super(context, client);
-        this.mContext = context;
+    public HardwareController(BoatActivity boatActivity, int transType) {
+        super(boatActivity);
         checkInputDevices();
 
         //初始化键值翻译器
@@ -89,18 +87,18 @@ public class HardwareController extends BaseController implements View.OnHoverLi
     private void sendKeyEvent(BaseKeyEvent e) {
         switch (e.getType()) {
             case KEYBOARD_BUTTON:
-                client.setKey(mTranslation.trans(e.getKeyName()), e.isPressed());
+                boatActivity.setKey(mTranslation.trans(e.getKeyName()), 0, e.isPressed());
                 break;
             case MOUSE_BUTTON:
-                client.setMouseButton(mTranslation.trans(e.getKeyName()), e.isPressed());
+                boatActivity.setMouseButton(mTranslation.trans(e.getKeyName()), e.isPressed());
                 break;
             case MOUSE_POINTER:
                 if (e.getPointer() != null) {
-                    client.setMousePoniter(e.getPointer()[0], e.getPointer()[1]);
+                    boatActivity.setPointer(e.getPointer()[0], e.getPointer()[1]);
                 }
                 break;
             case TYPE_WORDS:
-                client.typeWords(e.getChars());
+                typeWords(e.getChars());
             default:
         }
     }
@@ -148,7 +146,7 @@ public class HardwareController extends BaseController implements View.OnHoverLi
     }
 
     private void checkInputDevices() {
-        InputManager inputManager = (InputManager) mContext.getSystemService(Context.INPUT_SERVICE);
+        InputManager inputManager = (InputManager) boatActivity.getSystemService(Context.INPUT_SERVICE);
         int[] inputDeviceIds = inputManager.getInputDeviceIds();
         ArrayList<InputDevice> inputDevices = new ArrayList<>();
         for (int id : inputDeviceIds) {

@@ -1,4 +1,4 @@
-package cosine.boat.definitions.manifest;
+package com.aof.mcinabox.gamecontroller.definitions.manifest;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -10,7 +10,9 @@ public class AppManifest {
 
     private final static String TAG = "AppManifest";
 
-    /**【全局目录清单】**/
+    /**
+     * 【全局目录清单】
+     **/
     public static String APP_NAME;
     public static String DATA_HOME;
     public static String SDCARD_HOME;
@@ -45,7 +47,7 @@ public class AppManifest {
             "lwjgl-opengles", "lwjgl-stb", "lwjgl-tinyfd", "jinput-platform",
             "twitch-platform", "twitch-external-platform"};
 
-    public static void initManifest(Context context, String mchome){
+    public static void initManifest(Context context, String mchome) {
         APP_NAME = "MCinaBox";
         DATA_HOME = context.getFilesDir().getAbsolutePath();
         SDCARD_HOME = Environment.getExternalStorageDirectory().getAbsolutePath();
@@ -56,7 +58,7 @@ public class AppManifest {
         MCINABOX_RUNTIME = MCINABOX_HOME + "/runtime";
         MCINABOX_BACKGROUND = MCINABOX_HOME + "/backgrounds";
         try {
-            MCINABOX_VERSION_NAME = context.getPackageManager().getPackageInfo(context.getPackageName(),0).versionName;
+            MCINABOX_VERSION_NAME = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
             MCINABOX_VERSION_NAME = "Unknown";
@@ -80,8 +82,10 @@ public class AppManifest {
     }
 
 
-    /**【一个全局目录的数组】**/
-    public static String[] getAllPath(){
-        return new String[]{MCINABOX_RUNTIME, MCINABOX_HOME, MCINABOX_KEYBOARD, MCINABOX_TEMP, BOAT_CACHE_HOME, RUNTIME_HOME , MCINABOX_BACKGROUND, AUTHLIB_HOME};
+    /**
+     * 【一个全局目录的数组】
+     **/
+    public static String[] getAllPath() {
+        return new String[]{MCINABOX_RUNTIME, MCINABOX_HOME, MCINABOX_KEYBOARD, MCINABOX_TEMP, BOAT_CACHE_HOME, RUNTIME_HOME, MCINABOX_BACKGROUND, AUTHLIB_HOME};
     }
 }

@@ -1,6 +1,5 @@
 package com.aof.mcinabox.gamecontroller.controller;
 
-import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -8,77 +7,70 @@ import com.aof.mcinabox.gamecontroller.input.Input;
 
 import java.util.ArrayList;
 
-import cosine.boat.ClientInput;
-
-import static cosine.boat.definitions.id.key.KeyMode.MARK_INPUT_MODE_ALONE;
+import cosine.boat.BoatActivity;
 
 public abstract class BaseController implements Controller {
     public ArrayList<Input> inputs;
-    public ClientInput client;
-    public Context context;
-    private int inputMode = MARK_INPUT_MODE_ALONE;
+    public BoatActivity boatActivity;
+    private boolean isGrabbed = false;
     private final static String TAG = "BaseController";
 
-    public BaseController(Context context, ClientInput client){
-        this.context = context;
-        this.client = client;
+    public BaseController(BoatActivity boatActivity) {
+        this.boatActivity = boatActivity;
         inputs = new ArrayList<>();
     }
 
     @Override
-    public boolean containInput(Input input){
-        for(Input i : inputs){
-            if(i == input){
+    public boolean containsInput(Input input) {
+        for (Input i : inputs) {
+            if (i == input) {
                 return true;
             }
         }
+
         return false;
     }
 
     @Override
-    public boolean addInput(Input input){
-        if(containInput(input) || input == null){
+    public boolean addInput(Input input) {
+        if (containsInput(input) || input == null) {
             return false;
-        }else{
-            if(input.load(context,this)){
+        } else {
+            if (input.load(boatActivity, this)) {
                 inputs.add(input);
                 return true;
-            }else{
+            } else {
                 return false;
             }
         }
     }
 
     @Override
-    public boolean removeInput(Input input){
-        if(!containInput(input) || input == null){
+    public boolean removeInput(Input input) {
+        if (!containsInput(input) || input == null || !input.unload()) {
             return false;
-        }else{
-            if(input.unload()){
-                ArrayList<Input> tmp = new ArrayList<>();
-                for(Input i : inputs){
-                    if(input != i){
-                        tmp.add(i);
-                    }
+        } else {
+            ArrayList<Input> tmp = new ArrayList<>();
+            for (Input i : inputs) {
+                if (input != i) {
+                    tmp.add(i);
                 }
-                inputs = tmp;
-                return true;
-            }else{
-                return false;
             }
+            inputs = tmp;
+            return true;
         }
     }
 
     @Override
-    public int getInputCounts(){
+    public int getInputCounts() {
         return inputs.size();
     }
 
     @Override
-    public boolean removeAllInputs(){
+    public boolean removeAllInputs() {
         boolean success = true;
-        for(Input i : inputs){
-            if(!removeInput(i)){
+        for (Input i : inputs) {
+            if (!removeInput(i)) {
                 success = false;
             }
         }
@@ -86,45 +78,49 @@ public abstract class BaseController implements Controller {
     }
 
     @Override
-    public void setInputMode(int mode){
-        this.inputMode = mode;
-        for(Input i : inputs){
-            i.setInputMode(mode);
+    public void setGrabCursor(boolean isGrabbed) {
+        this.isGrabbed = isGrabbed;
+        for (Input i : inputs) {
+            i.setGrabCursor(isGrabbed);
         }
     }
 
     @Override
-    public void addContentView(View view, ViewGroup.LayoutParams params){
-        client.addContentView(view,params);
+    public void addContentView(View view, ViewGroup.LayoutParams params) {
+        boatActivity.addContentView(view, params);
     }
 
     @Override
-    public void addView(View view){
-        client.addView(view);
+    public void addView(View view) {
+        boatActivity.addContentView(view, view.getLayoutParams());
     }
 
     @Override
-    public void typeWords(String str){
-        client.typeWords(str);
+    public void typeWords(String str) {
+        for (char c : str.toCharArray()) {
+            boatActivity.setKey(0, c, true);
+            boatActivity.setKey(0, c, false);
+        }
     }
 
     @Override
-    public void onStop(){
+    public void onStop() {
         this.saveConfig();
     }
+
     @Override
-    public int getInputMode(){
-        return this.inputMode;
+    public boolean getGrabbed() {
+        return this.isGrabbed;
     }
 
     @Override
-    public int[] getPointer(){
-        return client.getPointer();
+    public int[] getPointer() {
+        return boatActivity.getPointer();
     }
 
     @Override
-    public void saveConfig(){
-        for(Input i : inputs){
+    public void saveConfig() {
+        for (Input i : inputs) {
             i.saveConfig();
         }
     }

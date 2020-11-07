@@ -9,8 +9,8 @@ import android.view.MotionEvent;
 import com.aof.mcinabox.gamecontroller.controller.Controller;
 import com.aof.mcinabox.gamecontroller.input.HwInput;
 
-import static cosine.boat.definitions.id.key.KeyEvent.KEYBOARD_BUTTON;
-import static cosine.boat.definitions.id.key.KeyEvent.MOUSE_POINTER;
+import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.KEYBOARD_BUTTON;
+import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.MOUSE_POINTER;
 
 public class JoyStick implements HwInput {
 
@@ -30,8 +30,8 @@ public class JoyStick implements HwInput {
 
     @Override
     public boolean onMotionKey(MotionEvent event) {
-        Log.e(TAG,event.toString());
-        Log.e(TAG,event.getDevice().toString());
+        Log.e(TAG, event.toString());
+        Log.e(TAG, event.getDevice().toString());
         return true;
     }
 
@@ -53,7 +53,7 @@ public class JoyStick implements HwInput {
     }
 
     @Override
-    public void setInputMode(int inputMode) {
+    public void setGrabCursor(boolean isGrabbed) {
 
     }
 

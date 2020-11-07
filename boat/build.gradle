@@ -10,11 +10,16 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
+
         externalNativeBuild {
             cmake {
                 abiFilters "armeabi-v7a", "arm64-v8a"
             }
         }
+    }
+
+    buildFeatures {
+        viewBinding true
     }
 
     buildTypes {

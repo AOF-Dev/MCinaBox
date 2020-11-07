@@ -3,22 +3,13 @@
 
 #include <EGL/egl.h>
 
-#define KeyPress              2
-#define KeyRelease            3
-#define ButtonPress           4
-#define ButtonRelease         5
-#define MotionNotify          6
+#define KeyPress        2
+#define KeyRelease      3
+#define ButtonPress     4
+#define ButtonRelease   5
+#define MotionNotify    6
 
-#define Button1               1
-#define Button2               2
-#define Button3               3
-#define Button4               4
-#define Button5               5
-#define Button6               6
-#define Button7               7
-
-#define CursorEnabled         1
-#define CursorDisabled        0
+#define CursorDisabled  0
 
 typedef struct {
     long long time;
@@ -32,6 +23,7 @@ typedef struct {
     int keychar;
 } BoatInputEvent;
 
+// Start: This is for a future Boat update
 typedef struct {
     unsigned long time;
     unsigned int state;
@@ -53,6 +45,7 @@ typedef struct {
         BoatButtonEvent button;
     };
 } BoatEvent;
+// End future Boat update
 
 EGLNativeWindowType boatGetNativeWindow();
 

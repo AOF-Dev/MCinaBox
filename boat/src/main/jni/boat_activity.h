@@ -14,7 +14,7 @@ typedef struct {
     JavaVM *vm;
     jobject boatActivity;
     jclass boatActivityClass;
-    jmethodID setCursorModeId;
+    jmethodID setGrabCursorId;
     ANativeWindow *window;
 } Boat_t;
 

@@ -17,18 +17,22 @@ public interface Controller {
 
     boolean removeAllInputs();
 
-    boolean containInput(Input input);
+    boolean containsInput(Input input);
 
-    void setInputMode(int mode);
+    void setGrabCursor(boolean mode);
 
     void addContentView(View view, ViewGroup.LayoutParams params);
 
     void addView(View v);
 
     void typeWords(String str);
+
     void onStop();
-    int getInputMode();
+
+    boolean getGrabbed();
+
     int[] getPointer();
+
     void saveConfig();
 }
 

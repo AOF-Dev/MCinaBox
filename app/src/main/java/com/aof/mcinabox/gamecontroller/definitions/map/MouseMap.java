@@ -1,4 +1,4 @@
-package cosine.boat.definitions.map;
+package com.aof.mcinabox.gamecontroller.definitions.map;
 
 public interface MouseMap {
     String

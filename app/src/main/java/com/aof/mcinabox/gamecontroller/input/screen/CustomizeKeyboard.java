@@ -13,7 +13,7 @@ import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
 import com.aof.mcinabox.gamecontroller.input.Input;
 import com.aof.mcinabox.gamecontroller.input.OnscreenInput;
 
-import static cosine.boat.definitions.id.key.KeyEvent.KEYBOARD_BUTTON;
+import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.KEYBOARD_BUTTON;
 
 public class CustomizeKeyboard implements OnscreenInput, Controller, CallCustomizeKeyboard {
 
@@ -76,7 +76,7 @@ public class CustomizeKeyboard implements OnscreenInput, Controller, CallCustomi
     }
 
     @Override
-    public boolean containInput(Input input) {
+    public boolean containsInput(Input input) {
         return false;
     }
 
@@ -101,13 +101,13 @@ public class CustomizeKeyboard implements OnscreenInput, Controller, CallCustomi
     }
 
     @Override
-    public int getInputMode() {
-        return mController.getInputMode();
+    public boolean getGrabbed() {
+        return mController.getGrabbed();
     }
 
     @Override
-    public void setInputMode(int inputMode) {
-        mManager.setInputMode(inputMode);
+    public void setGrabCursor(boolean isGrabbed) {
+        mManager.setInputMode(isGrabbed);
     }
 
     @Override

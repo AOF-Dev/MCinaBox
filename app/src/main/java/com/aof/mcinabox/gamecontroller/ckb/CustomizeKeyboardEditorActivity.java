@@ -26,7 +26,7 @@ import com.aof.mcinabox.gamecontroller.ckb.support.CallCustomizeKeyboard;
 import com.aof.mcinabox.utils.DisplayUtils;
 import com.aof.mcinabox.utils.PicUtils;
 
-public class CustomizeKeyboardEditorActivity extends AppCompatActivity implements View.OnClickListener , DrawerLayout.DrawerListener , CallCustomizeKeyboard {
+public class CustomizeKeyboardEditorActivity extends AppCompatActivity implements View.OnClickListener, DrawerLayout.DrawerListener, CallCustomizeKeyboard {
 
     private Toolbar mToolbar;
     private ViewGroup mLayout_main;
@@ -39,7 +39,7 @@ public class CustomizeKeyboardEditorActivity extends AppCompatActivity implement
     private int screenHeight;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //隐藏系统状态栏
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -51,22 +51,22 @@ public class CustomizeKeyboardEditorActivity extends AppCompatActivity implement
         initUI();
     }
 
-    private void initUI(){
+    private void initUI() {
 
         mToolbar = findViewById(R.id.ckbe_toolbar);
         mLayout_main = findViewById(R.id.ckbe_layout_main);
         mDrawerLayout = findViewById(R.id.ckbe_drawerlayout);
         dButton = new DragFloatActionButton(this);
-        mManager = new CkbManager(this,this,null);
-        mDialog = new CkbManagerDialog(this,mManager);
+        mManager = new CkbManager(this, this, null);
+        mDialog = new CkbManagerDialog(this, mManager);
 
         //配置悬浮按钮
-        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(DisplayUtils.getPxFromDp(this,30), DisplayUtils.getPxFromDp(this,30));
-        this.addContentView(dButton,lp);
-        dButton.setBackground(ContextCompat.getDrawable(this,R.drawable.background_floatbutton));
-        dButton.setTodo(new ArrangeRule(){
+        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(DisplayUtils.getPxFromDp(this, 30), DisplayUtils.getPxFromDp(this, 30));
+        this.addContentView(dButton, lp);
+        dButton.setBackground(ContextCompat.getDrawable(this, R.drawable.background_floatbutton));
+        dButton.setTodo(new ArrangeRule() {
             @Override
-            public void run(){
+            public void run() {
                 mDialog.show();
             }
         });
@@ -80,21 +80,22 @@ public class CustomizeKeyboardEditorActivity extends AppCompatActivity implement
         mDrawerLayout.addDrawerListener(this);
 
         //设置背景
-        mLayout_main.setBackground(new BitmapDrawable(getResources(),PicUtils.blur(this,10,((BitmapDrawable)ContextCompat.getDrawable(this,R.drawable.background)).getBitmap())));
+        mLayout_main.setBackground(new BitmapDrawable(getResources(), PicUtils.blur(this, 10, ((BitmapDrawable) ContextCompat.getDrawable(this, R.drawable.background)).getBitmap())));
     }
 
 
     @Override
     public void onClick(View v) {
-        if(v == mLayout_main){
+        if (v == mLayout_main) {
             switchToolbar();
         }
     }
 
     private Float viewPosY;
+
     @Override
     public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
-        if(viewPosY == null){
+        if (viewPosY == null) {
             viewPosY = mToolbar.getY();
         }
         int viewHeight = mToolbar.getHeight();
@@ -118,9 +119,9 @@ public class CustomizeKeyboardEditorActivity extends AppCompatActivity implement
 
     }
 
-    private void switchToolbar(){
+    private void switchToolbar() {
         int v = View.VISIBLE;
-        switch(mToolbar.getVisibility()){
+        switch (mToolbar.getVisibility()) {
             case View.INVISIBLE:
             case View.GONE:
                 v = View.VISIBLE;
@@ -136,20 +137,20 @@ public class CustomizeKeyboardEditorActivity extends AppCompatActivity implement
 
     @Override
     public void addView(View view) {
-        if(view.getLayoutParams() == null){
+        if (view.getLayoutParams() == null) {
             return;
         }
-        if(view.getLayoutParams() instanceof RelativeLayout.LayoutParams){
+        if (view.getLayoutParams() instanceof RelativeLayout.LayoutParams) {
             this.mLayout_main.addView(view);
-        }else{
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(view.getLayoutParams().width,view.getLayoutParams().height);
+        } else {
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(view.getLayoutParams().width, view.getLayoutParams().height);
             view.setLayoutParams(params);
             this.mLayout_main.addView(view);
         }
     }
 
     @Override
-    public void onStop(){
+    public void onStop() {
         super.onStop();
         //当Activity停止的时候自动保存键盘配置
         mManager.autoSaveKeyboard();

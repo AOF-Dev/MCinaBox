@@ -1,7 +1,5 @@
 package cosine.boat;
 
-import static cosine.boat.definitions.manifest.AppManifest.BOAT_CACHE_HOME;
-
 public class LoadMe {
 
     public static native void chdir(String str);
@@ -27,7 +25,7 @@ public class LoadMe {
             }
 
             setupJLI();
-            redirectStdio(BOAT_CACHE_HOME + "/boat_output.txt");
+            redirectStdio(args.getStdioFile());
             chdir(args.getGameDir());
             jliLaunch(args.getArgs());
         } catch (Exception e) {

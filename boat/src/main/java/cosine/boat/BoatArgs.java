@@ -8,13 +8,15 @@ public class BoatArgs implements Serializable {
     private final String javaHome;
     private final String[] sharedLibraries;
     private final String gameDir;
+    private final String stdioFile;
     private final boolean debug;
 
-    private BoatArgs(String[] args, String javaHome, String[] sharedLibraries, String gameDir, boolean debug) {
+    private BoatArgs(String[] args, String javaHome, String[] sharedLibraries, String gameDir, String stdioFile, boolean debug) {
         this.args = args;
         this.javaHome = javaHome;
         this.sharedLibraries = sharedLibraries;
         this.gameDir = gameDir;
+        this.stdioFile = stdioFile;
         this.debug = debug;
     }
 
@@ -38,11 +40,16 @@ public class BoatArgs implements Serializable {
         return sharedLibraries;
     }
 
+    public String getStdioFile() {
+        return stdioFile;
+    }
+
     public static class Builder {
         private String[] args;
         private String javaHome;
         private String[] sharedLibraries;
         private String gameDir;
+        private String stdioFile;
         private boolean debug;
 
         public Builder setDebug(boolean debug) {
@@ -70,8 +77,13 @@ public class BoatArgs implements Serializable {
             return this;
         }
 
+        public Builder setStdioFile(String stdioFile) {
+            this.stdioFile = stdioFile;
+            return this;
+        }
+
         public BoatArgs build() {
-            return new BoatArgs(args, javaHome, sharedLibraries, gameDir, debug);
+            return new BoatArgs(args, javaHome, sharedLibraries, gameDir, stdioFile, debug);
         }
     }
 }

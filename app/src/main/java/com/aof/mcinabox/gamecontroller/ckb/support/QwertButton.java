@@ -10,14 +10,20 @@ import com.aof.mcinabox.R;
 
 public class QwertButton extends androidx.appcompat.widget.AppCompatButton {
 
-    public QwertButton(Context context, @Nullable AttributeSet attrs){
-        super(context,attrs);
+    public QwertButton(Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.BaseButton);
         setButtonName(array.getString(R.styleable.BaseButton_button_name));
         array.recycle();
     }
+
     private String button_name;
 
-    public String getButtonName() { return button_name; }
-    public void setButtonName(String buttonName) { button_name = buttonName; }
+    public String getButtonName() {
+        return button_name;
+    }
+
+    public void setButtonName(String buttonName) {
+        button_name = buttonName;
+    }
 }

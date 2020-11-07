@@ -21,6 +21,7 @@ import androidx.appcompat.widget.SwitchCompat;
 
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.gamecontroller.controller.Controller;
+import com.aof.mcinabox.gamecontroller.definitions.map.KeyMap;
 import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
 import com.aof.mcinabox.gamecontroller.input.OnscreenInput;
 import com.aof.mcinabox.gamecontroller.input.screen.button.BaseButton;
@@ -31,11 +32,8 @@ import com.aof.mcinabox.utils.dialog.support.DialogSupports;
 
 import java.util.Arrays;
 
-import cosine.boat.definitions.id.key.KeyMode;
-import cosine.boat.definitions.map.KeyMap;
-
-import static cosine.boat.definitions.id.key.KeyEvent.KEYBOARD_BUTTON;
-import static cosine.boat.definitions.id.key.KeyEvent.MARK_KEYNAME_SPLIT_STRING;
+import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.KEYBOARD_BUTTON;
+import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.MARK_KEYNAME_SPLIT_STRING;
 
 public class CrossKeyboard implements OnscreenInput, KeyMap {
     private Context mContext;
@@ -169,7 +167,7 @@ public class CrossKeyboard implements OnscreenInput, KeyMap {
     }
 
     @Override
-    public void setInputMode(int inputMode) {
+    public void setGrabCursor(boolean isGrabbed) {
         updateUI();
     }
 
@@ -499,24 +497,21 @@ public class CrossKeyboard implements OnscreenInput, KeyMap {
     }
 
     private void updateUI() {
-        if(enable){
-            switch (mController.getInputMode()) {
-                case KeyMode.MARK_INPUT_MODE_ALONE:
-                    if (show == SHOW_ALL || show == SHOW_OUT_GAME) {
-                        this.setUiVisibility(View.VISIBLE);
-                    } else {
-                        this.setUiVisibility(View.GONE);
-                    }
-                    break;
-                case KeyMode.MARK_INPUT_MODE_CATCH:
-                    if (show == SHOW_ALL || show == SHOW_IN_GAME) {
-                        this.setUiVisibility(View.VISIBLE);
-                    } else {
-                        this.setUiVisibility(View.GONE);
-                    }
-                    break;
+        if (enable) {
+            if (mController.getGrabbed()) {
+                if (show == SHOW_ALL || show == SHOW_IN_GAME) {
+                    this.setUiVisibility(View.VISIBLE);
+                } else {
+                    this.setUiVisibility(View.GONE);
+                }
+            } else {
+                if (show == SHOW_ALL || show == SHOW_OUT_GAME) {
+                    this.setUiVisibility(View.VISIBLE);
+                } else {
+                    this.setUiVisibility(View.GONE);
+                }
             }
-        }else{
+        } else {
             setUiVisibility(View.GONE);
         }
     }

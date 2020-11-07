@@ -1,4 +1,4 @@
-package cosine.boat.definitions.id.key;
+package com.aof.mcinabox.gamecontroller.definitions.id.key;
 
 public interface KeyEvent {
     //Define Type ID

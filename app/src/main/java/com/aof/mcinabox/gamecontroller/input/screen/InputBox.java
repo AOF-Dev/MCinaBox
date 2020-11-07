@@ -22,6 +22,8 @@ import androidx.annotation.NonNull;
 
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.gamecontroller.controller.Controller;
+import com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent;
+import com.aof.mcinabox.gamecontroller.definitions.map.KeyMap;
 import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
 import com.aof.mcinabox.gamecontroller.input.OnscreenInput;
 import com.aof.mcinabox.utils.DisplayUtils;
@@ -32,12 +34,8 @@ import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import cosine.boat.definitions.id.key.KeyEvent;
-import cosine.boat.definitions.id.key.KeyMode;
-import cosine.boat.definitions.map.KeyMap;
-
-import static cosine.boat.definitions.id.key.KeyEvent.KEYBOARD_BUTTON;
-import static cosine.boat.definitions.id.key.KeyEvent.TYPE_WORDS;
+import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.KEYBOARD_BUTTON;
+import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.TYPE_WORDS;
 
 public class InputBox implements OnscreenInput, KeyMap, View.OnClickListener {
 
@@ -54,7 +52,7 @@ public class InputBox implements OnscreenInput, KeyMap, View.OnClickListener {
     private final static int type_2 = KEYBOARD_BUTTON;
     private final static String TAG = "InputBox";
 
-    private final static String[] ORDERS = new String[]{"/gamemode 0","/gamemode 1", "/time set 0","/time set 13000"};
+    private final static String[] ORDERS = new String[]{"/gamemode 0", "/gamemode 1", "/time set 0", "/time set 13000"};
 
     public final static int SHOW_ALL = 0;
     public final static int SHOW_IN_GAME = 1;
@@ -80,7 +78,7 @@ public class InputBox implements OnscreenInput, KeyMap, View.OnClickListener {
     }
 
     @Override
-    public void setEnable(boolean e){
+    public void setEnable(boolean e) {
         this.enable = e;
         updateUI();
     }
@@ -182,7 +180,7 @@ public class InputBox implements OnscreenInput, KeyMap, View.OnClickListener {
         buttonFromSoft = inputBox.findViewById(R.id.onscreen_inputbox_button_input);
         buttonFromPre = inputBox.findViewById(R.id.onscreen_inputbox_button_quick);
 
-        for(View v : new View[]{buttonFromSoft,buttonFromPre}){
+        for (View v : new View[]{buttonFromSoft, buttonFromPre}) {
             v.setOnClickListener(this);
         }
 
@@ -201,30 +199,27 @@ public class InputBox implements OnscreenInput, KeyMap, View.OnClickListener {
     }
 
     @Override
-    public void setInputMode(int inputMode) {
+    public void setGrabCursor(boolean isGrabbed) {
         //重置显示状态
         updateUI();
     }
 
     private void updateUI() {
-        if(enable){
-            switch (mController.getInputMode()) {
-                case KeyMode.MARK_INPUT_MODE_ALONE:
-                    if (show == SHOW_ALL || show == SHOW_OUT_GAME) {
-                        this.setUiVisibility(View.VISIBLE);
-                    } else {
-                        this.setUiVisibility(View.GONE);
-                    }
-                    break;
-                case KeyMode.MARK_INPUT_MODE_CATCH:
-                    if (show == SHOW_ALL || show == SHOW_IN_GAME) {
-                        this.setUiVisibility(View.VISIBLE);
-                    } else {
-                        this.setUiVisibility(View.GONE);
-                    }
-                    break;
+        if (enable) {
+            if (mController.getGrabbed()) {
+                if (show == SHOW_ALL || show == SHOW_IN_GAME) {
+                    this.setUiVisibility(View.VISIBLE);
+                } else {
+                    this.setUiVisibility(View.GONE);
+                }
+            } else {
+                if (show == SHOW_ALL || show == SHOW_OUT_GAME) {
+                    this.setUiVisibility(View.VISIBLE);
+                } else {
+                    this.setUiVisibility(View.GONE);
+                }
             }
-        }else{
+        } else {
             setUiVisibility(View.GONE);
         }
     }
@@ -257,9 +252,9 @@ public class InputBox implements OnscreenInput, KeyMap, View.OnClickListener {
         updateUI();
     }
 
-    private void sendKey(String keyName){
-        mController.sendKey(new BaseKeyEvent(TAG,keyName,true, KeyEvent.KEYBOARD_BUTTON,null));
-        mController.sendKey(new BaseKeyEvent(TAG,keyName,false, KeyEvent.KEYBOARD_BUTTON,null));
+    private void sendKey(String keyName) {
+        mController.sendKey(new BaseKeyEvent(TAG, keyName, true, KeyEvent.KEYBOARD_BUTTON, null));
+        mController.sendKey(new BaseKeyEvent(TAG, keyName, false, KeyEvent.KEYBOARD_BUTTON, null));
     }
 
     public int getShowStat() {
@@ -268,12 +263,12 @@ public class InputBox implements OnscreenInput, KeyMap, View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if(v == buttonFromSoft){
-            new InputDialog(mContext,mController).show();
+        if (v == buttonFromSoft) {
+            new InputDialog(mContext, mController).show();
         }
 
-        if(v == buttonFromPre){
-            DialogUtils.createItemsChoiceDialog(mContext,mContext.getString(R.string.title_order),null,mContext.getString(R.string.title_cancel),null,true,ORDERS,new DialogSupports(){
+        if (v == buttonFromPre) {
+            DialogUtils.createItemsChoiceDialog(mContext, mContext.getString(R.string.title_order), null, mContext.getString(R.string.title_cancel), null, true, ORDERS, new DialogSupports() {
                 @Override
                 public void runWhenItemsSelected(int pos) {
                     super.runWhenItemsSelected(pos);
@@ -286,7 +281,7 @@ public class InputBox implements OnscreenInput, KeyMap, View.OnClickListener {
         }
     }
 
-    private void sleep(){
+    private void sleep() {
         try {
             Thread.sleep(100);
         } catch (InterruptedException e) {
@@ -321,10 +316,10 @@ public class InputBox implements OnscreenInput, KeyMap, View.OnClickListener {
             this.buttonEnter = findViewById(R.id.dialog_input_button_enter);
             this.buttonTEnter = findViewById(R.id.dialog_input_button_t_enter);
             this.buttonCancel = findViewById(R.id.dialog_input_button_cancel);
-            this.multi_line =  mContext.getSharedPreferences(InputBoxConfigDialog.spFileName, InputBoxConfigDialog.spMode).getBoolean(InputBoxConfigDialog.sp_multi_line_name,true);
+            this.multi_line = mContext.getSharedPreferences(InputBoxConfigDialog.spFileName, InputBoxConfigDialog.spMode).getBoolean(InputBoxConfigDialog.sp_multi_line_name, true);
 
 
-            for(View v : new View[]{buttonNone,buttonCancel,buttonTEnter,buttonEnter}){
+            for (View v : new View[]{buttonNone, buttonCancel, buttonTEnter, buttonEnter}) {
                 v.setOnClickListener(this);
             }
 
@@ -333,42 +328,47 @@ public class InputBox implements OnscreenInput, KeyMap, View.OnClickListener {
         @Override
         public void onClick(View v) {
 
-            if(v == buttonCancel){
+            if (v == buttonCancel) {
                 this.cancel();
             }
 
-            if(v == buttonNone){
-                if(editBox.getText() != null && !editBox.getText().toString().equals("")){
+            if (v == buttonNone) {
+                if (editBox.getText() != null && !editBox.getText().toString().equals("")) {
                     mController.typeWords(editBox.getText().toString());
-                    if(!multi_line) dismiss(); else editBox.setText("");
+                    if (!multi_line) dismiss();
+                    else editBox.setText("");
                 }
             }
 
-            if(v == buttonEnter){
-                if(editBox.getText() != null){
-                    if(!editBox.getText().toString().equals("")) mController.typeWords(editBox.getText().toString());
+            if (v == buttonEnter) {
+                if (editBox.getText() != null) {
+                    if (!editBox.getText().toString().equals(""))
+                        mController.typeWords(editBox.getText().toString());
                     sendKey(KeyMap.KEYMAP_KEY_ENTER);
-                    if(!multi_line) dismiss(); else editBox.setText("");
+                    if (!multi_line) dismiss();
+                    else editBox.setText("");
                 }
             }
 
-            if(v == buttonTEnter){
-                if(editBox.getText() != null){
+            if (v == buttonTEnter) {
+                if (editBox.getText() != null) {
                     sendKey(KeyMap.KEYMAP_KEY_T);
                     sleep();
-                    if(!editBox.getText().toString().equals("")) mController.typeWords(editBox.getText().toString());
+                    if (!editBox.getText().toString().equals(""))
+                        mController.typeWords(editBox.getText().toString());
                     sendKey(KeyMap.KEYMAP_KEY_ENTER);
-                    if(!multi_line) dismiss(); else editBox.setText("");
+                    if (!multi_line) dismiss();
+                    else editBox.setText("");
                 }
             }
         }
 
-        private void showKeyboard(){
+        private void showKeyboard() {
 
         }
 
         @Override
-        public void show(){
+        public void show() {
             super.show();
             Timer timer = new Timer();
             timer.schedule(new TimerTask() {

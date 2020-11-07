@@ -7,8 +7,8 @@ import androidx.annotation.Nullable;
 
 public class ItemButton extends BaseButton {
 
-    public ItemButton(Context context, @Nullable AttributeSet attrs){
-        super(context,attrs);
+    public ItemButton(Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
     }
 
 }

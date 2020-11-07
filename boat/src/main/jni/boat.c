@@ -23,6 +23,7 @@ void boatSetCurrentEventProcessor(void (*processor)()) {
     current_event_processor = processor;
 }
 
+// TODO: Should be boatSetGrabCursor
 void boatSetCursorMode(int mode) {
     JNIEnv *env;
 
@@ -35,7 +36,7 @@ void boatSetCursorMode(int mode) {
         abort();
     }
 
-    (*env)->CallVoidMethod(env, boat.boatActivity, boat.setCursorModeId, mode);
+    (*env)->CallVoidMethod(env, boat.boatActivity, boat.setGrabCursorId, mode == CursorDisabled ? JNI_TRUE : JNI_FALSE);
 
     (*boat.vm)->DetachCurrentThread(boat.vm);
 }
@@ -49,21 +50,34 @@ Java_cosine_boat_BoatInput_getPointer(JNIEnv *env, jclass thiz) {
 }
 
 JNIEXPORT void JNICALL
-Java_cosine_boat_BoatInput_send(JNIEnv *env, jclass thiz, jlong time, jint type, jint param_1,
-                                jint param_2) {
+Java_cosine_boat_BoatInput_setMouseButton(JNIEnv *env, jclass clazz, jlong time, jint button,
+                                          jboolean is_pressed) {
     current_event.time = time;
-    current_event.type = type;
-
-    if (type == ButtonPress || type == ButtonRelease) {
-        current_event.mouse_button = param_1;
-    } else if (type == KeyPress || type == KeyRelease) {
-        current_event.keycode = param_1;
-        current_event.keychar = param_2;
-    } else if (type == MotionNotify) {
-        current_event.x = param_1;
-        current_event.y = param_2;
+    current_event.mouse_button = button;
+    current_event.type = is_pressed == JNI_TRUE ? ButtonPress : ButtonRelease;
+    if (current_event_processor != NULL) {
+        current_event_processor();
     }
+}
 
+JNIEXPORT void JNICALL
+Java_cosine_boat_BoatInput_setPointer(JNIEnv *env, jclass clazz, jlong time, jint x, jint y) {
+    current_event.time = time;
+    current_event.x = x;
+    current_event.y = y;
+    current_event.type = MotionNotify;
+    if (current_event_processor != NULL) {
+        current_event_processor();
+    }
+}
+
+JNIEXPORT void JNICALL
+Java_cosine_boat_BoatInput_setKey(JNIEnv *env, jclass clazz, jlong time, jboolean is_pressed,
+                                  jint key_code, jint key_char) {
+    current_event.time = time;
+    current_event.keycode = key_code;
+    current_event.keychar = key_char;
+    current_event.type = is_pressed == JNI_TRUE ? KeyPress : KeyRelease;
     if (current_event_processor != NULL) {
         current_event_processor();
     }

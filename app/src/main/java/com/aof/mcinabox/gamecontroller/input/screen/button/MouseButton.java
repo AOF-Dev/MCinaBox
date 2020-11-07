@@ -10,12 +10,13 @@ import com.aof.mcinabox.R;
 
 public class MouseButton extends BaseButton {
 
-    public MouseButton(Context context, @Nullable AttributeSet attrs){
-        super(context,attrs);
+    public MouseButton(Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.MouseButton);
         setMouseName(array.getString(R.styleable.MouseButton_mouse_name));
         array.recycle();
     }
+
     String MouseName;
 
     public String getMouseName() {

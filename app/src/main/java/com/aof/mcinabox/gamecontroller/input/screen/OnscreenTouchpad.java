@@ -20,18 +20,15 @@ import androidx.annotation.NonNull;
 
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.gamecontroller.controller.Controller;
+import com.aof.mcinabox.gamecontroller.definitions.map.KeyMap;
+import com.aof.mcinabox.gamecontroller.definitions.map.MouseMap;
 import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
 import com.aof.mcinabox.gamecontroller.input.OnscreenInput;
 import com.aof.mcinabox.utils.dialog.DialogUtils;
 import com.aof.mcinabox.utils.dialog.support.DialogSupports;
 
-import cosine.boat.definitions.map.KeyMap;
-import cosine.boat.definitions.map.MouseMap;
-
-import static cosine.boat.definitions.id.key.KeyEvent.MOUSE_BUTTON;
-import static cosine.boat.definitions.id.key.KeyEvent.MOUSE_POINTER;
-import static cosine.boat.definitions.id.key.KeyMode.MARK_INPUT_MODE_ALONE;
-import static cosine.boat.definitions.id.key.KeyMode.MARK_INPUT_MODE_CATCH;
+import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.MOUSE_BUTTON;
+import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.MOUSE_POINTER;
 
 public class OnscreenTouchpad implements OnscreenInput, KeyMap, MouseMap {
 
@@ -49,7 +46,7 @@ public class OnscreenTouchpad implements OnscreenInput, KeyMap, MouseMap {
     private LinearLayout onscreenTouchpad;
     private Button touchpad;
     private ImageView cursor;
-    private int inputMode = MARK_INPUT_MODE_ALONE;
+    private boolean isGrabbed = false;
     private int touchpadMode = TOUCHPAD_MODE_POINT;
     private int inputSpeedLevel = 0; //-5 ~ 10 || 减少50% ~  增加100%
     private int screenWidth;
@@ -115,180 +112,171 @@ public class OnscreenTouchpad implements OnscreenInput, KeyMap, MouseMap {
     }
 
     private void locateCursor(MotionEvent event) {
-        switch (this.inputMode) {
-            case MARK_INPUT_MODE_CATCH:
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        initialX = (int) event.getX();
-                        initialY = (int) event.getY();
-                        baseX = mController.getPointer()[0];
-                        baseY = mController.getPointer()[1];
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        int incrementX = (int) ((event.getX() - initialX) * (1 + inputSpeedLevel * 0.1f));
-                        int incrementY = (int) ((event.getY() - initialY) * (1 + inputSpeedLevel * 0.1f));
-                        int resultX = baseX + incrementX;
-                        int resultY = baseY + incrementY;
-                        sendPointer(resultX, resultY);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        baseX = baseX + (int) ((event.getX() - initialX) * (1 + inputSpeedLevel * 0.1f));
-                        baseY = baseY + (int) ((event.getY() - initialY) * (1 + inputSpeedLevel * 0.1f));
-                        sendPointer(baseX, baseY);
-                        break;
-                    default:
-                        break;
-                }
-                break;
-            case MARK_INPUT_MODE_ALONE:
-                switch (touchpadMode) {
-                    case TOUCHPAD_MODE_POINT:
-                        baseX = (int) event.getX();
-                        baseY = (int) event.getY();
-                        sendPointer(baseX, baseY);
-                        cursor.setX((int) event.getX());
-                        cursor.setY((int) event.getY());
-                        break;
-                    case TOUCHPAD_MODE_SLIDE:
-                        if (cursor.getX() >= 0 && cursor.getX() <= screenWidth - CURSOR_MARGIN && cursor.getY() >= 0 && cursor.getY() <= screenHeight - CURSOR_MARGIN) {
-                            switch (event.getAction()) {
-                                case MotionEvent.ACTION_DOWN:
-                                    initialX = (int) event.getX();
-                                    initialY = (int) event.getY();
-                                    break;
-                                case MotionEvent.ACTION_MOVE:
-                                    int incrementX = (int) ((event.getX() - initialX) * (1 + inputSpeedLevel * 0.1f));
-                                    int incrementY = (int) ((event.getY() - initialY) * (1 + inputSpeedLevel * 0.1f));
-                                    int resultX = baseX + incrementX;
-                                    int resultY = baseY + incrementY;
-                                    sendPointer(resultX, resultY);
-                                    cursor.setX(resultX);
-                                    cursor.setY(resultY);
-                                    break;
-                                case MotionEvent.ACTION_UP:
-                                    baseX = baseX + (int) ((event.getX() - initialX) * (1 + inputSpeedLevel * 0.1f));
-                                    baseY = baseY + (int) ((event.getY() - initialY) * (1 + inputSpeedLevel * 0.1f));
-                                    sendPointer(baseX, baseY);
-                                    cursor.setX(baseX);
-                                    cursor.setY(baseY);
-                                    break;
-                                default:
-                                    break;
-                            }
-                        } else {
-                            if (cursor.getX() <= 0) {
-                                cursor.setX(0);
+        if (this.isGrabbed) {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    initialX = (int) event.getX();
+                    initialY = (int) event.getY();
+                    int[] pointer = mController.getPointer();
+                    baseX = pointer[0];
+                    baseY = pointer[1];
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    int incrementX = (int) ((event.getX() - initialX) * (1 + inputSpeedLevel * 0.1f));
+                    int incrementY = (int) ((event.getY() - initialY) * (1 + inputSpeedLevel * 0.1f));
+                    int resultX = baseX + incrementX;
+                    int resultY = baseY + incrementY;
+                    sendPointer(resultX, resultY);
+                    break;
+                case MotionEvent.ACTION_UP:
+                    baseX = baseX + (int) ((event.getX() - initialX) * (1 + inputSpeedLevel * 0.1f));
+                    baseY = baseY + (int) ((event.getY() - initialY) * (1 + inputSpeedLevel * 0.1f));
+                    sendPointer(baseX, baseY);
+                    break;
+                default:
+                    break;
+            }
+        } else {
+            switch (touchpadMode) {
+                case TOUCHPAD_MODE_POINT:
+                    baseX = (int) event.getX();
+                    baseY = (int) event.getY();
+                    sendPointer(baseX, baseY);
+                    cursor.setX((int) event.getX());
+                    cursor.setY((int) event.getY());
+                    break;
+                case TOUCHPAD_MODE_SLIDE:
+                    if (cursor.getX() >= 0 && cursor.getX() <= screenWidth - CURSOR_MARGIN && cursor.getY() >= 0 && cursor.getY() <= screenHeight - CURSOR_MARGIN) {
+                        switch (event.getAction()) {
+                            case MotionEvent.ACTION_DOWN:
                                 initialX = (int) event.getX();
-                                baseX = 0;
-                            }
-                            if (cursor.getX() >= screenWidth - CURSOR_MARGIN) {
-                                cursor.setX(screenWidth - CURSOR_MARGIN);
-                                initialX = (int) event.getX();
-                                baseX = screenWidth - CURSOR_MARGIN;
-                            }
-                            if (cursor.getY() <= 0) {
-                                cursor.setY(0);
                                 initialY = (int) event.getY();
-                                baseY = 0;
-                            }
-                            if (cursor.getY() >= screenHeight - CURSOR_MARGIN) {
-                                cursor.setY(screenHeight - CURSOR_MARGIN);
-                                initialY = (int) event.getY();
-                                baseY = screenHeight - CURSOR_MARGIN;
-                            }
+                                break;
+                            case MotionEvent.ACTION_MOVE:
+                                int incrementX = (int) ((event.getX() - initialX) * (1 + inputSpeedLevel * 0.1f));
+                                int incrementY = (int) ((event.getY() - initialY) * (1 + inputSpeedLevel * 0.1f));
+                                int resultX = baseX + incrementX;
+                                int resultY = baseY + incrementY;
+                                sendPointer(resultX, resultY);
+                                cursor.setX(resultX);
+                                cursor.setY(resultY);
+                                break;
+                            case MotionEvent.ACTION_UP:
+                                baseX = baseX + (int) ((event.getX() - initialX) * (1 + inputSpeedLevel * 0.1f));
+                                baseY = baseY + (int) ((event.getY() - initialY) * (1 + inputSpeedLevel * 0.1f));
+                                sendPointer(baseX, baseY);
+                                cursor.setX(baseX);
+                                cursor.setY(baseY);
+                                break;
+                            default:
+                                break;
                         }
-                        break;
-                    default:
-                        break;
-                }
-                break;
-            default:
-                break;
+                    } else {
+                        if (cursor.getX() <= 0) {
+                            cursor.setX(0);
+                            initialX = (int) event.getX();
+                            baseX = 0;
+                        }
+                        if (cursor.getX() >= screenWidth - CURSOR_MARGIN) {
+                            cursor.setX(screenWidth - CURSOR_MARGIN);
+                            initialX = (int) event.getX();
+                            baseX = screenWidth - CURSOR_MARGIN;
+                        }
+                        if (cursor.getY() <= 0) {
+                            cursor.setY(0);
+                            initialY = (int) event.getY();
+                            baseY = 0;
+                        }
+                        if (cursor.getY() >= screenHeight - CURSOR_MARGIN) {
+                            cursor.setY(screenHeight - CURSOR_MARGIN);
+                            initialY = (int) event.getY();
+                            baseY = screenHeight - CURSOR_MARGIN;
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
     public void performMouseClick(MotionEvent event) {
-        switch (this.inputMode) {
-            case MARK_INPUT_MODE_CATCH:
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        cursorDownTime = System.currentTimeMillis();
-                        cursorDownPosX = (int) event.getX();
-                        cursorDownPosY = (int) event.getY();
-                        performClick = true;
+        if (this.isGrabbed) {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    cursorDownTime = System.currentTimeMillis();
+                    cursorDownPosX = (int) event.getX();
+                    cursorDownPosY = (int) event.getY();
+                    performClick = true;
+                    hasPerformLeftClick = false;
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    long currentTime = System.currentTimeMillis();
+                    if (Math.abs(cursorDownPosX - event.getX()) > MAX_MOVE_DISTANCE || Math.abs(cursorDownPosY - event.getY()) > MAX_MOVE_DISTANCE) {
+                        performClick = false;
+                    }
+                    if (currentTime - cursorDownTime >= MIN_HOLDING_TIME && !hasPerformLeftClick && performClick) {
+                        hasPerformLeftClick = true;
+                        sendMouseEvent(MOUSEMAP_BUTTON_LEFT, true);
+                    }
+                    break;
+                case MotionEvent.ACTION_UP:
+                    if (!hasPerformLeftClick && performClick && System.currentTimeMillis() - cursorDownTime <= MIN_SHLDING_TIME) {
+                        sendMouseEvent(MOUSEMAP_BUTTON_RIGHT, true);
+                        sendMouseEvent(MOUSEMAP_BUTTON_RIGHT, false);
+                    }
+                    if (hasPerformLeftClick) {
+                        sendMouseEvent(MOUSEMAP_BUTTON_LEFT, false);
                         hasPerformLeftClick = false;
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        long currentTime = System.currentTimeMillis();
-                        if (Math.abs(cursorDownPosX - event.getX()) > MAX_MOVE_DISTANCE || Math.abs(cursorDownPosY - event.getY()) > MAX_MOVE_DISTANCE) {
-                            performClick = false;
-                        }
-                        if (currentTime - cursorDownTime >= MIN_HOLDING_TIME && !hasPerformLeftClick && performClick) {
-                            hasPerformLeftClick = true;
+                    }
+                    break;
+            }
+        } else {
+            switch (this.touchpadMode) {
+                case TOUCHPAD_MODE_POINT:
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
                             sendMouseEvent(MOUSEMAP_BUTTON_LEFT, true);
-                        }
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        if (!hasPerformLeftClick && performClick && System.currentTimeMillis() - cursorDownTime <= MIN_SHLDING_TIME) {
-                            sendMouseEvent(MOUSEMAP_BUTTON_RIGHT, true);
-                            sendMouseEvent(MOUSEMAP_BUTTON_RIGHT, false);
-                        }
-                        if (hasPerformLeftClick) {
+                            break;
+                        case MotionEvent.ACTION_UP:
                             sendMouseEvent(MOUSEMAP_BUTTON_LEFT, false);
-                            hasPerformLeftClick = false;
-                        }
-                        break;
-                }
-                break;
-            case MARK_INPUT_MODE_ALONE:
-                switch (this.touchpadMode) {
-                    case TOUCHPAD_MODE_POINT:
-                        switch (event.getAction()) {
-                            case MotionEvent.ACTION_DOWN:
-                                sendMouseEvent(MOUSEMAP_BUTTON_LEFT, true);
-                                break;
-                            case MotionEvent.ACTION_UP:
-                                sendMouseEvent(MOUSEMAP_BUTTON_LEFT, false);
-                                break;
-                        }
-                        break;
-                    case TOUCHPAD_MODE_SLIDE:
-                        switch (event.getAction()) {
-                            case MotionEvent.ACTION_DOWN:
-                                cursorDownPosX = (int) event.getRawX();
-                                cursorDownPosY = (int) event.getRawY();
-                                cursorDownTime = event.getDownTime();
-                                performClick = true;
-                                break;
-                            case MotionEvent.ACTION_MOVE:
-                                if (Math.abs(cursorDownPosX - event.getRawX()) > MAX_MOVE_DISTANCE || Math.abs(cursorDownPosY - event.getRawY()) > MAX_MOVE_DISTANCE) {
-                                    performClick = false;
-                                }
-                                break;
-                            case MotionEvent.ACTION_UP:
-                                if (performClick) {
-                                    if (event.getEventTime() - cursorDownTime < MIN_HOLDING_TIME) {
-                                        sendMouseEvent(MOUSEMAP_BUTTON_LEFT, true);
-                                        try {
-                                            Thread.sleep(20);
-                                        } catch (InterruptedException e) {
-                                            e.printStackTrace();
-                                        }
-                                        sendMouseEvent(MOUSEMAP_BUTTON_LEFT, false);
-                                    } else {
-                                        sendMouseEvent(MOUSEMAP_BUTTON_RIGHT, true);
-                                        sendMouseEvent(MOUSEMAP_BUTTON_RIGHT, false);
+                            break;
+                    }
+                    break;
+                case TOUCHPAD_MODE_SLIDE:
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            cursorDownPosX = (int) event.getRawX();
+                            cursorDownPosY = (int) event.getRawY();
+                            cursorDownTime = event.getDownTime();
+                            performClick = true;
+                            break;
+                        case MotionEvent.ACTION_MOVE:
+                            if (Math.abs(cursorDownPosX - event.getRawX()) > MAX_MOVE_DISTANCE || Math.abs(cursorDownPosY - event.getRawY()) > MAX_MOVE_DISTANCE) {
+                                performClick = false;
+                            }
+                            break;
+                        case MotionEvent.ACTION_UP:
+                            if (performClick) {
+                                if (event.getEventTime() - cursorDownTime < MIN_HOLDING_TIME) {
+                                    sendMouseEvent(MOUSEMAP_BUTTON_LEFT, true);
+                                    try {
+                                        Thread.sleep(20);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
                                     }
+                                    sendMouseEvent(MOUSEMAP_BUTTON_LEFT, false);
+                                } else {
+                                    sendMouseEvent(MOUSEMAP_BUTTON_RIGHT, true);
+                                    sendMouseEvent(MOUSEMAP_BUTTON_RIGHT, false);
                                 }
-                                break;
-                        }
-                        break;
-                    default:
-                        break;
-                }
-                break;
-            default:
-                break;
+                            }
+                            break;
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -299,17 +287,14 @@ public class OnscreenTouchpad implements OnscreenInput, KeyMap, MouseMap {
     }
 
     @Override
-    public void setInputMode(int inputMode) {
-        this.inputMode = inputMode;
-        switch (inputMode) {
-            case MARK_INPUT_MODE_ALONE:
-                baseX = (int) cursor.getX();
-                baseY = (int) cursor.getY();
-                cursor.setVisibility(View.VISIBLE);
-                break;
-            case MARK_INPUT_MODE_CATCH:
-                cursor.setVisibility(View.INVISIBLE);
-                break;
+    public void setGrabCursor(boolean isGrabbed) {
+        this.isGrabbed = isGrabbed;
+        if (isGrabbed) {
+            cursor.setVisibility(View.INVISIBLE);
+        } else {
+            baseX = (int) cursor.getX();
+            baseY = (int) cursor.getY();
+            cursor.setVisibility(View.VISIBLE);
         }
     }
 

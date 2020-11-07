@@ -6,7 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 
 import com.aof.mcinabox.R;
-import cosine.boat.definitions.manifest.AppManifest;
+import com.aof.mcinabox.gamecontroller.definitions.manifest.AppManifest;
 import com.aof.mcinabox.launcher.launch.LaunchManager;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.mcinabox.minecraft.JsonUtils;
@@ -20,9 +20,9 @@ public class AsyncManager {
 
     private final static String TAG = "AsyncManager";
 
-    private Context mContext;
-    private LaunchManager mLaunchManager;
-    private SettingJson mSetting;
+    private final Context mContext;
+    private final LaunchManager mLaunchManager;
+    private final SettingJson mSetting;
 
     private final static int DEFAULT_DELAY = 200;
 
@@ -101,6 +101,7 @@ public class AsyncManager {
                                         public void runWhenPositive() {
                                             ui_thread_next();
                                         }
+
                                         @Override
                                         public void runWhenNegative() {
                                             ui_thread_send_error(mContext.getString(R.string.tips_tipper_is_not_void_and_user_canceled));
@@ -239,7 +240,7 @@ public class AsyncManager {
                             }
                             ui_thread_create_dialog(new DialogRecorder()
                                     .setTitle(mContext.getString(R.string.title_warn))
-                                    .setMsg(String.format(mContext.getString(R.string.tips_lose_libraries),tmp))
+                                    .setMsg(String.format(mContext.getString(R.string.tips_lose_libraries), tmp))
                                     .setPName(mContext.getString(R.string.title_continue))
                                     .setNName(mContext.getString(R.string.title_cancel))
                                     .setSupport(new DialogSupports() {
@@ -314,7 +315,7 @@ public class AsyncManager {
                             }
                             ui_thread_create_dialog(new DialogRecorder()
                                     .setTitle(mContext.getString(R.string.title_warn))
-                                    .setMsg(String.format(mContext.getString(R.string.tips_lose_assets_objs),tmp))
+                                    .setMsg(String.format(mContext.getString(R.string.tips_lose_assets_objs), tmp))
                                     .setPName(mContext.getString(R.string.title_continue))
                                     .setNName(mContext.getString(R.string.title_cancel))
                                     .setSupport(new DialogSupports() {
@@ -338,7 +339,7 @@ public class AsyncManager {
                 progress = new Thread() {
                     @Override
                     public void run() {
-                        if ( mSetting.getConfigurations().isNotCheckForge() || JsonUtils.getVersionFromFile(Utils.getJsonAbsPath(mSetting.getLastVersion())).getInheritsFrom() == null) {
+                        if (mSetting.getConfigurations().isNotCheckForge() || JsonUtils.getVersionFromFile(Utils.getJsonAbsPath(mSetting.getLastVersion())).getInheritsFrom() == null) {
                             ui_thread_next();
                             return;
                         }
@@ -390,7 +391,7 @@ public class AsyncManager {
                         }
                         ui_thread_set_progress(mContext.getString(R.string.tips_checking_options_txt));
                         paused(DEFAULT_DELAY);
-                        if(CheckManifest.checkMinecraftOptionsMipmap(mSetting)){
+                        if (CheckManifest.checkMinecraftOptionsMipmap(mSetting)) {
                             ui_thread_next();
                         } else {
                             ui_thread_create_dialog(new DialogRecorder()
@@ -401,10 +402,10 @@ public class AsyncManager {
                                     .setSupport(new DialogSupports() {
                                         @Override
                                         public void runWhenPositive() {
-                                            if(FileTool.addStringLineToFile("\nmipmapLevels:0",AppManifest.MINECRAFT_HOME + "/options.txt")){
+                                            if (FileTool.addStringLineToFile("\nmipmapLevels:0", AppManifest.MINECRAFT_HOME + "/options.txt")) {
                                                 ui_thread_next();
-                                            }else{
-                                                ui_thread_send_error(String.format(mContext.getString(R.string.tips_failed_to_revise),AppManifest.MINECRAFT_HOME + "/options.txt"));
+                                            } else {
+                                                ui_thread_send_error(String.format(mContext.getString(R.string.tips_failed_to_revise), AppManifest.MINECRAFT_HOME + "/options.txt"));
                                             }
                                         }
 
@@ -429,7 +430,7 @@ public class AsyncManager {
                         }
                         ui_thread_set_progress(mContext.getString(R.string.tips_checking_options_txt));
                         paused(DEFAULT_DELAY);
-                        if(CheckManifest.checkMinecraftOptionsTouchMode()){
+                        if (CheckManifest.checkMinecraftOptionsTouchMode()) {
                             ui_thread_next();
                         } else {
                             ui_thread_create_dialog(new DialogRecorder()
@@ -440,10 +441,10 @@ public class AsyncManager {
                                     .setSupport(new DialogSupports() {
                                         @Override
                                         public void runWhenPositive() {
-                                            if(FileTool.addStringLineToFile("\ntouchscreen:false",AppManifest.MINECRAFT_HOME + "/options.txt")){
+                                            if (FileTool.addStringLineToFile("\ntouchscreen:false", AppManifest.MINECRAFT_HOME + "/options.txt")) {
                                                 ui_thread_next();
-                                            }else{
-                                                ui_thread_send_error(String.format(mContext.getString(R.string.tips_failed_to_revise),AppManifest.MINECRAFT_HOME + "/options.txt"));
+                                            } else {
+                                                ui_thread_send_error(String.format(mContext.getString(R.string.tips_failed_to_revise), AppManifest.MINECRAFT_HOME + "/options.txt"));
                                             }
                                         }
 
@@ -501,7 +502,7 @@ public class AsyncManager {
     }
 
     @SuppressLint("HandlerLeak")
-    private Handler mHandler = new Handler() {
+    private final Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {

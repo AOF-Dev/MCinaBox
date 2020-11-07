@@ -8,12 +8,12 @@ import static com.aof.mcinabox.gamecontroller.codes.BoatMousecodes.BOAT_MOUSE_BU
 import static com.aof.mcinabox.gamecontroller.codes.BoatMousecodes.BOAT_MOUSE_BUTTON_right;
 import static com.aof.mcinabox.gamecontroller.codes.BoatMousecodes.BOAT_MOUSE_WHEEL_down;
 import static com.aof.mcinabox.gamecontroller.codes.BoatMousecodes.BOAT_MOUSE_WHEEL_up;
-import static cosine.boat.definitions.map.KeyMap.*;
-import static cosine.boat.definitions.map.MouseMap.MOUSEMAP_BUTTON_LEFT;
-import static cosine.boat.definitions.map.MouseMap.MOUSEMAP_BUTTON_MIDDLE;
-import static cosine.boat.definitions.map.MouseMap.MOUSEMAP_BUTTON_RIGHT;
-import static cosine.boat.definitions.map.MouseMap.MOUSEMAP_WHEEL_DOWN;
-import static cosine.boat.definitions.map.MouseMap.MOUSEMAP_WHEEL_UP;
+import static com.aof.mcinabox.gamecontroller.definitions.map.KeyMap.*;
+import static com.aof.mcinabox.gamecontroller.definitions.map.MouseMap.MOUSEMAP_BUTTON_LEFT;
+import static com.aof.mcinabox.gamecontroller.definitions.map.MouseMap.MOUSEMAP_BUTTON_MIDDLE;
+import static com.aof.mcinabox.gamecontroller.definitions.map.MouseMap.MOUSEMAP_BUTTON_RIGHT;
+import static com.aof.mcinabox.gamecontroller.definitions.map.MouseMap.MOUSEMAP_WHEEL_DOWN;
+import static com.aof.mcinabox.gamecontroller.definitions.map.MouseMap.MOUSEMAP_WHEEL_UP;
 
 public class XKeyMap {
 

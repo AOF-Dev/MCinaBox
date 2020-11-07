@@ -3,6 +3,7 @@ package com.aof.mcinabox.launcher.launch.support;
 import android.content.Context;
 
 import com.aof.mcinabox.R;
+import com.aof.mcinabox.gamecontroller.definitions.manifest.AppManifest;
 import com.aof.mcinabox.launcher.launch.LaunchManager;
 import com.aof.mcinabox.launcher.runtime.RuntimeManager;
 import com.aof.mcinabox.launcher.runtime.support.Definitions;
@@ -20,9 +21,9 @@ import java.util.HashMap;
 import java.util.Objects;
 
 import cosine.boat.BoatArgs;
-import cosine.boat.definitions.manifest.AppManifest;
 
-import static cosine.boat.definitions.manifest.AppManifest.MCINABOX_VERSION_NAME;
+import static com.aof.mcinabox.gamecontroller.definitions.manifest.AppManifest.BOAT_CACHE_HOME;
+import static com.aof.mcinabox.gamecontroller.definitions.manifest.AppManifest.MCINABOX_VERSION_NAME;
 
 public class BoatArgsMaker {
 
@@ -109,6 +110,7 @@ public class BoatArgsMaker {
                     .setGameDir(AppManifest.MINECRAFT_HOME)
                     .setDebug(mSetting.getConfigurations().isEnableDebug())
                     .setSharedLibraries(getSharedLibrariesPaths())
+                    .setStdioFile(BOAT_CACHE_HOME + "/boat_output.txt")
                     .build();
             mLaunchManager.launchMinecraft(mSetting, LaunchManager.LAUNCH_GAME);
         } catch (Exception e) {

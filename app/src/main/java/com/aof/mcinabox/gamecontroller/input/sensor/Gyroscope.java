@@ -26,7 +26,7 @@ public class Gyroscope implements Input, SensorEventListener {
         this.mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
 
         //设置监听器
-        mSensorManager.registerListener(this,mSensor,SensorManager.SENSOR_DELAY_NORMAL);
+        mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
 
         //TODO:完成陀螺仪控制视角移动的算法
 
@@ -39,7 +39,7 @@ public class Gyroscope implements Input, SensorEventListener {
     }
 
     @Override
-    public void setInputMode(int inputMode) {
+    public void setGrabCursor(boolean isGrabbed) {
 
     }
 
@@ -74,8 +74,8 @@ public class Gyroscope implements Input, SensorEventListener {
         float[] orientations = new float[3];
         SensorManager.getOrientation(remappedRotationMatrix, orientations);
 
-        for(int i = 0; i < 3; i++){
-            orientations[i] = (float)(Math.toDegrees(orientations[i]));
+        for (int i = 0; i < 3; i++) {
+            orientations[i] = (float) (Math.toDegrees(orientations[i]));
         }
         //orientations的三个元素 分别为 单位时间内手机沿Y,Z,X偏转的角度
     }

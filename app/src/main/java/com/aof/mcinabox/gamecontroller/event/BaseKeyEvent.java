@@ -36,11 +36,11 @@ public class BaseKeyEvent {
         return mPointer;
     }
 
-    public String getChars(){
+    public String getChars() {
         return chars;
     }
 
-    public BaseKeyEvent setChars(String str){
+    public BaseKeyEvent setChars(String str) {
         this.chars = str;
         return this;
     }

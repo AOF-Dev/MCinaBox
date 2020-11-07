@@ -1,67 +1,79 @@
 package cosine.boat;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static cosine.boat.definitions.id.key.KeyMode.MARK_INPUT_MODE_ALONE;
-import static cosine.boat.definitions.id.key.KeyMode.MARK_INPUT_MODE_CATCH;
+import cosine.boat.databinding.ActivityBoatBinding;
 
-public class BoatActivity extends AppCompatActivity implements SurfaceHolder.Callback, ClientInput, View.OnSystemUiVisibilityChangeListener {
-    private final static String TAG = "BoatActivity";
-
-    private SurfaceView surfaceView;
-    private BoatArgs boatArgs;
-    private RelativeLayout baseLayout;
-    public static IController controllerInterface;
-    private BoatHandler mHandler;
-    private Timer mTimer;
-    private final static int REFRESH_P = 5000; //ms
-
+public class BoatActivity extends AppCompatActivity implements SurfaceHolder.Callback, View.OnSystemUiVisibilityChangeListener {
+    private static final String TAG = "BoatActivity";
     private static final int SYSTEM_UI_HIDE_DELAY_MS = 3000;
+
+    public static final String EXTRA_BOAT_ARGS = "BoatArgs";
+
+    public static IBoat boatInterface;
+
+    private ActivityBoatBinding binding;
+    private BoatArgs boatArgs;
+    private Timer timer;
     private TimerTask systemUiTimerTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         nOnCreate();
-        setContentView(R.layout.activity_boat);
 
-        surfaceView = findViewById(R.id.surface_view);
-        baseLayout = findViewById(R.id.base_layout);
-        surfaceView.getHolder().addCallback(this);
+        if (!nIsLoaded()) {
+            Log.e(TAG, "onCreate: Native code did not load successfully.");
+            Toast.makeText(this, "An error occurred while initialising native code!", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
 
-        boatArgs = (BoatArgs) getIntent().getSerializableExtra("LauncherConfig");
+        // Check that the interface is not null, as it's required for the app to work
+        if (boatInterface == null) {
+            Log.e(TAG, "onCreate: boatInterface is null.");
+            Toast.makeText(this, "Boat interface is not set!", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
 
-        //初始化Handler
-        mHandler = new BoatHandler(getMainLooper());
+        // Get and check for the required Boat arguments
+        boatArgs = (BoatArgs) getIntent().getSerializableExtra(EXTRA_BOAT_ARGS);
+        if (boatArgs == null) {
+            Log.e(TAG, "onCreate: boatArgs is null.");
+            Toast.makeText(this, "Boat arguments are missing!", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
 
-        //启动定时器
-        mTimer = new Timer();
-        mTimer.schedule(createTimerTask(), REFRESH_P, REFRESH_P);
+        // Inflate and bind the activity view
+        binding = ActivityBoatBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        controllerInterface.onActivityCreate(this);
+        // Set the SurfaceHolder callback to this class
+        // to get the ANativeWindow instance
+        binding.surfaceView.getHolder().addCallback(this);
 
-        systemUiTimerTask = null;
+        timer = new Timer();
+
+        // Call the interface onCreate method once we've finished setting up the view,
+        // to avoid any errors of un-initialized objects
+        boatInterface.onActivityCreate(this);
     }
 
     private native void nOnCreate();
@@ -98,7 +110,7 @@ public class BoatActivity extends AppCompatActivity implements SurfaceHolder.Cal
                     runOnUiThread(() -> hideSystemUI(getWindow().getDecorView()));
                 }
             };
-            mTimer.schedule(systemUiTimerTask, SYSTEM_UI_HIDE_DELAY_MS);
+            timer.schedule(systemUiTimerTask, SYSTEM_UI_HIDE_DELAY_MS);
         }
     }
 
@@ -114,44 +126,16 @@ public class BoatActivity extends AppCompatActivity implements SurfaceHolder.Cal
                 | View.SYSTEM_UI_FLAG_FULLSCREEN);
     }
 
-    private TimerTask createTimerTask() {
-        return new TimerTask() {
-            @Override
-            public void run() {
-                controllerInterface.saveConfig();
-            }
-        };
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        //取消定时器
-        mTimer.cancel();
-    }
-
-    @Override
-    public void onRestart() {
-        super.onRestart();
-        //启动定时器
-        mTimer = new Timer();
-        mTimer.schedule(createTimerTask(), REFRESH_P, REFRESH_P);
-    }
-
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
+        Log.d(TAG, "surfaceCreated: called.");
         nSurfaceCreated(holder.getSurface());
-        if (nIsLoaded()) {
-            new Thread() {
-                @Override
-                public void run() {
-                    BoatArgs boatArgs = (BoatArgs) getIntent().getSerializableExtra("LauncherConfig");
-                    LoadMe.exec(boatArgs);
-                }
-            }.start();
-        } else {
-            // TODO: Something went wrong during initialization. Alert the user.
-        }
+        new Thread() {
+            @Override
+            public void run() {
+                LoadMe.exec(boatArgs);
+            }
+        }.start();
     }
 
     private native void nSurfaceCreated(Surface surface);
@@ -165,145 +149,78 @@ public class BoatActivity extends AppCompatActivity implements SurfaceHolder.Cal
 
     @Override
     public void surfaceDestroyed(@NonNull SurfaceHolder holder) {
-        nSurfaceCreated(holder.getSurface());
-        stopControllers();
+        Log.d(TAG, "surfaceDestroyed: called.");
+        nSurfaceDestroyed(holder.getSurface());
+        boatInterface.onStop();
     }
 
     private native void nSurfaceDestroyed(Surface surface);
 
-    public void setCursorMode(int mode) {
-        Message msg = new Message();
-        msg.what = mode;
-        mHandler.sendMessage(msg);
+    void setGrabCursor(boolean isGrabbed) {
+        runOnUiThread(() -> boatInterface.setGrabCursor(isGrabbed));
     }
 
-    private class BoatHandler extends Handler {
-        public BoatHandler(@NonNull Looper looper) {
-            super(looper);
-        }
-
-        public BoatHandler(@NonNull Looper looper, @Nullable Callback callback) {
-            super(looper, callback);
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case BoatInput.CURSOR_DISABLED:
-                    controllerInterface.setInputMode(MARK_INPUT_MODE_CATCH);
-                    break;
-                case BoatInput.CURSOR_ENABLED:
-                    controllerInterface.setInputMode(MARK_INPUT_MODE_ALONE);
-                    break;
-                default:
-                    BoatActivity.this.finish();
-                    break;
-            }
-        }
-    }
-
-    //重写 addContentView(View, ViewGroup.MarginLayoutParams) 方法实现NativeActivity动态添加View的功能
+    // Override addContentView method to dynamically add views
     @Override
     public void addContentView(View view, ViewGroup.LayoutParams params) {
         if (params instanceof RelativeLayout.LayoutParams) {
-            this.baseLayout.addView(view, params);
+            binding.baseLayout.addView(view, params);
         } else {
-            RelativeLayout.LayoutParams tparams = new RelativeLayout.LayoutParams(params.width, params.height);
-            this.baseLayout.addView(view, tparams);
-        }
-        bringControllerToFront();
-    }
-
-    @Override
-    public void typeWords(String str) {
-        // TODO:根据字符串输入字符
-        for (char c : str.toCharArray()) {
-            BoatInput.setKey(0, c, true);
-            BoatInput.setKey(0, c, false);
+            RelativeLayout.LayoutParams newParams = new RelativeLayout.LayoutParams(params.width, params.height);
+            binding.baseLayout.addView(view, newParams);
         }
     }
 
-    private final List<View> cvs = new ArrayList<>();
-
+    // Override the dispatchKeyEvent method to redirect events to Boat
     @Override
-    public void addControllerView(View v) {
-        if (!cvs.contains(v)) {
-            cvs.add(v);
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (boatInterface.dispatchKeyEvent(event)) {
+            return true;
         }
-        this.addView(v);
+
+        return super.dispatchKeyEvent(event);
     }
 
+    // Override the dispatchGenericMotionEvent method to redirect events to Boat
     @Override
+    public boolean dispatchGenericMotionEvent(MotionEvent event) {
+        if (boatInterface.dispatchGenericMotionEvent(event)) {
+            return true;
+        }
+
+        return super.dispatchGenericMotionEvent(event);
+    }
+
     public int[] getPointer() {
         return BoatInput.getPointer();
     }
 
-    public void bringControllerToFront() {
-        for (View v : cvs) {
-            v.bringToFront();
-        }
+    public void setKey(int keyCode, int keyChar, boolean isPressed) {
+        BoatInput.setKey(keyCode, keyChar, isPressed);
     }
 
-    @Override
-    public void setKey(int keyCode, boolean pressed) {
-        BoatInput.setKey(keyCode, 0, pressed);
+    public void setMouseButton(int button, boolean isPressed) {
+        BoatInput.setMouseButton(button, isPressed);
     }
 
-    @Override
-    public void setMouseButton(int mouseCode, boolean pressed) {
-        BoatInput.setMouseButton(mouseCode, pressed);
-    }
-
-    @Override
-    public void setMousePoniter(int x, int y) {
+    public void setPointer(int x, int y) {
         BoatInput.setPointer(x, y);
-    }
-
-    @Override
-    public void addView(View v) {
-        if (v.getLayoutParams() == null) {
-            return;
-        }
-        if (v.getLayoutParams() instanceof RelativeLayout.LayoutParams) {
-            this.baseLayout.addView(v);
-        } else {
-            this.addContentView(v, v.getLayoutParams());
-        }
-        bringControllerToFront();
-    }
-
-    private void stopControllers() {
-        controllerInterface.onStop();
-    }
-
-    @Override
-    public boolean dispatchKeyEvent(KeyEvent event) {
-        controllerInterface.dispatchKeyEvent(event);
-        return true;
-    }
-
-
-    @Override
-    public boolean dispatchGenericMotionEvent(MotionEvent event) {
-        controllerInterface.dispatchMotionKeyEvent(event);
-        return true;
     }
 
     static {
         System.loadLibrary("boat");
     }
 
-    public interface IController {
+    public interface IBoat {
+
         void onActivityCreate(BoatActivity boatActivity);
 
-        void saveConfig();
-
-        void setInputMode(int inputMode);
+        void setGrabCursor(boolean isGrabbed);
 
         void onStop();
 
-        void dispatchKeyEvent(KeyEvent event);
+        boolean dispatchKeyEvent(KeyEvent event);
 
-        void dispatchMotionKeyEvent(MotionEvent event);
+        boolean dispatchGenericMotionEvent(MotionEvent event);
     }
 }

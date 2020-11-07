@@ -24,14 +24,12 @@ import com.aof.mcinabox.utils.dialog.DialogUtils;
 import com.aof.mcinabox.utils.dialog.support.DialogSupports;
 import com.kongqw.rockerlibrary.view.RockerView;
 
-import cosine.boat.definitions.id.key.KeyMode;
-
-import static cosine.boat.definitions.id.key.KeyEvent.KEYBOARD_BUTTON;
-import static cosine.boat.definitions.id.key.KeyEvent.MARK_KEYNAME_SPLIT_STRING;
-import static cosine.boat.definitions.map.KeyMap.KEYMAP_KEY_A;
-import static cosine.boat.definitions.map.KeyMap.KEYMAP_KEY_D;
-import static cosine.boat.definitions.map.KeyMap.KEYMAP_KEY_S;
-import static cosine.boat.definitions.map.KeyMap.KEYMAP_KEY_W;
+import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.KEYBOARD_BUTTON;
+import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.MARK_KEYNAME_SPLIT_STRING;
+import static com.aof.mcinabox.gamecontroller.definitions.map.KeyMap.KEYMAP_KEY_A;
+import static com.aof.mcinabox.gamecontroller.definitions.map.KeyMap.KEYMAP_KEY_D;
+import static com.aof.mcinabox.gamecontroller.definitions.map.KeyMap.KEYMAP_KEY_S;
+import static com.aof.mcinabox.gamecontroller.definitions.map.KeyMap.KEYMAP_KEY_W;
 
 public class OnscreenJoystick implements OnscreenInput, RockerView.OnShakeListener {
 
@@ -66,9 +64,9 @@ public class OnscreenJoystick implements OnscreenInput, RockerView.OnShakeListen
     @Override
     public void setUiMoveable(boolean moveable) {
         this.moveable = moveable;
-        if(moveable){
+        if (moveable) {
             buttonMove.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             buttonMove.setVisibility(View.INVISIBLE);
         }
     }
@@ -80,7 +78,7 @@ public class OnscreenJoystick implements OnscreenInput, RockerView.OnShakeListen
 
     @Override
     public float[] getPos() {
-        return (new float[]{onscreenJoystick.getX(),onscreenJoystick.getY()});
+        return (new float[]{onscreenJoystick.getX(), onscreenJoystick.getY()});
     }
 
     @Override
@@ -91,13 +89,13 @@ public class OnscreenJoystick implements OnscreenInput, RockerView.OnShakeListen
     @Override
     public void setMargins(int left, int top, int right, int bottom) {
         ViewGroup.LayoutParams p = onscreenJoystick.getLayoutParams();
-        ((ViewGroup.MarginLayoutParams)p).setMargins(left,top,0,0);
+        ((ViewGroup.MarginLayoutParams) p).setMargins(left, top, 0, 0);
         onscreenJoystick.setLayoutParams(p);
     }
 
     @Override
     public int[] getSize() {
-        return new int[]{onscreenJoystick.getLayoutParams().width,onscreenJoystick.getLayoutParams().height};
+        return new int[]{onscreenJoystick.getLayoutParams().width, onscreenJoystick.getLayoutParams().height};
 
     }
 
@@ -113,20 +111,21 @@ public class OnscreenJoystick implements OnscreenInput, RockerView.OnShakeListen
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        if(v == buttonMove){
-            if(moveable){
-                moveViewByTouch(onscreenJoystick,event);
+        if (v == buttonMove) {
+            if (moveable) {
+                moveViewByTouch(onscreenJoystick, event);
             }
         }
         return false;
     }
 
     private final int[] viewPos = new int[2];
-    private void moveViewByTouch(View v , MotionEvent e){
-        switch(e.getAction()){
+
+    private void moveViewByTouch(View v, MotionEvent e) {
+        switch (e.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                viewPos[0] = (int)e.getRawX();
-                viewPos[1] = (int)e.getRawY();
+                viewPos[0] = (int) e.getRawX();
+                viewPos[1] = (int) e.getRawY();
                 break;
             case MotionEvent.ACTION_MOVE:
                 int dx = (int) e.getRawX() - viewPos[0];
@@ -136,30 +135,30 @@ public class OnscreenJoystick implements OnscreenInput, RockerView.OnShakeListen
                 int r = v.getRight() + dx;
                 int t = v.getTop() + dy;
                 //下面判断移动是否超出屏幕
-                if(l < 0){
+                if (l < 0) {
                     l = 0;
                     r = l + v.getWidth();
                 }
-                if(t < 0){
+                if (t < 0) {
                     t = 0;
-                    b = t+ v.getHeight();
+                    b = t + v.getHeight();
                 }
-                if(r > screenWidth){
+                if (r > screenWidth) {
                     r = screenWidth;
                     l = r - v.getWidth();
                 }
-                if(b > screenHeight){
+                if (b > screenHeight) {
                     b = screenHeight;
                     t = b - v.getHeight();
                 }
-                v.layout(l,t,r,b);
-                viewPos[0] = (int)e.getRawX();
-                viewPos[1] = (int)e.getRawY();
+                v.layout(l, t, r, b);
+                viewPos[0] = (int) e.getRawX();
+                viewPos[1] = (int) e.getRawY();
                 v.postInvalidate();
                 break;
             case MotionEvent.ACTION_UP:
                 ViewGroup.LayoutParams p = v.getLayoutParams();
-                ((ViewGroup.MarginLayoutParams)p).setMargins(v.getLeft(),v.getTop(),0,0);
+                ((ViewGroup.MarginLayoutParams) p).setMargins(v.getLeft(), v.getTop(), 0, 0);
                 v.setLayoutParams(p);
                 break;
             default:
@@ -175,17 +174,17 @@ public class OnscreenJoystick implements OnscreenInput, RockerView.OnShakeListen
         screenHeight = context.getResources().getDisplayMetrics().heightPixels;
 
         onscreenJoystick = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.virtual_joystick, null);
-        mController.addContentView(onscreenJoystick,new ViewGroup.LayoutParams(DisplayUtils.getPxFromDp(mContext,widthDp), DisplayUtils.getPxFromDp(mContext,heightDp)));
+        mController.addContentView(onscreenJoystick, new ViewGroup.LayoutParams(DisplayUtils.getPxFromDp(mContext, widthDp), DisplayUtils.getPxFromDp(mContext, heightDp)));
 
         joystick = onscreenJoystick.findViewById(R.id.joystick_rocker);
         buttonMove = onscreenJoystick.findViewById(R.id.joystick_move);
 
         //设定监听
         buttonMove.setOnTouchListener(this);
-        joystick.setOnShakeListener(RockerView.DirectionMode.DIRECTION_8,this);
+        joystick.setOnShakeListener(RockerView.DirectionMode.DIRECTION_8, this);
 
         //设定配置器
-        configDialog = new OnscreenJoystickConfigDialog(mContext,this);
+        configDialog = new OnscreenJoystickConfigDialog(mContext, this);
 
         return true;
     }
@@ -199,7 +198,7 @@ public class OnscreenJoystick implements OnscreenInput, RockerView.OnShakeListen
     }
 
     @Override
-    public void setInputMode(int inputMode) {
+    public void setGrabCursor(boolean isGrabbed) {
         updateUI();
     }
 
@@ -219,10 +218,11 @@ public class OnscreenJoystick implements OnscreenInput, RockerView.OnShakeListen
     }
 
     private String lastKeyName = "";
+
     @Override
     public void direction(RockerView.Direction direction) {
         String keyName;
-        switch(direction){
+        switch (direction) {
             case DIRECTION_UP:
                 keyName = KEYMAP_KEY_W;
                 break;
@@ -251,10 +251,10 @@ public class OnscreenJoystick implements OnscreenInput, RockerView.OnShakeListen
                 return;
         }
 
-        if(lastKeyName == null || lastKeyName.equals("") || ! lastKeyName.equals(keyName)){
-            this.sendKeyEvent(keyName,true);
-            if( lastKeyName != null && !lastKeyName.equals("")){
-                this.sendKeyEvent(lastKeyName,false);
+        if (lastKeyName == null || lastKeyName.equals("") || !lastKeyName.equals(keyName)) {
+            this.sendKeyEvent(keyName, true);
+            if (lastKeyName != null && !lastKeyName.equals("")) {
+                this.sendKeyEvent(lastKeyName, false);
             }
             this.lastKeyName = keyName;
         }
@@ -268,24 +268,21 @@ public class OnscreenJoystick implements OnscreenInput, RockerView.OnShakeListen
     }
 
     private void updateUI() {
-        if(enable){
-            switch (mController.getInputMode()) {
-                case KeyMode.MARK_INPUT_MODE_ALONE:
-                    if (show == SHOW_ALL || show == SHOW_OUT_GAME) {
-                        this.setUiVisibility(View.VISIBLE);
-                    } else {
-                        this.setUiVisibility(View.GONE);
-                    }
-                    break;
-                case KeyMode.MARK_INPUT_MODE_CATCH:
-                    if (show == SHOW_ALL || show == SHOW_IN_GAME) {
-                        this.setUiVisibility(View.VISIBLE);
-                    } else {
-                        this.setUiVisibility(View.GONE);
-                    }
-                    break;
+        if (enable) {
+            if (mController.getGrabbed()) {
+                if (show == SHOW_ALL || show == SHOW_IN_GAME) {
+                    this.setUiVisibility(View.VISIBLE);
+                } else {
+                    this.setUiVisibility(View.GONE);
+                }
+            } else {
+                if (show == SHOW_ALL || show == SHOW_OUT_GAME) {
+                    this.setUiVisibility(View.VISIBLE);
+                } else {
+                    this.setUiVisibility(View.GONE);
+                }
             }
-        }else{
+        } else {
             setUiVisibility(View.GONE);
         }
     }
@@ -301,16 +298,16 @@ public class OnscreenJoystick implements OnscreenInput, RockerView.OnShakeListen
 
     @Override
     public void onFinish() {
-        if(lastKeyName != null && !lastKeyName.equals("")){
-            this.sendKeyEvent(lastKeyName,false);
+        if (lastKeyName != null && !lastKeyName.equals("")) {
+            this.sendKeyEvent(lastKeyName, false);
         }
     }
 
-    private void sendKeyEvent(String keyName, boolean pressed){
+    private void sendKeyEvent(String keyName, boolean pressed) {
         mController.sendKey(new BaseKeyEvent(TAG, keyName, pressed, type, null));
     }
 
-    public void setSize(int s){
+    public void setSize(int s) {
         ViewGroup.LayoutParams p = onscreenJoystick.getLayoutParams();
         p.height = s;
         p.width = s;

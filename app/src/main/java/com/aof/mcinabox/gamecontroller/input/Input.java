@@ -9,7 +9,7 @@ public interface Input {
 
     boolean unload();
 
-    void setInputMode(int inputMode); // 赋值 MARK_INPUT_MODE
+    void setGrabCursor(boolean isGrabbed); // 赋值 MARK_INPUT_MODE
 
     void runConfigure();
 

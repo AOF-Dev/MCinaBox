@@ -1,9 +1,9 @@
 package com.aof.mcinabox.gamecontroller.codes;
 
-import static cosine.boat.definitions.id.key.KeyEvent.ANDROID_TO_KEYMAP;
-import static cosine.boat.definitions.id.key.KeyEvent.KEYMAP_TO_GLFW;
-import static cosine.boat.definitions.id.key.KeyEvent.KEYMAP_TO_LWJGL;
-import static cosine.boat.definitions.id.key.KeyEvent.KEYMAP_TO_X;
+import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.ANDROID_TO_KEYMAP;
+import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.KEYMAP_TO_GLFW;
+import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.KEYMAP_TO_LWJGL;
+import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.KEYMAP_TO_X;
 
 public class Translation {
 

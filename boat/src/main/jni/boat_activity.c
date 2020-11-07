@@ -20,11 +20,11 @@ Java_cosine_boat_BoatActivity_nOnCreate(JNIEnv *env, jobject thiz) {
     boat.boatActivityClass = (*env)->NewGlobalRef(env, localBoatActivityClass);
 
     // Get the setCursorMode function from the BoatActivity class
-    boat.setCursorModeId = (*env)->GetMethodID(env,
-                                               boat.boatActivityClass, "setCursorMode",
-                                               "(I)V");
-    if (boat.setCursorModeId == NULL) {
-        BOAT_LOGE("Failed to find method: BoatActivity::setCursorMode");
+    boat.setGrabCursorId = (*env)->GetMethodID(env,
+                                               boat.boatActivityClass, "setGrabCursor",
+                                               "(Z)V");
+    if (boat.setGrabCursorId == NULL) {
+        BOAT_LOGE("Failed to find method: BoatActivity::setGrabCursor");
         abort();
     }
 

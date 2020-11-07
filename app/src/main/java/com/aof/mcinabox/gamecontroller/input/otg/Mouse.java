@@ -10,8 +10,8 @@ import com.aof.mcinabox.gamecontroller.controller.Controller;
 import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
 import com.aof.mcinabox.gamecontroller.input.HwInput;
 
-import static cosine.boat.definitions.id.key.KeyEvent.MOUSE_BUTTON;
-import static cosine.boat.definitions.id.key.KeyEvent.MOUSE_POINTER;
+import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.MOUSE_BUTTON;
+import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.MOUSE_POINTER;
 
 public class Mouse implements HwInput {
 
@@ -25,18 +25,18 @@ public class Mouse implements HwInput {
 
     @Override
     public boolean onKey(KeyEvent event) {
-        Log.e(TAG,event.toString());
-        Log.e(TAG,event.getDevice().toString());
+        Log.e(TAG, event.toString());
+        Log.e(TAG, event.getDevice().toString());
         return true;
     }
 
     @Override
     public boolean onMotionKey(MotionEvent event) {
-        Log.e(TAG,event.toString());
-        Log.e(TAG,event.getDevice().toString());
-        switch (event.getAction()){
+        Log.e(TAG, event.toString());
+        Log.e(TAG, event.getDevice().toString());
+        switch (event.getAction()) {
             case MotionEvent.ACTION_HOVER_MOVE:
-                sendPointer((int)event.getX(), (int)event.getY());
+                sendPointer((int) event.getX(), (int) event.getY());
                 break;
         }
         return true;
@@ -60,7 +60,7 @@ public class Mouse implements HwInput {
     }
 
     @Override
-    public void setInputMode(int inputMode) {
+    public void setGrabCursor(boolean isGrabbed) {
 
     }
 

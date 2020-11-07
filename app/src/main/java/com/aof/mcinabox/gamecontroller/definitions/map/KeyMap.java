@@ -1,4 +1,4 @@
-package cosine.boat.definitions.map;
+package com.aof.mcinabox.gamecontroller.definitions.map;
 
 public interface KeyMap {
     String
@@ -51,8 +51,8 @@ public interface KeyMap {
             KEYMAP_KEY_PERIOD = ".", // . on main keyboard
             KEYMAP_KEY_SLASH = "/", // / on main keyboard
 
-            /* function keys on main keyboard */
-            KEYMAP_KEY_ESC = "ESC",
+    /* function keys on main keyboard */
+    KEYMAP_KEY_ESC = "ESC",
             KEYMAP_KEY_F1 = "F1",
             KEYMAP_KEY_F2 = "F2",
             KEYMAP_KEY_F3 = "F3",
@@ -92,8 +92,8 @@ public interface KeyMap {
             KEYMAP_KEY_RWIN = "RWIN",
             KEYMAP_KEY_RIGHTK = "RIGHTK", // Sec Button in Mouse, how to achieve this in Keyboard?
 
-            /* keys on numeric keypad */
-            KEYMAP_KEY_NUMPAD0 = "NUMPAD0",
+    /* keys on numeric keypad */
+    KEYMAP_KEY_NUMPAD0 = "NUMPAD0",
             KEYMAP_KEY_NUMPAD1 = "NUMPAD1",
             KEYMAP_KEY_NUMPAD2 = "NUMPAD2",
             KEYMAP_KEY_NUMPAD3 = "NUMPAD3",
@@ -112,8 +112,8 @@ public interface KeyMap {
             KEYMAP_KEY_DIVIDE = "NUMPAD\\", // /
             KEYMAP_KEY_MULTIPLY = "NUMPAD*", // *
 
-            /* keys on stand gamepad */
-            KEYMAP_BUTTON_1 = "BUTTON_1",
+    /* keys on stand gamepad */
+    KEYMAP_BUTTON_1 = "BUTTON_1",
             KEYMAP_BUTTON_2 = "BUTTON_2",
             KEYMAP_BUTTON_3 = "BUTTON_3",
             KEYMAP_BUTTON_4 = "BUTTON_4",
@@ -143,7 +143,6 @@ public interface KeyMap {
             KEYMAP_BUTTON_SELECT = "BUTTON_SELECT",
             KEYMAP_BUTTON_START = "BUTTON_START",
             KEYMAP_BUTTON_THUMBL = "BUTTON_THUMBL",
-            KEYMAP_BUTTON_THUMBR = "BUTTON_THUMBR"
-    ;
-                    
+            KEYMAP_BUTTON_THUMBR = "BUTTON_THUMBR";
+
 }

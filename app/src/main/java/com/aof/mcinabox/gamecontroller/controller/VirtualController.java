@@ -40,13 +40,13 @@ import com.aof.mcinabox.utils.dialog.support.DialogSupports;
 import java.util.HashMap;
 import java.util.Objects;
 
-import cosine.boat.ClientInput;
+import cosine.boat.BoatActivity;
 
-import static cosine.boat.definitions.id.key.KeyEvent.KEYBOARD_BUTTON;
-import static cosine.boat.definitions.id.key.KeyEvent.MARK_KEYNAME_SPLIT;
-import static cosine.boat.definitions.id.key.KeyEvent.MOUSE_BUTTON;
-import static cosine.boat.definitions.id.key.KeyEvent.MOUSE_POINTER;
-import static cosine.boat.definitions.id.key.KeyEvent.TYPE_WORDS;
+import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.KEYBOARD_BUTTON;
+import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.MARK_KEYNAME_SPLIT;
+import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.MOUSE_BUTTON;
+import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.MOUSE_POINTER;
+import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.TYPE_WORDS;
 
 
 public class VirtualController extends BaseController implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
@@ -66,7 +66,6 @@ public class VirtualController extends BaseController implements View.OnClickLis
     //Dialog的控件
     private final String TAG = "VirtualController";
     private final Translation mTranslation;
-    private final Context mContext;
     int screenWidth;
     int screenHeight;
     private OnscreenInput crossKeyboard;
@@ -101,15 +100,14 @@ public class VirtualController extends BaseController implements View.OnClickLis
     //绑定
     private HashMap<View, Input> bindingViews;
 
-    public VirtualController(Context context, ClientInput client, int transType) {
-        super(context, client);
-        mContext = context;
+    public VirtualController(BoatActivity boatActivity, int transType) {
+        super(boatActivity);
 
         //初始化键值翻译器
         this.mTranslation = new Translation(transType);
 
-        screenWidth = context.getResources().getDisplayMetrics().widthPixels;
-        screenHeight = context.getResources().getDisplayMetrics().heightPixels;
+        screenWidth = this.boatActivity.getResources().getDisplayMetrics().widthPixels;
+        screenHeight = this.boatActivity.getResources().getDisplayMetrics().heightPixels;
 
         //初始化
         init();
@@ -124,7 +122,7 @@ public class VirtualController extends BaseController implements View.OnClickLis
 
     private void init() {
         //初始化Setting对话框
-        settingDialog = new VirtualControllerSetting(context);
+        settingDialog = new VirtualControllerSetting(boatActivity);
         settingDialog.create();
 
         //初始化控制器
@@ -153,9 +151,9 @@ public class VirtualController extends BaseController implements View.OnClickLis
         }
 
         //添加悬浮配置按钮
-        dButton = new DragFloatActionButton(context);
-        dButton.setLayoutParams(new ViewGroup.LayoutParams(DisplayUtils.getPxFromDp(mContext, 30), DisplayUtils.getPxFromDp(mContext, 30)));
-        dButton.setBackground(ContextCompat.getDrawable(mContext, R.drawable.background_floatbutton));
+        dButton = new DragFloatActionButton(boatActivity);
+        dButton.setLayoutParams(new ViewGroup.LayoutParams(DisplayUtils.getPxFromDp(boatActivity, 30), DisplayUtils.getPxFromDp(boatActivity, 30)));
+        dButton.setBackground(ContextCompat.getDrawable(boatActivity, R.drawable.background_floatbutton));
         dButton.setTodo(new ArrangeRule() {
             @Override
             public void run() {
@@ -163,7 +161,7 @@ public class VirtualController extends BaseController implements View.OnClickLis
             }
         });
         dButton.setY((float) (screenHeight / 2));
-        client.addControllerView(dButton);
+        boatActivity.addContentView(dButton, dButton.getLayoutParams());
 
         //初始化Dialog的控件
 
@@ -275,18 +273,18 @@ public class VirtualController extends BaseController implements View.OnClickLis
     private void sendKeyEvent(BaseKeyEvent e) {
         switch (e.getType()) {
             case KEYBOARD_BUTTON:
-                client.setKey(mTranslation.trans(e.getKeyName()), e.isPressed());
+                boatActivity.setKey(mTranslation.trans(e.getKeyName()), 0, e.isPressed());
                 break;
             case MOUSE_BUTTON:
-                client.setMouseButton(mTranslation.trans(e.getKeyName()), e.isPressed());
+                boatActivity.setMouseButton(mTranslation.trans(e.getKeyName()), e.isPressed());
                 break;
             case MOUSE_POINTER:
                 if (e.getPointer() != null) {
-                    client.setMousePoniter(e.getPointer()[0], e.getPointer()[1]);
+                    boatActivity.setPointer(e.getPointer()[0], e.getPointer()[1]);
                 }
                 break;
             case TYPE_WORDS:
-                client.typeWords(e.getChars());
+                typeWords(e.getChars());
             default:
         }
     }
@@ -306,7 +304,7 @@ public class VirtualController extends BaseController implements View.OnClickLis
         }
 
         if (v == buttonResetPos) {
-            DialogUtils.createBothChoicesDialog(context, mContext.getString(R.string.title_note), mContext.getString(R.string.tips_are_you_sure_to_auto_config_layout), mContext.getString(R.string.title_ok), mContext.getString(R.string.title_cancel), new DialogSupports() {
+            DialogUtils.createBothChoicesDialog(boatActivity, boatActivity.getString(R.string.title_note), boatActivity.getString(R.string.tips_are_you_sure_to_auto_config_layout), boatActivity.getString(R.string.title_ok), boatActivity.getString(R.string.title_cancel), new DialogSupports() {
                 @Override
                 public void runWhenPositive() {
                     resetAllPosOnScreen();
@@ -388,7 +386,7 @@ public class VirtualController extends BaseController implements View.OnClickLis
     }
 
     private void saveConfigToFile() {
-        SharedPreferences.Editor editor = mContext.getSharedPreferences(spFileName, spMode).edit();
+        SharedPreferences.Editor editor = boatActivity.getSharedPreferences(spFileName, spMode).edit();
         editor.putBoolean(sp_enable_ckb, switchCustomizeKeyboard.isChecked());
         editor.putBoolean(sp_enable_onscreenkeyboard, switchPCKeyboard.isChecked());
         editor.putBoolean(sp_enable_onscreenmouse, switchPCMouse.isChecked());
@@ -397,7 +395,7 @@ public class VirtualController extends BaseController implements View.OnClickLis
         editor.putBoolean(sp_enable_onscreentouchpad, switchTouchpad.isChecked());
         editor.putBoolean(sp_enable_crosskeyboard, switchPEKeyboard.isChecked());
         editor.putBoolean(sp_enable_inputbox, switchInputBox.isChecked());
-        if (!mContext.getSharedPreferences(spFileName, spMode).contains(sp_first_loadder)) {
+        if (!boatActivity.getSharedPreferences(spFileName, spMode).contains(sp_first_loadder)) {
             editor.putBoolean(sp_first_loadder, false);
         }
         editor.apply();
@@ -405,7 +403,7 @@ public class VirtualController extends BaseController implements View.OnClickLis
     }
 
     private void loadConfigFromFile() {
-        SharedPreferences sp = mContext.getSharedPreferences(spFileName, spMode);
+        SharedPreferences sp = boatActivity.getSharedPreferences(spFileName, spMode);
         switchCustomizeKeyboard.setChecked(sp.getBoolean(sp_enable_ckb, true));
         switchPCKeyboard.setChecked(sp.getBoolean(sp_enable_onscreenkeyboard, false));
         switchPCMouse.setChecked(sp.getBoolean(sp_enable_onscreenmouse, false));

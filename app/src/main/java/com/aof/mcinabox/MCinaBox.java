@@ -9,9 +9,6 @@ import com.aof.mcinabox.manager.VersionsManager;
 import com.aof.mcinabox.model.Account;
 import com.aof.mcinabox.model.Version;
 
-import java.io.IOError;
-import java.io.IOException;
-
 public class MCinaBox extends Application {
     private static final String TAG = "MCinaBox";
 

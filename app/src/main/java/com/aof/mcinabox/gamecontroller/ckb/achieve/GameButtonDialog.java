@@ -23,13 +23,12 @@ import com.aof.mcinabox.R;
 import com.aof.mcinabox.gamecontroller.ckb.button.GameButton;
 import com.aof.mcinabox.gamecontroller.ckb.support.CkbThemeMarker;
 import com.aof.mcinabox.gamecontroller.ckb.support.QwertButton;
+import com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent;
 import com.aof.mcinabox.utils.ColorUtils;
 import com.aof.mcinabox.utils.dialog.DialogUtils;
 import com.aof.mcinabox.utils.dialog.support.DialogSupports;
 
 import java.util.Arrays;
-
-import cosine.boat.definitions.id.key.KeyEvent;
 
 public class GameButtonDialog extends Dialog implements View.OnClickListener, SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener, Dialog.OnCancelListener, View.OnFocusChangeListener, Spinner.OnItemSelectedListener {
 
@@ -597,7 +596,7 @@ public class GameButtonDialog extends Dialog implements View.OnClickListener, Se
 
     private void showColorPicker(String originalHex, final EditText et, final View v, final int type) {
         int color = ColorUtils.hex2Int(originalHex);
-        if(color == -1){
+        if (color == -1) {
             color = Color.BLACK;
         }
         DialogUtils.createColorPickerDialog(mContext, mContext.getString(R.string.title_colorpicker), mContext.getString(R.string.title_ok), mContext.getString(R.string.title_cancel), color, DialogUtils.COLORPICKER_LIGHTNESS_ONLY, new DialogSupports() {

@@ -5,18 +5,20 @@ public class KeyboardRecorder {
     private int screenHeight;
     private GameButtonRecorder[] games;
 
-    public void setScreenArgs(int sw, int sh){
+    public void setScreenArgs(int sw, int sh) {
         this.screenWidth = sw;
         this.screenHeight = sh;
     }
 
-    public void setRecorderDatas(GameButtonRecorder[] data){
+    public void setRecorderDatas(GameButtonRecorder[] data) {
         this.games = data;
     }
-    public GameButtonRecorder[] getRecorderDatas(){
+
+    public GameButtonRecorder[] getRecorderDatas() {
         return games;
     }
-    public int[] getScreenData(){
-        return new int[]{screenWidth,screenHeight};
+
+    public int[] getScreenData() {
+        return new int[]{screenWidth, screenHeight};
     }
 }
