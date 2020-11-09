@@ -20,9 +20,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.SettingsActivity"
-            android:screenOrientation="sensorLandscape" />
-        <activity
             android:name=".activity.MainActivity"
             android:screenOrientation="sensorLandscape" />
         <activity

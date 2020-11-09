@@ -1,8 +1,10 @@
-package com.aof.mcinabox;
+package com.aof.mcinabox.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class BaseActivity extends AppCompatActivity {
+import com.aof.mcinabox.MCinaBox;
+
+public abstract class BaseActivity extends AppCompatActivity {
     public BaseActivity() {
         super();
     }

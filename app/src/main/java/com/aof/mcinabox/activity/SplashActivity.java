@@ -9,8 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.aof.mcinabox.BaseActivity;
-
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
 public class SplashActivity extends BaseActivity {

@@ -8,7 +8,6 @@ import android.os.Message;
 import android.util.Log;
 import android.view.KeyEvent;
 
-import com.aof.mcinabox.BaseActivity;
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.gamecontroller.definitions.manifest.AppManifest;
 import com.aof.mcinabox.launcher.lang.LangManager;
