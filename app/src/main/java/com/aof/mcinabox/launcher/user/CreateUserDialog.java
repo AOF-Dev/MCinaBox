@@ -9,20 +9,20 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.activity.OldMainActivity;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.mcinabox.launcher.user.support.AuthenticateResponse;
 import com.aof.mcinabox.launcher.user.support.LoginServer;
-import com.aof.mcinabox.utils.PromptUtils;
 import com.aof.mcinabox.utils.dialog.DialogUtils;
 import com.aof.mcinabox.utils.dialog.support.DialogSupports;
 import com.aof.mcinabox.utils.dialog.support.TaskDialog;
 
 public class CreateUserDialog extends Dialog implements View.OnClickListener, CheckBox.OnCheckedChangeListener {
 
-    private Context mContext;
+    private final Context mContext;
 
     private Button buttonOK;
     private Button buttonCancel;
@@ -113,25 +113,25 @@ public class CreateUserDialog extends Dialog implements View.OnClickListener, Ch
         //检查用户名
         for(String str : UserManager.getUsersName(OldMainActivity.Setting)){
             if (str.equals(username)){
-                PromptUtils.createPrompt(mContext, mContext.getString(R.string.tips_the_user_has_been_created));
+                Toast.makeText(mContext, mContext.getString(R.string.tips_the_user_has_been_created), Toast.LENGTH_SHORT).show();
                 return false;
             }
         }
         if(username.equals("")){
-            PromptUtils.createPrompt(mContext, mContext.getString(R.string.tips_user_name_can_not_be_void));
+            Toast.makeText(mContext, mContext.getString(R.string.tips_user_name_can_not_be_void), Toast.LENGTH_SHORT).show();
             return false;
         }
         //检查密码是否为空
         if(enableLegal){
             if(password.equals("")){
-                PromptUtils.createPrompt(mContext, mContext.getString(R.string.tips_password_can_not_be_void));
+                Toast.makeText(mContext, mContext.getString(R.string.tips_password_can_not_be_void), Toast.LENGTH_SHORT).show();
                 return false;
             }
         }
         //创建用户
         if(enableLegal){
             new LoginServer(server).setCallback(new LoginServer.Callback() {
-                TaskDialog mDialog = DialogUtils.createTaskDialog(mContext,mContext.getString(R.string.tips_logging),"",false);
+                final TaskDialog mDialog = DialogUtils.createTaskDialog(mContext,mContext.getString(R.string.tips_logging),"",false);
                 @Override
                 public void onStart() {
                     mDialog.show();

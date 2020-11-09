@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.aof.mcinabox.utils.dialog.support.DialogSupports;
+import com.aof.mcinabox.utils.dialog.support.TaskDialog;
 import com.flask.colorpicker.ColorPickerView;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 
@@ -93,8 +94,8 @@ public class DialogUtils {
         builder.show();
     }
 
-    public static com.aof.mcinabox.utils.dialog.support.TaskDialog createTaskDialog(Context context, String totalTaskName, String currentTaskName, boolean cancelable) {
-        return new com.aof.mcinabox.utils.dialog.support.TaskDialog(context, cancelable)
+    public static TaskDialog createTaskDialog(Context context, String totalTaskName, String currentTaskName, boolean cancelable) {
+        return new TaskDialog(context, cancelable)
                 .setCurrentTaskName(currentTaskName)
                 .setTotalTaskName(totalTaskName);
     }

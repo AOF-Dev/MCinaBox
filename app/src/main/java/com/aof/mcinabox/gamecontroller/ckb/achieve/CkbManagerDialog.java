@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,7 +22,6 @@ import com.aof.mcinabox.R;
 import com.aof.mcinabox.gamecontroller.ckb.button.GameButton;
 import com.aof.mcinabox.gamecontroller.definitions.manifest.AppManifest;
 import com.aof.mcinabox.utils.FileTool;
-import com.aof.mcinabox.utils.PromptUtils;
 import com.aof.mcinabox.utils.dialog.DialogUtils;
 import com.aof.mcinabox.utils.dialog.support.DialogSupports;
 
@@ -129,7 +129,7 @@ public class CkbManagerDialog extends Dialog implements View.OnClickListener, Co
         if (!mManager.loadKeyboard(fileName)) {
             DialogUtils.createSingleChoiceDialog(mContext, mContext.getString(R.string.title_error), mContext.getString(R.string.tips_failed_to_import_keyboard_layout), mContext.getString(R.string.title_ok), null);
         } else {
-            PromptUtils.createPrompt(mContext, mContext.getString(R.string.tips_successed_to_import_keyboard_layout));
+            Toast.makeText(mContext, mContext.getString(R.string.tips_successed_to_import_keyboard_layout), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -143,16 +143,16 @@ public class CkbManagerDialog extends Dialog implements View.OnClickListener, Co
         }
         if (v == buttonExport) {
             if (editFileName.getText() == null) {
-                PromptUtils.createPrompt(mContext, mContext.getString(R.string.tips_filename_can_not_be_void));
+                Toast.makeText(mContext, mContext.getString(R.string.tips_filename_can_not_be_void), Toast.LENGTH_SHORT).show();
                 return;
             }
             if (editFileName.getText().toString().equals(CkbManager.LAST_KEYBOARD_LAYOUT_NAME)) {
-                PromptUtils.createPrompt(mContext, mContext.getString(R.string.tips_please_change_file_name));
+                Toast.makeText(mContext, mContext.getString(R.string.tips_please_change_file_name), Toast.LENGTH_SHORT).show();
                 return;
             }
             final String fn = editFileName.getText().toString();
             if (fn.equals("")) {
-                PromptUtils.createPrompt(mContext, mContext.getString(R.string.tips_filename_can_not_be_void));
+                Toast.makeText(mContext, mContext.getString(R.string.tips_filename_can_not_be_void), Toast.LENGTH_SHORT).show();
                 return;
             }
 

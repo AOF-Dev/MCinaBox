@@ -17,8 +17,7 @@ import java.nio.charset.StandardCharsets;
 public final class BoatUtils {
 
     public static File createFile(String filePath) {
-        File file = new File(filePath);
-        return BoatUtils.createFile(file);
+        return BoatUtils.createFile(new File(filePath));
     }
 
     public static File createFile(File file) {
@@ -59,7 +58,6 @@ public final class BoatUtils {
 
         try (FileOutputStream fos = new FileOutputStream(file)) {
             fos.write(bytes);
-            fos.flush();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -87,8 +85,6 @@ public final class BoatUtils {
             while ((count = is.read(buf)) != -1) {
                 fos.write(buf, 0, count);
             }
-
-            fos.flush();
             return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -112,7 +108,6 @@ public final class BoatUtils {
                 } else {
                     try (FileOutputStream fos = new FileOutputStream(target)) {
                         IOUtils.copy(tais, fos);
-                        fos.flush();
                     }
                 }
             }
