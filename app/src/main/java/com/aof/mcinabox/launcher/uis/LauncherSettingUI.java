@@ -66,7 +66,7 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
                     public void runWhenItemsSelected(int pos) {
                         super.runWhenItemsSelected(pos);
                         if (pos == 0) {
-                            DialogUtils.createFileSelectorDialog(mContext, mContext.getString(R.string.title_import_runtime), AppManifest.SDCARD_HOME, new String[]{"xz"}, new DialogSupports() {
+                            DialogUtils.createFileSelectorDialog(mContext, mContext.getString(R.string.title_import_runtime), AppManifest.SDCARD_HOME, "xz", new DialogSupports() {
                                 @Override
                                 public void runWhenItemsSelected(Object path) {
                                     RuntimeManager.installRuntimeFromPath(mContext, (String) path);
@@ -81,7 +81,7 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
 
             }
             if (v == buttonInstallForge) {
-                DialogUtils.createFileSelectorDialog(mContext, mContext.getString(R.string.title_forge_installer), AppManifest.SDCARD_HOME, new String[]{"jar"}, new DialogSupports() {
+                DialogUtils.createFileSelectorDialog(mContext, mContext.getString(R.string.title_forge_installer), AppManifest.SDCARD_HOME, "jar", new DialogSupports() {
                     @Override
                     public void runWhenItemsSelected(Object filePath) {
                         super.runWhenItemsSelected(filePath);
