@@ -6,15 +6,11 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.aof.mcinabox.filechooser.FileChooserDialog;
 import com.aof.mcinabox.utils.dialog.support.DialogSupports;
 import com.aof.mcinabox.utils.dialog.support.TaskDialog;
 import com.flask.colorpicker.ColorPickerView;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
-
-import zhou.tools.fileselector.FileSelectorAlertDialog;
-import zhou.tools.fileselector.config.FileConfig;
-import zhou.tools.fileselector.config.FileTheme;
-import zhou.tools.fileselector.utils.FileFilter;
 
 public class DialogUtils {
 
@@ -135,32 +131,17 @@ public class DialogUtils {
         picker.build().show();
     }
 
-    public static void createFileSelectorDialog(@NonNull Context context, String title, @NonNull String startPath, String[] filter, @Nullable final DialogSupports support){
-        FileConfig fileConfig = new FileConfig();
-        fileConfig.startPath = startPath;
-        fileConfig.rootPath = "/";
-        fileConfig.theme = FileTheme.THEME_WHITE;
-        if(filter == null){
-            fileConfig.positiveFiter = false;
-        }else{
-            fileConfig.positiveFiter = true;
-            fileConfig.filterModel = FileFilter.FILTER_CUSTOM;
-            fileConfig.filter = filter;
-        }
-        fileConfig.showHiddenFiles = true;
-        fileConfig.multiModel = false;
-        if(title != null){
-            fileConfig.title = title;
-        }
-
-        final FileSelectorAlertDialog fileDialog = new FileSelectorAlertDialog(context,fileConfig);
-        fileDialog.setOnSelectFinishListener(paths -> {
-            if(support != null){
-                support.runWhenItemsSelected(paths.get(0));
+    public static void createFileSelectorDialog(@NonNull Context context, String title, @NonNull String startPath, String extension, @Nullable final DialogSupports support){
+        new FileChooserDialog.Builder(context, file -> {
+            if (support != null) {
+                support.runWhenItemsSelected(file.getAbsolutePath());
             }
-  //          fileDialog.dismiss();
-        });
-        fileDialog.show();
+        })
+                .setTitle(title)
+                .setExtension(extension)
+                .setStartPath(startPath)
+                .build()
+                .show();
     }
 
 }
