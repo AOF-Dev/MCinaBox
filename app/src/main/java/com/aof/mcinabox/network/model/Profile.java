@@ -1,27 +1,16 @@
 package com.aof.mcinabox.network.model;
 
 public class Profile {
-    private final String agent;
-    private final String id;
-    private final String name;
-    private final long createdAt;
-    private final boolean legacyProfile;
-    private final boolean suspended;
-    private final boolean paid;
-    private final boolean migrated;
-    private final boolean legacy;
-
-    public Profile(String agent, String id, String name, long createdAt, boolean legacyProfile, boolean suspended, boolean paid, boolean migrated, boolean legacy) {
-        this.agent = agent;
-        this.id = id;
-        this.name = name;
-        this.createdAt = createdAt;
-        this.legacyProfile = legacyProfile;
-        this.suspended = suspended;
-        this.paid = paid;
-        this.migrated = migrated;
-        this.legacy = legacy;
-    }
+    private String agent;
+    private String id;
+    private String name;
+    private String userId;
+    private long createdAt;
+    private boolean legacyProfile;
+    private boolean suspended;
+    private boolean paid;
+    private boolean migrated;
+    private boolean legacy;
 
     public String getAgent() {
         return agent;
@@ -33,6 +22,10 @@ public class Profile {
 
     public String getName() {
         return name;
+    }
+
+    public String getUserId() {
+        return userId;
     }
 
     public long getCreatedAt() {

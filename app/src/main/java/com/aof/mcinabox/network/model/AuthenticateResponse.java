@@ -21,5 +21,4 @@ public class AuthenticateResponse {
     public Profile getSelectedProfile() {
         return selectedProfile;
     }
-
 }

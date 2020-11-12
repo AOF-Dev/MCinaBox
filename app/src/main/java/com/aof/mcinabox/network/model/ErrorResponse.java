@@ -20,5 +20,4 @@ public class ErrorResponse {
     public String getCause() {
         return cause;
     }
-
 }

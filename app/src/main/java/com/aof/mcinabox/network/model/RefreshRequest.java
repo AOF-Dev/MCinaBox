@@ -14,5 +14,4 @@ public class RefreshRequest {
         this.clientToken = clientToken;
         this.requestUser = requestUser;
     }
-
 }
