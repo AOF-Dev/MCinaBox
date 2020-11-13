@@ -5,6 +5,7 @@ public class AuthenticateResponse {
     private String clientToken;
     private Profile[] availableProfiles;
     private Profile selectedProfile;
+    private User user;
 
     public String getAccessToken() {
         return accessToken;
@@ -20,5 +21,9 @@ public class AuthenticateResponse {
 
     public Profile getSelectedProfile() {
         return selectedProfile;
+    }
+
+    public User getUser() {
+        return user;
     }
 }

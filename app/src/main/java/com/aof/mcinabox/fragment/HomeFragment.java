@@ -41,11 +41,11 @@ public class HomeFragment extends BaseFragment implements VersionsManager.OnVers
         });
 
         final VersionsManager versionsManager = getMCinaBox().getVersionsManager();
-        versionAdapter = new VersionAdapter(getContext(), versionsManager.getVersions());
+        versionAdapter = new VersionAdapter(getMCinaBox(), versionsManager.getVersions());
         versionsManager.addOnVersionsChangedListener(this);
 
         final AccountsManager accountsManager = getMCinaBox().getAccountsManager();
-        accountAdapter = new AccountAdapter(getContext(), accountsManager.getAccounts());
+        accountAdapter = new AccountAdapter(getMCinaBox(), accountsManager.getAccounts());
         accountsManager.addOnAccountsChangedListener(this);
 
         binding.bottomBar.versionSpinner.setAdapter(versionAdapter);

@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.aof.mcinabox.R;
 import com.aof.mcinabox.databinding.VersionRowBinding;
 import com.aof.mcinabox.model.Version;
 
@@ -31,6 +32,7 @@ public class VersionAdapter extends ArrayAdapter<Version> {
         }
 
         final Version version = getItem(position);
+        binding.icon.setImageResource(R.drawable.grass);
         binding.name.setText(version.getName());
         binding.description.setText(version.getDescription());
 

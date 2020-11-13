@@ -6,14 +6,23 @@ import java.io.File;
 
 public class FileHelper {
 
-    private File filesDir;
+    private final File filesDir;
     private File externalStorage;
 
     public FileHelper(Context context) {
         filesDir = context.getFilesDir();
+        createDirectories();
+    }
+
+    private void createDirectories() {
+        new File(filesDir, "heads/").mkdirs();
     }
 
     public File getManager(String filename) {
         return new File(filesDir, filename);
+    }
+
+    public File getHead(String username) {
+        return new File(filesDir, "heads/" + username + ".png");
     }
 }

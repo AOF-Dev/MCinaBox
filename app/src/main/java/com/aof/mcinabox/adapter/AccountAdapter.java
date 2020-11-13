@@ -1,6 +1,5 @@
 package com.aof.mcinabox.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,15 +8,18 @@ import android.widget.ArrayAdapter;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.aof.mcinabox.MCinaBox;
 import com.aof.mcinabox.databinding.AccountRowBinding;
 import com.aof.mcinabox.model.Account;
-
-import java.util.List;
+import com.aof.mcinabox.utils.SkinUtils;
 
 public class AccountAdapter extends ArrayAdapter<Account> {
 
-    public AccountAdapter(@NonNull Context context, @NonNull List<Account> accounts) {
-        super(context, 0, accounts);
+    private final MCinaBox mCinaBox;
+
+    public AccountAdapter(@NonNull MCinaBox mCinaBox, @NonNull Account[] accounts) {
+        super(mCinaBox, 0, accounts);
+        this.mCinaBox = mCinaBox;
     }
 
     @NonNull
@@ -32,8 +34,9 @@ public class AccountAdapter extends ArrayAdapter<Account> {
         }
 
         final Account account = getItem(position);
+        binding.head.setImageBitmap(SkinUtils.getUserHead(mCinaBox, account.getName()));
         binding.name.setText(account.getName());
-        binding.description.setText(account.getDescription());
+        binding.description.setText(account.getAccountType() == Account.Type.ONLINE ? "Online mode" : "Offline mode");
 
         return binding.getRoot();
     }

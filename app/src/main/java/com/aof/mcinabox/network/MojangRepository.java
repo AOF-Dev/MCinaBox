@@ -1,18 +1,21 @@
 package com.aof.mcinabox.network;
 
+import android.util.Log;
+
 import com.aof.mcinabox.network.model.AuthenticateRequest;
 import com.aof.mcinabox.network.model.AuthenticateResponse;
 import com.aof.mcinabox.network.model.ErrorResponse;
-import com.aof.mcinabox.network.model.Profile;
 import com.aof.mcinabox.network.model.RefreshRequest;
 import com.aof.mcinabox.network.model.RefreshResponse;
 import com.aof.mcinabox.network.model.ValidateRequest;
 import com.aof.mcinabox.utils.SkinUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
+import com.google.gson.JsonParser;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -26,6 +29,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class MojangRepository {
+    private static final String API_BASE_URL = "https://api.mojang.com";
     private static final String AUTH_BASE_URL = "https://authserver.mojang.com";
     private static final String SESSION_BASE_URL = "https://sessionserver.mojang.com";
     private static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
@@ -106,8 +110,8 @@ public class MojangRepository {
         });
     }
 
-    public void skin(Profile profile, Callback<String> callback) {
-        get(SESSION_BASE_URL + "/session/minecraft/profile/" + profile.getId()).enqueue(new okhttp3.Callback() {
+    public void skin(String id, Callback<String> callback) {
+        get(SESSION_BASE_URL + "/session/minecraft/profile/" + id).enqueue(new okhttp3.Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 callback.onError(null);
@@ -128,44 +132,81 @@ public class MojangRepository {
         });
     }
 
-    public void head(Profile profile, String filePath, Callback<Void> callback) {
-        skin(profile, new Callback<String>() {
+    public void head(String username, File file, Callback<Void> callback) {
+        getUuid(username, new Callback<String>() {
             @Override
             public void onSuccess(String response) {
-                getHead(response);
+                skin(response, new Callback<String>() {
+                    @Override
+                    public void onSuccess(String response) {
+                        getHead(response);
+                    }
+
+                    @Override
+                    public void onError(ErrorResponse response) {
+                        Log.d("kk", "onError: 1");
+                        callback.onError(response);
+                    }
+
+                    private void getHead(String response) {
+                        get(response).enqueue(new okhttp3.Callback() {
+                            @Override
+                            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                                Log.d("kk", "onError: 2");
+                                callback.onError(null);
+                            }
+
+                            @Override
+                            public void onResponse(@NotNull Call call, @NotNull Response response) {
+                                try (InputStream is = response.body().byteStream()) {
+                                    if (response.code() == 200) {
+                                        if (SkinUtils.skinToHeadPng(is, file)) {
+                                            callback.onSuccess(null);
+                                        } else {
+                                            Log.d("kk", "onError: 3");
+                                            callback.onError(null);
+                                        }
+                                    } else {
+                                        try (InputStreamReader isr = new InputStreamReader(is)) {
+                                            callback.onError(gson.fromJson(isr, ErrorResponse.class));
+                                        }
+                                    }
+                                } catch (IOException e) {
+                                    Log.d("kk", "onError: 4");
+                                    callback.onError(null);
+                                }
+                            }
+                        });
+                    }
+                });
             }
 
             @Override
             public void onError(ErrorResponse response) {
-                getHead(SkinUtils.getDefaultSkin());
+                Log.d("kk", "onError: 5");
+                callback.onError(response);
+            }
+        });
+    }
+
+    public void getUuid(String username, Callback<String> callback) {
+        get(API_BASE_URL + "/users/profiles/minecraft/" + username).enqueue(new okhttp3.Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                callback.onError(null);
             }
 
-            private void getHead(String response) {
-                get(response).enqueue(new okhttp3.Callback() {
-                    @Override
-                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                        callback.onError(null);
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) {
+                try (Reader reader = response.body().charStream()) {
+                    if (response.code() == 200) {
+                        callback.onSuccess(JsonParser.parseReader(reader).getAsJsonObject().get("id").getAsString());
+                    } else {
+                        callback.onError(gson.fromJson(reader, ErrorResponse.class));
                     }
-
-                    @Override
-                    public void onResponse(@NotNull Call call, @NotNull Response response) {
-                        try (InputStream is = response.body().byteStream()) {
-                            if (response.code() == 200) {
-                                if (SkinUtils.skinToHeadPng(is, filePath)) {
-                                    callback.onSuccess(null);
-                                } else {
-                                    callback.onError(null);
-                                }
-                            } else {
-                                try (InputStreamReader isr = new InputStreamReader(is)) {
-                                    callback.onError(gson.fromJson(isr, ErrorResponse.class));
-                                }
-                            }
-                        } catch (IOException e) {
-                            callback.onError(null);
-                        }
-                    }
-                });
+                } catch (IOException e) {
+                    callback.onError(null);
+                }
             }
         });
     }

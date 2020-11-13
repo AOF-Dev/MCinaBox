@@ -6,12 +6,15 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.util.Base64;
 
+import com.aof.mcinabox.MCinaBox;
+import com.aof.mcinabox.R;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,10 +22,23 @@ import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 
 public class SkinUtils {
-    private static final String STEVE_SKIN = "http://assets.mojang.com/SkinTemplates/steve.png";
 
-    public static String getDefaultSkin() {
-        return STEVE_SKIN;
+    public static Bitmap getUserHead(MCinaBox mCinaBox, String username) {
+        File head = mCinaBox.getFileHelper().getHead(username);
+
+        if (!head.exists()) {
+            try (InputStream is = mCinaBox.getResources().openRawResource(R.raw.steve)) {
+                return skinToHead(is);
+            } catch (IOException e) {
+                throw new RuntimeException("Failed to open default skin!");
+            }
+        }
+
+        try (InputStream is = new FileInputStream(head)) {
+            return BitmapFactory.decodeStream(is);
+        } catch (IOException e) {
+            throw new RuntimeException("User skin not valid!");
+        }
     }
 
     public static String getPlayerSkin(Reader reader) {
@@ -30,7 +46,7 @@ public class SkinUtils {
             JsonArray properties = JsonParser.parseReader(reader)
                     .getAsJsonObject().getAsJsonArray("properties");
             for (JsonElement property : properties) {
-                String skin = getFromProperty(property);
+                String skin = getSkinUrlFromProperty(property);
                 if (skin != null) return skin;
             }
         } catch (IllegalStateException | NullPointerException ignored) {
@@ -39,7 +55,7 @@ public class SkinUtils {
         return null;
     }
 
-    private static String getFromProperty(JsonElement property) {
+    private static String getSkinUrlFromProperty(JsonElement property) {
         try {
             JsonObject p = property.getAsJsonObject();
             if (p.get("name").getAsString().equals("textures")) {
@@ -55,18 +71,21 @@ public class SkinUtils {
         return null;
     }
 
-    public static boolean skinToHeadPng(InputStream inputStream, String destination) {
-        try (FileOutputStream fos = new FileOutputStream(new File(destination))) {
-            Bitmap bitmap = Bitmap.createBitmap(8, 8, Bitmap.Config.ARGB_8888);
-            Canvas canvas = new Canvas(bitmap);
-            Bitmap skinBitmap = BitmapFactory.decodeStream(inputStream);
-            Rect head1 = new Rect(8, 8, 16, 16);
-            Rect head2 = new Rect(40, 8, 48, 16);
-            Rect dst = new Rect(0, 0, 8, 8);
-            canvas.drawBitmap(skinBitmap, head1, dst, null);
-            canvas.drawBitmap(skinBitmap, head2, dst, null);
-            Bitmap.createScaledBitmap(bitmap, 512, 512, false)
-                    .compress(Bitmap.CompressFormat.JPEG, 100, fos);
+    public static Bitmap skinToHead(InputStream inputStream) {
+        Bitmap bitmap = Bitmap.createBitmap(8, 8, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        Bitmap skinBitmap = BitmapFactory.decodeStream(inputStream);
+        Rect head1 = new Rect(8, 8, 16, 16);
+        Rect head2 = new Rect(40, 8, 48, 16);
+        Rect dst = new Rect(0, 0, 8, 8);
+        canvas.drawBitmap(skinBitmap, head1, dst, null);
+        canvas.drawBitmap(skinBitmap, head2, dst, null);
+        return Bitmap.createScaledBitmap(bitmap, 512, 512, false);
+    }
+
+    public static boolean skinToHeadPng(InputStream inputStream, File file) {
+        try (FileOutputStream fos = new FileOutputStream(file)) {
+            skinToHead(inputStream).compress(Bitmap.CompressFormat.JPEG, 100, fos);
             return true;
         } catch (IllegalArgumentException | IOException e) {
             return false;
