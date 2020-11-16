@@ -156,17 +156,13 @@ public class BoatArgsMaker {
 
         //过滤空的元素并返回参数数组
         for (int a = 0; a < tmp.size(); a++) {
-            if (tmp.get(a).equals("")) {
+            if (tmp.get(a).isEmpty()) {
                 tmp.remove(a);
                 a--;
             }
         }
-        String[] result = new String[tmp.size()];
-        for (int a = 0; a < tmp.size(); a++) {
-            result[a] = tmp.get(a);
-        }
 
-        return result;
+        return tmp.toArray(new String[0]);
     }
 
     private String getJava_library_path() {

@@ -15,7 +15,7 @@ import com.aof.mcinabox.databinding.FragmentHomeBinding;
 import com.aof.mcinabox.manager.AccountsManager;
 import com.aof.mcinabox.manager.VersionsManager;
 import com.aof.mcinabox.model.Account;
-import com.aof.mcinabox.model.Version;
+import com.aof.mcinabox.model.Profile;
 
 import java.util.List;
 
@@ -41,7 +41,7 @@ public class HomeFragment extends BaseFragment implements VersionsManager.OnVers
         });
 
         final VersionsManager versionsManager = getMCinaBox().getVersionsManager();
-        versionAdapter = new VersionAdapter(getMCinaBox(), versionsManager.getVersions());
+        versionAdapter = new VersionAdapter(getMCinaBox(), versionsManager.getProfiles());
         versionsManager.addOnVersionsChangedListener(this);
 
         final AccountsManager accountsManager = getMCinaBox().getAccountsManager();
@@ -60,7 +60,7 @@ public class HomeFragment extends BaseFragment implements VersionsManager.OnVers
     }
 
     @Override
-    public void onVersionsChanged(List<Version> versions) {
+    public void onVersionsChanged(List<Profile> profiles) {
         versionAdapter.notifyDataSetChanged();
     }
 

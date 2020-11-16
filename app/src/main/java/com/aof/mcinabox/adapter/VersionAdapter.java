@@ -11,13 +11,13 @@ import androidx.annotation.Nullable;
 
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.databinding.VersionRowBinding;
-import com.aof.mcinabox.model.Version;
+import com.aof.mcinabox.model.Profile;
 
 import java.util.List;
 
-public class VersionAdapter extends ArrayAdapter<Version> {
-    public VersionAdapter(@NonNull Context context, @NonNull List<Version> versions) {
-        super(context, 0, versions);
+public class VersionAdapter extends ArrayAdapter<Profile> {
+    public VersionAdapter(@NonNull Context context, @NonNull List<Profile> profiles) {
+        super(context, 0, profiles);
     }
 
     @NonNull
@@ -31,10 +31,10 @@ public class VersionAdapter extends ArrayAdapter<Version> {
             binding = VersionRowBinding.bind(convertView);
         }
 
-        final Version version = getItem(position);
+        final Profile profile = getItem(position);
         binding.icon.setImageResource(R.drawable.grass);
-        binding.name.setText(version.getName());
-        binding.description.setText(version.getDescription());
+        binding.name.setText(profile.getName());
+        binding.description.setText(profile.getDescription());
 
         return binding.getRoot();
     }
