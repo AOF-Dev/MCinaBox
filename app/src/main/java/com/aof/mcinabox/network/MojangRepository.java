@@ -2,14 +2,22 @@ package com.aof.mcinabox.network;
 
 import android.util.Log;
 
-import com.aof.mcinabox.network.model.AuthenticateRequest;
-import com.aof.mcinabox.network.model.AuthenticateResponse;
+import com.aof.mcinabox.network.gson.DateDeserializer;
+import com.aof.mcinabox.network.gson.LowerCaseEnumTypeAdapterFactory;
+import com.aof.mcinabox.network.gson.ReleaseTypeAdapterFactory;
+import com.aof.mcinabox.network.gson.VersionDeserializer;
+import com.aof.mcinabox.network.model.AuthenticationRequest;
+import com.aof.mcinabox.network.model.AuthenticationResponse;
 import com.aof.mcinabox.network.model.ErrorResponse;
 import com.aof.mcinabox.network.model.RefreshRequest;
 import com.aof.mcinabox.network.model.RefreshResponse;
+import com.aof.mcinabox.network.model.ReleaseType;
 import com.aof.mcinabox.network.model.ValidateRequest;
+import com.aof.mcinabox.network.model.Version;
+import com.aof.mcinabox.network.model.VersionManifest;
 import com.aof.mcinabox.utils.SkinUtils;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 
@@ -20,6 +28,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.Date;
 
 import okhttp3.Call;
 import okhttp3.MediaType;
@@ -31,6 +40,7 @@ import okhttp3.Response;
 public class MojangRepository {
     private static final String API_BASE_URL = "https://api.mojang.com";
     private static final String AUTH_BASE_URL = "https://authserver.mojang.com";
+    private static final String LAUNCHERMETA_BASE_URL = "https://launchermeta.mojang.com";
     private static final String SESSION_BASE_URL = "https://sessionserver.mojang.com";
     private static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
 
@@ -41,11 +51,16 @@ public class MojangRepository {
 
     private MojangRepository() {
         client = new OkHttpClient();
-        gson = new Gson();
+        gson = new GsonBuilder()
+                .registerTypeAdapterFactory(new LowerCaseEnumTypeAdapterFactory())
+                .registerTypeAdapter(Date.class, new DateDeserializer())
+                .registerTypeAdapter(ReleaseType.class, new ReleaseTypeAdapterFactory())
+                .registerTypeAdapter(Version.class, new VersionDeserializer())
+                .create();
     }
 
-    public void authenticate(AuthenticateRequest authenticateRequest, Callback<AuthenticateResponse> callback) {
-        postJson(AUTH_BASE_URL + "/authenticate", authenticateRequest).enqueue(new okhttp3.Callback() {
+    public void authenticate(AuthenticationRequest authenticationRequest, Callback<AuthenticationResponse> callback) {
+        postJson(AUTH_BASE_URL + "/authenticate", authenticationRequest).enqueue(new okhttp3.Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 callback.onError(null);
@@ -55,7 +70,7 @@ public class MojangRepository {
             public void onResponse(@NotNull Call call, @NotNull Response response) {
                 try (Reader body = response.body().charStream()) {
                     if (response.code() == 200) {
-                        callback.onSuccess(gson.fromJson(body, AuthenticateResponse.class));
+                        callback.onSuccess(gson.fromJson(body, AuthenticationResponse.class));
                     } else {
                         callback.onError(gson.fromJson(body, ErrorResponse.class));
                     }
@@ -133,7 +148,7 @@ public class MojangRepository {
     }
 
     public void head(String username, File file, Callback<Void> callback) {
-        getUuid(username, new Callback<String>() {
+        uuid(username, new Callback<String>() {
             @Override
             public void onSuccess(String response) {
                 skin(response, new Callback<String>() {
@@ -189,7 +204,7 @@ public class MojangRepository {
         });
     }
 
-    public void getUuid(String username, Callback<String> callback) {
+    public void uuid(String username, Callback<String> callback) {
         get(API_BASE_URL + "/users/profiles/minecraft/" + username).enqueue(new okhttp3.Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
@@ -201,6 +216,50 @@ public class MojangRepository {
                 try (Reader reader = response.body().charStream()) {
                     if (response.code() == 200) {
                         callback.onSuccess(JsonParser.parseReader(reader).getAsJsonObject().get("id").getAsString());
+                    } else {
+                        callback.onError(gson.fromJson(reader, ErrorResponse.class));
+                    }
+                } catch (IOException e) {
+                    callback.onError(null);
+                }
+            }
+        });
+    }
+
+    public void versionManifest(Callback<VersionManifest> callback) {
+        get(LAUNCHERMETA_BASE_URL + "/mc/game/version_manifest.json").enqueue(new okhttp3.Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                callback.onError(null);
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) {
+                try (Reader reader = response.body().charStream()) {
+                    if (response.code() == 200) {
+                        callback.onSuccess(gson.fromJson(reader, VersionManifest.class));
+                    } else {
+                        callback.onError(gson.fromJson(reader, ErrorResponse.class));
+                    }
+                } catch (IOException e) {
+                    callback.onError(null);
+                }
+            }
+        });
+    }
+
+    public void version(VersionManifest.Version version, Callback<Version> callback) {
+        get(version.getUrl()).enqueue(new okhttp3.Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                callback.onError(null);
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) {
+                try (Reader reader = response.body().charStream()) {
+                    if (response.code() == 200) {
+                        callback.onSuccess(gson.fromJson(reader, Version.class));
                     } else {
                         callback.onError(gson.fromJson(reader, ErrorResponse.class));
                     }
@@ -240,6 +299,7 @@ public class MojangRepository {
 
     public interface Callback<T> {
         void onSuccess(T response);
+
         void onError(ErrorResponse response);
     }
 }

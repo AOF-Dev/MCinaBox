@@ -1,9 +1,11 @@
 package com.aof.mcinabox.network.model;
 
-public class Profile {
+import java.util.UUID;
+
+public class GameProfile {
     private String agent;
-    private String id;
-    private String name;
+    private UUID id;
+    private final String name;
     private String userId;
     private long createdAt;
     private boolean legacyProfile;
@@ -12,11 +14,15 @@ public class Profile {
     private boolean migrated;
     private boolean legacy;
 
+    public GameProfile(String name) {
+        this.name = name;
+    }
+
     public String getAgent() {
         return agent;
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 

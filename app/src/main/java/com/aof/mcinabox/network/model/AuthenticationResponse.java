@@ -1,10 +1,10 @@
 package com.aof.mcinabox.network.model;
 
-public class AuthenticateResponse {
+public class AuthenticationResponse {
     private String accessToken;
     private String clientToken;
-    private Profile[] availableProfiles;
-    private Profile selectedProfile;
+    private GameProfile selectedProfile;
+    private GameProfile[] availableProfiles;
     private User user;
 
     public String getAccessToken() {
@@ -15,11 +15,11 @@ public class AuthenticateResponse {
         return clientToken;
     }
 
-    public Profile[] getAvailableProfiles() {
+    public GameProfile[] getAvailableProfiles() {
         return availableProfiles;
     }
 
-    public Profile getSelectedProfile() {
+    public GameProfile getSelectedProfile() {
         return selectedProfile;
     }
 

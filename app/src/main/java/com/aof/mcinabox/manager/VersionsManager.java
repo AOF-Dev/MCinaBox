@@ -3,7 +3,7 @@ package com.aof.mcinabox.manager;
 import android.util.Log;
 
 import com.aof.mcinabox.MCinaBox;
-import com.aof.mcinabox.model.Version;
+import com.aof.mcinabox.model.Profile;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializer;
@@ -22,26 +22,26 @@ public class VersionsManager {
 
     private static final String VERSIONS_FILENAME = "versions.json";
 
-    private List<Version> versions;
-    private transient List<OnVersionsChangedListener> onVersionsChangedListeners;
+    private final List<Profile> profiles;
+    private final transient List<OnVersionsChangedListener> onVersionsChangedListeners;
 
     private VersionsManager() {
-        this.versions = new ArrayList<>();
+        this.profiles = new ArrayList<>();
         this.onVersionsChangedListeners = new ArrayList<>();
     }
 
-    public void addVersion(Version version) {
-        versions.add(version);
+    public void addVersion(Profile profile) {
+        profiles.add(profile);
         onVersionsChanged();
     }
 
-    public void removeVersion(Version version) {
-        versions.remove(version);
+    public void removeVersion(Profile profile) {
+        profiles.remove(profile);
         onVersionsChanged();
     }
 
-    public List<Version> getVersions() {
-        return versions;
+    public List<Profile> getProfiles() {
+        return profiles;
     }
 
     public void addOnVersionsChangedListener(OnVersionsChangedListener listener) {
@@ -54,12 +54,12 @@ public class VersionsManager {
 
     private void onVersionsChanged() {
         for (OnVersionsChangedListener listener : onVersionsChangedListeners) {
-            listener.onVersionsChanged(versions);
+            listener.onVersionsChanged(profiles);
         }
     }
 
     public interface OnVersionsChangedListener {
-        void onVersionsChanged(List<Version> versions);
+        void onVersionsChanged(List<Profile> profiles);
     }
 
     private boolean isValid() {

@@ -7,7 +7,7 @@ import com.aof.mcinabox.manager.AccountsManager;
 import com.aof.mcinabox.manager.SettingsManager;
 import com.aof.mcinabox.manager.VersionsManager;
 import com.aof.mcinabox.model.Account;
-import com.aof.mcinabox.model.Version;
+import com.aof.mcinabox.model.Profile;
 import com.aof.mcinabox.network.MojangRepository;
 import com.aof.mcinabox.network.model.ErrorResponse;
 
@@ -36,8 +36,8 @@ public class MCinaBox extends Application {
         versionsManager = VersionsManager.fromFile(this);
 
         // Demo code
-        versionsManager.addVersion(new Version("Latest release", "1.16.2"));
-        versionsManager.addVersion(new Version("It works! \uD83D\uDE04", "1.12"));
+        versionsManager.addVersion(new Profile("Latest release", "1.16.2"));
+        versionsManager.addVersion(new Profile("It works! \uD83D\uDE04", "1.12"));
         accountsManager.addAccount(new Account("Iscle", UUID.randomUUID().toString()));
         accountsManager.addAccount(new Account("longjunyu2"));
         MojangRepository.getInstance().head("Iscle", getFileHelper().getHead("Iscle"), new MojangRepository.Callback<Void>() {

@@ -3,7 +3,7 @@ package com.aof.mcinabox.network.model;
 public class RefreshResponse {
     private String accessToken;
     private String clientToken;
-    private Profile selectedProfile;
+    private GameProfile selectedGameProfile;
 
     public String getAccessToken() {
         return accessToken;
@@ -13,7 +13,7 @@ public class RefreshResponse {
         return clientToken;
     }
 
-    public Profile getSelectedProfile() {
-        return selectedProfile;
+    public GameProfile getSelectedProfile() {
+        return selectedGameProfile;
     }
 }

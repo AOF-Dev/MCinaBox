@@ -16,6 +16,8 @@ public class FileHelper {
 
     private void createDirectories() {
         new File(filesDir, "heads/").mkdirs();
+        getGameDirectory().mkdirs();
+        getAssetsDirectory().mkdirs();
     }
 
     public File getManager(String filename) {
@@ -24,5 +26,13 @@ public class FileHelper {
 
     public File getHead(String username) {
         return new File(filesDir, "heads/" + username + ".png");
+    }
+
+    public File getGameDirectory() {
+        return new File(filesDir, ".minecraft");
+    }
+
+    public File getAssetsDirectory() {
+        return new File(getGameDirectory(), "assets");
     }
 }
