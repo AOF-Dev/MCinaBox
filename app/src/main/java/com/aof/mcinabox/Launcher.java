@@ -50,7 +50,7 @@ public class Launcher {
 
     public Launcher(MCinaBox mCinaBox, Version version, int height, int width) {
         this.gameDirectory = mCinaBox.getFileHelper().getGameDirectory();
-        this.assetsDirectory = mCinaBox.getFileHelper().getAssetsDirectory();
+        this.assetsDirectory = new File(this.gameDirectory, "assets");
         this.height = height;
         this.width = width;
         this.gson = new Gson();
