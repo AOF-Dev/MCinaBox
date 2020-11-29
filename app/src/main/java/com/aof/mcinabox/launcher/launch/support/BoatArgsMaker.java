@@ -145,12 +145,14 @@ public class BoatArgsMaker {
         tmp.add(JVM_Xmx);
         tmp.add(JVM_Xms);
         tmp.add(JVM_java_library_path);
-        //tmp.addAll(Arrays.asList(JVM_ExtraArgs.split(" ")));
+        if(JVM_ExtraArgs != null && JVM_ExtraArgs.trim().length()!= 0)
+            tmp.addAll(Arrays.asList(JVM_ExtraArgs.split(" ")));
         tmp.add(JVM_ClassPath);
         tmp.add(JVM_ClassPath_info);
         if (AuthlibInjectorArgs != null) tmp.addAll(Arrays.asList(AuthlibInjectorArgs.split(" ")));
         tmp.addAll(Arrays.asList(Minecraft_MainClass.split(" ")));
-        //tmp.addAll(Arrays.asList(MinecraftExtraArgs.split(" ")));
+        if(MinecraftExtraArgs != null && MinecraftExtraArgs.trim().length()!= 0)
+            tmp.addAll(Arrays.asList(MinecraftExtraArgs.split(" ")));
         tmp.addAll(Arrays.asList(MinecraftWindowArgs.split(" ")));
         tmp.addAll(Arrays.asList(Minecraft_Args.split(" ")));
 
