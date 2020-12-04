@@ -1,5 +1,6 @@
 package com.aof.mcinabox.launcher.launch.support;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 
 import com.aof.mcinabox.R;
@@ -80,7 +81,7 @@ public class BoatArgsMaker {
         for (int a = 0; a < items.length; a++) {
             items[a] = manifests[a].name;
         }
-        DialogUtils.createItemsChoiceDialog(mContext, mContext.getString(R.string.tips_please_select_runtime_manifest), null, null, mContext.getString(R.string.title_cancel), false, items, new DialogSupports() {
+        DialogUtils.createItemsChoiceDialog(mContext, mContext.getString(R.string.tips_please_select_runtime_manifest), null, mContext.getString(R.string.title_cancel), null, false, items, new DialogSupports() {
             @Override
             public void runWhenItemsSelected(int pos) {
                 onManifestSelected(pos);
@@ -100,6 +101,7 @@ public class BoatArgsMaker {
         onSetupFinished();
     }
 
+    @SuppressLint("StringFormatInvalid")
     public void make() {
         mLaunchManager.brige_setProgressText(mContext.getString(R.string.tips_making_launch_arg));
         //执行参数拼接
