@@ -1,22 +1,24 @@
 package com.aof.mcinabox.gamecontroller.controller;
 
+import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.aof.mcinabox.gamecontroller.client.Client;
 import com.aof.mcinabox.gamecontroller.input.Input;
 
 import java.util.ArrayList;
 
-import cosine.boat.BoatActivity;
-
 public abstract class BaseController implements Controller {
     public ArrayList<Input> inputs;
-    public BoatActivity boatActivity;
+    public Client client;
+    private Context context;
     private boolean isGrabbed = false;
     private final static String TAG = "BaseController";
 
-    public BaseController(BoatActivity boatActivity) {
-        this.boatActivity = boatActivity;
+    public BaseController(Client client) {
+        this.client = client;
+        this.context = client.getActivity();
         inputs = new ArrayList<>();
     }
 
@@ -36,7 +38,7 @@ public abstract class BaseController implements Controller {
         if (containsInput(input) || input == null) {
             return false;
         } else {
-            if (input.load(boatActivity, this)) {
+            if (input.load(context, this)) {
                 inputs.add(input);
                 return true;
             } else {
@@ -87,20 +89,17 @@ public abstract class BaseController implements Controller {
 
     @Override
     public void addContentView(View view, ViewGroup.LayoutParams params) {
-        boatActivity.addContentView(view, params);
+        client.addContentView(view, params);
     }
 
     @Override
     public void addView(View view) {
-        boatActivity.addContentView(view, view.getLayoutParams());
+        client.addContentView(view, view.getLayoutParams());
     }
 
     @Override
     public void typeWords(String str) {
-        for (char c : str.toCharArray()) {
-            boatActivity.setKey(0, c, true);
-            boatActivity.setKey(0, c, false);
-        }
+        client.typeWords(str);
     }
 
     @Override
@@ -115,7 +114,7 @@ public abstract class BaseController implements Controller {
 
     @Override
     public int[] getPointer() {
-        return boatActivity.getPointer();
+        return client.getPointer();
     }
 
     @Override

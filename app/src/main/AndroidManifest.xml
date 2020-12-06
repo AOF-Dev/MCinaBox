@@ -40,7 +40,7 @@
             android:configChanges="screenSize|keyboard|navigation|orientation|keyboardHidden"
             android:screenOrientation="sensorLandscape" />
         <activity
-            android:name="cosine.boat.BoatActivity"
+            android:name=".launcher.launch.Activity.BoatStartupActivity"
             android:alwaysRetainTaskState="true"
             android:configChanges="screenSize|keyboard|navigation|orientation|keyboardHidden"
             android:excludeFromRecents="false"

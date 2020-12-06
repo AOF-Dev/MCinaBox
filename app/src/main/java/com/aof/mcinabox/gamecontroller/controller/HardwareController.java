@@ -8,6 +8,7 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.aof.mcinabox.gamecontroller.client.Client;
 import com.aof.mcinabox.gamecontroller.codes.AndroidKeyMap;
 import com.aof.mcinabox.gamecontroller.codes.Translation;
 import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
@@ -38,8 +39,8 @@ public class HardwareController extends BaseController implements View.OnHoverLi
     private final HwInput joystick;
     private final Translation mTranslation;
 
-    public HardwareController(BoatActivity boatActivity, int transType) {
-        super(boatActivity);
+    public HardwareController(Client client, int transType) {
+        super(client);
         checkInputDevices();
 
         //初始化键值翻译器
@@ -87,14 +88,14 @@ public class HardwareController extends BaseController implements View.OnHoverLi
     private void sendKeyEvent(BaseKeyEvent e) {
         switch (e.getType()) {
             case KEYBOARD_BUTTON:
-                boatActivity.setKey(mTranslation.trans(e.getKeyName()), 0, e.isPressed());
+                client.setKey(mTranslation.trans(e.getKeyName()), e.isPressed());
                 break;
             case MOUSE_BUTTON:
-                boatActivity.setMouseButton(mTranslation.trans(e.getKeyName()), e.isPressed());
+                client.setMouseButton(mTranslation.trans(e.getKeyName()), e.isPressed());
                 break;
             case MOUSE_POINTER:
                 if (e.getPointer() != null) {
-                    boatActivity.setPointer(e.getPointer()[0], e.getPointer()[1]);
+                    client.setPointer(e.getPointer()[0], e.getPointer()[1]);
                 }
                 break;
             case TYPE_WORDS:
@@ -146,7 +147,7 @@ public class HardwareController extends BaseController implements View.OnHoverLi
     }
 
     private void checkInputDevices() {
-        InputManager inputManager = (InputManager) boatActivity.getSystemService(Context.INPUT_SERVICE);
+        InputManager inputManager = (InputManager) client.getActivity().getSystemService(Context.INPUT_SERVICE);
         int[] inputDeviceIds = inputManager.getInputDeviceIds();
         ArrayList<InputDevice> inputDevices = new ArrayList<>();
         for (int id : inputDeviceIds) {

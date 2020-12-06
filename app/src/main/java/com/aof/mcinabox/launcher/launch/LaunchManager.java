@@ -4,22 +4,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
-
 import com.aof.mcinabox.R;
+import com.aof.mcinabox.gamecontroller.client.Client;
 import com.aof.mcinabox.gamecontroller.controller.HardwareController;
 import com.aof.mcinabox.gamecontroller.controller.VirtualController;
+import com.aof.mcinabox.launcher.launch.Activity.BoatStartupActivity;
 import com.aof.mcinabox.launcher.launch.support.AsyncManager;
 import com.aof.mcinabox.launcher.launch.support.BoatArgsMaker;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.mcinabox.utils.dialog.DialogUtils;
 import com.aof.mcinabox.utils.dialog.support.TaskDialog;
-
 import java.util.Timer;
 import java.util.TimerTask;
-
 import cosine.boat.BoatActivity;
 import cosine.boat.BoatArgs;
-
 import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.KEYMAP_TO_X;
 import static cosine.boat.BoatActivity.EXTRA_BOAT_ARGS;
 
@@ -72,21 +70,21 @@ public class LaunchManager {
                 BoatArgs args = maker.getBoatArgs();
                 brige_exitWithSuccess();
                 attachControllerInterface();
-                mContext.startActivity(new Intent(mContext, BoatActivity.class).putExtra(EXTRA_BOAT_ARGS, maker.getBoatArgs()).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                mContext.startActivity(new Intent(mContext, BoatStartupActivity.class).putExtra(EXTRA_BOAT_ARGS, maker.getBoatArgs()).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                 break;
         }
     }
 
     private void attachControllerInterface() {
-        BoatActivity.boatInterface = new BoatActivity.IBoat() {
+        BoatStartupActivity.boatInterface = new BoatStartupActivity.IBoat() {
             private VirtualController virtualController;
             private HardwareController hardwareController;
             private Timer timer;
 
             @Override
             public void onActivityCreate(BoatActivity boatActivity) {
-                virtualController = new VirtualController(boatActivity, KEYMAP_TO_X);
-                hardwareController = new HardwareController(boatActivity, KEYMAP_TO_X);
+                virtualController = new VirtualController((Client) boatActivity, KEYMAP_TO_X);
+                hardwareController = new HardwareController((Client) boatActivity, KEYMAP_TO_X);
 
                 timer = new Timer();
                 timer.schedule(new TimerTask() {
