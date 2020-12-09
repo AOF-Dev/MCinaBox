@@ -1,11 +1,13 @@
 package cosine.boat;
 
+import android.graphics.SurfaceTexture;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.SurfaceHolder;
+import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
@@ -19,7 +21,7 @@ import java.util.TimerTask;
 
 import cosine.boat.databinding.ActivityBoatBinding;
 
-public class BoatActivity extends AppCompatActivity implements SurfaceHolder.Callback, View.OnSystemUiVisibilityChangeListener {
+public class BoatActivity extends AppCompatActivity implements View.OnSystemUiVisibilityChangeListener, TextureView.SurfaceTextureListener {
     private static final String TAG = "BoatActivity";
     private static final int SYSTEM_UI_HIDE_DELAY_MS = 3000;
 
@@ -67,7 +69,7 @@ public class BoatActivity extends AppCompatActivity implements SurfaceHolder.Cal
 
         // Set the SurfaceHolder callback to this class
         // to get the ANativeWindow instance
-        binding.surfaceView.getHolder().addCallback(this);
+        binding.surfaceView.setSurfaceTextureListener(this);
 
         timer = new Timer();
 
@@ -126,33 +128,9 @@ public class BoatActivity extends AppCompatActivity implements SurfaceHolder.Cal
                 | View.SYSTEM_UI_FLAG_FULLSCREEN);
     }
 
-    @Override
-    public void surfaceCreated(SurfaceHolder holder) {
-        Log.d(TAG, "surfaceCreated: called.");
-        nSurfaceCreated(holder.getSurface());
-        new Thread() {
-            @Override
-            public void run() {
-                LoadMe.exec(boatArgs);
-            }
-        }.start();
-    }
-
     private native void nSurfaceCreated(Surface surface);
 
     private native boolean nIsLoaded();
-
-    @Override
-    public void surfaceChanged(@NonNull SurfaceHolder holder, int format, int width, int height) {
-        Log.d(TAG, "surfaceChanged: format = " + format + ", width = " + width + ", height = " + height);
-    }
-
-    @Override
-    public void surfaceDestroyed(@NonNull SurfaceHolder holder) {
-        Log.d(TAG, "surfaceDestroyed: called.");
-        nSurfaceDestroyed(holder.getSurface());
-        boatInterface.onStop();
-    }
 
     private native void nSurfaceDestroyed(Surface surface);
 
@@ -209,6 +187,36 @@ public class BoatActivity extends AppCompatActivity implements SurfaceHolder.Cal
 
     static {
         System.loadLibrary("boat");
+    }
+
+    @Override
+    public void onSurfaceTextureAvailable(@NonNull SurfaceTexture surface, int width, int height) {
+        Log.d(TAG, "surfaceCreated: called.");
+        nSurfaceCreated(new Surface(surface));
+        new Thread() {
+            @Override
+            public void run() {
+                LoadMe.exec(boatArgs);
+            }
+        }.start();
+    }
+
+    @Override
+    public void onSurfaceTextureSizeChanged(@NonNull SurfaceTexture surface, int width, int height) {
+        Log.d(TAG, "surface changed: width = " + width + ", height = " + height);
+    }
+
+    @Override
+    public boolean onSurfaceTextureDestroyed(@NonNull SurfaceTexture surface) {
+        Log.d(TAG, "surfaceDestroyed: called.");
+        nSurfaceDestroyed(new Surface(surface));
+        boatInterface.onStop();
+        return false;
+    }
+
+    @Override
+    public void onSurfaceTextureUpdated(@NonNull SurfaceTexture surface) {
+
     }
 
     public interface IBoat {
