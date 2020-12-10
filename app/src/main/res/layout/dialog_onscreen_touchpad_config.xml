@@ -145,6 +145,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="?android:buttonBarStyle"
         android:orientation="horizontal">
 
         <Button
@@ -154,7 +155,8 @@
             android:layout_weight="2"
             android:layout_margin="5dp"
             android:layout_gravity="center"
-            android:text="确定" />
+            style="?android:buttonBarButtonStyle"
+            android:text="@string/title_ok" />
         <Button
             android:id="@+id/input_onscreen_touchpad_dialog_button_cancel"
             android:layout_width="0dp"
@@ -162,14 +164,16 @@
             android:layout_weight="2"
             android:layout_margin="5dp"
             android:layout_gravity="center"
-            android:text="取消" />
+            style="?android:buttonBarButtonStyle"
+            android:text="@string/title_cancel" />
         <Button
             android:id="@+id/input_onscreen_touchpad_dialog_button_restore"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:layout_margin="5dp"
-            android:text="还原"/>
+            style="?android:buttonBarButtonStyle"
+            android:text="@string/title_restore"/>
 
     </LinearLayout>
 
