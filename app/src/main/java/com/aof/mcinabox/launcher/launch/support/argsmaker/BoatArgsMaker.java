@@ -1,4 +1,4 @@
-package com.aof.mcinabox.launcher.launch.support;
+package com.aof.mcinabox.launcher.launch.support.argsmaker;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -6,6 +6,7 @@ import android.content.Context;
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.gamecontroller.definitions.manifest.AppManifest;
 import com.aof.mcinabox.launcher.launch.LaunchManager;
+import com.aof.mcinabox.launcher.launch.support.Utils;
 import com.aof.mcinabox.launcher.runtime.RuntimeManager;
 import com.aof.mcinabox.launcher.runtime.support.Definitions;
 import com.aof.mcinabox.launcher.runtime.support.RuntimePackInfo;
@@ -26,7 +27,7 @@ import cosine.boat.BoatArgs;
 import static com.aof.mcinabox.gamecontroller.definitions.manifest.AppManifest.BOAT_CACHE_HOME;
 import static com.aof.mcinabox.gamecontroller.definitions.manifest.AppManifest.MCINABOX_VERSION_NAME;
 
-public class BoatArgsMaker {
+public class BoatArgsMaker implements ArgsMaker {
 
     private final static String TAG = "BoatArgsMaker";
     private VersionJson version;
@@ -46,7 +47,8 @@ public class BoatArgsMaker {
         this.mRuntime = RuntimeManager.getPackInfo();
     }
 
-    public BoatArgs getBoatArgs() {
+    @Override
+    public Object getStartArgs() {
         return this.mArgs;
     }
 

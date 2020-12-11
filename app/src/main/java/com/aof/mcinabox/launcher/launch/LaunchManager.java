@@ -10,7 +10,7 @@ import com.aof.mcinabox.gamecontroller.controller.HardwareController;
 import com.aof.mcinabox.gamecontroller.controller.VirtualController;
 import com.aof.mcinabox.launcher.launch.Activity.BoatStartupActivity;
 import com.aof.mcinabox.launcher.launch.support.AsyncManager;
-import com.aof.mcinabox.launcher.launch.support.BoatArgsMaker;
+import com.aof.mcinabox.launcher.launch.support.argsmaker.BoatArgsMaker;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.mcinabox.utils.dialog.DialogUtils;
 import com.aof.mcinabox.utils.dialog.support.TaskDialog;
@@ -67,10 +67,10 @@ public class LaunchManager {
                 maker.make();
                 break;
             case LAUNCH_GAME:
-                BoatArgs args = maker.getBoatArgs();
+                BoatArgs args = (BoatArgs) maker.getStartArgs();
                 brige_exitWithSuccess();
                 attachControllerInterface();
-                mContext.startActivity(new Intent(mContext, BoatStartupActivity.class).putExtra(EXTRA_BOAT_ARGS, maker.getBoatArgs()).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                mContext.startActivity(new Intent(mContext, BoatStartupActivity.class).putExtra(EXTRA_BOAT_ARGS, (BoatArgs)maker.getStartArgs()).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                 break;
         }
     }
