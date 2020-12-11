@@ -96,13 +96,21 @@ public final class BoatUtils {
         return extractAsset(am, src, new File(target));
     }
 
-    public static void extractTarXZ(File tarFile, File destDir) {
+    /*
+     * The method is editted on 12/11/2020 by Long Junyu
+     * Add a callback with filenames.
+     */
+
+    public static void extractTarXZ(File tarFile, File destDir, CompressCallback callback){
         try (FileInputStream fis = new FileInputStream(tarFile);
              XZCompressorInputStream xzcis = new XZCompressorInputStream(fis);
              TarArchiveInputStream tais = new TarArchiveInputStream(xzcis, 1024)) {
             TarArchiveEntry entry;
             while ((entry = tais.getNextTarEntry()) != null) {
                 File target = new File(destDir, entry.getName());
+                if(callback != null){
+                    callback.onFileCompressing(target);
+                }
                 if (entry.isDirectory()) {
                     target.mkdirs();
                 } else {
@@ -116,16 +124,16 @@ public final class BoatUtils {
         }
     }
 
-    public static void extractTarXZ(String tar, File destDir) {
-        extractTarXZ(new File(tar), destDir);
+    public static void extractTarXZ(String tar, File destDir, CompressCallback callback) {
+        extractTarXZ(new File(tar), destDir, callback);
     }
 
-    public static void extractTarXZ(File tarFile, String dir) {
-        extractTarXZ(tarFile, new File(dir));
+    public static void extractTarXZ(File tarFile, String dir, CompressCallback callback) {
+        extractTarXZ(tarFile, new File(dir), callback);
     }
 
-    public static void extractTarXZ(String tar, String dir) {
-        extractTarXZ(new File(tar), new File(dir));
+    public static void extractTarXZ(String tar, String dir, CompressCallback callback) {
+        extractTarXZ(new File(tar), new File(dir), callback);
     }
 
     public static boolean setExecutable(File file) {
@@ -142,5 +150,9 @@ public final class BoatUtils {
 
     public static boolean setExecutable(String file) {
         return setExecutable(new File(file));
+    }
+
+    public interface CompressCallback{
+        void onFileCompressing(File file);
     }
 }

@@ -32,6 +32,7 @@ import java.util.Objects;
 public class RuntimeManager {
 
     private final static String TAG = "RuntimeManager";
+    private static String filename;
 
     /**
      * 【从路径安装运行库】
@@ -59,6 +60,10 @@ public class RuntimeManager {
                         Toast.makeText(OldMainActivity.CURRENT_ACTIVITY.get(), OldMainActivity.CURRENT_ACTIVITY.get().getString(R.string.tips_runtime_install_failed) + " " + OldMainActivity.CURRENT_ACTIVITY.get().getString(R.string.tips_runtime_install_fail_exeable), Toast.LENGTH_SHORT).show();
                         mDialog.dismiss();
                         break;
+                    case 8:
+                        mDialog.setTotalTaskName("Unzipping Runtime pack...");
+                        mDialog.setCurrentTaskName(filename);
+                        break;
                 }
                 super.handleMessage(msg);
             }
@@ -83,7 +88,17 @@ public class RuntimeManager {
                 if (!dir.exists()) {
                     FileTool.makeFloder(dir.getAbsolutePath());
                 }
-                BoatUtils.extractTarXZ(mpackagePath, AppManifest.BOAT_RUNTIME_HOME);
+                BoatUtils.extractTarXZ(mpackagePath, AppManifest.BOAT_RUNTIME_HOME, new BoatUtils.CompressCallback() {
+                    @Override
+                    public void onFileCompressing(File file) {
+                        if(file != null){
+                            Message msg = new Message();
+                            msg.what = 8;
+                            filename = file.getName();
+                            mHandler.sendMessage(msg);
+                        }
+                    }
+                });
                 if (BoatUtils.setExecutable(AppManifest.BOAT_RUNTIME_HOME)) {
                     sendMsg(6);
                 } else {
