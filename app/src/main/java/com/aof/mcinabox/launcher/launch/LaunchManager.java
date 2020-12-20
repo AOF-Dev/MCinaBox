@@ -69,59 +69,13 @@ public class LaunchManager {
             case LAUNCH_GAME:
                 BoatArgs args = (BoatArgs) maker.getStartArgs();
                 brige_exitWithSuccess();
-                attachControllerInterface();
+                BoatStartupActivity.attachControllerInterface();
                 mContext.startActivity(new Intent(mContext, BoatStartupActivity.class).putExtra(EXTRA_BOAT_ARGS, (BoatArgs)maker.getStartArgs()).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                 break;
         }
     }
 
-    private void attachControllerInterface() {
-        BoatStartupActivity.boatInterface = new BoatStartupActivity.IBoat() {
-            private VirtualController virtualController;
-            private HardwareController hardwareController;
-            private Timer timer;
 
-            @Override
-            public void onActivityCreate(BoatActivity boatActivity) {
-                virtualController = new VirtualController((Client) boatActivity, KEYMAP_TO_X);
-                hardwareController = new HardwareController((Client) boatActivity, KEYMAP_TO_X);
-
-                timer = new Timer();
-                timer.schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-                        virtualController.saveConfig();
-                        hardwareController.saveConfig();
-                    }
-                }, 5000, 5000);
-            }
-
-            @Override
-            public void setGrabCursor(boolean isGrabbed) {
-                virtualController.setGrabCursor(isGrabbed);
-                hardwareController.setGrabCursor(isGrabbed);
-            }
-
-            @Override
-            public void onStop() {
-                timer.cancel();
-                virtualController.onStop();
-                hardwareController.onStop();
-            }
-
-            @Override
-            public boolean dispatchKeyEvent(KeyEvent event) {
-                hardwareController.dispatchKeyEvent(event);
-                return true;
-            }
-
-            @Override
-            public boolean dispatchGenericMotionEvent(MotionEvent event) {
-                hardwareController.dispatchMotionKeyEvent(event);
-                return true;
-            }
-        };
-    }
 }
 
 
