@@ -3,6 +3,7 @@ package com.aof.mcinabox.gamecontroller.controller;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.aof.mcinabox.gamecontroller.client.Client;
 import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
 import com.aof.mcinabox.gamecontroller.input.Input;
 
@@ -34,5 +35,7 @@ public interface Controller {
     int[] getPointer();
 
     void saveConfig();
+
+    Client getClient();
 }
 

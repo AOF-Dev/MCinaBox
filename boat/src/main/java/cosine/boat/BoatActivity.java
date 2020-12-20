@@ -29,7 +29,7 @@ public class BoatActivity extends AppCompatActivity implements View.OnSystemUiVi
 
     public static IBoat boatInterface;
 
-    private ActivityBoatBinding binding;
+    public ActivityBoatBinding binding;
     private BoatArgs boatArgs;
     private Timer timer;
     private TimerTask systemUiTimerTask;

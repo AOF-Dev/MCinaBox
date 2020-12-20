@@ -123,6 +123,11 @@ public abstract class BaseController implements Controller {
             i.saveConfig();
         }
     }
+
+    @Override
+    public Client getClient() {
+        return client;
+    }
 }
 
 
