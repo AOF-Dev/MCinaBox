@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import com.aof.mcinabox.gamecontroller.ckb.achieve.CkbManager;
 import com.aof.mcinabox.gamecontroller.ckb.achieve.CkbManagerDialog;
 import com.aof.mcinabox.gamecontroller.ckb.support.CallCustomizeKeyboard;
+import com.aof.mcinabox.gamecontroller.client.Client;
 import com.aof.mcinabox.gamecontroller.controller.Controller;
 import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
 import com.aof.mcinabox.gamecontroller.input.Input;
@@ -123,6 +124,11 @@ public class CustomizeKeyboard implements OnscreenInput, Controller, CallCustomi
     @Override
     public void saveConfig() {
         mManager.autoSaveKeyboard();
+    }
+
+    @Override
+    public Client getClient() {
+        return null;
     }
 
     @Override
