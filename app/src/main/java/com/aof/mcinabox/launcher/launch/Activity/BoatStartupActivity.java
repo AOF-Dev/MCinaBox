@@ -86,6 +86,18 @@ public class BoatStartupActivity extends BoatActivity implements Client {
             }
 
             @Override
+            public void onResume() {
+                virtualController.onResumed();
+                hardwareController.onResumed();
+            }
+
+            @Override
+            public void onPause() {
+                virtualController.onPaused();
+                hardwareController.onPaused();
+            }
+
+            @Override
             public boolean dispatchKeyEvent(KeyEvent event) {
                 hardwareController.dispatchKeyEvent(event);
                 return true;
@@ -98,4 +110,7 @@ public class BoatStartupActivity extends BoatActivity implements Client {
             }
         };
     }
+
+
+
 }

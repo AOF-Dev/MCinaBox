@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.aof.mcinabox.gamecontroller.controller.Controller;
 
-public interface Input extends LifeCircleCallback {
+public interface Input {
     boolean load(Context context, Controller controller);
 
     boolean unload();
@@ -18,4 +18,8 @@ public interface Input extends LifeCircleCallback {
     boolean isEnable();
 
     void setEnable(boolean enable);
+
+    void onPaused();
+
+    void onResumed();
 }

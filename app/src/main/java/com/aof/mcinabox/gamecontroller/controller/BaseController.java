@@ -128,6 +128,20 @@ public abstract class BaseController implements Controller {
     public Client getClient() {
         return client;
     }
+
+    @Override
+    public void onPaused() {
+        for (Input i : inputs){
+            i.onPaused();
+        }
+    }
+
+    @Override
+    public void onResumed() {
+        for (Input i : inputs){
+            i.onResumed();
+        }
+    }
 }
 
 
