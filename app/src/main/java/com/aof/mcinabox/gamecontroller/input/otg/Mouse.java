@@ -245,4 +245,13 @@ public class Mouse implements HwInput {
         }
     }
 
+    @Override
+    public void onPaused() {
+
+    }
+
+    @Override
+    public void onResumed() {
+
+    }
 }

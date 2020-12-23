@@ -121,4 +121,14 @@ public class Phone implements HwInput {
         AudioManager audioManager = (AudioManager) mContext.getSystemService(Service.AUDIO_SERVICE);
         audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, direction, AudioManager.FLAG_SHOW_UI);
     }
+
+    @Override
+    public void onPaused() {
+
+    }
+
+    @Override
+    public void onResumed() {
+
+    }
 }

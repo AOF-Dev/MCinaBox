@@ -76,4 +76,14 @@ public class JoyStick implements HwInput {
     public boolean isEnable() {
         return this.enable;
     }
+
+    @Override
+    public void onPaused() {
+
+    }
+
+    @Override
+    public void onResumed() {
+
+    }
 }

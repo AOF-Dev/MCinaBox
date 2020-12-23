@@ -94,4 +94,14 @@ public class Keyboard implements HwInput {
     public int getSource() {
         return InputDevice.SOURCE_KEYBOARD;
     }
+
+    @Override
+    public void onPaused() {
+
+    }
+
+    @Override
+    public void onResumed() {
+
+    }
 }

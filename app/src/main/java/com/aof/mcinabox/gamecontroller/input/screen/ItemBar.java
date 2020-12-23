@@ -216,6 +216,16 @@ public class ItemBar implements OnscreenInput {
         return itemBar.getVisibility();
     }
 
+    @Override
+    public void onPaused() {
+
+    }
+
+    @Override
+    public void onResumed() {
+
+    }
+
     private static class ItembarConfigDialog extends Dialog implements View.OnClickListener, Dialog.OnCancelListener, SeekBar.OnSeekBarChangeListener {
 
         private final static String TAG = "ItembarConfigDialog";

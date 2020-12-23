@@ -378,6 +378,16 @@ public class OnscreenTouchpad implements OnscreenInput, KeyMap, MouseMap {
         }
     }
 
+    @Override
+    public void onPaused() {
+
+    }
+
+    @Override
+    public void onResumed() {
+
+    }
+
     private static class OnscreenTouchpadConfigDialog extends Dialog implements View.OnClickListener, SeekBar.OnSeekBarChangeListener, Dialog.OnCancelListener, RadioButton.OnCheckedChangeListener {
 
 

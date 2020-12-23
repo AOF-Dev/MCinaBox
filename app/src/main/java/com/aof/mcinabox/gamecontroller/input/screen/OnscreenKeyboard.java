@@ -361,6 +361,16 @@ public class OnscreenKeyboard implements OnscreenInput {
         updateUI();
     }
 
+    @Override
+    public void onPaused() {
+
+    }
+
+    @Override
+    public void onResumed() {
+
+    }
+
     private static class OnscreenKeyboardConfigDialog extends Dialog implements View.OnClickListener, SeekBar.OnSeekBarChangeListener, Dialog.OnCancelListener, CompoundButton.OnCheckedChangeListener {
 
         private final static String TAG = "OnscreenKeyboardConfigDialog";

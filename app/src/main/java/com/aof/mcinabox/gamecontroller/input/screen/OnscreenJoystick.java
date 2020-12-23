@@ -322,6 +322,16 @@ public class OnscreenJoystick implements OnscreenInput, RockerView.OnShakeListen
         onscreenJoystick.setAlpha(a);
     }
 
+    @Override
+    public void onPaused() {
+
+    }
+
+    @Override
+    public void onResumed() {
+
+    }
+
     private static class OnscreenJoystickConfigDialog extends Dialog implements View.OnClickListener, Dialog.OnCancelListener, SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener {
 
         private final static String TAG = "OnscreenJoystickConfigDialog";

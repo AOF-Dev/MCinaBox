@@ -289,6 +289,16 @@ public class InputBox implements OnscreenInput, KeyMap, View.OnClickListener {
         }
     }
 
+    @Override
+    public void onPaused() {
+
+    }
+
+    @Override
+    public void onResumed() {
+
+    }
+
     class InputDialog extends Dialog implements View.OnClickListener {
 
         private final Context mContext;

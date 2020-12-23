@@ -176,6 +176,15 @@ public class CustomizeKeyboard implements OnscreenInput, Controller, CallCustomi
         return View.VISIBLE;
     }
 
+    @Override
+    public void onPaused() {
+
+    }
+
+    @Override
+    public void onResumed() {
+
+    }
 }
 
 

@@ -347,6 +347,16 @@ public class OnscreenMouse implements OnscreenInput {
         updateUI();
     }
 
+    @Override
+    public void onPaused() {
+
+    }
+
+    @Override
+    public void onResumed() {
+
+    }
+
     private static class OnscreenMouseConfigDialog extends Dialog implements View.OnClickListener, SeekBar.OnSeekBarChangeListener, Dialog.OnCancelListener, CompoundButton.OnCheckedChangeListener {
 
         private final static String TAG = "OnscreenMouseConfigDialog";
