@@ -22,6 +22,9 @@ import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
 import com.aof.mcinabox.gamecontroller.input.HwInput;
 import com.aof.mcinabox.utils.DisplayUtils;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.ANDROID_TO_KEYMAP;
 import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.KEYBOARD_BUTTON;
 import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.MOUSE_BUTTON;
@@ -74,34 +77,24 @@ public class Mouse implements HwInput {
         cursor.setLayoutParams(new ViewGroup.LayoutParams(DisplayUtils.getPxFromDp(mContext, CURSOR_SIZE), DisplayUtils.getPxFromDp(mContext, CURSOR_SIZE)));
         cursor.setImageResource(R.drawable.cursor);
         mController.getClient().addView(cursor);
-
+        //初始化屏幕数值
         screenWidth = context.getResources().getDisplayMetrics().widthPixels;
         screenHeight = context.getResources().getDisplayMetrics().heightPixels;
-
+        //创建定时器
+        createTimer();
         return true;
     }
 
     @Override
     public boolean unload() {
-        return false;
+        cancelTimer();
+        return true;
     }
 
     @Override
     public void setGrabCursor(boolean isGrabbed) {
         this.grabbed = isGrabbed;
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            //如果sdk版本大于O，则对鼠标获取或释放进行相应的操作
-            View v = mController.getClient().getViewsParent();
-            if(!v.hasPointerCapture()){
-                //捕获模式下，请求鼠标独占
-                v.setFocusable(true);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        v.requestPointerCapture();
-                    }
-                }, 200);
-            }
             //鼠标图标的显示或隐藏
             if(grabbed)
                 cursor.setVisibility(View.INVISIBLE);
@@ -154,8 +147,6 @@ public class Mouse implements HwInput {
         whenKeyPress(event);
         return true;
     }
-
-
 
     @Override
     public boolean onMotionKey(MotionEvent event) {
@@ -247,11 +238,41 @@ public class Mouse implements HwInput {
 
     @Override
     public void onPaused() {
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            cancelTimer();
+        }
     }
 
     @Override
     public void onResumed() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            createTimer();
+        }
+    }
 
+    private Timer mTimer;
+
+    private void createTimer(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            mTimer = new Timer();
+            mTimer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    if(!mController.getClient().getViewsParent().isFocusable())
+                        mController.getClient().getViewsParent().setFocusable(true);
+                    if(!mController.getClient().getViewsParent().hasPointerCapture()){
+                        mController.getClient().getViewsParent().requestPointerCapture();
+                    }
+                }
+            }, 0, 500);
+        }
+    }
+
+    private void cancelTimer(){
+        try {
+            mTimer.cancel();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

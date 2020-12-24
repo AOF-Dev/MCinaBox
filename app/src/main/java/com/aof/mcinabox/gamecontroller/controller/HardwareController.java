@@ -29,7 +29,7 @@ import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.MOUSE_
 import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.MOUSE_POINTER;
 import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.TYPE_WORDS;
 
-public class HardwareController extends BaseController implements View.OnHoverListener, HwController {
+public class HardwareController extends BaseController implements HwController {
 
     private final static String TAG = "HardwareController";
     private final AndroidKeyMap androidKeyMap = new AndroidKeyMap();
@@ -102,11 +102,6 @@ public class HardwareController extends BaseController implements View.OnHoverLi
                 typeWords(e.getChars());
             default:
         }
-    }
-
-    @Override
-    public boolean onHover(View v, MotionEvent event) {
-        return false;
     }
 
     //写按键事件的分配方式
