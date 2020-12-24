@@ -64,6 +64,16 @@ public class Gyroscope implements Input, SensorEventListener {
     }
 
     @Override
+    public void onPaused() {
+
+    }
+
+    @Override
+    public void onResumed() {
+
+    }
+
+    @Override
     public void onSensorChanged(SensorEvent event) {
         float[] rotationMatrix = new float[16];
         SensorManager.getRotationMatrixFromVector(rotationMatrix, event.values);
