@@ -150,6 +150,7 @@ public class Mouse implements HwInput {
 
     @Override
     public boolean onMotionKey(MotionEvent event) {
+        Log.e(TAG, "TEST: X: " + event.getAxisValue(MotionEvent.AXIS_X) + " Y: " + event.getAxisValue(MotionEvent.AXIS_Y));
         //Log.e(TAG, event.toString());
         //Log.e(TAG, event.getDevice().toString());
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
@@ -191,8 +192,10 @@ public class Mouse implements HwInput {
                     sendPointer((int)event.getAxisValue(MotionEvent.AXIS_X) + mController.getPointer()[0], (int)event.getAxisValue(MotionEvent.AXIS_Y) + mController.getPointer()[1]);
                 }else{
                     int x, y;
-                    x = grabbed_x + (int)event.getAxisValue(MotionEvent.AXIS_X) * CURSOR_EXTRA;
-                    y = grabbed_y + (int)event.getAxisValue(MotionEvent.AXIS_Y) * CURSOR_EXTRA;
+                    //sendPointer((int) mouseAcceleration(event.getAxisValue(MotionEvent.AXIS_X) + mController.getPointer()[0]), (int) mouseAcceleration(event.getAxisValue(MotionEvent.AXIS_Y) + mController.getPointer()[1]));
+
+                    x = grabbed_x + (int) mouseAcceleration(event.getAxisValue(MotionEvent.AXIS_X));
+                    y = grabbed_y + (int) mouseAcceleration(event.getAxisValue(MotionEvent.AXIS_Y));
                     if(x < 0 || y < 0 || x > screenWidth || y > screenHeight)
                         return;
                     else{
@@ -274,5 +277,19 @@ public class Mouse implements HwInput {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    //鼠标加速分段算法
+    private float mouseAcceleration(float d){
+        float MAX_D = 1.1f;
+        float MAX_S = 2.3f;
+        float tmp = Math.abs(d);
+        int times = 1;
+        while(tmp >= MAX_D){
+            tmp %= MAX_D;
+            times++;
+        }
+        return (float) (d * Math.pow(MAX_S, times));
+
     }
 }
