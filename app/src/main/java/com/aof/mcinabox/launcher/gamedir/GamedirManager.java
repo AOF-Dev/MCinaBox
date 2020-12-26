@@ -21,7 +21,7 @@ public class GamedirManager {
             if (file.exists() && !file.isDirectory()) {
                 return false;
             } else if (!file.exists()) {
-                if (!FileTool.makeFloder(file)) {
+                if (!FileTool.makeFolder(file)) {
                     return false;
                 }
             }
