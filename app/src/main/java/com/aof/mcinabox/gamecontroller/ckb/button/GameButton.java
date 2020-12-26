@@ -21,8 +21,10 @@ import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
 import com.aof.mcinabox.utils.ColorUtils;
 import com.aof.mcinabox.utils.DisplayUtils;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
+import static androidx.core.math.MathUtils.clamp;
 import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.KEYBOARD_BUTTON;
 import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.MOUSE_BUTTON;
 import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.MOUSE_POINTER;
@@ -137,9 +139,8 @@ public class GameButton extends AppCompatButton implements View.OnTouchListener 
         this.setTextSize(DEFAULT_TEXT_SIZE_SP);
 
         String[] strs = new String[MAX_KEYMAP_SIZE];
-        for (int i = 0; i < MAX_KEYMAP_SIZE; i++) {
-            strs[i] = "";
-        }
+        Arrays.fill(strs,"");
+        
         this.setKeyMaps(strs);
         this.setKeyTypes(new int[]{KEY_TYPE, KEY_TYPE, KEY_TYPE, KEY_TYPE});
         this.setShow(SHOW_ALL);
@@ -229,18 +230,10 @@ public class GameButton extends AppCompatButton implements View.OnTouchListener 
         int viewWidth = this.getLayoutParams().width;
         int viewHeight = this.getLayoutParams().height;
 
-        if ((int) x > screenWidth - viewWidth) {
-            x = screenWidth - viewWidth;
-        }
-        if ((int) x < 0) {
-            x = 0;
-        }
-        if ((int) y > screenHeight - viewHeight) {
-            y = screenHeight - viewHeight;
-        }
-        if ((int) y < 0) {
-            y = 0;
-        }
+        //Clamp between two extremes
+        x = clamp(x,0f,(float)(screenWidth - viewWidth));
+        y = clamp(y,0f,(float)(screenHeight - viewHeight));
+
         this.setX(x);
         this.setY(y);
 
@@ -265,24 +258,17 @@ public class GameButton extends AppCompatButton implements View.OnTouchListener 
         }
     }
 
-    public boolean setCornerRadius(int radius) {
-        if (radius < MIN_CORNER_SIZE_PT || radius > MAX_CORNER_SIZE_PT) {
-            return false;
-        } else {
-            this.mRecorder.setCornerRadiusPt(radius);
-            updateUI();
-            return true;
-        }
+    public void setCornerRadius(int radius) {
+        radius = clamp(radius, MIN_CORNER_SIZE_PT, MAX_CORNER_SIZE_PT);
+        this.mRecorder.setCornerRadiusPt(radius);
+        updateUI();
     }
 
-    public boolean setAlphaSize(int alphaPt) {
-        if (alphaPt < MIN_ALPHA_SIZE_PT || alphaPt > MAX_ALPHA_SIZE_PT) {
-            return false;
-        } else {
-            this.setAlpha(alphaPt * 0.01f);
-            this.alphaSize = alphaPt;
-            return true;
-        }
+    public void setAlphaSize(int alphaPt) {
+        alphaPt = clamp(alphaPt, MIN_ALPHA_SIZE_PT, MAX_ALPHA_SIZE_PT);
+
+        this.setAlpha(alphaPt * 0.01f);
+        this.alphaSize = alphaPt;
     }
 
     public boolean setKeyName(String str) {
@@ -295,14 +281,11 @@ public class GameButton extends AppCompatButton implements View.OnTouchListener 
         }
     }
 
-    public boolean setTextSize(int spValue) {
-        if (spValue >= MIN_TEXT_SIZE_SP && spValue <= MAX_TEXT_SIZE_SP) {
-            this.setTextSize((float) DisplayUtils.getPxFromSp(mContext, spValue));
-            this.textSize = spValue;
-            return true;
-        } else {
-            return false;
-        }
+    public void setTextSize(int spValue) {
+        spValue = clamp(spValue, MIN_TEXT_SIZE_SP, MAX_TEXT_SIZE_SP);
+
+        this.setTextSize((float) DisplayUtils.getPxFromSp(mContext, spValue));
+        this.textSize = spValue;
     }
 
     public GameButton setShow(int s) {
