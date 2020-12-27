@@ -169,10 +169,10 @@ public class FileTool {
      * 【复制文件】参数为：String
      **/
     public static int copyFile(String fromFile, String toFile) {
-        try (InputStream fosfrom = new FileInputStream(fromFile);
+        try (InputStream fisfrom = new FileInputStream(fromFile);
              OutputStream outto = new FileOutputStream(toFile)) {
             byte[] bt = new byte[1024];
-            int len = fosfrom.read(bt);
+            int len = fisfrom.read(bt);
             if (len > 0) {
                 outto.write(bt, 0, len);
             }
@@ -339,7 +339,7 @@ public class FileTool {
      * [检查文件后缀名是否匹配]
      **/
     public static boolean FileSuffixFilter(String suffix, String fileName) {
-        return fileName.length() > 0 && fileName.charAt(0) != '.' && fileName.endsWith(suffix);
+        return fileName.length() > 0 && fileName.charAt(0) != '.' && fileName.endsWith("." + suffix);
     }
 
     public static boolean FileSuffixFilter(String suffix, File file) {
@@ -357,7 +357,7 @@ public class FileTool {
                 result.add(str);
             }
         }
-        return (String[]) result.toArray();
+        return result.toArray(new String[0]);
     }
 
     /**
