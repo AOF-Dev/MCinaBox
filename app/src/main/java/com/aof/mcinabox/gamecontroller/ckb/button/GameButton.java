@@ -21,8 +21,10 @@ import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
 import com.aof.mcinabox.utils.ColorUtils;
 import com.aof.mcinabox.utils.DisplayUtils;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
+import static androidx.core.math.MathUtils.clamp;
 import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.KEYBOARD_BUTTON;
 import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.MOUSE_BUTTON;
 import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.MOUSE_POINTER;
@@ -51,14 +53,14 @@ public class GameButton extends AppCompatButton implements View.OnTouchListener 
     public final static int MAX_TEXT_SIZE_SP = 20;
     public final static int MIN_ALPHA_SIZE_PT = 0;
     public final static int MAX_ALPHA_SIZE_PT = 100;
-    public final static int MIN_CORNOR_SIZE_PT = 0;
-    public final static int MAX_CORNOR_SIZE_PT = 100;
+    public final static int MIN_CORNER_SIZE_PT = 0;
+    public final static int MAX_CORNER_SIZE_PT = 100;
     public final static int MIN_MOVE_DISTANCE = 10;
 
     public final static int DEFAULT_DESIGN_INDEX = CkbThemeMarker.DESIGN_SIGNLE_FILL;
     public final static int DEFAULT_BUTTON_MODE = MODE_MOVEABLE_EDITABLE;
     public final static int DEFAULT_KEY_SIZE_DP = 50;
-    public final static int DEFAULT_CORNOR_SIZE_PT = 20;
+    public final static int DEFAULT_CORNER_SIZE_PT = 20;
     public final static int DEFAULT_ALPHA_SIZE_PT = 30;
     public final static int DEFAULT_TEXT_SIZE_SP = 5;
     public final static String DEFAULT_BACK_COLOR_HEX = "#000000";
@@ -87,7 +89,7 @@ public class GameButton extends AppCompatButton implements View.OnTouchListener 
     private boolean viewerFollow; //视角跟随
     private boolean isGrabbed = false; //输入模式 |捕获|独立|
     private int show;
-    private boolean isFirstedAdded = false; //被首次创建
+    private boolean isFirstAdded = false; //被首次创建
 
 
     public GameButton(@NonNull Context context, @NonNull CallCustomizeKeyboard call, @NonNull CkbManager manager) {
@@ -137,9 +139,8 @@ public class GameButton extends AppCompatButton implements View.OnTouchListener 
         this.setTextSize(DEFAULT_TEXT_SIZE_SP);
 
         String[] strs = new String[MAX_KEYMAP_SIZE];
-        for (int i = 0; i < MAX_KEYMAP_SIZE; i++) {
-            strs[i] = "";
-        }
+        Arrays.fill(strs,"");
+        
         this.setKeyMaps(strs);
         this.setKeyTypes(new int[]{KEY_TYPE, KEY_TYPE, KEY_TYPE, KEY_TYPE});
         this.setShow(SHOW_ALL);
@@ -149,7 +150,7 @@ public class GameButton extends AppCompatButton implements View.OnTouchListener 
         this.setTextColor(DEFAULT_TEXT_COLOR_HEX);
         this.setKeyPos(0, 0);
         this.setKeySize(DEFAULT_KEY_SIZE_DP, DEFAULT_KEY_SIZE_DP);
-        this.setCornerRadius(DEFAULT_CORNOR_SIZE_PT);
+        this.setCornerRadius(DEFAULT_CORNER_SIZE_PT);
         this.setAlphaSize(DEFAULT_ALPHA_SIZE_PT);
         this.setDesignIndex(DEFAULT_DESIGN_INDEX);
 
@@ -229,18 +230,10 @@ public class GameButton extends AppCompatButton implements View.OnTouchListener 
         int viewWidth = this.getLayoutParams().width;
         int viewHeight = this.getLayoutParams().height;
 
-        if ((int) x > screenWidth - viewWidth) {
-            x = screenWidth - viewWidth;
-        }
-        if ((int) x < 0) {
-            x = 0;
-        }
-        if ((int) y > screenHeight - viewHeight) {
-            y = screenHeight - viewHeight;
-        }
-        if ((int) y < 0) {
-            y = 0;
-        }
+        //Clamp between two extremes
+        x = clamp(x,0f,(float)(screenWidth - viewWidth));
+        y = clamp(y,0f,(float)(screenHeight - viewHeight));
+
         this.setX(x);
         this.setY(y);
 
@@ -265,24 +258,17 @@ public class GameButton extends AppCompatButton implements View.OnTouchListener 
         }
     }
 
-    public boolean setCornerRadius(int radius) {
-        if (radius < MIN_CORNOR_SIZE_PT || radius > MAX_CORNOR_SIZE_PT) {
-            return false;
-        } else {
-            this.mRecorder.setCornerRadiusPt(radius);
-            updateUI();
-            return true;
-        }
+    public void setCornerRadius(int radius) {
+        radius = clamp(radius, MIN_CORNER_SIZE_PT, MAX_CORNER_SIZE_PT);
+        this.mRecorder.setCornerRadiusPt(radius);
+        updateUI();
     }
 
-    public boolean setAlphaSize(int alphaPt) {
-        if (alphaPt < MIN_ALPHA_SIZE_PT || alphaPt > MAX_ALPHA_SIZE_PT) {
-            return false;
-        } else {
-            this.setAlpha(alphaPt * 0.01f);
-            this.alphaSize = alphaPt;
-            return true;
-        }
+    public void setAlphaSize(int alphaPt) {
+        alphaPt = clamp(alphaPt, MIN_ALPHA_SIZE_PT, MAX_ALPHA_SIZE_PT);
+
+        this.setAlpha(alphaPt * 0.01f);
+        this.alphaSize = alphaPt;
     }
 
     public boolean setKeyName(String str) {
@@ -295,14 +281,11 @@ public class GameButton extends AppCompatButton implements View.OnTouchListener 
         }
     }
 
-    public boolean setTextSize(int spValue) {
-        if (spValue >= MIN_TEXT_SIZE_SP && spValue <= MAX_TEXT_SIZE_SP) {
-            this.setTextSize((float) DisplayUtils.getPxFromSp(mContext, spValue));
-            this.textSize = spValue;
-            return true;
-        } else {
-            return false;
-        }
+    public void setTextSize(int spValue) {
+        spValue = clamp(spValue, MIN_TEXT_SIZE_SP, MAX_TEXT_SIZE_SP);
+
+        this.setTextSize((float) DisplayUtils.getPxFromSp(mContext, spValue));
+        this.textSize = spValue;
     }
 
     public GameButton setShow(int s) {
@@ -391,12 +374,12 @@ public class GameButton extends AppCompatButton implements View.OnTouchListener 
     }
 
     public GameButton setFirstAdded() {
-        this.isFirstedAdded = true;
+        this.isFirstAdded = true;
         return this;
     }
 
     public GameButton unsetFirstAdded() {
-        this.isFirstedAdded = false;
+        this.isFirstAdded = false;
         return this;
     }
 
@@ -649,7 +632,7 @@ public class GameButton extends AppCompatButton implements View.OnTouchListener 
     }
 
     public boolean isFirstAdded() {
-        return isFirstedAdded;
+        return isFirstAdded;
     }
 
     public boolean isViewerFollow() {

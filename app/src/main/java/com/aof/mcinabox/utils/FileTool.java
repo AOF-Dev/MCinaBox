@@ -37,18 +37,19 @@ public class FileTool {
     /**
      * 【删除文件】
      **/
-    public static void deleteFile(File file) {
+    public static boolean deleteFile(File file) {
         if (file.exists()) {
             if (file.isFile()) {
-                boolean isSucess = file.delete();
-            } else if (file.isDirectory()) {
-                File[] files = file.listFiles();
-                for (File value : files) {
-                    deleteFile(value);
-                }
-                boolean isSucess = file.delete();
+                return file.delete();
             }
+            //Folder then
+            File[] files = file.listFiles();
+            for (File value : files) {
+                deleteFile(value);
+            }
+            return file.delete();
         }
+        return true; //Since there is no file, we consider it as deleted
     }
 
     /**
@@ -168,10 +169,10 @@ public class FileTool {
      * 【复制文件】参数为：String
      **/
     public static int copyFile(String fromFile, String toFile) {
-        try (InputStream fosfrom = new FileInputStream(fromFile);
+        try (InputStream fisfrom = new FileInputStream(fromFile);
              OutputStream outto = new FileOutputStream(toFile)) {
             byte[] bt = new byte[1024];
-            int len = fosfrom.read(bt);
+            int len = fisfrom.read(bt);
             if (len > 0) {
                 outto.write(bt, 0, len);
             }
@@ -203,11 +204,11 @@ public class FileTool {
             toFile.delete();
         }
 
-        try (FileInputStream fosfrom = new FileInputStream(fromFile);
+        try (FileInputStream fisfrom = new FileInputStream(fromFile);
              FileOutputStream fosto = new FileOutputStream(toFile)) {
             byte[] bt = new byte[1024];
             int c;
-            while ((c = fosfrom.read(bt)) > 0) {
+            while ((c = fisfrom.read(bt)) > 0) {
                 //将内容写到新文件当中
                 fosto.write(bt, 0, c);
             }
@@ -252,7 +253,7 @@ public class FileTool {
         ArrayList<String> dirsname = new ArrayList<>();
         File[] dirs = folder.listFiles();
         for (File file : dirs) {
-            if (!file.isFile()) {
+            if (file.isDirectory()) {
                 dirsname.add(file.getName());
             }
         }
@@ -281,29 +282,25 @@ public class FileTool {
         File file = new File(dirPath);
         if (file.isFile()) {
             file.delete();
-        } else {
-            File[] files = file.listFiles();
-            if (files == null) {
-                file.delete();
-            } else {
-                for (File value : files) {
-                    deleteDir(value.getAbsolutePath());
-                }
-                file.delete();
+            return;
+        }
+
+        File[] files = file.listFiles();
+        if (files != null) {
+            for (File value : files) {
+                deleteDir(value.getAbsolutePath());
             }
         }
+        file.delete();
     }
 
-    public static boolean makeFloder(String dirPath) {
-        return makeFloder(new File(dirPath));
+    public static boolean makeFolder(String dirPath) {
+        return makeFolder(new File(dirPath));
     }
 
-    public static boolean makeFloder(File dir) {
-        if (!dir.exists()) {
-            return dir.mkdirs();
-        } else {
-            return false;
-        }
+    public static boolean makeFolder(File dir) {
+        //Check if a directory exists, and try to make one if it doesn't
+        return (!dir.exists()) && dir.mkdirs();
     }
 
     public static void moveFile(String fromFile, String toFile) {
@@ -342,20 +339,7 @@ public class FileTool {
      * [检查文件后缀名是否匹配]
      **/
     public static boolean FileSuffixFilter(String suffix, String fileName) {
-        int pos = -1;
-        for (int a = 0; a < fileName.length(); a++) {
-            if (fileName.charAt(a) == '.') {
-                pos = a;
-            }
-        }
-        if (pos == -1 || pos == 0) {
-            return false;
-        }
-        char[] theSuffixChars = new char[fileName.length() - pos - 1];
-        for (int a = pos + 1, b = 0; a < fileName.length(); a++, b++) {
-            theSuffixChars[b] = fileName.charAt(a);
-        }
-        return String.valueOf(theSuffixChars).equals(suffix);
+        return fileName.length() > 0 && fileName.charAt(0) != '.' && fileName.endsWith("." + suffix);
     }
 
     public static boolean FileSuffixFilter(String suffix, File file) {
@@ -373,11 +357,7 @@ public class FileTool {
                 result.add(str);
             }
         }
-        String[] r = new String[result.size()];
-        for (int a = 0; a < r.length; a++) {
-            r[a] = result.get(a);
-        }
-        return r;
+        return result.toArray(new String[0]);
     }
 
     /**
