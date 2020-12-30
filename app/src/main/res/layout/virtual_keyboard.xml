@@ -827,7 +827,10 @@
             android:layout_height="match_parent"
             android:layout_weight="2.4"
             android:text=""
-            custom:button_name="ENTER" />
+            custom:button_name="ENTER"
+            custom:char_none="\n"
+            custom:char_capslock="\n"
+            custom:char_shift="\n"/>
 
         <View
             android:layout_width="0dp"
