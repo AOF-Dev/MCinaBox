@@ -13,6 +13,7 @@ import com.aof.mcinabox.gamecontroller.ckb.support.KeyboardRecorder;
 import com.aof.mcinabox.gamecontroller.controller.Controller;
 import com.aof.mcinabox.gamecontroller.definitions.manifest.AppManifest;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -173,12 +174,13 @@ public class CkbManager {
         kr.setScreenArgs(mContext.getResources().getDisplayMetrics().widthPixels, mContext.getResources().getDisplayMetrics().heightPixels);
         kr.setRecorderDatas(gbrs);
 
-        Gson gson = new Gson();
-        String jsonString = gson.toJson(kr);
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        StringBuilder jsonString = new StringBuilder(gson.toJson(kr));
+        jsonString.insert(0, "/*\n *This file is craeted by MCinaBox\n *Please DON'T edit the file if you don't know how it works.\n*/\n");
         try {
             FileWriter jsonWriter = new FileWriter(new File(AppManifest.MCINABOX_KEYBOARD + "/" + fileName + ".json"));
             BufferedWriter out = new BufferedWriter(jsonWriter);
-            out.write(jsonString);
+            out.write(jsonString.toString());
             out.close();
             return true;
         } catch (IOException e) {
