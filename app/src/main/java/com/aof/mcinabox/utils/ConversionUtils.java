@@ -1,10 +1,15 @@
 package com.aof.mcinabox.utils;
 
+import static androidx.core.math.MathUtils.clamp;
+
 public class ConversionUtils {
 
     /*
-    Create by longjunyu2
+    Created by longjunyu2
     2020/09/18
+
+    Tweaked by serpentspirale
+    2020/12/26
      */
 
     /**[容量换算方法]**/
@@ -13,54 +18,29 @@ public class ConversionUtils {
     public final static int CAPACITY_TYPE_MBYTE = 2;
     public final static int CAPACITY_TYPE_GBYTE = 3;
 
-    public static float capacityConvert(int originalType, float original, int targetType){
-
-        class C{
-            public float c1(float i, int t, int m){
-                switch (m){
-                    case 0:
-                        for(int a = 0; a < t; a ++){
-                            i *= 1024;
-                        }
-                        break;
-                    case 1:
-                        for(int a = 0; a < t; a ++){
-                            i /= 1024;
-                        }
-                        break;
-                }
-                return i;
-            }
-        }
-        //升量转换
-        if( (originalType == CAPACITY_TYPE_BYTE && targetType == CAPACITY_TYPE_KBYTE) || (originalType == CAPACITY_TYPE_KBYTE && targetType == CAPACITY_TYPE_MBYTE)
-            || (originalType == CAPACITY_TYPE_MBYTE && targetType == CAPACITY_TYPE_GBYTE)){
-            return new C().c1(original,1,0);
-        }
-
-        if ( (originalType == CAPACITY_TYPE_BYTE && targetType == CAPACITY_TYPE_MBYTE) || (originalType == CAPACITY_TYPE_KBYTE && targetType == CAPACITY_TYPE_GBYTE)){
-            return new C().c1(original, 2, 0);
-        }
-
-        if ( originalType == CAPACITY_TYPE_BYTE && targetType == CAPACITY_TYPE_GBYTE ){
-            return new C().c1(original,3,0);
-        }
-
-        //降量转换
-        if( (targetType == CAPACITY_TYPE_BYTE && originalType == CAPACITY_TYPE_KBYTE) || (targetType == CAPACITY_TYPE_KBYTE && originalType == CAPACITY_TYPE_MBYTE)
-                || (targetType == CAPACITY_TYPE_MBYTE && originalType == CAPACITY_TYPE_GBYTE)){
-            return new C().c1(original,1,1);
-        }
-
-        if ( (targetType == CAPACITY_TYPE_BYTE && originalType == CAPACITY_TYPE_MBYTE) || (targetType == CAPACITY_TYPE_KBYTE && originalType == CAPACITY_TYPE_GBYTE)){
-            return new C().c1(original, 2, 1);
-        }
-
-        if ( targetType == CAPACITY_TYPE_BYTE && originalType == CAPACITY_TYPE_GBYTE ){
-            return new C().c1(original,3,1);
-        }
-
-        return 0;
+    public static float capacityConvert(int originalType, float originalValue, int targetType){
+        return convert(originalValue, Math.abs(targetType - originalType), clamp(targetType - originalType, 0, 1));
     }
+
+    private static float convert(float valueToConvert, int numberOfConversions, int directionOfConversion){
+        switch (directionOfConversion){
+
+            case 0: //Convert to a smaller unit
+                for(int a = 0; a < numberOfConversions; a ++){
+                    valueToConvert *= 1024;
+                }
+                break;
+
+            case 1: //Convert to a bigger unit
+                for(int a = 0; a < numberOfConversions; a ++){
+                    valueToConvert /= 1024;
+                }
+                break;
+        }
+        return valueToConvert;
+    }
+
+
+
 
 }

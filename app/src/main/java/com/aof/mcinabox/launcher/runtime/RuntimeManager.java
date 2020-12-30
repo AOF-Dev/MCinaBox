@@ -86,7 +86,7 @@ public class RuntimeManager {
                 }
                 File dir = new File(AppManifest.BOAT_RUNTIME_HOME);
                 if (!dir.exists()) {
-                    FileTool.makeFloder(dir.getAbsolutePath());
+                    FileTool.makeFolder(dir.getAbsolutePath());
                 }
                 BoatUtils.extractTarXZ(mpackagePath, AppManifest.BOAT_RUNTIME_HOME, new BoatUtils.CompressCallback() {
                     @Override

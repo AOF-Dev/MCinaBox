@@ -181,7 +181,7 @@ public class OldMainActivity extends BaseActivity {
      **/
     private void removeTmpFloder() {
         FileTool.deleteDir(AppManifest.MCINABOX_TEMP);
-        FileTool.makeFloder(AppManifest.MCINABOX_TEMP);
+        FileTool.makeFolder(AppManifest.MCINABOX_TEMP);
     }
 
     @Override
