@@ -1,8 +1,15 @@
 package com.aof.mcinabox.gamecontroller.ckb.support;
 
 public class KeyboardRecorder {
+
+    public static int VERSION_UNKNOWN = 0;
+    public static int VERSION_0_1_3 = 1;
+    public static int VERSION_0_1_4_P = 2;
+    public static int VERSION_THIS = VERSION_0_1_4_P;
+
     private int screenWidth;
     private int screenHeight;
+    private int versionCode;
     private GameButtonRecorder[] games;
 
     public void setScreenArgs(int sw, int sh) {
@@ -20,5 +27,14 @@ public class KeyboardRecorder {
 
     public int[] getScreenData() {
         return new int[]{screenWidth, screenHeight};
+    }
+
+    public KeyboardRecorder setVersionCode(int version){
+        this.versionCode = version;
+        return this;
+    }
+
+    public int getVersionCode(){
+        return this.versionCode;
     }
 }
