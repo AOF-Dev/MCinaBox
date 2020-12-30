@@ -10,7 +10,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 22
         versionCode 7
-        versionName '0.1.4-p4'
+        versionName '0.1.4-p4-123101'
     }
 
     buildFeatures {
@@ -49,6 +49,7 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:4.9.0'
     implementation 'com.google.guava:guava:30.0-android'
     implementation project(path: ':boat')
+    implementation 'org.apache.commons:commons-text:1.9'
 
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.5'
 }

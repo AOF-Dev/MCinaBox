@@ -154,6 +154,7 @@
     <string name="title_text_color">文字颜色</string>
     <string name="title_text_size">文字大小</string>
     <string name="title_sight_follow">视角跟随</string>
+    <string name="title_input_chars">文字输入</string>
     <string name="title_copy">复制</string>
     <string name="title_mouse_lb">左键</string>
     <string name="title_mouse_rb">右键</string>

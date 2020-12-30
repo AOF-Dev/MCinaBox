@@ -21,6 +21,8 @@ import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
 import com.aof.mcinabox.utils.ColorUtils;
 import com.aof.mcinabox.utils.DisplayUtils;
 
+import org.apache.commons.text.StringEscapeUtils;
+
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -56,6 +58,7 @@ public class GameButton extends AppCompatButton implements View.OnTouchListener 
     public final static int MIN_CORNER_SIZE_PT = 0;
     public final static int MAX_CORNER_SIZE_PT = 100;
     public final static int MIN_MOVE_DISTANCE = 10;
+    public final static int MAX_CHARS_LENTH = 50;
 
     public final static int DEFAULT_DESIGN_INDEX = CkbThemeMarker.DESIGN_SIGNLE_FILL;
     public final static int DEFAULT_BUTTON_MODE = MODE_MOVEABLE_EDITABLE;
@@ -89,6 +92,8 @@ public class GameButton extends AppCompatButton implements View.OnTouchListener 
     private boolean viewerFollow; //视角跟随
     private boolean isGrabbed = false; //输入模式 |捕获|独立|
     private int show;
+    private boolean isChars; //是否是字符输入
+    private String keyChars; //字符
     private boolean isFirstAdded = false; //被首次创建
 
 
@@ -140,7 +145,7 @@ public class GameButton extends AppCompatButton implements View.OnTouchListener 
 
         String[] strs = new String[MAX_KEYMAP_SIZE];
         Arrays.fill(strs,"");
-        
+
         this.setKeyMaps(strs);
         this.setKeyTypes(new int[]{KEY_TYPE, KEY_TYPE, KEY_TYPE, KEY_TYPE});
         this.setShow(SHOW_ALL);
@@ -153,7 +158,31 @@ public class GameButton extends AppCompatButton implements View.OnTouchListener 
         this.setCornerRadius(DEFAULT_CORNER_SIZE_PT);
         this.setAlphaSize(DEFAULT_ALPHA_SIZE_PT);
         this.setDesignIndex(DEFAULT_DESIGN_INDEX);
+        this.setInputChars(false);
+        this.setChars("");
 
+    }
+
+    public GameButton setInputChars(boolean b){
+        this.isChars = b;
+        return this;
+    }
+
+    public boolean isInputChars(){
+        return this.isChars;
+    }
+
+    public boolean setChars(String chars){
+        if (chars != null){
+            this.keyChars = chars;
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public String getChars(){
+        return this.keyChars;
     }
 
     public boolean setKeyMaps(String[] map) {
@@ -339,6 +368,8 @@ public class GameButton extends AppCompatButton implements View.OnTouchListener 
         g.setViewerFollow(this.viewerFollow);
         g.setGrabbed(this.isGrabbed);
         g.setDesignIndex(this.mRecorder.getDesignIndex());
+        g.setInputChars(this.isChars);
+        g.setChars(this.keyChars);
         return g;
     }
 
@@ -414,7 +445,7 @@ public class GameButton extends AppCompatButton implements View.OnTouchListener 
     private void inputKeyEvent(MotionEvent e) {
         switch (e.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                if (isKeep) {
+                if (isKeep && !isChars) {
                     if (!isBeingPressed) {
                         for (int a = 0; a < MAX_KEYMAP_SIZE; a++) {
                             if (!keyMaps[a].equals("")) {
@@ -433,8 +464,7 @@ public class GameButton extends AppCompatButton implements View.OnTouchListener 
             case MotionEvent.ACTION_MOVE:
                 break;
             case MotionEvent.ACTION_UP:
-
-                if (isKeep) {
+                if (isKeep && !isChars) {
                     if (isBeingPressed) {
                         for (int a = 0; a < MAX_KEYMAP_SIZE; a++) {
                             if (!keyMaps[a].equals("")) {
@@ -445,6 +475,8 @@ public class GameButton extends AppCompatButton implements View.OnTouchListener 
                     } else {
                         isBeingPressed = true;
                     }
+                } else if(isChars) {
+                    mController.typeWords(convertStringWithASCII(this.keyChars));
                 } else {
                     for (int a = 0; a < MAX_KEYMAP_SIZE; a++) {
                         if (!keyMaps[a].equals("")) {
@@ -456,6 +488,11 @@ public class GameButton extends AppCompatButton implements View.OnTouchListener 
             default:
                 break;
         }
+    }
+
+    private String convertStringWithASCII(String str){
+        if(str == null) return null;
+        return StringEscapeUtils.unescapeJava(str);
     }
 
     private boolean hasDragged = false;

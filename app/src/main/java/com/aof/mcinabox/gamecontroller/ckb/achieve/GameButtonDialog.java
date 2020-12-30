@@ -77,6 +77,8 @@ public class GameButtonDialog extends Dialog implements View.OnClickListener, Se
     private SwitchCompat switchKeep;
     private SwitchCompat switchHide;
     private SwitchCompat switchViewerFollow;
+    private SwitchCompat switchChars;
+    private EditText editChars;
 
     private RadioButton rbtShowAll;
     private RadioButton rbtShowInGame;
@@ -148,6 +150,8 @@ public class GameButtonDialog extends Dialog implements View.OnClickListener, Se
         this.switchKeep = findViewById(R.id.gamebutton_config_dialog_switch_keep);
         this.switchHide = findViewById(R.id.gamebutton_config_dialog_switch_hide);
         this.switchViewerFollow = findViewById(R.id.gamebutton_config_dialog_switch_viewerfollow);
+        this.switchChars = findViewById(R.id.gamebutton_config_dialog_switch_chars);
+        this.editChars = findViewById(R.id.gamebutton_config_dialog_edittext_chars);
 
         this.rbtShowAll = findViewById(R.id.gamebutton_config_dialog_rb_all);
         this.rbtShowInGame = findViewById(R.id.gamebutton_config_dialog_rb_in_game);
@@ -176,10 +180,10 @@ public class GameButtonDialog extends Dialog implements View.OnClickListener, Se
         for (SeekBar s : new SeekBar[]{seekbarTextSize, seekbarCornerSize, seekbarAlpha}) {
             s.setOnSeekBarChangeListener(this);
         }
-        for (SwitchCompat s : new SwitchCompat[]{switchHide, switchKeep, switchViewerFollow}) {
+        for (SwitchCompat s : new SwitchCompat[]{switchHide, switchKeep, switchViewerFollow, switchChars}) {
             s.setOnCheckedChangeListener(this);
         }
-        for (EditText e : new EditText[]{editKeyName, editKeyWidth, editKeyHeight, editKeyLeft, editKeyTop, editBackColor, editTextColor}) {
+        for (EditText e : new EditText[]{editKeyName, editKeyWidth, editKeyHeight, editKeyLeft, editKeyTop, editBackColor, editTextColor, editChars}) {
             e.setOnFocusChangeListener(this);
         }
         for (RadioButton rbt : new RadioButton[]{rbtShowOutGame, rbtShowInGame, rbtShowAll}) {
@@ -187,6 +191,7 @@ public class GameButtonDialog extends Dialog implements View.OnClickListener, Se
         }
         this.setOnCancelListener(this);
         this.spinnerDesign.setOnItemSelectedListener(this);
+        this.editChars.setVisibility(View.INVISIBLE);
 
         //从GameButton设定控件状态
         setUIStateFromGameButton();
@@ -213,6 +218,8 @@ public class GameButtonDialog extends Dialog implements View.OnClickListener, Se
         viewBackColorPreview.setBackgroundColor(ColorUtils.hex2Int(mGameButton.getBackColorHex()));
         viewTextColorPreview.setBackgroundColor(ColorUtils.hex2Int(mGameButton.getTextColorHex()));
         switchViewerFollow.setChecked(mGameButton.isViewerFollow());
+        switchChars.setChecked(mGameButton.isInputChars());
+        editChars.setText(mGameButton.getChars());
         switch (mGameButton.getShow()) {
             case GameButton.SHOW_ALL:
                 rbtShowAll.setChecked(true);
@@ -248,7 +255,7 @@ public class GameButtonDialog extends Dialog implements View.OnClickListener, Se
     }
 
     public void clearEditTextFocus() {
-        for (EditText et : new EditText[]{editKeyName, editBackColor, editTextColor, editKeyWidth, editKeyHeight, editKeyLeft, editKeyTop}) {
+        for (EditText et : new EditText[]{editKeyName, editBackColor, editTextColor, editKeyWidth, editKeyHeight, editKeyLeft, editKeyTop, editChars}) {
             et.clearFocus();
         }
     }
@@ -406,6 +413,15 @@ public class GameButtonDialog extends Dialog implements View.OnClickListener, Se
             }
         }
 
+        if(buttonView == switchChars){
+            if(isChecked){
+                editChars.setVisibility(View.VISIBLE);
+            }else{
+                editChars.setVisibility(View.INVISIBLE);
+            }
+            mGameButton.setInputChars(isChecked);
+        }
+
     }
 
     @Override
@@ -510,6 +526,14 @@ public class GameButtonDialog extends Dialog implements View.OnClickListener, Se
             }
         }
 
+        if (v == editChars) {
+            if (!hasFocus) {
+                if (!mGameButton.setChars(editChars.getText().toString())) {
+                    editChars.setText(mGameButton.getChars());
+                }
+            }
+        }
+
     }
 
     private String originalKeyName;
@@ -527,6 +551,8 @@ public class GameButtonDialog extends Dialog implements View.OnClickListener, Se
     private boolean originalAutoHide;
     private int originalDesignIndex;
     private int originalShow;
+    private String originalChars;
+    private boolean originalIsChars;
 
     private void recordGameButton() {
         this.originalKeyName = mGameButton.getKeyName();
@@ -543,6 +569,8 @@ public class GameButtonDialog extends Dialog implements View.OnClickListener, Se
         this.originalViewerFollow = mGameButton.isViewerFollow();
         this.originalShow = mGameButton.getShow();
         this.originalDesignIndex = mGameButton.getDesignIndex();
+        this.originalIsChars = mGameButton.isInputChars();
+        this.originalChars = mGameButton.getChars();
     }
 
     private void restoreGameButon() {
@@ -560,6 +588,8 @@ public class GameButtonDialog extends Dialog implements View.OnClickListener, Se
         mGameButton.setShow(this.originalShow);
         mGameButton.setViewerFollow(this.originalViewerFollow);
         mGameButton.setDesignIndex(originalDesignIndex);
+        mGameButton.setChars(originalChars);
+        mGameButton.setInputChars(originalIsChars);
     }
 
     @Override

@@ -167,6 +167,7 @@
     <string name="title_text_color">Text Color</string>
     <string name="title_text_size">Text Size</string>
     <string name="title_sight_follow">Sight Follow</string>
+    <string name="title_input_chars">Input Chars</string>
     <string name="title_copy">Copy</string>
     <string name="title_mouse_lb">Left Button</string>
     <string name="title_mouse_rb">Right Button</string>

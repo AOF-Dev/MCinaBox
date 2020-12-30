@@ -23,6 +23,8 @@ public class GameButtonRecorder {
     public String keyName;
     public int textSize;
     public boolean isViewerFollow;
+    public boolean isChars;
+    public String keyChars;
 
     public void recordData(GameButton gb) {
         System.arraycopy(gb.getKeyMaps(), 0, this.keyMaps, 0, GameButton.MAX_KEYMAP_SIZE);
@@ -40,6 +42,8 @@ public class GameButtonRecorder {
         this.isViewerFollow = gb.isViewerFollow();
         this.show = gb.getShow();
         this.textSize = gb.getTextProgress();
+        this.isChars = gb.isInputChars();
+        this.keyChars = gb.getChars();
     }
 
     public GameButton recoverData(Context context, CallCustomizeKeyboard call, Controller controller, CkbManager manager) {
@@ -61,6 +65,8 @@ public class GameButtonRecorder {
         gb.setTextSize(this.textSize);
         gb.setViewerFollow(this.isViewerFollow);
         gb.setShow(this.show);
+        gb.setChars(this.keyChars);
+        gb.setInputChars(this.isChars);
         return gb;
     }
 }

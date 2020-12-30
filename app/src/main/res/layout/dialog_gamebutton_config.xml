@@ -689,6 +689,40 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:text="@string/title_input_chars"
+                    android:textColor="@color/text_info"
+                    android:textSize="@dimen/text_big" />
+
+                <EditText
+                    android:id="@+id/gamebutton_config_dialog_edittext_chars"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/text_small"
+                    android:inputType="text" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/gamebutton_config_dialog_switch_chars"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:text="@string/title_show"
                     android:textColor="@color/text_info"
                     android:textSize="@dimen/text_big" />
