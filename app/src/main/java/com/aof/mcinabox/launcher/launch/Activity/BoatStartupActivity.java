@@ -35,6 +35,7 @@ public class BoatStartupActivity extends BoatActivity implements Client {
 
     @Override
     public void typeWords(String str) {
+        if(str == null) return;
         for(int i = 0; i < str.length(); i++){
             setKey(0, str.charAt(i),true);
             setKey(0, str.charAt(i),false);
