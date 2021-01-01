@@ -92,7 +92,7 @@ public class GameButtonDialog extends Dialog implements View.OnClickListener, Se
     private Button buttonCopy;
 
     public final static int DEFAULT_MOVE_DISTANCE = 1;
-    public final static int DEFAULT_MARGIN_DISTANCE = 5;
+    public final static int DEFAULT_MARGIN_DISTANCE = 2;
     private final static String TAG = "GameButtonDialog";
 
 
@@ -325,29 +325,29 @@ public class GameButtonDialog extends Dialog implements View.OnClickListener, Se
         }
 
         if (v == buttonReduceLeft) {
-            float lPx = Float.parseFloat(editKeyLeft.getText().toString()) - DEFAULT_MARGIN_DISTANCE;
-            float[] result = mGameButton.setKeyPos(lPx, mGameButton.getKeyPos()[1]);
+            float lDp = Float.parseFloat(editKeyLeft.getText().toString()) - DEFAULT_MARGIN_DISTANCE;
+            float[] result = mGameButton.setKeyPos(lDp, mGameButton.getKeyPos()[1]);
             editKeyLeft.setText(String.valueOf(result[0]));
             editKeyTop.setText(String.valueOf(result[1]));
         }
 
         if (v == buttonPlusLeft) {
-            float lPx = Float.parseFloat(editKeyLeft.getText().toString()) + DEFAULT_MARGIN_DISTANCE;
-            float[] result = mGameButton.setKeyPos(lPx, mGameButton.getKeyPos()[1]);
+            float lDp = Float.parseFloat(editKeyLeft.getText().toString()) + DEFAULT_MARGIN_DISTANCE;
+            float[] result = mGameButton.setKeyPos(lDp, mGameButton.getKeyPos()[1]);
             editKeyLeft.setText(String.valueOf(result[0]));
             editKeyTop.setText(String.valueOf(result[1]));
         }
 
         if (v == buttonReduceTop) {
-            float tPx = Float.parseFloat(editKeyTop.getText().toString()) - DEFAULT_MARGIN_DISTANCE;
-            float[] result = mGameButton.setKeyPos(mGameButton.getKeyPos()[0], tPx);
+            float tDp = Float.parseFloat(editKeyTop.getText().toString()) - DEFAULT_MARGIN_DISTANCE;
+            float[] result = mGameButton.setKeyPos(mGameButton.getKeyPos()[0], tDp);
             editKeyLeft.setText(String.valueOf(result[0]));
             editKeyTop.setText(String.valueOf(result[1]));
         }
 
         if (v == buttonPlusTop) {
-            float tPx = Float.parseFloat(editKeyTop.getText().toString()) + DEFAULT_MARGIN_DISTANCE;
-            float[] result = mGameButton.setKeyPos(mGameButton.getKeyPos()[0], tPx);
+            float tDp = Float.parseFloat(editKeyTop.getText().toString()) + DEFAULT_MARGIN_DISTANCE;
+            float[] result = mGameButton.setKeyPos(mGameButton.getKeyPos()[0], tDp);
             editKeyLeft.setText(String.valueOf(result[0]));
             editKeyTop.setText(String.valueOf(result[1]));
         }

@@ -3,6 +3,7 @@ package com.aof.mcinabox.gamecontroller.ckb.button;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,15 +65,15 @@ public class GameButton extends AppCompatButton implements View.OnTouchListener 
     public final static int DEFAULT_BUTTON_MODE = MODE_MOVEABLE_EDITABLE;
     public final static int DEFAULT_KEY_SIZE_DP = 50;
     public final static int DEFAULT_CORNER_SIZE_PT = 20;
-    public final static int DEFAULT_ALPHA_SIZE_PT = 30;
+    public final static int DEFAULT_ALPHA_SIZE_PT = 70;
     public final static int DEFAULT_TEXT_SIZE_SP = 5;
     public final static String DEFAULT_BACK_COLOR_HEX = "#000000";
     public final static String DEFAULT_TEXT_COLOR_HEX = "#FFFFFF";
 
     private final static String TAG = "GameButton";
-    private final static int KEY_TYPE = KEYBOARD_BUTTON;
-    private final static int POINTER_TYPE = MOUSE_POINTER;
-    private final static int MOUSE_TYPE = MOUSE_BUTTON;
+    public final static int KEY_TYPE = KEYBOARD_BUTTON;
+    public final static int POINTER_TYPE = MOUSE_POINTER;
+    public final static int MOUSE_TYPE = MOUSE_BUTTON;
 
     public final static int SHOW_ALL = 0;
     public final static int SHOW_IN_GAME = 1;
@@ -256,15 +257,20 @@ public class GameButton extends AppCompatButton implements View.OnTouchListener 
 
     public float[] setKeyPos(float x, float y) {
 
+        Log.e(TAG, "dpx: " + x + " dpy: " + y);
+
         int viewWidth = this.getLayoutParams().width;
         int viewHeight = this.getLayoutParams().height;
+        int xPx = DisplayUtils.getPxFromDp(mContext, x);
+        int yPx = DisplayUtils.getPxFromDp(mContext, y);
+        float rx, ry;
 
         //Clamp between two extremes
-        x = clamp(x,0f,(float)(screenWidth - viewWidth));
-        y = clamp(y,0f,(float)(screenHeight - viewHeight));
+        rx = clamp(xPx,0f,(float)(screenWidth - viewWidth));
+        ry = clamp(yPx,0f,(float)(screenHeight - viewHeight));
 
-        this.setX(x);
-        this.setY(y);
+        this.setX(rx);
+        this.setY(ry);
 
         this.keyPos = new float[]{x, y};
 
@@ -509,8 +515,8 @@ public class GameButton extends AppCompatButton implements View.OnTouchListener 
                 if (hasDragged) {
                     int tmpTouchPosX = (int) e.getRawX();
                     int tmpTouchPosY = (int) e.getRawY();
-                    int lastPosX = (int) getKeyPos()[0];
-                    int lastPosY = (int) getKeyPos()[1];
+                    int lastPosX = DisplayUtils.getPxFromDp(mContext, getKeyPos()[0]);
+                    int lastPosY = DisplayUtils.getPxFromDp(mContext, getKeyPos()[1]);
                     int dx = tmpTouchPosX - touchPosX;
                     int dy = tmpTouchPosY - touchPosY;
                     int viewWidth = getLayoutParams().width;
@@ -537,7 +543,7 @@ public class GameButton extends AppCompatButton implements View.OnTouchListener 
                     }
                     touchPosX = tmpTouchPosX;
                     touchPosY = tmpTouchPosY;
-                    setKeyPos(resultX, resultY);
+                    setKeyPos(DisplayUtils.getDpFromPx(mContext, resultX), DisplayUtils.getDpFromPx(mContext, resultY));
                 } else {
                     if (Math.abs((int) e.getRawX() - touchPosX) >= MIN_MOVE_DISTANCE && Math.abs((int) e.getRawY() - touchPosY) >= MIN_MOVE_DISTANCE) {
                         hasDragged = true;
@@ -553,6 +559,7 @@ public class GameButton extends AppCompatButton implements View.OnTouchListener 
             default:
                 break;
         }
+
     }
 
     public void addSelfToParent() {
