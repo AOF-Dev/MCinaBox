@@ -9,8 +9,8 @@ android {
         applicationId "com.aof.mcinabox"
         minSdkVersion 21
         targetSdkVersion 22
-        versionCode 7
-        versionName '0.1.4-p4-123101'
+        versionCode 8
+        versionName '0.1.4-p5'
     }
 
     buildFeatures {
