@@ -312,6 +312,9 @@
     <string name="tips_unzipping">Unzipping…</string>
     <string name="tips_are_you_sure_to_auto_config_layout">Are you sure you want to configure the layout automatically? This will change your controller and automatically calculate possible layout locations.</string>
     <string name="tips_select_from_storage">Select from storage…</string>
+    <string name="tips_try_to_convert_keyboard_layout">Try to convert the keyboard file?</string>
+    <string name="tips_successed_to_convert_keyboard_file">Success to convert it，new file name: %s</string>
+    <string name="tips_failed_to_convert_keyboard_file">Failed to convert the keyboard file.</string>
 
     <string name="title_gt" translatable="false"><![CDATA[>]]></string>
     <string name="title_enter" translatable="false">Enter</string>

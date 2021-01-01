@@ -2,10 +2,10 @@ package com.aof.mcinabox.gamecontroller.ckb.support;
 
 public class KeyboardRecorder {
 
-    public static int VERSION_UNKNOWN = 0;
-    public static int VERSION_0_1_3 = 1;
-    public static int VERSION_0_1_4_P = 2;
-    public static int VERSION_THIS = VERSION_0_1_4_P;
+    public final static int VERSION_UNKNOWN = 0;
+    public final static int VERSION_0_1_3 = 1;
+    public final static int VERSION_0_1_4_P = 2;
+    public final static int VERSION_THIS = VERSION_0_1_4_P;
 
     private int screenWidth;
     private int screenHeight;
