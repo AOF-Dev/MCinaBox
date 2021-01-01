@@ -2,7 +2,7 @@ package cosine.boat;
 
 public class LoadMe {
 
-    public static native void chdir(String str);
+    public static native int chdir(String str);
 
     public static native int jliLaunch(String[] strArr);
 
@@ -12,9 +12,12 @@ public class LoadMe {
 
     public static native void setupJLI();
 
-    public static native void dlopen(String name);
+    public static native int dlopen(String name);
+
+    public static native void patchLinker();
 
     public static void exec(BoatArgs args) {
+        patchLinker();
         try {
             setenv("HOME", args.getGameDir());
             setenv("JAVA_HOME", args.getJavaHome());
