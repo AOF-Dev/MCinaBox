@@ -301,5 +301,6 @@
     <string name="tips_try_to_convert_keyboard_layout">是否尝试转换这个键盘文件？</string>
     <string name="tips_successed_to_convert_keyboard_file">转换成功，新的文件名为: %s</string>
     <string name="tips_failed_to_convert_keyboard_file">键盘文件转换失败.</string>
+    <string name="tips_unzipping_runtime_pack">正在解压运行库…</string>
 
 </resources>

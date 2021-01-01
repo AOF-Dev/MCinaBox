@@ -61,7 +61,7 @@ public class RuntimeManager {
                         mDialog.dismiss();
                         break;
                     case 8:
-                        mDialog.setTotalTaskName("Unzipping Runtime pack...");
+                        mDialog.setTotalTaskName(context.getString(R.string.tips_unzipping_runtime_pack));
                         mDialog.setCurrentTaskName(filename);
                         break;
                 }

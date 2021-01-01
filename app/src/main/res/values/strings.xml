@@ -315,6 +315,7 @@
     <string name="tips_try_to_convert_keyboard_layout">Try to convert the keyboard file?</string>
     <string name="tips_successed_to_convert_keyboard_file">Success to convert it，new file name: %s</string>
     <string name="tips_failed_to_convert_keyboard_file">Failed to convert the keyboard file.</string>
+    <string name="tips_unzipping_runtime_pack">Unzipping Runtime pack…</string>
 
     <string name="title_gt" translatable="false"><![CDATA[>]]></string>
     <string name="title_enter" translatable="false">Enter</string>
