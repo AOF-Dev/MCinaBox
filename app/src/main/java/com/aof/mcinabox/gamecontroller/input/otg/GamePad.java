@@ -16,7 +16,7 @@ public class GamePad implements HwInput {
     private final static String TAG = "GamePad";
 
     private final static int POINTER_SEND_LAG = 5;
-    private final static int EVENT_DEAL_LAG = 5;
+    private final static int EVENT_DEAL_LAG = 500;
 
     private Controller mController;
     private Context mContext;
