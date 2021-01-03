@@ -62,15 +62,6 @@ public class BoatStartupActivity extends BoatActivity implements Client {
             public void onActivityCreate(BoatActivity boatActivity) {
                 virtualController = new VirtualController((Client) boatActivity, KEYMAP_TO_X);
                 hardwareController = new HardwareController((Client) boatActivity, KEYMAP_TO_X);
-
-                timer = new Timer();
-                timer.schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-                        virtualController.saveConfig();
-                        hardwareController.saveConfig();
-                    }
-                }, 5000, 5000);
             }
 
             @Override
@@ -81,7 +72,6 @@ public class BoatStartupActivity extends BoatActivity implements Client {
 
             @Override
             public void onStop() {
-                timer.cancel();
                 virtualController.onStop();
                 hardwareController.onStop();
             }
