@@ -132,4 +132,19 @@ public class ColorUtils {
         return colorInt;
     }
 
+    public static int[] int2rgba(int colorInt){
+        int[] rgba = new int[4];
+
+        int red = Color.red(colorInt);
+        int green = Color.green(colorInt);
+        int blue = Color.blue(colorInt);
+        int alpha = Color.alpha(colorInt);
+        rgba[0] = red;
+        rgba[1] = green;
+        rgba[2] = blue;
+        rgba[3] = alpha;
+
+        return rgba;
+    }
+
 }
