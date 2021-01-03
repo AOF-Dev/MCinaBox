@@ -283,7 +283,10 @@ public class OnscreenTouchpad implements OnscreenInput, KeyMap, MouseMap {
 
     @Override
     public boolean unload() {
-        return false;
+        onscreenTouchpad.setVisibility(View.INVISIBLE);
+        ViewGroup vg = (ViewGroup) onscreenTouchpad.getParent();
+        vg.removeView(onscreenTouchpad);
+        return true;
     }
 
     @Override

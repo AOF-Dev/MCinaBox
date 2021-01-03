@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.FileObserver;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
@@ -56,12 +57,6 @@ public class CkbManagerDialog extends Dialog implements View.OnClickListener, Co
         this.mContext = context;
         this.mManager = manager;
         initUI();
-
-        //当进入游戏的时候自动设定客制化键盘模式为生效，如果是编辑界面，则不自动设置
-        if (manager.getController() != null) {
-            radioGame.setChecked(true);
-        }
-
     }
 
     private void initUI() {
@@ -89,7 +84,15 @@ public class CkbManagerDialog extends Dialog implements View.OnClickListener, Co
 
         //是否显示模式选项
         if (mManager.getController() == null) {
+            Log.e(TAG, "null!!!!");
             findViewById(R.id.input_customize_keyboard_dialog_layout_mode).setVisibility(View.GONE);
+        }
+
+        //当进入游戏的时候自动设定客制化键盘模式为生效，如果是编辑界面，则不自动设置
+        if (mManager.getController() != null) {
+            radioGame.setChecked(true);
+        }else {
+            radioGame.setChecked(false);
         }
 
     }

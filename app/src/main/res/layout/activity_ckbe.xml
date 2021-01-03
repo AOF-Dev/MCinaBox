@@ -16,15 +16,25 @@
         android:elevation="4dp"
         android:minHeight="?android:attr/actionBarSize"
         android:theme="?android:attr/actionBarTheme"
-        app:title="MCinaBox"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/app_version"
-            android:textSize="@dimen/text_big"
-            />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatToggleButton
+                android:id="@+id/activity_ckbe_toggle_mode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textOn="@string/title_in_game"
+                android:textOff="@string/title_out_game"
+                android:textSize="@dimen/text_small"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.appcompat.widget.Toolbar>
 

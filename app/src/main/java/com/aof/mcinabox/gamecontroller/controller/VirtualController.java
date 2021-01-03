@@ -69,14 +69,14 @@ public class VirtualController extends BaseController implements View.OnClickLis
     private final Translation mTranslation;
     private int screenWidth;
     private int screenHeight;
-    private OnscreenInput crossKeyboard;
-    private OnscreenInput itemBar;
-    private OnscreenInput onscreenKeyboard;
-    private OnscreenInput onscreenMouse;
-    private OnscreenInput custmoizeKeyboard;
-    private OnscreenInput onscreenTouchpad;
-    private OnscreenInput inputBox;
-    private OnscreenInput onscreenJoystick;
+    public OnscreenInput crossKeyboard;
+    public OnscreenInput itemBar;
+    public OnscreenInput onscreenKeyboard;
+    public OnscreenInput onscreenMouse;
+    public OnscreenInput custmoizeKeyboard;
+    public OnscreenInput onscreenTouchpad;
+    public OnscreenInput inputBox;
+    public OnscreenInput onscreenJoystick;
     private DragFloatActionButton dButton;
     private VirtualControllerSetting settingDialog;
     private ImageButton buttonCustomizeKeyboard;
@@ -121,7 +121,7 @@ public class VirtualController extends BaseController implements View.OnClickLis
         this.saveConfigToFile();
     }
 
-    private void init() {
+    public void init() {
         //初始化Setting对话框
         settingDialog = new VirtualControllerSetting(client.getActivity());
         settingDialog.create();
@@ -200,6 +200,14 @@ public class VirtualController extends BaseController implements View.OnClickLis
 
         checkboxLock.setOnCheckedChangeListener(this);
 
+        //绑定
+        bindViewWithInput();
+
+        //加载配置文件
+        loadConfigFromFile();
+    }
+
+    public void bindViewWithInput(){
         //绑定Input对象与ImageButton和Switch
         bindingViews = new HashMap<>();
         bindingViews.put(buttonCustomizeKeyboard, custmoizeKeyboard);
@@ -218,9 +226,6 @@ public class VirtualController extends BaseController implements View.OnClickLis
         bindingViews.put(switchTouchpad, onscreenTouchpad);
         bindingViews.put(buttonInputBox, inputBox);
         bindingViews.put(switchInputBox, inputBox);
-
-        //加载配置文件
-        loadConfigFromFile();
     }
 
     @Override

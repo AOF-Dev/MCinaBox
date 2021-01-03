@@ -23,8 +23,8 @@ public class CustomizeKeyboard implements OnscreenInput, Controller, CallCustomi
     private final String TAG = "CustomKeyboard";
     private final int type = KEYBOARD_BUTTON;
 
-    private CkbManager mManager;
-    private CkbManagerDialog mDialog;
+    public CkbManager mManager;
+    public CkbManagerDialog mDialog;
 
     @Override
     public boolean load(Context context, Controller controller) {

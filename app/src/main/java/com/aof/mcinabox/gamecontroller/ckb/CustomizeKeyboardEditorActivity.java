@@ -1,6 +1,7 @@
 package com.aof.mcinabox.gamecontroller.ckb;
 
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -10,11 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatToggleButton;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -23,20 +26,29 @@ import com.aof.mcinabox.R;
 import com.aof.mcinabox.gamecontroller.ckb.achieve.CkbManager;
 import com.aof.mcinabox.gamecontroller.ckb.achieve.CkbManagerDialog;
 import com.aof.mcinabox.gamecontroller.ckb.support.CallCustomizeKeyboard;
+import com.aof.mcinabox.gamecontroller.client.Client;
+import com.aof.mcinabox.gamecontroller.controller.Controller;
+import com.aof.mcinabox.gamecontroller.controller.VirtualController;
+import com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent;
+import com.aof.mcinabox.gamecontroller.input.screen.CustomizeKeyboard;
 import com.aof.mcinabox.utils.DisplayUtils;
 import com.aof.mcinabox.utils.PicUtils;
 
-public class CustomizeKeyboardEditorActivity extends AppCompatActivity implements View.OnClickListener, DrawerLayout.DrawerListener, CallCustomizeKeyboard {
+public class CustomizeKeyboardEditorActivity extends AppCompatActivity implements View.OnClickListener, DrawerLayout.DrawerListener, CallCustomizeKeyboard, Client {
 
     private Toolbar mToolbar;
     private ViewGroup mLayout_main;
     private DrawerLayout mDrawerLayout;
-    private DragFloatActionButton dButton;
-    private CkbManagerDialog mDialog;
-    private CkbManager mManager;
+    //private DragFloatActionButton dButton;
+    private AppCompatToggleButton toggleButtonMode;
+    //private CkbManagerDialog mDialog;
+    //private CkbManager mManager;
 
     private int screenWidth;
     private int screenHeight;
+
+    private int pointer[] = new int[]{0, 0};
+    private Controller mController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +68,13 @@ public class CustomizeKeyboardEditorActivity extends AppCompatActivity implement
         mToolbar = findViewById(R.id.ckbe_toolbar);
         mLayout_main = findViewById(R.id.ckbe_layout_main);
         mDrawerLayout = findViewById(R.id.ckbe_drawerlayout);
-        dButton = new DragFloatActionButton(this);
-        mManager = new CkbManager(this, this, null);
-        mDialog = new CkbManagerDialog(this, mManager);
+        toggleButtonMode = findViewById(R.id.activity_ckbe_toggle_mode);
+        //dButton = new DragFloatActionButton(this);
+        //mManager = new CkbManager(this, this, null);
+        //mDialog = new CkbManagerDialog(this, mManager);
 
         //配置悬浮按钮
-        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(DisplayUtils.getPxFromDp(this, 30), DisplayUtils.getPxFromDp(this, 30));
+        /*ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(DisplayUtils.getPxFromDp(this, 30), DisplayUtils.getPxFromDp(this, 30));
         this.addContentView(dButton, lp);
         dButton.setBackground(ContextCompat.getDrawable(this, R.drawable.background_floatbutton));
         dButton.setTodo(new ArrangeRule() {
@@ -71,6 +84,7 @@ public class CustomizeKeyboardEditorActivity extends AppCompatActivity implement
             }
         });
         dButton.setY((float) screenHeight / 2);
+         */
 
         //设定工具栏
         setSupportActionBar(mToolbar);
@@ -78,9 +92,46 @@ public class CustomizeKeyboardEditorActivity extends AppCompatActivity implement
         //设定监听
         mLayout_main.setOnClickListener(this);
         mDrawerLayout.addDrawerListener(this);
+        toggleButtonMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(mController != null)
+                    mController.setGrabCursor(isChecked);
+            }
+        });
 
         //设置背景
         mLayout_main.setBackground(new BitmapDrawable(getResources(), PicUtils.blur(this, 10, ((BitmapDrawable) ContextCompat.getDrawable(this, R.drawable.background)).getBitmap())));
+
+        //初始化控制器
+        mController = new VirtualController(this, KeyEvent.KEYMAP_TO_X){
+            @Override
+            public void init() {
+                super.init();
+                //移除屏幕触摸板
+                this.removeInput(onscreenTouchpad);
+                //卸载自定义键盘
+                this.custmoizeKeyboard.unload();
+                //禁用自定义键盘
+                this.custmoizeKeyboard.setEnable(false);
+                //重写自定义键盘，并创建新的自定义键盘
+                this.custmoizeKeyboard = new CustomizeKeyboard(){
+                    @Override
+                    public boolean load(Context context, Controller controller) {
+                        //将编辑活动回调设置为当前活动，控制器设置为空对象
+                        this.mManager = new CkbManager(context, CustomizeKeyboardEditorActivity.this, null);
+                        this.mDialog = new CkbManagerDialog(context, mManager);
+                        return true;
+                    }
+                };
+                //加载新的自定义键盘
+                this.custmoizeKeyboard.load(CustomizeKeyboardEditorActivity.this, mController);
+                //启用新的自定义键盘
+                this.custmoizeKeyboard.setEnable(true);
+                //重新绑定一级界面的控件与输入器
+                bindViewWithInput();
+            }
+        };
     }
 
 
@@ -136,6 +187,26 @@ public class CustomizeKeyboardEditorActivity extends AppCompatActivity implement
     }
 
     @Override
+    public void setKey(int keyCode, boolean pressed) {
+        //stub
+    }
+
+    @Override
+    public void setMouseButton(int mouseCode, boolean pressed) {
+        //stub
+    }
+
+    @Override
+    public void setPointer(int x, int y) {
+        //stub
+    }
+
+    @Override
+    public Activity getActivity() {
+        return this;
+    }
+
+    @Override
     public void addView(View view) {
         if (view.getLayoutParams() == null) {
             return;
@@ -150,10 +221,43 @@ public class CustomizeKeyboardEditorActivity extends AppCompatActivity implement
     }
 
     @Override
+    public void typeWords(String str) {
+        //stub
+    }
+
+    @Override
+    public int[] getPointer() {
+        return pointer;
+    }
+
+    @Override
+    public ViewGroup getViewsParent() {
+        return mLayout_main;
+    }
+
+    @Override
+    public View getSurfaceLayerView() {
+        return mLayout_main;
+    }
+
+    @Override
     public void onStop() {
         super.onStop();
         //当Activity停止的时候自动保存键盘配置
-        mManager.autoSaveKeyboard();
+        //mManager.autoSaveKeyboard();
+        mController.onStop();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mController.onResumed();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mController.onPaused();
     }
 
     private static class DragFloatActionButton extends LinearLayout implements ViewGroup.OnTouchListener {
