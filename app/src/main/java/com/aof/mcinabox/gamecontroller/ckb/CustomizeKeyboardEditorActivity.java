@@ -111,7 +111,7 @@ public class CustomizeKeyboardEditorActivity extends AppCompatActivity implement
                 //移除屏幕触摸板
                 this.removeInput(onscreenTouchpad);
                 //卸载自定义键盘
-                this.custmoizeKeyboard.unload();
+                this.removeInput(custmoizeKeyboard);
                 //禁用自定义键盘
                 this.custmoizeKeyboard.setEnable(false);
                 //重写自定义键盘，并创建新的自定义键盘
@@ -125,7 +125,7 @@ public class CustomizeKeyboardEditorActivity extends AppCompatActivity implement
                     }
                 };
                 //加载新的自定义键盘
-                this.custmoizeKeyboard.load(CustomizeKeyboardEditorActivity.this, mController);
+                this.addInput(custmoizeKeyboard);
                 //启用新的自定义键盘
                 this.custmoizeKeyboard.setEnable(true);
                 //重新绑定一级界面的控件与输入器

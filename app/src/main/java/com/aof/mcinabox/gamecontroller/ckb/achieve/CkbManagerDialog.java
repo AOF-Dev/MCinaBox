@@ -83,10 +83,10 @@ public class CkbManagerDialog extends Dialog implements View.OnClickListener, Co
         this.setOnCancelListener(this);
 
         //是否显示模式选项
-        if (mManager.getController() == null) {
-            Log.e(TAG, "null!!!!");
+        /*if (mManager.getController() == null) {
             findViewById(R.id.input_customize_keyboard_dialog_layout_mode).setVisibility(View.GONE);
         }
+         */
 
         //当进入游戏的时候自动设定客制化键盘模式为生效，如果是编辑界面，则不自动设置
         if (mManager.getController() != null) {
