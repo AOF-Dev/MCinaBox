@@ -69,6 +69,7 @@ public class HardwareController extends BaseController implements HwController {
             case KEYBOARD_BUTTON:
             case MOUSE_BUTTON:
                 String KeyName = event.getKeyName();
+                if(KeyName == null) return;
                 String[] strs = KeyName.split(MARK_KEYNAME_SPLIT);
                 for (String str : strs) {
                     sendKeyEvent(new BaseKeyEvent(event.getTag(), str, event.isPressed(), event.getType(), event.getPointer()));
