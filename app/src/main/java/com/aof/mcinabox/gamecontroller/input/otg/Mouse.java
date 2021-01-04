@@ -253,6 +253,11 @@ public class Mouse implements HwInput {
         }
     }
 
+    @Override
+    public Controller getController() {
+        return this.mController;
+    }
+
     private Timer mTimer;
 
     private void createTimer(){

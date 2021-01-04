@@ -357,6 +357,11 @@ public class OnscreenMouse implements OnscreenInput {
 
     }
 
+    @Override
+    public Controller getController() {
+        return this.mController;
+    }
+
     private static class OnscreenMouseConfigDialog extends Dialog implements View.OnClickListener, SeekBar.OnSeekBarChangeListener, Dialog.OnCancelListener, CompoundButton.OnCheckedChangeListener {
 
         private final static String TAG = "OnscreenMouseConfigDialog";

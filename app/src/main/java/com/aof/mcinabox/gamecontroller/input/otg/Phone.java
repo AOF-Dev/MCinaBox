@@ -131,4 +131,9 @@ public class Phone implements HwInput {
     public void onResumed() {
 
     }
+
+    @Override
+    public Controller getController() {
+        return this.mController;
+    }
 }

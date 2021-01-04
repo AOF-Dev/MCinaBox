@@ -104,4 +104,9 @@ public class Keyboard implements HwInput {
     public void onResumed() {
 
     }
+
+    @Override
+    public Controller getController() {
+        return this.mController;
+    }
 }

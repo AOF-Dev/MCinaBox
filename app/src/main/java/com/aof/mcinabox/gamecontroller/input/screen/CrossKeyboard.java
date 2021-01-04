@@ -535,6 +535,11 @@ public class CrossKeyboard implements OnscreenInput, KeyMap {
 
     }
 
+    @Override
+    public Controller getController() {
+        return this.mController;
+    }
+
     private static class CrossKeyboardConfigDialog extends Dialog implements View.OnClickListener, SeekBar.OnSeekBarChangeListener, Dialog.OnCancelListener, CompoundButton.OnCheckedChangeListener {
 
         private final static String TAG = "CrossKeyboardConfigDialog";

@@ -299,6 +299,11 @@ public class InputBox implements OnscreenInput, KeyMap, View.OnClickListener {
 
     }
 
+    @Override
+    public Controller getController() {
+        return this.mController;
+    }
+
     class InputDialog extends Dialog implements View.OnClickListener {
 
         private final Context mContext;

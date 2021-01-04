@@ -22,4 +22,6 @@ public interface Input {
     void onPaused();
 
     void onResumed();
+
+    Controller getController();
 }

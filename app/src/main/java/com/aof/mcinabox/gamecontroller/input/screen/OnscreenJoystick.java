@@ -332,6 +332,11 @@ public class OnscreenJoystick implements OnscreenInput, RockerView.OnShakeListen
 
     }
 
+    @Override
+    public Controller getController() {
+        return this.mController;
+    }
+
     private static class OnscreenJoystickConfigDialog extends Dialog implements View.OnClickListener, Dialog.OnCancelListener, SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener {
 
         private final static String TAG = "OnscreenJoystickConfigDialog";

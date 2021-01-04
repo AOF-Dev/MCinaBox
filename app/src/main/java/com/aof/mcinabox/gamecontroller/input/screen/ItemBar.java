@@ -226,6 +226,11 @@ public class ItemBar implements OnscreenInput {
 
     }
 
+    @Override
+    public Controller getController() {
+        return this.mController;
+    }
+
     private static class ItembarConfigDialog extends Dialog implements View.OnClickListener, Dialog.OnCancelListener, SeekBar.OnSeekBarChangeListener {
 
         private final static String TAG = "ItembarConfigDialog";

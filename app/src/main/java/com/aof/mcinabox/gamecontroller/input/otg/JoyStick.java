@@ -86,4 +86,9 @@ public class JoyStick implements HwInput {
     public void onResumed() {
 
     }
+
+    @Override
+    public Controller getController() {
+        return this.mController;
+    }
 }
