@@ -11,7 +11,7 @@ public class DisplayUtils {
 
     public static float getDpFromPx(Context context, float pxValue){
         final float scale = context.getResources().getDisplayMetrics().density;
-        return (pxValue / scale + 0.5f);
+        return (pxValue / scale);
     }
 
     public static int getPxFromSp(Context context, float spValue){

@@ -515,8 +515,11 @@ public class GameButton extends AppCompatButton implements View.OnTouchListener 
                 if (hasDragged) {
                     int tmpTouchPosX = (int) e.getRawX();
                     int tmpTouchPosY = (int) e.getRawY();
-                    int lastPosX = DisplayUtils.getPxFromDp(mContext, getKeyPos()[0]);
-                    int lastPosY = DisplayUtils.getPxFromDp(mContext, getKeyPos()[1]);
+                    //int lastPosX = DisplayUtils.getPxFromDp(mContext, getKeyPos()[0]);
+                    //int lastPosY = DisplayUtils.getPxFromDp(mContext, getKeyPos()[1]);
+                    //直接读入px的数值，而不是通过DisplayUtils进行转换，也许可以更精确
+                    int lastPosX = (int)this.getX();
+                    int lastPosY = (int)this.getY();
                     int dx = tmpTouchPosX - touchPosX;
                     int dy = tmpTouchPosY - touchPosY;
                     int viewWidth = getLayoutParams().width;
