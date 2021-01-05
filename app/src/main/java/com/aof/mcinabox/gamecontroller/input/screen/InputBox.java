@@ -73,12 +73,12 @@ public class InputBox implements OnscreenInput, KeyMap, View.OnClickListener {
     }
 
     @Override
-    public boolean isEnable() {
+    public boolean isEnabled() {
         return this.enable;
     }
 
     @Override
-    public void setEnable(boolean e) {
+    public void setEnabled(boolean e) {
         this.enable = e;
         updateUI();
     }

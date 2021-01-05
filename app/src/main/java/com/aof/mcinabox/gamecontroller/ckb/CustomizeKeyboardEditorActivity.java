@@ -31,7 +31,6 @@ import com.aof.mcinabox.gamecontroller.controller.Controller;
 import com.aof.mcinabox.gamecontroller.controller.VirtualController;
 import com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent;
 import com.aof.mcinabox.gamecontroller.input.screen.CustomizeKeyboard;
-import com.aof.mcinabox.utils.DisplayUtils;
 import com.aof.mcinabox.utils.PicUtils;
 
 public class CustomizeKeyboardEditorActivity extends AppCompatActivity implements View.OnClickListener, DrawerLayout.DrawerListener, CallCustomizeKeyboard, Client {
@@ -113,7 +112,7 @@ public class CustomizeKeyboardEditorActivity extends AppCompatActivity implement
                 //卸载自定义键盘
                 this.removeInput(custmoizeKeyboard);
                 //禁用自定义键盘
-                this.custmoizeKeyboard.setEnable(false);
+                this.custmoizeKeyboard.setEnabled(false);
                 //重写自定义键盘，并创建新的自定义键盘
                 this.custmoizeKeyboard = new CustomizeKeyboard(){
                     @Override
@@ -127,7 +126,7 @@ public class CustomizeKeyboardEditorActivity extends AppCompatActivity implement
                 //加载新的自定义键盘
                 this.addInput(custmoizeKeyboard);
                 //启用新的自定义键盘
-                this.custmoizeKeyboard.setEnable(true);
+                this.custmoizeKeyboard.setEnabled(true);
                 //重新绑定一级界面的控件与输入器
                 bindViewWithInput();
             }

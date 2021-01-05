@@ -38,13 +38,13 @@ public class CustomizeKeyboard implements OnscreenInput, Controller, CallCustomi
     }
 
     @Override
-    public boolean isEnable() {
+    public boolean isEnabled() {
         return false;
     }
 
     @Override
-    public void setEnable(boolean enable) {
-        if (enable) {
+    public void setEnabled(boolean enabled) {
+        if (enabled) {
             mManager.showOrHideGameButtons(CkbManager.SHOW_BUTTON);
         } else {
             mManager.showOrHideGameButtons(CkbManager.HIDE_BUTTON);

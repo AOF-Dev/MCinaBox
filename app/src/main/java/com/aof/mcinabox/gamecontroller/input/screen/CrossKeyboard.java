@@ -486,13 +486,13 @@ public class CrossKeyboard implements OnscreenInput, KeyMap {
     }
 
     @Override
-    public void setEnable(boolean enable) {
-        this.enable = enable;
+    public void setEnabled(boolean enabled) {
+        this.enable = enabled;
         updateUI();
     }
 
     @Override
-    public boolean isEnable() {
+    public boolean isEnabled() {
         return this.enable;
     }
 
@@ -806,7 +806,7 @@ public class CrossKeyboard implements OnscreenInput, KeyMap {
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
             if (buttonView == switchBounce) {
-                if (isChecked && mInput.isEnable()) {
+                if (isChecked && mInput.isEnabled()) {
                     ((CrossKeyboard) mInput).setKeyboardExtendVisiability(View.VISIBLE);
                 } else {
                     ((CrossKeyboard) mInput).setKeyboardExtendVisiability(View.INVISIBLE);

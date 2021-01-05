@@ -41,8 +41,6 @@ import com.aof.mcinabox.utils.dialog.support.DialogSupports;
 import java.util.HashMap;
 import java.util.Objects;
 
-import cosine.boat.BoatActivity;
-
 import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.KEYBOARD_BUTTON;
 import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.MARK_KEYNAME_SPLIT;
 import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.MOUSE_BUTTON;
@@ -148,7 +146,7 @@ public class VirtualController extends BaseController implements View.OnClickLis
 
         //全部隐藏
         for (Input i : inputs) {
-            i.setEnable(false);
+            i.setEnabled(false);
         }
 
         //添加悬浮配置按钮
@@ -323,7 +321,7 @@ public class VirtualController extends BaseController implements View.OnClickLis
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
         if (buttonView instanceof SwitchCompat && bindingViews.containsKey(buttonView)) {
-            (Objects.requireNonNull(bindingViews.get(buttonView))).setEnable(isChecked);
+            (Objects.requireNonNull(bindingViews.get(buttonView))).setEnabled(isChecked);
         }
         if (buttonView == checkboxLock) {
             if (isChecked) {

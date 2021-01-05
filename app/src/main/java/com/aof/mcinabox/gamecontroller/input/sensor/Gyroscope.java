@@ -44,7 +44,7 @@ public class Gyroscope implements Input, SensorEventListener {
     }
 
     @Override
-    public boolean isEnable() {
+    public boolean isEnabled() {
         return false;
     }
 
@@ -59,7 +59,7 @@ public class Gyroscope implements Input, SensorEventListener {
     }
 
     @Override
-    public void setEnable(boolean enable) {
+    public void setEnabled(boolean enabled) {
         //TODO:设置启用或禁用
     }
 

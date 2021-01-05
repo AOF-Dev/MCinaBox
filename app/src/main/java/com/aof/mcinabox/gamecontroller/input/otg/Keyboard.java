@@ -24,7 +24,7 @@ public class Keyboard implements HwInput {
     private final static int type = KEYBOARD_BUTTON;
 
     @Override
-    public boolean isEnable() {
+    public boolean isEnabled() {
         return this.enable;
     }
 
@@ -59,8 +59,8 @@ public class Keyboard implements HwInput {
     }
 
     @Override
-    public void setEnable(boolean enable) {
-        this.enable = enable;
+    public void setEnabled(boolean enabled) {
+        this.enable = enabled;
     }
 
     private void sendKeyEvent(String keyName, boolean pressed) {

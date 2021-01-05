@@ -2,7 +2,6 @@ package com.aof.mcinabox.gamecontroller.input.otg;
 
 import android.content.Context;
 import android.os.Build;
-import android.os.Handler;
 import android.util.Log;
 import android.view.InputDevice;
 import android.view.KeyEvent;
@@ -11,12 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import androidx.annotation.RequiresApi;
-
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.gamecontroller.codes.Translation;
 import com.aof.mcinabox.gamecontroller.controller.Controller;
-import com.aof.mcinabox.gamecontroller.definitions.map.KeyMap;
 import com.aof.mcinabox.gamecontroller.definitions.map.MouseMap;
 import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
 import com.aof.mcinabox.gamecontroller.input.HwInput;
@@ -26,7 +22,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.ANDROID_TO_KEYMAP;
-import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.KEYBOARD_BUTTON;
 import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.MOUSE_BUTTON;
 import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.MOUSE_POINTER;
 
@@ -104,8 +99,8 @@ public class Mouse implements HwInput {
     }
 
     @Override
-    public void setEnable(boolean enable) {
-        this.enable = enable;
+    public void setEnabled(boolean enabled) {
+        this.enable = enabled;
         if(grabbed)
             cursor.setVisibility(View.INVISIBLE);
         else
@@ -113,7 +108,7 @@ public class Mouse implements HwInput {
     }
 
     @Override
-    public boolean isEnable() {
+    public boolean isEnabled() {
         return this.enable;
     }
 

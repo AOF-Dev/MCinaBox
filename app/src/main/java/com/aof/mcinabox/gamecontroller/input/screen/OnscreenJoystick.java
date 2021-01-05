@@ -82,7 +82,7 @@ public class OnscreenJoystick implements OnscreenInput, RockerView.OnShakeListen
     }
 
     @Override
-    public boolean isEnable() {
+    public boolean isEnabled() {
         return this.enable;
     }
 
@@ -262,8 +262,8 @@ public class OnscreenJoystick implements OnscreenInput, RockerView.OnShakeListen
     }
 
     @Override
-    public void setEnable(boolean enable) {
-        this.enable = enable;
+    public void setEnabled(boolean enabled) {
+        this.enable = enabled;
         updateUI();
     }
 
