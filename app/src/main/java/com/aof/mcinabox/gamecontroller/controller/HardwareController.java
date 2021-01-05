@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.InputDevice;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
-import android.view.View;
 
 import com.aof.mcinabox.gamecontroller.client.Client;
 import com.aof.mcinabox.gamecontroller.codes.AndroidKeyMap;
@@ -14,14 +13,12 @@ import com.aof.mcinabox.gamecontroller.codes.Translation;
 import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
 import com.aof.mcinabox.gamecontroller.input.HwInput;
 import com.aof.mcinabox.gamecontroller.input.Input;
-import com.aof.mcinabox.gamecontroller.input.otg.JoyStick;
+import com.aof.mcinabox.gamecontroller.input.otg.GamePad;
 import com.aof.mcinabox.gamecontroller.input.otg.Keyboard;
 import com.aof.mcinabox.gamecontroller.input.otg.Mouse;
 import com.aof.mcinabox.gamecontroller.input.otg.Phone;
 
 import java.util.ArrayList;
-
-import cosine.boat.BoatActivity;
 
 import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.KEYBOARD_BUTTON;
 import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.MARK_KEYNAME_SPLIT;
@@ -33,10 +30,10 @@ public class HardwareController extends BaseController implements HwController {
 
     private final static String TAG = "HardwareController";
     private final AndroidKeyMap androidKeyMap = new AndroidKeyMap();
-    private final HwInput keyboard;
-    private final HwInput phone;
-    private final HwInput mouse;
-    private final HwInput joystick;
+    public HwInput keyboard;
+    public HwInput phone;
+    public HwInput mouse;
+    public HwInput gamepad;
     private final Translation mTranslation;
 
     public HardwareController(Client client, int transType) {
@@ -50,13 +47,13 @@ public class HardwareController extends BaseController implements HwController {
         keyboard = new Keyboard();
         phone = new Phone();
         mouse = new Mouse();
-        joystick = new JoyStick();
+        gamepad = new GamePad();
 
         //添加Input
-        for (Input i : new Input[]{keyboard, phone, mouse, joystick}) {
+        for (Input i : new Input[]{keyboard, phone, mouse, gamepad}) {
             addInput(i);
             //直接启用
-            i.setEnable(true);
+            i.setEnabled(true);
         }
 
 
@@ -110,15 +107,21 @@ public class HardwareController extends BaseController implements HwController {
     @Override
     public void dispatchKeyEvent(KeyEvent event) {
         if (event == null) return;
-        if ((event.getDevice().getSources() & InputDevice.SOURCE_MOUSE) == InputDevice.SOURCE_MOUSE) {
+        if ((event.getDevice().getSources() & InputDevice.SOURCE_MOUSE) == InputDevice.SOURCE_MOUSE && (event.getDevice().getSources() & (InputDevice.SOURCE_KEYBOARD | InputDevice.SOURCE_JOYSTICK)) == 0) {
             for (HwInput hwi : new HwInput[]{mouse}) {
-                if (hwi.isEnable() && hwi.onKey(event)) {
+                if (hwi.isEnabled() && hwi.onKey(event)) {
                     return;
                 }
             }
-        } else if ((event.getDevice().getSources() & InputDevice.SOURCE_KEYBOARD) == InputDevice.SOURCE_KEYBOARD) {
+        } else if ((event.getDevice().getSources() & InputDevice.SOURCE_KEYBOARD) != 0 && (event.getDevice().getKeyboardType() == InputDevice.KEYBOARD_TYPE_ALPHABETIC)) {
             for (HwInput hwi : new HwInput[]{phone, keyboard}) {
-                if (hwi.isEnable() && hwi.onKey(event)) {
+                if (hwi.isEnabled() && hwi.onKey(event)) {
+                    return;
+                }
+            }
+        } else if (((event.getDevice().getSources() & InputDevice.SOURCE_GAMEPAD) == InputDevice.SOURCE_GAMEPAD) && ((event.getDevice().getSources() & InputDevice.SOURCE_JOYSTICK) == InputDevice.SOURCE_JOYSTICK)) {
+            for (HwInput hwi : new HwInput[]{gamepad}) {
+                if (hwi.isEnabled() && hwi.onKey(event)) {
                     return;
                 }
             }
@@ -127,15 +130,15 @@ public class HardwareController extends BaseController implements HwController {
 
     @Override
     public void dispatchMotionKeyEvent(MotionEvent event) {
-        if ((event.getDevice().getSources() & InputDevice.SOURCE_MOUSE) == InputDevice.SOURCE_MOUSE) {
+        if ((event.getDevice().getSources() & InputDevice.SOURCE_MOUSE) == InputDevice.SOURCE_MOUSE && (event.getDevice().getSources() & (InputDevice.SOURCE_KEYBOARD | InputDevice.SOURCE_JOYSTICK)) == 0) {
             for (HwInput hwi : new HwInput[]{mouse}) {
-                if (hwi.isEnable() && hwi.onMotionKey(event)) {
+                if (hwi.isEnabled() && hwi.onMotionKey(event)) {
                     return;
                 }
             }
-        } else if ((event.getDevice().getSources() & InputDevice.SOURCE_JOYSTICK) == InputDevice.SOURCE_JOYSTICK) {
-            for (HwInput hwi : new HwInput[]{joystick}) {
-                if (hwi.isEnable() && hwi.onMotionKey(event)) {
+        } else if (((event.getDevice().getSources() & InputDevice.SOURCE_GAMEPAD) == InputDevice.SOURCE_GAMEPAD) && ((event.getDevice().getSources() & InputDevice.SOURCE_JOYSTICK) == InputDevice.SOURCE_JOYSTICK)) {
+            for (HwInput hwi : new HwInput[]{gamepad}) {
+                if (hwi.isEnabled() && hwi.onMotionKey(event)) {
                     return;
                 }
             }
