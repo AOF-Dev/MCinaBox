@@ -45,6 +45,7 @@ import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.KEYBOA
 import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.MARK_KEYNAME_SPLIT;
 import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.MOUSE_BUTTON;
 import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.MOUSE_POINTER;
+import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.MOUSE_POINTER_INC;
 import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.TYPE_WORDS;
 
 
@@ -242,7 +243,7 @@ public class VirtualController extends BaseController implements View.OnClickLis
                 }
                 break;
             case MOUSE_POINTER:
-                sendKeyEvent(e);
+            case MOUSE_POINTER_INC:
             case TYPE_WORDS:
                 sendKeyEvent(e);
                 break;
@@ -267,8 +268,11 @@ public class VirtualController extends BaseController implements View.OnClickLis
             case TYPE_WORDS:
                 info = "Type: " + event.getType() + " Char: " + event.getChars();
                 break;
+            case MOUSE_POINTER_INC:
+                info = "Type: " + event.getType() + " IncX: " + event.getPointer()[0] + " IncY: " + event.getPointer()[1];
+                break;
             default:
-                info = "Unknown Type: ";
+                info = "Unknown: " + event.toString();
         }
         Log.e(event.getTag(), info);
     }
@@ -289,6 +293,11 @@ public class VirtualController extends BaseController implements View.OnClickLis
                 break;
             case TYPE_WORDS:
                 typeWords(e.getChars());
+                break;
+            case MOUSE_POINTER_INC:
+                if (e.getPointer() != null) {
+                    client.setPointerInc(e.getPointer()[0], e.getPointer()[1]);
+                }
             default:
         }
     }

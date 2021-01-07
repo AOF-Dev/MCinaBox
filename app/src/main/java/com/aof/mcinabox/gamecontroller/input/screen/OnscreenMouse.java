@@ -320,7 +320,7 @@ public class OnscreenMouse implements OnscreenInput {
 
     private void updateUI() {
         if (enable) {
-            if (mController.getGrabbed()) {
+            if (mController.isGrabbed()) {
                 if (show == SHOW_ALL || show == SHOW_IN_GAME) {
                     this.setUiVisibility(View.VISIBLE);
                 } else {

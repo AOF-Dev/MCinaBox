@@ -1,5 +1,7 @@
 package com.aof.mcinabox.gamecontroller.event;
 
+import org.jetbrains.annotations.NotNull;
+
 public class BaseKeyEvent {
     private final String tag;
     private final String keyName;
@@ -43,5 +45,11 @@ public class BaseKeyEvent {
     public BaseKeyEvent setChars(String str) {
         this.chars = str;
         return this;
+    }
+
+    @NotNull
+    @Override
+    public String toString(){
+        return String.format("BaseKeyEvent { tag = \"%s\", keyName = \"%s\", pressed = %s, type = %s, pointer = %s }", this.tag, this.keyName, this.pressed, this.type, "[0]: " + this.mPointer[0] + "[1]: " + this.mPointer[1]);
     }
 }

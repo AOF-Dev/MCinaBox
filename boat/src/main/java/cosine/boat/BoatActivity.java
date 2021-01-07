@@ -134,7 +134,7 @@ public class BoatActivity extends AppCompatActivity implements View.OnSystemUiVi
 
     private native void nSurfaceDestroyed(Surface surface);
 
-    void setGrabCursor(boolean isGrabbed) {
+    public void setGrabCursor(boolean isGrabbed) {
         runOnUiThread(() -> boatInterface.setGrabCursor(isGrabbed));
     }
 

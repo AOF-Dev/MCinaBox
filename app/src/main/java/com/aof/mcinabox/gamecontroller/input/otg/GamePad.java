@@ -11,6 +11,10 @@ import com.aof.mcinabox.gamecontroller.definitions.map.MouseMap;
 import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
 import com.aof.mcinabox.gamecontroller.input.HwInput;
 
+import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.MOUSE_POINTER_INC;
+import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.KEYBOARD_BUTTON;
+import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.MOUSE_BUTTON;
+
 public class GamePad implements HwInput {
 
     private final static String TAG = "GamePad";
@@ -21,17 +25,15 @@ public class GamePad implements HwInput {
     private Controller mController;
     private Context mContext;
     private boolean isEnabled;
-    private boolean isGrabbed;
 
-    private final static int type_1 = com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.KEYBOARD_BUTTON;
-    private final static int type_2 = com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.MOUSE_BUTTON;
+    private final static int type_1 = KEYBOARD_BUTTON;
+    private final static int type_2 = MOUSE_BUTTON;
+    private final static int type_3 = MOUSE_POINTER_INC;
 
     private boolean G_B_PRESS;
     @Override
     public boolean onKey(KeyEvent event) {
-        Log.e(TAG, event.toString());
-        Log.e(TAG, event.getDevice().toString());
-        if (isGrabbed){
+        if (mController.isGrabbed()){
             switch(event.getKeyCode()){
                 case KeyEvent.KEYCODE_BUTTON_A:
                     //跳跃
@@ -54,7 +56,8 @@ public class GamePad implements HwInput {
                     sendEvent(KeyMap.KEYMAP_KEY_E, event, type_1);
                     break;
                 case KeyEvent.KEYCODE_BUTTON_Y:
-                    //
+                    //丢弃
+                    sendEvent(KeyMap.KEYMAP_KEY_Q, event, type_1);
                     break;
                 case KeyEvent.KEYCODE_BUTTON_L1:
                     //滚轮上
@@ -73,14 +76,20 @@ public class GamePad implements HwInput {
 
             switch(event.getKeyCode()){
                 case KeyEvent.KEYCODE_BUTTON_A:
+                    //跳跃
+                    sendEvent(KeyMap.KEYMAP_KEY_SPACE, event, type_1);
                     break;
                 case KeyEvent.KEYCODE_BUTTON_B:
+                    //潜行
+                    sendEvent(KeyMap.KEYMAP_KEY_LSHIFT, event, type_1);
                     break;
                 case KeyEvent.KEYCODE_BUTTON_X:
                     //背包
                     sendEvent(KeyMap.KEYMAP_KEY_E, event, type_1);
                     break;
                 case KeyEvent.KEYCODE_BUTTON_Y:
+                    //丢弃
+                    sendEvent(KeyMap.KEYMAP_KEY_Q, event, type_1);
                     break;
                 case KeyEvent.KEYCODE_BUTTON_L1:
                     //滚轮上
@@ -141,11 +150,11 @@ public class GamePad implements HwInput {
     private final static float G_HAT_THR_NEGATIVE = -1f;
     private final static String G_HAT_X_POSITIVE_KEY = KeyMap.KEYMAP_KEY_F3;
     private final static String G_HAT_X_NEGATIVE_KEY = KeyMap.KEYMAP_KEY_F2;
-    private final static String G_HAT_Y_POSITIVE_KEY = KeyMap.KEYMAP_KEY_Q;
+    private final static String G_HAT_Y_POSITIVE_KEY = KeyMap.KEYMAP_KEY_ESC;
     private final static String G_HAT_Y_NEGATIVE_KEY = KeyMap.KEYMAP_KEY_F5;
 
-    private final static float G_R_B_THR_POSITIVE = 0.1f;
-    private final static float G_R_B_THR_NEGATIVE = -0.1f;
+    private final static float G_R_B_THR_POSITIVE = 0.02f;
+    private final static float G_R_B_THR_NEGATIVE = -0.02f;
     private final static float G_R_B_NUM_TIMES = 10f;
     private GamePadThread mGamePadThread;
 
@@ -158,7 +167,7 @@ public class GamePad implements HwInput {
         //应该顺序处理每一个轴的数据
         //由于响应时间的要求，我们先处理耗时短的轴的数据
 
-        if (isGrabbed){
+        if (mController.isGrabbed()){
 
             //LT: AXIS_LTRIGGER
             //RT: AXIS_RTRIGGER
@@ -304,15 +313,15 @@ public class GamePad implements HwInput {
             if (mGamePadThread != null){
                 int xInc = 0, yInc = 0;
                 if(event.getAxisValue(MotionEvent.AXIS_Z) >= G_R_B_THR_POSITIVE){
-                    xInc = (int)(event.getAxisValue(MotionEvent.AXIS_Z) * G_R_B_NUM_TIMES);
+                    xInc = (int)((event.getAxisValue(MotionEvent.AXIS_Z) - G_R_B_THR_POSITIVE) * G_R_B_NUM_TIMES);
                 } else if (event.getAxisValue(MotionEvent.AXIS_Z) <= G_R_B_THR_NEGATIVE){
-                    xInc = (int)(event.getAxisValue(MotionEvent.AXIS_Z) * G_R_B_NUM_TIMES);
+                    xInc = (int)((event.getAxisValue(MotionEvent.AXIS_Z) - G_R_B_THR_NEGATIVE) * G_R_B_NUM_TIMES);
                 }
 
                 if(event.getAxisValue(MotionEvent.AXIS_RZ) >= G_R_B_THR_POSITIVE){
-                    yInc = (int)(event.getAxisValue(MotionEvent.AXIS_RZ) * G_R_B_NUM_TIMES);
+                    yInc = (int)((event.getAxisValue(MotionEvent.AXIS_RZ) - G_R_B_THR_POSITIVE)* G_R_B_NUM_TIMES);
                 } else if (event.getAxisValue(MotionEvent.AXIS_RZ) <= G_R_B_THR_NEGATIVE){
-                    yInc = (int)(event.getAxisValue(MotionEvent.AXIS_RZ) * G_R_B_NUM_TIMES);
+                    yInc = (int)((event.getAxisValue(MotionEvent.AXIS_RZ) - G_R_B_THR_NEGATIVE) * G_R_B_NUM_TIMES);
                 }
 
                 if( event.getAxisValue(MotionEvent.AXIS_Z) > G_R_B_THR_NEGATIVE && event.getAxisValue(MotionEvent.AXIS_Z) < G_R_B_THR_POSITIVE && event.getAxisValue(MotionEvent.AXIS_RZ) > G_R_B_THR_NEGATIVE && event.getAxisValue(MotionEvent.AXIS_RZ) < G_R_B_THR_POSITIVE)
@@ -324,6 +333,108 @@ public class GamePad implements HwInput {
             }
 
         } else {
+
+            //LT: AXIS_LTRIGGER
+            //RT: AXIS_RTRIGGER
+            if (event.getAxisValue(MotionEvent.AXIS_LTRIGGER) >= G_LT_THR_VALUE && !G_LT_PRESS){
+                G_LT_PRESS = true;
+                sendEvent(MouseMap.MOUSEMAP_BUTTON_RIGHT, true, type_2);
+            } else if (event.getAxisValue(MotionEvent.AXIS_LTRIGGER) < G_LT_THR_VALUE && G_LT_PRESS){
+                G_LT_PRESS = false;
+                sendEvent(MouseMap.MOUSEMAP_BUTTON_RIGHT, false, type_2);
+            }
+
+            if (event.getAxisValue(MotionEvent.AXIS_RTRIGGER) >= G_RT_THR_VALUE && !G_RT_PRESS){
+                G_RT_PRESS = true;
+                sendEvent(MouseMap.MOUSEMAP_BUTTON_LEFT, true, type_2);
+            } else if (event.getAxisValue(MotionEvent.AXIS_RTRIGGER) < G_RT_THR_VALUE && G_RT_PRESS){
+                G_RT_PRESS = false;
+                sendEvent(MouseMap.MOUSEMAP_BUTTON_LEFT, false, type_2);
+            }
+
+            //苦力帽X: AXIS_HAT_X
+            //苦力帽Y: AXIS_HAT_Y
+            if (event.getAxisValue(MotionEvent.AXIS_HAT_X) >= G_HAT_THR_POSITIVE){
+                if (!G_HAT_X_POSITIVE_PRESS){
+                    G_HAT_X_POSITIVE_PRESS = true;
+                    sendEvent(G_HAT_X_POSITIVE_KEY, true, type_1);
+                }
+                if (G_HAT_X_NEGATIVE_PRESS){
+                    G_HAT_X_NEGATIVE_PRESS = false;
+                    sendEvent(G_HAT_X_NEGATIVE_KEY, false, type_1);
+                }
+            } else if (event.getAxisValue(MotionEvent.AXIS_HAT_X) <= G_HAT_THR_NEGATIVE){
+                if(!G_HAT_X_NEGATIVE_PRESS){
+                    G_HAT_X_NEGATIVE_PRESS = true;
+                    sendEvent(G_HAT_X_NEGATIVE_KEY, true, type_1);
+                }
+                if(G_HAT_X_POSITIVE_PRESS){
+                    G_HAT_X_POSITIVE_PRESS = false;
+                    sendEvent(G_HAT_X_POSITIVE_KEY, false, type_1);
+                }
+            } else {
+                if(G_HAT_X_POSITIVE_PRESS){
+                    G_HAT_X_POSITIVE_PRESS = false;
+                    sendEvent(G_HAT_X_POSITIVE_KEY, false, type_1);
+                }
+                if(G_HAT_X_NEGATIVE_PRESS){
+                    G_HAT_X_NEGATIVE_PRESS = false;
+                    sendEvent(G_HAT_X_NEGATIVE_KEY, false, type_1);
+                }
+            }
+
+            if (event.getAxisValue(MotionEvent.AXIS_HAT_Y) >= G_HAT_THR_POSITIVE){
+                if (!G_HAT_Y_POSITIVE_PRESS){
+                    G_HAT_Y_POSITIVE_PRESS = true;
+                    sendEvent(G_HAT_Y_POSITIVE_KEY, true, type_1);
+                }
+                if (G_HAT_Y_NEGATIVE_PRESS){
+                    G_HAT_Y_NEGATIVE_PRESS = false;
+                    sendEvent(G_HAT_Y_NEGATIVE_KEY, false, type_1);
+                }
+            } else if (event.getAxisValue(MotionEvent.AXIS_HAT_Y) <= G_HAT_THR_NEGATIVE){
+                if(!G_HAT_Y_NEGATIVE_PRESS){
+                    G_HAT_Y_NEGATIVE_PRESS = true;
+                    sendEvent(G_HAT_Y_NEGATIVE_KEY, true, type_1);
+                }
+                if(G_HAT_Y_POSITIVE_PRESS){
+                    G_HAT_Y_POSITIVE_PRESS = false;
+                    sendEvent(G_HAT_Y_POSITIVE_KEY, false, type_1);
+                }
+            } else {
+                if(G_HAT_Y_POSITIVE_PRESS){
+                    G_HAT_Y_POSITIVE_PRESS = false;
+                    sendEvent(G_HAT_Y_POSITIVE_KEY, false, type_1);
+                }
+                if(G_HAT_Y_NEGATIVE_PRESS){
+                    G_HAT_Y_NEGATIVE_PRESS = false;
+                    sendEvent(G_HAT_Y_NEGATIVE_KEY, false, type_1);
+                }
+            }
+
+            //右摇杆Z:  AXIS_Z
+            //右摇杆RZ: AXIS_RZ
+            if (mGamePadThread != null){
+                int xInc = 0, yInc = 0;
+                if(event.getAxisValue(MotionEvent.AXIS_Z) >= G_R_B_THR_POSITIVE){
+                    xInc = (int)((event.getAxisValue(MotionEvent.AXIS_Z) - G_R_B_THR_POSITIVE) * G_R_B_NUM_TIMES);
+                } else if (event.getAxisValue(MotionEvent.AXIS_Z) <= G_R_B_THR_NEGATIVE){
+                    xInc = (int)((event.getAxisValue(MotionEvent.AXIS_Z) - G_R_B_THR_NEGATIVE) * G_R_B_NUM_TIMES);
+                }
+
+                if(event.getAxisValue(MotionEvent.AXIS_RZ) >= G_R_B_THR_POSITIVE){
+                    yInc = (int)((event.getAxisValue(MotionEvent.AXIS_RZ) - G_R_B_THR_POSITIVE)* G_R_B_NUM_TIMES);
+                } else if (event.getAxisValue(MotionEvent.AXIS_RZ) <= G_R_B_THR_NEGATIVE){
+                    yInc = (int)((event.getAxisValue(MotionEvent.AXIS_RZ) - G_R_B_THR_NEGATIVE) * G_R_B_NUM_TIMES);
+                }
+
+                if( event.getAxisValue(MotionEvent.AXIS_Z) > G_R_B_THR_NEGATIVE && event.getAxisValue(MotionEvent.AXIS_Z) < G_R_B_THR_POSITIVE && event.getAxisValue(MotionEvent.AXIS_RZ) > G_R_B_THR_NEGATIVE && event.getAxisValue(MotionEvent.AXIS_RZ) < G_R_B_THR_POSITIVE)
+                    mGamePadThread.setPaused(true);
+                else{
+                    mGamePadThread.getRunnable().setIncs(xInc, yInc);
+                    mGamePadThread.setPaused(false);
+                }
+            }
 
         }
 
@@ -356,7 +467,6 @@ public class GamePad implements HwInput {
 
     @Override
     public void setGrabCursor(boolean isGrabbed) {
-        this.isGrabbed = isGrabbed;
     }
 
     @Override
@@ -422,14 +532,15 @@ public class GamePad implements HwInput {
                         return;
                     }
                     if(System.currentTimeMillis() - this.lastPointerTime >= POINTER_SEND_LAG){
-                        Log.e(TAG, "Thread: do." + " xInc: " + xInc + " yInc: " + yInc);
+                        //Log.e(TAG, "Thread: do." + " xInc: " + xInc + " yInc: " + yInc);
                         this.lastPointerTime = System.currentTimeMillis();
-                        GamePad.this.getController().getClient().setPointer(GamePad.this.getController().getClient().getPointer()[0] + this.xInc, GamePad.this.getController().getClient().getPointer()[1] + this.yInc);
+                        mController.sendKey(new BaseKeyEvent(TAG, null, false, type_3, new int[]{xInc, yInc}));
+                        GamePad.this.getController().getClient().setPointerInc(this.xInc, this.yInc);
                     }
                 }
             }
             public void setIncs(int xInc, int yInc){
-                Log.e(TAG, "Thread: setIncs." + " xInc: " + xInc + " yInc: " + yInc);
+                //Log.e(TAG, "Thread: setIncs." + " xInc: " + xInc + " yInc: " + yInc);
                 this.xInc = xInc;
                 this.yInc = yInc;
                 this.lastPointerTime = System.currentTimeMillis();
@@ -444,7 +555,7 @@ public class GamePad implements HwInput {
         }
 
         public void setPaused(boolean b){
-            Log.e(TAG, "Thread: setPaused." + isPaused);
+            //Log.e(TAG, "Thread: setPaused." + isPaused);
             this.isPaused = b;
         }
 

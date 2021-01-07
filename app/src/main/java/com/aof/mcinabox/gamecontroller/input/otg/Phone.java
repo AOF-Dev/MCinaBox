@@ -66,20 +66,7 @@ public class Phone implements HwInput {
     @Override
     public boolean onKey(KeyEvent event) {
         switch (event.getKeyCode()) {
-            case KeyEvent.KEYCODE_VOLUME_UP:
-                if (event.getAction() == KeyEvent.ACTION_UP) {
-                    adjustAudio(AudioManager.ADJUST_RAISE);
-                }
-                return true;
-            case KeyEvent.KEYCODE_VOLUME_DOWN:
-                if (event.getAction() == KeyEvent.ACTION_UP) {
-                    adjustAudio(AudioManager.ADJUST_LOWER);
-                }
-                return true;
             case KeyEvent.KEYCODE_BACK:
-                if (!event.getDevice().isVirtual()) {
-                    return false;
-                }
                 sendKeyEvent(KeyMap.KEYMAP_KEY_ESC, event);
                 return true;
             default:

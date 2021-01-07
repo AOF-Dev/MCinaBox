@@ -37,7 +37,6 @@ public class ItemBar implements OnscreenInput {
     private int screenWidth;
     private int screenHeight;
     private final ItemButton[] itemButtons = new ItemButton[9];
-    private boolean isGrabbed = false;
     private boolean enable;
     private ItembarConfigDialog configDialog;
 
@@ -108,7 +107,7 @@ public class ItemBar implements OnscreenInput {
         switch (visiablity) {
             case View.VISIBLE:
                 enable = true;
-                if (this.isGrabbed) {
+                if (mController.isGrabbed()) {
                     itemBar.setVisibility(visiablity);
                 }
                 break;
@@ -149,7 +148,6 @@ public class ItemBar implements OnscreenInput {
         } else {
             itemBar.setVisibility(View.INVISIBLE);
         }
-        this.isGrabbed = isGrabbed;
     }
 
     @Override

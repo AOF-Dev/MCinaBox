@@ -102,8 +102,8 @@ public class CustomizeKeyboard implements OnscreenInput, Controller, CallCustomi
     }
 
     @Override
-    public boolean getGrabbed() {
-        return mController.getGrabbed();
+    public boolean isGrabbed() {
+        return mController.isGrabbed();
     }
 
     @Override
@@ -112,8 +112,13 @@ public class CustomizeKeyboard implements OnscreenInput, Controller, CallCustomi
     }
 
     @Override
-    public int[] getPointer() {
-        return mController.getPointer();
+    public int[] getGrabbedPointer() {
+        return mController.getGrabbedPointer();
+    }
+
+    @Override
+    public int[] getLossenPointer() {
+        return mController.getLossenPointer();
     }
 
     @Override

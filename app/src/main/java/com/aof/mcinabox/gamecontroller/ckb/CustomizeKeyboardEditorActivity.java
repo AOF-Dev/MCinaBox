@@ -201,6 +201,11 @@ public class CustomizeKeyboardEditorActivity extends AppCompatActivity implement
     }
 
     @Override
+    public void setPointerInc(int xInc, int yInc) {
+        //stub
+    }
+
+    @Override
     public Activity getActivity() {
         return this;
     }
@@ -225,8 +230,13 @@ public class CustomizeKeyboardEditorActivity extends AppCompatActivity implement
     }
 
     @Override
-    public int[] getPointer() {
+    public int[] getGrabbedPointer() {
         return pointer;
+    }
+
+    @Override
+    public int[] getLoosenPointer() {
+        return mController.getLossenPointer();
     }
 
     @Override
@@ -237,6 +247,11 @@ public class CustomizeKeyboardEditorActivity extends AppCompatActivity implement
     @Override
     public View getSurfaceLayerView() {
         return mLayout_main;
+    }
+
+    @Override
+    public boolean isGrabbed() {
+        return mController.isGrabbed();
     }
 
     @Override

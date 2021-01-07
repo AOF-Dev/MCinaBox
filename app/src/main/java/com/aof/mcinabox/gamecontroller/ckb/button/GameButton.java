@@ -137,7 +137,7 @@ public class GameButton extends AppCompatButton implements View.OnTouchListener 
 
     private void initAttribute() {
         if (mController != null) {
-            this.isGrabbed = mController.getGrabbed();
+            this.isGrabbed = mController.isGrabbed();
         }
         mRecorder = new CkbThemeRecorder();
         this.setKeyName("");
@@ -431,7 +431,7 @@ public class GameButton extends AppCompatButton implements View.OnTouchListener 
             case MotionEvent.ACTION_DOWN:
                 initialX = (int) e.getX();
                 initialY = (int) e.getY();
-                int[] pointer = mController.getPointer();
+                int[] pointer = mController.getGrabbedPointer();
                 baseX = pointer[0];
                 baseY = pointer[1];
                 break;

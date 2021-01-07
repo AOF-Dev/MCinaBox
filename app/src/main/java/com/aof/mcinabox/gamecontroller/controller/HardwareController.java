@@ -24,6 +24,7 @@ import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.KEYBOA
 import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.MARK_KEYNAME_SPLIT;
 import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.MOUSE_BUTTON;
 import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.MOUSE_POINTER;
+import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.MOUSE_POINTER_INC;
 import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.TYPE_WORDS;
 
 public class HardwareController extends BaseController implements HwController {
@@ -73,7 +74,7 @@ public class HardwareController extends BaseController implements HwController {
                 }
                 break;
             case MOUSE_POINTER:
-                sendKeyEvent(event);
+            case MOUSE_POINTER_INC:
             case TYPE_WORDS:
                 sendKeyEvent(event);
                 break;
@@ -98,6 +99,12 @@ public class HardwareController extends BaseController implements HwController {
                 break;
             case TYPE_WORDS:
                 typeWords(e.getChars());
+                break;
+            case MOUSE_POINTER_INC:
+                if (e.getPointer() != null) {
+                    client.setPointerInc(e.getPointer()[0], e.getPointer()[1]);
+                }
+                break;
             default:
         }
     }
@@ -105,44 +112,46 @@ public class HardwareController extends BaseController implements HwController {
     //写按键事件的分配方式
     //注意每一种输入方式的优先级
     @Override
-    public void dispatchKeyEvent(KeyEvent event) {
-        if (event == null) return;
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (event == null) return false;
         if ((event.getDevice().getSources() & InputDevice.SOURCE_MOUSE) == InputDevice.SOURCE_MOUSE && (event.getDevice().getSources() & (InputDevice.SOURCE_KEYBOARD | InputDevice.SOURCE_JOYSTICK)) == 0) {
             for (HwInput hwi : new HwInput[]{mouse}) {
                 if (hwi.isEnabled() && hwi.onKey(event)) {
-                    return;
+                    return true;
                 }
             }
         } else if ((event.getDevice().getSources() & InputDevice.SOURCE_KEYBOARD) != 0 && (event.getDevice().getKeyboardType() == InputDevice.KEYBOARD_TYPE_ALPHABETIC)) {
             for (HwInput hwi : new HwInput[]{phone, keyboard}) {
                 if (hwi.isEnabled() && hwi.onKey(event)) {
-                    return;
+                    return true;
                 }
             }
         } else if (((event.getDevice().getSources() & InputDevice.SOURCE_GAMEPAD) == InputDevice.SOURCE_GAMEPAD) && ((event.getDevice().getSources() & InputDevice.SOURCE_JOYSTICK) == InputDevice.SOURCE_JOYSTICK)) {
             for (HwInput hwi : new HwInput[]{gamepad}) {
                 if (hwi.isEnabled() && hwi.onKey(event)) {
-                    return;
+                    return true;
                 }
             }
         }
+        return false;
     }
 
     @Override
-    public void dispatchMotionKeyEvent(MotionEvent event) {
+    public boolean dispatchMotionKeyEvent(MotionEvent event) {
         if ((event.getDevice().getSources() & InputDevice.SOURCE_MOUSE) == InputDevice.SOURCE_MOUSE && (event.getDevice().getSources() & (InputDevice.SOURCE_KEYBOARD | InputDevice.SOURCE_JOYSTICK)) == 0) {
             for (HwInput hwi : new HwInput[]{mouse}) {
                 if (hwi.isEnabled() && hwi.onMotionKey(event)) {
-                    return;
+                    return true;
                 }
             }
         } else if (((event.getDevice().getSources() & InputDevice.SOURCE_GAMEPAD) == InputDevice.SOURCE_GAMEPAD) && ((event.getDevice().getSources() & InputDevice.SOURCE_JOYSTICK) == InputDevice.SOURCE_JOYSTICK)) {
             for (HwInput hwi : new HwInput[]{gamepad}) {
                 if (hwi.isEnabled() && hwi.onMotionKey(event)) {
-                    return;
+                    return true;
                 }
             }
         }
+        return false;
     }
 
     private void checkInputDevices() {
@@ -174,8 +183,11 @@ public class HardwareController extends BaseController implements HwController {
             case TYPE_WORDS:
                 info = "Type: " + event.getType() + " Char: " + event.getChars();
                 break;
+            case MOUSE_POINTER_INC:
+                info = "Type: " + event.getType() + " IncX: " + event.getPointer()[0] + " IncY: " + event.getPointer()[1];
+                break;
             default:
-                info = "Unknown Type: ";
+                info = "Unknown: " + event.toString();
         }
         Log.e(event.getTag(), info);
     }

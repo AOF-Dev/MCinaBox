@@ -5,7 +5,7 @@ import android.view.MotionEvent;
 
 public interface HwController extends Controller {
 
-    void dispatchKeyEvent(KeyEvent event);
+    boolean dispatchKeyEvent(KeyEvent event);
 
-    void dispatchMotionKeyEvent(MotionEvent event);
+    boolean dispatchMotionKeyEvent(MotionEvent event);
 }

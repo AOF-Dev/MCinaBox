@@ -5,6 +5,7 @@ public interface KeyEvent {
     int KEYBOARD_BUTTON = 11;
     int MOUSE_BUTTON = 12;
     int MOUSE_POINTER = 13;
+    int MOUSE_POINTER_INC = 15;
     int TYPE_WORDS = 14;
 
     int KEYMAP_TO_LWJGL = 21;

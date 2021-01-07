@@ -15,7 +15,6 @@ public abstract class BaseController implements Controller {
     public ArrayList<Input> inputs;
     public Client client;
     private Context context;
-    private boolean isGrabbed = false;
     private final static String TAG = "BaseController";
     private Timer mTimer;
     private final static int DEFAULT_INTERVAL_TIME = 5000;
@@ -92,7 +91,6 @@ public abstract class BaseController implements Controller {
 
     @Override
     public void setGrabCursor(boolean isGrabbed) {
-        this.isGrabbed = isGrabbed;
         for (Input i : inputs) {
             i.setGrabCursor(isGrabbed);
         }
@@ -119,13 +117,13 @@ public abstract class BaseController implements Controller {
     }
 
     @Override
-    public boolean getGrabbed() {
-        return this.isGrabbed;
+    public boolean isGrabbed() {
+        return client.isGrabbed();
     }
 
     @Override
-    public int[] getPointer() {
-        return client.getPointer();
+    public int[] getGrabbedPointer() {
+        return client.getGrabbedPointer();
     }
 
     @Override
@@ -166,6 +164,12 @@ public abstract class BaseController implements Controller {
             }
         }, internalTime);
     }
+
+    @Override
+    public int[] getLossenPointer(){
+        return client.getLoosenPointer();
+    }
+
 
 }
 

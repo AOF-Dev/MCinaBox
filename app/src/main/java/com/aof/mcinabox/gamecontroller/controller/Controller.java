@@ -31,9 +31,11 @@ public interface Controller {
 
     void onStop();
 
-    boolean getGrabbed();
+    boolean isGrabbed();
 
-    int[] getPointer();
+    int[] getGrabbedPointer();
+
+    int[] getLossenPointer();
 
     void saveConfig();
 
