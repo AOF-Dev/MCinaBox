@@ -347,6 +347,7 @@ public class CrossKeyboard implements OnscreenInput, KeyMap {
     }
 
     private String lastKeyName = "";
+    private boolean shift = false;
 
     private void makeKeyEvent(int location, MotionEvent e) {
 
@@ -367,7 +368,19 @@ public class CrossKeyboard implements OnscreenInput, KeyMap {
                 break;
             case 5:
                 keyName = KEYMAP_KEY_LSHIFT;
-                break;
+                if (lastKeyName.equals("") && e.getAction() == MotionEvent.ACTION_DOWN) {
+                    if(shift){
+                       sendKeyEvent(keyName, false);
+                       shift = false;
+                    } else{
+                        sendKeyEvent(keyName, true);
+                        shift = true;
+                    }
+                } else if (!lastKeyName.equals("") && !lastKeyName.equals(keyName)) {
+                    sendKeyEvent(lastKeyName, false);
+                    lastKeyName = "";
+                }
+                return;
             case 6:
                 keyName = KEYMAP_KEY_D;
                 break;
