@@ -33,7 +33,7 @@
         </activity>
         <activity
             android:name=".gamecontroller.ckb.CustomizeKeyboardEditorActivity"
-            android:configChanges="orientation|keyboardHidden|keyboard|navigation"
+            android:configChanges="screenSize|keyboard|navigation|orientation|keyboardHidden"
             android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".activity.OldMainActivity"
@@ -44,7 +44,7 @@
             android:alwaysRetainTaskState="true"
             android:configChanges="screenSize|keyboard|navigation|orientation|keyboardHidden"
             android:excludeFromRecents="false"
-            android:launchMode="singleInstance"
+            android:launchMode="singleTask"
             android:screenOrientation="sensorLandscape"
             android:theme="@style/AppTheme" />
     </application>
