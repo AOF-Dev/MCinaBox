@@ -69,7 +69,7 @@ public class OldMainActivity extends BaseActivity {
         //Life Circle
         mUiManager.onCreate();
 
-        findViewById(R.id.new_ui).setOnClickListener(v -> {
+        findViewById(R.id.toolbar_button_new_ui).setOnClickListener(v -> {
             Intent i = new Intent(OldMainActivity.this, MainActivity.class);
             startActivity(i);
         });

@@ -66,6 +66,14 @@
             android:background="@drawable/ic_autorenew_black_24dp" />
 
         <Button
+            android:id="@+id/toolbar_button_new_ui"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="5dp"
+            android:layout_gravity="center"
+            android:background="@drawable/outline_new_releases_black_24dp" />
+
+        <Button
             android:id="@+id/toolbar_button_taskinfo"
             android:layout_width="20dp"
             android:layout_height="20dp"

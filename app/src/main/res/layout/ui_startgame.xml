@@ -9,13 +9,6 @@
     android:paddingEnd="0dp"
     android:paddingBottom="5dp">
 
-    <Button
-        android:id="@+id/new_ui"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="View new UI" />
-
     <LinearLayout
         android:id="@+id/main_button_startgame"
         android:layout_width="wrap_content"
