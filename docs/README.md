@@ -4,7 +4,7 @@
 If you find problems when you run, you can check [Q&A](./Q&A.md) for that at first  
 
 ## Instruction
-- MCinaBox is a Launcher of Minecraft Java Edition which running on the Android. Its core functionality is powered by [CosineMath](Https://github.com/CosineMath)'s [BoatApp](https://github.com.AOF-Dev/BoatApp) project.
+- MCinaBox is a Launcher of Minecraft Java Edition which running on the Android. Its core functionality is powered by [CosineMath](Https://github.com/CosineMath)'s [BoatApp](https://github.com/AOF-Dev/BoatApp) project.
 
 ## Table of Contents
 - [Background](#Background)
@@ -110,7 +110,7 @@ If you want to submit a pull request, there're some requirements:
 * Do NOT modify `gradle` files.
 
 ## Related
-* [BoatApp (CosineMath,MIT)](https://github.com/CosineMath/BoatApp)
+* [BoatApp (CosineMath,GPL 2.0)](https://github.com/AOF-Dev/BoatApp)
 * Gson (Google,Apache 2.0)
 * XZ for Java (Lasse Collin,Public Domain)
 * [JNDCrash (ivanarh,Apache-2.0)](https://github.com/ivanarh/jndcrash)
