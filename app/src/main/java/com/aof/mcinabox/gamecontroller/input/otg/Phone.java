@@ -30,7 +30,7 @@ public class Phone implements HwInput {
         mTrans = new Translation(ANDROID_TO_KEYMAP);
         this.mContext = context;
         this.mController = controller;
-        return false;
+        return true;
     }
 
     @Override
