@@ -3,6 +3,8 @@
 ## Warning
 - There is a problem with the latest source code. Some functions are not working properly.
 - Because I have no time to maintain the project, the latest source code is not perfect.
+  
+If you find problems when you run, you can check [Q&A](./Q&A.md) for that at first  
 
 ## Table of Contents
 - [Background](#Background)
