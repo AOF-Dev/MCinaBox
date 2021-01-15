@@ -60,8 +60,13 @@ public class BoatStartupActivity extends BoatActivity implements Client {
             if(y >= 0 && y <= screenHeight)
                 grabbedPointer[1] += yInc;
             setPointer(grabbedPointer[0], grabbedPointer[1]);
-            this.cursorIcon.setX(grabbedPointer[0]);
-            this.cursorIcon.setY(grabbedPointer[1]);
+            this.cursorIcon.post(new Runnable() {
+                @Override
+                public void run() {
+                    cursorIcon.setX(grabbedPointer[0]);
+                    cursorIcon.setY(grabbedPointer[1]);
+                }
+            });
         }else{
             setPointer(getPointer()[0] + xInc, getPointer()[1] + yInc);
         }
@@ -71,8 +76,13 @@ public class BoatStartupActivity extends BoatActivity implements Client {
     public void setPointer(int x, int y){
         super.setPointer(x, y);
         if(!grabbed){
-            this.cursorIcon.setX(x);
-            this.cursorIcon.setY(y);
+            this.cursorIcon.post(new Runnable() {
+                @Override
+                public void run() {
+                    cursorIcon.setX(x);
+                    cursorIcon.setY(y);
+                }
+            });
             grabbedPointer[0] = x;
             grabbedPointer[1] = y;
         }
