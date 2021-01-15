@@ -106,8 +106,8 @@ public class VirtualController extends BaseController implements View.OnClickLis
         //初始化键值翻译器
         this.mTranslation = new Translation(transType);
 
-        screenWidth = this.client.getActivity().getResources().getDisplayMetrics().widthPixels;
-        screenHeight = this.client.getActivity().getResources().getDisplayMetrics().heightPixels;
+        screenWidth = this.getConfig().getScreenWidth();
+        screenHeight = this.getConfig().getScreenHeight();
 
         //初始化
         init();
@@ -123,7 +123,6 @@ public class VirtualController extends BaseController implements View.OnClickLis
     public void init() {
         //初始化Setting对话框
         settingDialog = new VirtualControllerSetting(client.getActivity());
-        settingDialog.create();
 
         //初始化控制器
         onscreenTouchpad = new OnscreenTouchpad();
