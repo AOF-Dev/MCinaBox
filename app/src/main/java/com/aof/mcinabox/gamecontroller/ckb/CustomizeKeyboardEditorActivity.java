@@ -48,6 +48,7 @@ public class CustomizeKeyboardEditorActivity extends AppCompatActivity implement
 
     private int pointer[] = new int[]{0, 0};
     private Controller mController;
+    private boolean isGrabbed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -251,7 +252,7 @@ public class CustomizeKeyboardEditorActivity extends AppCompatActivity implement
 
     @Override
     public boolean isGrabbed() {
-        return mController.isGrabbed();
+        return this.isGrabbed;
     }
 
     @Override
