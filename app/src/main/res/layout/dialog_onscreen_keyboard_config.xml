@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="230dp"
     android:layout_height="wrap_content"
-    android:background="@drawable/background_dialog_noalpha">
+    android:background="@drawable/background_dialog_noalpha"
+    android:orientation="vertical">
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -12,183 +13,192 @@
         android:text="@string/title_pc_keyboard_config"
         android:textColor="@color/text_title_main"
         android:textSize="@dimen/text_big" />
-    <LinearLayout
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:textSize="@dimen/text_mid"
-                android:textColor="@color/text_title_main"
-                android:text="@string/title_alpha_size"/>
-
-            <SeekBar
-                android:id="@+id/input_onscreen_keyboard_dialog_seekbar_alpha"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                android:layout_margin="5dp" />
+            android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/input_onscreen_keyboard_dialog_text_alpha"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:textSize="@dimen/text_mid"
-                    android:textColor="@color/text_info" />
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:textSize="@dimen/text_mid"
-                android:textColor="@color/text_title_main"
-                android:text="@string/title_size"/>
-
-            <SeekBar
-                android:id="@+id/input_onscreen_keyboard_dialog_seekbar_size"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                android:layout_margin="5dp" />
-
-            <LinearLayout
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/input_onscreen_keyboard_dialog_text_size"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:textSize="@dimen/text_mid"
-                    android:textColor="@color/text_info" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:text="@string/title_show"
-                android:textColor="@color/text_title_main"
-                android:textSize="@dimen/text_mid" />
-
-            <RadioGroup
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <RadioButton
-                    android:id="@+id/input_onscreen_keyboard_dialog_rbt_all"
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:text="@string/title_alpha_size"
+                    android:textColor="@color/text_title_main"
+                    android:textSize="@dimen/text_mid" />
+
+                <SeekBar
+                    android:id="@+id/input_onscreen_keyboard_dialog_seekbar_alpha"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:text="@string/title_all"
-                    android:textColor="@color/text_info"
-                    android:checked="true"
-                    android:textSize="@dimen/text_small" />
+                    android:layout_margin="5dp"
+                    android:layout_weight="1" />
 
-                <RadioButton
-                    android:id="@+id/input_onscreen_keyboard_dialog_rbt_in_game"
+                <LinearLayout
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/input_onscreen_keyboard_dialog_text_alpha"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="@color/text_info"
+                        android:textSize="@dimen/text_mid" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:text="@string/title_size"
+                    android:textColor="@color/text_title_main"
+                    android:textSize="@dimen/text_mid" />
+
+                <SeekBar
+                    android:id="@+id/input_onscreen_keyboard_dialog_seekbar_size"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:text="@string/title_in_game"
-                    android:textColor="@color/text_info"
-                    android:textSize="@dimen/text_small" />
+                    android:layout_margin="5dp"
+                    android:layout_weight="1" />
 
-                <RadioButton
-                    android:id="@+id/input_onscreen_keyboard_dialog_rbt_out_game"
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:text="@string/title_out_game"
-                    android:textColor="@color/text_info"
-                    android:textSize="@dimen/text_small" />
+                    android:layout_margin="5dp"
+                    android:orientation="vertical">
 
-            </RadioGroup>
+                    <TextView
+                        android:id="@+id/input_onscreen_keyboard_dialog_text_size"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="@color/text_info"
+                        android:textSize="@dimen/text_mid" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:text="@string/title_show"
+                    android:textColor="@color/text_title_main"
+                    android:textSize="@dimen/text_mid" />
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/input_onscreen_keyboard_dialog_rbt_all"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:checked="true"
+                        android:text="@string/title_all"
+                        android:textColor="@color/text_info"
+                        android:textSize="@dimen/text_small" />
+
+                    <RadioButton
+                        android:id="@+id/input_onscreen_keyboard_dialog_rbt_in_game"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="@string/title_in_game"
+                        android:textColor="@color/text_info"
+                        android:textSize="@dimen/text_small" />
+
+                    <RadioButton
+                        android:id="@+id/input_onscreen_keyboard_dialog_rbt_out_game"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="@string/title_out_game"
+                        android:textColor="@color/text_info"
+                        android:textSize="@dimen/text_small" />
+
+                </RadioGroup>
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
+    </ScrollView>
 
     <LinearLayout
+        style="?android:attr/buttonBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="?android:attr/buttonBarStyle"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/input_onscreen_keyboard_dialog_button_ok"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:layout_margin="5dp"
             android:layout_gravity="center"
-            style="?android:attr/buttonBarButtonStyle"
+            android:layout_margin="5dp"
+            android:layout_weight="2"
             android:text="@string/title_ok" />
+
         <Button
             android:id="@+id/input_onscreen_keyboard_dialog_button_cancel"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:layout_margin="5dp"
             android:layout_gravity="center"
-            style="?android:attr/buttonBarButtonStyle"
+            android:layout_margin="5dp"
+            android:layout_weight="2"
             android:text="@string/title_cancel" />
+
         <Button
             android:id="@+id/input_onscreen_keyboard_dialog_button_restore"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:layout_margin="5dp"
             android:layout_gravity="center"
-            style="?android:attr/buttonBarButtonStyle"
-            android:text="@string/title_restore"/>
+            android:layout_margin="5dp"
+            android:layout_weight="2"
+            android:text="@string/title_restore" />
 
     </LinearLayout>
 

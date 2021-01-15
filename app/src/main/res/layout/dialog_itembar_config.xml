@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="230dp"
     android:layout_height="wrap_content"
-    android:background="@drawable/background_dialog_noalpha">
+    android:background="@drawable/background_dialog_noalpha"
+    android:orientation="vertical">
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -12,207 +13,215 @@
         android:text="@string/title_itembar_config"
         android:textColor="@color/text_title_main"
         android:textSize="@dimen/text_big" />
-    <LinearLayout
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:textSize="@dimen/text_mid"
-                android:textColor="@color/text_title_main"
-                android:text="@string/title_alpha_size"/>
-
-            <SeekBar
-                android:id="@+id/input_itembar_dialog_seekbar_alpha"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                android:layout_margin="5dp" />
-
-            <LinearLayout
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/input_itembar_dialog_text_alpha"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:textSize="@dimen/text_mid"
-                    android:textColor="@color/text_info" />
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:textSize="@dimen/text_mid"
-                android:textColor="@color/text_title_main"
-                android:text="@string/title_size"/>
-
-            <SeekBar
-                android:id="@+id/input_itembar_dialog_seekbar_size"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                android:layout_margin="5dp" />
-
-            <LinearLayout
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/input_itembar_dialog_text_size"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:textSize="@dimen/text_mid"
-                    android:textColor="@color/text_info" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:textSize="@dimen/text_mid"
-                android:textColor="@color/text_title_main"
-                android:text="@string/title_move"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                style="?android:attr/buttonBarStyle"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/input_itembar_dialog_button_move_left"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    style="?android:attr/buttonBarButtonStyle"
-                    android:layout_gravity="center"
-                    android:text="@string/title_point_left"/>
-
-                <Button
-                    android:id="@+id/input_itembar_dialog_button_move_right"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    style="?android:attr/buttonBarButtonStyle"
-                    android:layout_gravity="center"
-                    android:text="@string/title_point_right"/>
-
-                <Button
-                    android:id="@+id/input_itembar_dialog_button_move_up"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    style="?android:attr/buttonBarButtonStyle"
-                    android:layout_gravity="center"
-                    android:text="@string/title_point_up"/>
-
-                <Button
-                    android:id="@+id/input_itembar_dialog_button_move_down"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    style="?android:attr/buttonBarButtonStyle"
-                    android:layout_gravity="center"
-                    android:text="@string/title_point_down"/>
-
-            </LinearLayout>
-
-        </LinearLayout>
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_margin="5dp"
-                android:textSize="@dimen/text_small"
-                android:textColor="@color/text_warn"
-                android:text="@string/tips_itembar_warn"/>
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:text="@string/title_alpha_size"
+                    android:textColor="@color/text_title_main"
+                    android:textSize="@dimen/text_mid" />
+
+                <SeekBar
+                    android:id="@+id/input_itembar_dialog_seekbar_alpha"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1" />
+
+                <LinearLayout
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/input_itembar_dialog_text_alpha"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="@color/text_info"
+                        android:textSize="@dimen/text_mid" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:text="@string/title_size"
+                    android:textColor="@color/text_title_main"
+                    android:textSize="@dimen/text_mid" />
+
+                <SeekBar
+                    android:id="@+id/input_itembar_dialog_seekbar_size"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1" />
+
+                <LinearLayout
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/input_itembar_dialog_text_size"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="@color/text_info"
+                        android:textSize="@dimen/text_mid" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:text="@string/title_move"
+                    android:textColor="@color/text_title_main"
+                    android:textSize="@dimen/text_mid" />
+
+                <LinearLayout
+                    style="?android:attr/buttonBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/input_itembar_dialog_button_move_left"
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="@string/title_point_left" />
+
+                    <Button
+                        android:id="@+id/input_itembar_dialog_button_move_right"
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="@string/title_point_right" />
+
+                    <Button
+                        android:id="@+id/input_itembar_dialog_button_move_up"
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="@string/title_point_up" />
+
+                    <Button
+                        android:id="@+id/input_itembar_dialog_button_move_down"
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="@string/title_point_down" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_margin="5dp"
+                    android:text="@string/tips_itembar_warn"
+                    android:textColor="@color/text_warn"
+                    android:textSize="@dimen/text_small" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
-
-    </LinearLayout>
+    </ScrollView>
 
     <LinearLayout
+        style="?android:attr/buttonBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="?android:attr/buttonBarStyle"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/input_itembar_dialog_button_ok"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:layout_margin="5dp"
             android:layout_gravity="center"
-            style="?android:attr/buttonBarButtonStyle"
+            android:layout_margin="5dp"
+            android:layout_weight="2"
             android:text="@string/title_ok" />
+
         <Button
             android:id="@+id/input_itembar_dialog_button_cancel"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:layout_margin="5dp"
             android:layout_gravity="center"
-            style="?android:attr/buttonBarButtonStyle"
+            android:layout_margin="5dp"
+            android:layout_weight="2"
             android:text="@string/title_cancel" />
+
         <Button
             android:id="@+id/input_itembar_dialog_button_restore"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
             android:layout_margin="5dp"
-            style="?android:attr/buttonBarButtonStyle"
-            android:text="@string/title_restore"/>
+            android:layout_weight="2"
+            android:text="@string/title_restore" />
 
     </LinearLayout>
 

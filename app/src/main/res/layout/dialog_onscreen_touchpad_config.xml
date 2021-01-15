@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="230dp"
     android:layout_height="wrap_content"
-    android:background="@drawable/background_dialog_noalpha">
+    android:background="@drawable/background_dialog_noalpha"
+    android:orientation="vertical">
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -12,168 +13,176 @@
         android:text="@string/title_screen_touchpad_config"
         android:textColor="@color/text_title_main"
         android:textSize="@dimen/text_big" />
-    <LinearLayout
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:textSize="@dimen/text_mid"
-                android:textColor="@color/text_title_main"
-                android:text="@string/title_sensitivity"/>
-
-            <SeekBar
-                android:id="@+id/input_onscreen_touchpad_dialog_seekbar_speed"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"/>
+            android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/input_onscreen_touchpad_dialog_text_speed"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:textSize="@dimen/text_mid" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:textSize="@dimen/text_mid"
-                android:textColor="@color/text_title_main"
-                android:text="@string/title_trigger"/>
-
-            <SeekBar
-                android:id="@+id/input_onscreen_touchpad_dialog_seekbar_delay"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"/>
-
-            <LinearLayout
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/input_onscreen_touchpad_dialog_text_delay"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:textSize="@dimen/text_mid" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:textSize="@dimen/text_mid"
-                android:textColor="@color/text_title_main"
-                android:text="@string/title_mode"/>
-
-            <RadioGroup
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
                 android:orientation="horizontal">
 
-                <RadioButton
-                    android:id="@+id/input_onscreen_touchpad_dialog_radio_point"
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
-                    android:checked="true"
-                    android:text="@string/title_point"/>
+                    android:text="@string/title_sensitivity"
+                    android:textColor="@color/text_title_main"
+                    android:textSize="@dimen/text_mid" />
 
-                <RadioButton
-                    android:id="@+id/input_onscreen_touchpad_dialog_radio_slide"
-                    android:layout_width="wrap_content"
+                <SeekBar
+                    android:id="@+id/input_onscreen_touchpad_dialog_seekbar_speed"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
-                    android:text="@string/title_slide_touch" />
+                    android:layout_weight="1" />
 
-            </RadioGroup>
+                <LinearLayout
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/input_onscreen_touchpad_dialog_text_speed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:textSize="@dimen/text_mid" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:text="@string/title_trigger"
+                    android:textColor="@color/text_title_main"
+                    android:textSize="@dimen/text_mid" />
+
+                <SeekBar
+                    android:id="@+id/input_onscreen_touchpad_dialog_seekbar_delay"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1" />
+
+                <LinearLayout
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/input_onscreen_touchpad_dialog_text_delay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:textSize="@dimen/text_mid" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:text="@string/title_mode"
+                    android:textColor="@color/text_title_main"
+                    android:textSize="@dimen/text_mid" />
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/input_onscreen_touchpad_dialog_radio_point"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:checked="true"
+                        android:text="@string/title_point" />
+
+                    <RadioButton
+                        android:id="@+id/input_onscreen_touchpad_dialog_radio_slide"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:text="@string/title_slide_touch" />
+
+                </RadioGroup>
+
+            </LinearLayout>
 
         </LinearLayout>
 
-
-    </LinearLayout>
+    </ScrollView>
 
     <LinearLayout
+        style="?android:buttonBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="?android:buttonBarStyle"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/input_onscreen_touchpad_dialog_button_ok"
+            style="?android:buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:layout_margin="5dp"
             android:layout_gravity="center"
-            style="?android:buttonBarButtonStyle"
+            android:layout_margin="5dp"
+            android:layout_weight="2"
             android:text="@string/title_ok" />
+
         <Button
             android:id="@+id/input_onscreen_touchpad_dialog_button_cancel"
+            style="?android:buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:layout_margin="5dp"
             android:layout_gravity="center"
-            style="?android:buttonBarButtonStyle"
+            android:layout_margin="5dp"
+            android:layout_weight="2"
             android:text="@string/title_cancel" />
+
         <Button
             android:id="@+id/input_onscreen_touchpad_dialog_button_restore"
+            style="?android:buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
             android:layout_margin="5dp"
-            style="?android:buttonBarButtonStyle"
-            android:text="@string/title_restore"/>
+            android:layout_weight="2"
+            android:text="@string/title_restore" />
 
     </LinearLayout>
 
