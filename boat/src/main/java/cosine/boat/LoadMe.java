@@ -36,6 +36,7 @@ public class LoadMe {
                     "/vendor/lib64/hw");
             setenv("PATH", args.getJavaHome() + "/bin:" + Os.getenv("PATH"));
             //Fix colors since GL4ES v1.1.5
+            //with new runtime pack which includes gl4es v1.1.5
             setenv("LIBGL_NORMALIZE", "1");
             //Disable MIPMAP
             setenv("LIBGL_MIPMAP", "3");
