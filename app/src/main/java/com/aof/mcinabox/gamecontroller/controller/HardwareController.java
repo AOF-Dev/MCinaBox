@@ -1,11 +1,17 @@
 package com.aof.mcinabox.gamecontroller.controller;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.hardware.input.InputManager;
+import android.hardware.usb.UsbDevice;
+import android.hardware.usb.UsbManager;
 import android.util.Log;
 import android.view.InputDevice;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
+import android.widget.Toast;
 
 import com.aof.mcinabox.gamecontroller.client.Client;
 import com.aof.mcinabox.gamecontroller.codes.AndroidKeyMap;
@@ -36,10 +42,16 @@ public class HardwareController extends BaseController implements HwController {
     public HwInput mouse;
     public HwInput gamepad;
     private final Translation mTranslation;
+    private USBDeviceReceiver mUsbReceiver;
+
+    private final static int INPUT_DEVICE_MOUSE = 101;
+    private final static int INPUT_DEVICE_KEYBOARD = 102;
+    private final static int INPUT_DEVICE_GAMEPAD = 103;
+    private final static int INPUT_DEVICE_UNKNOWN = 109;
 
     public HardwareController(Client client, int transType) {
         super(client);
-        checkInputDevices();
+        //printInputDevices();
 
         //初始化键值翻译器
         this.mTranslation = new Translation(transType);
@@ -53,10 +65,13 @@ public class HardwareController extends BaseController implements HwController {
         //添加Input
         for (Input i : new Input[]{keyboard, phone, mouse, gamepad}) {
             addInput(i);
-            //直接启用
-            i.setEnabled(true);
         }
 
+        //按需启用Input
+        refreshInputs();
+
+        //注册广播接收器
+        registerReceiver();
 
     }
 
@@ -67,7 +82,7 @@ public class HardwareController extends BaseController implements HwController {
             case KEYBOARD_BUTTON:
             case MOUSE_BUTTON:
                 String KeyName = event.getKeyName();
-                if(KeyName == null) return;
+                if (KeyName == null) return;
                 String[] strs = KeyName.split(MARK_KEYNAME_SPLIT);
                 for (String str : strs) {
                     sendKeyEvent(new BaseKeyEvent(event.getTag(), str, event.isPressed(), event.getType(), event.getPointer()));
@@ -109,52 +124,62 @@ public class HardwareController extends BaseController implements HwController {
         }
     }
 
-    //写按键事件的分配方式
-    //注意每一种输入方式的优先级
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         if (event == null) return false;
-        if ((event.getDevice().getSources() & InputDevice.SOURCE_MOUSE) == InputDevice.SOURCE_MOUSE && (event.getDevice().getSources() & (InputDevice.SOURCE_KEYBOARD | InputDevice.SOURCE_JOYSTICK)) == 0) {
-            for (HwInput hwi : new HwInput[]{mouse}) {
-                if (hwi.isEnabled() && hwi.onKey(event)) {
-                    return true;
+        switch (distinguishInputDevices(event.getDevice())) {
+            case HardwareController.INPUT_DEVICE_MOUSE:
+                for (HwInput hwi : new HwInput[]{mouse}) {
+                    if (hwi.isEnabled() && hwi.onKey(event)) {
+                        return true;
+                    }
                 }
-            }
-        } else if ((event.getDevice().getSources() & InputDevice.SOURCE_KEYBOARD) != 0 && (event.getDevice().getKeyboardType() == InputDevice.KEYBOARD_TYPE_ALPHABETIC)) {
-            for (HwInput hwi : new HwInput[]{phone, keyboard}) {
-                if (hwi.isEnabled() && hwi.onKey(event)) {
-                    return true;
+                break;
+            case HardwareController.INPUT_DEVICE_KEYBOARD:
+                for (HwInput hwi : new HwInput[]{phone, keyboard}) {
+                    if (hwi.isEnabled() && hwi.onKey(event)) {
+                        return true;
+                    }
                 }
-            }
-        } else if (((event.getDevice().getSources() & InputDevice.SOURCE_GAMEPAD) == InputDevice.SOURCE_GAMEPAD) && ((event.getDevice().getSources() & InputDevice.SOURCE_JOYSTICK) == InputDevice.SOURCE_JOYSTICK)) {
-            for (HwInput hwi : new HwInput[]{gamepad}) {
-                if (hwi.isEnabled() && hwi.onKey(event)) {
-                    return true;
+                break;
+            case HardwareController.INPUT_DEVICE_GAMEPAD:
+                for (HwInput hwi : new HwInput[]{gamepad}) {
+                    if (hwi.isEnabled() && hwi.onKey(event)) {
+                        return true;
+                    }
                 }
-            }
+                break;
+            default:
+                return false;
         }
         return false;
     }
 
     @Override
     public boolean dispatchMotionKeyEvent(MotionEvent event) {
-        if ((event.getDevice().getSources() & InputDevice.SOURCE_MOUSE) == InputDevice.SOURCE_MOUSE && (event.getDevice().getSources() & (InputDevice.SOURCE_KEYBOARD | InputDevice.SOURCE_JOYSTICK)) == 0) {
-            for (HwInput hwi : new HwInput[]{mouse}) {
-                if (hwi.isEnabled() && hwi.onMotionKey(event)) {
-                    return true;
+        if (event == null) return false;
+        switch (distinguishInputDevices(event.getDevice())) {
+            case HardwareController.INPUT_DEVICE_MOUSE:
+                for (HwInput hwi : new HwInput[]{mouse}) {
+                    if (hwi.isEnabled() && hwi.onMotionKey(event)) {
+                        return true;
+                    }
                 }
-            }
-        } else if (((event.getDevice().getSources() & InputDevice.SOURCE_GAMEPAD) == InputDevice.SOURCE_GAMEPAD) && ((event.getDevice().getSources() & InputDevice.SOURCE_JOYSTICK) == InputDevice.SOURCE_JOYSTICK)) {
-            for (HwInput hwi : new HwInput[]{gamepad}) {
-                if (hwi.isEnabled() && hwi.onMotionKey(event)) {
-                    return true;
+                break;
+            case HardwareController.INPUT_DEVICE_GAMEPAD:
+                for (HwInput hwi : new HwInput[]{gamepad}) {
+                    if (hwi.isEnabled() && hwi.onMotionKey(event)) {
+                        return true;
+                    }
                 }
-            }
+                break;
+            default:
+                return false;
         }
         return false;
     }
 
-    private void checkInputDevices() {
+    private void printInputDevices() {
         InputManager inputManager = (InputManager) client.getActivity().getSystemService(Context.INPUT_SERVICE);
         int[] inputDeviceIds = inputManager.getInputDeviceIds();
         ArrayList<InputDevice> inputDevices = new ArrayList<>();
@@ -166,6 +191,29 @@ public class HardwareController extends BaseController implements HwController {
             stb.append(String.format("name: %s \n information: %s \n", i.getName(), i.toString()));
         }
         Log.e(TAG, stb.toString());
+    }
+
+    private void refreshInputs() {
+        InputManager inputManager = (InputManager) client.getActivity().getSystemService(Context.INPUT_SERVICE);
+        int[] inputDeviceIds = inputManager.getInputDeviceIds();
+        for (Input i : this.inputs) {
+            i.setEnabled(false);
+        }
+        for (int id : inputDeviceIds) {
+            switch (distinguishInputDevices(inputManager.getInputDevice(id))) {
+                case HardwareController.INPUT_DEVICE_MOUSE:
+                    this.mouse.setEnabled(true);
+                    break;
+                case HardwareController.INPUT_DEVICE_GAMEPAD:
+                    this.gamepad.setEnabled(true);
+                    break;
+                case HardwareController.INPUT_DEVICE_KEYBOARD:
+                    this.keyboard.setEnabled(true);
+                    this.phone.setEnabled(true);
+                    break;
+                default:
+            }
+        }
     }
 
     private void toLog(BaseKeyEvent event) {
@@ -190,5 +238,54 @@ public class HardwareController extends BaseController implements HwController {
                 info = "Unknown: " + event.toString();
         }
         Log.e(event.getTag(), info);
+    }
+
+    public static int distinguishInputDevices(InputDevice device) {
+        if ((device.getSources() & InputDevice.SOURCE_MOUSE) == InputDevice.SOURCE_MOUSE && (device.getSources() & (InputDevice.SOURCE_KEYBOARD | InputDevice.SOURCE_JOYSTICK)) == 0) {
+            return HardwareController.INPUT_DEVICE_MOUSE;
+        } else if ((device.getSources() & InputDevice.SOURCE_KEYBOARD) != 0 && (device.getKeyboardType() == InputDevice.KEYBOARD_TYPE_ALPHABETIC)) {
+            return HardwareController.INPUT_DEVICE_KEYBOARD;
+        } else if (((device.getSources() & InputDevice.SOURCE_GAMEPAD) == InputDevice.SOURCE_GAMEPAD) && ((device.getSources() & InputDevice.SOURCE_JOYSTICK) == InputDevice.SOURCE_JOYSTICK)) {
+            return HardwareController.INPUT_DEVICE_GAMEPAD;
+        } else return HardwareController.INPUT_DEVICE_UNKNOWN;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        //注销广播接收器
+        unregisterReceiver();
+    }
+
+    @Override
+    public void onResumed() {
+        super.onResumed();
+        //注册广播接收器
+        registerReceiver();
+    }
+
+    private void registerReceiver() {
+        if (mUsbReceiver != null) return;
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED);
+        filter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED);
+        mUsbReceiver = new USBDeviceReceiver();
+        this.client.getActivity().registerReceiver(mUsbReceiver, filter);
+    }
+
+    private void unregisterReceiver() {
+        if (mUsbReceiver != null) {
+            this.client.getActivity().unregisterReceiver(mUsbReceiver);
+            mUsbReceiver = null;
+        }
+
+    }
+
+    public class USBDeviceReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            HardwareController.this.refreshInputs();
+        }
     }
 }
