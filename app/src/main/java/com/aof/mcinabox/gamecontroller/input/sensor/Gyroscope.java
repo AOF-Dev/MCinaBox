@@ -17,11 +17,14 @@ public class Gyroscope implements Input, SensorEventListener {
     private Controller mController;
     private Sensor mSensor;
     private SensorManager mSensorManager;
+    private boolean isEnabled;
 
     @Override
     public boolean load(Context context, Controller controller) {
         this.mContext = context;
         this.mController = controller;
+
+        //选取传感器
         this.mSensorManager = (SensorManager) mContext.getSystemService(Context.SENSOR_SERVICE);
         this.mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
 
@@ -45,7 +48,7 @@ public class Gyroscope implements Input, SensorEventListener {
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return this.isEnabled;
     }
 
     @Override
@@ -60,7 +63,7 @@ public class Gyroscope implements Input, SensorEventListener {
 
     @Override
     public void setEnabled(boolean enabled) {
-        //TODO:设置启用或禁用
+        this.isEnabled = enabled;
     }
 
     @Override
@@ -92,7 +95,9 @@ public class Gyroscope implements Input, SensorEventListener {
         for (int i = 0; i < 3; i++) {
             orientations[i] = (float) (Math.toDegrees(orientations[i]));
         }
+
         //orientations的三个元素 分别为 单位时间内手机沿Y,Z,X偏转的角度
+
     }
 
     @Override

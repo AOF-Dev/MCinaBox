@@ -18,14 +18,14 @@ public class Keyboard implements HwInput {
     private Controller mController;
     private AndroidKeyMap androidKeyMap;
 
-    private boolean enable;
+    private boolean isEnabled;
 
     private final static String TAG = "OtgKeyboard";
     private final static int type = KEYBOARD_BUTTON;
 
     @Override
     public boolean isEnabled() {
-        return this.enable;
+        return this.isEnabled;
     }
 
     @Override
@@ -60,7 +60,7 @@ public class Keyboard implements HwInput {
 
     @Override
     public void setEnabled(boolean enabled) {
-        this.enable = enabled;
+        this.isEnabled = enabled;
     }
 
     private void sendKeyEvent(String keyName, boolean pressed) {

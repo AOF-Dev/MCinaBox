@@ -23,7 +23,7 @@ public class Phone implements HwInput {
     private Controller mController;
     private final int type = KEYBOARD_BUTTON;
     private Context mContext;
-    private boolean enable = false;
+    private boolean isEnabled = false;
 
     @Override
     public boolean load(Context context, Controller controller) {
@@ -55,12 +55,12 @@ public class Phone implements HwInput {
 
     @Override
     public void setEnabled(boolean enabled) {
-        this.enable = enabled;
+        this.isEnabled = enabled;
     }
 
     @Override
     public boolean isEnabled() {
-        return this.enable;
+        return this.isEnabled;
     }
 
     @Override

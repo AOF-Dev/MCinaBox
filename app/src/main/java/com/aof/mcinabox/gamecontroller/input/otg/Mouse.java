@@ -2,28 +2,20 @@ package com.aof.mcinabox.gamecontroller.input.otg;
 
 import android.content.Context;
 import android.os.Build;
-import android.util.Log;
 import android.view.InputDevice;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 
-import com.aof.mcinabox.R;
-import com.aof.mcinabox.gamecontroller.codes.Translation;
 import com.aof.mcinabox.gamecontroller.controller.Controller;
 import com.aof.mcinabox.gamecontroller.definitions.map.MouseMap;
 import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
 import com.aof.mcinabox.gamecontroller.input.HwInput;
-import com.aof.mcinabox.utils.DisplayUtils;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.ANDROID_TO_KEYMAP;
 import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.MOUSE_BUTTON;
-import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.MOUSE_POINTER;
 import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.MOUSE_POINTER_INC;
 
 public class Mouse implements HwInput {
@@ -36,7 +28,7 @@ public class Mouse implements HwInput {
 
     private Context mContext;
     private Controller mController;
-    private boolean enable = false;
+    private boolean isEnabled = false;
     private Object mCapturedPointerListener;
     private int screenWidth;
     private int screenHeight;
@@ -78,12 +70,12 @@ public class Mouse implements HwInput {
 
     @Override
     public void setEnabled(boolean enabled) {
-        this.enable = enabled;
+        this.isEnabled = enabled;
     }
 
     @Override
     public boolean isEnabled() {
-        return this.enable;
+        return this.isEnabled;
     }
 
 
