@@ -174,8 +174,8 @@ public class OnscreenJoystick implements OnscreenInput, RockerView.OnShakeListen
     public boolean load(Context context, Controller controller) {
         this.mContext = context;
         this.mController = controller;
-        screenWidth = context.getResources().getDisplayMetrics().widthPixels;
-        screenHeight = context.getResources().getDisplayMetrics().heightPixels;
+        screenWidth = mController.getConfig().getScreenWidth();
+        screenHeight = mController.getConfig().getScreenHeight();
 
         onscreenJoystick = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.virtual_joystick, null);
         mController.addContentView(onscreenJoystick, new ViewGroup.LayoutParams(DisplayUtils.getPxFromDp(mContext, widthDp), DisplayUtils.getPxFromDp(mContext, heightDp)));
@@ -413,8 +413,8 @@ public class OnscreenJoystick implements OnscreenInput, RockerView.OnShakeListen
             }
 
             originalInputSize = mInput.getSize()[0];
-            screenWidth = mContext.getResources().getDisplayMetrics().widthPixels;
-            screenHeight = mContext.getResources().getDisplayMetrics().heightPixels;
+            screenWidth = mInput.getController().getConfig().getScreenWidth();
+            screenHeight = mInput.getController().getConfig().getScreenHeight();
 
             //初始化控件属性
             this.seekbarAlpha.setMax(MAX_ALPHA_PROGRESS);

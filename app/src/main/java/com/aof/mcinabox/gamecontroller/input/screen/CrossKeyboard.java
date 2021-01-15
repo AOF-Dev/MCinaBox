@@ -70,8 +70,8 @@ public class CrossKeyboard implements OnscreenInput, KeyMap {
     public boolean load(Context context, Controller controller) {
         mContext = context;
         mController = controller;
-        screenWidth = context.getResources().getDisplayMetrics().widthPixels;
-        screenHeight = context.getResources().getDisplayMetrics().heightPixels;
+        screenWidth = mController.getConfig().getScreenWidth();
+        screenHeight = mController.getConfig().getScreenHeight();
 
         crossKeyboard = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.virtual_crosskey, null);
         controller.addContentView(crossKeyboard, new ViewGroup.LayoutParams(DisplayUtils.getPxFromDp(mContext, widthDp), DisplayUtils.getPxFromDp(mContext, heightDp)));
@@ -625,8 +625,8 @@ public class CrossKeyboard implements OnscreenInput, KeyMap {
             }
 
             originalInputSize = mInput.getSize()[0];
-            screenWidth = mContext.getResources().getDisplayMetrics().widthPixels;
-            screenHeight = mContext.getResources().getDisplayMetrics().heightPixels;
+            screenWidth = mInput.getController().getConfig().getScreenWidth();
+            screenHeight = mInput.getController().getConfig().getScreenHeight();
 
             //初始化控件属性
             this.seekbarAlpha.setMax(MAX_ALPHA_PROGRESS);

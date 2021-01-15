@@ -175,8 +175,8 @@ public class InputBox implements OnscreenInput, KeyMap, View.OnClickListener {
     public boolean load(Context context, Controller controller) {
         this.mContext = context;
         this.mController = controller;
-        screenWidth = context.getResources().getDisplayMetrics().widthPixels;
-        screenHeight = context.getResources().getDisplayMetrics().heightPixels;
+        screenWidth = mController.getConfig().getScreenWidth();
+        screenHeight = mController.getConfig().getScreenHeight();
 
         inputBox = (LinearLayout) LayoutInflater.from(context).inflate(R.layout.virtual_inputbox, null);
         controller.addContentView(inputBox, new ViewGroup.LayoutParams(DisplayUtils.getPxFromDp(mContext, widthDp), DisplayUtils.getPxFromDp(mContext, heightDp)));
@@ -504,8 +504,8 @@ public class InputBox implements OnscreenInput, KeyMap, View.OnClickListener {
             //获取数据
             originalInputWidth = mInput.getSize()[0];
             originalInputHeight = mInput.getSize()[1];
-            screenWidth = mContext.getResources().getDisplayMetrics().widthPixels;
-            screenHeight = mContext.getResources().getDisplayMetrics().heightPixels;
+            screenWidth = mInput.getController().getConfig().getScreenWidth();
+            screenHeight = mInput.getController().getConfig().getScreenHeight();
 
             //初始化控件属性
             this.seekbarAlpha.setMax(MAX_ALPHA_PROGRESS);

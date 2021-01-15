@@ -6,25 +6,28 @@ import android.view.ViewGroup;
 
 import com.aof.mcinabox.gamecontroller.client.Client;
 import com.aof.mcinabox.gamecontroller.input.Input;
+import com.aof.mcinabox.utils.DisplayUtils;
 
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public abstract class BaseController implements Controller {
+    private final static String TAG = "BaseController";
     public ArrayList<Input> inputs;
     public Client client;
     private Context context;
-    private final static String TAG = "BaseController";
     private Timer mTimer;
     private final static int DEFAULT_INTERVAL_TIME = 5000;
     private int internalTime;
+    private Config mConfig;
 
     public BaseController(Client client, int intervalTime) {
         this.client = client;
         this.context = client.getActivity();
         inputs = new ArrayList<>();
         this.internalTime = intervalTime;
+        this.mConfig = new Config(DisplayUtils.checkDeviceHasNavigationBar(context) ? DisplayUtils.getApplicationWindowSize(context)[0] + DisplayUtils.getNavigationBarHeight(context) : DisplayUtils.getApplicationWindowSize(context)[0], DisplayUtils.getApplicationWindowSize(context)[1]);
         createAutoSaveTimer();
     }
 
@@ -170,7 +173,10 @@ public abstract class BaseController implements Controller {
         return client.getLoosenPointer();
     }
 
-
+    @Override
+    public Config getConfig() {
+        return this.mConfig;
+    }
 }
 
 

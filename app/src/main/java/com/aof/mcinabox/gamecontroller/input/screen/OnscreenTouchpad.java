@@ -47,8 +47,6 @@ public class OnscreenTouchpad implements OnscreenInput, KeyMap, MouseMap {
     private Button touchpad;
     private int touchpadMode = TOUCHPAD_MODE_POINT;
     private int inputSpeedLevel = 0; //-5 ~ 10 || 减少50% ~  增加100%
-    private int screenWidth;
-    private int screenHeight;
     private OnscreenTouchpadConfigDialog configDialog;
     private boolean enable;
     private int cursorDownPosX;
@@ -66,11 +64,8 @@ public class OnscreenTouchpad implements OnscreenInput, KeyMap, MouseMap {
         this.mContext = context;
         this.mController = controller;
 
-        screenWidth = context.getResources().getDisplayMetrics().widthPixels;
-        screenHeight = context.getResources().getDisplayMetrics().heightPixels;
-
         onscreenTouchpad = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.virtual_touchpad, null);
-        mController.addContentView(onscreenTouchpad, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        mController.addContentView(onscreenTouchpad, new ViewGroup.LayoutParams(mController.getConfig().getScreenWidth(), mController.getConfig().getScreenHeight()));
         touchpad = onscreenTouchpad.findViewById(R.id.touchpad_button);
 
         touchpad.setOnTouchListener(this);

@@ -123,8 +123,8 @@ public class GameButton extends AppCompatButton implements View.OnTouchListener 
         //添加params
         this.setLayoutParams(new ViewGroup.LayoutParams(0, 0));
         //屏幕长宽
-        screenWidth = mContext.getResources().getDisplayMetrics().widthPixels;
-        screenHeight = mContext.getResources().getDisplayMetrics().heightPixels;
+        screenWidth = (mController == null) ? mManager.getDisplaySize()[0] : mController.getConfig().getScreenWidth();
+        screenHeight = (mController == null) ? mManager.getDisplaySize()[1] : mController.getConfig().getScreenHeight();
         //设定监听
         this.setOnTouchListener(this);
         //初始化状态列表

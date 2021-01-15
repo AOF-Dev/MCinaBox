@@ -46,6 +46,8 @@ public class CkbManager {
     private GameButtonArray<GameButton> buttonList;
 
     private int buttonMode = GameButton.MODE_MOVEABLE_EDITABLE;
+    private int displayWidth;
+    private int displayHeight;
 
     public CkbManager(@NonNull Context context, @NonNull CallCustomizeKeyboard call, Controller controller) {
         super();
@@ -55,13 +57,21 @@ public class CkbManager {
         init();
     }
 
+    public int[] getDisplaySize(){
+        return new int[]{displayWidth, displayHeight};
+    }
+
     private void init() {
 
         //初始化按键列表
         buttonList = new GameButtonArray<>();
+
+        //初始化显示范围
+        displayWidth = DisplayUtils.checkDeviceHasNavigationBar(mContext) ? DisplayUtils.getApplicationWindowSize(mContext)[0] + DisplayUtils.getNavigationBarHeight(mContext) : DisplayUtils.getApplicationWindowSize(mContext)[0];
+        displayHeight = DisplayUtils.getApplicationWindowSize(mContext)[1];
+
         //当Manager初始化的时候自动加载键盘布局
         autoLoadKeyboard();
-
     }
 
     public Controller getController() {

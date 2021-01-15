@@ -192,6 +192,11 @@ public class CustomizeKeyboard implements OnscreenInput, Controller, CallCustomi
     }
 
     @Override
+    public Config getConfig() {
+        return mController.getConfig();
+    }
+
+    @Override
     public Controller getController() {
         return this.mController;
     }

@@ -31,8 +31,13 @@ public class BoatStartupActivity extends BoatActivity implements Client {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        screenWidth = this.getResources().getDisplayMetrics().widthPixels;
-        screenHeight = this.getResources().getDisplayMetrics().heightPixels;
+        getWindow().getDecorView().findViewById(android.R.id.content).post(new Runnable() {
+            @Override
+            public void run() {
+                screenWidth = getSurfaceLayerView().getWidth();
+                screenHeight = getResources().getDisplayMetrics().heightPixels;
+            }
+        });
         cursorIcon = new ImageView(this);
         cursorIcon.setLayoutParams(new ViewGroup.LayoutParams(DisplayUtils.getPxFromDp(this, CURSOR_SIZE), DisplayUtils.getPxFromDp(this, CURSOR_SIZE)));
         cursorIcon.setImageResource(R.drawable.cursor);

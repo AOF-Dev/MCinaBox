@@ -44,5 +44,27 @@ public interface Controller {
     void onPaused();
 
     void onResumed();
+
+    Config getConfig();
+
+    class Config{
+        private final int screenWidth;
+        private final int screenHeight;
+
+        public Config(int screenWidth, int screenHeight){
+            this.screenWidth = screenWidth;
+            this.screenHeight = screenHeight;
+        }
+
+        public int getScreenWidth(){
+            return screenWidth;
+        }
+
+        public int getScreenHeight(){
+            return screenHeight;
+        }
+    }
 }
+
+
 
