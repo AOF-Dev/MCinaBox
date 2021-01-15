@@ -14,6 +14,7 @@ import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.mcinabox.launcher.user.UserManager;
 import com.aof.mcinabox.minecraft.JsonUtils;
 import com.aof.mcinabox.minecraft.json.VersionJson;
+import com.aof.mcinabox.utils.DisplayUtils;
 import com.aof.mcinabox.utils.dialog.DialogUtils;
 import com.aof.mcinabox.utils.dialog.support.DialogSupports;
 
@@ -115,6 +116,10 @@ public class BoatArgsMaker implements ArgsMaker {
                     .setDebug(mSetting.getConfigurations().isEnableDebug())
                     .setSharedLibraries(getSharedLibrariesPaths())
                     .setStdioFile(BOAT_CACHE_HOME + "/boat_output.txt")
+                    .setTmpDir(mContext.getCacheDir().getAbsolutePath())
+                    .setPlatform(mRuntime.platform)
+                    .setJvmMode(runtimeManifest.jvmMode)
+                    .setSystemEnv(runtimeManifest.systemEnv)
                     .build();
             mLaunchManager.launchMinecraft(mSetting, LaunchManager.LAUNCH_GAME);
         } catch (Exception e) {
@@ -130,9 +135,12 @@ public class BoatArgsMaker implements ArgsMaker {
         String JVM_mode = "-" + runtimeManifest.jvmMode;
         String JVM_Xmx = "-Xmx" + mSetting.getConfigurations().getMaxMemory() + "m";
         String JVM_Xms = "-Xms128m";
+        String JVM_minecraft_launcher_brand = "-Dminecraft.launcher.brand=" + mContext.getString(R.string.app_name);
+        String JVM_minecraft_launcher_version = "-Dminecraft.launcher.version=" +MCINABOX_VERSION_NAME;
+        String JVM_java_io_tmpdir = "-Djava.io.tmpdir=" + mContext.getCacheDir().getAbsolutePath();
         String JVM_java_library_path = this.getJava_library_path();
-        //String JVM_lwjgl_debug_true = "-Dorg.lwjgl.util.Debug=true";
-        //String JVM_lwjgl_debugloader_true = "-Dorg.lwjgl.util.DebugLoader=true";
+        String JVM_org_lwjgl_util_debug = "-Dorg.lwjgl.util.Debug=true";
+        String JVM_org_lwjgl_util_debugloader = "-Dorg.lwjgl.util.DebugLoader=true";
         String JVM_ExtraArgs = mSetting.getConfigurations().getJavaArgs();
         String JVM_ClassPath = "-cp";
         String JVM_ClassPath_info = this.getClasspath();
@@ -148,7 +156,12 @@ public class BoatArgsMaker implements ArgsMaker {
         tmp.add(JVM_mode);
         tmp.add(JVM_Xmx);
         tmp.add(JVM_Xms);
+        tmp.add(JVM_minecraft_launcher_brand);
+        tmp.add(JVM_minecraft_launcher_version);
+        tmp.add(JVM_java_io_tmpdir);
         tmp.add(JVM_java_library_path);
+        tmp.add(JVM_org_lwjgl_util_debug);
+        tmp.add(JVM_org_lwjgl_util_debugloader);
         if(JVM_ExtraArgs != null && JVM_ExtraArgs.trim().length()!= 0)
             tmp.addAll(Arrays.asList(JVM_ExtraArgs.split(" ")));
         tmp.add(JVM_ClassPath);
@@ -250,10 +263,10 @@ public class BoatArgsMaker implements ArgsMaker {
         ArgsMap.put("{assets_root}", AppManifest.MINECRAFT_ASSETS);
         ArgsMap.put("{game_directory}", AppManifest.MINECRAFT_HOME);
         ArgsMap.put("{game_assets}", version.getAssets());
-        ArgsMap.put("{version_name}", "MCinaBox_" + MCINABOX_VERSION_NAME);
-        ArgsMap.put("{version_type}", version.getType());
-        ArgsMap.put("{window_width}", String.valueOf(mContext.getResources().getDisplayMetrics().widthPixels));
-        ArgsMap.put("{window_height}", String.valueOf(mContext.getResources().getDisplayMetrics().heightPixels));
+        ArgsMap.put("{version_name}", mContext.getString(R.string.app_name) + "_" + MCINABOX_VERSION_NAME);
+        ArgsMap.put("{version_type}", mContext.getString(R.string.app_name) + "_" + MCINABOX_VERSION_NAME);
+        ArgsMap.put("{window_width}", String.valueOf(DisplayUtils.checkDeviceHasNavigationBar(mContext) ? DisplayUtils.getApplicationWindowSize(mContext)[0] + DisplayUtils.getNavigationBarHeight(mContext) : DisplayUtils.getApplicationWindowSize(mContext)[0]));
+        ArgsMap.put("{window_height}", String.valueOf(DisplayUtils.getApplicationWindowSize(mContext)[1]));
 
         for (int i = 0; i < str.length(); i++) {
             if (str.charAt(i) == '$') {

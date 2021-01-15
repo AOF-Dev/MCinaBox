@@ -1,5 +1,7 @@
 package com.aof.mcinabox.launcher.runtime.support;
 
+import java.util.Map;
+
 public class RuntimePackInfo {
 
     public String releaseTime; //发行时间
@@ -53,6 +55,7 @@ public class RuntimePackInfo {
         public String java_library_path; //环境目录
         public String classpath; //classpath参数
         public String jvmMode; //启动器模式
+        public Map<String, String> systemEnv; //启动器环境
 
         public Manifest setName(String name) {
             this.name = name;
@@ -81,6 +84,11 @@ public class RuntimePackInfo {
 
         public Manifest setConditionInfo(String info){
             this.condition_info = info;
+            return this;
+        }
+
+        public Manifest setSystemEnv(Map<String, String> env){
+            this.systemEnv = env;
             return this;
         }
     }
