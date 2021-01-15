@@ -101,7 +101,7 @@ public class Request {
 
     private void requestDownload(AuthlibVersionResponse response) {
         BaseDownloadTask[] tasks = {DownloadHelper.createDownloadTask(AppManifest.AUTHLIB_INJETOR_JAR, response.download_url, null)};
-        new DownloadManager(mContext).startDownload(AUTHLIB_INJECTOR, "正在下载authlib库", 1, 0, tasks, null);
+        new DownloadManager(mContext).startDownload(AUTHLIB_INJECTOR, mContext.getString(R.string.tips_downloading_authlib_injector), 1, 0, tasks, null);
     }
 
 }
