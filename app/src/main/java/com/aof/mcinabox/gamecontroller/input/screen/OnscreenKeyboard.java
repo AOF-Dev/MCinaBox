@@ -309,9 +309,7 @@ public class OnscreenKeyboard implements OnscreenInput {
                 v.postInvalidate();
                 break;
             case MotionEvent.ACTION_UP:
-                ViewGroup.LayoutParams p = onscreenKeyboard.getLayoutParams();
-                ((ViewGroup.MarginLayoutParams) p).setMargins(onscreenKeyboard.getLeft(), onscreenKeyboard.getTop(), 0, 0);
-                onscreenKeyboard.setLayoutParams(p);
+                setMargins(v.getLeft(), v.getTop(), 0, 0);
                 break;
             default:
                 break;

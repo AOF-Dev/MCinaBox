@@ -143,8 +143,10 @@ public abstract class BaseController implements Controller {
 
     @Override
     public void onPaused() {
-        if(mTimer != null)
+        if(mTimer != null){
             mTimer.cancel();
+            mTimer = null;
+        }
         for (Input i : inputs){
             i.onPaused();
         }
@@ -159,13 +161,14 @@ public abstract class BaseController implements Controller {
     }
 
     private void createAutoSaveTimer(){
+        if(mTimer != null) return;
         mTimer = new Timer();
         mTimer.schedule(new TimerTask() {
             @Override
             public void run() {
                 BaseController.this.saveConfig();
             }
-        }, internalTime);
+        }, internalTime, internalTime);
     }
 
     @Override

@@ -161,9 +161,7 @@ public class OnscreenJoystick implements OnscreenInput, RockerView.OnShakeListen
                 v.postInvalidate();
                 break;
             case MotionEvent.ACTION_UP:
-                ViewGroup.LayoutParams p = v.getLayoutParams();
-                ((ViewGroup.MarginLayoutParams) p).setMargins(v.getLeft(), v.getTop(), 0, 0);
-                v.setLayoutParams(p);
+                setMargins(v.getLeft(), v.getTop(), 0, 0);
                 break;
             default:
                 break;

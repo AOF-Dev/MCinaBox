@@ -292,9 +292,7 @@ public class OnscreenMouse implements OnscreenInput {
                 p2.postInvalidate();
                 break;
             case MotionEvent.ACTION_UP:
-                ViewGroup.LayoutParams p = onscreenMouse.getLayoutParams();
-                ((ViewGroup.MarginLayoutParams) p).setMargins(onscreenMouse.getLeft(), onscreenMouse.getTop(), 0, 0);
-                onscreenMouse.setLayoutParams(p);
+                setMargins(p2.getLeft(), p2.getTop(), 0, 0);
                 break;
             default:
                 break;

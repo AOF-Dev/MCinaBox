@@ -64,6 +64,10 @@ public class CrossKeyboard implements OnscreenInput, KeyMap {
     private int posX;
     private int posY;
 
+    private int screenWidth;
+    private int screenHeight;
+    private final int[] viewPos = new int[2];
+
     private CrossKeyboardConfigDialog configDialog;
 
     @Override
@@ -407,10 +411,6 @@ public class CrossKeyboard implements OnscreenInput, KeyMap {
 
     }
 
-    private int screenWidth;
-    private int screenHeight;
-    private final int[] viewPos = new int[2];
-
     private void moveViewByTouch(View v, MotionEvent e) {
         switch (e.getAction()) {
             case MotionEvent.ACTION_DOWN:
@@ -447,9 +447,7 @@ public class CrossKeyboard implements OnscreenInput, KeyMap {
                 v.postInvalidate();
                 break;
             case MotionEvent.ACTION_UP:
-                ViewGroup.LayoutParams p = v.getLayoutParams();
-                ((ViewGroup.MarginLayoutParams) p).setMargins(v.getLeft(), v.getTop(), 0, 0);
-                v.setLayoutParams(p);
+                setMargins(v.getLeft(), v.getTop(), 0, 0);
                 break;
             default:
                 break;
