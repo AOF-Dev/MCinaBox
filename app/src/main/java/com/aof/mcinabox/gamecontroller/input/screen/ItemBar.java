@@ -39,6 +39,8 @@ public class ItemBar implements OnscreenInput {
     private final ItemButton[] itemButtons = new ItemButton[9];
     private boolean enable;
     private ItembarConfigDialog configDialog;
+    private int posX;
+    private int posY;
 
     @Override
     public boolean load(Context context, Controller controller) {
@@ -124,7 +126,7 @@ public class ItemBar implements OnscreenInput {
 
     @Override
     public float[] getPos() {
-        return (new float[]{itemBar.getX(), itemBar.getY()});
+        return (new float[]{posX, posY});
     }
 
     @Override
@@ -132,6 +134,8 @@ public class ItemBar implements OnscreenInput {
         ViewGroup.LayoutParams p = itemBar.getLayoutParams();
         ((ViewGroup.MarginLayoutParams) p).setMargins(left, top, 0, 0);
         itemBar.setLayoutParams(p);
+        this.posX = left;
+        this.posY = top;
     }
 
     @Override
@@ -510,10 +514,8 @@ public class ItemBar implements OnscreenInput {
             SharedPreferences.Editor editor = mContext.getSharedPreferences(spFileName, spMode).edit();
             editor.putInt(sp_alpha_name, seekbarAlpha.getProgress());
             editor.putInt(sp_size_name, seekbarSize.getProgress());
-            if (mInput.getUiVisiability() == View.VISIBLE) {
-                editor.putInt(sp_pos_x_name, (int) mInput.getPos()[0]);
-                editor.putInt(sp_pos_y_name, (int) mInput.getPos()[1]);
-            }
+            editor.putInt(sp_pos_x_name, (int) mInput.getPos()[0]);
+            editor.putInt(sp_pos_y_name, (int) mInput.getPos()[1]);
             editor.apply();
         }
 

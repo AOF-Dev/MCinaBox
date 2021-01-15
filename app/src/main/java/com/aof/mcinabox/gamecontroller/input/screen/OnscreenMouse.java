@@ -88,6 +88,9 @@ public class OnscreenMouse implements OnscreenInput {
     private boolean hasHeld = false;
     private Timer mTimer;
 
+    private int posX;
+    private int posY;
+
     @Override
     public boolean load(Context context, Controller controller) {
         this.mContext = context;
@@ -218,7 +221,7 @@ public class OnscreenMouse implements OnscreenInput {
 
     @Override
     public float[] getPos() {
-        return (new float[]{onscreenMouse.getX(), onscreenMouse.getY()});
+        return (new float[]{posX, posY});
     }
 
     @Override
@@ -226,6 +229,8 @@ public class OnscreenMouse implements OnscreenInput {
         ViewGroup.LayoutParams p = onscreenMouse.getLayoutParams();
         ((ViewGroup.MarginLayoutParams) p).setMargins(left, top, 0, 0);
         onscreenMouse.setLayoutParams(p);
+        this.posX = left;
+        this.posY = top;
     }
 
     @Override
@@ -624,10 +629,8 @@ public class OnscreenMouse implements OnscreenInput {
             editor.putInt(sp_alpha_name, seekbarAlpha.getProgress());
             editor.putInt(sp_size_name, seekbarSize.getProgress());
             editor.putInt(sp_wheel_speed_name, seekbarWheelSpeed.getProgress());
-            if (mInput.getUiVisiability() == View.VISIBLE) {
-                editor.putInt(sp_pos_x_name, (int) mInput.getPos()[0]);
-                editor.putInt(sp_pos_y_name, (int) mInput.getPos()[1]);
-            }
+            editor.putInt(sp_pos_x_name, (int) mInput.getPos()[0]);
+            editor.putInt(sp_pos_y_name, (int) mInput.getPos()[1]);
             editor.putInt(sp_show_name, ((OnscreenMouse) mInput).getShowStat());
             editor.apply();
         }

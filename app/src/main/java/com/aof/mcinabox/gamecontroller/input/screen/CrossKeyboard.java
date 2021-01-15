@@ -61,6 +61,9 @@ public class CrossKeyboard implements OnscreenInput, KeyMap {
     private final static int extra_widthDp = 65;
     private final static int extra_heightDp = 65;
 
+    private int posX;
+    private int posY;
+
     private CrossKeyboardConfigDialog configDialog;
 
     @Override
@@ -151,7 +154,7 @@ public class CrossKeyboard implements OnscreenInput, KeyMap {
 
     @Override
     public float[] getPos() {
-        return (new float[]{crossKeyboard.getX(), crossKeyboard.getY()});
+        return (new float[]{posX, posY});
     }
 
     @Override
@@ -159,6 +162,8 @@ public class CrossKeyboard implements OnscreenInput, KeyMap {
         ViewGroup.LayoutParams p = crossKeyboard.getLayoutParams();
         ((ViewGroup.MarginLayoutParams) p).setMargins(left, top, 0, 0);
         crossKeyboard.setLayoutParams(p);
+        this.posX = left;
+        this.posY = top;
     }
 
     @Override
@@ -785,10 +790,8 @@ public class CrossKeyboard implements OnscreenInput, KeyMap {
             editor.putInt(sp_alpha_name, seekbarAlpha.getProgress());
             editor.putInt(sp_size_name, seekbarSize.getProgress());
             editor.putBoolean(sp_switch_bounce_name, switchBounce.isChecked());
-            if (mInput.getUiVisiability() == View.VISIBLE) {
-                editor.putInt(sp_pos_x_name, (int) mInput.getPos()[0]);
-                editor.putInt(sp_pos_y_name, (int) mInput.getPos()[1]);
-            }
+            editor.putInt(sp_pos_x_name, (int) mInput.getPos()[0]);
+            editor.putInt(sp_pos_y_name, (int) mInput.getPos()[1]);
             editor.putInt(sp_extra_pos_x_name, (int) mInput.getViews()[1].getX());
             editor.putInt(sp_extra_pos_y_name, (int) mInput.getViews()[1].getY());
             editor.putInt(sp_show_name, ((CrossKeyboard) mInput).getShowStat());

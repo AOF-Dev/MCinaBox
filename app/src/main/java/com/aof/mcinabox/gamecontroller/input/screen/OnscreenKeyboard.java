@@ -61,6 +61,8 @@ public class OnscreenKeyboard implements OnscreenInput {
     private final int[] OnscreenKeyboardPos = new int[2];
     private int screenWidth;
     private int screenHeight;
+    private int posX;
+    private int posY;
 
     @Override
     public boolean load(Context context, Controller controller) {
@@ -218,7 +220,7 @@ public class OnscreenKeyboard implements OnscreenInput {
 
     @Override
     public float[] getPos() {
-        return (new float[]{onscreenKeyboard.getX(), onscreenKeyboard.getY()});
+        return (new float[]{posX, posY});
     }
 
     @Override
@@ -226,6 +228,8 @@ public class OnscreenKeyboard implements OnscreenInput {
         ViewGroup.LayoutParams p = onscreenKeyboard.getLayoutParams();
         ((ViewGroup.MarginLayoutParams) p).setMargins(left, top, 0, 0);
         onscreenKeyboard.setLayoutParams(p);
+        this.posX = left;
+        this.posY = top;
     }
 
     @Override
@@ -617,10 +621,8 @@ public class OnscreenKeyboard implements OnscreenInput {
             SharedPreferences.Editor editor = mContext.getSharedPreferences(spFileName, spMode).edit();
             editor.putInt(sp_alpha_name, seekbarAlpha.getProgress());
             editor.putInt(sp_size_name, seekbarSize.getProgress());
-            if (mInput.getUiVisiability() == View.VISIBLE) {
-                editor.putInt(sp_pos_x_name, (int) mInput.getPos()[0]);
-                editor.putInt(sp_pos_y_name, (int) mInput.getPos()[1]);
-            }
+            editor.putInt(sp_pos_x_name, (int) mInput.getPos()[0]);
+            editor.putInt(sp_pos_y_name, (int) mInput.getPos()[1]);
             editor.putInt(sp_show_name, ((OnscreenKeyboard) mInput).getShowStat());
             editor.apply();
         }

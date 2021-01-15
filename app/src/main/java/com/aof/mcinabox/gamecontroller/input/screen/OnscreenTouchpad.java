@@ -57,6 +57,8 @@ public class OnscreenTouchpad implements OnscreenInput, KeyMap, MouseMap {
     private boolean performClick;
     private boolean hasPerformLeftClick;
     private long cursorDownTime;
+    private int posX;
+    private int posY;
 
     @Override
     public boolean load(Context context, Controller controller) {
@@ -223,7 +225,7 @@ public class OnscreenTouchpad implements OnscreenInput, KeyMap, MouseMap {
 
     @Override
     public float[] getPos() {
-        return (new float[]{touchpad.getX(), touchpad.getY()});
+        return (new float[]{posX, posY});
     }
 
     @Override
@@ -231,6 +233,8 @@ public class OnscreenTouchpad implements OnscreenInput, KeyMap, MouseMap {
         ViewGroup.LayoutParams p = touchpad.getLayoutParams();
         ((ViewGroup.MarginLayoutParams) p).setMargins(left, top, 0, 0);
         touchpad.setLayoutParams(p);
+        this.posX = left;
+        this.posY = top;
     }
 
     @Override

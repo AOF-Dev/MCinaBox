@@ -56,6 +56,8 @@ public class OnscreenJoystick implements OnscreenInput, RockerView.OnShakeListen
 
     private final static int widthDp = 200;
     private final static int heightDp = 200;
+    private int posX;
+    private int posY;
 
 
     private final static String TAG = "OnscreenJoystick";
@@ -78,7 +80,7 @@ public class OnscreenJoystick implements OnscreenInput, RockerView.OnShakeListen
 
     @Override
     public float[] getPos() {
-        return (new float[]{onscreenJoystick.getX(), onscreenJoystick.getY()});
+        return (new float[]{posX, posY});
     }
 
     @Override
@@ -91,6 +93,8 @@ public class OnscreenJoystick implements OnscreenInput, RockerView.OnShakeListen
         ViewGroup.LayoutParams p = onscreenJoystick.getLayoutParams();
         ((ViewGroup.MarginLayoutParams) p).setMargins(left, top, 0, 0);
         onscreenJoystick.setLayoutParams(p);
+        this.posX = left;
+        this.posY = top;
     }
 
     @Override
@@ -536,10 +540,8 @@ public class OnscreenJoystick implements OnscreenInput, RockerView.OnShakeListen
             SharedPreferences.Editor editor = mContext.getSharedPreferences(spFileName, spMode).edit();
             editor.putInt(sp_alpha_name, seekbarAlpha.getProgress());
             editor.putInt(sp_size_name, seekbarSize.getProgress());
-            if (mInput.getUiVisiability() == View.VISIBLE) {
-                editor.putInt(sp_pos_x_name, (int) mInput.getPos()[0]);
-                editor.putInt(sp_pos_y_name, (int) mInput.getPos()[1]);
-            }
+            editor.putInt(sp_pos_x_name, (int) mInput.getPos()[0]);
+            editor.putInt(sp_pos_y_name, (int) mInput.getPos()[1]);
             editor.putInt(sp_show_name, ((OnscreenJoystick) mInput).getShowStat());
             editor.apply();
         }
