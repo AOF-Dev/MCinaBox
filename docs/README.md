@@ -1,10 +1,10 @@
 # MCinaBox - A Minecraft Java Edition Launcher on Android
-[Now is English] [切换为简体中文](./README_zh-cn.md)
-## Warning
-- There is a problem with the latest source code. Some functions are not working properly.
-- Because I have no time to maintain the project, the latest source code is not perfect.
-  
+[Now is English] [切换为简体中文](./README_zh-cn.md)</br>
+
 If you find problems when you run, you can check [Q&A](./Q&A.md) for that at first  
+
+## Instruction
+- MCinaBox is a Launcher of Minecraft Java Edition which running on the Android. Its core functionality is powered by [CosineMath](Https://github.com/CosineMath)'s [BoatApp](https://github.com.AOF-Dev/BoatApp) project.
 
 ## Table of Contents
 - [Background](#Background)
@@ -14,19 +14,18 @@ If you find problems when you run, you can check [Q&A](./Q&A.md) for that at fir
 - [Preview](#Preview)
 - [Known Issues](#Known-Issues)
 - [Maintainers](#Maintainers)
+- [License](#License)
 - [Contribution](#Contribution)
 - [Related](#Related)
-- [License](#License)
 - [Q&A](./Q&A.md)
 
 ## Background
+- `MCinaBox` is an open source project with the goal of building and developing a Minecraft Java version launcher that runs on an Android system.
+- `Front End` provides User Management, Minecraft Version Management, Minecraft Game Controller, Minecraft Startup Parameter Generation, Configuration Backend, etc`Configuration` and `Management` functions to reduce the workload of complete launcher development.
+- `Backend` provides JRE runtime environment, Minecraft runtime environment, etc `core` functionality.
+- `Composition` The MCinaBox consists of a front end and a back end.
 
-`Origin` I discovered the `BoardwalkApp` a few years ago, which can launch Minecraft Java Edition on Android devices. It's so exciting to see minecraft start on my phone.It's really a curious and interesting project<br>
-`MCinaBox` is an open source project, and the back end is supported by the `BoatApp` project. And in the efforts of many people to make it run.
->zhuowei 's BoardwalkApp https://github.com/zhuowei/Boardwalk <br>
->CosineMath 's BoatApp https://github.com/CosineMath/BoatApp
 ## Change Log
-
 - [English](./CHANGELOG.md)
 - [Chinese](./CHANGELOG_zh-cn.md)
 
@@ -38,7 +37,7 @@ If you find problems when you run, you can check [Q&A](./Q&A.md) for that at fir
 - Git
 
 ### Clone
-- ```git clone https://github.com/longjunyu2/MCinaBox.git ```
+- ```git clone https://github.com/AOF-Dev/MCinaBox.git ```
 
 ### Import
 - Import this project in your Android Studio.
@@ -46,43 +45,48 @@ If you find problems when you run, you can check [Q&A](./Q&A.md) for that at fir
 ### Build
 - Build via Android Studio.
 
-#### You can also get released apk from [here](https://github.com/longjunyu2/MCinaBox/releases).
+#### You can also get released apk from [here](https://github.com/AOF-Dev/MCinaBox/releases).
 
 ## Usage
 
-### Install
-1. Download the latest APK and runtime pack to your Android phone.
-2. Install APK and start it at least one time.
-3. Copy the runtime to ```/sdcard/Android/data/com.aof.mcinabox/files/MCinaBox/runtimepack/```
-4. Then start APK and find ```Launcher Set``` to import the runtime pack.
-### Play
-1. Before you start the game, you need to configure the starter according to the instructions in the software. Until the indicator changes from red to blue.
-2. What you need to do includes creating users, modifying the maximum memory, downloading game versions, and creating your own virtual keyboard templates.
-### Forge
-In theory, forge is supported, but we need to make some changes to start it.
-1. Copy an installed version of forge from your computer to ```/sdcard/mcinabox/.minecraft/```, including ```libraries``` and ```versions```
-2. Launch it in MCinaBox at least one time. (As a result, it can't be started)
-3. Edit ```/sdcard/MCinaBox/.minecraft/config/splash.properties``` to change ```enabled=true``` to ```enabled=false``` to close forge loading animation.
-4. Try to launch forge again. It's going to be black for a while, but it's usually useful.
-### Matters needing attention
-1. Mipmap will cause rendering problems. Please turn it off in Minecraft ```settings - video settings - mipmap=0```
+### Installation
+1. Download the latest APK and runtime to your Android phone.
+2. Then start APK and find `Launcher Settings` - `Import Runtime`. Click `Import` to import runtime.
+3. Alternatively, you can move the runtime to `/ sdcard / Android/ com.aof.mcinabox/files/MCinaBox/runtime` , and then repeat the previous step.
+
+### Start
+1. First, you need to create a user. Click `User` - `Add new User` to create a user.
+2. Second, you need to download Minecraft. Click `Game List` - `Install new version` to download Minecraft.
+3. Finally, you will start the game. Please select a Minecraft version on `home page` and start the game.
+
+### Forge API
+1. First, download Forge-Installer from Forge. It must be in `Universal` and `jar` format.
+2. Then put the downloaded jar file in `/sdcard/Android/com.aof.mcinabox/files/MCinaBox/forge`.
+3. Finally, open the MCinaBox and click `Launcher Settings` - `Forge Installer` to select and install the forge.
+
+### Customize
+1. MCinaBox offers a number of customization options, you can configure your launcher parameters in the `Game List` - `Global Game Settings`.
+2. MCinaBox provides the ability to customize your Minecraft working directory by configuring your Minecraft working directory in the `Game Directory`.
+3. MCinaBox provides the ability to customize your game controller by creating your virtual keyboard layout in the `Virtual Keyboard Settings`.
+
+### Online
+1. MCinaBox supports Mojang's official server authentication. When you create a user, you can check `Online login` and enter your Mojang account and password to log in.
+2. MCinaBox supports server authentication for Authlib-Injector. When you create a user, you can check `Online login`, enter your account and password, and verify the address of the server to log on.
+3. MCinaBox will not record your password in any way.
 
 ## Preview
 
 ## Known Issues
 
 ### Launcher
-1. Unable to request more memory from the system, the upper limit is determined by the system
 
 ### Launch Minecraft
 1. Forge's loading animation will cause a crash
 2. It seems that there will be an X11 error when starting the Minecraft version below 1.6
 3. Unable to initialize Minecraft 1.13.x
-4. Minecraft 1.14.X ~ 1.15.X has rendering problems
-5. Too fast key input may cause lwjgl to crash
 
 ## Maintainers
-[@longjunyu2](https://github.com/longjunyu2)
+[@AOF-Dev](https://github.com/AOF-Dev)
 
 ## License
 The software is distributed under [GPL v3](https://www.gnu.org/licenses/gpl-3.0.html) with additional terms.
@@ -96,28 +100,29 @@ This project exists thanks to all the people who contribute.
 ### List of contributors:
 - [ALL](https://github.com/longjunyu2/MCinaBox/graphs/contributors)
 - `MCredbear`
-- `TSaltedfishKing`
 - All people who put forward issues.
 
 
 If you want to submit a pull request, there're some requirements:
 * IDE: Android Studio
-* TargetSDK: 21
+* TargetSDK: 22
 * MimniumSDK: 21
 * Do NOT modify `gradle` files.
 
 ## Related
-> [BoatApp (CosineMath,MIT)](https://github.com/CosineMath/BoatApp)</br>
-> Gson (Google,Apache 2.0)</br>
-> XZ for Java (Lasse Collin,Public Domain)</br>
-> [JNDCrash (ivanarh,Apache-2.0)](https://github.com/ivanarh/jndcrash)</br>
-> [GL4ES (pitiSeb,MIT)](https://github.com/ptitSeb/gl4es)</br>
-> [FileDownloader (lingochamp,Apache-2.0)](https://github.com/lingochamp/FileDownloader)</br>
-> [BubbleLayout (MasayukiSuda)](https://github.com/MasayukiSuda/BubbleLayout)</br>
-> [AndroidRocker (kongqw)](https://github.com/kongqw/AndroidRocker)</br>
-> [colorpicker (shixiuwen)](https://github.com/shixiuwen/colorpicker)</br>
-> [OpenJDK-8 (CosineMath,GPL-2.0)](https://github.com/CosineMath/openjdk-jdk8u-aarch32-android)</br>
-> [lwjgl2.x (CosineMath)](https://github.com/CosineMath/lwjgl-boat)</br>
-> [lwjgl3.x (CosineMath)](https://github.com/CosineMath/lwjgl3-boat)</br>
-> [glfw (CosineMath)](https://github.com/CosineMath/glfw-boat)</br>
-> [openal-soft (kcat,GPL-2.0)](https://github.com/kcat/openal-soft)</br>
+* [BoatApp (CosineMath,MIT)](https://github.com/CosineMath/BoatApp)
+* Gson (Google,Apache 2.0)
+* XZ for Java (Lasse Collin,Public Domain)
+* [JNDCrash (ivanarh,Apache-2.0)](https://github.com/ivanarh/jndcrash)
+* [FileDownloader (lingochamp,Apache-2.0)](https://github.com/lingochamp/FileDownloader)
+* [BubbleLayout (MasayukiSuda,All)](https://github.com/MasayukiSuda/BubbleLayout)
+* [AndroidRocker (kongqw,All)](https://github.com/kongqw/AndroidRocker)
+* [colorpicker (QuadFlask,All)](https://github.com/QuadFlask/colorpicker)
+- `Runtime Pack`
+* [GL4ES (ptitSeb,MIT)](https://github.com/ptitSeb/gl4es)
+* [OpenJDK-8 (CosineMath,GPL-2.0)](https://github.com/CosineMath/openjdk-jdk8u-aarch32-android)
+* [OpenJDK-8 (CosineMath,GPL-2.0)](https://github.com/AOF-Dev/openjdk-aarch64-jdk8u-androidport)
+* [lwjgl2.x (CosineMath,All)](https://github.com/CosineMath/lwjgl-boat)
+* [lwjgl3.x (CosineMath,All)](https://github.com/CosineMath/lwjgl3-boat)
+* [glfw (CosineMath,All)](https://github.com/CosineMath/glfw-boat)
+* [openal-soft (kcat,GPL-2.0)](https://github.com/kcat/openal-soft)

@@ -1,9 +1,10 @@
 # MCinaBox - A Minecraft Java Edition Launcher on Android
 [现在是简体中文] [Change to English](./README.md)</br>
-其他语言仍在翻译中。 请耐心等待（软件和某些页面）
 
-## 面向开发者
-- 当前分支为Dev分支，面向开发者们。
+如果你在使用时发现问题，可以先查看[Q&A](./Q&A.md)
+
+## 简介
+- MCinaBox是一个运行在Android系统的 Minecraft Java Edition 启动器， 它的核心功能由[CosineMath](https://github.com/CosineMath)的[BoatApp](https://github.com.AOF-Dev/BoatApp)项目提供。
 
 ## 目录
 - [项目背景](#项目背景)
@@ -13,7 +14,6 @@
 - [预览](#预览)
 - [已知问题](#已知问题)
 - [维护者](#维护者)
-- [须知](#须知)
 - [许可](#许可)
 - [贡献者](#贡献者)
 - [依赖的开源项目库](#依赖的开源项目)
@@ -37,26 +37,27 @@
 - Git
 
 ### 克隆到本地
-- ```git clone https://github.com/longjunyu2/MCinaBox.git ```
+- ```git clone https://github.com/AOF-Dev/MCinaBox.git ```
 
 ### 导入项目到AS
-- 将此项目导入您的 Android Studio
+- 将此项目导入你的 Android Studio
 
 ### 编译
 - 通过 Android Studio 编译项目
 
-#### 您也可以从[这里](https://github.com/longjunyu2/MCinaBox/releases)获得发布的APK。
+#### 你也可以从[这里](https://github.com/AOF-Dev/MCinaBox/releases)获得发布的APK。
 
 ## 使用
 
 ### 安装
-1. 将最新的APK和运行时包下载到您的Android手机。
+1. 将最新的APK和运行库下载到你的Android手机。
 2. 然后启动APK并找到 `启动器设置` - `导入运行库` 点击 `导入` 以导入运行库。
+3. 或者，你也可以将运行库移动到 `/sdcard/Android/com.aof.mcinabox/files/MCinaBox/runtime` 文件夹下，然后重复上一步的操作。
 
 ### 开始
-1. 首先，您需要创建一个用户。 请在 `左侧导航栏` - `用户` - `添加新用户` 来创建一个用户
-2. 其次，您需要下载Minecraft。 请在 `左侧导航栏` - `游戏列表` - `安装新游戏版本` 下载Minecraft游戏
-3. 最后，您将要启动游戏。 请在`左侧导航栏` - `主页` 选择一个Minecraft版本并启动。
+1. 首先，你需要创建一个用户。 请在 `左侧导航栏` - `用户` - `添加新用户` 来创建一个用户
+2. 其次，你需要下载Minecraft。 请在 `左侧导航栏` - `游戏列表` - `安装新游戏版本` 下载Minecraft游戏
+3. 最后，你将要启动游戏。 请在`左侧导航栏` - `主页` 选择一个Minecraft版本并启动。
 
 ### Forge API
 1. 首先，请在Forge官网下载Forge-Installer，必须是`通用版`的且是`jar`格式。
@@ -64,38 +65,29 @@
 3. 最后，请打开MCinabox，在`左侧导航栏` - `启动器设置` - `Forge本地安装其` 选择并安装forge版本。
 
 ### 自定义
-1. MCinaBox提供了大量的自定义选项，您可以在 `左侧导航栏你` - `游戏列表` - `全局游戏设置` 中配置您的启动参数。
-2. MCinaBox提供了自定义Minecraft工作目录的功能，您可以在 `左侧导航栏` - `游戏目录` 中配置您的Minecraft工作目录。
-3. MCinaBox提供了自定义游戏控制器的功能，您可以在 `左侧导航栏` - `虚拟键盘设置` 中创建您的虚拟键盘布局。
+1. MCinaBox提供了大量的自定义选项，你可以在 `左侧导航栏你` - `游戏列表` - `全局游戏设置` 中配置你的启动参数。
+2. MCinaBox提供了自定义Minecraft工作目录的功能，你可以在 `左侧导航栏` - `游戏目录` 中配置你的Minecraft工作目录。
+3. MCinaBox提供了自定义游戏控制器的功能，你可以在 `左侧导航栏` - `虚拟键盘设置` 中创建你的虚拟键盘布局。
 
 ### 服务器验证
-1. MCinaBox支持Minecraft的官方服务器验证，您可以在创建用户时，勾选 `在线登陆` ，输入您的Mojang账户和密码来进行登录。
-2. MCinaBox支持Authlib-Injector的服务器验证，您可以在创建用户时，勾选 `在线登陆` ，输入您的账户和密码和验证服务器的地址来进行登录。
+1. MCinaBox支持Minecraft的官方服务器验证，你可以在创建用户时，勾选 `在线登陆` ，输入你的Mojang账户和密码来进行登录。
+2. MCinaBox支持Authlib-Injector的服务器验证，你可以在创建用户时，勾选 `在线登陆` ，输入你的账户和密码和验证服务器的地址来进行登录。
 3. MCinaBox按照规范优先选择https协议进行通信。
-4. MCinaBox不会以任何形式记录您的密码。
+4. MCinaBox不会以任何形式记录你的密码。
 
 ## 预览
 
 ## 已知问题
 
 ### 启动器
-1. 启动器可用的内存大小和系统可用内存相比小很多，且调高内存易发生崩溃。
 
 ### 我的世界
 1. Forge的加载动画会导致崩溃。
 2. 在低于1.6的Minecraft版本中启动似乎会出现X11错误。
 3. 无法初始化Minecraft 1.13.x。
-5. 有时候会发生lwjgl崩溃。
 
 ## 维护者
 [@AOF-Dev](https://github.com/AOF-Dev)
-[@longjunyu2](https://github.com/longjunyu2)
-
-## 须知
-1. 本项目采用GPLv3开源协议，因此本项目所使用的全部开源项目均兼容GPLv3协议。
-2. 本项目所修改的开源项目均依照其开源许可进行源代码分发。 您可以在AOF-Dev所拥有的仓库中找到对应源码
-3. 本项目所使用的被修改过的二进制文件均依照其开源许可进行源代码分发。 您可以在AOF-Dev所拥有的仓库中找到对应源码。
-4. 当您使用该项目时(包括二进制文件)，请您务必依据GPL分发您的源代码，否则您无权使用本项目，敬请知悉。
 
 ## 许可
 该软件根据[GPL v3](https://www.gnu.org/licenses/gpl-3.0.html)和附加条款进行分发。
@@ -108,15 +100,13 @@
 
 ### 贡献者列表:
 - [全部](https://github.com/longjunyu2/MCinaBox/graphs/contributors)
-- [补充]:
 - `MCredbear`
-- `TSaltedfishKing`
 - 所有提出Issues的人。
 
 
 如果要提交拉取请求，则有一些要求：
 * IDE: Android Studio
-* TargetSDK: 21
+* TargetSDK: 22
 * MimniumSDK: 21
 * 不要修改`gradle`文件。
 
