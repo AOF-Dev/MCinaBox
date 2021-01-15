@@ -79,8 +79,8 @@ public class OldMainActivity extends BaseActivity {
     protected void onStart() {
         super.onStart();
         //执行自动刷新
-        this.mTimer = new Timer();
-        this.mTimer.schedule(createTimerTask(), REFRESH_DELAY, REFRESH_PERIOD);
+        mTimer = new Timer();
+        this.mTimer.schedule(createRefreshTimerTask(), REFRESH_DELAY, REFRESH_PERIOD);
         //启用检查
         switchSettingChecker(true);
         //添加无媒体文件标签
@@ -207,14 +207,9 @@ public class OldMainActivity extends BaseActivity {
     public void onRestart() {
         super.onRestart();
         mUiManager.onRestart();
-        // stat Timer Task
-        this.mTimer = new Timer();
-        this.mTimer.schedule(createTimerTask(), REFRESH_DELAY, REFRESH_PERIOD);
-        //重新启动SettingManager的自动检查
-        switchSettingChecker(true);
     }
 
-    private TimerTask createTimerTask() {
+    private TimerTask createRefreshTimerTask() {
         return new TimerTask() {
             @Override
             public void run() {
@@ -226,12 +221,10 @@ public class OldMainActivity extends BaseActivity {
     }
 
     public void restarter() {
-        //首先要关闭SettingManager的自动检查
-        switchSettingChecker(false);
         //重启Activity
         Intent i = new Intent(this, OldMainActivity.class);
         this.startActivity(i);
-
+        //结束当前Activity
         finish();
     }
 
