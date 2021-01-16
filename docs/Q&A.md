@@ -1,4 +1,4 @@
-**If you can't install MCinBox,please check if the architecture is compatible **
+** If you can't install MCinBox,please check if the architecture is compatible **
 
 ------
 
