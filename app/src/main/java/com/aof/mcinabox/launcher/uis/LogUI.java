@@ -75,8 +75,8 @@ public class LogUI extends BaseUI {
     }
 
     private void showLog(TextView view){
-        if (LoadMe.mReceiver != null && !LoadMe.mReceiver.getLogs().equals("")) {
-            view.setText(LoadMe.mReceiver.getLogs());
+        if (LoadMe.mReceiver != null && LoadMe.mReceiver.get() != null && !LoadMe.mReceiver.get().getLogs().equals("")) {
+            view.setText(LoadMe.mReceiver.get().getLogs());
         } else {
             try {
                 view.setText(FileTool.readToString(AppManifest.BOAT_LOG_FILE));

@@ -1,7 +1,6 @@
 package com.aof.mcinabox.gamecontroller.input.log;
 
 import android.content.Context;
-import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
@@ -9,19 +8,13 @@ import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RoundRectShape;
 import android.os.Handler;
-import android.util.AttributeSet;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 
-import com.aof.mcinabox.R;
 import com.aof.mcinabox.gamecontroller.controller.Controller;
 import com.aof.mcinabox.gamecontroller.definitions.manifest.AppManifest;
 import com.aof.mcinabox.gamecontroller.input.Input;
@@ -31,6 +24,7 @@ import com.aof.mcinabox.views.LineTextView;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 
 import cosine.boat.LoadMe;
 
@@ -64,8 +58,8 @@ public class DebugInfo implements Input, View.OnClickListener {
         mLogView.setX(0);
         mLogView.setY(mController.getConfig().getScreenHeight() - mLogView.getLayoutParams().height);
 
-        if (LoadMe.mReceiver == null) {
-            LoadMe.mReceiver = new LoadMe.LogReceiver() {
+        if (LoadMe.mReceiver == null || LoadMe.mReceiver.get() == null) {
+            LoadMe.mReceiver = new WeakReference<>(new LoadMe.LogReceiver() {
                 final StringBuilder stringBuilder = new StringBuilder();
 
                 @Override
@@ -79,7 +73,7 @@ public class DebugInfo implements Input, View.OnClickListener {
                 public String getLogs() {
                     return stringBuilder.toString();
                 }
-            };
+            });
         }
 
         return true;

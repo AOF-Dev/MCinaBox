@@ -3,13 +3,14 @@ package cosine.boat;
 import android.system.Os;
 import android.util.Log;
 
+import java.lang.ref.WeakReference;
 import java.util.Map;
 
 public class LoadMe {
 
     private final static String TAG = "LoadMe";
 
-    public static LogReceiver mReceiver;
+    public static WeakReference<LogReceiver> mReceiver;
 
     public static native int chdir(String str);
 
@@ -73,9 +74,9 @@ public class LoadMe {
     }
 
     public static void receiveLog(String str){
-        if (mReceiver == null) {
+        if (mReceiver == null || mReceiver.get() == null) {
             Log.e(TAG, "LogReceiver is null. So use default receiver.");
-            mReceiver = new LogReceiver() {
+            mReceiver = new WeakReference<>(new LogReceiver() {
                 final StringBuilder builder = new StringBuilder();
                 @Override
                 public void pushLog(String log) {
@@ -87,9 +88,10 @@ public class LoadMe {
                 public String getLogs() {
                     return builder.toString();
                 }
-            };
+            });
+        } else {
+            mReceiver.get().pushLog(str);
         }
-        mReceiver.pushLog(str);
     }
 
     static {
