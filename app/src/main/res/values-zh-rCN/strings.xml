@@ -170,6 +170,7 @@
     <string name="title_order">命令</string>
     <string name="title_input">输入</string>
     <string name="title_shortcut">快捷</string>
+    <string name="title_console">开发者控制台</string>
 
     <string name="tips_contributors_list">贡献者名单</string>
     <string name="tips_contributors_full">以Github项目提供的为准</string>

@@ -26,6 +26,7 @@ import com.aof.mcinabox.gamecontroller.codes.Translation;
 import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
 import com.aof.mcinabox.gamecontroller.input.Input;
 import com.aof.mcinabox.gamecontroller.input.OnscreenInput;
+import com.aof.mcinabox.gamecontroller.input.log.DebugInfo;
 import com.aof.mcinabox.gamecontroller.input.screen.CrossKeyboard;
 import com.aof.mcinabox.gamecontroller.input.screen.CustomizeKeyboard;
 import com.aof.mcinabox.gamecontroller.input.screen.InputBox;
@@ -62,7 +63,9 @@ public class VirtualController extends BaseController implements View.OnClickLis
     private final static String sp_enable_onscreentouchpad = "enable_touchpad";
     private final static String sp_enable_joystick = "enable_mcpe_joystick";
     private final static String sp_enable_inputbox = "enable_inputbox";
+    private final static String sp_enable_debuginfo = "enable_debuginfo";
     private final static String sp_first_loadder = "first_loaded";
+
     //Dialog的控件
     private final String TAG = "VirtualController";
     private final Translation mTranslation;
@@ -76,6 +79,7 @@ public class VirtualController extends BaseController implements View.OnClickLis
     public OnscreenInput onscreenTouchpad;
     public OnscreenInput inputBox;
     public OnscreenInput onscreenJoystick;
+    public Input debugInfo;
     private DragFloatActionButton dButton;
     private VirtualControllerSetting settingDialog;
     private ImageButton buttonCustomizeKeyboard;
@@ -94,9 +98,12 @@ public class VirtualController extends BaseController implements View.OnClickLis
     private SwitchCompat switchTouchpad;
     private ImageButton buttonInputBox;
     private SwitchCompat switchInputBox;
+    private ImageButton buttonDebugInfo;
+    private SwitchCompat switchDebugInfo;
     private Button buttonOK;
     private CheckBox checkboxLock;
     private Button buttonResetPos;
+
     //绑定
     private HashMap<View, Input> bindingViews;
 
@@ -122,7 +129,7 @@ public class VirtualController extends BaseController implements View.OnClickLis
 
     public void init() {
         //初始化Setting对话框
-        settingDialog = new VirtualControllerSetting(client.getActivity());
+        settingDialog = new VirtualControllerSetting(context);
 
         //初始化控制器
         onscreenTouchpad = new OnscreenTouchpad();
@@ -133,9 +140,11 @@ public class VirtualController extends BaseController implements View.OnClickLis
         custmoizeKeyboard = new CustomizeKeyboard();
         onscreenJoystick = new OnscreenJoystick();
         inputBox = new InputBox();
+        debugInfo = new DebugInfo();
 
         //注册控制器
         this.addInput(onscreenTouchpad);
+        this.addInput(debugInfo);
         this.addInput(crossKeyboard);
         this.addInput(itemBar);
         this.addInput(onscreenKeyboard);
@@ -150,9 +159,9 @@ public class VirtualController extends BaseController implements View.OnClickLis
         }
 
         //添加悬浮配置按钮
-        dButton = new DragFloatActionButton(client.getActivity());
-        dButton.setLayoutParams(new ViewGroup.LayoutParams(DisplayUtils.getPxFromDp(client.getActivity(), 30), DisplayUtils.getPxFromDp(client.getActivity(), 30)));
-        dButton.setBackground(ContextCompat.getDrawable(client.getActivity(), R.drawable.background_floatbutton));
+        dButton = new DragFloatActionButton(context);
+        dButton.setLayoutParams(new ViewGroup.LayoutParams(DisplayUtils.getPxFromDp(context, 30), DisplayUtils.getPxFromDp(context, 30)));
+        dButton.setBackground(ContextCompat.getDrawable(context, R.drawable.background_floatbutton));
         dButton.setTodo(new ArrangeRule() {
             @Override
             public void run() {
@@ -172,6 +181,7 @@ public class VirtualController extends BaseController implements View.OnClickLis
         buttonPEItembar = settingDialog.findViewById(R.id.virtual_controller_dialog_button_pe_itembar);
         buttonTouchpad = settingDialog.findViewById(R.id.virtual_controller_dialog_button_pc_touchpad);
         buttonInputBox = settingDialog.findViewById(R.id.virtual_controller_dialog_button_inputbox);
+        buttonDebugInfo = settingDialog.findViewById(R.id.virtual_controller_dialog_button_debug_info);
 
         switchCustomizeKeyboard = settingDialog.findViewById(R.id.virtual_controller_dialog_switch_customize_keyboard);
         switchPCKeyboard = settingDialog.findViewById(R.id.virtual_controller_dialog_switch_pc_keyboard);
@@ -181,6 +191,7 @@ public class VirtualController extends BaseController implements View.OnClickLis
         switchPEItembar = settingDialog.findViewById(R.id.virtual_controller_dialog_switch_pe_itembar);
         switchTouchpad = settingDialog.findViewById(R.id.virtual_controller_dialog_switch_pc_touchpad);
         switchInputBox = settingDialog.findViewById(R.id.virtual_controller_dialog_switch_inputbox);
+        switchDebugInfo = settingDialog.findViewById(R.id.virtual_controller_dialog_switch_debug_info);
 
         buttonOK = settingDialog.findViewById(R.id.virtual_controller_dialog_button_ok);
         checkboxLock = settingDialog.findViewById(R.id.virtual_controller_dialog_checkbox_lock);
@@ -188,11 +199,11 @@ public class VirtualController extends BaseController implements View.OnClickLis
 
         //给Dialog布局添加监听
 
-        for (View v : new View[]{buttonCustomizeKeyboard, buttonOK, buttonResetPos, buttonPCKeyboard, buttonPCMouse, buttonPEKeyboard, buttonPEJoystick, buttonPEItembar, buttonTouchpad, buttonInputBox}) {
+        for (View v : new View[]{buttonCustomizeKeyboard, buttonOK, buttonResetPos, buttonPCKeyboard, buttonPCMouse, buttonPEKeyboard, buttonPEJoystick, buttonPEItembar, buttonTouchpad, buttonInputBox, buttonDebugInfo}) {
             v.setOnClickListener(this);
         }
 
-        for (SwitchCompat s : new SwitchCompat[]{switchCustomizeKeyboard, switchPCKeyboard, switchPCMouse, switchPEKeyboard, switchPEJoystick, switchPEItembar, switchTouchpad, switchInputBox}) {
+        for (SwitchCompat s : new SwitchCompat[]{switchCustomizeKeyboard, switchPCKeyboard, switchPCMouse, switchPEKeyboard, switchPEJoystick, switchPEItembar, switchTouchpad, switchInputBox, switchDebugInfo}) {
             s.setOnCheckedChangeListener(this);
         }
 
@@ -205,7 +216,7 @@ public class VirtualController extends BaseController implements View.OnClickLis
         loadConfigFromFile();
     }
 
-    public void bindViewWithInput(){
+    public void bindViewWithInput() {
         //绑定Input对象与ImageButton和Switch
         bindingViews = new HashMap<>();
         bindingViews.put(buttonCustomizeKeyboard, custmoizeKeyboard);
@@ -224,6 +235,8 @@ public class VirtualController extends BaseController implements View.OnClickLis
         bindingViews.put(switchTouchpad, onscreenTouchpad);
         bindingViews.put(buttonInputBox, inputBox);
         bindingViews.put(switchInputBox, inputBox);
+        bindingViews.put(buttonDebugInfo, debugInfo);
+        bindingViews.put(switchDebugInfo, debugInfo);
     }
 
     @Override
@@ -316,7 +329,7 @@ public class VirtualController extends BaseController implements View.OnClickLis
         }
 
         if (v == buttonResetPos) {
-            DialogUtils.createBothChoicesDialog(client.getActivity(), client.getActivity().getString(R.string.title_note), client.getActivity().getString(R.string.tips_are_you_sure_to_auto_config_layout), client.getActivity().getString(R.string.title_ok), client.getActivity().getString(R.string.title_cancel), new DialogSupports() {
+            DialogUtils.createBothChoicesDialog(context, context.getString(R.string.title_note), context.getString(R.string.tips_are_you_sure_to_auto_config_layout), context.getString(R.string.title_ok), context.getString(R.string.title_cancel), new DialogSupports() {
                 @Override
                 public void runWhenPositive() {
                     resetAllPosOnScreen();
@@ -332,14 +345,9 @@ public class VirtualController extends BaseController implements View.OnClickLis
             (Objects.requireNonNull(bindingViews.get(buttonView))).setEnabled(isChecked);
         }
         if (buttonView == checkboxLock) {
-            if (isChecked) {
-                for (Input i : inputs) {
-                    ((OnscreenInput) i).setUiMoveable(true);
-                }
-            } else {
-                for (Input i : inputs) {
-                    ((OnscreenInput) i).setUiMoveable(false);
-                }
+            for (Input i : inputs) {
+                if (i instanceof OnscreenInput)
+                    ((OnscreenInput) i).setUiMoveable(isChecked);
             }
         }
 
@@ -398,7 +406,7 @@ public class VirtualController extends BaseController implements View.OnClickLis
     }
 
     private void saveConfigToFile() {
-        SharedPreferences.Editor editor = client.getActivity().getSharedPreferences(spFileName, spMode).edit();
+        SharedPreferences.Editor editor = context.getSharedPreferences(spFileName, spMode).edit();
         editor.putBoolean(sp_enable_ckb, switchCustomizeKeyboard.isChecked());
         editor.putBoolean(sp_enable_onscreenkeyboard, switchPCKeyboard.isChecked());
         editor.putBoolean(sp_enable_onscreenmouse, switchPCMouse.isChecked());
@@ -407,7 +415,8 @@ public class VirtualController extends BaseController implements View.OnClickLis
         editor.putBoolean(sp_enable_onscreentouchpad, switchTouchpad.isChecked());
         editor.putBoolean(sp_enable_crosskeyboard, switchPEKeyboard.isChecked());
         editor.putBoolean(sp_enable_inputbox, switchInputBox.isChecked());
-        if (!client.getActivity().getSharedPreferences(spFileName, spMode).contains(sp_first_loadder)) {
+        editor.putBoolean(sp_enable_debuginfo, switchDebugInfo.isChecked());
+        if (!context.getSharedPreferences(spFileName, spMode).contains(sp_first_loadder)) {
             editor.putBoolean(sp_first_loadder, false);
         }
         editor.apply();
@@ -415,7 +424,7 @@ public class VirtualController extends BaseController implements View.OnClickLis
     }
 
     private void loadConfigFromFile() {
-        SharedPreferences sp = client.getActivity().getSharedPreferences(spFileName, spMode);
+        SharedPreferences sp = context.getSharedPreferences(spFileName, spMode);
         switchCustomizeKeyboard.setChecked(sp.getBoolean(sp_enable_ckb, true));
         switchPCKeyboard.setChecked(sp.getBoolean(sp_enable_onscreenkeyboard, false));
         switchPCMouse.setChecked(sp.getBoolean(sp_enable_onscreenmouse, false));
@@ -424,6 +433,7 @@ public class VirtualController extends BaseController implements View.OnClickLis
         switchPEJoystick.setChecked(sp.getBoolean(sp_enable_joystick, false));
         switchTouchpad.setChecked(sp.getBoolean(sp_enable_onscreentouchpad, true));
         switchInputBox.setChecked(sp.getBoolean(sp_enable_inputbox, false));
+        switchDebugInfo.setChecked(sp.getBoolean(sp_enable_debuginfo, false));
         if (!sp.contains(sp_first_loadder)) {
             buttonResetPos.performClick();
         }
