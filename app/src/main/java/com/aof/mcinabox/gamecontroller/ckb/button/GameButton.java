@@ -31,6 +31,7 @@ import static androidx.core.math.MathUtils.clamp;
 import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.KEYBOARD_BUTTON;
 import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.MOUSE_BUTTON;
 import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.MOUSE_POINTER;
+import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.MOUSE_POINTER_INC;
 
 @SuppressLint("ViewConstructor")
 public class GameButton extends AppCompatButton implements View.OnTouchListener {
@@ -423,24 +424,17 @@ public class GameButton extends AppCompatButton implements View.OnTouchListener 
     private boolean isBeingPressed = false;
     private int initialX = 0;
     private int initialY = 0;
-    private int baseX = 0;
-    private int baseY = 0;
 
     private void inputPointerEvent(MotionEvent e) {
         switch (e.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 initialX = (int) e.getX();
                 initialY = (int) e.getY();
-                int[] pointer = mController.getGrabbedPointer();
-                baseX = pointer[0];
-                baseY = pointer[1];
                 break;
             case MotionEvent.ACTION_MOVE:
-                int incrementX = (int) (e.getX() - initialX);
-                int incrementY = (int) (e.getY() - initialY);
-                int resultX = baseX + incrementX;
-                int resultY = baseY + incrementY;
-                mController.sendKey(new BaseKeyEvent(TAG, null, false, POINTER_TYPE, new int[]{resultX, resultY}));
+                mController.sendKey(new BaseKeyEvent(TAG, null, false, MOUSE_POINTER_INC, new int[]{(int) (e.getX() - initialX), (int)(e.getY() - initialY)}));
+                initialX = (int) e.getX();
+                initialY = (int) e.getY();
                 break;
             case MotionEvent.ACTION_UP:
                 break;
