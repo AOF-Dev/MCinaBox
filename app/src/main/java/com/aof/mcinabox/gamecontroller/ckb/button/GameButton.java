@@ -448,14 +448,14 @@ public class GameButton extends AppCompatButton implements View.OnTouchListener 
                 if (isKeep && !isChars) {
                     if (!isBeingPressed) {
                         for (int a = 0; a < MAX_KEYMAP_SIZE; a++) {
-                            if (!keyMaps[a].equals("")) {
+                            if (keyMaps[a] != null && !keyMaps[a].equals("")) {
                                 sendKey(keyMaps[a], true, keyTypes[a]);
                             }
                         }
                     }
                 } else {
                     for (int a = 0; a < MAX_KEYMAP_SIZE; a++) {
-                        if (!keyMaps[a].equals("")) {
+                        if (keyMaps[a] != null && !keyMaps[a].equals("")) {
                             sendKey(keyMaps[a], true, keyTypes[a]);
                         }
                     }
@@ -467,7 +467,7 @@ public class GameButton extends AppCompatButton implements View.OnTouchListener 
                 if (isKeep && !isChars) {
                     if (isBeingPressed) {
                         for (int a = 0; a < MAX_KEYMAP_SIZE; a++) {
-                            if (!keyMaps[a].equals("")) {
+                            if (keyMaps[a] != null && !keyMaps[a].equals("")) {
                                 sendKey(keyMaps[a], false, keyTypes[a]);
                             }
                         }
@@ -479,7 +479,7 @@ public class GameButton extends AppCompatButton implements View.OnTouchListener 
                     mController.typeWords(convertStringWithASCII(this.keyChars));
                 } else {
                     for (int a = 0; a < MAX_KEYMAP_SIZE; a++) {
-                        if (!keyMaps[a].equals("")) {
+                        if (keyMaps[a] != null && !keyMaps[a].equals("")) {
                             sendKey(keyMaps[a], false, keyTypes[a]);
                         }
                     }
