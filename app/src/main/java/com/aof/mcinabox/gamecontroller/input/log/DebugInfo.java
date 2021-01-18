@@ -40,22 +40,23 @@ public class DebugInfo implements Input, View.OnClickListener {
     private Controller mController;
     private boolean isEnabled;
 
-    private Button switchButton;
+    //private Button switchButton;
     private LogView mLogView;
-    private boolean isShowInfo = true;
+    //private boolean isShowInfo = true;
 
     @Override
     public boolean load(Context context, Controller controller) {
         this.mContext = context;
         this.mController = controller;
-        this.switchButton = new Button(mContext);
+        //this.switchButton = new Button(mContext);
 
-        switchButton.setBackground(ContextCompat.getDrawable(mContext, R.drawable.background_floatbutton));
+        /*switchButton.setBackground(ContextCompat.getDrawable(mContext, R.drawable.background_floatbutton));
         switchButton.setLayoutParams(new ViewGroup.LayoutParams(DisplayUtils.getPxFromDp(mContext, 30), DisplayUtils.getPxFromDp(mContext, 30)));
         mController.addView(switchButton);
         switchButton.setX(mController.getConfig().getScreenWidth() - switchButton.getLayoutParams().width - DisplayUtils.getPxFromDp(mContext, 30));
         switchButton.setY(0);
         switchButton.setOnClickListener(this);
+         */
 
         mLogView = new LogView(mContext);
         mLogView.setLayoutParams(new ViewGroup.LayoutParams(mController.getConfig().getScreenWidth() - DisplayUtils.getPxFromDp(mContext, 10), mController.getConfig().getScreenHeight() / 2 - DisplayUtils.getPxFromDp(mContext, 30)));
@@ -88,7 +89,7 @@ public class DebugInfo implements Input, View.OnClickListener {
     public boolean unload() {
         ViewGroup vg = (ViewGroup) mLogView.getParent();
         vg.removeView(mLogView);
-        vg.removeView(switchButton);
+        //vg.removeView(switchButton);
         LoadMe.mReceiver = null;
         return true;
     }
@@ -116,6 +117,12 @@ public class DebugInfo implements Input, View.OnClickListener {
     @Override
     public void setEnabled(boolean enabled) {
         this.isEnabled = enabled;
+        if(enabled){
+            mLogView.setVisibility(View.VISIBLE);
+        }else{
+            mLogView.setVisibility(View.GONE);
+        }
+        /*
         if (enabled && isShowInfo) {
             switchButton.setVisibility(View.VISIBLE);
             mLogView.setVisibility(View.VISIBLE);
@@ -125,6 +132,7 @@ public class DebugInfo implements Input, View.OnClickListener {
         } else {
             switchButton.setVisibility(View.VISIBLE);
         }
+         */
 
     }
 
@@ -145,7 +153,7 @@ public class DebugInfo implements Input, View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (v == switchButton) {
+        /*if (v == switchButton) {
             if (!isShowInfo) {
                 mLogView.setVisibility(View.VISIBLE);
                 isShowInfo = true;
@@ -154,6 +162,7 @@ public class DebugInfo implements Input, View.OnClickListener {
                 isShowInfo = false;
             }
         }
+         */
     }
 
     private boolean firstWrite = true;
