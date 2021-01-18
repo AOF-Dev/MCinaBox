@@ -160,8 +160,8 @@ public class BoatArgsMaker implements ArgsMaker {
         tmp.add(JVM_minecraft_launcher_version);
         tmp.add(JVM_java_io_tmpdir);
         tmp.add(JVM_java_library_path);
-        tmp.add(JVM_org_lwjgl_util_debug);
-        tmp.add(JVM_org_lwjgl_util_debugloader);
+        //tmp.add(JVM_org_lwjgl_util_debug);
+        //s tmp.add(JVM_org_lwjgl_util_debugloader);
         if(JVM_ExtraArgs != null && JVM_ExtraArgs.trim().length()!= 0)
             tmp.addAll(Arrays.asList(JVM_ExtraArgs.split(" ")));
         tmp.add(JVM_ClassPath);
@@ -265,8 +265,8 @@ public class BoatArgsMaker implements ArgsMaker {
         ArgsMap.put("{game_assets}", version.getAssets());
         ArgsMap.put("{version_name}", mContext.getString(R.string.app_name) + "_" + MCINABOX_VERSION_NAME);
         ArgsMap.put("{version_type}", mContext.getString(R.string.app_name) + "_" + MCINABOX_VERSION_NAME);
-        ArgsMap.put("{window_width}", String.valueOf(DisplayUtils.checkDeviceHasNavigationBar(mContext) ? DisplayUtils.getApplicationWindowSize(mContext)[0] + DisplayUtils.getNavigationBarHeight(mContext) : DisplayUtils.getApplicationWindowSize(mContext)[0]));
-        ArgsMap.put("{window_height}", String.valueOf(DisplayUtils.getApplicationWindowSize(mContext)[1]));
+        ArgsMap.put("{window_width}", String.valueOf(DisplayUtils.getDisplayWindowSize(mContext)[0]));
+        ArgsMap.put("{window_height}", String.valueOf(DisplayUtils.getDisplayWindowSize(mContext)[1]));
 
         for (int i = 0; i < str.length(); i++) {
             if (str.charAt(i) == '$') {

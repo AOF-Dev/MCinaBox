@@ -27,7 +27,7 @@ public abstract class BaseController implements Controller {
         this.context = client.getActivity();
         inputs = new ArrayList<>();
         this.internalTime = intervalTime;
-        this.mConfig = new Config(DisplayUtils.checkDeviceHasNavigationBar(context) ? DisplayUtils.getApplicationWindowSize(context)[0] + DisplayUtils.getNavigationBarHeight(context) : DisplayUtils.getApplicationWindowSize(context)[0], DisplayUtils.getApplicationWindowSize(context)[1]);
+        this.mConfig = new Config(DisplayUtils.getDisplayWindowSize(context)[0], DisplayUtils.getDisplayWindowSize(context)[1]);
         createAutoSaveTimer();
     }
 
