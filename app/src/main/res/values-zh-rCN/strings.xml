@@ -172,6 +172,7 @@
     <string name="title_shortcut">快捷</string>
     <string name="title_console">开发者控制台</string>
     <string name="title_log">日志</string>
+    <string name="title_default">默认</string>
 
     <string name="tips_contributors_list">贡献者名单</string>
     <string name="tips_contributors_full">以Github项目提供的为准</string>

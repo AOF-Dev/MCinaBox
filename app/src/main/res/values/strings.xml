@@ -186,6 +186,7 @@
     <string name="title_shortcut">Shortcut</string>
     <string name="title_console">Console</string>
     <string name="title_log">Log</string>
+    <string name="title_default">Default</string>
 
     <string name="tips_contributors_list">List of Contributors</string>
     <string name="tips_contributors_full">Subject to the Github project provided</string>

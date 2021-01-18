@@ -21,6 +21,7 @@ import androidx.annotation.Nullable;
 
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.gamecontroller.ckb.button.GameButton;
+import com.aof.mcinabox.gamecontroller.ckb.support.CustomizeKeyboardMaker;
 import com.aof.mcinabox.gamecontroller.definitions.manifest.AppManifest;
 import com.aof.mcinabox.utils.FileTool;
 import com.aof.mcinabox.utils.dialog.DialogUtils;
@@ -46,6 +47,7 @@ public class CkbManagerDialog extends Dialog implements View.OnClickListener, Co
     private Button buttonOK;
     private Button buttonDel;
     private Button buttonClear;
+    private Button buttonDefault;
     private KeyboardFileListener fileListener;
 
 
@@ -72,9 +74,10 @@ public class CkbManagerDialog extends Dialog implements View.OnClickListener, Co
         buttonOK = findViewById(R.id.input_customize_keyboard_dialog_button_ok);
         buttonDel = findViewById(R.id.input_customize_keyboard_dialog_button_delete);
         buttonClear = findViewById(R.id.input_customize_keyboard_dialog_button_clear);
+        buttonDefault = findViewById(R.id.input_customize_keyboard_dialog_button_default);
 
         //设定监听
-        for (View v : new View[]{buttonAdd, buttonLoad, buttonExport, buttonOK, buttonDel, buttonClear}) {
+        for (View v : new View[]{buttonAdd, buttonLoad, buttonExport, buttonOK, buttonDel, buttonClear, buttonDefault}) {
             v.setOnClickListener(this);
         }
         for (RadioButton r : new RadioButton[]{radioGame, radioEditable}) {
@@ -210,6 +213,16 @@ public class CkbManagerDialog extends Dialog implements View.OnClickListener, Co
                 @Override
                 public void runWhenPositive() {
                     mManager.clearKeyboard();
+                }
+            });
+        }
+
+        if(v == buttonDefault){
+            DialogUtils.createBothChoicesDialog(mContext, mContext.getString(R.string.title_warn),"您确定要使用默认键盘布局吗？", mContext.getString(R.string.title_ok), mContext.getString(R.string.title_cancel), new DialogSupports(){
+                @Override
+                public void runWhenPositive() {
+                    super.runWhenPositive();
+                    mManager.loadKeyboard(new CustomizeKeyboardMaker(mContext).createDefaultKeyboard());
                 }
             });
         }

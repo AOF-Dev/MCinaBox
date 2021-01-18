@@ -208,6 +208,16 @@
                     style="?android:attr/buttonBarButtonStyle"
                     android:textSize="@dimen/text_small" />
 
+                <Button
+                    android:id="@+id/input_customize_keyboard_dialog_button_default"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="2"
+                    android:text="@string/title_default"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:textSize="@dimen/text_small" />
+
             </LinearLayout>
 
         </LinearLayout>
