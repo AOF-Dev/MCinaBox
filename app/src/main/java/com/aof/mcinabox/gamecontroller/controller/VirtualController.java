@@ -101,7 +101,7 @@ public class VirtualController extends BaseController implements View.OnClickLis
     private HashMap<View, Input> bindingViews;
 
     public VirtualController(Client client, int transType) {
-        super(client);
+        super(client, true);
 
         //初始化键值翻译器
         this.mTranslation = new Translation(transType);

@@ -16,24 +16,29 @@ public abstract class BaseController implements Controller {
     private final static String TAG = "BaseController";
     public ArrayList<Input> inputs;
     public Client client;
-    private Context context;
+    public Context context;
     private Timer mTimer;
     private final static int DEFAULT_INTERVAL_TIME = 5000;
     private int internalTime;
     private Config mConfig;
+    private boolean isTimerEnable;
 
-    public BaseController(Client client, int intervalTime) {
+    public BaseController(Client client, int intervalTime, boolean enableTimer) {
         this.client = client;
         this.context = client.getActivity();
         inputs = new ArrayList<>();
         this.internalTime = intervalTime;
         this.mConfig = new Config(DisplayUtils.getDisplayWindowSize(context)[0], DisplayUtils.getDisplayWindowSize(context)[1]);
-        createAutoSaveTimer();
+        this.isTimerEnable = enableTimer;
+        if(enableTimer){
+            createAutoSaveTimer();
+        }
     }
 
-    public BaseController(Client client){
-        this(client, BaseController.DEFAULT_INTERVAL_TIME);
+    public BaseController(Client client,boolean enableTimer){
+        this(client, BaseController.DEFAULT_INTERVAL_TIME, enableTimer);
     }
+
 
     @Override
     public boolean containsInput(Input input) {
@@ -154,7 +159,9 @@ public abstract class BaseController implements Controller {
 
     @Override
     public void onResumed() {
-        createAutoSaveTimer();
+        if(isTimerEnable){
+            createAutoSaveTimer();
+        }
         for (Input i : inputs){
             i.onResumed();
         }
@@ -179,6 +186,10 @@ public abstract class BaseController implements Controller {
     @Override
     public Config getConfig() {
         return this.mConfig;
+    }
+
+    public boolean isTimerEnabled(){
+        return this.isTimerEnable;
     }
 }
 

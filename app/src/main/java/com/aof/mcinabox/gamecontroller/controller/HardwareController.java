@@ -50,7 +50,7 @@ public class HardwareController extends BaseController implements HwController {
     private final static int INPUT_DEVICE_UNKNOWN = 109;
 
     public HardwareController(Client client, int transType) {
-        super(client);
+        super(client, false);
         //printInputDevices();
 
         //初始化键值翻译器
