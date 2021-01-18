@@ -18,11 +18,11 @@ public abstract class BaseUI implements UILifecycleCallbacks {
     //Save States of UIs to Setting
     public abstract void saveUIConfig();
 
-    //Set the visiability of the UI
-    public abstract void setUIVisiability(int visiability);
+    //Set the visibility of the UI
+    public abstract void setUIVisibility(int visibility);
 
-    //Get the visiability of the UI
-    public abstract int getUIVisiability();
+    //Get the visibility of the UI
+    public abstract int getUIVisibility();
 
     //Set Android Context
     public void setUIContext(Context context){

@@ -69,12 +69,12 @@ public class FunctionbarUI extends BaseUI {
     }
 
     @Override
-    public void setUIVisiability(int visiability) {
+    public void setUIVisibility(int visibility) {
         //FunctionbarUI should keep visiable.
     }
 
     @Override
-    public int getUIVisiability() {
+    public int getUIVisibility() {
         return layout_functionbar.getVisibility();
     }
 

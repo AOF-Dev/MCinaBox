@@ -52,9 +52,9 @@ public class UiManager {
     }
 
     public void switchUIs(BaseUI ui, String position) {
-        if (ui.getUIVisiability() != View.VISIBLE) {
+        if (ui.getUIVisibility() != View.VISIBLE) {
             hideAllUIs();
-            ui.setUIVisiability(View.VISIBLE);
+            ui.setUIVisibility(View.VISIBLE);
         }
 
         currentUI = ui;
@@ -88,8 +88,8 @@ public class UiManager {
      **/
     public void hideAllUIs() {
         for (BaseUI ui : Uis) {
-            if (ui.getUIVisiability() != View.INVISIBLE) {
-                ui.setUIVisiability(View.INVISIBLE);
+            if (ui.getUIVisibility() != View.INVISIBLE) {
+                ui.setUIVisibility(View.INVISIBLE);
             }
         }
     }

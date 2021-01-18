@@ -94,15 +94,15 @@ public class GamedirUI extends BaseUI {
     }
 
     @Override
-    public void setUIVisiability(int visiability) {
-        if (visiability == View.VISIBLE) {
+    public void setUIVisibility(int visibility) {
+        if (visibility == View.VISIBLE) {
             layout_gamedir.startAnimation(showAnim);
         }
-        layout_gamedir.setVisibility(visiability);
+        layout_gamedir.setVisibility(visibility);
     }
 
     @Override
-    public int getUIVisiability() {
+    public int getUIVisibility() {
         return layout_gamedir.getVisibility();
     }
 

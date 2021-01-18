@@ -46,15 +46,15 @@ public class PluginUI extends BaseUI {
     }
 
     @Override
-    public void setUIVisiability(int visiability) {
-        if(visiability == View.VISIBLE){
+    public void setUIVisibility(int visibility) {
+        if(visibility == View.VISIBLE){
             lagout_plugin.startAnimation(showAnim);
         }
-        lagout_plugin.setVisibility(visiability);
+        lagout_plugin.setVisibility(visibility);
     }
 
     @Override
-    public int getUIVisiability() {
+    public int getUIVisibility() {
         return lagout_plugin.getVisibility();
     }
 

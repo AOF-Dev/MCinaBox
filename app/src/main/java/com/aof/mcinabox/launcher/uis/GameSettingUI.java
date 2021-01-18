@@ -73,12 +73,12 @@ public class GameSettingUI extends BaseUI implements SwitchCompat.OnCheckedChang
     }
 
     @Override
-    public void setUIVisiability(int visiability) {
-        layout_gamesetting.setVisibility(visiability);
+    public void setUIVisibility(int visibility) {
+        layout_gamesetting.setVisibility(visibility);
     }
 
     @Override
-    public int getUIVisiability() {
+    public int getUIVisibility() {
         return layout_gamesetting.getVisibility();
     }
 

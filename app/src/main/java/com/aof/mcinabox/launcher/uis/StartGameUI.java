@@ -49,12 +49,12 @@ public class StartGameUI extends BaseUI implements Spinner.OnItemSelectedListene
     }
 
     @Override
-    public void setUIVisiability(int visiability) {
-        layout_startgame.setVisibility(visiability);
+    public void setUIVisibility(int visibility) {
+        layout_startgame.setVisibility(visibility);
     }
 
     @Override
-    public int getUIVisiability() {
+    public int getUIVisibility() {
         return layout_startgame.getVisibility();
     }
 

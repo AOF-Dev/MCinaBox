@@ -52,15 +52,15 @@ public class UserUI extends BaseUI {
     }
 
     @Override
-    public void setUIVisiability(int visiability) {
-        if(visiability == View.VISIBLE){
+    public void setUIVisibility(int visibility) {
+        if(visibility == View.VISIBLE){
             layout_user.startAnimation(showAnim);
         }
-        layout_user.setVisibility(visiability);
+        layout_user.setVisibility(visibility);
     }
 
     @Override
-    public int getUIVisiability() {
+    public int getUIVisibility() {
         return layout_user.getVisibility();
     }
 

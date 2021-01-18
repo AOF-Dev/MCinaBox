@@ -145,15 +145,15 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
     }
 
     @Override
-    public void setUIVisiability(int visiability) {
-        if (visiability == View.VISIBLE) {
+    public void setUIVisibility(int visibility) {
+        if (visibility == View.VISIBLE) {
             layout_setting.startAnimation(showAnim);
         }
-        layout_setting.setVisibility(visiability);
+        layout_setting.setVisibility(visibility);
     }
 
     @Override
-    public int getUIVisiability() {
+    public int getUIVisibility() {
         return layout_setting.getVisibility();
     }
 
