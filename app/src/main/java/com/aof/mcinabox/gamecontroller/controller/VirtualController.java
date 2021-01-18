@@ -21,6 +21,7 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.content.ContextCompat;
 
 import com.aof.mcinabox.R;
+import com.aof.mcinabox.gamecontroller.ckb.support.CustomizeKeyboardMaker;
 import com.aof.mcinabox.gamecontroller.client.Client;
 import com.aof.mcinabox.gamecontroller.codes.Translation;
 import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
@@ -435,7 +436,8 @@ public class VirtualController extends BaseController implements View.OnClickLis
         switchInputBox.setChecked(sp.getBoolean(sp_enable_inputbox, false));
         switchDebugInfo.setChecked(sp.getBoolean(sp_enable_debuginfo, false));
         if (!sp.contains(sp_first_loadder)) {
-            buttonResetPos.performClick();
+            resetAllPosOnScreen();
+            ((CustomizeKeyboard)custmoizeKeyboard).mManager.loadKeyboard(new CustomizeKeyboardMaker(context).createDefaultKeyboard());
         }
     }
 
