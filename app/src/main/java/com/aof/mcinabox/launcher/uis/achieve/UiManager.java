@@ -13,6 +13,7 @@ import com.aof.mcinabox.launcher.uis.GamedirUI;
 import com.aof.mcinabox.launcher.uis.GamelistUI;
 import com.aof.mcinabox.launcher.uis.InstallVersionUI;
 import com.aof.mcinabox.launcher.uis.LauncherSettingUI;
+import com.aof.mcinabox.launcher.uis.LogUI;
 import com.aof.mcinabox.launcher.uis.MainToolbarUI;
 import com.aof.mcinabox.launcher.uis.PluginUI;
 import com.aof.mcinabox.launcher.uis.StartGameUI;
@@ -30,6 +31,7 @@ public class UiManager {
     public UserUI uiUser;
     public MainToolbarUI uiMainToolbar;
     public FunctionbarUI uiFunctionbar;
+    public LogUI uiLog;
 
     public BaseUI[] Uis;
 
@@ -47,8 +49,9 @@ public class UiManager {
         uiUser = new UserUI(context);
         uiMainToolbar = new MainToolbarUI(context);
         uiFunctionbar = new FunctionbarUI(context);
+        uiLog = new LogUI(context);
 
-        Uis = new BaseUI[]{uiMainToolbar, uiFunctionbar, uiInstallVersion, uiPlugin, uiGamedir, uiGamelist, uiGameSetting, uiLauncherSetting, uiStartGame, uiUser};
+        Uis = new BaseUI[]{uiMainToolbar, uiFunctionbar, uiInstallVersion, uiPlugin, uiGamedir, uiGamelist, uiGameSetting, uiLauncherSetting, uiStartGame, uiUser, uiLog};
     }
 
     public void switchUIs(BaseUI ui, String position) {
@@ -72,7 +75,8 @@ public class UiManager {
                 currentUI == uiGamelist ||
                 currentUI == uiLauncherSetting ||
                 currentUI == uiUser ||
-                currentUI == uiPlugin) {
+                currentUI == uiPlugin ||
+                currentUI == uiLog) {
             switchUIs(uiStartGame, mContext.getString(R.string.title_home));
         }
 

@@ -25,6 +25,7 @@ public class FunctionbarUI extends BaseUI {
     private LinearLayout buttonSetting;
     private LinearLayout buttonKeyboard;
     private LinearLayout buttonHome;
+    private LinearLayout buttonLog;
     private TextView textUserName;
     private TextView textUserType;
     private SettingJson setting;
@@ -54,6 +55,9 @@ public class FunctionbarUI extends BaseUI {
             }
             if (v == buttonHome) {
                 OldMainActivity.CURRENT_ACTIVITY.get().switchUIs(OldMainActivity.CURRENT_ACTIVITY.get().mUiManager.uiStartGame, mContext.getString(R.string.title_home));
+            }
+            if (v == buttonLog) {
+                OldMainActivity.CURRENT_ACTIVITY.get().switchUIs(OldMainActivity.CURRENT_ACTIVITY.get().mUiManager.uiLog, mContext.getString(R.string.title_log));
             }
         }
     };
@@ -90,10 +94,11 @@ public class FunctionbarUI extends BaseUI {
         buttonSetting = layout_functionbar.findViewById(R.id.main_button_setting);
         buttonKeyboard = layout_functionbar.findViewById(R.id.main_button_keyboard);
         buttonHome = layout_functionbar.findViewById(R.id.main_button_home);
+        buttonLog = layout_functionbar.findViewById(R.id.main_button_log);
         textUserName = layout_functionbar.findViewById(R.id.functionbar_username);
         textUserType = layout_functionbar.findViewById(R.id.functionbar_usertype);
 
-        for (View v : new View[]{buttonUser, buttonPlugin, buttonGamelist, buttonGamedir, buttonSetting, buttonKeyboard, buttonHome}) {
+        for (View v : new View[]{buttonUser, buttonPlugin, buttonGamelist, buttonGamedir, buttonSetting, buttonKeyboard, buttonHome, buttonLog}) {
             v.setOnClickListener(clickListener);
         }
         refreshUI();

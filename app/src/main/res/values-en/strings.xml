@@ -12,6 +12,7 @@
 	<string name="app_about_details_info">The copyright of Minecraft belongs to Mojang AB. The software producer is not responsible for copyright issues arising from the use of this software. Please support genuinely.</string>
 	<string name="app_about_opensource_info">https://github.com/longjunyu2/MCinaBox\n(Follow GPLv3 License Distribution)</string>
 	<string name="app_about_pages">Pages</string>
+	<string name="app_about_pages_info" translatable="false">https://mcinabox.top (By 旁白)\nhttps://mcinabox.fredward.xyz (By friendlyfredward)</string>
 	<string name="app_about_donation">Donation</string>
 	<string name="app_about_donation_info">BMCLAPI provides a high-speed minecraft download source. It is a public welfare project. If you want to support the operation of the project, you can donate it through the following website.\nhttps://afdian.net/@bangbang93</string>
 
@@ -78,7 +79,7 @@
 	<string name="title_output">Export</string>
 	<string name="title_ok">Ok</string>
 	<string name="title_cancel">Cancel</string>
-	<string name="title_step">Operating</string>
+	<string name="title_step">Operation</string>
 	<string name="title_addone">Attach</string>
 	<string name="title_version">version</string>
 	<string name="title_offline">Offline mode</string>
@@ -142,7 +143,7 @@
 	<string name="title_slide_touch">Slide</string>
 	<string name="title_effect">Effect</string>
 	<string name="title_total_count">Total</string>
-	<string name="title_add">Add to</string>
+	<string name="title_add">Add</string>
 	<string name="title_clear">Empty</string>
 	<string name="title_choice">Select</string>
 	<string name="title_save">Save</string>
@@ -155,6 +156,7 @@
 	<string name="title_text_color">Text Color</string>
 	<string name="title_text_size">Text Size</string>
 	<string name="title_sight_follow">Sight Follow</string>
+	<string name="title_input_chars">Input Chars</string>
 	<string name="title_copy">Copy</string>
 	<string name="title_mouse_lb">Left Button</string>
 	<string name="title_mouse_rb">Right Button</string>
@@ -167,6 +169,12 @@
 	<string name="title_colorpicker">Color picker</string>
 	<string name="title_server">Server</string>
 	<string name="title_online_login">Online login</string>
+	<string name="title_multi_line">Multi line</string>
+	<string name="title_order">Order</string>
+	<string name="title_input">Input</string>
+	<string name="title_shortcut">Shortcut</string>
+	<string name="title_console">Console</string>
+	<string name="title_log">Log</string>
 
 	<string name="tips_contributors_list">List of Contributors</string>
 	<string name="tips_contributors_full">Subject to the Github project provided</string>
@@ -294,5 +302,10 @@
 	<string name="tips_verifying_account">Verifying account…</string>
 	<string name="tips_unzipping">Unzipping…</string>
 	<string name="tips_are_you_sure_to_auto_config_layout">Are you sure you want to configure the layout automatically? This will change your controller and automatically calculate possible layout locations.</string>
+	<string name="tips_select_from_storage">Select from storage…</string>
+	<string name="tips_try_to_convert_keyboard_layout">Try to convert the keyboard file?</string>
+	<string name="tips_successed_to_convert_keyboard_file">Success to convert it，new file name: %s</string>
+	<string name="tips_failed_to_convert_keyboard_file">Failed to convert the keyboard file.</string>
+	<string name="tips_unzipping_runtime_pack">Unzipping Runtime pack…</string>
 
 </resources>

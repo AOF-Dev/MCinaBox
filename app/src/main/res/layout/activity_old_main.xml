@@ -140,4 +140,18 @@
         app:layout_constraintStart_toEndOf="@id/layout_functions"
         app:layout_constraintTop_toBottomOf="@id/layout_toolbar_main" />
 
+    <!--  =================================日志界面======================================== -->
+    <!-- 日志界面 -->
+
+    <include
+        android:id="@+id/layout_log"
+        layout="@layout/ui_log"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/layout_functions"
+        app:layout_constraintTop_toBottomOf="@id/layout_toolbar_main" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

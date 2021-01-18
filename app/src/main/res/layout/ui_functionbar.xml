@@ -300,6 +300,33 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/main_button_log"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingStart="15dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/book" />
+
+                <TextView
+                    android:layout_marginStart="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/title_log"
+                    android:textColor="@color/text_title_main"
+                    android:textSize="@dimen/text_big" />
+
+            </LinearLayout>
+
+
         </LinearLayout>
 
     </ScrollView>
