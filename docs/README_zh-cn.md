@@ -4,7 +4,7 @@
 如果你在使用时发现问题，可以先查看[Q&A](./Q&A.md)
 
 ## 简介
-- MCinaBox是一个运行在Android系统的 Minecraft Java Edition 启动器， 它的核心功能由[CosineMath](https://github.com/CosineMath)的[BoatApp](https://github.com.AOF-Dev/BoatApp)项目提供。
+- MCinaBox是一个运行在Android系统的 Minecraft Java Edition 启动器， 它的核心功能由[CosineMath](https://github.com/CosineMath)的[BoatApp](https://github.com/AOF-Dev/BoatApp)项目提供。
 
 ## 目录
 - [项目背景](#项目背景)
@@ -111,7 +111,7 @@
 * 不要修改`gradle`文件。
 
 ## 依赖的开源项目
-* [BoatApp (CosineMath,MIT)](https://github.com/CosineMath/BoatApp)
+* [BoatApp (CosineMath,GPL 2.0)](https://github.com/AOF-Dev/BoatApp)
 * Gson (Google,Apache 2.0)
 * XZ for Java (Lasse Collin,Public Domain)
 * [JNDCrash (ivanarh,Apache-2.0)](https://github.com/ivanarh/jndcrash)
