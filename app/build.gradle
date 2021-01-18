@@ -5,6 +5,15 @@ android {
     compileSdkVersion 30
     buildToolsVersion '30.0.2'
 
+    signingConfigs {
+        debug {
+            storeFile file('../.github/workflows/debugKeyStore.jks')
+            keyAlias 'mcinabox'
+            storePassword '123456'
+            keyPassword '123456'
+        }
+    }
+
     defaultConfig {
         applicationId "com.aof.mcinabox"
         minSdkVersion 21
