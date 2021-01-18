@@ -4,7 +4,7 @@
 If you find problems when you run, you can check [Q&A](./Q&A.md) for that at first  
 
 ## Instruction
-- MCinaBox is a Launcher of Minecraft Java Edition which running on the Android. Its core functionality is powered by [CosineMath](Https://github.com/CosineMath)'s [BoatApp](https://github.com/AOF-Dev/BoatApp) project.
+- MCinaBox is a Launcher of Minecraft Java Edition which is on the Android. Its core functionality is powered by [CosineMath](Https://github.com/CosineMath)'s [BoatApp](https://github.com/AOF-Dev/BoatApp) project.
 
 ## Table of Contents
 - [Background](#Background)
@@ -20,10 +20,10 @@ If you find problems when you run, you can check [Q&A](./Q&A.md) for that at fir
 - [Q&A](./Q&A.md)
 
 ## Background
-- `MCinaBox` is an open source project with the goal of building and developing a Minecraft Java version launcher that runs on an Android system.
+- `MCinaBox` is an open source project with the goal of building and developing a Minecraft Java Edition launcher that runs on an Android.
 - `Front End` provides User Management, Minecraft Version Management, Minecraft Game Controller, Minecraft Startup Parameter Generation, Configuration Backend, etc`Configuration` and `Management` functions to reduce the workload of complete launcher development.
 - `Backend` provides JRE runtime environment, Minecraft runtime environment, etc `core` functionality.
-- `Composition` The MCinaBox consists of a front end and a back end.
+- `Composition` MCinaBox consists of a front end and a back end.
 
 ## Change Log
 - [English](./CHANGELOG.md)
