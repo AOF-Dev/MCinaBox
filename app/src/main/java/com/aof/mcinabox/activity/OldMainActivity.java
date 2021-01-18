@@ -2,6 +2,8 @@ package com.aof.mcinabox.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -68,6 +70,10 @@ public class OldMainActivity extends BaseActivity {
         mUiManager = new UiManager(this, Setting);
         //Life Circle
         mUiManager.onCreate();
+        //设置导航栏颜色
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setNavigationBarColor(Color.WHITE);
+        }
 
         findViewById(R.id.toolbar_button_new_ui).setOnClickListener(v -> {
             Intent i = new Intent(OldMainActivity.this, MainActivity.class);
