@@ -176,6 +176,8 @@
 	<string name="title_console">Console</string>
 	<string name="title_log">Log</string>
 	<string name="title_default">Default</string>
+	<string name="title_from_file">From file</string>
+	<string name="title_from_this">From process</string>
 
 	<string name="tips_contributors_list">List of Contributors</string>
 	<string name="tips_contributors_full">Subject to the Github project provided</string>
@@ -308,5 +310,7 @@
 	<string name="tips_successed_to_convert_keyboard_file">Success to convert it，new file name: %s</string>
 	<string name="tips_failed_to_convert_keyboard_file">Failed to convert the keyboard file.</string>
 	<string name="tips_unzipping_runtime_pack">Unzipping Runtime pack…</string>
+	<string name="tips_process_is_not_running">Java VM process not started.</string>
+	<string name="tips_no_log">There are no log files.</string>
 
 </resources>

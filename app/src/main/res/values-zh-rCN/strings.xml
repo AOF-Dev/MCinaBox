@@ -173,6 +173,8 @@
     <string name="title_console">开发者控制台</string>
     <string name="title_log">日志</string>
     <string name="title_default">默认</string>
+    <string name="title_from_file">从日志文件</string>
+    <string name="title_from_this">从当前进程</string>
 
     <string name="tips_contributors_list">贡献者名单</string>
     <string name="tips_contributors_full">以Github项目提供的为准</string>
@@ -305,5 +307,7 @@
     <string name="tips_successed_to_convert_keyboard_file">转换成功，新的文件名为: %s</string>
     <string name="tips_failed_to_convert_keyboard_file">键盘文件转换失败.</string>
     <string name="tips_unzipping_runtime_pack">正在解压运行库…</string>
+    <string name="tips_process_is_not_running">Java VM 进程未启动.</string>
+    <string name="tips_no_log">没有日志文件.</string>
 
 </resources>

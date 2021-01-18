@@ -16,18 +16,21 @@ import com.aof.mcinabox.activity.OldMainActivity;
 import com.aof.mcinabox.gamecontroller.definitions.manifest.AppManifest;
 import com.aof.mcinabox.utils.DisplayUtils;
 import com.aof.mcinabox.utils.FileTool;
+import com.aof.mcinabox.utils.dialog.DialogUtils;
 import com.aof.mcinabox.views.LineTextView;
 
 import java.io.IOException;
 
 import cosine.boat.LoadMe;
 
-public class LogUI extends BaseUI {
+public class LogUI extends BaseUI implements View.OnClickListener {
 
     private LinearLayout layout_log;
     private TextView logView;
     private ScrollView scrollView;
     private Animation showAnim;
+    private LinearLayout buttonRefreshFromFile;
+    private LinearLayout buttonRefreshFromThread;
 
     public LogUI(Context context) {
         super(context);
@@ -47,6 +50,11 @@ public class LogUI extends BaseUI {
         this.logView.setTextColor(Color.WHITE);
         this.logView.setTextIsSelectable(true);
         this.scrollView.addView(logView);
+        this.buttonRefreshFromFile = layout_log.findViewById(R.id.log_button_refresh_from_file);
+        this.buttonRefreshFromThread = layout_log.findViewById(R.id.log_button_refresh_from_this);
+        for(View view : new View[]{buttonRefreshFromFile, buttonRefreshFromThread}){
+            view.setOnClickListener(this);
+        }
         showAnim = AnimationUtils.loadAnimation(mContext, R.anim.layout_show);
     }
 
@@ -62,7 +70,7 @@ public class LogUI extends BaseUI {
 
     @Override
     public void setUIVisibility(int visibility) {
-        if (visibility == View.VISIBLE) {
+        if (logView.getText().toString().equals("") && visibility == View.VISIBLE) {
             layout_log.startAnimation(showAnim);
             showLog(logView);
         }
@@ -83,6 +91,26 @@ public class LogUI extends BaseUI {
             } catch (IOException e){
                 e.printStackTrace();
                 view.setText(e.toString());
+            }
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v == buttonRefreshFromFile){
+            try {
+                logView.setText(FileTool.readToString(AppManifest.BOAT_LOG_FILE));
+            } catch (IOException e) {
+                e.printStackTrace();
+                DialogUtils.createSingleChoiceDialog(mContext, mContext.getString(R.string.title_error), mContext.getString(R.string.tips_no_log), mContext.getString(R.string.title_ok), null);
+            }
+        }
+
+        if(v == buttonRefreshFromThread){
+            if (LoadMe.mReceiver != null && LoadMe.mReceiver.get() != null){
+                logView.setText(LoadMe.mReceiver.get().getLogs());
+            }else{
+                DialogUtils.createSingleChoiceDialog(mContext, mContext.getString(R.string.title_error), mContext.getString(R.string.tips_process_is_not_running), mContext.getString(R.string.title_ok), null);
             }
         }
     }
