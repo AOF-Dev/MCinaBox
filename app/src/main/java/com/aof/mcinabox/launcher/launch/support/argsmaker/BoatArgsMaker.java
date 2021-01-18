@@ -115,7 +115,7 @@ public class BoatArgsMaker implements ArgsMaker {
                     .setGameDir(AppManifest.MINECRAFT_HOME)
                     .setDebug(mSetting.getConfigurations().isEnableDebug())
                     .setSharedLibraries(getSharedLibrariesPaths())
-                    .setStdioFile(BOAT_CACHE_HOME + "/boat_output.txt")
+                    .setStdioFile(AppManifest.BOAT_LOG_FILE)
                     .setTmpDir(mContext.getCacheDir().getAbsolutePath())
                     .setPlatform(mRuntime.platform)
                     .setJvmMode(runtimeManifest.jvmMode)

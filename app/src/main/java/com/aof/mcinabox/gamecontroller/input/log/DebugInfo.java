@@ -23,9 +23,14 @@ import androidx.core.content.ContextCompat;
 
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.gamecontroller.controller.Controller;
+import com.aof.mcinabox.gamecontroller.definitions.manifest.AppManifest;
 import com.aof.mcinabox.gamecontroller.input.Input;
 import com.aof.mcinabox.utils.DisplayUtils;
+import com.aof.mcinabox.utils.FileTool;
 import com.aof.mcinabox.views.LineTextView;
+
+import java.io.File;
+import java.io.IOException;
 
 import cosine.boat.LoadMe;
 
@@ -66,6 +71,7 @@ public class DebugInfo implements Input, View.OnClickListener {
                 public void pushLog(String log) {
                     mLogView.appendLog(log);
                     stringBuilder.append(log);
+                    writeLog(log);
                 }
 
                 @Override
@@ -148,6 +154,31 @@ public class DebugInfo implements Input, View.OnClickListener {
                 isShowInfo = false;
             }
         }
+    }
+
+    private boolean firstWrite = true;
+    private boolean isWrite = true;
+    private void writeLog(String log){
+        if(!isWrite)
+            return;
+        File logFile = new File(AppManifest.BOAT_LOG_FILE);
+        if(!logFile.exists()) {
+            try {
+                if(!logFile.createNewFile()){
+                    isWrite = false;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if (firstWrite) {
+            FileTool.writeData(logFile.getAbsolutePath(), log);
+            firstWrite = false;
+        } else {
+            FileTool.addStringLineToFile(log, logFile);
+        }
+
+
     }
 
     public class LogView extends ScrollView {

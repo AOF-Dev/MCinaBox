@@ -24,6 +24,7 @@ public class AppManifest {
     public static String MCINABOX_RUNTIME;
     public static String MCINABOX_BACKGROUND;
     public static String BOAT_CACHE_HOME;
+    public static String BOAT_LOG_FILE;
     public static String RUNTIME_HOME;
     public static String BOAT_RUNTIME_HOME;
     public static String BOAT_RUNTIME_INFO_JSON;
@@ -64,6 +65,7 @@ public class AppManifest {
             MCINABOX_VERSION_NAME = "Unknown";
         }
         BOAT_CACHE_HOME = MCINABOX_HOME + "/boatapp";
+        BOAT_LOG_FILE = BOAT_CACHE_HOME + "/boat_output.txt";
         RUNTIME_HOME = DATA_HOME + "/runtime";
         BOAT_RUNTIME_HOME = RUNTIME_HOME + "/boat";
         BOAT_RUNTIME_INFO_JSON = BOAT_RUNTIME_HOME + "/packinfo.json";
