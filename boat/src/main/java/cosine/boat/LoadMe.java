@@ -7,11 +7,15 @@ import java.util.Map;
 
 public class LoadMe {
 
+    private final static String TAG = "LoadMe";
+
+    public static LogReceiver mReceiver;
+
     public static native int chdir(String str);
 
     public static native int jliLaunch(String[] strArr);
 
-    public static native void redirectStdio(String file);
+    public static native void redirectStdio();
 
     public static native void setenv(String name, String value);
 
@@ -21,7 +25,7 @@ public class LoadMe {
 
     public static native void patchLinker();
 
-    public static void exec(BoatArgs args) {
+    public void exec(BoatArgs args) {
         patchLinker();
         try {
             /* set JRE Environment */
@@ -55,7 +59,12 @@ public class LoadMe {
             }
 
             setupJLI();
-            redirectStdio(args.getStdioFile());
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    redirectStdio();
+                }
+            }).start();
             chdir(args.getGameDir());
             jliLaunch(args.getArgs());
         } catch (Exception e) {
@@ -63,7 +72,32 @@ public class LoadMe {
         }
     }
 
+    public static void receiveLog(String str){
+        if (mReceiver == null) {
+            Log.e(TAG, "LogReceiver is null. So use default receiver.");
+            mReceiver = new LogReceiver() {
+                final StringBuilder builder = new StringBuilder();
+                @Override
+                public void pushLog(String log) {
+                    Log.e(TAG, log);
+                    builder.append(log);
+                }
+
+                @Override
+                public String getLogs() {
+                    return builder.toString();
+                }
+            };
+        }
+        mReceiver.pushLog(str);
+    }
+
     static {
         System.loadLibrary("boat");
+    }
+
+    public interface LogReceiver{
+        void pushLog(String log);
+        String getLogs();
     }
 }

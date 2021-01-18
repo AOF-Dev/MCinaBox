@@ -6,16 +6,64 @@
 #include <android/log.h>
 #include <sys/mman.h>
 #include <unistd.h>
+#include <string.h>
 
-JNIEXPORT void JNICALL Java_cosine_boat_LoadMe_redirectStdio(JNIEnv* env, jclass clazz, jstring path){
+jstring CStr2Jstring(JNIEnv *env, char *buffer);
 
-    char const* file = (*env)->GetStringUTFChars(env , path , 0);
+/* This method must run in a child process. */
 
-    int fd = open(file , O_WRONLY | O_CREAT | O_TRUNC, 0666);
-    dup2(fd, 1);
-    dup2(fd, 2);
-    close(fd);
-    (*env)->ReleaseStringUTFChars(env , path , file);
+void JNICALL Java_cosine_boat_LoadMe_redirectStdio(JNIEnv* env, jclass clazz){
+
+    int boatPipe[2];
+
+    if  (pipe(boatPipe) < 0){
+        __android_log_print(ANDROID_LOG_ERROR, "Boat", "failed to create log pipe!");
+    } else {
+        __android_log_print(ANDROID_LOG_ERROR, "Boat", "succeed to create log pipe!");
+    }
+    if(dup2(boatPipe[1], STDOUT_FILENO) != STDOUT_FILENO && dup2(boatPipe[1], STDERR_FILENO) != STDERR_FILENO){
+        __android_log_print(ANDROID_LOG_ERROR, "Boat", "failed to redirect stdio !");
+    } else {
+        __android_log_print(ANDROID_LOG_ERROR, "Boat", "succeed to redirect stdio !");
+    }
+
+    char buffer[1024];
+
+    jclass loadme = (*env) -> FindClass(env, "cosine/boat/LoadMe");
+    jmethodID loadme_static_method_receiveLog = (*env) ->GetStaticMethodID(env, loadme,"receiveLog", "(Ljava/lang/String;)V");
+    if(loadme_static_method_receiveLog == 0){
+        __android_log_print(ANDROID_LOG_ERROR, "Boat", "failed to find receive method !");
+    }
+
+    while (1){
+        memset(buffer, '\0', sizeof(buffer));
+        ssize_t _s = read(boatPipe[0], buffer, sizeof(buffer) - 1);
+        if (_s < 0){
+            __android_log_print(ANDROID_LOG_ERROR, "Boat", "failed to read log !");
+            close(boatPipe[0]);
+            close(boatPipe[1]);
+            return;
+        } else {
+            buffer[_s] = '\0';
+        }
+        if(buffer[0] == '\0')
+            continue;
+        else {
+            __android_log_print(ANDROID_LOG_ERROR, "Boat", "%s", buffer);
+            (*env)->CallStaticVoidMethod(env, clazz, loadme_static_method_receiveLog, CStr2Jstring(env, buffer));
+        }
+    }
+
+}
+
+jstring CStr2Jstring(JNIEnv *env, char *buffer) {
+    jsize len = strlen(buffer);
+    jclass strClass = (*env)->FindClass(env, "java/lang/String");
+    jstring encoding = (*env)->NewStringUTF(env, "UTF-8");
+    jmethodID ctorID = (*env)->GetMethodID(env, strClass, "<init>", "([BLjava/lang/String;)V");
+    jbyteArray bytes = (*env)->NewByteArray(env, len);
+    (*env)->SetByteArrayRegion(env, bytes, 0, len, (jbyte *) buffer);
+    return (jstring) (*env)->NewObject(env, strClass, ctorID, bytes, encoding);
 }
 
 JNIEXPORT jint JNICALL Java_cosine_boat_LoadMe_chdir(JNIEnv* env, jclass clazz, jstring path){
