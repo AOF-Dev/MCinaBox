@@ -99,24 +99,37 @@ public class OnscreenTouchpad implements OnscreenInput, KeyMap, MouseMap {
     private int initX = 0;
     private int initY = 0;
     private void locateCursor(MotionEvent event) {
-        switch (touchpadMode) {
-            case TOUCHPAD_MODE_POINT:
-                sendPointer((int) event.getX(), (int) event.getY(), type_2);
-                break;
-            case TOUCHPAD_MODE_SLIDE:
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_UP:
-                    case MotionEvent.ACTION_MOVE:
-                        sendPointer((int) ((event.getX() - initX) * (1 + inputSpeedLevel * 0.1f)), (int) ((event.getY() - initY) * (1 + inputSpeedLevel * 0.1f)), type_3);
-                        break;
-                    default:
-                        break;
-                }
-                initX = (int) event.getX();
-                initY = (int) event.getY();
-                break;
-            default:
-                break;
+        if(mController.isGrabbed()){
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_MOVE:
+                    sendPointer((int) ((event.getX() - initX) * (1 + inputSpeedLevel * 0.1f)), (int) ((event.getY() - initY) * (1 + inputSpeedLevel * 0.1f)), type_3);
+                    break;
+                default:
+                    break;
+            }
+            initX = (int) event.getX();
+            initY = (int) event.getY();
+        }else{
+            switch (touchpadMode) {
+                case TOUCHPAD_MODE_POINT:
+                    sendPointer((int) event.getX(), (int) event.getY(), type_2);
+                    break;
+                case TOUCHPAD_MODE_SLIDE:
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_UP:
+                        case MotionEvent.ACTION_MOVE:
+                            sendPointer((int) ((event.getX() - initX) * (1 + inputSpeedLevel * 0.1f)), (int) ((event.getY() - initY) * (1 + inputSpeedLevel * 0.1f)), type_3);
+                            break;
+                        default:
+                            break;
+                    }
+                    initX = (int) event.getX();
+                    initY = (int) event.getY();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
