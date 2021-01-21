@@ -36,6 +36,7 @@ public class DebugInfo implements Input, View.OnClickListener {
 
     //private Button switchButton;
     private LogView mLogView;
+    private LoadMe.LogReceiver mReceiver;
     //private boolean isShowInfo = true;
 
     @Override
@@ -59,7 +60,7 @@ public class DebugInfo implements Input, View.OnClickListener {
         mLogView.setY(mController.getConfig().getScreenHeight() - mLogView.getLayoutParams().height);
 
         if (LoadMe.mReceiver == null || LoadMe.mReceiver.get() == null) {
-            LoadMe.mReceiver = new WeakReference<>(new LoadMe.LogReceiver() {
+            mReceiver = new LoadMe.LogReceiver() {
                 final StringBuilder stringBuilder = new StringBuilder();
 
                 @Override
@@ -73,7 +74,8 @@ public class DebugInfo implements Input, View.OnClickListener {
                 public String getLogs() {
                     return stringBuilder.toString();
                 }
-            });
+            };
+            LoadMe.mReceiver = new WeakReference<>(mReceiver);
         }
 
         return true;
