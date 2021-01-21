@@ -1,12 +1,12 @@
 # MCinaBox - A Minecraft Java Edition Launcher on Android
-[Now is English] [切换为简体中文](./README_zh-cn.md)</br>
+[Now in English] [切换为简体中文](./README_zh-cn.md)</br>
 
-If you find problems when you run, you can check [Q&A](./Q&A.md) for that at first  
+If you find problems when you run MCinaBox, you can check [Q&A](./Q&A.md) first.  
 
 ## Instruction
-- MCinaBox is a Launcher of Minecraft Java Edition which is on the Android. Its core functionality is powered by [CosineMath](Https://github.com/CosineMath)'s [BoatApp](https://github.com/AOF-Dev/BoatApp) project.
+- MCinaBox is a Launcher of Minecraft Java Edition on Android. The core functionality is powered by [CosineMath](Https://github.com/CosineMath)'s [BoatApp](https://github.com/AOF-Dev/BoatApp) project.
 
-## Table of Contents
+## Contents
 - [Background](#Background)
 - [Change Log](#Change-Log)
 - [Build](#Build)
@@ -107,7 +107,7 @@ If you want to submit a pull request, there're some requirements:
 * IDE: Android Studio
 * TargetSDK: 22
 * MimniumSDK: 21
-* Do NOT modify `gradle` files.
+* DO NOT modify `gradle` files.
 
 ## Related
 * [BoatApp (CosineMath,GPL 2.0)](https://github.com/AOF-Dev/BoatApp)
