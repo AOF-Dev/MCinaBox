@@ -1,5 +1,7 @@
 package com.aof.mcinabox.gamecontroller.codes;
 
+import com.aof.mcinabox.gamecontroller.definitions.map.KeyMap;
+
 import java.util.HashMap;
 
 import static com.aof.mcinabox.gamecontroller.codes.BoatKeycodes.*;
@@ -15,7 +17,7 @@ import static com.aof.mcinabox.gamecontroller.definitions.map.MouseMap.MOUSEMAP_
 import static com.aof.mcinabox.gamecontroller.definitions.map.MouseMap.MOUSEMAP_WHEEL_DOWN;
 import static com.aof.mcinabox.gamecontroller.definitions.map.MouseMap.MOUSEMAP_WHEEL_UP;
 
-public class XKeyMap {
+public class XKeyMap implements KeyMap, CoKeyMap {
 
     private final HashMap<String, Integer> xKeyMap;
 
@@ -138,9 +140,10 @@ public class XKeyMap {
         xKeyMap.put(MOUSEMAP_WHEEL_DOWN, BOAT_MOUSE_WHEEL_down);
     }
 
-    public int translate(String s) {
-        if (xKeyMap.containsKey(s)) {
-            return xKeyMap.get(s);
+    @Override
+    public Object translate(Object keyCode) {
+        if (xKeyMap.containsKey(keyCode)) {
+            return xKeyMap.get(keyCode);
         } else {
             return -1;
         }

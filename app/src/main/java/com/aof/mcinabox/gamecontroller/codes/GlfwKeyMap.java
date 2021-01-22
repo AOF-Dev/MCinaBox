@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-public class GlfwKeyMap implements KeyMap {
+public class GlfwKeyMap implements KeyMap, CoKeyMap {
 
     private final HashMap<String, Integer> glfwKeyMap;
 
@@ -122,12 +122,12 @@ public class GlfwKeyMap implements KeyMap {
         /* missing RightK in GLFW.java */
     }
 
-    public int translate(String s) {
-        if (glfwKeyMap.containsKey(s)) {
-            return glfwKeyMap.get(s);
+    @Override
+    public Object translate(Object keyCode) {
+        if (glfwKeyMap.containsKey(keyCode)) {
+            return glfwKeyMap.get(keyCode);
         } else {
             return -1;
         }
     }
-
 }

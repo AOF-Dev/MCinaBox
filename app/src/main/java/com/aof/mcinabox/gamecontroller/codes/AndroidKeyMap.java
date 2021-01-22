@@ -6,7 +6,7 @@ import com.aof.mcinabox.gamecontroller.definitions.map.KeyMap;
 
 import java.util.HashMap;
 
-public class AndroidKeyMap implements KeyMap {
+public class AndroidKeyMap implements KeyMap, CoKeyMap {
     private final HashMap<Integer, String> androidKeyMap;
 
     public AndroidKeyMap() {
@@ -155,12 +155,12 @@ public class AndroidKeyMap implements KeyMap {
 
     }
 
-    public String translate(int keyCode) {
+    @Override
+    public Object translate(Object keyCode) {
         if (androidKeyMap.containsKey(keyCode)) {
             return androidKeyMap.get(keyCode);
         } else {
             return null;
         }
     }
-
 }

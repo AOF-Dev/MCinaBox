@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 import static org.lwjgl.input.Keyboard.*;
 
-public class LwjglKeyMap implements KeyMap {
+public class LwjglKeyMap implements KeyMap, CoKeyMap {
 
     private final HashMap<String, Integer> lwjglMap;
 
@@ -122,13 +122,12 @@ public class LwjglKeyMap implements KeyMap {
         /* missing RightK in Keyboard.java */
     }
 
-    public int translate(String s) {
-        if (lwjglMap.containsKey(s)) {
-            return lwjglMap.get(s);
+    @Override
+    public Object translate(Object keyCode) {
+        if (lwjglMap.containsKey(keyCode)) {
+            return lwjglMap.get(keyCode);
         } else {
             return -1;
         }
     }
-
-
 }

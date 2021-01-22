@@ -7,10 +7,10 @@ import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.KEYMAP
 
 public class Translation {
 
-    private final LwjglKeyMap lwjglKeyTrans;
-    private final GlfwKeyMap glfwKeyTrans;
-    private final XKeyMap xKeyMap;
-    private final AndroidKeyMap aKeyMap;
+    private final CoKeyMap lwjglKeyTrans;
+    private final CoKeyMap glfwKeyTrans;
+    private final CoKeyMap xKeyMap;
+    private final CoKeyMap aKeyMap;
     private int mode;
 
     public Translation(int mode) {
@@ -24,11 +24,11 @@ public class Translation {
     public int trans(String s) {
         switch (mode) {
             case KEYMAP_TO_LWJGL:
-                return lwjglKeyTrans.translate(s);
+                return (int) lwjglKeyTrans.translate(s);
             case KEYMAP_TO_GLFW:
-                return glfwKeyTrans.translate(s);
+                return (int) glfwKeyTrans.translate(s);
             case KEYMAP_TO_X:
-                return xKeyMap.translate(s);
+                return (int) xKeyMap.translate(s);
             default:
                 return -1;
         }
@@ -37,7 +37,7 @@ public class Translation {
     public String trans(int i) {
         switch (mode) {
             case ANDROID_TO_KEYMAP:
-                return aKeyMap.translate(i);
+                return (String) aKeyMap.translate(i);
             default:
                 return null;
         }
