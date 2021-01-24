@@ -75,11 +75,11 @@ public class Keyboard implements HwInput {
         switch (event.getAction()) {
             case KeyEvent.ACTION_DOWN:
                 if (event.getRepeatCount() == 0) {
-                    this.sendKeyEvent(androidKeyMap.translate(event.getKeyCode()), true);
+                    this.sendKeyEvent((String) androidKeyMap.translate(event.getKeyCode()), true);
                 }
                 break;
             case KeyEvent.ACTION_UP:
-                this.sendKeyEvent(androidKeyMap.translate(event.getKeyCode()), false);
+                this.sendKeyEvent((String) androidKeyMap.translate(event.getKeyCode()), false);
                 break;
         }
         return true;

@@ -5,13 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.hardware.input.InputManager;
-import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.util.Log;
 import android.view.InputDevice;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
-import android.widget.Toast;
+import android.view.View;
 
 import com.aof.mcinabox.gamecontroller.client.Client;
 import com.aof.mcinabox.gamecontroller.codes.AndroidKeyMap;
