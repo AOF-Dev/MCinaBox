@@ -58,7 +58,47 @@ public class HardwareController extends BaseController implements HwController {
 
         //初始化Input
         keyboard = new Keyboard();
-        phone = new Phone();
+        phone = new Phone() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return false;
+            }
+
+            @Override
+            public void setUiMoveable(boolean moveable) {
+
+            }
+
+            @Override
+            public void setUiVisibility(int visiablity) {
+
+            }
+
+            @Override
+            public float[] getPos() {
+                return new float[0];
+            }
+
+            @Override
+            public void setMargins(int left, int top, int right, int bottom) {
+
+            }
+
+            @Override
+            public int[] getSize() {
+                return new int[0];
+            }
+
+            @Override
+            public View[] getViews() {
+                return new View[0];
+            }
+
+            @Override
+            public int getUiVisiability() {
+                return 0;
+            }
+        };
         mouse = new Mouse();
         gamepad = new GamePad();
 

@@ -383,9 +383,14 @@ public class OnscreenKeyboard implements OnscreenInput {
         private final static String TAG = "OnscreenKeyboardConfigDialog";
         private final static int DEFAULT_ALPHA_PROGRESS = 40;
         private final static int DEFAULT_SIZE_PROGRESS = 50;
+        private final static int DEFAULT_MOVE_DISTANCE = 5;
         private final static int MAX_ALPHA_PROGRESS = 100;
         private final static int MIN_ALPHA_PROGRESS = 0;
-        private final static int MAX_SIZE_PROGRESS = 100;
+        private final static int MARK_MOVE_UP = 1;
+        private final static int MARK_MOVE_DOWN = 2;
+        private final static int MARK_MOVE_LEFT = 3;
+        private final static int MARK_MOVE_RIGHT = 4;
+        private final static int MAX_SIZE_PROGRESS = 150;
         private final static int MIN_SIZE_PROGRESS = -50;
         private final static String spFileName = "input_onscreenkeyboard_config";
         private final static int spMode = Context.MODE_PRIVATE;
@@ -399,6 +404,10 @@ public class OnscreenKeyboard implements OnscreenInput {
         private Button buttonOK;
         private Button buttonCancel;
         private Button buttonRestore;
+        private Button buttonMoveLeft;
+        private Button buttonMoveRight;
+        private Button buttonMoveUp;
+        private Button buttonMoveDown;
         private SeekBar seekbarAlpha;
         private SeekBar seekbarSize;
         private TextView textAlpha;
@@ -431,6 +440,10 @@ public class OnscreenKeyboard implements OnscreenInput {
             buttonOK = this.findViewById(R.id.input_onscreen_keyboard_dialog_button_ok);
             buttonCancel = this.findViewById(R.id.input_onscreen_keyboard_dialog_button_cancel);
             buttonRestore = this.findViewById(R.id.input_onscreen_keyboard_dialog_button_restore);
+            buttonMoveLeft = this.findViewById(R.id.input_onscreen_keyboard_dialog_button_move_left);
+            buttonMoveRight = this.findViewById(R.id.input_onscreen_keyboard_dialog_button_move_right);
+            buttonMoveUp = this.findViewById(R.id.input_onscreen_keyboard_dialog_button_move_up);
+            buttonMoveDown = this.findViewById(R.id.input_onscreen_keyboard_dialog_button_move_down);
             seekbarAlpha = this.findViewById(R.id.input_onscreen_keyboard_dialog_seekbar_alpha);
             seekbarSize = this.findViewById(R.id.input_onscreen_keyboard_dialog_seekbar_size);
             textAlpha = this.findViewById(R.id.input_onscreen_keyboard_dialog_text_alpha);
@@ -439,7 +452,7 @@ public class OnscreenKeyboard implements OnscreenInput {
             rbtInGame = this.findViewById(R.id.input_onscreen_keyboard_dialog_rbt_in_game);
             rbtOutGame = this.findViewById(R.id.input_onscreen_keyboard_dialog_rbt_out_game);
 
-            for (View v : new View[]{buttonOK, buttonCancel, buttonRestore}) {
+            for (View v : new View[]{buttonOK, buttonCancel, buttonRestore, buttonMoveUp, buttonMoveDown, buttonMoveLeft, buttonMoveRight}) {
                 v.setOnClickListener(this);
             }
             for (SeekBar s : new SeekBar[]{seekbarSize, seekbarAlpha}) {
@@ -483,6 +496,19 @@ public class OnscreenKeyboard implements OnscreenInput {
 
             }
 
+            if (v == buttonMoveUp) {
+                moveKeyboardByButton(MARK_MOVE_UP);
+            }
+            if (v == buttonMoveDown) {
+                moveKeyboardByButton(MARK_MOVE_DOWN);
+            }
+            if (v == buttonMoveLeft) {
+                moveKeyboardByButton(MARK_MOVE_LEFT);
+            }
+            if (v == buttonMoveRight) {
+                moveKeyboardByButton(MARK_MOVE_RIGHT);
+            }
+
         }
 
         @Override
@@ -509,6 +535,56 @@ public class OnscreenKeyboard implements OnscreenInput {
                 //调整位置
                 adjustPos(centerX, centerY);
             }
+
+        }
+
+        private void moveKeyboardByButton(int mark) {
+            float posX = mInput.getPos()[0];
+            float posY = mInput.getPos()[1];
+
+            int marginLeft = (int) posX;
+            int marginTop = (int) posY;
+
+            int viewWidth = mInput.getSize()[0];
+            int viewHeight = mInput.getSize()[1];
+
+            //获得移动后的边距
+            switch (mark) {
+                case MARK_MOVE_UP:
+                    marginTop -= DEFAULT_MOVE_DISTANCE;
+                    break;
+                case MARK_MOVE_DOWN:
+                    marginTop += DEFAULT_MOVE_DISTANCE;
+                    break;
+                case MARK_MOVE_LEFT:
+                    marginLeft -= DEFAULT_MOVE_DISTANCE;
+                    break;
+                case MARK_MOVE_RIGHT:
+                    marginLeft += DEFAULT_MOVE_DISTANCE;
+                    break;
+                default:
+                    break;
+            }
+
+            //边缘检测
+            //上边界
+            if (marginTop < 0) {
+                marginTop = 0;
+            }
+            //下边界
+            if (marginTop + viewHeight > screenHeight) {
+                marginTop = screenHeight - viewHeight;
+            }
+            //左边界
+            if (marginLeft < 0) {
+                marginLeft = 0;
+            }
+            //右边界
+            if (marginLeft + viewWidth > screenWidth) {
+                marginLeft = screenWidth - viewWidth;
+            }
+
+            mInput.setMargins(marginLeft, marginTop, 0, 0);
 
         }
 

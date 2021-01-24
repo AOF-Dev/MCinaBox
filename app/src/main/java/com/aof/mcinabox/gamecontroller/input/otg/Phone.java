@@ -10,18 +10,22 @@ import android.view.MotionEvent;
 import com.aof.mcinabox.gamecontroller.codes.Translation;
 import com.aof.mcinabox.gamecontroller.controller.Controller;
 import com.aof.mcinabox.gamecontroller.definitions.map.KeyMap;
+import com.aof.mcinabox.gamecontroller.definitions.map.MouseMap;
 import com.aof.mcinabox.gamecontroller.event.BaseKeyEvent;
 import com.aof.mcinabox.gamecontroller.input.HwInput;
+import com.aof.mcinabox.gamecontroller.input.OnscreenInput;
 
 import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.ANDROID_TO_KEYMAP;
 import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.KEYBOARD_BUTTON;
+import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.MOUSE_BUTTON;
 
-public class Phone implements HwInput {
+public abstract class Phone implements OnscreenInput, KeyMap, MouseMap, HwInput {
 
     private final static String TAG = "Phone";
     private Translation mTrans;
     private Controller mController;
     private final int type = KEYBOARD_BUTTON;
+    private final static int type_1 = MOUSE_BUTTON;
     private Context mContext;
     private boolean isEnabled = false;
 
@@ -66,12 +70,32 @@ public class Phone implements HwInput {
     @Override
     public boolean onKey(KeyEvent event) {
         switch (event.getKeyCode()) {
+            case KeyEvent.KEYCODE_VOLUME_UP:
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                    sendMouseEvent(MOUSEMAP_BUTTON_LEFT, true);
+                }
+                if (event.getAction() == KeyEvent.ACTION_UP) {
+                    sendMouseEvent(MOUSEMAP_BUTTON_LEFT, false);
+                }
+                return true;
+            case KeyEvent.KEYCODE_VOLUME_DOWN:
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                    sendMouseEvent(MOUSEMAP_BUTTON_RIGHT, true);
+                }
+                if (event.getAction() == KeyEvent.ACTION_UP) {
+                    sendMouseEvent(MOUSEMAP_BUTTON_RIGHT, false);
+                }
+                return true;
             case KeyEvent.KEYCODE_BACK:
                 sendKeyEvent(KeyMap.KEYMAP_KEY_ESC, event);
                 return true;
             default:
                 return false;
         }
+    }
+
+    private void sendMouseEvent(String name, boolean pressed) {
+        mController.sendKey(new BaseKeyEvent(TAG, name, pressed, type_1, null));
     }
 
     @Override

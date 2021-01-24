@@ -104,7 +104,76 @@
 
                 </LinearLayout>
 
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:text="@string/title_move"
+                android:textColor="@color/text_title_main"
+                android:textSize="@dimen/text_mid" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                style="?android:attr/buttonBarStyle"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/input_onscreen_crosskeyboard_dialog_button_move_left"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_gravity="center"
+                    android:text="@string/title_point_left"/>
+
+                <Button
+                    android:id="@+id/input_onscreen_crosskeyboard_dialog_button_move_right"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_gravity="center"
+                    android:text="@string/title_point_right"/>
+
+                <Button
+                    android:id="@+id/input_onscreen_crosskeyboard_dialog_button_move_up"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_gravity="center"
+                    android:text="@string/title_point_up"/>
+
+                <Button
+                    android:id="@+id/input_onscreen_crosskeyboard_dialog_button_move_down"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_gravity="center"
+                    android:text="@string/title_point_down"/>
+
             </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:text="@string/title_show"
+                android:textColor="@color/text_title_main"
+                android:textSize="@dimen/text_mid" />
 
             <LinearLayout
                 android:layout_width="match_parent"

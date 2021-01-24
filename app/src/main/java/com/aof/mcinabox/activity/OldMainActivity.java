@@ -160,7 +160,7 @@ public class OldMainActivity extends BaseActivity {
     public Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             if (msg.what == 1) {
-                Log.e("mcinabox", "Updata Setting.");
+                // Log.e("mcinabox", "Updata Setting.");
                 refreshLauncher();
                 updateSettingFromUis();
             }
