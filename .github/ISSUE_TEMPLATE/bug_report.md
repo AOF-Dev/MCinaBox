@@ -28,5 +28,6 @@ If applicable, add screenshots to help explain your problem.
  - OS: [e.g. Android 8.1]
  - App Version [e.g. v0.1.3]
  - CPU architecture [e.g. arm64]  
+
 **Additional context**
 Add any other context about the problem here.
