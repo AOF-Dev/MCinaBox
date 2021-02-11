@@ -11,8 +11,8 @@ on:
 
 jobs:
   build_on_Windows:
-      name: Build on Windows
-      runs-on: windows-latest
+      name: Build on Ubuntu
+      runs-on: ubuntu-latest
 
       steps:
       - name: Setup timezone
