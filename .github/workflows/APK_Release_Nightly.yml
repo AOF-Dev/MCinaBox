@@ -114,7 +114,7 @@ jobs:
       shell: bash
     - name: Change APK name
       run: |
-        mv app/build/outputs/apk/release/app-release-unsigned.apk app/build/outputs/apk/release/MCinaBox-${{ runner.os }}-Release-{{$buildtime}}.apk      
+        mv app/build/outputs/apk/release/app-release-unsigned.apk app/build/outputs/apk/release/MCinaBox-${{ runner.os }}-Release-${{ steps.current-time.outputs.formattedTime }}.apk      
       shell: bash
     - name: Upload All Pack
       uses: actions/upload-artifact@v2
