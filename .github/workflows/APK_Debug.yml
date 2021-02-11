@@ -1,4 +1,4 @@
-name: APK_Debug
+name: APK Debug
 on:
   push:
     paths-ignore:
@@ -51,6 +51,8 @@ jobs:
         key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
         restore-keys: |
           ${{ runner.os }}-gradle-
+#保存cache时在Windows里遇到权限问题(太懒还没修复) :)  
+  
     - name: Build MCinaBox Debug (with gradle)
       run: |
           chmod +x gradlew
@@ -63,7 +65,7 @@ jobs:
     - name: Upload All Pack
       uses: actions/upload-artifact@v2
       with:
-        name: MCinaBox-${{ runner.os }}-DebugPack.zip
+        name: MCinaBox-${{ runner.os }}-DebugPack
         path: app/build/outputs
     - name: Upload APK
       uses: actions/upload-artifact@v2
@@ -101,7 +103,7 @@ jobs:
     - name: Upload All Pack
       uses: actions/upload-artifact@v2
       with:
-        name: MCinaBox-${{ runner.os }}-DebugPack.zip
+        name: MCinaBox-${{ runner.os }}-DebugPack
         path: app/build/outputs
     - name: Upload APK
       uses: actions/upload-artifact@v2
@@ -139,7 +141,7 @@ jobs:
     - name: Upload All Pack
       uses: actions/upload-artifact@v2
       with:
-        name: MCinaBox-${{ runner.os }}-DebugPack.zip
+        name: MCinaBox-${{ runner.os }}-DebugPack
         path: app/build/outputs
     - name: Upload APK
       uses: actions/upload-artifact@v2
