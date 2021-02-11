@@ -19,7 +19,17 @@ jobs:
         uses: zcong1993/setup-timezone@master
         with:
           timezone: Asia/Shanghai
-      
+
+      - name: Get current time
+        uses: srfrnk/current-time@master
+        id: current-time
+        with:
+          format: YYYY-MM-DD
+
+#        env:
+#          TIME: "${{ steps.current-time.outputs.time }}"
+#          F_TIME: "${{ steps.current-time.outputs.formattedTime }}"
+
       - uses: actions/checkout@v2
       - name: Set up JDK 1.8
         uses: actions/setup-java@v1.4.3
@@ -40,16 +50,15 @@ jobs:
         shell: bash
       - name: Change APK name
         run: |
-          export BUILDDATE=$(date +%F)
-          mv app/build/outputs/apk/release/app-release.apk app/build/outputs/apk/release/MCinaBox-${{ runner.os }}-Release-${{BUILDDATE}}.apk
+          mv app/build/outputs/apk/release/app-release.apk app/build/outputs/apk/release/MCinaBox-${{ runner.os }}-Release-${{ steps.current-time.outputs.formattedTime }}.apk
         shell: bash
       - name: Upload All Pack
         uses: actions/upload-artifact@v2
         with:
-          name: MCinaBox-${{ runner.os }}-ReleasePack-${{BUILDDATE}}
+          name: MCinaBox-${{ runner.os }}-ReleasePack-${{ steps.current-time.outputs.formattedTime }}
           path: app/build/outputs
       - name: Upload APK
         uses: actions/upload-artifact@v2
         with:
-          name: MCinaBox-${{ runner.os }}-Release-${{BUILDDATE}}.apk
-          path: app/build/outputs/apk/release/MCinaBox-${{ runner.os }}-Release-${{BUILDDATE}}.apk
+          name: MCinaBox-${{ runner.os }}-Release-${{ steps.current-time.outputs.formattedTime }}.apk
+          path: app/build/outputs/apk/release/MCinaBox-${{ runner.os }}-Release-${{ steps.current-time.outputs.formattedTime }}.apk
