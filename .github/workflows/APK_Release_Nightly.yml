@@ -1,5 +1,6 @@
 name: APK Release Nightly Build
 on:
+  workflow_run:
   schedule:
     - cron: '0 16 * * *'
     
