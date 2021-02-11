@@ -1,6 +1,7 @@
 name: APK Release Nightly Build
 on:
-  workflow_run:
+  issues:
+    types: [opened, edited, milestoned]
   schedule:
     - cron: '0 16 * * *'
     
