@@ -50,7 +50,7 @@ jobs:
         shell: bash
       - name: Change APK name
         run: |
-          ls -aF app/build/
+          find $PWD | xargs ls -ld app/build/outputs/
           mv app/build/outputs/apk/release/app-release.apk app/build/outputs/apk/release/MCinaBox-${{ runner.os }}-Release-${{ steps.current-time.outputs.formattedTime }}.apk
         shell: bash
       - name: Upload All Pack
