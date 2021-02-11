@@ -1,7 +1,11 @@
 name: APK Release Nightly Build
 on:
-  issues:
-    types: [opened, edited, milestoned]
+  workflow_dispatch:
+    inputs:
+      Reason:
+        description: 'Reasons for temporary build'     
+        required: true
+        default: 'No reason.Just do it.'
   schedule:
     - cron: '0 16 * * *'
     
