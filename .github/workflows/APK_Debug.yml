@@ -1,6 +1,4 @@
 name: APK_Debug
-env: 
-  PACKNAME: MCinaBox-${{ runner.os }}-Debug
 on:
   push:
     paths-ignore:
@@ -60,7 +58,7 @@ jobs:
       shell: bash
     - name: Change APK name
       run: |
-        mv app/build/outputs/apk/debug/app-debug.apk app/build/outputs/apk/debug/$APPNAME.apk
+        mv app/build/outputs/apk/debug/app-debug.apk app/build/outputs/apk/debug/MCinaBox-${{ runner.os }}-Debug.apk
       shell: bash
     - name: Upload All Pack
       uses: actions/upload-artifact@v2
@@ -70,6 +68,6 @@ jobs:
     - name: Upload APK
       uses: actions/upload-artifact@v2
       with:
-        name: ${{PACKNAME}}
-        path: app/build/outputs/apk/debug/${{APPNAME}}.apk
+        name: MCinaBox-${{ runner.os }}-Debug
+        path: app/build/outputs/apk/debug/MCinaBox-${{ runner.os }}-Debug.apk
   
