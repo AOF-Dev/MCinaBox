@@ -1,4 +1,6 @@
 name: APK_Debug
+env: 
+  PACKNAME: MCinaBox-${{ runner.os }}-Debug
 on:
   push:
     paths-ignore:
@@ -36,8 +38,6 @@ jobs:
   build_on_Windows:
     name: Build on Windows
     runs-on: windows-latest
-    env: 
-      PACKNAME: MCinaBox-${{ runner.os }}-Debug
 
     steps:
     - uses: actions/checkout@v2
