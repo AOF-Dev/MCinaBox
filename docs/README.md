@@ -6,6 +6,7 @@ If you find problems when you run MCinaBox, you can check [Q&A](./Q&A.md) first.
 ## Instruction
 - MCinaBox is a Launcher of Minecraft Java Edition on Android. The core functionality is powered by [CosineMath](Https://github.com/CosineMath)'s [BoatApp](https://github.com/AOF-Dev/BoatApp) project.
 # Discord
+https://discord.gg/55GECvHuNd
 ![Discord Banner 2](https://discord.com/api/guilds/808182854718062623/widget.png?style=banner2)
 ## Contents
 - [Background](#Background)
