@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="contributors">
+        <item>artdeell</item>
+        <item>AyHa1810</item>
+        <item>ayunami2000</item>
+        <item>by-scott</item>
+        <item>CosineMath</item>
+        <item>FrankOu2001</item>
+        <item>Iscle</item>
+        <item>jooya0203</item>
+        <item>LegacyGamerHD</item>
+        <item>Mansffer</item>
+        <item>MCredbear</item>
+        <item>miguelmazetto</item>
+        <item>serpentspirale</item>
+        <item>snajdovski</item>
+        <item>SnowNF</item>
+        <item>softonicblip</item>
+        <item>TheTangyLemon</item>
+        <item>TSaltedfishKing</item>
+    </string-array>
+</resources>

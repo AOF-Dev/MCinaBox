@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="110dp"
+    android:layout_height="50dp"
+    android:background="@drawable/background_virtual_edittext"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/onscreen_inputbox_button_input"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="@string/title_input"
+            android:textAllCaps="false"
+            android:textSize="@dimen/text_mid" />
+
+        <Button
+            android:id="@+id/onscreen_inputbox_button_quick"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="@string/title_shortcut"
+            android:textAllCaps="false"
+            android:textSize="@dimen/text_mid" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:background="@drawable/background_toolbar"
+    android:elevation="4dp"
+    android:minHeight="?android:attr/actionBarSize"
+    android:theme="?android:attr/actionBarTheme"
+    app:title="@string/app_name">
+    <!-- 可以添加其他的view -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_version"
+        android:textColor="@color/text_title_main"
+        android:textSize="@dimen/text_big" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginEnd="5dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/toolbar_button_backfromhere"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/ic_keyboard_backspace_black_24dp" />
+
+        <TextView
+            android:id="@+id/main_text_showstate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="10dp"
+            android:text="@string/title_home"
+            android:textColor="@color/text_title_main"
+            android:textSize="@dimen/text_mid" />
+
+        <Button
+            android:id="@+id/toolbar_button_backhome"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/ic_home_black_24dp" />
+
+        <Button
+            android:id="@+id/toolbar_button_language"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/ic_language_black_24dp" />
+
+        <Button
+            android:id="@+id/toolbar_button_refresh"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/ic_autorenew_black_24dp" />
+
+        <Button
+            android:id="@+id/toolbar_button_new_ui"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="10dp"
+            android:layout_gravity="center"
+            android:background="@drawable/outline_new_releases_black_24dp" />
+
+        <Button
+            android:id="@+id/toolbar_button_taskinfo"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/outline_error_outline_orange_800_24dp" />
+
+    </LinearLayout>
+
+</androidx.appcompat.widget.Toolbar>

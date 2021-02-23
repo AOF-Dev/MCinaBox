@@ -1,0 +1,50 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/layout_gamelist_versionlistlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/background_layout_item"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/version_image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:layout_gravity="center"
+            android:src="@drawable/grass_2d"
+            android:padding="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="2dp"
+            android:textSize="@dimen/text_big"
+            android:textColor="@color/text_title_main"
+            android:text="@string/title_version"/>
+        <TextView
+            android:id="@+id/versionlist_text_versionId"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/text_title_main"
+            android:textSize="@dimen/text_big"
+            android:layout_weight="1"
+            android:layout_marginStart="2dp"/>
+
+        <Button
+            android:id="@+id/gamelist_button_removeversion"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/ic_delete_black_24dp" />
+
+    </LinearLayout>
+</LinearLayout>

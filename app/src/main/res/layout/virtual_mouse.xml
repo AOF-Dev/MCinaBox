@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="80dp"
+    android:layout_height="70dp"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/onscreen_mouse_move"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.15"
+        android:background="#66B2B2B2"
+        android:visibility="invisible">
+
+    </Button>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <com.aof.mcinabox.gamecontroller.input.screen.button.MouseButton
+            android:id="@+id/onscreen_mouse_pri"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/background_mouse_pri"
+            custom:mouse_name="MOUSE_BUTTON_LEFT" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:orientation="vertical">
+
+            <com.aof.mcinabox.gamecontroller.input.screen.button.MouseButton
+                android:id="@+id/onscreen_mouse_wheel_up"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="#A5A5A5"
+                android:layout_margin="1dp"
+                custom:mouse_name="MOUSE_WHEEL_UP" />
+
+            <com.aof.mcinabox.gamecontroller.input.screen.button.MouseButton
+                android:id="@+id/onscreen_mouse_middle"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:background="#B5B5B5"
+                custom:mouse_name="MOUSE_BUTTON_MIDDLE" />
+
+            <com.aof.mcinabox.gamecontroller.input.screen.button.MouseButton
+                android:id="@+id/onscreen_mouse_wheel_down"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:background="#A5A5A5"
+                custom:mouse_name="MOUSE_WHEEL_DOWN" />
+
+
+        </LinearLayout>
+
+        <com.aof.mcinabox.gamecontroller.input.screen.button.MouseButton
+            android:id="@+id/onscreen_mouse_sec"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/background_mouse_sec"
+            custom:mouse_name="MOUSE_BUTTON_RIGHT" />
+    </LinearLayout>
+
+</LinearLayout>

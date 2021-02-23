@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="270dp"
+    android:layout_height="30dp"
+    android:orientation="horizontal"
+    android:weightSum="9.0">
+
+    <com.aof.mcinabox.gamecontroller.input.screen.button.ItemButton
+        android:textSize="20sp"
+        android:id="@+id/itembutton_1"
+        android:background="@drawable/control_button"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.0"
+        custom:button_name="1"/>
+
+    <com.aof.mcinabox.gamecontroller.input.screen.button.ItemButton
+        android:textSize="20sp"
+        android:id="@+id/itembutton_2"
+        android:background="@drawable/control_button"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.0"
+        custom:button_name="2"/>
+
+    <com.aof.mcinabox.gamecontroller.input.screen.button.ItemButton
+        android:textSize="20sp"
+        android:id="@+id/itembutton_3"
+        android:background="@drawable/control_button"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.0"
+        custom:button_name="3"/>
+
+    <com.aof.mcinabox.gamecontroller.input.screen.button.ItemButton
+        android:textSize="20sp"
+        android:id="@+id/itembutton_4"
+        android:background="@drawable/control_button"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.0"
+        custom:button_name="4"/>
+
+    <com.aof.mcinabox.gamecontroller.input.screen.button.ItemButton
+        android:textSize="20sp"
+        android:id="@+id/itembutton_5"
+        android:background="@drawable/control_button"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.0"
+        custom:button_name="5"/>
+
+    <com.aof.mcinabox.gamecontroller.input.screen.button.ItemButton
+        android:textSize="20sp"
+        android:id="@+id/itembutton_6"
+        android:background="@drawable/control_button"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.0"
+        custom:button_name="6"/>
+
+    <com.aof.mcinabox.gamecontroller.input.screen.button.ItemButton
+        android:textSize="20sp"
+        android:id="@+id/itembutton_7"
+        android:background="@drawable/control_button"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.0"
+        custom:button_name="7"/>
+
+    <com.aof.mcinabox.gamecontroller.input.screen.button.ItemButton
+        android:textSize="20sp"
+        android:id="@+id/itembutton_8"
+        android:background="@drawable/control_button"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.0"
+        custom:button_name="8"/>
+
+    <com.aof.mcinabox.gamecontroller.input.screen.button.ItemButton
+        android:textSize="20sp"
+        android:id="@+id/itembutton_9"
+        android:background="@drawable/control_button"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.0"
+        custom:button_name="9"/>
+
+</LinearLayout>

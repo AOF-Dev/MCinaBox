@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="transparent">#00FFFFFF</color>
+
+    <!-- Originally created by MCinaBox module -->
+    <color name="colorPrimary">#657DDB</color>
+    <color name="colorPrimaryDark">#5B63B7</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="dialogBackground">#00FFFFFF</color>
+    <color name="text_title_sec">#FFFFFF</color>
+    <color name="text_title_main">#000000</color>
+    <color name="text_info">#4B4B4B</color>
+    <color name="text_warn">#FF0000</color>
+    <color name="text_hint">#8C8C8C</color>
+
+</resources>

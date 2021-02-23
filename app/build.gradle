@@ -1,0 +1,71 @@
+apply plugin: 'com.android.application'
+apply plugin: "androidx.navigation.safeargs"
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion '30.0.2'
+
+    signingConfigs {
+        debug {
+            storeFile file('../.github/workflows/debugKeyStore.jks')
+            keyAlias 'mcinabox'
+            storePassword '123456'
+            keyPassword '123456'
+        }
+    }
+
+    defaultConfig {
+        applicationId "com.aof.mcinabox"
+        minSdkVersion 21
+        targetSdkVersion 22
+        versionCode 8
+        versionName '0.1.4-p5'
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.aar', '*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.github.MasayukiSuda:BubbleLayout:v1.2.1'
+    implementation 'com.squareup.okhttp3:okhttp:4.9.0'
+    implementation 'com.github.kongqw:AndroidRocker:1.0.1'
+    implementation 'com.github.QuadFlask:colorpicker:0.0.15'
+    implementation 'org.apache.commons:commons-compress:1.20'
+    implementation 'org.tukaani:xz:1.8'
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
+    implementation 'androidx.navigation:navigation-fragment:2.3.2'
+    implementation 'androidx.navigation:navigation-ui:2.3.2'
+    implementation 'androidx.preference:preference:1.1.1'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'com.squareup.okhttp3:okhttp:4.9.0'
+    implementation 'com.google.guava:guava:30.0-android'
+    implementation project(path: ':boat')
+    implementation 'org.apache.commons:commons-text:1.9'
+
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.5'
+}

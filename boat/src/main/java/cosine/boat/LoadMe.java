@@ -1,52 +1,105 @@
 package cosine.boat;
 
-import com.aof.sharedmodule.Model.ArgsModel;
-import static com.aof.sharedmodule.Data.DataPathManifest.*;
+import android.system.Os;
+import android.util.Log;
+
+import java.lang.ref.WeakReference;
+import java.util.Map;
 
 public class LoadMe {
 
-	public static native int chdir(String str);
-	public static native void jliLaunch(String[] strArr);
-	public static native void redirectStdio(String file);
-	public static native void setenv(String str, String str2);
-	public static native void setupJLI();
-	public static native int dlopen(String name);
+    private final static String TAG = "LoadMe";
 
-	static {
-		System.loadLibrary("boat");
-	}
+    public static WeakReference<LogReceiver> mReceiver;
 
-	public static int exec(ArgsModel args, BoatClientActivity activity) {
-		try {
-			String runtimePath = RUNTIME_HOME;
-			String home = args.getHome();
+    public static native int chdir(String str);
 
-			setenv("HOME", home);
-			setenv("JAVA_HOME" ,runtimePath + "/j2re-image");
-			setenv("BOAT_INPUT_PORT", Integer.toString(activity.mInputEventSender.port));
+    public static native int jliLaunch(String[] strArr);
 
-			dlopen(runtimePath + "/j2re-image/lib/aarch32/jli/libjli.so");
-			dlopen(runtimePath + "/j2re-image/lib/aarch32/client/libjvm.so");
-			dlopen(runtimePath + "/j2re-image/lib/aarch32/libverify.so");
-			dlopen(runtimePath + "/j2re-image/lib/aarch32/libjava.so");
-			dlopen(runtimePath + "/j2re-image/lib/aarch32/libnet.so");
-			dlopen(runtimePath + "/j2re-image/lib/aarch32/libnio.so");
-			dlopen(runtimePath + "/j2re-image/lib/aarch32/libawt.so");
-			dlopen(runtimePath + "/j2re-image/lib/aarch32/libawt_headless.so");
-			dlopen("libserver.so");
-			dlopen(runtimePath + "/libopenal.so.1");
-			dlopen(runtimePath + "/libGL.so.1");
-			dlopen(runtimePath + "/lwjgl2/liblwjgl.so");
+    public static native void redirectStdio();
 
-			setupJLI();
-			redirectStdio(home + "/boat_output.txt");
-			chdir(home);
-			jliLaunch(args.getArgs());
+    public static native void setenv(String name, String value);
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			return 1;
-		}
-		return 0;
-	}
+    public static native void setupJLI();
+
+    public static native int dlopen(String name);
+
+    public static native void patchLinker();
+
+    public void exec(BoatArgs args) {
+        patchLinker();
+        try {
+            /* set JRE Environment */
+            setenv("HOME", args.getGameDir());
+            setenv("JAVA_HOME", args.getJavaHome());
+            setenv("TMPDIR", args.getTmpDir());
+            setenv("LD_LIBRARY_PATH", args.getJavaHome() + "/lib/" + args.getPlatform() + "/" + args.getJvmMode() + ":" +
+                    args.getJavaHome() + "/lib/" + args.getPlatform() + "/jli:" +
+                    args.getJavaHome() + "/lib/" + args.getPlatform() + ":" +
+                    "/system/lib64:" +
+                    "/vendor/lib64:" +
+                    "/vendor/lib64/hw");
+            setenv("PATH", args.getJavaHome() + "/bin:" + Os.getenv("PATH"));
+            //Fix colors since GL4ES v1.1.5
+            //with new runtime pack which includes gl4es v1.1.5
+            setenv("LIBGL_NORMALIZE", "1");
+            //Disable MIPMAP
+            setenv("LIBGL_MIPMAP", "3");
+            //DISABLE VBO since GL4ES v1.1.4
+            setenv("LIBGL_USEVBO", "0");
+
+            if(args.getSystemEnv() != null){
+                for (Map.Entry<String, String> entry : args.getSystemEnv().entrySet()) {
+                    setenv(entry.getKey(), entry.getValue());
+                }
+            }
+
+            /* open libraries*/
+            for (String str : args.getSharedLibraries()) {
+                dlopen(str);
+            }
+
+            setupJLI();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    redirectStdio();
+                }
+            }).start();
+            chdir(args.getGameDir());
+            jliLaunch(args.getArgs());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void receiveLog(String str){
+        if (mReceiver == null || mReceiver.get() == null) {
+            Log.e(TAG, "LogReceiver is null. So use default receiver.");
+            mReceiver = new WeakReference<>(new LogReceiver() {
+                final StringBuilder builder = new StringBuilder();
+                @Override
+                public void pushLog(String log) {
+                    Log.e(TAG, log);
+                    builder.append(log);
+                }
+
+                @Override
+                public String getLogs() {
+                    return builder.toString();
+                }
+            });
+        } else {
+            mReceiver.get().pushLog(str);
+        }
+    }
+
+    static {
+        System.loadLibrary("boat");
+    }
+
+    public interface LogReceiver{
+        void pushLog(String log);
+        String getLogs();
+    }
 }

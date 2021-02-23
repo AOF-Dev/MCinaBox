@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="keyboard_list">
+        <item> </item>
+    </string-array>
+
+    <string-array name="download_type">
+        <item>official</item>
+        <item>bmclapi</item>
+        <item>mcbbs</item>
+    </string-array>
+
+</resources>

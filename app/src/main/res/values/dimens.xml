@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Originally created by MCinaBox module -->
+    <dimen name="text_big">15sp</dimen>
+    <dimen name="text_mid">13sp</dimen>
+    <dimen name="text_small">10sp</dimen>
+
+    <dimen name="qwert_text_size">6sp</dimen>
+
+</resources>

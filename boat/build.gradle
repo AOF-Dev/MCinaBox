@@ -1,48 +1,48 @@
-tasks.whenTaskAdded{ task->
-    if(task.name.equals("lint")) {
-        task.enabled=false
-    }
-}
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+    compileSdkVersion 30
+    buildToolsVersion '30.0.2'
+    ndkVersion '21.3.6528147'
+
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 21
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        ndk{
-            abiFilters "armeabi-v7a"
-        }
+
         externalNativeBuild {
             cmake {
-                arguments "-DANDROID_STL=c++_shared"
+                abiFilters "armeabi-v7a", "arm64-v8a"
             }
         }
     }
+
+    buildFeatures {
+        viewBinding true
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     externalNativeBuild {
         cmake {
             path file('src/main/jni/CMakeLists.txt')
         }
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.code.gson:gson:2.8.6'
-    implementation project(path: ':sharedmodule')
-    implementation 'com.github.kongqw:AndroidRocker:1.0.1'
-    implementation project(path: ':plugin')
 }

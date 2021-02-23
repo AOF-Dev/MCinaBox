@@ -1,0 +1,990 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="460dp"
+    android:layout_height="130dp"
+    android:background="#80D7D7D7"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="ESC"
+            custom:button_name="ESC" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="F1"
+            custom:button_name="F1" />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="F2"
+            custom:button_name="F2" />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="F3"
+            custom:button_name="F3" />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="F4"
+            custom:button_name="F4" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5" />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="F5"
+            custom:button_name="F5" />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="F6"
+            custom:button_name="F6" />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="F7"
+            custom:button_name="F7" />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="F8"
+            custom:button_name="F8" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5" />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="F9"
+            custom:button_name="F9" />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="F10"
+            custom:button_name="F10" />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="F11"
+            custom:button_name="F11" />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="F12"
+            custom:button_name="F12" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5" />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Prt"
+            custom:button_name="PRINT" />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Scr"
+            custom:button_name="SCROLL" />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Pau"
+            custom:button_name="PAUSE" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4.5" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="`"
+            custom:button_name="`"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="1"
+            custom:button_name="1"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="2"
+            custom:button_name="2"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="3"
+            custom:button_name="3"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="4"
+            custom:button_name="4"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="5"
+            custom:button_name="5"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="6"
+            custom:button_name="6"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="7"
+            custom:button_name="7"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="8"
+            custom:button_name="8"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="9"
+            custom:button_name="9"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="0"
+            custom:button_name="0"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="-"
+            custom:button_name="-"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="="
+            custom:button_name="="/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="\"
+            custom:button_name="\"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="←--"
+            custom:button_name="BACK" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5" />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Ins"
+            custom:button_name="INSERT" />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Hom"
+            custom:button_name="HOME" />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Pau"
+            custom:button_name="PGUP" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Num"
+            custom:button_name="NUMLOCK" />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="/"
+            custom:button_name="NUMPAD/" />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="*"
+            custom:button_name="NUMPAD*" />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="-"
+            custom:button_name="NUMPAD-" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5"
+            android:text="TAB"
+            custom:button_name="TAB" />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Q"
+            custom:button_name="Q"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="W"
+            custom:button_name="W"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="E"
+            custom:button_name="E"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="R"
+            custom:button_name="R"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="T"
+            custom:button_name="T"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Y"
+            custom:button_name="Y"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="U"
+            custom:button_name="U"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="I"
+            custom:button_name="I"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="O"
+            custom:button_name="O"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="P"
+            custom:button_name="P"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="["
+            custom:button_name="["/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="]"
+            custom:button_name="]"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5"
+            android:text="Enter"
+            custom:button_name="ENTER" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Del"
+            custom:button_name="DELETE" />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="End"
+            custom:button_name="END" />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="PaD"
+            custom:button_name="PGDN" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="7"
+            custom:button_name="NUMPAD7" />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="8"
+            custom:button_name="NUMPAD8" />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="9"
+            custom:button_name="NUMPAD9" />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="+"
+            custom:button_name="NUMPAD+" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.6"
+            android:text="Caps L"
+            custom:button_name="CAPITAL" />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="A"
+            custom:button_name="A"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="S"
+            custom:button_name="S"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="D"
+            custom:button_name="D"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="F"
+            custom:button_name="F"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="G"
+            custom:button_name="G"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="H"
+            custom:button_name="H"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="J"
+            custom:button_name="J"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="K"
+            custom:button_name="K"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="L"
+            custom:button_name="L"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text=";"
+            custom:button_name=";"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="'"
+            custom:button_name="'"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2.4"
+            android:text=""
+            custom:button_name="ENTER" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="4"
+            custom:button_name="NUMPAD4" />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="5"
+            custom:button_name="NUMPAD5" />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="6"
+            custom:button_name="NUMPAD6" />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text=""
+            custom:button_name="NUMPAD+" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2.1"
+            android:text="Shift"
+            custom:button_name="LSHIFT" />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Z"
+            custom:button_name="Z"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="X"
+            custom:button_name="X"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="C"
+            custom:button_name="C"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="V"
+            custom:button_name="V"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="B"
+            custom:button_name="B"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="N"
+            custom:button_name="N"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="M"
+            custom:button_name="M"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text=","
+            custom:button_name=","/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="."
+            custom:button_name="."/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="/"
+            custom:button_name="/"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2.9"
+            android:text="Shift"
+            custom:button_name="RSHIFT" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="↑"
+            custom:button_name="UP" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="1"
+            custom:button_name="NUMPAD1" />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="2"
+            custom:button_name="NUMPAD2" />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="3"
+            custom:button_name="NUMPAD3" />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Ent"
+            custom:button_name="NUMPADENTER" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.4"
+            android:text="Ctrl"
+            custom:button_name="LCTRL" />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.4"
+            android:text="Win"
+            custom:button_name="LWIN" />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.4"
+            android:text="Alt"
+            custom:button_name="LALT" />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5.2"
+            android:text="Space"
+            custom:button_name="SPACE"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.4"
+            android:text="Alt"
+            custom:button_name="RALT" />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.4"
+            android:text="Win"
+            custom:button_name="RWIN" />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.4"
+            android:text="RightK"
+            custom:button_name="RIGHTK" />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.4"
+            android:text="Ctrl"
+            custom:button_name="RCTRL" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="←"
+            custom:button_name="LEFT" />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="↓"
+            custom:button_name="DOWN" />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="→"
+            custom:button_name="RIGHT" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"/>
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:text="0"
+            custom:button_name="NUMPAD0" />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="."
+            custom:button_name="NUMPAD." />
+
+        <com.aof.mcinabox.gamecontroller.ckb.support.QwertButton
+            style="@style/selecterButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text=""
+            custom:button_name="NUMPADENTER" />
+
+    </LinearLayout>
+
+
+</LinearLayout>
