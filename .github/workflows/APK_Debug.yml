@@ -8,6 +8,7 @@ on:
       - appveyor.yml
       - 'azure-pipelines*.yml'
       - 'ci/azure-pipelines/template*.yml'
+  workflow_dispatch:
 
   pull_request:
     paths-ignore:
