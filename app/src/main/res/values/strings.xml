@@ -30,7 +30,7 @@
 
     <string name="title_all">All</string>
     <string name="title_in_game">In-game</string>
-    <string name="title_out_game">Outside the game</string>
+    <string name="title_out_game">Out-game</string>
     <string name="title_language">Language</string>
     <string name="title_restore">Restore</string>
     <string name="title_game_list">Game List</string>
@@ -42,8 +42,8 @@
     <string name="title_plugin">Plug-in</string>
     <string name="title_add_plugin">Add Plug-in</string>
     <string name="title_show">show</string>
-    <string name="title_launcher_private_path">Private directory</string>
-    <string name="title_launcher_public_path">Public directory</string>
+    <string name="title_launcher_private_path">App directory</string>
+    <string name="title_launcher_public_path">External directory</string>
     <string name="title_setting_basic">Basic Settings</string>
     <string name="title_keyboard_layout">Keyboard Layout</string>
     <string name="title_max_memory">Maximum Memory (MB)</string>
@@ -74,7 +74,7 @@
     <string name="title_user">User</string>
     <string name="title_manager">Management</string>
     <string name="title_select_version">Select Version</string>
-    <string name="title_launch_game">Start the game</string>
+    <string name="title_launch_game">Launch</string>
     <string name="title_download_source">Minecraft Download Source</string>
     <string name="title_import_runtime">Import Runtime</string>
     <string name="title_import">Import</string>
@@ -196,9 +196,9 @@
     <string name="tips_user_namehint">Username or email</string>
     <string name="tips_please_enter_password">Please enter your password</string>
     <string name="tips_downloader_warn">If the list is not displayed for a long time, please manually click "Refresh"\nPlease be patient and wait for the download to complete. If the download is slow, please try to change to another download source.</string>
-    <string name="tips_launcher_path">Note: Using "Private Directory" does not need to grant MCinaBox write permissions, but uninstalling MCinaBox will lose all the data in the "Private Directory"!</string>
-    <string name="tips_jvm_extra_args">Java Virtual Machine parameters (no need to fill)</string>
-    <string name="tips_minecraft_extra_args">Minecraft additional parameters (no need to fill)</string>
+    <string name="tips_launcher_path">Note: Using "App Directory" does not need to grant MCinaBox write permissions, but uninstalling MCinaBox will lose all the data in the "App Directory"!</string>
+    <string name="tips_jvm_extra_args">Java VM Arguments (Advanced)</string>
+    <string name="tips_minecraft_extra_args">Minecraft Arguments (Advanced)</string>
     <string name="tips_refresh_finished">Refresh finished</string>
     <string name="tips_please_refresh">Please refresh</string>
     <string name="tips_please_select_version">Please select the game version</string>
@@ -213,7 +213,7 @@
     <string name="tips_import_failed">Import Failed</string>
     <string name="tips_not_install_runtime">Runtime is not installed</string>
     <string name="tips_not_selected_user">No user is created or selected</string>
-    <string name="tips_not_select_version">Game version is not downloaded or selected</string>
+    <string name="tips_not_select_version">Any game version is not downloaded or selected</string>
     <string name="tips_available_memory_low">Memory limit is too low</string>
     <string name="tips_available_memory_over">Memory limit is too high</string>
     <string name="tips_downloading_manifest">Downloading manifest file…</string>
@@ -234,14 +234,14 @@
     <string name="tips_tipper_not_allow_launch">There is error level information, launch is blocked, please handle it in tipper manager.</string>
     <string name="tips_tipper_is_not_void_and_user_canceled">There are unprocessed messages in the tipper manager, and the user ended the operation.</string>
     <string name="tips_checking_launcher_setting">Checking the launcher configuration…</string>
-    <string name="tips_have_no_minecraft_please_install">No game detected, please install a Minecraft version first.</string>
+    <string name="tips_have_no_minecraft_please_install">No installation detected, please install a Minecraft version first.</string>
     <string name="tips_checking_runtime">Checking runtime…</string>
     <string name="tips_have_no_runtime_please_install">The runtime is not detected, please install the runtime first.</string>
     <string name="tips_checking_system_platform">Checking system architecture…</string>
     <string name="tips_platform_not_correct_may_cause_crash">It is detected that the runtime architecture does not match your system architecture, which may cause startup failure or performance loss. Do you want to continue?</string>
     <string name="tips_platforn_not_correct_and_user_canceled">The runtime library architecture did not confirm to the system, and the user ended the operation.</string>
     <string name="tips_checking_main_file">Checking game\'s core file…</string>
-    <string name="tips_not_found_main_jar_please_reinstall">The Minecraft JAR main file was not found. Please reinstall the Minecraft version.</string>
+    <string name="tips_not_found_main_jar_please_reinstall">The Minecraft JAR file was not found. Please reinstall the Minecraft version.</string>
     <string name="tips_checking_libraries">"Checking game dependencies…</string>
     <string name="tips_lose_libraries">Incomplete dependent library detected, missing files:\n%s Do you want to continue?</string>
     <string name="tips_lose_libraries_and_user_canceled_please_reinstall_minecraft">The Minecraft dependency library is incomplete. Please reinstall the Minecraft version. The user has finished the operation.</string>
