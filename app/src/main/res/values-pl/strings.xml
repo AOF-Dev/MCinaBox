@@ -248,7 +248,7 @@
 	<string name="tips_failed_to_revise">Wystąpił nieznany błąd, modyfikacja %s nie powiodła się!</string>
 	<string name="tips_not_disable_touch_screen">Wykryto, że włączony jest tryb ekranu dotykowego Minecrafta, co utrudni obsługę gry. Czy chcesz wyłączyć tryb ekranu dotykowego?</string>
 	<string name="tips_initing_launch_arg">Inicjalizacja argumentów startowych…</string>
-	<string name="tips_please_select_runtime_manifest">Prosze wybrać manifest runtime'u:</string>
+	<string name="tips_please_select_runtime_manifest">Prosze wybrać manifest programu uruchamiającego:</string>
 	<string name="tips_user_canceled">Użytkownik anulował operacje.</string>
 	<string name="tips_making_launch_arg">Generowanie argumentów uruchomienia…</string>
 	<string name="tips_failed_to_make_launch_arg">Wystąpił nieznany błąd i generowanie argumentów uruchamiania nie powiodło się!\nBłąd: %s</string>
