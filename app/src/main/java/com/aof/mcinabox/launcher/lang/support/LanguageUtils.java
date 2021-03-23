@@ -11,6 +11,7 @@ public class LanguageUtils {
 
     public final static String TAG_SYSTEM = "System";
     public final static String TAG_ENGLISH_EN = "English(en)";
+    public final static String TAG_POLISH_PL = "Polski(pl)";
     public final static String TAG_JAPANESE_JA = "日本語(ja)";
     public final static String TAG_CHINESE_ZH_CN = "简体中文(zh-CN)";
     public final static String TAG_CHINESE_ZH_TW = "繁体中文(zh-TW)";
@@ -24,7 +25,7 @@ public class LanguageUtils {
      * create a TAG for the language
      * and add the TAG to #LANG_TAGS
      */
-    public final static String[] LANG_TAGS = new String[]{TAG_SYSTEM, TAG_ENGLISH_EN, TAG_JAPANESE_JA, TAG_CHINESE_ZH_CN,
+    public final static String[] LANG_TAGS = new String[]{TAG_SYSTEM, TAG_ENGLISH_EN, TAG_POLISH_PL, TAG_JAPANESE_JA, TAG_CHINESE_ZH_CN,
             TAG_CHINESE_ZH_TW, TAG_SPANISH_ES, TAG_PORTUGUESE_RU, TAG_BRAZILIAN_PT_BR, TAG_KOREAN_KO_KR};
 
     public static Locale getLocaleFromConfig(String config){
@@ -36,6 +37,9 @@ public class LanguageUtils {
             case TAG_ENGLISH_EN:
                 mLocale = Locale.ENGLISH;
                 break;
+            case TAG_POLISH_PL;
+                mLocale = Locale.POLISH
+                break
             case TAG_JAPANESE_JA:
                 mLocale = Locale.JAPANESE;
                 break;
