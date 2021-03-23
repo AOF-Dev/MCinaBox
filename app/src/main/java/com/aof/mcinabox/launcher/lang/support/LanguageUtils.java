@@ -37,7 +37,7 @@ public class LanguageUtils {
             case TAG_ENGLISH_EN:
                 mLocale = Locale.ENGLISH;
                 break;
-            case TAG_POLISH_PL;
+            case TAG_POLISH_PL:
                 mLocale = Locale.POLISH;
                 break;
             case TAG_JAPANESE_JA:
