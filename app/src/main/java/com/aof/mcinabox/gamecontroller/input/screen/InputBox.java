@@ -52,7 +52,7 @@ public class InputBox implements OnscreenInput, KeyMap, View.OnClickListener {
     private final static int type_2 = KEYBOARD_BUTTON;
     private final static String TAG = "InputBox";
 
-    private final static String[] ORDERS = new String[]{"/gamemode 0", "/gamemode 1", "/time set 0", "/time set 13000"};
+    private final static String[] ORDERS = new String[]{"/logar oohvitor", "/mina", "/p h", "/home 1"};
 
     public final static int SHOW_ALL = 0;
     public final static int SHOW_IN_GAME = 1;
