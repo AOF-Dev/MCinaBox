@@ -1,6 +1,7 @@
 package com.aof.mcinabox.activity;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -8,6 +9,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
+import com.aof.mcinabox.R;
 
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
@@ -32,8 +35,7 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void startApp() {
-        Intent i = new Intent(this, OldMainActivity.class);
-        startActivity(i);
+        startActivity(new Intent(this, OldMainActivity.class));
         finishAffinity();
     }
 
@@ -51,8 +53,12 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void handleInitFailed() {
-        Toast.makeText(this, "Oops! Something went wrong while starting the app.", Toast.LENGTH_SHORT).show();
-        finishAffinity();
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.error)
+                .setMessage(R.string.error_starting_the_app)
+                .setCancelable(false)
+                .setPositiveButton("Exit", (dialog, which) -> finishAffinity())
+                .show();
     }
 
     @Override

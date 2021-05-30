@@ -1,16 +1,13 @@
 package com.aof.mcinabox.activity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.KeyEvent;
 
-import com.aof.mcinabox.R;
+import com.aof.mcinabox.databinding.ActivityOldMainBinding;
 import com.aof.mcinabox.gamecontroller.definitions.manifest.AppManifest;
 import com.aof.mcinabox.launcher.lang.LangManager;
 import com.aof.mcinabox.launcher.setting.SettingManager;
@@ -28,6 +25,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class OldMainActivity extends BaseActivity {
+    private static final String TAG = "MainActivity";
 
     public static final int LAUNCHER_IMPT_RTPACK = 127;
     public static WeakReference<OldMainActivity> CURRENT_ACTIVITY;
@@ -36,16 +34,17 @@ public class OldMainActivity extends BaseActivity {
     public TipperManager mTipperManager;
     public SettingManager mSettingManager;
     public ThemeManager mThemeManager;
+    private ActivityOldMainBinding binding;
     private static final int REFRESH_DELAY = 0; //ms
     private static final int REFRESH_PERIOD = 500; //ms
-    private static final String TAG = "MainActivity";
     public static SettingJson Setting;
     private boolean enableSettingChecker = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_old_main);
+        binding = ActivityOldMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         //静态对象
         CURRENT_ACTIVITY = new WeakReference<>(this);
         //使用语言管理器切换语言
@@ -75,7 +74,7 @@ public class OldMainActivity extends BaseActivity {
             getWindow().setNavigationBarColor(Color.WHITE);
         }
 
-        findViewById(R.id.toolbar_button_new_ui).setOnClickListener(v -> {
+        binding.layoutToolbarMain.toolbarButtonNewUi.setOnClickListener(v -> {
             Intent i = new Intent(OldMainActivity.this, MainActivity.class);
             startActivity(i);
         });
@@ -156,18 +155,6 @@ public class OldMainActivity extends BaseActivity {
         mUiManager.refreshUis();
     }
 
-    @SuppressLint("HandlerLeak")
-    public Handler handler = new Handler() {
-        public void handleMessage(Message msg) {
-            if (msg.what == 1) {
-                Log.e("mcinabox", "Updata Setting.");
-                refreshLauncher();
-                updateSettingFromUis();
-            }
-            super.handleMessage(msg);
-        }
-    };
-
     /**
      * 【给Minecraft目录设置无媒体标签】
      **/
@@ -219,9 +206,11 @@ public class OldMainActivity extends BaseActivity {
         return new TimerTask() {
             @Override
             public void run() {
-                Message msg = new Message();
-                msg.what = 1;
-                handler.sendMessage(msg);
+                runOnUiThread(() -> {
+                    Log.d(TAG, "run: Updating settings.");
+                    refreshLauncher();
+                    updateSettingFromUis();
+                });
             }
         };
     }
