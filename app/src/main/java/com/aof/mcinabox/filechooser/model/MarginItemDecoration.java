@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class MarginItemDecoration extends RecyclerView.ItemDecoration {
     private static final int px = (int) TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP, 8, Resources.getSystem().getDisplayMetrics());
+
     @Override
     public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
         int position = parent.getChildLayoutPosition(view);

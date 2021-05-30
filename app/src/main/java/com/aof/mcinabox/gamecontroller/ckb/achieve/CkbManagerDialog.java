@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.FileObserver;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
@@ -92,11 +91,7 @@ public class CkbManagerDialog extends Dialog implements View.OnClickListener, Co
          */
 
         //当进入游戏的时候自动设定客制化键盘模式为生效，如果是编辑界面，则不自动设置
-        if (mManager.getController() != null) {
-            radioGame.setChecked(true);
-        }else {
-            radioGame.setChecked(false);
-        }
+        radioGame.setChecked(mManager.getController() != null);
 
     }
 
@@ -217,8 +212,8 @@ public class CkbManagerDialog extends Dialog implements View.OnClickListener, Co
             });
         }
 
-        if(v == buttonDefault){
-            DialogUtils.createBothChoicesDialog(mContext, mContext.getString(R.string.title_warn),"您确定要使用默认键盘布局吗？", mContext.getString(R.string.title_ok), mContext.getString(R.string.title_cancel), new DialogSupports(){
+        if (v == buttonDefault) {
+            DialogUtils.createBothChoicesDialog(mContext, mContext.getString(R.string.title_warn), "您确定要使用默认键盘布局吗？", mContext.getString(R.string.title_ok), mContext.getString(R.string.title_cancel), new DialogSupports() {
                 @Override
                 public void runWhenPositive() {
                     super.runWhenPositive();

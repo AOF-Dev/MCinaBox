@@ -2,7 +2,6 @@ package com.aof.mcinabox.launcher.uis;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -52,7 +51,7 @@ public class LogUI extends BaseUI implements View.OnClickListener {
         this.scrollView.addView(logView);
         this.buttonRefreshFromFile = layout_log.findViewById(R.id.log_button_refresh_from_file);
         this.buttonRefreshFromThread = layout_log.findViewById(R.id.log_button_refresh_from_this);
-        for(View view : new View[]{buttonRefreshFromFile, buttonRefreshFromThread}){
+        for (View view : new View[]{buttonRefreshFromFile, buttonRefreshFromThread}) {
             view.setOnClickListener(this);
         }
         showAnim = AnimationUtils.loadAnimation(mContext, R.anim.layout_show);
@@ -82,13 +81,13 @@ public class LogUI extends BaseUI implements View.OnClickListener {
         return layout_log.getVisibility();
     }
 
-    private void showLog(TextView view){
+    private void showLog(TextView view) {
         if (LoadMe.mReceiver != null && LoadMe.mReceiver.get() != null && !LoadMe.mReceiver.get().getLogs().equals("")) {
             view.setText(LoadMe.mReceiver.get().getLogs());
         } else {
             try {
                 view.setText(FileTool.readToString(AppManifest.BOAT_LOG_FILE));
-            } catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
                 view.setText(e.toString());
             }
@@ -97,7 +96,7 @@ public class LogUI extends BaseUI implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if(v == buttonRefreshFromFile){
+        if (v == buttonRefreshFromFile) {
             try {
                 logView.setText(FileTool.readToString(AppManifest.BOAT_LOG_FILE));
             } catch (IOException e) {
@@ -106,10 +105,10 @@ public class LogUI extends BaseUI implements View.OnClickListener {
             }
         }
 
-        if(v == buttonRefreshFromThread){
-            if (LoadMe.mReceiver != null && LoadMe.mReceiver.get() != null){
+        if (v == buttonRefreshFromThread) {
+            if (LoadMe.mReceiver != null && LoadMe.mReceiver.get() != null) {
                 logView.setText(LoadMe.mReceiver.get().getLogs());
-            }else{
+            } else {
                 DialogUtils.createSingleChoiceDialog(mContext, mContext.getString(R.string.title_error), mContext.getString(R.string.tips_process_is_not_running), mContext.getString(R.string.title_ok), null);
             }
         }

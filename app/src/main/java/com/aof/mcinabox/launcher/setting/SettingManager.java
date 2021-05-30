@@ -23,19 +23,21 @@ import java.util.TimerTask;
 
 public class SettingManager {
 
-    private Context mContext;
-    private File settingFile;
+    private final Context mContext;
+    private final File settingFile;
     private Timer mTimer;
 
     private final static String TAG = "SettingManager";
 
-    public SettingManager(Context context){
+    public SettingManager(Context context) {
         this.mContext = context;
         settingFile = new File(Objects.requireNonNull(mContext.getExternalFilesDir("mcinabox")).getAbsolutePath() + "/mcinabox.json");
     }
 
-    /**【读入mcinabox.json】**/
-    public SettingJson getSettingFromFile(){
+    /**
+     * 【读入mcinabox.json】
+     **/
+    public SettingJson getSettingFromFile() {
         SettingJson settingModel;
 
         if (!settingFile.exists()) {
@@ -53,15 +55,17 @@ public class SettingManager {
             }
         }
 
-        if(settingModel == null){
+        if (settingModel == null) {
             settingModel = new SettingJson();
         }
 
         return settingModel;
     }
 
-    /**【保存mcinabox.json文件】**/
-    public void saveSettingToFile(){
+    /**
+     * 【保存mcinabox.json文件】
+     **/
+    public void saveSettingToFile() {
         Gson gson = new Gson();
         String jsonString = gson.toJson(OldMainActivity.Setting);
         try {
@@ -71,17 +75,17 @@ public class SettingManager {
             out.close();
         } catch (IOException e) {
             e.printStackTrace();
-            Log.e(TAG,"save failed.");
+            Log.e(TAG, "save failed.");
         }
     }
 
-    public void startChecking(){
-        if(mTimer == null){
+    public void startChecking() {
+        if (mTimer == null) {
             mTimer = new Timer();
             mTimer.schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    SettingChecker sc = new SettingChecker(mContext,null,null);
+                    SettingChecker sc = new SettingChecker(mContext, null, null);
                     sc.checkIfChoseUser();
                     sc.checkIfInstallGame();
                     sc.checkIfInstallRuntime();
@@ -89,12 +93,12 @@ public class SettingManager {
                     sc.checkIfDisableFileCheck();
                     sc.checkAuthlibInjector();
                 }
-            },0,500);
+            }, 0, 500);
         }
     }
 
-    public void stopChecking(){
-        if(mTimer != null){
+    public void stopChecking() {
+        if (mTimer != null) {
             mTimer.cancel();
             mTimer = null;
         }

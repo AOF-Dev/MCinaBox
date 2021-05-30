@@ -113,9 +113,9 @@ public class DebugInfo implements Input, View.OnClickListener {
     @Override
     public void setEnabled(boolean enabled) {
         this.isEnabled = enabled;
-        if(enabled){
+        if (enabled) {
             mLogView.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             mLogView.setVisibility(View.GONE);
         }
         /*
@@ -163,13 +163,14 @@ public class DebugInfo implements Input, View.OnClickListener {
 
     private boolean firstWrite = true;
     private boolean isWrite = true;
-    private void writeLog(String log){
-        if(!isWrite)
+
+    private void writeLog(String log) {
+        if (!isWrite)
             return;
         File logFile = new File(AppManifest.BOAT_LOG_FILE);
-        if(!logFile.exists()) {
+        if (!logFile.exists()) {
             try {
-                if(!logFile.createNewFile()){
+                if (!logFile.createNewFile()) {
                     isWrite = false;
                 }
             } catch (IOException e) {

@@ -1,9 +1,6 @@
 package com.aof.mcinabox.launcher.download.authlib;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.os.Handler;
-import android.os.Message;
 
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.activity.OldMainActivity;
@@ -31,10 +28,8 @@ public class Request {
     private final static String AUTHLIB_INJECTOR = "authlib-injector";
     private final static int REQUEST_DOWNLOAD = 1;
     private final static int REQUEST_FAILED = 2;
-    private AuthlibVersionResponse mVersionResponse;
     private final Context mContext;
     private final SettingJson mSetting;
-    private Exception mException;
 
     public Request(Context context) {
         this(context, OldMainActivity.Setting);
@@ -61,43 +56,23 @@ public class Request {
             }
 
             private void onFailure(Exception e) {
-                Request.this.mException = e;
-                Message msg = new Message();
-                msg.what = REQUEST_FAILED;
-                mHandler.sendMessage(msg);
+                OldMainActivity.CURRENT_ACTIVITY.get().runOnUiThread(() ->
+                        DialogUtils.createSingleChoiceDialog(mContext, mContext.getString(R.string.title_error), String.format(mContext.getString(R.string.tips_error), e.getMessage()), mContext.getString(R.string.title_ok), null));
             }
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) {
-                try {
-                    mVersionResponse = gson.fromJson(response.body().string(), AuthlibVersionResponse.class);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    onFailure(e);
-                    return;
-                }
-                Message msg = new Message();
-                msg.what = REQUEST_DOWNLOAD;
-                mHandler.sendMessage(msg);
+                OldMainActivity.CURRENT_ACTIVITY.get().runOnUiThread(() -> {
+                    try {
+                        requestDownload(gson.fromJson(response.body().string(), AuthlibVersionResponse.class));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        onFailure(e);
+                    }
+                });
             }
         });
     }
-
-    @SuppressLint("HandlerLeak")
-    private final Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case REQUEST_DOWNLOAD:
-                    requestDownload(mVersionResponse);
-                    break;
-                case REQUEST_FAILED:
-                    DialogUtils.createSingleChoiceDialog(mContext, mContext.getString(R.string.title_error), String.format(mContext.getString(R.string.tips_error), mException.getMessage()), mContext.getString(R.string.title_ok), null);
-                    break;
-            }
-            super.handleMessage(msg);
-        }
-    };
 
     private void requestDownload(AuthlibVersionResponse response) {
         BaseDownloadTask[] tasks = {DownloadHelper.createDownloadTask(AppManifest.AUTHLIB_INJETOR_JAR, response.download_url, null)};

@@ -57,7 +57,7 @@ public class CkbManager {
         init();
     }
 
-    public int[] getDisplaySize(){
+    public int[] getDisplaySize() {
         return new int[]{displayWidth, displayHeight};
     }
 
@@ -193,7 +193,7 @@ public class CkbManager {
         return outputFile(kr, fileName);
     }
 
-    public static boolean outputFile(KeyboardRecorder  kr, String fileName){
+    public static boolean outputFile(KeyboardRecorder kr, String fileName) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         StringBuilder jsonString = new StringBuilder(gson.toJson(kr));
         jsonString.insert(0, "/*\n *This file is craeted by MCinaBox\n *Please DON'T edit the file if you don't know how it works.\n*/\n");
@@ -217,7 +217,7 @@ public class CkbManager {
         loadKeyboard(LAST_KEYBOARD_LAYOUT_NAME + ".json");
     }
 
-    public boolean loadKeyboard(File file){
+    public boolean loadKeyboard(File file) {
         if (!file.exists()) {
             return false;
         }
@@ -230,13 +230,13 @@ public class CkbManager {
         } catch (Exception e) {
             e.printStackTrace();
             //当失败时尝试通过加载旧版的按键
-            DialogUtils.createBothChoicesDialog(mContext, mContext.getString(R.string.title_note), mContext.getString(R.string.tips_try_to_convert_keyboard_layout), mContext.getString(R.string.title_ok), mContext.getString(R.string.title_cancel), new DialogSupports(){
+            DialogUtils.createBothChoicesDialog(mContext, mContext.getString(R.string.title_note), mContext.getString(R.string.tips_try_to_convert_keyboard_layout), mContext.getString(R.string.title_ok), mContext.getString(R.string.title_cancel), new DialogSupports() {
                 @Override
                 public void runWhenPositive() {
                     super.runWhenPositive();
-                    if(new GameButtonConverter(mContext).output(file)){
+                    if (new GameButtonConverter(mContext).output(file)) {
                         DialogUtils.createSingleChoiceDialog(mContext, mContext.getString(R.string.title_note), String.format(mContext.getString(R.string.tips_successed_to_convert_keyboard_file), file.getName() + "-new.json"), mContext.getString(R.string.title_ok), null);
-                    }else{
+                    } else {
                         DialogUtils.createSingleChoiceDialog(mContext, mContext.getString(R.string.title_note), mContext.getString(R.string.tips_failed_to_convert_keyboard_file), mContext.getString(R.string.title_ok), null);
                     }
                 }
@@ -252,7 +252,7 @@ public class CkbManager {
         return loadKeyboard(file);
     }
 
-    public boolean loadKeyboard(KeyboardRecorder kr){
+    public boolean loadKeyboard(KeyboardRecorder kr) {
         GameButtonRecorder[] gbr;
         if (kr != null) {
             gbr = kr.getRecorderDatas();
@@ -260,9 +260,9 @@ public class CkbManager {
             return false;
         }
 
-        switch ( kr.getVersionCode() ){
+        switch (kr.getVersionCode()) {
             case KeyboardRecorder.VERSION_UNKNOWN:
-                for(GameButtonRecorder tgbr : gbr){
+                for (GameButtonRecorder tgbr : gbr) {
                     tgbr.keyPos[0] = DisplayUtils.getDpFromPx(mContext, tgbr.keyPos[0]);
                     tgbr.keyPos[1] = DisplayUtils.getDpFromPx(mContext, tgbr.keyPos[1]);
                 }

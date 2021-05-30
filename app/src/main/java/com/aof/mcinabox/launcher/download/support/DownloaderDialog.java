@@ -16,10 +16,10 @@ import com.aof.mcinabox.launcher.download.DownloadManager;
 import com.aof.mcinabox.utils.dialog.DialogUtils;
 import com.aof.mcinabox.utils.dialog.support.DialogSupports;
 
-public class DownloaderDialog extends Dialog implements Dialog.OnCancelListener, View.OnClickListener{
+public class DownloaderDialog extends Dialog implements Dialog.OnCancelListener, View.OnClickListener {
 
-    private Context mContext;
-    private DownloadManager mDownloadManager;
+    private final Context mContext;
+    private final DownloadManager mDownloadManager;
     private final static String TAG = "DownloaderDialog";
 
     private Button buttonOK;
@@ -43,7 +43,7 @@ public class DownloaderDialog extends Dialog implements Dialog.OnCancelListener,
         init();
     }
 
-    private void init(){
+    private void init() {
         buttonOK = findViewById(R.id.dialog_download_button_ok);
         buttonCancel = findViewById(R.id.dialog_download_button_cancle);
         ivFinish = findViewById(R.id.dialog_download_image_finish);
@@ -57,7 +57,7 @@ public class DownloaderDialog extends Dialog implements Dialog.OnCancelListener,
         pbTotal = findViewById(R.id.dialog_download_processbar_total);
 
         //设置监听器
-        for(View v : new View[]{buttonCancel,buttonOK}){
+        for (View v : new View[]{buttonCancel, buttonOK}) {
             v.setOnClickListener(this);
         }
         //设置控件属性
@@ -75,48 +75,48 @@ public class DownloaderDialog extends Dialog implements Dialog.OnCancelListener,
 
     @Override
     public void onClick(View v) {
-        if(v == buttonOK){
+        if (v == buttonOK) {
             dismiss();
         }
 
-        if(v == buttonCancel){
-            DialogUtils.createBothChoicesDialog(mContext,mContext.getString(R.string.title_warn),mContext.getString(R.string.tips_are_you_sure_to_cancel_download_task),mContext.getString(R.string.title_ok),mContext.getString(R.string.title_cancel),new DialogSupports(){
+        if (v == buttonCancel) {
+            DialogUtils.createBothChoicesDialog(mContext, mContext.getString(R.string.title_warn), mContext.getString(R.string.tips_are_you_sure_to_cancel_download_task), mContext.getString(R.string.title_ok), mContext.getString(R.string.title_cancel), new DialogSupports() {
                 @Override
-                public void runWhenPositive(){
+                public void runWhenPositive() {
                     DownloaderDialog.this.cancel();
                 }
             });
         }
     }
 
-    public DownloaderDialog setId(String id){
+    public DownloaderDialog setId(String id) {
         this.textVersionId.setText(id);
         return this;
     }
 
-    public DownloaderDialog setTitle(String title){
+    public DownloaderDialog setTitle(String title) {
         this.textProgressName.setText(title);
         return this;
     }
 
-    public DownloaderDialog setTotalProgress(int all, int current){
-        this.pbTotal.setProgress(current *100 / all);
+    public DownloaderDialog setTotalProgress(int all, int current) {
+        this.pbTotal.setProgress(current * 100 / all);
         this.textProgress.setText(current + "/" + all);
         return this;
     }
 
-    public DownloaderDialog setTotalProgress(int progress){
+    public DownloaderDialog setTotalProgress(int progress) {
         this.pbTotal.setProgress(progress);
         return this;
     }
 
-    public DownloaderDialog setCurrentProgress(int progress){
+    public DownloaderDialog setCurrentProgress(int progress) {
         this.pbCurrent.setProgress(progress);
         this.textCurrentPrecentage.setText(progress + "%");
         return this;
     }
 
-    public DownloaderDialog setFinished(){
+    public DownloaderDialog setFinished() {
         this.ivFinish.setVisibility(View.VISIBLE);
         this.textProgress.setVisibility(View.GONE);
         this.textProgressName.setText(mContext.getString(R.string.tips_download_finished));
@@ -127,27 +127,27 @@ public class DownloaderDialog extends Dialog implements Dialog.OnCancelListener,
         return this;
     }
 
-    public DownloaderDialog setFailed(){
+    public DownloaderDialog setFailed() {
         this.textProgressName.setText(mContext.getString(R.string.tips_download_failed));
         return this;
     }
 
-    public DownloaderDialog restoreStat(){
+    public DownloaderDialog restoreStat() {
         this.ivFinish.setVisibility(View.GONE);
         this.textProgress.setVisibility(View.VISIBLE);
         setTitle("");
         setId("");
         setCurrentProgress(0);
-        setTotalProgress(1,0);
-        return  this;
+        setTotalProgress(1, 0);
+        return this;
     }
 
-    public DownloaderDialog setSpeed(String speed){
+    public DownloaderDialog setSpeed(String speed) {
         this.textSpeed.setText(speed);
         return this;
     }
 
-    public DownloaderDialog setFileName(String name){
+    public DownloaderDialog setFileName(String name) {
         this.textFileName.setText(name);
         return this;
     }

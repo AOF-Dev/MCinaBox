@@ -42,10 +42,7 @@ public class FileChooserDialog implements FileAdapter.OnClickListener {
         final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context)
                 .setView(binding.getRoot())
                 .setNegativeButton("Cancel", null);
-        final String alertDialogTitle;
-        if (title != null) {
-            alertDialogTitle = title;
-        } else {
+        if (title == null) {
             title = "Select a file";
             if (extension != null) {
                 title += " (" + extension + ")";

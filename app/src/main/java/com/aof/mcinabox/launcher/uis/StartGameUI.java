@@ -68,7 +68,7 @@ public class StartGameUI extends BaseUI implements Spinner.OnItemSelectedListene
 
         //设定属性
         refreshLocalVersionList();
-        if(setting.getLastVersion() != null &&  !setting.getLastVersion().equals("")){
+        if (setting.getLastVersion() != null && !setting.getLastVersion().equals("")) {
             setConfigureToVersionlist(setting.getLastVersion(), listVersions);
         }
 
@@ -85,15 +85,16 @@ public class StartGameUI extends BaseUI implements Spinner.OnItemSelectedListene
      * 【刷新本地游戏列表】
      **/
     private ArrayList<String> versionIdList;
+
     private void refreshLocalVersionList() {
-        if(listVersions.getAdapter() == null){
+        if (listVersions.getAdapter() == null) {
             versionIdList = new ArrayList<>();
             versionIdList.addAll(Arrays.asList(VersionManager.getVersionsList()));
             listVersions.setAdapter(new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_dropdown_item, this.versionIdList));
-        }else{
+        } else {
             versionIdList.clear();
             versionIdList.addAll(Arrays.asList(VersionManager.getVersionsList()));
-            ((BaseAdapter)listVersions.getAdapter()).notifyDataSetChanged();
+            ((BaseAdapter) listVersions.getAdapter()).notifyDataSetChanged();
         }
     }
 
@@ -101,7 +102,7 @@ public class StartGameUI extends BaseUI implements Spinner.OnItemSelectedListene
      * 【启动Minecraft】
      **/
     private void startMinecraft() {
-        new LaunchManager(mContext).launchMinecraft(OldMainActivity.Setting ,LaunchManager.LAUNCH_PRECHECK);
+        new LaunchManager(mContext).launchMinecraft(OldMainActivity.Setting, LaunchManager.LAUNCH_PRECHECK);
     }
 
     /**
@@ -116,14 +117,14 @@ public class StartGameUI extends BaseUI implements Spinner.OnItemSelectedListene
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        if(parent == listVersions){
+        if (parent == listVersions) {
             setting.setLastVersion((String) listVersions.getItemAtPosition(position));
         }
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-        if(parent == listVersions){
+        if (parent == listVersions) {
             setting.setLastVersion("");
         }
     }

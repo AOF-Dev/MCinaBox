@@ -19,7 +19,7 @@ public class GameButtonOld {
     private String TextColorHex;
     private int cornerRadius;
 
-    public GameButtonOld(){
+    public GameButtonOld() {
         super();
     }
 
@@ -43,17 +43,29 @@ public class GameButtonOld {
         cornerRadius = radius;
     }
 
-    public int getKeySizeH() { return KeySizeH; }
+    public int getKeySizeH() {
+        return KeySizeH;
+    }
 
-    public void setKeySizeH(int keySizeH) { KeySizeH = keySizeH; }
+    public void setKeySizeH(int keySizeH) {
+        KeySizeH = keySizeH;
+    }
 
-    public String getTextColorHex() { return TextColorHex; }
+    public String getTextColorHex() {
+        return TextColorHex;
+    }
 
-    public void setTextColorHex(String textColorHex) { TextColorHex = textColorHex; }
+    public void setTextColorHex(String textColorHex) {
+        TextColorHex = textColorHex;
+    }
 
-    public int getCornerRadius() { return cornerRadius; }
+    public int getCornerRadius() {
+        return cornerRadius;
+    }
 
-    public void setCornerRadius(int cornerRadius) { this.cornerRadius = cornerRadius; }
+    public void setCornerRadius(int cornerRadius) {
+        this.cornerRadius = cornerRadius;
+    }
 
     public String getKeyName() {
         return KeyName;
@@ -159,7 +171,11 @@ public class GameButtonOld {
         SpecialTwoPos = specialTwoPos;
     }
 
-    public String getColorhex() { return colorhex; }
+    public String getColorhex() {
+        return colorhex;
+    }
 
-    public void setColorhex(String colorhex) { this.colorhex = colorhex; }
+    public void setColorhex(String colorhex) {
+        this.colorhex = colorhex;
+    }
 }

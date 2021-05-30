@@ -10,9 +10,9 @@ import com.aof.mcinabox.R;
 
 public class TaskDialog extends Dialog {
 
-    private TextView textTotalTaskName;
-    private TextView textCurrentTaskName;
-    private Context mContext;
+    private final TextView textTotalTaskName;
+    private final TextView textCurrentTaskName;
+    private final Context mContext;
 
     public TaskDialog(@NonNull Context context, boolean cancelable) {
         super(context);
@@ -23,21 +23,21 @@ public class TaskDialog extends Dialog {
         setCancelable(cancelable);
     }
 
-    public TaskDialog setTotalTaskName(String taskname){
+    public TaskDialog setTotalTaskName(String taskname) {
         textTotalTaskName.setText(taskname);
         return this;
     }
 
-    public TaskDialog setCurrentTaskName(String taskname){
+    public TaskDialog setCurrentTaskName(String taskname) {
         textCurrentTaskName.setText(taskname);
         return this;
     }
 
-    public TextView getTextTotalTaskName(){
+    public TextView getTextTotalTaskName() {
         return textTotalTaskName;
     }
 
-    public TextView getTextCurrentTaskName(){
+    public TextView getTextCurrentTaskName() {
         return textCurrentTaskName;
     }
 }

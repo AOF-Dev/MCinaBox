@@ -15,6 +15,6 @@ public abstract class BaseFragment extends Fragment {
     }
 
     public MCinaBox getMCinaBox() {
-        return (MCinaBox) getActivity().getApplication();
+        return (MCinaBox) requireActivity().getApplication();
     }
 }

@@ -27,29 +27,29 @@ public class TipperListBean {
         return this;
     }
 
-    public int getTipper_level(){
+    public int getTipper_level() {
         return this.tipper_level;
     }
 
-    public TipperListBean setTipper_level(int level){
+    public TipperListBean setTipper_level(int level) {
         this.tipper_level = level;
         return this;
     }
 
-    public TipperRunable getTipper_runable(){
-        return  this.tipper_runable;
+    public TipperRunable getTipper_runable() {
+        return this.tipper_runable;
     }
 
-    public TipperListBean setTipper_runable(TipperRunable runable){
+    public TipperListBean setTipper_runable(TipperRunable runable) {
         this.tipper_runable = runable;
         return this;
     }
 
-    public int getTipper_id(){
+    public int getTipper_id() {
         return this.tipper_id;
     }
 
-    public TipperListBean setTipper_id(int id){
+    public TipperListBean setTipper_id(int id) {
         this.tipper_id = id;
         return this;
     }

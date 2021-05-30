@@ -19,9 +19,9 @@ public abstract class BaseController implements Controller {
     public Context context;
     private Timer mTimer;
     private final static int DEFAULT_INTERVAL_TIME = 5000;
-    private int internalTime;
-    private Config mConfig;
-    private boolean isTimerEnable;
+    private final int internalTime;
+    private final Config mConfig;
+    private final boolean isTimerEnable;
 
     public BaseController(Client client, int intervalTime, boolean enableTimer) {
         this.client = client;
@@ -30,12 +30,12 @@ public abstract class BaseController implements Controller {
         this.internalTime = intervalTime;
         this.mConfig = new Config(DisplayUtils.getDisplayWindowSize(context)[0], DisplayUtils.getDisplayWindowSize(context)[1]);
         this.isTimerEnable = enableTimer;
-        if(enableTimer){
+        if (enableTimer) {
             createAutoSaveTimer();
         }
     }
 
-    public BaseController(Client client,boolean enableTimer){
+    public BaseController(Client client, boolean enableTimer) {
         this(client, BaseController.DEFAULT_INTERVAL_TIME, enableTimer);
     }
 
@@ -148,27 +148,27 @@ public abstract class BaseController implements Controller {
 
     @Override
     public void onPaused() {
-        if(mTimer != null){
+        if (mTimer != null) {
             mTimer.cancel();
             mTimer = null;
         }
-        for (Input i : inputs){
+        for (Input i : inputs) {
             i.onPaused();
         }
     }
 
     @Override
     public void onResumed() {
-        if(isTimerEnable){
+        if (isTimerEnable) {
             createAutoSaveTimer();
         }
-        for (Input i : inputs){
+        for (Input i : inputs) {
             i.onResumed();
         }
     }
 
-    private void createAutoSaveTimer(){
-        if(mTimer != null) return;
+    private void createAutoSaveTimer() {
+        if (mTimer != null) return;
         mTimer = new Timer();
         mTimer.schedule(new TimerTask() {
             @Override
@@ -179,7 +179,7 @@ public abstract class BaseController implements Controller {
     }
 
     @Override
-    public int[] getLossenPointer(){
+    public int[] getLossenPointer() {
         return client.getLoosenPointer();
     }
 
@@ -188,7 +188,7 @@ public abstract class BaseController implements Controller {
         return this.mConfig;
     }
 
-    public boolean isTimerEnabled(){
+    public boolean isTimerEnabled() {
         return this.isTimerEnable;
     }
 }

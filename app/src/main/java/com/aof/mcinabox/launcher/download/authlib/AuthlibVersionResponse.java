@@ -6,7 +6,7 @@ public class AuthlibVersionResponse {
     String download_url;
     Checksum checksums;
 
-    class Checksum{
+    class Checksum {
         public String sha256;
     }
 }

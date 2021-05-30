@@ -4,7 +4,7 @@ public class AuthlibManifestResponse {
     String lastest_build_number;
     Artifact[] artifacts;
 
-    class Artifact{
+    class Artifact {
         public String build_number;
         public String version;
     }

@@ -30,53 +30,26 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class RuntimeManager {
-
     private final static String TAG = "RuntimeManager";
-    private static String filename;
 
     /**
      * 【从路径安装运行库】
      **/
     public static void installRuntimeFromPath(final Context context, String globalPath) {
-
         final TaskDialog mDialog = DialogUtils.createTaskDialog(context, "", "", false);
         mDialog.show();
-        @SuppressLint("HandlerLeak") final Handler mHandler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                switch (msg.what) {
-                    case 3:
-                        mDialog.setTotalTaskName(context.getString(R.string.tips_installing_runtime));
-                        break;
-                    case 4:
-                        Toast.makeText(OldMainActivity.CURRENT_ACTIVITY.get(), OldMainActivity.CURRENT_ACTIVITY.get().getString(R.string.tips_runtime_notfound), Toast.LENGTH_SHORT).show();
-                        mDialog.dismiss();
-                        break;
-                    case 6:
-                        Toast.makeText(OldMainActivity.CURRENT_ACTIVITY.get(), OldMainActivity.CURRENT_ACTIVITY.get().getString(R.string.tips_runtime_install_successed), Toast.LENGTH_SHORT).show();
-                        mDialog.dismiss();
-                        break;
-                    case 7:
-                        Toast.makeText(OldMainActivity.CURRENT_ACTIVITY.get(), OldMainActivity.CURRENT_ACTIVITY.get().getString(R.string.tips_runtime_install_failed) + " " + OldMainActivity.CURRENT_ACTIVITY.get().getString(R.string.tips_runtime_install_fail_exeable), Toast.LENGTH_SHORT).show();
-                        mDialog.dismiss();
-                        break;
-                    case 8:
-                        mDialog.setTotalTaskName(context.getString(R.string.tips_unzipping_runtime_pack));
-                        mDialog.setCurrentTaskName(filename);
-                        break;
-                }
-                super.handleMessage(msg);
-            }
-        };
 
         final String mpackagePath = globalPath;
         new Thread() {
             @Override
             public void run() {
-                sendMsg(3);
+                OldMainActivity.CURRENT_ACTIVITY.get().runOnUiThread(() -> mDialog.setTotalTaskName(context.getString(R.string.tips_installing_runtime)));
                 File packageFile = new File(mpackagePath);
                 if (!packageFile.exists()) {
-                    sendMsg(4);
+                    OldMainActivity.CURRENT_ACTIVITY.get().runOnUiThread(() -> {
+                        Toast.makeText(OldMainActivity.CURRENT_ACTIVITY.get(), OldMainActivity.CURRENT_ACTIVITY.get().getString(R.string.tips_runtime_notfound), Toast.LENGTH_SHORT).show();
+                        mDialog.dismiss();
+                    });
                     return;
                 } else {
                     if (packageFile.isDirectory()) {
@@ -88,28 +61,25 @@ public class RuntimeManager {
                 if (!dir.exists()) {
                     FileTool.makeFolder(dir.getAbsolutePath());
                 }
-                BoatUtils.extractTarXZ(mpackagePath, AppManifest.BOAT_RUNTIME_HOME, new BoatUtils.CompressCallback() {
-                    @Override
-                    public void onFileCompressing(File file) {
-                        if(file != null){
-                            Message msg = new Message();
-                            msg.what = 8;
-                            filename = file.getName();
-                            mHandler.sendMessage(msg);
-                        }
+                BoatUtils.extractTarXZ(mpackagePath, AppManifest.BOAT_RUNTIME_HOME, file -> {
+                    if (file != null) {
+                        OldMainActivity.CURRENT_ACTIVITY.get().runOnUiThread(() -> {
+                            mDialog.setTotalTaskName(context.getString(R.string.tips_unzipping_runtime_pack));
+                            mDialog.setCurrentTaskName(file.getName());
+                        });
                     }
                 });
                 if (BoatUtils.setExecutable(AppManifest.BOAT_RUNTIME_HOME)) {
-                    sendMsg(6);
+                    OldMainActivity.CURRENT_ACTIVITY.get().runOnUiThread(() -> {
+                        Toast.makeText(OldMainActivity.CURRENT_ACTIVITY.get(), OldMainActivity.CURRENT_ACTIVITY.get().getString(R.string.tips_runtime_install_successed), Toast.LENGTH_SHORT).show();
+                        mDialog.dismiss();
+                    });
                 } else {
-                    sendMsg(7);
+                    OldMainActivity.CURRENT_ACTIVITY.get().runOnUiThread(() -> {
+                        Toast.makeText(OldMainActivity.CURRENT_ACTIVITY.get(), OldMainActivity.CURRENT_ACTIVITY.get().getString(R.string.tips_runtime_install_failed) + " " + OldMainActivity.CURRENT_ACTIVITY.get().getString(R.string.tips_runtime_install_fail_exeable), Toast.LENGTH_SHORT).show();
+                        mDialog.dismiss();
+                    });
                 }
-            }
-
-            public void sendMsg(int what) {
-                Message msg = new Message();
-                msg.what = what;
-                mHandler.sendMessage(msg);
             }
         }.start();
     }

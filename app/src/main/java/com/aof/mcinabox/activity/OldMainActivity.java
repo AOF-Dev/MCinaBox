@@ -36,7 +36,7 @@ public class OldMainActivity extends BaseActivity {
     public ThemeManager mThemeManager;
     private ActivityOldMainBinding binding;
     private static final int REFRESH_DELAY = 0; //ms
-    private static final int REFRESH_PERIOD = 500; //ms
+    private static final int REFRESH_PERIOD = 1000; //ms
     public static SettingJson Setting;
     private boolean enableSettingChecker = false;
 

@@ -10,7 +10,6 @@ import static com.aof.mcinabox.gamecontroller.codes.BoatMousecodes.BOAT_MOUSE_BU
 import static com.aof.mcinabox.gamecontroller.codes.BoatMousecodes.BOAT_MOUSE_BUTTON_right;
 import static com.aof.mcinabox.gamecontroller.codes.BoatMousecodes.BOAT_MOUSE_WHEEL_down;
 import static com.aof.mcinabox.gamecontroller.codes.BoatMousecodes.BOAT_MOUSE_WHEEL_up;
-import static com.aof.mcinabox.gamecontroller.definitions.map.KeyMap.*;
 import static com.aof.mcinabox.gamecontroller.definitions.map.MouseMap.MOUSEMAP_BUTTON_LEFT;
 import static com.aof.mcinabox.gamecontroller.definitions.map.MouseMap.MOUSEMAP_BUTTON_MIDDLE;
 import static com.aof.mcinabox.gamecontroller.definitions.map.MouseMap.MOUSEMAP_BUTTON_RIGHT;

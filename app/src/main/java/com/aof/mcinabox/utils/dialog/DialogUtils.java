@@ -131,7 +131,7 @@ public class DialogUtils {
         picker.build().show();
     }
 
-    public static void createFileSelectorDialog(@NonNull Context context, String title, @NonNull String startPath, String extension, @Nullable final DialogSupports support){
+    public static void createFileSelectorDialog(@NonNull Context context, String title, @NonNull String startPath, String extension, @Nullable final DialogSupports support) {
         new FileChooserDialog.Builder(context, file -> {
             if (support != null) {
                 support.runWhenItemsSelected(file.getAbsolutePath());

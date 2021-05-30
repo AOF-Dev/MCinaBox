@@ -25,7 +25,6 @@ import java.util.Objects;
 
 import cosine.boat.BoatArgs;
 
-import static com.aof.mcinabox.gamecontroller.definitions.manifest.AppManifest.BOAT_CACHE_HOME;
 import static com.aof.mcinabox.gamecontroller.definitions.manifest.AppManifest.MCINABOX_VERSION_NAME;
 
 public class BoatArgsMaker implements ArgsMaker {
@@ -136,7 +135,7 @@ public class BoatArgsMaker implements ArgsMaker {
         String JVM_Xmx = "-Xmx" + mSetting.getConfigurations().getMaxMemory() + "m";
         String JVM_Xms = "-Xms128m";
         String JVM_minecraft_launcher_brand = "-Dminecraft.launcher.brand=" + mContext.getString(R.string.app_name);
-        String JVM_minecraft_launcher_version = "-Dminecraft.launcher.version=" +MCINABOX_VERSION_NAME;
+        String JVM_minecraft_launcher_version = "-Dminecraft.launcher.version=" + MCINABOX_VERSION_NAME;
         String JVM_java_io_tmpdir = "-Djava.io.tmpdir=" + mContext.getCacheDir().getAbsolutePath();
         String JVM_java_library_path = this.getJava_library_path();
         String JVM_org_lwjgl_util_debug = "-Dorg.lwjgl.util.Debug=true";
@@ -162,13 +161,13 @@ public class BoatArgsMaker implements ArgsMaker {
         tmp.add(JVM_java_library_path);
         //tmp.add(JVM_org_lwjgl_util_debug);
         //s tmp.add(JVM_org_lwjgl_util_debugloader);
-        if(JVM_ExtraArgs != null && JVM_ExtraArgs.trim().length()!= 0)
+        if (JVM_ExtraArgs != null && JVM_ExtraArgs.trim().length() != 0)
             tmp.addAll(Arrays.asList(JVM_ExtraArgs.split(" ")));
         tmp.add(JVM_ClassPath);
         tmp.add(JVM_ClassPath_info);
         if (AuthlibInjectorArgs != null) tmp.addAll(Arrays.asList(AuthlibInjectorArgs.split(" ")));
         tmp.addAll(Arrays.asList(Minecraft_MainClass.split(" ")));
-        if(MinecraftExtraArgs != null && MinecraftExtraArgs.trim().length()!= 0)
+        if (MinecraftExtraArgs != null && MinecraftExtraArgs.trim().length() != 0)
             tmp.addAll(Arrays.asList(MinecraftExtraArgs.split(" ")));
         tmp.addAll(Arrays.asList(MinecraftWindowArgs.split(" ")));
         tmp.addAll(Arrays.asList(Minecraft_Args.split(" ")));

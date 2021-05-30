@@ -199,7 +199,8 @@ public class Launcher {
                 String path = new File(new File(assetsDirectory, "objects"), hash.substring(0, 2) + "/" + hash).getAbsolutePath();
                 map.put("asset=" + entry.getKey(), path);
             }
-        } catch (IOException ignored) {}
+        } catch (IOException ignored) {
+        }
         map.put("launcher_name", "MCinaBox");
         map.put("launcher_version", BuildConfig.VERSION_NAME);
         map.put("natives_directory", nativeDirectory.getAbsolutePath());

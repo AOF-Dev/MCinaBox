@@ -44,7 +44,7 @@ public class Mouse implements HwInput {
         this.mController = controller;
         //设定鼠标监听器（SDK >= 26）
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            mCapturedPointerListener = new View.OnCapturedPointerListener(){
+            mCapturedPointerListener = new View.OnCapturedPointerListener() {
                 @Override
                 public boolean onCapturedPointer(View view, MotionEvent event) {
                     Mouse.this.onMotionKey(event);
@@ -84,9 +84,9 @@ public class Mouse implements HwInput {
         mController.sendKey(new BaseKeyEvent(TAG, null, false, type1, new int[]{x, y}));
     }
 
-    private void sendKeyEvent(String keyName, boolean pressed, int type){
-        if(keyName == null) return;
-        mController.sendKey(new BaseKeyEvent(TAG, keyName, pressed, type,null));
+    private void sendKeyEvent(String keyName, boolean pressed, int type) {
+        if (keyName == null) return;
+        mController.sendKey(new BaseKeyEvent(TAG, keyName, pressed, type, null));
     }
 
     //配置信息处理
@@ -108,19 +108,19 @@ public class Mouse implements HwInput {
 
     @Override
     public boolean onMotionKey(MotionEvent event) {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             doMotion(event);
         }
         return true;
     }
 
     //主要的控制逻辑处理
-    private void doMotion(MotionEvent event){
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.O){
+    private void doMotion(MotionEvent event) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             return;
         }
 
-        switch(event.getActionMasked()){
+        switch (event.getActionMasked()) {
             case MotionEvent.ACTION_BUTTON_PRESS:
                 sendKeyEvent(mapCovert(event.getActionButton()), true, type2);
                 break;
@@ -129,9 +129,9 @@ public class Mouse implements HwInput {
                 break;
             case MotionEvent.ACTION_SCROLL:
                 String keyName;
-                if(event.getAxisValue(MotionEvent.AXIS_VSCROLL) > 0){
+                if (event.getAxisValue(MotionEvent.AXIS_VSCROLL) > 0) {
                     keyName = MouseMap.MOUSEMAP_WHEEL_UP;
-                }else{
+                } else {
                     keyName = MouseMap.MOUSEMAP_WHEEL_DOWN;
                 }
                 sendKeyEvent(keyName, true, type2);
@@ -141,18 +141,18 @@ public class Mouse implements HwInput {
             case MotionEvent.ACTION_HOVER_MOVE:
             case MotionEvent.ACTION_HOVER_EXIT:
             case MotionEvent.ACTION_MOVE:
-                if(mController.isGrabbed()){
-                    sendPointerInc((int)event.getAxisValue(MotionEvent.AXIS_X) * CURSOR_EXTRA_GRABBED , (int)event.getAxisValue(MotionEvent.AXIS_Y) * CURSOR_EXTRA_GRABBED);
-                }else{
-                    sendPointerInc((int)event.getAxisValue(MotionEvent.AXIS_X) * CURSOR_EXTRA_RELEASE , (int)event.getAxisValue(MotionEvent.AXIS_Y) * CURSOR_EXTRA_RELEASE);
+                if (mController.isGrabbed()) {
+                    sendPointerInc((int) event.getAxisValue(MotionEvent.AXIS_X) * CURSOR_EXTRA_GRABBED, (int) event.getAxisValue(MotionEvent.AXIS_Y) * CURSOR_EXTRA_GRABBED);
+                } else {
+                    sendPointerInc((int) event.getAxisValue(MotionEvent.AXIS_X) * CURSOR_EXTRA_RELEASE, (int) event.getAxisValue(MotionEvent.AXIS_Y) * CURSOR_EXTRA_RELEASE);
                 }
                 break;
         }
 
     }
 
-    private String mapCovert(int actionButton){
-        switch(actionButton){
+    private String mapCovert(int actionButton) {
+        switch (actionButton) {
             case MotionEvent.BUTTON_PRIMARY:
                 return MouseMap.MOUSEMAP_BUTTON_LEFT;
             case MotionEvent.BUTTON_TERTIARY:
@@ -166,14 +166,14 @@ public class Mouse implements HwInput {
 
     @Override
     public void onPaused() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             cancelTimer();
         }
     }
 
     @Override
     public void onResumed() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createTimer();
         }
     }
@@ -185,15 +185,15 @@ public class Mouse implements HwInput {
 
     private Timer mTimer;
 
-    private void createTimer(){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+    private void createTimer() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             mTimer = new Timer();
             mTimer.schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    if(!mController.getClient().getViewsParent().isFocusable())
+                    if (!mController.getClient().getViewsParent().isFocusable())
                         mController.getClient().getViewsParent().setFocusable(true);
-                    if(!mController.getClient().getViewsParent().hasPointerCapture()){
+                    if (!mController.getClient().getViewsParent().hasPointerCapture()) {
                         mController.getClient().getViewsParent().requestPointerCapture();
                     }
                 }
@@ -201,21 +201,21 @@ public class Mouse implements HwInput {
         }
     }
 
-    private void cancelTimer(){
+    private void cancelTimer() {
         try {
             mTimer.cancel();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     //鼠标加速分段算法
-    private float mouseAcceleration(float d){
+    private float mouseAcceleration(float d) {
         float MAX_D = 0.05f;
         float MAX_S = 1.2f;
         float tmp = Math.abs(d);
         int times = 1;
-        while(tmp >= MAX_D){
+        while (tmp >= MAX_D) {
             tmp %= MAX_D;
             times++;
         }

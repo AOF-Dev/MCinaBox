@@ -337,12 +337,12 @@ public class InputBox implements OnscreenInput, KeyMap, View.OnClickListener {
             this.buttonCancel = findViewById(R.id.dialog_input_button_cancel);
             this.multi_line = mContext.getSharedPreferences(InputBoxConfigDialog.spFileName, InputBoxConfigDialog.spMode).getBoolean(InputBoxConfigDialog.sp_multi_line_name, true);
 
-            editBox.setOnKeyListener(new View.OnKeyListener(){
+            editBox.setOnKeyListener(new View.OnKeyListener() {
 
                 @Override
                 public boolean onKey(View v, int keyCode, android.view.KeyEvent event) {
                     //当输入框为空的时候，拦截Backspace的按键事件，然后向控制器发送退格事件
-                    if(event.getAction() == android.view.KeyEvent.ACTION_DOWN && keyCode == android.view.KeyEvent.KEYCODE_BACK && editBox.getText().toString().equals("")){
+                    if (event.getAction() == android.view.KeyEvent.ACTION_DOWN && keyCode == android.view.KeyEvent.KEYCODE_BACK && editBox.getText().toString().equals("")) {
                         sendKey(KeyMap.KEYMAP_KEY_BACKSPACE);
                         return true;
                     }

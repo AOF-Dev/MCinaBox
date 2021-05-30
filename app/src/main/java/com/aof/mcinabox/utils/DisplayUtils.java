@@ -3,10 +3,8 @@ package com.aof.mcinabox.utils;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Build;
-import android.util.Log;
 import android.view.ViewGroup;
 
-import com.aof.mcinabox.activity.MainActivity;
 import com.aof.mcinabox.activity.OldMainActivity;
 
 import java.lang.reflect.Method;
@@ -77,7 +75,7 @@ public class DisplayUtils {
         return new int[]{screenWidth, screenHeight};
     }
 
-    public static int[] getDisplayWindowSize(Context context){
+    public static int[] getDisplayWindowSize(Context context) {
         return new int[]{DisplayUtils.checkDeviceHasNavigationBar(context) ? DisplayUtils.getApplicationWindowSize(context)[0] + DisplayUtils.getNavigationBarHeight(context) : context.getResources().getDisplayMetrics().widthPixels, DisplayUtils.getApplicationWindowSize(context)[1]};
     }
 

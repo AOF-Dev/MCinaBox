@@ -14,10 +14,10 @@ import java.util.Arrays;
 public class LanguageDialog extends Dialog {
 
     private ListView listLanguages;
-    private Context mContext;
-    private LangManager mManager;
+    private final Context mContext;
+    private final LangManager mManager;
 
-    public LanguageDialog(Context context){
+    public LanguageDialog(Context context) {
         super(context);
         this.mContext = context;
         this.mManager = new LangManager(mContext);
@@ -25,7 +25,7 @@ public class LanguageDialog extends Dialog {
         initUI();
     }
 
-    private void initUI(){
+    private void initUI() {
         listLanguages = findViewById(R.id.dialog_listview_languages);
         listLanguages.setAdapter(new ArrayAdapter<>(mContext, android.R.layout.simple_list_item_1, Arrays.asList(LanguageUtils.LANG_TAGS)));
         listLanguages.setOnItemClickListener((adapterView, view, pos, l) -> {
@@ -34,7 +34,7 @@ public class LanguageDialog extends Dialog {
         });
     }
 
-    private void ChangeLauncherLanguage(String language){
+    private void ChangeLauncherLanguage(String language) {
         mManager.switchLang(language);
     }
 }

@@ -14,10 +14,21 @@ public class VersionManifestJson {
     //其中“release”为最新的稳定版 “snapshot”为最新的快照版
     private Map<String, String> latest;
 
-    public Map<String, String> getLatest() { return latest; }
-    public void setLatest(Map<String, String> latest) { this.latest = latest; }
-    public Version[] getVersions() { return versions; }
-    public void setVersions(Version[] versions) { this.versions = versions; }
+    public Map<String, String> getLatest() {
+        return latest;
+    }
+
+    public void setLatest(Map<String, String> latest) {
+        this.latest = latest;
+    }
+
+    public Version[] getVersions() {
+        return versions;
+    }
+
+    public void setVersions(Version[] versions) {
+        this.versions = versions;
+    }
 
     public class Version {
         private String id;
@@ -27,15 +38,44 @@ public class VersionManifestJson {
         private String realeaseTime;
 
         //Getter and Setter
-        public void setId(String i) { id = i; }
-        public String getId() { return id; }
-        public void setType(String i) { type = i; }
-        public String getType() { return type; }
-        public void setUrl(String i) { url = i; }
-        public String getUrl() { return url; }
-        public void setTime(String i) { time = i; }
-        public String getTime() { return time; }
-        public void setRealeaseTime(String i) { realeaseTime = i; }
-        public String getReleaseTime() { return realeaseTime; }
+        public void setId(String i) {
+            id = i;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setType(String i) {
+            type = i;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setUrl(String i) {
+            url = i;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setTime(String i) {
+            time = i;
+        }
+
+        public String getTime() {
+            return time;
+        }
+
+        public void setRealeaseTime(String i) {
+            realeaseTime = i;
+        }
+
+        public String getReleaseTime() {
+            return realeaseTime;
+        }
     }
 }

@@ -14,7 +14,7 @@ import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.MOUSE_
 
 public class CustomizeKeyboardMaker {
 
-    private Context mContext;
+    private final Context mContext;
 
     public CustomizeKeyboardMaker(Context context) {
         this.mContext = context;
@@ -31,7 +31,7 @@ public class CustomizeKeyboardMaker {
         //添加默认按键
         defGBRs.add(new GameButtonBuilder(mContext)
                 .setSize()
-                .setMargin(5,5,0,0)
+                .setMargin(5, 5, 0, 0)
                 .setKeyMap(KeyMap.KEYMAP_KEY_ESC)
                 .setKeyTypes(KEYBOARD_BUTTON)
                 .setTheme()
@@ -39,7 +39,7 @@ public class CustomizeKeyboardMaker {
                 .build());
         defGBRs.add(new GameButtonBuilder(mContext)
                 .setSize()
-                .setMargin(60,5,0,0)
+                .setMargin(60, 5, 0, 0)
                 .setKeyMap(KeyMap.KEYMAP_KEY_F3)
                 .setKeyTypes(KEYBOARD_BUTTON)
                 .setTheme()
@@ -47,23 +47,23 @@ public class CustomizeKeyboardMaker {
                 .build());
         defGBRs.add(new GameButtonBuilder(mContext)
                 .setSize()
-                .setMargin(115,5,0,0)
+                .setMargin(115, 5, 0, 0)
                 .setKeyMap(KeyMap.KEYMAP_KEY_T)
                 .setKeyTypes(KEYBOARD_BUTTON)
                 .setTheme()
-                .setAttribute("T",false,false,GameButton.SHOW_IN_GAME)
+                .setAttribute("T", false, false, GameButton.SHOW_IN_GAME)
                 .build());
         defGBRs.add(new GameButtonBuilder(mContext)
                 .setSize()
-                .setMargin(170,5,0,0)
+                .setMargin(170, 5, 0, 0)
                 .setKeyMap(KeyMap.KEYMAP_KEY_Q)
                 .setKeyTypes(KEYBOARD_BUTTON)
                 .setTheme()
-                .setAttribute("Q",false,false,GameButton.SHOW_IN_GAME)
+                .setAttribute("Q", false, false, GameButton.SHOW_IN_GAME)
                 .build());
         defGBRs.add(new GameButtonBuilder(mContext)
                 .setSize()
-                .setMargin(170,0,0,5)
+                .setMargin(170, 0, 0, 5)
                 .setKeyMap(KeyMap.KEYMAP_KEY_E)
                 .setKeyTypes(KEYBOARD_BUTTON)
                 .setTheme()
@@ -71,15 +71,15 @@ public class CustomizeKeyboardMaker {
                 .build());
         defGBRs.add(new GameButtonBuilder(mContext)
                 .setSize()
-                .setMargin(0,180,130,0)
+                .setMargin(0, 180, 130, 0)
                 .setKeyMap(KeyMap.KEYMAP_KEY_SPACE)
                 .setKeyTypes(KEYBOARD_BUTTON)
-                .setTheme(2,4,15,70,"#FFFFFF","#FFFFFF")
+                .setTheme(2, 4, 15, 70, "#FFFFFF", "#FFFFFF")
                 .setAttribute("SPACE")
                 .build());
         defGBRs.add(new GameButtonBuilder(mContext)
                 .setSize()
-                .setMargin(0,180,185,0)
+                .setMargin(0, 180, 185, 0)
                 .setKeyMap(MouseMap.MOUSEMAP_BUTTON_LEFT)
                 .setKeyTypes(MOUSE_BUTTON)
                 .setTheme()
@@ -87,7 +87,7 @@ public class CustomizeKeyboardMaker {
                 .build());
         defGBRs.add(new GameButtonBuilder(mContext)
                 .setSize()
-                .setMargin(0,180,75,0)
+                .setMargin(0, 180, 75, 0)
                 .setKeyMap(MouseMap.MOUSEMAP_BUTTON_RIGHT)
                 .setKeyTypes(MOUSE_BUTTON)
                 .setTheme()
@@ -95,31 +95,31 @@ public class CustomizeKeyboardMaker {
                 .build());
         defGBRs.add(new GameButtonBuilder(mContext)
                 .setSize()
-                .setMargin(0,125,130,0)
+                .setMargin(0, 125, 130, 0)
                 .setKeyMap(MouseMap.MOUSEMAP_WHEEL_UP)
                 .setKeyTypes(MOUSE_BUTTON)
-                .setTheme(2,2,15,70,"#FFFFFF","#FFFFFF")
+                .setTheme(2, 2, 15, 70, "#FFFFFF", "#FFFFFF")
                 .setAttribute("WHEELP.UP")
                 .build());
         defGBRs.add(new GameButtonBuilder(mContext)
                 .setSize()
-                .setMargin(0,235,130,0)
+                .setMargin(0, 235, 130, 0)
                 .setKeyMap(MouseMap.MOUSEMAP_WHEEL_DOWN)
                 .setKeyTypes(MOUSE_BUTTON)
-                .setTheme(2,2,15,70,"#FFFFFF","#FFFFFF")
+                .setTheme(2, 2, 15, 70, "#FFFFFF", "#FFFFFF")
                 .setAttribute("WHEELP.DOWN")
                 .build());
         defGBRs.add(new GameButtonBuilder(mContext)
                 .setSize()
-                .setMargin(225,5,0,0)
+                .setMargin(225, 5, 0, 0)
                 .setKeyMap(KeyMap.KEYMAP_KEY_ENTER)
                 .setKeyTypes(KEYBOARD_BUTTON)
-                .setTheme(2,4,15,70,"#FFFFFF","#FFFFFF")
+                .setTheme(2, 4, 15, 70, "#FFFFFF", "#FFFFFF")
                 .setAttribute("ENTER")
                 .build());
         defGBRs.add(new GameButtonBuilder(mContext)
                 .setSize()
-                .setMargin(5,60,0,0)
+                .setMargin(5, 60, 0, 0)
                 .setKeyMap(KeyMap.KEYMAP_KEY_TAB)
                 .setKeyTypes(KEYBOARD_BUTTON)
                 .setTheme()
@@ -127,11 +127,11 @@ public class CustomizeKeyboardMaker {
                 .build());
         defGBRs.add(new GameButtonBuilder(mContext)
                 .setSize()
-                .setMargin(60,60,0,0)
+                .setMargin(60, 60, 0, 0)
                 .setKeyMap(KeyMap.KEYMAP_KEY_W, MouseMap.MOUSEMAP_BUTTON_LEFT)
                 .setKeyTypes(KEYBOARD_BUTTON, MOUSE_BUTTON)
-                .setTheme(2,4,15,70,"#FFFFFF","#FFFFFF")
-                .setAttribute("CRAZY", true,false,GameButton.SHOW_IN_GAME)
+                .setTheme(2, 4, 15, 70, "#FFFFFF", "#FFFFFF")
+                .setAttribute("CRAZY", true, false, GameButton.SHOW_IN_GAME)
                 .build());
         defKR.setRecorderDatas(defGBRs.toArray(new GameButtonRecorder[0]));
         return defKR;
@@ -160,10 +160,10 @@ public class CustomizeKeyboardMaker {
                 resultLeft = (int) (sizeDp[0] - gbr.keySize[0] - rightDp);
             }
 
-            if(topDp != 0){
+            if (topDp != 0) {
                 resultTop = topDp;
-            } else if(bottomDp != 0){
-                resultTop = (int)(sizeDp[1] - gbr.keySize[1] - bottomDp);
+            } else if (bottomDp != 0) {
+                resultTop = (int) (sizeDp[1] - gbr.keySize[1] - bottomDp);
             }
 
             gbr.keyPos = new float[]{resultLeft, resultTop};
@@ -231,7 +231,7 @@ public class CustomizeKeyboardMaker {
             return setAttribute(keyName, false, false, GameButton.SHOW_ALL);
         }
 
-        public GameButtonBuilder setShow(int show){
+        public GameButtonBuilder setShow(int show) {
             gbr.show = show;
             return this;
         }

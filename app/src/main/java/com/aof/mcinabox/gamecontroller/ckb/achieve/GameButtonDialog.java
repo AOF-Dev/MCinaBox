@@ -413,10 +413,10 @@ public class GameButtonDialog extends Dialog implements View.OnClickListener, Se
             }
         }
 
-        if(buttonView == switchChars){
-            if(isChecked){
+        if (buttonView == switchChars) {
+            if (isChecked) {
                 editChars.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 editChars.setVisibility(View.INVISIBLE);
             }
             mGameButton.setInputChars(isChecked);
