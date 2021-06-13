@@ -14,6 +14,7 @@ If you find problems when you run MCinaBox, you can check [Q&A](./Q&A.md) first.
 - [Background](#Background)
 - [Change Log](#Change-Log)
 - [Build](#Build)
+- [Release](#Release)
 - [Usage](#Usage)
 - [Preview](#Preview)
 - [Known Issues](#Known-Issues)
@@ -49,7 +50,8 @@ If you find problems when you run MCinaBox, you can check [Q&A](./Q&A.md) first.
 ### Build
 - Build via Android Studio.
 
-#### You can also get released apk from [here](https://github.com/AOF-Dev/MCinaBox/releases).
+## Release
+- You can also get released apk from [here](https://github.com/AOF-Dev/MCinaBox/releases).
 
 ## Usage
 
