@@ -3,12 +3,13 @@ package com.aof.mcinabox.filechooser.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aof.mcinabox.R;
-import com.aof.mcinabox.databinding.FileRowBinding;
 import com.aof.mcinabox.filechooser.model.ChooserFile;
 
 import java.util.List;
@@ -30,25 +31,26 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        FileRowBinding binding = FileRowBinding
-                .inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        View v = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.file_row, parent, false);
+        ViewHolder holder = new ViewHolder(v);
 
         switch (viewType) {
             case TYPE_FILE:
-                binding.icon.setImageResource(R.drawable.ic_file);
-                binding.size.setVisibility(View.VISIBLE);
+                holder.icon.setImageResource(R.drawable.ic_file);
+                holder.size.setVisibility(View.VISIBLE);
                 break;
             case TYPE_FOLDER:
-                binding.icon.setImageResource(R.drawable.ic_folder);
-                binding.size.setVisibility(View.GONE);
+                holder.icon.setImageResource(R.drawable.ic_folder);
+                holder.size.setVisibility(View.GONE);
                 break;
             case TYPE_OPEN_FOLDER:
-                binding.icon.setImageResource(R.drawable.ic_folder_open);
-                binding.size.setVisibility(View.GONE);
+                holder.icon.setImageResource(R.drawable.ic_folder_open);
+                holder.size.setVisibility(View.GONE);
                 break;
         }
 
-        return new ViewHolder(binding);
+        return holder;
     }
 
     @Override
@@ -70,8 +72,8 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ChooserFile f = files.get(position);
 
-        holder.binding.name.setText(f.getName());
-        holder.binding.size.setText(f.getSize());
+        holder.name.setText(f.getName());
+        holder.size.setText(f.getSize());
         holder.itemView.setOnClickListener(v -> listener.onClick(f));
     }
 
@@ -86,12 +88,15 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.ViewHolder> {
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
+        final TextView name;
+        final ImageView icon;
+        final TextView size;
 
-        private final FileRowBinding binding;
-
-        public ViewHolder(@NonNull FileRowBinding itemBinding) {
-            super(itemBinding.getRoot());
-            binding = itemBinding;
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            name = itemView.findViewById(R.id.name);
+            icon = itemView.findViewById(R.id.icon);
+            size = itemView.findViewById(R.id.size);
         }
     }
 

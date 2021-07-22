@@ -5,12 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.aof.mcinabox.R;
-import com.aof.mcinabox.databinding.VersionRowBinding;
 import com.aof.mcinabox.model.Profile;
 
 import java.util.List;
@@ -23,20 +24,20 @@ public class VersionAdapter extends ArrayAdapter<Profile> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        final VersionRowBinding binding;
-
         if (convertView == null) {
-            binding = VersionRowBinding.inflate(LayoutInflater.from(getContext()), parent, false);
-        } else {
-            binding = VersionRowBinding.bind(convertView);
+            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.version_row, parent, false);
         }
 
-        final Profile profile = getItem(position);
-        binding.icon.setImageResource(R.drawable.grass);
-        binding.name.setText(profile.getName());
-        binding.description.setText(profile.getDescription());
+        Profile profile = getItem(position);
+        ImageView icon = convertView.findViewById(R.id.icon);
+        TextView name = convertView.findViewById(R.id.name);
+        TextView description = convertView.findViewById(R.id.description);
 
-        return binding.getRoot();
+        icon.setImageResource(R.drawable.grass);
+        name.setText(profile.getName());
+        description.setText(profile.getDescription());
+
+        return convertView;
     }
 
     @Override

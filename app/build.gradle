@@ -17,13 +17,10 @@ android {
     defaultConfig {
         applicationId "com.aof.mcinabox"
         minSdkVersion 21
+        //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 22
         versionCode 8
         versionName '0.1.4-p5'
-    }
-
-    buildFeatures {
-        viewBinding true
     }
 
     buildTypes {
@@ -37,18 +34,11 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
-    lintOptions {
-        checkReleaseBuilds false
-        // Or, if you prefer, you can continue to check for errors in release builds,
-        // but continue the build even when errors are found:
-        abortOnError false
-    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.aar', '*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.3.0'
+    implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.github.MasayukiSuda:BubbleLayout:v1.2.1'
@@ -61,7 +51,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.3.5'
     implementation 'androidx.navigation:navigation-ui:2.3.5'
     implementation 'androidx.preference:preference:1.1.1'
-    implementation 'com.google.android.material:material:1.3.0'
+    implementation 'com.google.android.material:material:1.4.0'
     implementation 'com.squareup.okhttp3:okhttp:4.9.0'
     implementation 'com.google.guava:guava:30.0-android'
     implementation project(path: ':boat')

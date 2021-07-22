@@ -4,14 +4,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.navigation.Navigation;
 
+import com.aof.mcinabox.R;
 import com.aof.mcinabox.adapter.AccountAdapter;
 import com.aof.mcinabox.adapter.VersionAdapter;
-import com.aof.mcinabox.databinding.FragmentHomeBinding;
 import com.aof.mcinabox.manager.AccountsManager;
 import com.aof.mcinabox.manager.VersionsManager;
 import com.aof.mcinabox.model.Account;
@@ -21,23 +23,26 @@ import java.util.List;
 
 public class HomeFragment extends BaseFragment {
 
-    private FragmentHomeBinding binding;
     private VersionAdapter versionAdapter;
     private AccountAdapter accountAdapter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
-        return binding.getRoot();
+        return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.settingsButton.setOnClickListener(this::handleSettings);
-        binding.loginButton.setOnClickListener(this::handleLogin);
+        Button settingsButton = view.findViewById(R.id.settings_button);
+        Button loginButton = view.findViewById(R.id.login_button);
+        Spinner versionSpinner = view.findViewById(R.id.version_spinner);
+        Spinner accountSpinner = view.findViewById(R.id.account_spinner);
+
+        settingsButton.setOnClickListener(this::handleSettings);
+        loginButton.setOnClickListener(this::handleLogin);
 
         final VersionsManager versionsManager = getMCinaBox().getVersionsManager();
         versionAdapter = new VersionAdapter(getMCinaBox(), versionsManager.getProfiles());
@@ -47,8 +52,8 @@ public class HomeFragment extends BaseFragment {
         accountAdapter = new AccountAdapter(getMCinaBox(), accountsManager.getAccounts());
         accountsManager.addOnAccountsChangedListener(accountsChangedListener);
 
-        binding.bottomBar.versionSpinner.setAdapter(versionAdapter);
-        binding.bottomBar.accountSpinner.setAdapter(accountAdapter);
+        versionSpinner.setAdapter(versionAdapter);
+        accountSpinner.setAdapter(accountAdapter);
     }
 
     private void handleSettings(View v) {

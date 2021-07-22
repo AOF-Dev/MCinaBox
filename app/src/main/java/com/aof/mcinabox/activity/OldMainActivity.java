@@ -6,8 +6,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.widget.Button;
 
-import com.aof.mcinabox.databinding.ActivityOldMainBinding;
+import com.aof.mcinabox.R;
 import com.aof.mcinabox.gamecontroller.definitions.manifest.AppManifest;
 import com.aof.mcinabox.launcher.lang.LangManager;
 import com.aof.mcinabox.launcher.setting.SettingManager;
@@ -34,7 +35,6 @@ public class OldMainActivity extends BaseActivity {
     public TipperManager mTipperManager;
     public SettingManager mSettingManager;
     public ThemeManager mThemeManager;
-    private ActivityOldMainBinding binding;
     private static final int REFRESH_DELAY = 0; //ms
     private static final int REFRESH_PERIOD = 1000; //ms
     public static SettingJson Setting;
@@ -43,8 +43,7 @@ public class OldMainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityOldMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        setContentView(R.layout.activity_old_main);
         //静态对象
         CURRENT_ACTIVITY = new WeakReference<>(this);
         //使用语言管理器切换语言
@@ -74,7 +73,8 @@ public class OldMainActivity extends BaseActivity {
             getWindow().setNavigationBarColor(Color.WHITE);
         }
 
-        binding.layoutToolbarMain.toolbarButtonNewUi.setOnClickListener(v -> {
+        Button toolbarButtonNewUi = findViewById(R.id.toolbar_button_new_ui);
+        toolbarButtonNewUi.setOnClickListener(v -> {
             Intent i = new Intent(OldMainActivity.this, MainActivity.class);
             startActivity(i);
         });

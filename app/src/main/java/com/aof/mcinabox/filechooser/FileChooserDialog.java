@@ -3,11 +3,13 @@ package com.aof.mcinabox.filechooser;
 import android.content.Context;
 import android.os.Environment;
 import android.view.LayoutInflater;
+import android.view.View;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.aof.mcinabox.databinding.FileChooserDialogBinding;
+import com.aof.mcinabox.R;
 import com.aof.mcinabox.filechooser.adapter.FileAdapter;
 import com.aof.mcinabox.filechooser.model.ChooserFile;
 import com.aof.mcinabox.filechooser.model.ChooserStackDirectory;
@@ -25,9 +27,11 @@ public class FileChooserDialog implements FileAdapter.OnClickListener {
     private final LinkedList<ChooserStackDirectory> directoryStack;
     private final String extension;
     private final OnFileChosenListener listener;
-    private final FileChooserDialogBinding binding;
     private final AlertDialog alertDialog;
     private final FileAdapter fileAdapter;
+
+    private final View root;
+    private final RecyclerView recyclerView;
 
     private FileChooserDialog(Context context, String title, String startPath, String extension, OnFileChosenListener listener) {
         this.directoryStack = new LinkedList<>();
@@ -38,9 +42,12 @@ public class FileChooserDialog implements FileAdapter.OnClickListener {
         }
         this.extension = extension;
         this.listener = listener;
-        this.binding = FileChooserDialogBinding.inflate(LayoutInflater.from(context));
+        this.root = LayoutInflater.from(context).inflate(R.layout.file_chooser_dialog, null);
+        this.recyclerView = root.findViewById(R.id.recycler_view);
+
+
         final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context)
-                .setView(binding.getRoot())
+                .setView(root)
                 .setNegativeButton("Cancel", null);
         if (title == null) {
             title = "Select a file";
@@ -53,9 +60,9 @@ public class FileChooserDialog implements FileAdapter.OnClickListener {
 
         this.fileAdapter = new FileAdapter(getFiles(), this);
 
-        binding.recyclerView.setAdapter(fileAdapter);
-        binding.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-        binding.recyclerView.addItemDecoration(new MarginItemDecoration());
+        recyclerView.setAdapter(fileAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+        recyclerView.addItemDecoration(new MarginItemDecoration());
     }
 
     public void show() {
@@ -104,11 +111,11 @@ public class FileChooserDialog implements FileAdapter.OnClickListener {
             if ("..".equals(file.getName())) {
                 directoryStack.removeLast();
             } else {
-                directoryStack.getLast().setOffset(binding.recyclerView.computeVerticalScrollOffset());
+                directoryStack.getLast().setOffset(recyclerView.computeVerticalScrollOffset());
                 directoryStack.addLast(new ChooserStackDirectory(file.getFile()));
             }
             fileAdapter.setFiles(getFiles());
-            binding.recyclerView.scrollBy(0, directoryStack.getLast().getOffset());
+            recyclerView.scrollBy(0, directoryStack.getLast().getOffset());
         } else {
             listener.onFileChosen(file.getFile());
             dismiss();
