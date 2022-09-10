@@ -1,4 +1,4 @@
-# MCinaBox - A Minecraft Java Edition Launcher on Android
+# MCinaBox - A Minecraft Java Edition Launcher for Android
 [Now in English] [切换为简体中文](./README_zh-cn.md)</br>
 
 
