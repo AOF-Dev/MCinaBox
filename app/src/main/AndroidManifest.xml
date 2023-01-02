@@ -27,6 +27,7 @@
             android:screenOrientation="userLandscape" />
         <activity
             android:name=".activity.SplashActivity"
+            android:exported="true"
             android:screenOrientation="userLandscape"
             android:theme="@style/SplashTheme">
             <intent-filter>

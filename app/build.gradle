@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: "androidx.navigation.safeargs"
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 33
     buildToolsVersion '30.0.3'
 
     signingConfigs {
@@ -18,7 +18,7 @@ android {
         applicationId "com.aof.mcinabox"
         minSdkVersion 21
         //noinspection ExpiredTargetSdkVersion
-        targetSdkVersion 22
+        targetSdkVersion 33
         versionCode 8
         versionName '0.1.4-p5'
     }
