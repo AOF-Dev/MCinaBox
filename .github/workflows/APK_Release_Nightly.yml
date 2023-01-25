@@ -44,10 +44,10 @@ jobs:
 #        format: YYYY-MM-DD
 #
 #    - uses: actions/checkout@v2
-#    - name: Set up JDK 1.8
+#    - name: Set up JDK 11.0.15
 #      uses: actions/setup-java@v1.4.3
 #      with:
-#        java-version: 1.8
+#        java-version: 11.0.15
 #    - uses: actions/cache@v2
 #      with:
 #        path: |
@@ -95,10 +95,10 @@ jobs:
 #暂不知道这玩意是不是取的本地时间
     
     - uses: actions/checkout@v2
-    - name: Set up JDK 1.8
+    - name: Set up JDK 11.0.15
       uses: actions/setup-java@v1.4.3
       with:
-        java-version: 1.8
+        java-version: 11.0.15
     - uses: actions/cache@v2
       with:
         path: |
@@ -143,10 +143,10 @@ jobs:
 #      with:
 #        format: YYYY-MM-DD
 #    - uses: actions/checkout@v2
-#    - name: Set up JDK 1.8
+#    - name: Set up JDK 11.0.15
 #      uses: actions/setup-java@v1.4.3
 #      with:
-#        java-version: 1.8
+#        java-version: 11.0.15
 #    - uses: actions/cache@v2
 #      with:
 #        path: |
