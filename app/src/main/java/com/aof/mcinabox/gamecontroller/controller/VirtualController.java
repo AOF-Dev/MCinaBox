@@ -70,8 +70,8 @@ public class VirtualController extends BaseController implements View.OnClickLis
     //Dialog的控件
     private final String TAG = "VirtualController";
     private final Translation mTranslation;
-    private int screenWidth;
-    private int screenHeight;
+    private final int screenWidth;
+    private final int screenHeight;
     public OnscreenInput crossKeyboard;
     public OnscreenInput itemBar;
     public OnscreenInput onscreenKeyboard;
@@ -437,7 +437,7 @@ public class VirtualController extends BaseController implements View.OnClickLis
         switchDebugInfo.setChecked(sp.getBoolean(sp_enable_debuginfo, false));
         if (!sp.contains(sp_first_loadder)) {
             resetAllPosOnScreen();
-            ((CustomizeKeyboard)custmoizeKeyboard).mManager.loadKeyboard(new CustomizeKeyboardMaker(context).createDefaultKeyboard());
+            ((CustomizeKeyboard) custmoizeKeyboard).mManager.loadKeyboard(new CustomizeKeyboardMaker(context).createDefaultKeyboard());
         }
     }
 

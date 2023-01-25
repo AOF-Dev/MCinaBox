@@ -1,14 +1,12 @@
 package com.aof.mcinabox.activity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.widget.Button;
 
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.gamecontroller.definitions.manifest.AppManifest;
@@ -28,6 +26,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class OldMainActivity extends BaseActivity {
+    private static final String TAG = "MainActivity";
 
     public static final int LAUNCHER_IMPT_RTPACK = 127;
     public static WeakReference<OldMainActivity> CURRENT_ACTIVITY;
@@ -37,8 +36,7 @@ public class OldMainActivity extends BaseActivity {
     public SettingManager mSettingManager;
     public ThemeManager mThemeManager;
     private static final int REFRESH_DELAY = 0; //ms
-    private static final int REFRESH_PERIOD = 500; //ms
-    private static final String TAG = "MainActivity";
+    private static final int REFRESH_PERIOD = 1000; //ms
     public static SettingJson Setting;
     private boolean enableSettingChecker = false;
 
@@ -75,7 +73,8 @@ public class OldMainActivity extends BaseActivity {
             getWindow().setNavigationBarColor(Color.WHITE);
         }
 
-        findViewById(R.id.toolbar_button_new_ui).setOnClickListener(v -> {
+        Button toolbarButtonNewUi = findViewById(R.id.toolbar_button_new_ui);
+        toolbarButtonNewUi.setOnClickListener(v -> {
             Intent i = new Intent(OldMainActivity.this, MainActivity.class);
             startActivity(i);
         });
@@ -156,18 +155,6 @@ public class OldMainActivity extends BaseActivity {
         mUiManager.refreshUis();
     }
 
-    @SuppressLint("HandlerLeak")
-    public Handler handler = new Handler() {
-        public void handleMessage(Message msg) {
-            if (msg.what == 1) {
-                Log.e("mcinabox", "Updata Setting.");
-                refreshLauncher();
-                updateSettingFromUis();
-            }
-            super.handleMessage(msg);
-        }
-    };
-
     /**
      * 【给Minecraft目录设置无媒体标签】
      **/
@@ -219,9 +206,11 @@ public class OldMainActivity extends BaseActivity {
         return new TimerTask() {
             @Override
             public void run() {
-                Message msg = new Message();
-                msg.what = 1;
-                handler.sendMessage(msg);
+                runOnUiThread(() -> {
+                    Log.d(TAG, "run: Updating settings.");
+                    refreshLauncher();
+                    updateSettingFromUis();
+                });
             }
         };
     }

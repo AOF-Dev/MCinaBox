@@ -101,14 +101,14 @@ public final class BoatUtils {
      * Add a callback with filenames.
      */
 
-    public static void extractTarXZ(File tarFile, File destDir, CompressCallback callback){
+    public static void extractTarXZ(File tarFile, File destDir, CompressCallback callback) {
         try (FileInputStream fis = new FileInputStream(tarFile);
              XZCompressorInputStream xzcis = new XZCompressorInputStream(fis);
              TarArchiveInputStream tais = new TarArchiveInputStream(xzcis, 1024)) {
             TarArchiveEntry entry;
             while ((entry = tais.getNextTarEntry()) != null) {
                 File target = new File(destDir, entry.getName());
-                if(callback != null){
+                if (callback != null) {
                     callback.onFileCompressing(target);
                 }
                 if (entry.isDirectory()) {
@@ -152,7 +152,7 @@ public final class BoatUtils {
         return setExecutable(new File(file));
     }
 
-    public interface CompressCallback{
+    public interface CompressCallback {
         void onFileCompressing(File file);
     }
 }

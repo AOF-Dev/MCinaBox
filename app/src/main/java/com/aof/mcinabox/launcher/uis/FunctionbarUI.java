@@ -43,10 +43,10 @@ public class FunctionbarUI extends BaseUI {
             if (v == buttonGamelist) {
                 OldMainActivity.CURRENT_ACTIVITY.get().switchUIs(OldMainActivity.CURRENT_ACTIVITY.get().mUiManager.uiGamelist, mContext.getString(R.string.title_game_list));
             }
-            if(v == buttonGamedir){
+            if (v == buttonGamedir) {
                 OldMainActivity.CURRENT_ACTIVITY.get().switchUIs(OldMainActivity.CURRENT_ACTIVITY.get().mUiManager.uiGamedir, mContext.getString(R.string.title_game_dir));
             }
-            if(v == buttonSetting){
+            if (v == buttonSetting) {
                 OldMainActivity.CURRENT_ACTIVITY.get().switchUIs(OldMainActivity.CURRENT_ACTIVITY.get().mUiManager.uiLauncherSetting, mContext.getString(R.string.title_launcher_setting));
             }
             if (v == buttonKeyboard) {
@@ -114,7 +114,7 @@ public class FunctionbarUI extends BaseUI {
                     selected = true;
                     textUserName.setText(a.getUsername());
                     String type;
-                    switch(a.getType()){
+                    switch (a.getType()) {
                         case SettingJson.USER_TYPE_OFFLINE:
                             type = mContext.getString(R.string.title_offline);
                             break;
@@ -133,7 +133,7 @@ public class FunctionbarUI extends BaseUI {
                 }
             }
         }
-        if(!selected){
+        if (!selected) {
             textUserName.setText(mContext.getString(R.string.title_user));
             textUserType.setText("");
         }

@@ -29,12 +29,12 @@ public class KeyboardRecorder {
         return new int[]{screenWidth, screenHeight};
     }
 
-    public KeyboardRecorder setVersionCode(int version){
+    public KeyboardRecorder setVersionCode(int version) {
         this.versionCode = version;
         return this;
     }
 
-    public int getVersionCode(){
+    public int getVersionCode() {
         return this.versionCode;
     }
 }

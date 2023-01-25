@@ -184,7 +184,7 @@ void stub() {
 #endif
 JNIEXPORT void JNICALL Java_cosine_boat_LoadMe_patchLinker(JNIEnv *env, jclass clazz) {
 
-#ifdef __aarch64__;
+#ifdef __aarch64__//;
 #define PAGE_START(x) ((void*)((unsigned long)(x) & ~((unsigned long)getpagesize() - 1)))
 
     void* libdl_handle = dlopen("libdl.so", RTLD_LAZY);
@@ -257,7 +257,7 @@ JNIEXPORT jint JNICALL Java_cosine_boat_LoadMe_dlopen(JNIEnv* env, jclass clazz,
     char const* lib_name = (*env)->GetStringUTFChars(env ,str1 , 0);
 
     void* handle;
-    handle = dlopen(lib_name, RTLD_LAZY);
+    handle = dlopen(lib_name, RTLD_GLOBAL);
     if (handle == NULL){
         __android_log_print(ANDROID_LOG_ERROR, "Boat", "%s : %s", lib_name, dlerror());
     }

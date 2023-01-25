@@ -369,10 +369,10 @@ public class CrossKeyboard implements OnscreenInput, KeyMap {
             case 5:
                 keyName = KEYMAP_KEY_LSHIFT;
                 if (lastKeyName.equals("") && e.getAction() == MotionEvent.ACTION_DOWN) {
-                    if(shift){
-                       sendKeyEvent(keyName, false);
-                       shift = false;
-                    } else{
+                    if (shift) {
+                        sendKeyEvent(keyName, false);
+                        shift = false;
+                    } else {
                         sendKeyEvent(keyName, true);
                         shift = true;
                     }

@@ -18,7 +18,7 @@ import java.util.List;
 
 public class Tipper {
 
-    private Context mContext;
+    private final Context mContext;
     private ListView listTipper;
     private BubbleLayout bubbleTipper;
     private PopupWindow popupWindow;
@@ -39,7 +39,7 @@ public class Tipper {
      * 【在View下方显示Tipper】
      **/
     public void showTipper(View v, List<TipperListBean> list) {
-        if(list == null || list.size() == 0){
+        if (list == null || list.size() == 0) {
             return;
         }
         TipperListAdapter tipperListAdapter = new TipperListAdapter(mContext, list);

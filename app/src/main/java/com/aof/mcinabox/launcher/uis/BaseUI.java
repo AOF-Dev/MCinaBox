@@ -7,7 +7,7 @@ public abstract class BaseUI implements UILifecycleCallbacks {
     public Context mContext;
 
     //Method instruction
-    public BaseUI(Context context){
+    public BaseUI(Context context) {
         super();
         setUIContext(context);
     }
@@ -25,28 +25,35 @@ public abstract class BaseUI implements UILifecycleCallbacks {
     public abstract int getUIVisibility();
 
     //Set Android Context
-    public void setUIContext(Context context){
+    public void setUIContext(Context context) {
         this.mContext = context;
     }
 
     @Override
-    public void onCreate(){ }
+    public void onCreate() {
+    }
 
     @Override
-    public void onStart(){ }
+    public void onStart() {
+    }
 
     @Override
-    public void onResume(){ }
+    public void onResume() {
+    }
 
     @Override
-    public void onPause(){ }
+    public void onPause() {
+    }
 
     @Override
-    public void onStop(){ }
+    public void onStop() {
+    }
 
     @Override
-    public void onDestory(){}
+    public void onDestory() {
+    }
 
     @Override
-    public void onRestart(){}
+    public void onRestart() {
+    }
 }

@@ -6,14 +6,15 @@ If you find problems when you run MCinaBox, you can check [Q&A](./Q&A.md) first.
 
 ## Instruction
 - MCinaBox is a Launcher of Minecraft Java Edition on Android. The core functionality is powered by [CosineMath](Https://github.com/CosineMath)'s [BoatApp](https://github.com/AOF-Dev/BoatApp) project.
-# Discord
-https://discord.gg/55GECvHuNd  
+## Discord
+[Join](https://discord.gg/55GECvHuNd)  
 
 ![Discord Banner 2](https://discord.com/api/guilds/808182854718062623/widget.png?style=banner2)
 ## Contents
 - [Background](#Background)
 - [Change Log](#Change-Log)
 - [Build](#Build)
+- [Release](#Release)
 - [Usage](#Usage)
 - [Preview](#Preview)
 - [Known Issues](#Known-Issues)
@@ -49,7 +50,8 @@ https://discord.gg/55GECvHuNd
 ### Build
 - Build via Android Studio.
 
-#### You can also get released apk from [here](https://github.com/AOF-Dev/MCinaBox/releases).
+## Release
+- You can also get released apk from [here](https://github.com/AOF-Dev/MCinaBox/releases).
 
 ## Usage
 
@@ -83,11 +85,11 @@ https://discord.gg/55GECvHuNd
 ## Known Issues
 
 ### Launcher
+1. Microsoft Authentication API is not added, so you'll not be able to login with Microsoft Account.
 
 ### Launch Minecraft
 1. Forge's loading animation will cause a crash
 2. It seems that there will be an X11 error when starting the Minecraft version below 1.6
-3. Unable to initialize Minecraft 1.13.x
 
 ## Maintainers
 [@AOF-Dev](https://github.com/AOF-Dev)

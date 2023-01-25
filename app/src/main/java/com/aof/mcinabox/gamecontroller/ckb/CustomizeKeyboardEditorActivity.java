@@ -41,7 +41,7 @@ public class CustomizeKeyboardEditorActivity extends AppCompatActivity implement
     private int screenWidth;
     private int screenHeight;
 
-    private int pointer[] = new int[]{0, 0};
+    private final int[] pointer = new int[]{0, 0};
     private Controller mController;
     private boolean isGrabbed;
     private TimerTask systemUiTimerTask;
@@ -135,7 +135,7 @@ public class CustomizeKeyboardEditorActivity extends AppCompatActivity implement
                 //禁用自定义键盘
                 this.custmoizeKeyboard.setEnabled(false);
                 //先保存键盘文件
-                ((CustomizeKeyboard)this.custmoizeKeyboard).mManager.autoSaveKeyboard();
+                ((CustomizeKeyboard) this.custmoizeKeyboard).mManager.autoSaveKeyboard();
                 //卸载自定义键盘
                 this.removeInput(custmoizeKeyboard);
                 //重写自定义键盘，并创建新的自定义键盘

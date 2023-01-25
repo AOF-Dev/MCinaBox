@@ -37,7 +37,7 @@ public class UiManager {
 
     private final Context mContext;
 
-    public UiManager(Context context, SettingJson setting){
+    public UiManager(Context context, SettingJson setting) {
         this.mContext = context;
         uiInstallVersion = new InstallVersionUI(context);
         uiPlugin = new PluginUI(context);
@@ -98,41 +98,41 @@ public class UiManager {
         }
     }
 
-    public void refreshUis(){
-        for(BaseUI ui : Uis){
-            if (ui != null){
+    public void refreshUis() {
+        for (BaseUI ui : Uis) {
+            if (ui != null) {
                 ui.refreshUI();
             }
         }
     }
 
-    public void onStop(){
-        for (BaseUI ui : Uis){
-            if(ui != null){
+    public void onStop() {
+        for (BaseUI ui : Uis) {
+            if (ui != null) {
                 ui.onStop();
             }
         }
     }
 
-    public void onCreate(){
-        for (BaseUI ui : Uis){
-            if(ui != null){
+    public void onCreate() {
+        for (BaseUI ui : Uis) {
+            if (ui != null) {
                 ui.onCreate();
             }
         }
     }
 
-    public void onRestart(){
-        for (BaseUI ui : Uis){
-            if(ui != null){
+    public void onRestart() {
+        for (BaseUI ui : Uis) {
+            if (ui != null) {
                 ui.onRestart();
             }
         }
     }
 
-    public void saveConfigToSetting(){
-        for (BaseUI ui : Uis){
-            if(ui != null){
+    public void saveConfigToSetting() {
+        for (BaseUI ui : Uis) {
+            if (ui != null) {
                 ui.saveUIConfig();
             }
         }

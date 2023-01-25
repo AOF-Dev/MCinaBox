@@ -47,20 +47,20 @@ public interface Controller {
 
     Config getConfig();
 
-    class Config{
+    class Config {
         private final int screenWidth;
         private final int screenHeight;
 
-        public Config(int screenWidth, int screenHeight){
+        public Config(int screenWidth, int screenHeight) {
             this.screenWidth = screenWidth;
             this.screenHeight = screenHeight;
         }
 
-        public int getScreenWidth(){
+        public int getScreenWidth() {
             return screenWidth;
         }
 
-        public int getScreenHeight(){
+        public int getScreenHeight() {
             return screenHeight;
         }
     }

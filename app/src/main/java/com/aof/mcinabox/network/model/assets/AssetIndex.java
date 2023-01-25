@@ -76,7 +76,7 @@ public class AssetIndex {
                 return false;
             if ((this.compressedHash != null) ? !this.compressedHash.equals(that.compressedHash) : (that.compressedHash != null))
                 return false;
-          return (this.hash != null) ? this.hash.equals(that.hash) : (that.hash == null);
+            return (this.hash != null) ? this.hash.equals(that.hash) : (that.hash == null);
         }
 
         public int hashCode() {

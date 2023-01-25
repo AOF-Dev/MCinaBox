@@ -13,15 +13,12 @@ import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-import cosine.boat.databinding.ActivityBoatBinding;
-
-public class BoatActivity extends AppCompatActivity implements View.OnSystemUiVisibilityChangeListener, TextureView.SurfaceTextureListener {
+public class BoatActivity extends AppCompatActivity {
     private static final String TAG = "BoatActivity";
     private static final int SYSTEM_UI_HIDE_DELAY_MS = 3000;
 
@@ -29,10 +26,10 @@ public class BoatActivity extends AppCompatActivity implements View.OnSystemUiVi
 
     public static IBoat boatInterface;
 
-    public ActivityBoatBinding binding;
     private BoatArgs boatArgs;
     private Timer timer;
     private TimerTask systemUiTimerTask;
+    private RelativeLayout baseLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,12 +62,14 @@ public class BoatActivity extends AppCompatActivity implements View.OnSystemUiVi
         }
 
         // Inflate and bind the activity view
-        binding = ActivityBoatBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        setContentView(R.layout.activity_boat);
+
+        baseLayout = findViewById(R.id.base_layout);
 
         // Set the SurfaceHolder callback to this class
         // to get the ANativeWindow instance
-        binding.surfaceView.setSurfaceTextureListener(this);
+        TextureView textureView = findViewById(R.id.texture_view);
+        textureView.setSurfaceTextureListener(surfaceTextureListener);
 
         timer = new Timer();
 
@@ -94,7 +93,7 @@ public class BoatActivity extends AppCompatActivity implements View.OnSystemUiVi
         super.onWindowFocusChanged(hasFocus);
         View decorView = getWindow().getDecorView();
         if (hasFocus) {
-            decorView.setOnSystemUiVisibilityChangeListener(this);
+            decorView.setOnSystemUiVisibilityChangeListener(onSystemUiVisibilityChangeListener);
             hideSystemUI(decorView);
         } else {
             decorView.setOnSystemUiVisibilityChangeListener(null);
@@ -102,19 +101,22 @@ public class BoatActivity extends AppCompatActivity implements View.OnSystemUiVi
         }
     }
 
-    @Override
-    public void onSystemUiVisibilityChange(int visibility) {
-        if ((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) {
-            if (systemUiTimerTask != null) systemUiTimerTask.cancel();
-            systemUiTimerTask = new TimerTask() {
-                @Override
-                public void run() {
-                    runOnUiThread(() -> hideSystemUI(getWindow().getDecorView()));
-                }
-            };
-            timer.schedule(systemUiTimerTask, SYSTEM_UI_HIDE_DELAY_MS);
+    private final View.OnSystemUiVisibilityChangeListener onSystemUiVisibilityChangeListener
+            = new View.OnSystemUiVisibilityChangeListener() {
+        @Override
+        public void onSystemUiVisibilityChange(int visibility) {
+            if ((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) {
+                if (systemUiTimerTask != null) systemUiTimerTask.cancel();
+                systemUiTimerTask = new TimerTask() {
+                    @Override
+                    public void run() {
+                        runOnUiThread(() -> hideSystemUI(getWindow().getDecorView()));
+                    }
+                };
+                timer.schedule(systemUiTimerTask, SYSTEM_UI_HIDE_DELAY_MS);
+            }
         }
-    }
+    };
 
     private void hideSystemUI(View decorView) {
         decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_IMMERSIVE
@@ -142,10 +144,10 @@ public class BoatActivity extends AppCompatActivity implements View.OnSystemUiVi
     @Override
     public void addContentView(View view, ViewGroup.LayoutParams params) {
         if (params instanceof RelativeLayout.LayoutParams) {
-            binding.baseLayout.addView(view, params);
+            baseLayout.addView(view, params);
         } else {
             RelativeLayout.LayoutParams newParams = new RelativeLayout.LayoutParams(params.width, params.height);
-            binding.baseLayout.addView(view, newParams);
+            baseLayout.addView(view, newParams);
         }
     }
 
@@ -189,35 +191,38 @@ public class BoatActivity extends AppCompatActivity implements View.OnSystemUiVi
         System.loadLibrary("boat");
     }
 
-    @Override
-    public void onSurfaceTextureAvailable(@NonNull SurfaceTexture surface, int width, int height) {
-        Log.d(TAG, "surfaceCreated: called.");
-        nSurfaceCreated(new Surface(surface));
-        new Thread() {
-            @Override
-            public void run() {
-                new LoadMe().exec(boatArgs);
-            }
-        }.start();
-    }
+    private final TextureView.SurfaceTextureListener surfaceTextureListener
+            = new TextureView.SurfaceTextureListener() {
+        @Override
+        public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
+            Log.d(TAG, "surfaceCreated: called.");
+            nSurfaceCreated(new Surface(surface));
+            new Thread() {
+                @Override
+                public void run() {
+                    new LoadMe().exec(boatArgs);
+                }
+            }.start();
+        }
 
-    @Override
-    public void onSurfaceTextureSizeChanged(@NonNull SurfaceTexture surface, int width, int height) {
-        Log.d(TAG, "surface changed: width = " + width + ", height = " + height);
-    }
+        @Override
+        public void onSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) {
+            Log.d(TAG, "surface changed: width = " + width + ", height = " + height);
+        }
 
-    @Override
-    public boolean onSurfaceTextureDestroyed(@NonNull SurfaceTexture surface) {
-        Log.d(TAG, "surfaceDestroyed: called.");
-        nSurfaceDestroyed(new Surface(surface));
-        boatInterface.onStop();
-        return false;
-    }
+        @Override
+        public boolean onSurfaceTextureDestroyed(SurfaceTexture surface) {
+            Log.d(TAG, "surfaceDestroyed: called.");
+            nSurfaceDestroyed(new Surface(surface));
+            boatInterface.onStop();
+            return false;
+        }
 
-    @Override
-    public void onSurfaceTextureUpdated(@NonNull SurfaceTexture surface) {
+        @Override
+        public void onSurfaceTextureUpdated(SurfaceTexture surface) {
 
-    }
+        }
+    };
 
     @Override
     protected void onPause() {

@@ -15,13 +15,12 @@ import com.aof.mcinabox.gamecontroller.controller.VirtualController;
 import com.aof.mcinabox.utils.DisplayUtils;
 
 import java.util.Timer;
-import java.util.TimerTask;
 
 import cosine.boat.BoatActivity;
 
 public class BoatStartupActivity extends BoatActivity implements Client {
 
-    private int[] grabbedPointer = new int[]{0, 0};
+    private final int[] grabbedPointer = new int[]{0, 0};
     private boolean grabbed = false;
     private ImageView cursorIcon;
     private final static int CURSOR_SIZE = 16; //dp
@@ -31,12 +30,9 @@ public class BoatStartupActivity extends BoatActivity implements Client {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().getDecorView().findViewById(android.R.id.content).post(new Runnable() {
-            @Override
-            public void run() {
-                screenWidth = getSurfaceLayerView().getWidth();
-                screenHeight = getResources().getDisplayMetrics().heightPixels;
-            }
+        getWindow().getDecorView().findViewById(android.R.id.content).post(() -> {
+            screenWidth = getSurfaceLayerView().getWidth();
+            screenHeight = getResources().getDisplayMetrics().heightPixels;
         });
         cursorIcon = new ImageView(this);
         cursorIcon.setLayoutParams(new ViewGroup.LayoutParams(DisplayUtils.getPxFromDp(this, CURSOR_SIZE), DisplayUtils.getPxFromDp(this, CURSOR_SIZE)));
@@ -46,42 +42,36 @@ public class BoatStartupActivity extends BoatActivity implements Client {
 
     @Override
     public void setKey(int keyCode, boolean pressed) {
-        this.setKey(keyCode,0,pressed);
+        this.setKey(keyCode, 0, pressed);
     }
 
     @Override
     public void setPointerInc(int xInc, int yInc) {
-        if(!grabbed){
+        if (!grabbed) {
             int x, y;
             x = grabbedPointer[0] + xInc;
             y = grabbedPointer[1] + yInc;
-            if(x >= 0 && x <= screenWidth)
+            if (x >= 0 && x <= screenWidth)
                 grabbedPointer[0] += xInc;
-            if(y >= 0 && y <= screenHeight)
+            if (y >= 0 && y <= screenHeight)
                 grabbedPointer[1] += yInc;
             setPointer(grabbedPointer[0], grabbedPointer[1]);
-            this.cursorIcon.post(new Runnable() {
-                @Override
-                public void run() {
-                    cursorIcon.setX(grabbedPointer[0]);
-                    cursorIcon.setY(grabbedPointer[1]);
-                }
+            this.cursorIcon.post(() -> {
+                cursorIcon.setX(grabbedPointer[0]);
+                cursorIcon.setY(grabbedPointer[1]);
             });
-        }else{
+        } else {
             setPointer(getPointer()[0] + xInc, getPointer()[1] + yInc);
         }
     }
 
     @Override
-    public void setPointer(int x, int y){
+    public void setPointer(int x, int y) {
         super.setPointer(x, y);
-        if(!grabbed){
-            this.cursorIcon.post(new Runnable() {
-                @Override
-                public void run() {
-                    cursorIcon.setX(x);
-                    cursorIcon.setY(y);
-                }
+        if (!grabbed) {
+            this.cursorIcon.post(() -> {
+                cursorIcon.setX(x);
+                cursorIcon.setY(y);
             });
             grabbedPointer[0] = x;
             grabbedPointer[1] = y;
@@ -100,10 +90,10 @@ public class BoatStartupActivity extends BoatActivity implements Client {
 
     @Override
     public void typeWords(String str) {
-        if(str == null) return;
-        for(int i = 0; i < str.length(); i++){
-            setKey(0, str.charAt(i),true);
-            setKey(0, str.charAt(i),false);
+        if (str == null) return;
+        for (int i = 0; i < str.length(); i++) {
+            setKey(0, str.charAt(i), true);
+            setKey(0, str.charAt(i), false);
         }
     }
 
@@ -119,12 +109,12 @@ public class BoatStartupActivity extends BoatActivity implements Client {
 
     @Override
     public ViewGroup getViewsParent() {
-        return (binding != null)?binding.getRoot():null;
+        return (ViewGroup) findViewById(android.R.id.content).getRootView();
     }
 
     @Override
     public View getSurfaceLayerView() {
-        return (binding != null)?binding.getRoot().findViewById(R.id.surface_view):null;
+        return findViewById(R.id.texture_view);
     }
 
     @Override
@@ -133,24 +123,14 @@ public class BoatStartupActivity extends BoatActivity implements Client {
     }
 
     @Override
-    public void setGrabCursor(boolean isGrabbed){
+    public void setGrabCursor(boolean isGrabbed) {
         super.setGrabCursor(isGrabbed);
         this.grabbed = isGrabbed;
-        if(!isGrabbed){
+        if (!isGrabbed) {
             setPointer(grabbedPointer[0], grabbedPointer[1]);
-            cursorIcon.post(new Runnable() {
-                @Override
-                public void run() {
-                    cursorIcon.setVisibility(View.VISIBLE);
-                }
-            });
-        }else if(cursorIcon.getVisibility() == View.VISIBLE) {
-            cursorIcon.post(new Runnable() {
-                @Override
-                public void run() {
-                    cursorIcon.setVisibility(View.INVISIBLE);
-                }
-            });
+            cursorIcon.post(() -> cursorIcon.setVisibility(View.VISIBLE));
+        } else if (cursorIcon.getVisibility() == View.VISIBLE) {
+            cursorIcon.post(() -> cursorIcon.setVisibility(View.INVISIBLE));
         }
     }
 
@@ -201,7 +181,6 @@ public class BoatStartupActivity extends BoatActivity implements Client {
             }
         };
     }
-
 
 
 }

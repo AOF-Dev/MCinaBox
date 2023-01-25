@@ -98,8 +98,9 @@ public class OnscreenTouchpad implements OnscreenInput, KeyMap, MouseMap {
 
     private int initX = 0;
     private int initY = 0;
+
     private void locateCursor(MotionEvent event) {
-        if(mController.isGrabbed()){
+        if (mController.isGrabbed()) {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_UP:
                 case MotionEvent.ACTION_MOVE:
@@ -110,7 +111,7 @@ public class OnscreenTouchpad implements OnscreenInput, KeyMap, MouseMap {
             }
             initX = (int) event.getX();
             initY = (int) event.getY();
-        }else{
+        } else {
             switch (touchpadMode) {
                 case TOUCHPAD_MODE_POINT:
                     sendPointer((int) event.getX(), (int) event.getY(), type_2);

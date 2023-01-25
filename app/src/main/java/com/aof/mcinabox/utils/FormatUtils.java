@@ -12,10 +12,12 @@ public class FormatUtils {
     public final static int CAPACITY_TYPE_MBYTE = 2;
     public final static int CAPACITY_TYPE_GBYTE = 3;
 
-    /**[容量格式化]**/
-    public static String formatCapacity(float capacity, int type){
+    /**
+     * [容量格式化]
+     **/
+    public static String formatCapacity(float capacity, int type) {
         String suffix;
-        switch (type){
+        switch (type) {
             case CAPACITY_TYPE_BYTE:
                 suffix = "B";
                 break;
@@ -23,8 +25,8 @@ public class FormatUtils {
                 suffix = "KB";
                 break;
             case CAPACITY_TYPE_MBYTE:
-                 suffix = "MB";
-                 break;
+                suffix = "MB";
+                break;
             case CAPACITY_TYPE_GBYTE:
                 suffix = "GB";
                 break;
@@ -37,11 +39,14 @@ public class FormatUtils {
     public final static int DTS_TYPE_MS = 0;
     public final static int DTS_TYPE_S = 1;
     public final static int DTS_TYPE_MIN = 2;
-    /**[数据传输速度格式化]**/
-    public static String formatDataTransferSpeed(float capacity, int capacityType, int timeType){
-        String i = formatCapacity(capacity,capacityType);
+
+    /**
+     * [数据传输速度格式化]
+     **/
+    public static String formatDataTransferSpeed(float capacity, int capacityType, int timeType) {
+        String i = formatCapacity(capacity, capacityType);
         String suffix;
-        switch (timeType){
+        switch (timeType) {
             case DTS_TYPE_MS:
                 suffix = "/ms";
                 break;

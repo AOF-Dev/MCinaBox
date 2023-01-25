@@ -146,7 +146,7 @@ public class GameButton extends AppCompatButton implements View.OnTouchListener 
         this.setTextSize(DEFAULT_TEXT_SIZE_SP);
 
         String[] strs = new String[MAX_KEYMAP_SIZE];
-        Arrays.fill(strs,"");
+        Arrays.fill(strs, "");
 
         this.setKeyMaps(strs);
         this.setKeyTypes(new int[]{KEY_TYPE, KEY_TYPE, KEY_TYPE, KEY_TYPE});
@@ -165,25 +165,25 @@ public class GameButton extends AppCompatButton implements View.OnTouchListener 
 
     }
 
-    public GameButton setInputChars(boolean b){
+    public GameButton setInputChars(boolean b) {
         this.isChars = b;
         return this;
     }
 
-    public boolean isInputChars(){
+    public boolean isInputChars() {
         return this.isChars;
     }
 
-    public boolean setChars(String chars){
-        if (chars != null){
+    public boolean setChars(String chars) {
+        if (chars != null) {
             this.keyChars = chars;
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public String getChars(){
+    public String getChars() {
         return this.keyChars;
     }
 
@@ -267,8 +267,8 @@ public class GameButton extends AppCompatButton implements View.OnTouchListener 
         float rx, ry;
 
         //Clamp between two extremes
-        rx = clamp(xPx,0f,(float)(screenWidth - viewWidth));
-        ry = clamp(yPx,0f,(float)(screenHeight - viewHeight));
+        rx = clamp(xPx, 0f, (float) (screenWidth - viewWidth));
+        ry = clamp(yPx, 0f, (float) (screenHeight - viewHeight));
 
         this.setX(rx);
         this.setY(ry);
@@ -432,7 +432,7 @@ public class GameButton extends AppCompatButton implements View.OnTouchListener 
                 initialY = (int) e.getY();
                 break;
             case MotionEvent.ACTION_MOVE:
-                mController.sendKey(new BaseKeyEvent(TAG, null, false, MOUSE_POINTER_INC, new int[]{(int) (e.getX() - initialX), (int)(e.getY() - initialY)}));
+                mController.sendKey(new BaseKeyEvent(TAG, null, false, MOUSE_POINTER_INC, new int[]{(int) (e.getX() - initialX), (int) (e.getY() - initialY)}));
                 initialX = (int) e.getX();
                 initialY = (int) e.getY();
                 break;
@@ -475,7 +475,7 @@ public class GameButton extends AppCompatButton implements View.OnTouchListener 
                     } else {
                         isBeingPressed = true;
                     }
-                } else if(isChars) {
+                } else if (isChars) {
                     mController.typeWords(convertStringWithASCII(this.keyChars));
                 } else {
                     for (int a = 0; a < MAX_KEYMAP_SIZE; a++) {
@@ -490,8 +490,8 @@ public class GameButton extends AppCompatButton implements View.OnTouchListener 
         }
     }
 
-    private String convertStringWithASCII(String str){
-        if(str == null) return null;
+    private String convertStringWithASCII(String str) {
+        if (str == null) return null;
         return StringEscapeUtils.unescapeJava(str);
     }
 
@@ -512,8 +512,8 @@ public class GameButton extends AppCompatButton implements View.OnTouchListener 
                     //int lastPosX = DisplayUtils.getPxFromDp(mContext, getKeyPos()[0]);
                     //int lastPosY = DisplayUtils.getPxFromDp(mContext, getKeyPos()[1]);
                     //直接读入px的数值，而不是通过DisplayUtils进行转换，也许可以更精确
-                    int lastPosX = (int)this.getX();
-                    int lastPosY = (int)this.getY();
+                    int lastPosX = (int) this.getX();
+                    int lastPosY = (int) this.getY();
                     int dx = tmpTouchPosX - touchPosX;
                     int dy = tmpTouchPosY - touchPosY;
                     int viewWidth = getLayoutParams().width;

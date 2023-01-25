@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 public class GamelistUI extends BaseUI {
 
-    public GamelistUI(Context context){
+    public GamelistUI(Context context) {
         super(context);
     }
 
@@ -60,7 +60,7 @@ public class GamelistUI extends BaseUI {
 
     @Override
     public void setUIVisibility(int visibility) {
-        if(visibility == View.VISIBLE){
+        if (visibility == View.VISIBLE) {
             layout_gamelist.startAnimation(showAnim);
         }
         layout_gamelist.setVisibility(visibility);
@@ -98,10 +98,10 @@ public class GamelistUI extends BaseUI {
             beans = new ArrayList<>();
             beans.addAll(VersionManager.getVersionBeansList());
             listLocalVersions.setAdapter(new LocalVersionListAdapter(mContext, beans));
-        }else{
+        } else {
             beans.clear();
             beans.addAll(VersionManager.getVersionBeansList());
-            ((BaseAdapter)listLocalVersions.getAdapter()).notifyDataSetChanged();
+            ((BaseAdapter) listLocalVersions.getAdapter()).notifyDataSetChanged();
         }
     }
 

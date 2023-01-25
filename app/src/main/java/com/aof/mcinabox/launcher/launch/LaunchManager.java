@@ -2,23 +2,17 @@ package com.aof.mcinabox.launcher.launch;
 
 import android.content.Context;
 import android.content.Intent;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
+
 import com.aof.mcinabox.R;
-import com.aof.mcinabox.gamecontroller.client.Client;
-import com.aof.mcinabox.gamecontroller.controller.HardwareController;
-import com.aof.mcinabox.gamecontroller.controller.VirtualController;
 import com.aof.mcinabox.launcher.launch.Activity.BoatStartupActivity;
 import com.aof.mcinabox.launcher.launch.support.AsyncManager;
 import com.aof.mcinabox.launcher.launch.support.argsmaker.BoatArgsMaker;
 import com.aof.mcinabox.launcher.setting.support.SettingJson;
 import com.aof.mcinabox.utils.dialog.DialogUtils;
 import com.aof.mcinabox.utils.dialog.support.TaskDialog;
-import java.util.Timer;
-import java.util.TimerTask;
-import cosine.boat.BoatActivity;
+
 import cosine.boat.BoatArgs;
-import static com.aof.mcinabox.gamecontroller.definitions.id.key.KeyEvent.KEYMAP_TO_X;
+
 import static cosine.boat.BoatActivity.EXTRA_BOAT_ARGS;
 
 public class LaunchManager {
@@ -70,7 +64,7 @@ public class LaunchManager {
                 BoatArgs args = (BoatArgs) maker.getStartArgs();
                 brige_exitWithSuccess();
                 BoatStartupActivity.attachControllerInterface();
-                mContext.startActivity(new Intent(mContext, BoatStartupActivity.class).putExtra(EXTRA_BOAT_ARGS, (BoatArgs)maker.getStartArgs()).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                mContext.startActivity(new Intent(mContext, BoatStartupActivity.class).putExtra(EXTRA_BOAT_ARGS, (BoatArgs) maker.getStartArgs()).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                 break;
         }
     }

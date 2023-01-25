@@ -49,7 +49,7 @@ public class BaseKeyEvent {
 
     @NotNull
     @Override
-    public String toString(){
+    public String toString() {
         return String.format("BaseKeyEvent { tag = \"%s\", keyName = \"%s\", pressed = %s, type = %s, pointer = %s }", this.tag, this.keyName, this.pressed, this.type, "[0]: " + this.mPointer[0] + "[1]: " + this.mPointer[1]);
     }
 }

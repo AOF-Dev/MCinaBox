@@ -30,30 +30,30 @@ public class UserManager {
         return user;
     }
 
-    public static UUID createUUID(String str){
+    public static UUID createUUID(String str) {
         return UUID.nameUUIDFromBytes((str).getBytes());
     }
 
-    public static boolean addAccount(SettingJson setting, SettingJson.Account account){
-        if (setting.getAccounts() == null){
+    public static boolean addAccount(SettingJson setting, SettingJson.Account account) {
+        if (setting.getAccounts() == null) {
             return false;
         }
         //先检查是否由相同用户名的用户,如果存在的话直接删除
-        for(SettingJson.Account a : setting.getAccounts()){
-            if(a.getUsername().equals(account.getUsername())){
+        for (SettingJson.Account a : setting.getAccounts()) {
+            if (a.getUsername().equals(account.getUsername())) {
                 account.setSelected(a.isSelected());
-                UserManager.removeAccount(setting,account.getUsername());
+                UserManager.removeAccount(setting, account.getUsername());
                 break;
             }
         }
 
 
-        SettingJson.Account[] accounts = new SettingJson.Account[setting.getAccounts().length +1];
+        SettingJson.Account[] accounts = new SettingJson.Account[setting.getAccounts().length + 1];
         SettingJson.Account[] lastAccounts = setting.getAccounts();
         int a = 0;
 
-        for(; a < lastAccounts.length ; a++){
-            if(lastAccounts[a] != null){
+        for (; a < lastAccounts.length; a++) {
+            if (lastAccounts[a] != null) {
                 accounts[a] = lastAccounts[a];
             }
         }
@@ -64,47 +64,47 @@ public class UserManager {
         return true;
     }
 
-    public static String[] getUsersName(SettingJson setting){
+    public static String[] getUsersName(SettingJson setting) {
         String[] strs = new String[setting.getAccounts().length];
-        for(int i = 0; i < strs.length ; i ++){
+        for (int i = 0; i < strs.length; i++) {
             strs[i] = setting.getAccounts()[i].getUsername();
         }
         return strs;
     }
 
-    public static SettingJson.Account getSelectedAccount(SettingJson setting){
-        for(SettingJson.Account account : setting.getAccounts()){
-            if(account.isSelected()){
+    public static SettingJson.Account getSelectedAccount(SettingJson setting) {
+        for (SettingJson.Account account : setting.getAccounts()) {
+            if (account.isSelected()) {
                 return account;
             }
         }
         return null;
     }
 
-    public static SettingJson.Account getAccountByUsername(SettingJson setting, String username){
-        for(SettingJson.Account account : setting.getAccounts()){
-            if(account.getUsername().equals(username)){
+    public static SettingJson.Account getAccountByUsername(SettingJson setting, String username) {
+        for (SettingJson.Account account : setting.getAccounts()) {
+            if (account.getUsername().equals(username)) {
                 return account;
             }
         }
         return null;
     }
 
-    public static boolean removeAccount(SettingJson setting, String username){
+    public static boolean removeAccount(SettingJson setting, String username) {
         SettingJson.Account[] accounts = setting.getAccounts();
         SettingJson.Account target = null;
-        for(SettingJson.Account account : accounts){
-            if(account.getUsername().equals(username)){
+        for (SettingJson.Account account : accounts) {
+            if (account.getUsername().equals(username)) {
                 target = account;
             }
         }
-        if(target == null){
+        if (target == null) {
             return false;
-        }else{
+        } else {
             SettingJson.Account[] tmp = new SettingJson.Account[setting.getAccounts().length - 1];
             int a = 0;
-            for(SettingJson.Account account : accounts){
-                if(target != account){
+            for (SettingJson.Account account : accounts) {
+                if (target != account) {
                     tmp[a] = account;
                     a++;
                 }
@@ -114,40 +114,40 @@ public class UserManager {
         }
     }
 
-    public static boolean cantainAccount(SettingJson setting, String username){
-        for(SettingJson.Account account : setting.getAccounts()){
-            if(account.getUsername().equals(username)){
+    public static boolean cantainAccount(SettingJson setting, String username) {
+        for (SettingJson.Account account : setting.getAccounts()) {
+            if (account.getUsername().equals(username)) {
                 return true;
             }
         }
         return false;
     }
 
-    public static boolean cantainAccount(SettingJson setting, SettingJson.Account account){
+    public static boolean cantainAccount(SettingJson setting, SettingJson.Account account) {
         return cantainAccount(setting, account.getUsername());
     }
 
-    public static boolean replaceAccount(SettingJson setting, SettingJson.Account originalAccount  , SettingJson.Account account){
-        if(cantainAccount(setting,originalAccount)){
+    public static boolean replaceAccount(SettingJson setting, SettingJson.Account originalAccount, SettingJson.Account account) {
+        if (cantainAccount(setting, originalAccount)) {
             removeAccount(setting, originalAccount.getUsername());
             addAccount(setting, account);
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public static boolean replaceAccount(SettingJson setting, String originalUsername  , SettingJson.Account account){
+    public static boolean replaceAccount(SettingJson setting, String originalUsername, SettingJson.Account account) {
         return replaceAccount(setting, getAccountByUsername(setting, originalUsername), account);
     }
 
-    public static void clearLegalData(Context context){
+    public static void clearLegalData(Context context) {
         FileTool.deleteFile(new File(context.getExternalFilesDir(null) + "/shared_prefs/" + launcher_prefs_file + ".xml"));
     }
 
-    public static void setAccountSelected(String username){
-        SettingJson.Account a = getAccountByUsername(OldMainActivity.Setting,username);
-        for(SettingJson.Account account : OldMainActivity.Setting.getAccounts()){
+    public static void setAccountSelected(String username) {
+        SettingJson.Account a = getAccountByUsername(OldMainActivity.Setting, username);
+        for (SettingJson.Account account : OldMainActivity.Setting.getAccounts()) {
             account.setSelected(account == a);
         }
     }

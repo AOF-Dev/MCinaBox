@@ -53,7 +53,7 @@ public class UserUI extends BaseUI {
 
     @Override
     public void setUIVisibility(int visibility) {
-        if(visibility == View.VISIBLE){
+        if (visibility == View.VISIBLE) {
             layout_user.startAnimation(showAnim);
         }
         layout_user.setVisibility(visibility);
@@ -92,27 +92,28 @@ public class UserUI extends BaseUI {
     }
 
     private ArrayList<SettingJson.Account> usersList;
-    public void refreshList(){
-        if(usersList == null){
+
+    public void refreshList() {
+        if (usersList == null) {
             usersList = new ArrayList<>();
-            listUsers.setAdapter(new UserListAdapter(mContext,usersList));
-        }else{
+            listUsers.setAdapter(new UserListAdapter(mContext, usersList));
+        } else {
             usersList.clear();
         }
-        for(SettingJson.Account account : OldMainActivity.Setting.getAccounts()){
-            if(account != null){
+        for (SettingJson.Account account : OldMainActivity.Setting.getAccounts()) {
+            if (account != null) {
                 usersList.add(account);
             }
         }
-        ((BaseAdapter)listUsers.getAdapter()).notifyDataSetChanged();
+        ((BaseAdapter) listUsers.getAdapter()).notifyDataSetChanged();
     }
 
-    public boolean addFormatedUser(SettingJson.Account account){
-        if(account == null){
+    public boolean addFormatedUser(SettingJson.Account account) {
+        if (account == null) {
             return false;
-        }else{
-            for(SettingJson.Account bean : usersList){
-                if(bean.equals(account)){
+        } else {
+            for (SettingJson.Account bean : usersList) {
+                if (bean.equals(account)) {
                     return false;
                 }
             }
