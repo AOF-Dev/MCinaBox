@@ -6,6 +6,7 @@
     </string-array>
 
     <string-array name="download_type">
+        <item>origin</item>
         <item>official</item>
         <item>bmclapi</item>
         <item>mcbbs</item>
