@@ -79,13 +79,23 @@ public class UrlSource {
     }
 
     public String getFileUrl(String originUrl, String sourceName, String type) {
+        if ("origin".equals(sourceName)){
+            return originUrl;
+        }
         String convertedUrl;
         StringBuilder Str1 = new StringBuilder();
         String Str2 = getSourceUrl(SettingJson.DOWNLOAD_SOURCE_OFFICIAL, type);
         for (int i = Str2.length(); i < originUrl.length(); i++) {
             Str1.append(originUrl.charAt(i));
         }
-        convertedUrl = getSourceUrl(sourceName, type) + Str1;
+        // 修复者 nageslan: 修复了下载游戏版本直接报错的问题, 因为下载的时候SourceUrl 没有戴 "/" 符号, 而且Str1也没有"/"符号前缀,导致直接修改了域名
+        String url = Str1.toString();
+        if (!"".equals(url)){
+            if (!url.startsWith("/")){
+                url = "/" +url.substring(1);
+            }
+        }
+        convertedUrl = getSourceUrl(sourceName, type) + url;
         return convertedUrl;
     }
 }
