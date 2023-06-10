@@ -1,6 +1,6 @@
 package com.aof.mcinabox.launcher.setting.support;
 
-import android.os.Environment;
+import android.content.Context;
 
 public class SettingJson {
 
@@ -8,12 +8,13 @@ public class SettingJson {
     public final static String USER_TYPE_ONLINE = "online";
     public final static String USER_TYPE_EXTERNAL = "external";
 
+    public final static String DOWNLOAD_SOURCE_ORIGIN = "official";
     public final static String DOWNLOAD_SOURCE_OFFICIAL = "official";
     public final static String DOWNLOAD_SOURCE_BMCLAPI = "bmclapi";
     public final static String DOWNLOAD_SOURCE_MCBBS = "mcbbs";
-    public final static String[] DOWNLOAD_SOURCES = {DOWNLOAD_SOURCE_OFFICIAL, DOWNLOAD_SOURCE_BMCLAPI, DOWNLOAD_SOURCE_MCBBS};
+    public final static String[] DOWNLOAD_SOURCES = {DOWNLOAD_SOURCE_ORIGIN, DOWNLOAD_SOURCE_OFFICIAL, DOWNLOAD_SOURCE_BMCLAPI, DOWNLOAD_SOURCE_MCBBS};
 
-    public final static String DEFAULT_GAMEDIR = Environment.getExternalStorageDirectory().getPath() + "/MCinaBox/gamedir";
+    public static String DEFAULT_GAMEDIR;
 
     private String downloadType; //下载源
     private Configurations configurations; //全局游戏设置
@@ -27,9 +28,9 @@ public class SettingJson {
         //默认模板初始化
         super();
 
-        downloadType = DOWNLOAD_SOURCE_OFFICIAL;
+        downloadType = DOWNLOAD_SOURCE_ORIGIN;
         lastVersion = "";
-        gamedir = DEFAULT_GAMEDIR;
+        gamedir = getDEFAULT_GAMEDIR();
 
         configurations = new Configurations()
                 .setJavaArgs("")
@@ -39,6 +40,17 @@ public class SettingJson {
                 .setNotCheckPlatform(false);
 
         accounts = new Account[]{};
+    }
+
+    public static void initStaticConfig(Context mContext) {
+        if (SettingJson.DEFAULT_GAMEDIR == null) {
+            SettingJson.DEFAULT_GAMEDIR = mContext.getExternalCacheDir().getPath() + "/MCinaBox/gamedir";
+        }
+
+    }
+
+    public static String getDEFAULT_GAMEDIR() {
+        return SettingJson.DEFAULT_GAMEDIR;
     }
 
     //全局游戏设置
@@ -299,7 +311,7 @@ public class SettingJson {
     }
 
     public String getGamedir() {
-        return this.gamedir;
+        return SettingJson.getDEFAULT_GAMEDIR();
     }
 
     public SettingJson setGameDir(String dir) {

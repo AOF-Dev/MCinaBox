@@ -75,6 +75,9 @@ public class UrlSource {
     }
 
     public String getSourceUrl(String sourceName, String type) {
+        if (sourceName.equals("origin")) {
+            return Objects.requireNonNull(SourceMap.get("official")).get(type);
+        }
         return Objects.requireNonNull(SourceMap.get(sourceName)).get(type);
     }
 

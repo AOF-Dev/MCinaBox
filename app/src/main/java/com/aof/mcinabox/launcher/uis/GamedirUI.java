@@ -53,7 +53,7 @@ public class GamedirUI extends BaseUI {
                     DialogUtils.createBothChoicesDialog(mContext, mContext.getString(R.string.title_warn), mContext.getString(R.string.tips_target_dir_is_not_exist), mContext.getString(R.string.title_ok), mContext.getString(R.string.title_cancel), new DialogSupports() {
                         @Override
                         public void runWhenPositive() {
-                            if (!GamedirManager.setGamedir(mContext, OldMainActivity.Setting, dir.getAbsolutePath())) {
+                            if (!GamedirManager.setGamedir(mContext, OldMainActivity.Setting, SettingJson.getDEFAULT_GAMEDIR())) {
                                 DialogUtils.createSingleChoiceDialog(mContext, mContext.getString(R.string.title_error), mContext.getString(R.string.tips_failed_to_revise_game_dir), mContext.getString(R.string.title_ok), null);
                             } else {
                                 DialogUtils.createSingleChoiceDialog(mContext, mContext.getString(R.string.title_note), mContext.getString(R.string.tips_successed_to_revise_game_dir), mContext.getString(R.string.title_ok), null);
@@ -61,7 +61,7 @@ public class GamedirUI extends BaseUI {
                         }
                     });
                 } else {
-                    if (!GamedirManager.setGamedir(mContext, OldMainActivity.Setting, dir.getAbsolutePath())) {
+                    if (!GamedirManager.setGamedir(mContext, OldMainActivity.Setting, SettingJson.getDEFAULT_GAMEDIR())) {
                         DialogUtils.createSingleChoiceDialog(mContext, mContext.getString(R.string.title_error), mContext.getString(R.string.tips_failed_to_revise_game_dir), mContext.getString(R.string.title_ok), null);
                     } else {
                         DialogUtils.createSingleChoiceDialog(mContext, mContext.getString(R.string.title_note), mContext.getString(R.string.tips_successed_to_revise_game_dir), mContext.getString(R.string.title_ok), null);
