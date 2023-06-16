@@ -12,7 +12,7 @@ public class GamedirManager {
 
     private final static String TAG = "GamedirManager";
 
-    public final static String PUBLIC_GAMEDIR = SettingJson.DEFAULT_GAMEDIR;
+    public static String PUBLIC_GAMEDIR = SettingJson.getDEFAULT_GAMEDIR();
     public final static String PRIVATE_GAMEDIR = AppManifest.MCINABOX_HOME + "/gamedir";
 
     public static boolean setGamedir(Context context, SettingJson setting, String gamedir) {

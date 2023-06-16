@@ -1,7 +1,9 @@
 package com.aof.mcinabox.launcher.uis;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -11,6 +13,7 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SwitchCompat;
 
 import com.aof.mcinabox.R;
@@ -23,9 +26,16 @@ import com.aof.mcinabox.minecraft.forge.ForgeInstaller;
 import com.aof.mcinabox.utils.FileTool;
 import com.aof.mcinabox.utils.ZipUtils;
 import com.aof.mcinabox.utils.dialog.DialogUtils;
+import com.aof.mcinabox.utils.dialog.FileSelectUtils;
 import com.aof.mcinabox.utils.dialog.support.DialogSupports;
 import com.aof.mcinabox.utils.dialog.support.TaskDialog;
 
+import org.apache.commons.compress.utils.IOUtils;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -45,6 +55,8 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
     private SwitchCompat switchFullscreen;
     private Animation showAnim;
     private SettingJson setting;
+
+    private final static int SELECT_FILE_REQUEST_CODE = 1145141;
 
     private final View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
@@ -66,10 +78,22 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
                     public void runWhenItemsSelected(int pos) {
                         super.runWhenItemsSelected(pos);
                         if (pos == 0) {
-                            DialogUtils.createFileSelectorDialog(mContext, mContext.getString(R.string.title_import_runtime), AppManifest.SDCARD_HOME, "xz", new DialogSupports() {
+
+                            FileSelectUtils.startActivityForResult((Activity) mContext, SELECT_FILE_REQUEST_CODE, new FileSelectUtils.Callback() {
                                 @Override
-                                public void runWhenItemsSelected(Object path) {
-                                    RuntimeManager.installRuntimeFromPath(mContext, (String) path);
+                                public void onResult(int requestCode, int resultCode, @Nullable Intent data) {
+                                    try {
+                                        File tempFile = new File(mContext.getExternalCacheDir(), "temp.tar.xz");
+                                        FileOutputStream out = new FileOutputStream(tempFile);
+//                                        InputStream open = mContext.getAssets().open("aarch64-20210204.tar.xz");
+                                        InputStream open = mContext.getContentResolver().openInputStream(data.getData());
+                                        IOUtils.copy(open, out);
+                                        open.close();
+                                        out.close();
+                                        RuntimeManager.installRuntimeFromPath(mContext, tempFile.getPath());
+                                    } catch (IOException e) {
+                                        throw new RuntimeException(e);
+                                    }
                                 }
                             });
                         } else {
@@ -193,7 +217,7 @@ public class LauncherSettingUI extends BaseUI implements Spinner.OnItemSelectedL
         }
         listDownloaderSources.setOnItemSelectedListener(this);
 
-        setConfigureToDownloadtype(setting.getDownloadType(), listDownloaderSources);
+        setConfigureToDownloadtype("origin", listDownloaderSources);
 
         //调用主题管理器设定主题
         if (setting.isBackgroundAutoSwitch()) {

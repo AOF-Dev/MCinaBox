@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.Button;
 
+import androidx.annotation.Nullable;
+
 import com.aof.mcinabox.R;
 import com.aof.mcinabox.gamecontroller.definitions.manifest.AppManifest;
 import com.aof.mcinabox.launcher.lang.LangManager;
@@ -18,6 +20,7 @@ import com.aof.mcinabox.launcher.tipper.TipperManager;
 import com.aof.mcinabox.launcher.uis.BaseUI;
 import com.aof.mcinabox.launcher.uis.achieve.UiManager;
 import com.aof.mcinabox.utils.FileTool;
+import com.aof.mcinabox.utils.dialog.FileSelectUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -44,6 +47,7 @@ public class OldMainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_old_main);
+        SettingJson.initStaticConfig(getApplicationContext());
         //静态对象
         CURRENT_ACTIVITY = new WeakReference<>(this);
         //使用语言管理器切换语言
@@ -167,6 +171,13 @@ public class OldMainActivity extends BaseActivity {
                 e.printStackTrace();
             }
         }
+    }
+
+    // 为了兼容旧版本的AndroidSDK做的一些妥协
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        FileSelectUtils.getCallback().onResult(requestCode, resultCode, data);
     }
 
     /**
